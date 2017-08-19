@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html>
 <head>
 <style type="text/css">
@@ -168,6 +168,7 @@ body {
     left: -50%;
     top: 9px;
     z-index: -1; /*put it behind the numbers*/
+
 }
 
 #progressbar li:first-child:after {
@@ -311,14 +312,13 @@ label{
                     
                 
                 <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-                <input type="button" name="next" class="next action-button" value="Next"/>
+                <input type="Submit" name="next" class="next action-button" value="Submit"/>
             </fieldset>
             <fieldset>
                 <h2 class="fs-title">Email Verification</h2>
                 <h3 class="fs-title">Almost there!</h3>
                 <p>An email verification link has been sent to your account. Please verify your email to finish the registration. </p>
                 <input type="button"  name="previous" class="previous action-button-previous" value="Previous"/>
-                <input type="submit" name="submit" class="submit action-button" value="Submit"/>
             </fieldset>
         </form>
         <!-- link to designify.me code snippets -->

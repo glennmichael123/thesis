@@ -60,7 +60,7 @@
         Log in ▼
       </a>
                                         <div id="login-content">
-                                            <form action="" method="POST">
+                                            <form action="printData" method="POST">
                                                 <fieldset id="inputs">
                                                     <label style="float: left;">ID Number</label>
 
@@ -85,6 +85,7 @@
         </div>
 
         <div class="content">
+        
             <section>
                 <div class="img-carousel">
                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -162,13 +163,13 @@
                                     </div>
 
                                 </div>
-                                <div class="colg-lg-3" data-aos="fade-left">
+                                <div class="colg-lg-3" data-aos="fade-up">
                                     <img src="<?php echo base_url();?>assets/images/feature2.png" style="height: 250px; border-radius: 100%;">
                                 </div>
                             </div>
                         </section>
 
-                        <section style="margin-top: 100px;">
+                        <section id="feature3" style="margin-top: 100px;">
                             <div class="row">
                                 <div class="col-lg-3" style="margin-top: 50px;" data-aos="fade-up">
                                     <img src="<?php echo base_url();?>assets/images/feature3.png" style="height: 250px; border-radius: 100%;">
@@ -221,6 +222,13 @@
     $('#goto_feature2').click(function() {
         $('html,body').animate({
                 scrollTop: $("#" + "feature2").offset().top
+            },
+            'slow');
+    });
+
+    $('#goto_feature3').click(function() {
+        $('html,body').animate({
+                scrollTop: $("#" + "feature3").offset().top
             },
             'slow');
     });

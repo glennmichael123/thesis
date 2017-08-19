@@ -123,50 +123,7 @@
 </div>
     <div class="page-wrap">
         <div class="header">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="logo"><img src="logo.png" style="width: 175px;"></div>
-                    </div>
-                    <div class="col-lg-7">
-                        <div class="header-links">
-                            <h5> <a href="index.php">Home</a></h5>
-                            <h5><a href="about-us.php" class="current-link">About us</a></h5>
-                            <h5><a href="#" data-toggle="modal" data-target="#squarespaceModal">Watchlist</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-1">
-                        <div class="signin">
-                            <nav>
-                                <ul>
-                                    <li id="login">
-                                        <a id="login-trigger" href="#">
-        Log in ▼
-      </a>
-                                        <div id="login-content">
-                                            <form action="" method="POST">
-                                                <fieldset id="inputs">
-                                                    <label style="float: left;">ID Number</label>
-
-                                                    <input id="username" type="text" name="username" placeholder="ID Number" required>
-                                                    <label style="float: left;">Password</label>
-                                                    <input id="password" type="password" name="Password" placeholder="Password" required>
-                                                </fieldset>
-                                                <fieldset id="actions">
-                                                    <button type="submit" id="submit">Login&nbsp;<i class="fa fa-sign-in"></i></button>
-                                                    <a href="#" class="forgot-password">Forgot password?</a>
-                                                </fieldset>
-
-                                            </form>
-                                        </div>
-                                    </li>
-                                 
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          
         </div>
         <div class="content">
             <div class="container">
@@ -193,7 +150,7 @@
                             </div>
                             <div class="form-group">
                                 <button type="submit" id="save-changes" class="btn btn-success">Save changes</button>
-                                <button type="submit" id="cancel" class="btn btn-danger" style="float: right;">Cancel</button>
+                                <a href="dashboard" id="cancel" class="btn btn-danger" style="float: right;">Cancel</a>
                             </div>
                         </form>
                     </div>
@@ -204,30 +161,11 @@
 
             </div>
         </div>
-        <div class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="copyright">
-                            &copy;Copyright OJT Automate 2017 | All rights reserved
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+        <div class="footer" style="display: none;">
         </div>
 </body>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('#login-trigger').click(function() {
-            $(this).next('#login-content').slideToggle();
-            $(this).toggleClass('active');
-            if ($(this).hasClass('active')) $(this).find('span').html('&#x25B2;')
-            else $(this).find('span').html('&#x25BC;')
-        })
-    });
-
 
    $("#save-changes").click(function(){
     var pass1=$("#newpass").val();

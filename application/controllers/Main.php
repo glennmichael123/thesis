@@ -51,4 +51,20 @@ class Main extends CI_Controller {
 
 		$this->load->view('new');
 	}
+
+	public function printData()
+	{
+		
+
+		print_r($_POST);
+	}
+
+	public function dashboard(){
+		$data['total'] = 200;
+		$data['rendered'] = 150;
+		$data['all'] = 2;
+		$data['now'] = 1;
+
+		$this->load->view('dashboard', $data);
+	}
 }
