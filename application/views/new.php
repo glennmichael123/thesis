@@ -1,6 +1,8 @@
     <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+
 <style type="text/css">
     /*custom font*/
 @import url(https://fonts.googleapis.com/css?family=Montserrat);
@@ -205,7 +207,7 @@ label{
             </ul>
             <!-- fieldsets -->
             <fieldset>
-                <h2 class="fs-title">Personal Details</h2>
+                <h2 class="fs-title">Personal Details <i class="fa fa-user" aria-hidden="true"></i></h2>
                
                 <input type="text" name="first_name" style="width: 40%; float: left;" id="first_name" placeholder="First name" class="form-control" required>
               <input type="text" style="width: 10%; margin-left: 10px; float: left;" name="middle_initial" id="middle_initial" placeholder="M.I" class="form-control" required>
@@ -254,7 +256,7 @@ label{
                 <input type="text" name="height" placeholder="Height in cm" style="width: 48%; float: left;  margin-left: 40px;" class="form-control" id="age">
                 <input type="text" name="religion" style="width: 48%; float: left;" placeholder="Religion" class="form-control" id="religion">
                  <input type="text" name="citizenship" placeholder="Citizenship" style="width: 48%; float: left;  margin-left: 40px; margin-bottom: 30px;" class="form-control" id="citizenship">
-                    <h2 class="fs-title">Family Data</h2>
+                    <h2 class="fs-title">Family Data <i class="fa fa-users" aria-hidden="true"></i></h2>
 
                  <input type="text" style="width: 48%; float:left;" name="fathers_name" placeholder="Father's name" id="fathers_name" class="form-control"> 
                   <input type="text" style="width: 48%; margin-left: 40px; float: left;" name="fathers_occupation" placeholder="Father's occupation" id="fathers_occupation" class="form-control">
@@ -266,7 +268,7 @@ label{
                            <input type="radio" name="same-address" id="same-permanent" style="float: left; margin-left:50px;"><label for="same-permanent" style="font-size: 11px; float:left;">Same as your permanent address</label>
                            </span>
                 <input type="text"  name="tel_no" placeholder="Landline or mobile" id="tel_no" class="form-control">
-                <h2 class="fs-title">In case of emergency please contact</h2>
+                <h2 class="fs-title">In case of emergency please contact <i class="fa fa-ambulance" aria-hidden="true"></i></h2>
                 <input type="text" style="width: 48%; float: left" name="guardian_name" placeholder="Full name" id="guardian_name" class="form-control">
                     <select class="form-control" style="width: 48%; float: left;  margin-left: 40px;" id="blood_type" name="blood_type" required>
                       <option selected disabled>Relationship</option>
@@ -279,18 +281,18 @@ label{
                    <input type="text" name="tel_no" placeholder="Telephone number" id="tel_no" class="form-control">
                    <input type="text" name="emergency_address" placeholder="Address" id="emergency_address" class="form-control">
                 
-                <input type="button" name="next" class="next action-button" value="Next"/>
+                <button type="button" name="next" class="next action-button">Next <i class="fa fa-step-forward" aria-hidden="true"></i></button>
 
                
             </fieldset>
             <fieldset>
-                <h2 class="fs-title">Company Information</h2>
+                <h2 class="fs-title">Company Information<i class="fa fa-info-circle"></i></h2>
                 <input type="text" class="form-control" placeholder="Company name" id="company_name" name="company_name">
                  <input type="text" name="company_address" placeholder="Company address" id="company_address" class="form-control">
                  <input type="text" style="width: 48%; float: left" name="company_telephone" placeholder="Telephone number" id="company_telephone" class="form-control">
                  <input type="text" style="width: 48%; float: left; margin-left: 40px;" name="company_fax" placeholder="Fax number" id="company_fax" class="form-control">
                  <input type="text" class="form-control" placeholder="Product lines" id="product_lines" name="product_lines">
-                 <h2 class="fs-title">Company Classification</h2>
+                 <h2 class="fs-title">Company Classification <i class="fa fa-list-alt" aria-hidden="true"></i></h2>
 
                  <input id="assembly" type="checkbox"><label for="assembly">Assembly</label>&nbsp;&nbsp;
                  <input type="checkbox">Manufacturing&nbsp;&nbsp;
@@ -300,10 +302,10 @@ label{
                  <input type="checkbox">Research and Development&nbsp;&nbsp;
                  <input type="checkbox">IT Related&nbsp;&nbsp;<br>
                 
-                 <input type="radio" class="other-company" style="float: left; margin-top:20px; margin-left: 10px;"><span style="float: left;margin-top:18px; margin-bottom: 18px;">Others</span>
+                 <input type="radio" class="other-company" style="float: left; margin-top:20px; margin-left: 35px;"><span style="float: left;margin-top:18px; margin-bottom: 18px;">Others</span>
                  
                  <textarea style="height: 100px; display: none;" style="display: block;" placeholder="Please specify"></textarea>
-                 <h2 class="fs-title">Total number of employees</h2>
+                 <h2 class="fs-title">Total number of employees <i class="fa fa-list-ol" aria-hidden="true"></i></h2>
                  <span style="display: block;">
                  <input type="radio" id="less_fifty" name="employee_number"><label>Less than 50</label>
                  <input type="radio" id="fifty_onehundred" name="employee_number"><label>From 50 to 100</label>
@@ -311,7 +313,7 @@ label{
                  </span>
                     
                 
-                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                <button type="button" name="previous" class="previous action-button-previous"/><i class="fa fa-step-backward" aria-hidden="true"></i> Previous</button>
                 <input type="Submit" name="next" class="next action-button" value="Submit"/>
             </fieldset>
             <fieldset>
@@ -338,7 +340,7 @@ var animating; //flag to prevent quick multi-click glitches
 $(".next").click(function(){
     if(animating) return false;
     animating = true;
-    
+  
     current_fs = $(this).parent();
     next_fs = $(this).parent().next();
     

@@ -467,9 +467,9 @@ label{
 
                                  <div class="form-group">
                                     <label>Comments</label>
-                                        <textarea name="log_lists_activity" id="log_lists_activity" readonly>No comments</textarea>
+                                        <span style="font-size: 11px;">No comments</span>
 
-                                          <span style="float: right; color: green; font-size: 11px;"> Verified  <i style="color: green;" class="fa fa-check" aria-hidden="true"></i></span>  
+                                          <span style="float: right; color: green; font-size: 11px;"> Verified  <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i></span>  
                             
                          
                                 </div>
@@ -537,7 +537,8 @@ label{
     });
 
 
-$('.edit-log').click(function(){
+$('.edit-log').click(function(e){
+    e.preventDefault();
    var input =  $(this).closest(".row").find(".list-logs");
 
    input.prop('readonly',false);

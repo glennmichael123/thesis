@@ -61,7 +61,7 @@ class Main extends CI_Controller {
 
 	public function dashboard(){
 		$data['total'] = 200;
-		$data['rendered'] = 150;
+		$data['rendered'] = 22;
 		$data['all'] = 2;
 		$data['now'] = 1;
 
