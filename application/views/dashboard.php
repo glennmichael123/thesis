@@ -295,7 +295,7 @@ label{
                                 <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
                                 <li class="divider"></li>
                     
-                                <li><a href="#">Log Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+                                <li><a href="index">Log Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
                               </ul>
                             </li>
                           </ul>
@@ -392,7 +392,7 @@ label{
                                     <textarea name="log_activity" id="log_activity" placeholder="Write your log here" class="form-control"></textarea>
                                 </div>
                                 <div class="form-group logs-lower"> 
-                                    <button type="submit" name="submit_log" id="submit_log" class="btn btn-primary" value="Submit">Submit</button>
+                                    <button type="submit" name="submit_log" id="submit_log" class="btn btn-primary" value="Submit">Post</button>
                                     <button type="button" class="btn btn-success">Load last log</button>
                                     <button type="reset" class="btn btn-default">Clear</button>
                                     <button type="button" class="btn btn-danger cancel-btn" style="float: right;" class="btn btn-danger">Cancel</button>
@@ -415,10 +415,10 @@ label{
                     <span class="user-name">Jon Snow</span>
                     <div class="dropdown" style="float: right; width:20px;">
                       <a href="#" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                             <i style="color: #000000;" class="fa fa-cogs"></i> 
+                             <i style="color: #000000;" class="fa fa-angle-down"></i> 
                       </a>
                     
-                      <ul class="dropdown-menu" style="width: 240px;" aria-labelledby="dropdownMenu2">
+                      <ul class="dropdown-menu" style="width: 233px;" aria-labelledby="dropdownMenu2">
                         <li ><a href="#" class="edit-log" style="color: #000000;">Edit <i class="fa fa-pencil" aria-hidden="true"></i></a></li>
                          <li role="separator" class="divider"> </li>
                         <li><a href="#" class="delete-log" style="color: #000000;">Delete <i class="fa fa-trash"></i></a></li>
@@ -441,7 +441,7 @@ label{
                                                  <label>Deparment/Area</label>
                                                 <input type="text" class="list-logs"  name="log_lists_department" value="Night's Watch" id="log_lists_department" readonly>
                                                  <label>Designation</label>
-                                                <input type="text" class="list-logs" value="Castle Black" name="log_lists_designation" id="log_lists_designation" readonly>
+                                                <input type="text" class="list-logs" value="Castle Black" name="    log_lists_designation" id="log_lists_designation" readonly>
                                         </div>
                                       </div>       
 
@@ -462,7 +462,7 @@ label{
                                 </div>
                                 <div class="form-group">
                                     <label>Activity</label>
-                                        <textarea class="list-logs"  name="log_lists_activity" id="log_lists_activity" placeholder="Write your log here" readonly>Killed white walkers</textarea>
+                                        <textarea class="list-logs"  name="log_lists_activity" id="log_lists_activity" placeholder="Write your log here" readonly>Killed white walkers and wildlings</textarea>
                                 </div>
 
                                  <div class="form-group">
@@ -472,6 +472,10 @@ label{
                                           <span style="float: right; color: green; font-size: 11px;"> Verified  <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i></span>  
                             
                          
+                                </div>
+                                <div class="save-edit" style="display: none;">
+                                    <button type="submit" class="btn btn-success">Save</button>
+                                    <button type="button" class="cancel-edit btn btn-danger" class="btn btn-danger">Cancel</button>
                                 </div>
                                 
 
@@ -502,6 +506,9 @@ label{
     $("#dropdownMenu1").click(function(){
         $('#notification-content').slideToggle();
          $("#show-logout").slideUp();
+    
+         $('#dropdownMenu1').css("color","red");
+
     });
 
     $("#dropdown-logout").click(function(){
@@ -540,12 +547,19 @@ label{
 $('.edit-log').click(function(e){
     e.preventDefault();
    var input =  $(this).closest(".row").find(".list-logs");
-
+    var buttons =  $(this).closest(".row").find(".save-edit");
+   buttons.show();
    input.prop('readonly',false);
    input.css('border','1px solid #CCCCCC');
+   input.css('background','#fff');
 
 });
 </script>
 
+<script type="text/javascript">
+    $('.cancel-edit').click(function(){
+        location.reload(true);
+    });
+</script>
 
 </html>

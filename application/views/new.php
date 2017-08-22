@@ -1,11 +1,20 @@
     <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 <style type="text/css">
     /*custom font*/
-@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
 
 /*basic reset*/
 * {
@@ -25,7 +34,7 @@ body {
 }
 
 /*form styles*/
-#msform {
+#msform ul li,h2,button[type="button"]{
     text-align: center;
     position: relative;
     margin-top: 30px;
@@ -37,12 +46,11 @@ body {
     border-radius: 0px;
     box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
     padding: 20px 30px;
-  
     width: 80%;
     margin: 0 10%;
-
-    /*stacking fieldsets above each other*/
-    position: relative;
+}
+#msform .row{
+  margin-bottom: 10px;
 }
 
 /*Hide all except first fieldset*/
@@ -55,16 +63,14 @@ body {
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 0px;
-    margin-bottom: 10px;
     width: 100%;
     height: 50px;
-    box-sizing: border-box;
     font-family: montserrat;
     color: #2C3E50;
     font-size: 13px;
 }
 
-#msform input:focus, select:focus, #msform textarea:focus {
+#msform input:focus, select:focus, #msform textareafocus {
     -moz-box-shadow: none !important;
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
@@ -146,6 +152,7 @@ body {
     letter-spacing: 1px;
 }
 
+
 #progressbar li:before {
     content: counter(step);
     counter-increment: step;
@@ -191,138 +198,151 @@ body {
 label{
     cursor: pointer;
 }
+#msform #to-next-page{
+  margin-left: 200px;
+}
 </style>
     <title></title>
 </head>
 <body>
     <!-- MultiStep Form -->
-<div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <form id="msform">
-            <!-- progressbar -->
-            <ul id="progressbar">
-                <li class="active">Personal Details</li>
-                <li>Company Profile</li>
-                <li>Email Verification</li>
-            </ul>
-            <!-- fieldsets -->
-            <fieldset>
-                <h2 class="fs-title">Personal Details <i class="fa fa-user" aria-hidden="true"></i></h2>
-               
-                <input type="text" name="first_name" style="width: 40%; float: left;" id="first_name" placeholder="First name" class="form-control" required>
-              <input type="text" style="width: 10%; margin-left: 10px; float: left;" name="middle_initial" id="middle_initial" placeholder="M.I" class="form-control" required>
-                  <input type="text" name="last_name" style="width: 48%; margin-left: 10px; float: left;" id="last_name" placeholder="Last name" class="form-control" required>
-               <input type="text" name="course" style="width: 48%; float: left;" placeholder="Course" id="course" class="form-control" required>
-               <select name="year" id="year" style="width: 48%; float: left; margin-left: 40px;" class="form-control" required>
-                     <option selected disabled>Year</option>
-                        <option value="1st Year">1st Year</option>
-                        <option value="2nd Year">2nd Year</option>
-                       <option value="3rd Year">3rd Year</option>
-                       <option value="4th Year">4th Year</option>
-                      <option value="5th Year">5th Year</option>
-                </select>
-                 <select class="form-control" id="college" name="college">
-                                                    <option selected disabled>Select college</option>
-                                                    <option value="College of Computer Studies">College of Computer Studies</option>
-                                                    <option value="College of Engineering and Architecture">College of Engineering and Architecture</option>
-                                                    <option value="College of Engineering and Architecture">College of Nursing</option>
-                                                    <option value="College of Education">College of Education</option>
-                                                    <option value="College of Management, Business and Accoutancy">College of Management, Business and Accoutancy</option>
-                                                    <option value="College of Art and Sciences">College of Art and Sciences</option>
-                                                </select>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form id="msform">
+                <!-- progressbar -->
+                <ul id="progressbar">
+                    <li class="active">Personal Details</li>
+                    <li>Company Profile</li>
+                    <li>Email Verification</li>
+                </ul>
+                <!-- fieldsets -->
+                <fieldset>
+                    <h2 class="fs-title">Before you continue, please complete this form first</h2>
+                    <h2 class="fs-title">Personal Details <i class="fa fa-user" aria-hidden="true"></i></h2>
+                        <div class="row">
+                            <div class="col-lg-5">
 
-                <input type="text" name="present_address" placeholder="Present address" id="present_address" class="form-control" required>
-                 <input type="text" name="permanent_address" placeholder="Permanent address" id="permanent_address" class="form-control" required>   
-                   <input type="text" style="width: 48%; float: left;" name="number" placeholder="Phone or landline" id="number" class="form-control" required>  
-                   <input type="email" style="width: 48%; float: left;  margin-left: 40px;" name="email" placeholder="Email address" id="number" class="form-control">                                   
-                <input type="date" style="width: 48%; float: left;" placeholder="Date of birth" name="date_of_birth" class="form-control" id="date_of_birth" required>
-                <input type="text" style="width: 48%; float: left;  margin-left: 40px;" name="age" placeholder="Age" style="margin-left: 10px;" class="form-control" id="age">
-                <select class="form-control" style="width: 48%; float: left;" id="civil_status" name="civil_status" required> 
-                         <option selected disabled>Status</option>
-                         <option value="Single">Single</option>
-                         <option value="Married">Married</option>
+                               <input type="text" name="first_name" id="first_name" placeholder="First name"  required>
+                                  
+                           </div>
+                           <div class="col-lg-2">
+                              <input type="text" name="middle_initial" id="middle_initial" placeholder="M.I" required>
+                              
+                           </div>
+                           <div class="col-lg-5">
+                              <input type="text" name="last_name" id="last_name" placeholder="Last name" required> 
+                           </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6">
+                            <input type="text" name="course" placeholder="Course" id="course" required>
+                          </div>
+                          <div class="col-lg-6">
+                              <select name="year" id="year" required>
+                                  <option selected disabled>Year</option>
+                                    <option value="1st Year">1st Year</option>
+                                    <option value="2nd Year">2nd Year</option>
+                                   <option value="3rd Year">3rd Year</option>
+                                   <option value="4th Year">4th Year</option>
+                                  <option value="5th Year">5th Year</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <select id="college" name="college">
+                              <option selected disabled>Select college</option>
+                              <option value="College of Computer Studies">College of Computer Studies</option>
+                              <option value="College of Engineering and Architecture">College of Engineering and Architecture</option>
+                              <option value="College of Engineering and Architecture">College of Nursing</option>
+                              <option value="College of Education">College of Education</option>
+                              <option value="College of Management, Business and Accoutancy">College of Management, Business and Accoutancy</option>
+                              <option value="College of Art and Sciences">College of Art and Sciences</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-12">
+                             <input type="text" name="present_address" placeholder="Present address" id="present_address" required>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <input type="text" name="permanent_address" placeholder="Permanent address" id="permanent_address" required> 
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6">
+                             <input type="text" name="number" placeholder="Phone or landline" id="number" required> 
+                          </div>
+                          <div class="col-lg-6">
+                               <input type="email" name="email" placeholder="Email address" id="email"> 
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6">
+                            <input type="date" placeholder="Date of birth" name="date_of_birth" id="date_of_birth" required>
+                          </div> 
+                          <div class="col-lg-6">
+                             <input type="text" name="age" placeholder="Age" id="age">
+                          </div> 
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6">
+                              <select id="civil_status" name="civil_status" required> 
+                                   <option selected disabled>Status</option>
+                                   <option value="Single">Single</option>
+                                   <option value="Married">Married</option>
                                                       
-                </select>
-                 <select class="form-control" style="width: 48%; float: left;  margin-left: 40px;" id="blood_type" name="blood_type" required>
-                                                      <option selected disabled>Blood type</option>
-                                                      <option value="Type A">Type A</option>
-                                                      <option value="Type B">Type B</option>
-                                                      <option value="Type AB">Type AB</option>
-                                                      <option value="Type O">Type O</option>
+                              </select>
+           
+                          </div>
+                          <div class="col-lg-6">
+                            <select id="blood_type" name="blood_type" required>
+                              <option selected disabled>Blood type</option>
+                              <option value="Type A">Type A</option>
+                              <option value="Type B">Type B</option>
+                              <option value="Type AB">Type AB</option>
+                              <option value="Type O">Type O</option>
                                                       
-                </select>
-                 <input type="text" name="weight" style="width: 48%; float: left;" placeholder="Weight in kg" class="form-control" id="weight">
-                
-                <input type="text" name="height" placeholder="Height in cm" style="width: 48%; float: left;  margin-left: 40px;" class="form-control" id="age">
-                <input type="text" name="religion" style="width: 48%; float: left;" placeholder="Religion" class="form-control" id="religion">
-                 <input type="text" name="citizenship" placeholder="Citizenship" style="width: 48%; float: left;  margin-left: 40px; margin-bottom: 30px;" class="form-control" id="citizenship">
-                    <h2 class="fs-title">Family Data <i class="fa fa-users" aria-hidden="true"></i></h2>
+                            </select>
+                          </div>
+                        </div>
 
-                 <input type="text" style="width: 48%; float:left;" name="fathers_name" placeholder="Father's name" id="fathers_name" class="form-control"> 
-                  <input type="text" style="width: 48%; margin-left: 40px; float: left;" name="fathers_occupation" placeholder="Father's occupation" id="fathers_occupation" class="form-control">
-                        <input type="text" style="width: 48%; float: left;" name="mothers_name" placeholder="Mother's name" id="mothers_name" class="form-control">  
-                        <input type="text" style="width: 48%; margin-left: 40px; float:left;" name="mothers_occupation" placeholder="Mother's occupation" id="mothers_occupation" class="form-control">
-                          <input type="text" name="parents_address" placeholder="Parent's Address" id="parents_address" class="form-control">
-                          <span class="choose-same-address">
-                               <input type="radio" name="same-address" id="same-present" style="float: left;"><label for="same-present" style="font-size: 11px; float:left;">Same as your present address</label>
-                           <input type="radio" name="same-address" id="same-permanent" style="float: left; margin-left:50px;"><label for="same-permanent" style="font-size: 11px; float:left;">Same as your permanent address</label>
-                           </span>
-                <input type="text"  name="tel_no" placeholder="Landline or mobile" id="tel_no" class="form-control">
-                <h2 class="fs-title">In case of emergency please contact <i class="fa fa-ambulance" aria-hidden="true"></i></h2>
-                <input type="text" style="width: 48%; float: left" name="guardian_name" placeholder="Full name" id="guardian_name" class="form-control">
-                    <select class="form-control" style="width: 48%; float: left;  margin-left: 40px;" id="blood_type" name="blood_type" required>
-                      <option selected disabled>Relationship</option>
-                          <option value="Guardian">Guardian</option>
-                             <option value="Father">Father</option>
-                           <option value="Mother">Mother</option>
-                                                                                                            
-                </select>  
-
-                   <input type="text" name="tel_no" placeholder="Telephone number" id="tel_no" class="form-control">
-                   <input type="text" name="emergency_address" placeholder="Address" id="emergency_address" class="form-control">
-                
-                <button type="button" name="next" class="next action-button">Next <i class="fa fa-step-forward" aria-hidden="true"></i></button>
-
-               
-            </fieldset>
-            <fieldset>
-                <h2 class="fs-title">Company Information<i class="fa fa-info-circle"></i></h2>
-                <input type="text" class="form-control" placeholder="Company name" id="company_name" name="company_name">
-                 <input type="text" name="company_address" placeholder="Company address" id="company_address" class="form-control">
-                 <input type="text" style="width: 48%; float: left" name="company_telephone" placeholder="Telephone number" id="company_telephone" class="form-control">
-                 <input type="text" style="width: 48%; float: left; margin-left: 40px;" name="company_fax" placeholder="Fax number" id="company_fax" class="form-control">
-                 <input type="text" class="form-control" placeholder="Product lines" id="product_lines" name="product_lines">
-                 <h2 class="fs-title">Company Classification <i class="fa fa-list-alt" aria-hidden="true"></i></h2>
-
-                 <input id="assembly" type="checkbox"><label for="assembly">Assembly</label>&nbsp;&nbsp;
-                 <input type="checkbox">Manufacturing&nbsp;&nbsp;
-                 <input type="checkbox">Maintenance&nbsp;&nbsp;
-                 <input type="checkbox">Sales/Marketing&nbsp;&nbsp;
-                 <input type="checkbox">Service/Utility&nbsp;&nbsp;
-                 <input type="checkbox">Research and Development&nbsp;&nbsp;
-                 <input type="checkbox">IT Related&nbsp;&nbsp;<br>
-                
-                 <input type="radio" class="other-company" style="float: left; margin-top:20px; margin-left: 35px;"><span style="float: left;margin-top:18px; margin-bottom: 18px;">Others</span>
-                 
-                 <textarea style="height: 100px; display: none;" style="display: block;" placeholder="Please specify"></textarea>
-                 <h2 class="fs-title">Total number of employees <i class="fa fa-list-ol" aria-hidden="true"></i></h2>
-                 <span style="display: block;">
-                 <input type="radio" id="less_fifty" name="employee_number"><label>Less than 50</label>
-                 <input type="radio" id="fifty_onehundred" name="employee_number"><label>From 50 to 100</label>
-                 <input type="radio" id="more_onehundred" name="employee_number"><label ">More than 100</label>
-                 </span>
+                        <div class="row">
+                          <div class="col-lg-6">
+                              <input type="text" name="weight" placeholder="Weight in kg" id="weight">
+                          </div>
+                          <div class="col-lg-6">
+                           <input type="text" name="height" placeholder="Height in cm" id="height">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6">
+                             <input type="text" name="religion" placeholder="Religion" id="religion">
+                          </div>
+                          <div class="col-lg-6">
+                            <input type="text" name="citizenship" placeholder="Citizenship" id="citizenship">
+                          </div>
+                        </div>
+                        <button type="button" name="next" id="to-next-page" class="next action-button">Next <i class="fa fa-step-forward" aria-hidden="true"></i></button>
                     
-                
-                <button type="button" name="previous" class="previous action-button-previous"/><i class="fa fa-step-backward" aria-hidden="true"></i> Previous</button>
-                <input type="Submit" name="next" class="next action-button" value="Submit"/>
-            </fieldset>
-            <fieldset>
-                <h2 class="fs-title">Email Verification</h2>
-                <h3 class="fs-title">Almost there!</h3>
-                <p>An email verification link has been sent to your account. Please verify your email to finish the registration. </p>
-                <input type="button"  name="previous" class="previous action-button-previous" value="Previous"/>
-            </fieldset>
-        </form>
+                </fieldset>
+                <fieldset>
+                    <input type="button"  name="previous" class="previous action-button-previous" value="Previous"/>  
+                    <input type="Submit" name="next" class="next action-button" value="Submit"/>
+                </fieldset>
+                <fieldset>
+                   
+                    <input type="button"  name="previous" class="previous action-button-previous" value="Previous"/>
+                </fieldset>
+            </form>
+         </div>
+      </div>
+  </div>
+
         <!-- link to designify.me code snippets -->
         <!-- jQuery -->
 <script src="http://thecodeplayer.com/uploads/js/jquery-1.9.1.min.js" type="text/javascript"></script>
@@ -340,15 +360,21 @@ var animating; //flag to prevent quick multi-click glitches
 $(".next").click(function(){
     if(animating) return false;
     animating = true;
+    var number = $('#number').val();
   
+
+    
     current_fs = $(this).parent();
     next_fs = $(this).parent().next();
     
     //activate next step on progressbar using the index of next_fs
     $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
     
+
+
+      next_fs.show(); 
     //show the next fieldset
-    next_fs.show(); 
+    
     //hide the current fieldset with style
     current_fs.animate({opacity: 0}, {
         step: function(now, mx) {
@@ -469,5 +495,13 @@ $(".submit").click(function(){
     $(".submit").click(function(){
         var data = $("input").val();
         var dataselect = $("select").val();
+      });
 
+</script>
+<script type="text/javascript">
+  $('#number').blur(function(){
+    var number = $("#number").val();
+    
+
+  });
 </script>

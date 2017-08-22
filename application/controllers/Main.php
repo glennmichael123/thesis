@@ -20,8 +20,12 @@ class Main extends CI_Controller {
 	 */
 	
  function __construct() {
+ 
         parent::__construct();
        $this->load->helper('url');
+       $this->load->model('users');
+       	
+
     }
 
 	public function index()
@@ -56,7 +60,7 @@ class Main extends CI_Controller {
 	{
 		
 
-		print_r($_POST);
+		print_r($this->input->post()); 
 	}
 
 	public function dashboard(){
@@ -67,4 +71,38 @@ class Main extends CI_Controller {
 
 		$this->load->view('dashboard', $data);
 	}
+
+	public function sendEmail(){
+
+		
+
+					$config = Array(
+					    'protocol' => 'smtp',
+					    'smtp_host' => 'ssl://smtp.googlemail.com',
+					    'smtp_port' => 465,
+					    'smtp_user' => 'gtorregosa',
+					    'smtp_pass' => 'popot143',
+					    'mailtype'  => 'html', 
+					    'charset'   => 'iso-8859-1'
+					);
+					$this->load->library('email', $config);
+					$this->email->set_newline("\r\n");
+
+					$this->email->from('ojtadmin@citu.com', 'LFeliz');
+					$this->email->to('gtorregosa@gmail.com');
+
+					$this->email->subject('Email Test');
+					$this->email->message('Testing the email class.');
+
+					$result = $this->email->send();
+						
+					if($result){
+						echo "Email sent";
+					}
+					else{
+						echo $this->email->print_debugger();
+					}
+}
+
+
 }

@@ -69,7 +69,7 @@ class CI_Email {
 	 *
 	 * @var	string	'mail', 'sendmail' or 'smtp'
 	 */
-	public $protocol	= 'mail';		// mail/sendmail/smtp
+	public $protocol	= '';		// mail/sendmail/smtp
 
 	/**
 	 * STMP Server host
@@ -97,14 +97,14 @@ class CI_Email {
 	 *
 	 * @var	int
 	 */
-	public $smtp_port	= 25;
+	public $smtp_port	= 465;
 
 	/**
 	 * SMTP connection timeout in seconds
 	 *
 	 * @var	int
 	 */
-	public $smtp_timeout	= 5;
+	public $smtp_timeout	= 30;
 
 	/**
 	 * SMTP persistent connection
@@ -279,7 +279,7 @@ class CI_Email {
 	 *
 	 * @var	bool
 	 */
-	protected $_smtp_auth		= FALSE;
+	protected $_smtp_auth		= TRUE;
 
 	/**
 	 * Whether to send a Reply-To header
