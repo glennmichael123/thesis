@@ -58,9 +58,15 @@ class Main extends CI_Controller {
 
 	public function printData()
 	{
-		
+		$this->users->hello();
+	}
+	public function evaluate(){
+		$this->load->view('evaluate');
+	}
 
-		print_r($this->input->post()); 
+
+	public function adminDashboard(){
+		$this->load->view('admindashboard');
 	}
 
 	public function dashboard(){

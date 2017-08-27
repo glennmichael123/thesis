@@ -469,7 +469,7 @@ label{
                                     <label>Comments</label>
                                         <span style="font-size: 11px;">No comments</span>
 
-                                          <span style="float: right; color: green; font-size: 11px;"> Verified  <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i></span>  
+                                          <span style="float: right; color:green; font-size: 11px;"> Verified  <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i></span>  
                             
                          
                                 </div>
@@ -560,6 +560,8 @@ $('.edit-log').click(function(e){
     $('.cancel-edit').click(function(){
         location.reload(true);
     });
+
 </script>
+
 
 </html>
