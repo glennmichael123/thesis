@@ -71,10 +71,11 @@ class Main extends CI_Controller {
 
 	public function dashboard(){
 		$data['total'] = 200;
-		$data['rendered'] = 22;
+		$data['rendered'] = 150;
 		$data['all'] = 2;
 		$data['now'] = 1;
-
+		$data['verified'] = 10;
+		$data['totalLogs'] = 50;
 		$this->load->view('dashboard', $data);
 	}
 

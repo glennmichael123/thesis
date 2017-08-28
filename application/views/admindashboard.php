@@ -190,7 +190,7 @@ li.notification-title{
 }
 .dashboard-list{
     margin-top: 20px;
-    background: #F4F4F4;
+    background: #f7f8f9;
 }
 #search_students{
     width: 90%;
@@ -213,7 +213,7 @@ li.notification-title{
     border-radius: 0;
 }
 .student-list{
-    background: #EED090;    
+    background: #fff;    
 }
         
     </style>
@@ -287,7 +287,7 @@ li.notification-title{
            <div class="well dashboard-graphs">
                 <div class="row">
                    
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                          
                            <canvas id="chartOJTStatus" width="400" height="200"></canvas>
                            <script>
@@ -327,12 +327,12 @@ li.notification-title{
                         </div>
                        
                     <?php $course = array('"IT"','"CS"')?>
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                          <canvas id="chartCourses" width="400" height="200"></canvas>
                              <script>
                                var ctx = document.getElementById("chartCourses").getContext('2d');
                                 var myChart = new Chart(ctx, {
-                                    label: 'Courses',
+                                 label: 'Courses',
                                   type: 'pie',
                                   data: {
                                     labels: [<?php echo implode($course, ',')?>],
@@ -359,6 +359,43 @@ li.notification-title{
                                   },
                                   options: {
                                     cutoutPercentage: 0,
+                                  },
+                                });
+                                </script>
+                      </div>
+
+                      <div class="col-lg-4">
+                            <canvas id="chart" width="400" height="200"></canvas>
+                             <script>
+                               var ctx = document.getElementById("chart").getContext('2d');
+                                var myChart = new Chart(ctx, {
+                                 label: 'Courses',
+                                  type: 'doughnut',
+                                  data: {
+                                    labels: ['Present', 'Absent'],
+                                    datasets: [{
+                                      backgroundColor: [                                       
+                                        "rgba(38, 239, 105,0.5)",
+                                         "rgba(255, 99, 132, 0.2)",      
+                                      ],
+                                      hoverBackgroundColor: [
+                                         
+                                         "rgba(38, 239, 105,0.8)",
+                                         "rgba(255, 99, 132, 0.5)",
+                                      ],
+
+                                      borderColor: [
+                                         'rgba(38, 239, 105, 1)',
+                                         'rgba(255, 99, 132, 1)',
+
+                                               
+                                         ],
+                                         borderWidth: 1,
+                                      data: [100,20]
+                                    }]
+                                  },
+                                  options: {
+                                        cutoutPercentage: 50,
                                   },
                                 });
                                 </script>
@@ -415,7 +452,7 @@ li.notification-title{
                                     <a class="btn btn-success" href="" style="float: right;">View Profile</a>
                                 </div>
                                   <div class="col-lg-3">
-                                    <a class="btn btn-default" href="" style="float: right;">View Evaluation</a>
+                                    <a class="btn btn-default" href="dashboard" style="float: right;">View Dashboard</a>
                                 </div>
 
                             </div>

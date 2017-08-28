@@ -479,11 +479,29 @@
                           </div>
                        
                         </div>
+
+                         <h2 class="fs-title">Total number of employees <i class="fa fa-list-ol" aria-hidden="true"></i></h2>
+
+                         <div class="row">
+                            <div class="col-lg-3 col-lg-offset-1">
+                              <input type="radio" id="less_fifty" name="less_fifty"><label>Less than 50</label>
+             
+                            </div>
+                            <div class="col-lg-3 col-lg-offset-1">
+                               <input type="radio" id="fifty_onehundred" name="fifty_onehundred"><label>From 50 to 100</label>
+             
+                            </div>
+                            <div class="col-lg-3 col-lg-offset-1">
+                                <input type="radio" id="more_onehundred" name="employee_number"><label ">More than 100</label>
+                            </div>
+                         </div>
                         <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
-                        <input type="Submit" name="next" class="next action-button" value="Submit" />
+                        <input style="float: right;" type="Submit" name="next" class="next action-button" value="Submit" />
                     </fieldset>
                     <fieldset>
-
+                        <h2 class="fs-title">Almost Done!</h2>
+                        <h2 class="fs-title">Just one more step and you are done.</h2>
+                        <p style="text-align: center;">An email verification link has been to your email address. Please verify your email to complete the registration.</p>
                         <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
                     </fieldset>
                 </form>
