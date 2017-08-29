@@ -24,6 +24,7 @@ class Main extends CI_Controller {
         parent::__construct();
        $this->load->helper('url');
        $this->load->model('users');
+       $this->load->database();
        	
 
     }

@@ -395,7 +395,7 @@
                             <script type="text/javascript">
                                 $(document).ready(function() {
                                     
-                                    $("#show-notifications").animate({width:'toggle'},350);
+                                
 
                                     // progressbar.js@1.0.0 version is used
                                     // Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
