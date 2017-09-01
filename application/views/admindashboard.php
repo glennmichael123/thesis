@@ -243,7 +243,7 @@ li.notification-title{
                             <li class="dropdown">
                               <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown"><img src="<?php echo base_url();?>/assets/images/snow.jpg" class="pull-right circular-square" style="width: 40px; height: 40px; margin-top: -5px;"> </a>
                               <ul class="dropdown-menu" id="show-logout">
-                                <li><a href="#">Dashboard<i class="fa fa-tachometer pull-right"></i></span></a></li>
+                                <li><a href="#">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                 <li class="divider"></li>
         
                                 <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>

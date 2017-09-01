@@ -70,6 +70,10 @@ class Main extends CI_Controller {
 		$this->load->view('evaluate');
 	}
 
+	public function supervisorDashboard(){
+		$this->load->view('supervisor-dashboard');
+	}
+
 
 	public function adminDashboard(){
 		$this->load->view('admindashboard');
@@ -85,37 +89,54 @@ class Main extends CI_Controller {
 		$this->load->view('dashboard', $data);
 	}
 
-	public function sendEmail(){
+	public function verify(){
+		$this->load->view('verify');
+	}
 
+
+	public function sendEmail($hash,$email){
 		
 
-					$config = Array(
-					    'protocol' => 'smtp',
-					    'smtp_host' => 'ssl://smtp.googlemail.com',
-					    'smtp_port' => 465,
-					    'smtp_user' => 'gtorregosa',
-					    'smtp_pass' => 'popot143',
-					    'mailtype'  => 'html', 
-					    'charset'   => 'iso-8859-1'
-					);
-					$this->load->library('email', $config);
-					$this->email->set_newline("\r\n");
+		
+		$config = Array(
+		'protocol' => 'smtp',
+		        'smtp_host' => 'ssl://smtp.googlemail.com',
+		        'smtp_port' => 465,
+		        'smtp_user' => 'gtorregosa@gmail.com',
+		        'smtp_pass' => 'popot143',
+		        'mailtype'  => 'html', 
+		        'charset' => 'utf-8',
+		        'wordwrap' => TRUE
 
-					$this->email->from('ojtadmin@citu.com', 'LFeliz');
-					$this->email->to('gtorregosa@gmail.com');
+		    );
+		    $this->load->library('email', $config);
+		    $this->email->set_newline("\r\n");
+		    $url = base_url();
+		    $email_setting  = array('mailtype'=>'html');
+		    $this->email->initialize($email_setting);
+		    $email_body ="Please click this link to activate your account:
+						  {$url}main/verify?email=$email&hash=$hash";
+		    $this->email->from('CITUAdmin', 'Admin');
 
-					$this->email->subject('Email Test');
-					$this->email->message('Testing the email class.');
+		    // $list = array($email);
+		    $this->email->to($email);
+		    $this->email->subject('Testing Email');
+		    $this->email->message($email_body);
 
-					$result = $this->email->send();
-						
-					if($result){
-						echo "Email sent";
-					}
-					else{
-						echo $this->email->print_debugger();
-					}
-}
+		    $this->email->send();
+  	
+  		 
+  		 
+
+
+    }
+
+    public function saveEmail(){
+    	$hash = md5(rand(0,1000)); 
+    	$email = $_POST['email'];
+    	$this->users->saveEmail($hash);
+    	$this->sendEmail($hash,$email);
+    }
 
 
 }

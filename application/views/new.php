@@ -220,6 +220,9 @@
 </head>
 
 <body>
+ <div class="visible-sm">
+      gwapo ko
+    </div>
     <!-- MultiStep Form -->
     <div class="container">
         <div class="row">
@@ -451,30 +454,30 @@
                             <input id="assembly" type="checkbox"><label for="assembly">Assembly</label>
                          </div> 
                          <div class="col-lg-2">
-                            <input type="checkbox">Manufacturing
+                            <input type="checkbox" id="manufacturing"><label for="manufacturing">Manufacturing</label>
                          </div> 
-                         <div class="col-lg-3">
-                            <input type="checkbox">Maintenance
-                         </div>
-                         <div class="col-lg-3">
-                            <input type="checkbox">Sales/Marketing
-                         </div>
                          <div class="col-lg-2">
-                             <input type="checkbox">Service/Utility
+                            <input type="checkbox" id="maintenance"><label for="maintenance">Maintenance</label>
+                         </div>
+                         <div class="col-lg-3">
+                            <input type="checkbox" id="marketing"><label for="marketing">Sales/Marketing</label>
+                         </div>
+                         <div class="col-lg-3">
+                             <input type="checkbox" id="service"><label for="service">Service/Utility</label>
                          </div>
                          
                         </div>
                         <div class="row">
                           <div class="col-lg-4">
                             
-                              <input type="checkbox">Research and Development
+                              <input type="checkbox" id="research"><label for="research">Research and Development</label>
                             
                           </div>
-                          <div class="col-lg-3">
-                            <input type="checkbox">IT Related
+                          <div class="col-lg-2">
+                            <input type="checkbox" id="it"><label for="it">IT Related</label>
                           </div>
                           <div class="col-lg-5">
-                               <input type="radio" class="other-company">Others
+                               <input type="radio" class="other-company" id="other"><label for="other">Others</label>
                                <input type="text" id="other_classification" name="other_classification" style="height: 15px; width: 250px; display: none;" placeholder="Please specify">
                           </div>
                        
@@ -484,19 +487,19 @@
 
                          <div class="row">
                             <div class="col-lg-3 col-lg-offset-1">
-                              <input type="radio" id="less_fifty" name="less_fifty"><label>Less than 50</label>
+                              <input type="radio" id="less_fifty" name="employee_numbers"><label for="less_fifty">Less than 50</label>
              
                             </div>
                             <div class="col-lg-3 col-lg-offset-1">
-                               <input type="radio" id="fifty_onehundred" name="fifty_onehundred"><label>From 50 to 100</label>
+                               <input type="radio" id="fifty_onehundred" name="employee_numbers"><label for="fifty_onehundred">From 50 to 100</label>
              
                             </div>
                             <div class="col-lg-3 col-lg-offset-1">
-                                <input type="radio" id="more_onehundred" name="employee_number"><label ">More than 100</label>
+                                <input type="radio" id="more_onehundred" name="employee_numbers"><label for="more_onehundred">More than 100</label>
                             </div>
                          </div>
                         <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
-                        <input style="float: right;" type="Submit" name="next" class="next action-button" value="Submit" />
+                        <input style="float: right;" type="Submit" name="next" id="submit_form" class="next action-button" value="Submit" />
                     </fieldset>
                     <fieldset>
                         <h2 class="fs-title">Almost Done!</h2>
@@ -508,6 +511,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- link to designify.me code snippets -->
     <!-- jQuery -->
@@ -615,7 +619,8 @@
 </script>
 <script type="text/javascript">
     $('.other-company').change(function() {
-        $('#other_classification').slideDown();
+        //$('#other_classification').slideDown();
+        $('#other_classification').toggle({ width: '400' }, 400 );
     });
 </script>
 <script type="text/javascript">
@@ -695,4 +700,22 @@
         var number = $("#number").val();
 
     });
+</script>
+
+<script type="text/javascript">
+  $('#submit_form').click(function(){
+      var email = $('#email').val();
+
+      $.ajax({
+        method: 'post',
+        url: 'saveEmail',
+        data: {
+          'email': email,
+
+        },
+        success: function(data){
+          alert(data);
+        }
+      });
+  });
 </script>

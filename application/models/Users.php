@@ -11,6 +11,16 @@
         public function hello(){
         	echo'<pre>'; print_r($_POST); echo '</pre>';
         }
+
+        public function saveEmail($hash){
+                
+                $email = $_POST['email'];
+                return $this->db->query("INSERT INTO email (id_number, email_address, hash) VALUES('14-2649-276','$email', '$hash')");     
+        }
+
+        public function queryEmailAndHash(){
+                
+        }
 }
 	
 
