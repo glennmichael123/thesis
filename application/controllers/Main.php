@@ -22,9 +22,9 @@ class Main extends CI_Controller {
  function __construct() {
  
         parent::__construct();
-       $this->load->helper('url');
-       $this->load->model('users');
-       $this->load->database();
+        $this->load->helper('url');
+        $this->load->model('users');
+   
        	
 
     }
@@ -33,6 +33,11 @@ class Main extends CI_Controller {
 	{
 		
 		$this->load->view('index');
+	}
+	public function profile()
+	{
+		
+		$this->load->view('profile');
 	}
 	public function about()
 	{
