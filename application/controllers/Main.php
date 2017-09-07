@@ -58,9 +58,10 @@ class Main extends CI_Controller {
 	}
 	public function new()
 	{
-
+		
 		$this->load->view('new');
 	}
+
 
 	public function printData()
 	{

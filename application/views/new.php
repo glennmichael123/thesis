@@ -227,7 +227,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <form id="msform">
+                <form id="msform" method="post">
                     <!-- progressbar -->
                     <ul id="progressbar">
                         <li class="active">Personal Details</li>
@@ -252,10 +252,49 @@
                                 <input type="text" name="last_name" id="last_name" placeholder="Last name" required>
                             </div>
                         </div>
+                        <?php $collegechoice = (empty($_POST['college'])) ? '' : $_POST['college'];?>
                         <div class="row">
-                            <div class="col-lg-6">
-                                <input type="text" name="course" placeholder="Course" id="course" required>
+                            <div class="col-lg-12">
+                                <select id="college" name="college">
+                                    <option <?php echo (empty($collegechoice)) ? "selected" : '';?> disabled>Select college</option>
+                                    <option  <?php echo (!empty($collegechoice)) && $collegechoice == 'CCS' ? "selected" : '';?> value="CCS">College of Computer Studies</option>
+                                    <option <?php echo (!empty($collegechoice)) && $collegechoice == 'CEA' ? "selected" : '';?> value="CEA">College of Engineering and Architecture</option>
+                                    <option <?php echo (!empty($collegechoice)) && $collegechoice == 'CON' ? "selected" : '';?> value="CON">College of Nursing</option>
+                                    <option <?php echo (!empty($collegechoice)) && $collegechoice == 'COE' ? "selected" : '';?> value="COE">College of Education</option>
+                                    <option <?php echo (!empty($collegechoice)) && $collegechoice == 'CMBA' ? "selected" : '';?> value="CMBA">College of Management, Business and Accoutancy</option>
+                                    <option <?php echo (!empty($collegechoice)) && $collegechoice == 'CAS' ? "selected" : '';?> value="CAS">College of Art and Sciences</option>
+                                </select>
                             </div>
+                        </div>
+                        <?php
+                          $courseCCS = array("BSIT", "BSCS");
+                          $courseCOE = array("BSED", "BSEE", "BSG");
+                          $courseCMBA = array("BSA", "BSBA", "BSHRM");
+                        ?>
+                      <?php if(isset($_POST['college'])):?>
+                        <?php $college = $_POST['college'];?>
+                        <div class="row course-section">
+                            <div class="col-lg-6">
+                                <select name="course" id="course" required>  
+                                <option selected disabled>Select Course</option>
+                                <?php if($college == 'CCS'):?>
+
+                                  <?php foreach($courseCCS as $courses):?>                    
+                                  <option>
+                                      <?php echo $courses?>
+                                  </option>
+                                <?php endforeach;?>
+                              <?php elseif($college == 'COE'):?>
+                                  <?php foreach($courseCOE as $courses):?>                    
+                                  <option>
+                                      <?php echo $courses?>
+                                  </option>
+                  
+                              <?php endforeach;?>
+                              <?php endif;?>
+                                </select>
+                            </div>
+                         
                             <div class="col-lg-6">
                                 <select name="year" id="year" required>
                                     <option selected disabled>Year</option>
@@ -267,20 +306,7 @@
                                 </select>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <select id="college" name="college">
-                                    <option selected disabled>Select college</option>
-                                    <option value="College of Computer Studies">College of Computer Studies</option>
-                                    <option value="College of Engineering and Architecture">College of Engineering and Architecture</option>
-                                    <option value="College of Engineering and Architecture">College of Nursing</option>
-                                    <option value="College of Education">College of Education</option>
-                                    <option value="College of Management, Business and Accoutancy">College of Management, Business and Accoutancy</option>
-                                    <option value="College of Art and Sciences">College of Art and Sciences</option>
-                                </select>
-                            </div>
-                        </div>
+                         <?php endif;?>
                         <div class="row">
                             <div class="col-lg-12">
                                 <input type="text" name="present_address" placeholder="Present address" id="present_address" required>
@@ -662,33 +688,7 @@
     });
 
 </script>
-<script type="text/javascript">
-    $("input").blur(function() {
-        var data = $(this).val();
-        if (data.length == 0) {
-            $(this).val("Field is required");
-            $(this).css("border-color", "red");
-        } else {
 
-            $(this).css("border-color", "green")
-        }
-    });
-    $("input").focus(function() {
-        if ($(this).val() == 'Field is required') {
-            $(this).val("");
-        }
-
-    });
-    $("select").blur(function() {
-        var data = $(this).val();
-
-        if (data == null) {
-            $(this).css("border-color", "red");
-        } else {
-            $(this).css("border-color", "green")
-        }
-    });
-</script>
 <script type="text/javascript">
     $(".submit").click(function() {
         var data = $("input").val();
@@ -718,4 +718,19 @@
         }
       });
   });
+</script>
+
+
+
+<script type="text/javascript">
+  $('#college').change(function(){
+    $('.course-section').fadeIn();
+   var college = $(this).val();
+
+    $('#msform').submit();
+      
+      // $courseEngineering = array("BSCE", "BSME", "BSIE", "BSCPE", "BSEE", "BSMiE");
+
+
+ });
 </script>

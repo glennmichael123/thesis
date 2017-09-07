@@ -33,8 +33,7 @@
 				<?php $hash = $_GET['hash']?>
 					<?php
 						$query = $this->db->query("SELECT email_address, hash FROM email WHERE email_address = '$email' AND hash ='$hash'")->result_array();
-						print_r($query);
-
+					
 
 						foreach ($query as $result) {
 							if(in_array($email, $result) && in_array($hash, $result)){

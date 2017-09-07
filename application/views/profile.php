@@ -139,8 +139,8 @@
         }
 
         .showBorder{
-            border: 1px solid black !important;
-            background: #CCCCCC; !important;
+            border: 1px solid #e5e6e8 !important;
+            background: #F4F4F4 !important;
         }
         
     </style>
@@ -164,14 +164,14 @@
                                 <div style="margin-top: -10px;">
                                 </div>
                                 <div class="profile-name">
-                                    <span class="label label-default">Renato A. Manalili Jr.</span>
+                                    <div class="label label-default">Renato A. Manalili Jr.</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-9">
                     <fieldset>
-                    <legend>Personal Information</legend>
+                    <legend><i class="fa fa-user"></i>Personal Information</legend>
                          <div id="edit">
                              <button id="btn-edit"><span class="fa fa-pencil-square-o" aria-hidden="true"></span></button>
                          </div>
@@ -219,7 +219,7 @@
                             
                     </fieldset>
                     <fieldset id="second-fieldset">
-                    <legend>Family Data</legend>
+                    <legend><i class="fa fa-users"></i>Family Data</legend>
                          <div id="edit">
                              <button id="btn-edit1"><span class="fa fa-pencil-square-o" aria-hidden="true"></span></button>
                          </div>
@@ -260,8 +260,9 @@
 </body>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        
+    $("span").hover(function() {
+        $(this).css("background", "none");
+        $(this).css("color", "#000");
     });
 </script>
 <script type="text/javascript">

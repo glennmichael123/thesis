@@ -218,8 +218,7 @@
         }
         .evaluator-option{
             color: #000;
-            font-size: 15px;
-            margin-right: 20px;
+            font-size: 13px;
         }
          .evaluator-option:hover{
             color: #000;
@@ -229,7 +228,7 @@
 
 
 
-    <title></title>
+    <title>OJT Automate</title>
 
 </head>
 
@@ -346,11 +345,11 @@
                     <?php for($i=0; $i<=3; $i++):?>
                         <div class="row"  style="color:#000;">
                        
-                                <div class="col-lg-12" >
-                                    <div class="well" style="background: #fff;">
-                                    <span class="user-name">Jon Snow</span>
+                             <div class="col-lg-12" >
+                                <div class="well" style="background: #fff; padding-bottom: 0; padding-top: 10px">
+                                    <span class="user-name"><i class="fa fa-user-circle"></i>Jon Snow</span>
                                   
-                                    <hr>
+                                    <hr style="margin-top: 0; margin-bottom: 0">
 
                                     <form method="post">
                                         <div class="row">
@@ -382,26 +381,45 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Activity</label>
+                                        
+                                            <label style="font-size: 11px;">Activity</label>
                                             <textarea class="list-logs" name="log_lists_activity" id="log_lists_activity" placeholder="Write your log here" readonly>Killed white walkers and wildlings</textarea>
-                                        </div>
 
-                                        <div class="form-group">
-                                            <label>Comments</label><br>
-                                            <span style="font-size: 11px;">No comments</span>
+                                             <span style="color:green; font-size: 11px; position: absolute; top: 288px; left: 700px;"> Verified  <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i></span>
+                                      
+                                       
+                                            
+                                       
+                                        
+                                        <hr style="margin-bottom: 0; margin-top: 0;">
 
-                                            <span style="float: right; color:green; font-size: 11px;"> Verified  <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i></span>
+                                     <div class="row" style="padding-top: 5px; padding-bottom: 5px;">
+                                        <div class="col-lg-2">
+                                                 <a href="#" class="evaluator-option verify-btn"><i class="fa fa-check" aria-hidden="true"></i>Verify</a>
+                                                 
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <a href="#" class="evaluator-option comment-btn"><i class="fa fa-comment" aria-hidden="true"></i>Comment</a>
+                                        </div>
+                                     </div>
 
+                                    <div class="row">
+                                        
+                                       <div class="comment-section" style="display: none;"> 
+                                            <div class="col-lg-12">
+                                                <hr style="margin-top: 0; margin-bottom: 5px;">
+                                                <textarea style="height:45px; resize: none;" class="form-control" placeholder="Write your comment"></textarea>
+                                                <button style="float: right; margin-top: 5px; margin-bottom: 5px; padding: 2px 5px 2px 5px;" class="btn btn-primary">Post</button>
+                                            </div>
                                         </div>
-                                        <div class="save-edit" style="display: none;">
-                                            <button type="submit" class="btn btn-success">Save</button>
-                                            <button type="button" class="cancel-edit btn btn-danger" class="btn btn-danger">Cancel</button>
-                                        </div>
-                                        <hr>
+                                        
+                                     </div>
+                                    
                                     </form>
-                                     <a href="#" class="evaluator-option"><i class="fa fa-check" aria-hidden="true"></i>Verify</a>
-                                     <a href="#" class="evaluator-option"><i class="fa fa-comment" aria-hidden="true"></i>Comment</a>
+                                   
+                                     
+
+                                  
 
                                 </div>
                                   
@@ -443,5 +461,21 @@
        
     });
 </script>
+
+<script type="text/javascript">
+    $('.comment-btn').click(function(e){
+        e.preventDefault();
+        var commentSection = $(this).closest("form").find(".comment-section");
+
+        commentSection.slideToggle();
+      
+    });
+
+     $("#dropdown-logout").click(function() {
+       $("#show-logout").slideToggle();
+       $("#show-notifications").slideUp();
+    });
+</script>
+
 
 </html>

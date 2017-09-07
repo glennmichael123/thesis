@@ -192,8 +192,8 @@
         }
         
         .content {
-            padding-top: 50px;
-            padding-bottom: 50px;
+            padding-top: 30px;
+            padding-bottom: 30px;
             background: #E9EBEE;
             color: #000000 !important;
         }
@@ -233,6 +233,7 @@
         
         #log_activity {
             height: 80px;
+            resize: none;
         }
         
         .logs-upper,
@@ -266,7 +267,7 @@
             resize: none;
         }
         
-        #log_lists_activity:focus {
+        #Log_lists_activity:focus {
             border-color: none;
         }
         
@@ -316,7 +317,7 @@
         }
 
     </style>
-    <title></title>
+    <title>OJT Automate</title>
 
 </head>
 
@@ -378,9 +379,6 @@
     <div class="content">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4">
-                    <h2 style="padding:0px 0px 20px 0px;">Dashboard</h2>
-                </div>
 
             </div>
             <div class="dashboard-info-student well">
@@ -600,7 +598,7 @@
 
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="well">
+                                <div class="well" style="padding-bottom: 0">
                                     <span class="user-name">Jon Snow</span>
                                     <div class="dropdown" style="float: right; width:20px;">
                                         <a href="#" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -632,6 +630,8 @@
                                                         <label>Designation</label>
                                                         <input type="text" class="list-logs" value="Castle Black" name="    log_lists_designation" id="log_lists_designation" readonly>
                                                     </div>
+                                                        <label>Activity</label>
+                                                    <textarea class="list-logs" name="log_lists_activity" id="log_lists_activity" placeholder="Write your log here" readonly>Killed white walkers and wildlings</textarea>
                                                 </div>
 
                                                 <div class="col-lg-6">
@@ -644,24 +644,24 @@
                                                         <input type="text" class="list-logs" name="log_lists_hours_rendered" id="log_lists_hours_rendered" value="6" readonly>
 
                                                     </div>
+                                                     <span style="color:green; font-size: 11px; position: absolute; top: 280px; left: 290px;"> Verified  <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Activity</label>
-                                            <textarea class="list-logs" name="log_lists_activity" id="log_lists_activity" placeholder="Write your log here" readonly>Killed white walkers and wildlings</textarea>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Comments</label>
-                                            <span style="font-size: 11px;">No comments</span>
-
-                                            <span style="float: right; color:green; font-size: 11px;"> Verified  <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i></span>
-
-                                        </div>
+                                        
                                         <div class="save-edit" style="display: none;">
                                             <button type="submit" class="btn btn-success">Save</button>
                                             <button type="button" class="cancel-edit btn btn-danger" class="btn btn-danger">Cancel</button>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                    <hr style="margin-bottom: 0; margin-top: 0;">
+                                                   
+                                                        <label>Comments</label>
+                                                        <span style="font-size: 11px;">No comments</span>                                                      
+                                                   
+                                            </div>
                                         </div>
 
                                     </form>

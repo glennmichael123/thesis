@@ -218,7 +218,7 @@ li.notification-title{
         
     </style>
 
-    <title></title>
+    <title>OJT Automate</title>
 
 </head>
 
