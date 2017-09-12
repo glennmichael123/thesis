@@ -455,14 +455,6 @@
 </script>
 
 <script type="text/javascript">
-    $("span").hover(function() {
-        $("span").css("background", "none");
-        $(this).css("color", "#000");
-       
-    });
-</script>
-
-<script type="text/javascript">
     $('.comment-btn').click(function(e){
         e.preventDefault();
         var commentSection = $(this).closest("form").find(".comment-section");
@@ -476,6 +468,5 @@
        $("#show-notifications").slideUp();
     });
 </script>
-
 
 </html>

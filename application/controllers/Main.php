@@ -24,6 +24,8 @@ class Main extends CI_Controller {
         parent::__construct();
         $this->load->helper('url');
         $this->load->model('users');
+
+        $this->load->library('session');
    
        	
 
@@ -31,13 +33,24 @@ class Main extends CI_Controller {
 
 	public function index()
 	{
+
+	
+     if(isset($this->session->userdata['id_number'])){
+          header("location: dashboard");
+     }else{
+     	$this->load->view('index');
+     }
 		
-		$this->load->view('index');
 	}
 	public function profile()
 	{
+		if(!isset($this->session->userdata['id_number'])){
+          header("location: index");
+     	}else{
+     		$this->load->view('profile');
+     	}
 		
-		$this->load->view('profile');
+		
 	}
 	public function about()
 	{
@@ -75,19 +88,87 @@ class Main extends CI_Controller {
 		$this->load->view('supervisor-dashboard');
 	}
 
+	public function savePersonalDetails(){
+		// print_r($_POST);exit;
+		$this->users->insertPersonalData();
+	}
+
+	public function saveFamilyData(){
+		// print_r($_POST);exit;
+		$this->users->insertFamilyData();
+	}
+
+
+	public function loggedin(){
+		$condition = $this->users->user_login();
+		$error = '';
+		// print_r("condition = " . $condition. "   ");
+		if($condition){
+			$data = array(
+				'username' => $this->input->post('username'), //need to be dynamic e.g $this->input->post('username')
+				'password' => $this->input->post('password') // this->input->post('password');
+				);
+				$result = $this->users->readUserId($data);
+		
+				$session_data = $result[0]['id_number'];
+				// print_r($session_data);
+			// Add user data in session
+				$this->session->set_userdata('id_number', $session_data);
+				header("location: dashboard");
+					
+	}else{
+		$error = 'Id number or password does not match';
+	}	
+
+
+	
+}
+
+public function logout(){
+	session_destroy();
+
+	header("location: index");
+}
+
+	public function saveEmergencyData(){
+		// print_r($_POST);exit;
+
+		$this->users->insertEmergencyData();
+	}
+
+	public function saveCompanyData(){
+		// print_r($_POST);
+
+		$this->users->insertCompanyData();
+	}
+
+
 
 	public function adminDashboard(){
 		$this->load->view('admindashboard');
 	}
 
 	public function dashboard(){
-		$data['total'] = 200;
-		$data['rendered'] = 150;
-		$data['all'] = 2;
-		$data['now'] = 1;
-		$data['verified'] = 10;
-		$data['totalLogs'] = 50;
+		if(!isset($this->session->userdata['id_number'])){
+          header("location: index");
+     	}else{
+     			$ojtRecords = $this->users->dashboardDataRecords(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
+		$data['total'] = $ojtRecords[0]['total_hours'];
+		$data['rendered'] = $ojtRecords[0]['rendered_hours'];
+		$data['all_evaluations'] = $ojtRecords[0]['total_evaluations'];
+		$data['current_evaluations'] = $ojtRecords[0]['current_evaluations'];
+		$data['verified'] = $ojtRecords[0]['logs_verified'];
+		$data['totalLogs'] = $ojtRecords[0]['logs'];
+
+		 $data['user_data'] = $this->users->dashboardData($this->session->userdata['id_number']);
+		 
+
+		// $this->users->getUserData($this->session->userdata['id_number']);
 		$this->load->view('dashboard', $data);
+     	}
+
+
+	
 	}
 
 	public function verify(){
@@ -121,11 +202,10 @@ class Main extends CI_Controller {
 
 		    // $list = array($email);
 		    $this->email->to($email);
-		    $this->email->subject('Testing Email');
+		    $this->email->subject('Email Verification');
 		    $this->email->message($email_body);
 
-		    $this->email->send();
-  	
+		   	$this->email->send();
   		 
   		 
 
@@ -133,10 +213,15 @@ class Main extends CI_Controller {
     }
 
     public function saveEmail(){
-    	$hash = md5(rand(0,1000)); 
     	$email = $_POST['email'];
-    	$this->users->saveEmail($hash);
-    	$this->sendEmail($hash,$email);
+    	$hash = md5($email); 
+    	if(!empty($email)){
+    		$this->users->saveEmail($hash);
+    		$this->sendEmail($hash,$email);
+    	}else{
+
+    	}
+    
     }
 
 

@@ -1,3 +1,5 @@
+
+ 
 <!DOCTYPE html>
 <html>
 
@@ -316,6 +318,11 @@
             background-color: #EDF2FA;
         }
 
+        .clickBorder{
+            border: 2px solid #A55D35;
+            transition: 0.1s linear;
+        }
+        
     </style>
     <title>OJT Automate</title>
 
@@ -354,18 +361,18 @@
 
                         <ul class="nav navbar-nav">
                             <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown"><img src="<?php echo base_url();?>/assets/images/snow.jpg" class="pull-right circular-square" style="width: 40px; height: 40px; margin-top: -5px;"> </a>
+                            <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown"><img src="<?php echo base_url();?>/assets/images/snow.jpg" class="pull-right circular-square user-image" style="width: 40px; height: 40px; margin-top: -5px;"> </a>
                                 
                                 <ul class="dropdown-menu" id="show-logout">
-                                    <li><a href="#">Jon Snow <i class="fa fa-user pull-right"></i></a></li>
+                                    <li><a href="profile"><?php echo $user_data[0]['first_name'] . " " .$user_data[0]['last_name'];?><i class="fa fa-user pull-right"></i></a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
+                                    <li><a href="dashboard">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                     <li class="divider"></li>
 
                                     <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
                                     <li class="divider"></li>
 
-                                    <li><a href="index">Log Out <i class="fa fa-sign-out pull-right"></i></a></li>
+                                    <li><a href="logout">Log Out <i class="fa fa-sign-out pull-right"></i></a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -377,9 +384,17 @@
         </div>
     </div>
     <div class="content">
+    <div class="container">
+        <div class="well">
+            <div class="row">
+                <div class="col-lg-12">
+                    <span style="font-size: 15px;"><i class="fa fa-exclamation-circle" aria-hidden="true" style="color: red"></i> You must complete the ojt form first before you can post any logs</span>
+                </div>
+            </div>
+        </div>
+    </div>
         <div class="container">
             <div class="row">
-
             </div>
             <div class="dashboard-info-student well">
                 <div class="row">
@@ -446,27 +461,27 @@
                                         easing: 'bounce',
                                         duration: 1400,
                                         text: {
-                                            value: <?php echo $now?> + "/" + <?php echo $all?> + " " + 'evaluations',
+                                            value: <?php echo $current_evaluations?> + "/" + <?php echo $all_evaluations?> + " " + 'evaluations',
                                         },
                                         from: {
-                                            color: '#FFEA82',
+                                            color: '#9ebdef',
                                             a: 0
                                         },
                                         to: {
-                                            color: '#7ac3e8',
+                                            color: '#65f771',
                                             a: 1
                                         },
                                         // Set default step function for all animate calls
                                         step: function(state, circle) {
                                             circle.path.setAttribute('stroke', state.color);
                                         },
-                                        color: 'orange',
+                                        color: '#53b1e0',
                                         trailColor: '#eee',
                                         trailWidth: 1,
                                         svgStyle: null
                                     });
 
-                                    bar.animate(<?php echo $now/$all?>); // Number from 0.0 to 1.0
+                                    bar.animate(<?php echo $current_evaluations/$all_evaluations?>); // Number from 0.0 to 1.0
 
                                 });
                             </script>
@@ -489,18 +504,18 @@
                                             value: <?php echo $verified?> + "/" + <?php echo $totalLogs?> + " " + 'logs',
                                         },
                                         from: {
-                                            color: '#FFEA82',
+                                            color: '#9ebdef',
                                             a: 0
                                         },
                                         to: {
-                                            color: '#4ff262',
+                                            color: '#65f771',
                                             a: 1
                                         },
                                         // Set default step function for all animate calls
                                         step: function(state, circle) {
                                             circle.path.setAttribute('stroke', state.color);
                                         },
-                                        color: 'orange',
+                                        color: '#53b1e0',
                                         trailColor: '#eee',
                                         trailWidth: 1,
                                         svgStyle: null
@@ -694,22 +709,18 @@
 
 <script type="text/javascript">
     $("#dropdown-notification").click(function() {
-       $("#show-notifications").slideToggle();
-       $("#show-logout").slideUp();
+       $("#show-notifications").toggle();
+       $("#show-logout").hide();
+        $('.user-image').removeClass('clickBorder');
     });
 
     $("#dropdown-logout").click(function() {
-       $("#show-logout").slideToggle();
-       $("#show-notifications").slideUp();
+       $("#show-logout").toggle();
+       $('.user-image').toggleClass('clickBorder');
+       $("#show-notifications").hide();
     });
 </script>
 
-<script type="text/javascript">
-    $("span").hover(function() {
-        $("span").css("background", "none");
-        $("span").css("color", "#000");
-    })
-</script>
 <script type="text/javascript">
     $("#log_activity").click(function() {
 
@@ -737,7 +748,7 @@
         buttons.show();
         input.prop('readonly', false);
         input.css('border', '1px solid #CCCCCC');
-        input.css('background', '#fff');
+        input.css('background', '#F4F4F4');
 
     });
 </script>

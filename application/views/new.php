@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -81,7 +82,6 @@
         }
         
         #msform input:focus,
-        select:focus,
         #msform textareafocus {
             -moz-box-shadow: none !important;
             -webkit-box-shadow: none !important;
@@ -220,9 +220,7 @@
 </head>
 
 <body>
- <div class="visible-sm">
-      gwapo ko
-    </div>
+
     <!-- MultiStep Form -->
     <div class="container">
         <div class="row">
@@ -252,48 +250,28 @@
                                 <input type="text" name="last_name" id="last_name" placeholder="Last name" required>
                             </div>
                         </div>
-                        <?php $collegechoice = (empty($_POST['college'])) ? '' : $_POST['college'];?>
                         <div class="row">
                             <div class="col-lg-12">
                                 <select id="college" name="college">
-                                    <option <?php echo (empty($collegechoice)) ? "selected" : '';?> disabled>Select college</option>
-                                    <option  <?php echo (!empty($collegechoice)) && $collegechoice == 'CCS' ? "selected" : '';?> value="CCS">College of Computer Studies</option>
-                                    <option <?php echo (!empty($collegechoice)) && $collegechoice == 'CEA' ? "selected" : '';?> value="CEA">College of Engineering and Architecture</option>
-                                    <option <?php echo (!empty($collegechoice)) && $collegechoice == 'CON' ? "selected" : '';?> value="CON">College of Nursing</option>
-                                    <option <?php echo (!empty($collegechoice)) && $collegechoice == 'COE' ? "selected" : '';?> value="COE">College of Education</option>
-                                    <option <?php echo (!empty($collegechoice)) && $collegechoice == 'CMBA' ? "selected" : '';?> value="CMBA">College of Management, Business and Accoutancy</option>
-                                    <option <?php echo (!empty($collegechoice)) && $collegechoice == 'CAS' ? "selected" : '';?> value="CAS">College of Art and Sciences</option>
+                                    <option selected disabled>Select college</option>
+                                    <option value="CCS">College of Computer Studies</option>
+                                    <option value="CEA">College of Engineering and Architecture</option>
+                                    <option value="CON">College of Nursing</option>
+                                    <option value="COE">College of Education</option>
+                                    <option value="CMBA">College of Management, Business and Accoutancy</option>
+                                    <option value="CAS">College of Art and Sciences</option>
                                 </select>
                             </div>
                         </div>
-                        <?php
-                          $courseCCS = array("BSIT", "BSCS");
-                          $courseCOE = array("BSED", "BSEE", "BSG");
-                          $courseCMBA = array("BSA", "BSBA", "BSHRM");
-                        ?>
-                      <?php if(isset($_POST['college'])):?>
-                        <?php $college = $_POST['college'];?>
-                        <div class="row course-section">
-                            <div class="col-lg-6">
-                                <select name="course" id="course" required>  
-                                <option selected disabled>Select Course</option>
-                                <?php if($college == 'CCS'):?>
 
-                                  <?php foreach($courseCCS as $courses):?>                    
-                                  <option>
-                                      <?php echo $courses?>
-                                  </option>
-                                <?php endforeach;?>
-                              <?php elseif($college == 'COE'):?>
-                                  <?php foreach($courseCOE as $courses):?>                    
-                                  <option>
-                                      <?php echo $courses?>
-                                  </option>
-                  
-                              <?php endforeach;?>
-                              <?php endif;?>
-                                </select>
-                            </div>
+                      
+                
+                        <div class="row course-section">
+                           
+                                 <div class="col-lg-6"> 
+                                    <input type="text" name="course" id="course" placeholder="Course">
+                                 </div>
+                            
                          
                             <div class="col-lg-6">
                                 <select name="year" id="year" required>
@@ -306,7 +284,9 @@
                                 </select>
                             </div>
                         </div>
-                         <?php endif;?>
+
+                         
+
                         <div class="row">
                             <div class="col-lg-12">
                                 <input type="text" name="present_address" placeholder="Present address" id="present_address" required>
@@ -414,7 +394,7 @@
                                 <input type="text" name="guardian_name" placeholder="Full name" id="guardian_name" >
                             </div>
                             <div class="col-lg-6">
-                                <select id="blood_type" name="blood_type" required>
+                                <select id="relationship_emergency" name="relationship_emergency" required>
                                     <option selected disabled>Relationship</option>
                                     <option value="Guardian">Guardian</option>
                                     <option value="Father">Father</option>
@@ -425,7 +405,7 @@
                         </div>
                         <div class="row">
                           <div class="col-lg-12">
-                            <input type="text" name="tel_no" placeholder="Telephone number" id="tel_no">
+                            <input type="text" name="tel_no_emergency" placeholder="Telephone number" id="tel_no_emergency">
                             </div>
                             <div class="col-lg-12" style="margin-top: 10px;">
                               <input type="text" name="emergency_address" placeholder="Address" id="emergency_address">
@@ -443,7 +423,7 @@
                       
                           
                           
-                            <button type="button" name="next" id="to-next-page" class="next action-button">Next <i class="fa fa-step-forward" aria-hidden="true"></i></button>
+                            <button type="button" name="next" id="to-next-page2" class="next action-button">Next <i class="fa fa-step-forward" aria-hidden="true"></i></button>
                             
                             
                     </fieldset>
@@ -477,30 +457,30 @@
                         <h2 class="fs-title">Company Classification <i class="fa fa-list-alt" aria-hidden="true"></i></h2>
                         <div class="row">
                           <div class="col-lg-2">
-                            <input id="assembly" type="checkbox"><label for="assembly">Assembly</label>
+                            <input id="assembly" value="assembly" type="checkbox"><label for="assembly">Assembly</label>
                          </div> 
                          <div class="col-lg-2">
-                            <input type="checkbox" id="manufacturing"><label for="manufacturing">Manufacturing</label>
+                            <input type="checkbox" value="manufacturing" id="manufacturing"><label for="manufacturing">Manufacturing</label>
                          </div> 
                          <div class="col-lg-2">
-                            <input type="checkbox" id="maintenance"><label for="maintenance">Maintenance</label>
+                            <input type="checkbox" value="maintenance" id="maintenance"><label for="maintenance">Maintenance</label>
                          </div>
                          <div class="col-lg-3">
-                            <input type="checkbox" id="marketing"><label for="marketing">Sales/Marketing</label>
+                            <input type="checkbox" value="marketing" id="marketing"><label for="marketing">Sales/Marketing</label>
                          </div>
                          <div class="col-lg-3">
-                             <input type="checkbox" id="service"><label for="service">Service/Utility</label>
+                             <input type="checkbox" value="service" id="service"><label for="service">Service/Utility</label>
                          </div>
                          
                         </div>
                         <div class="row">
                           <div class="col-lg-4">
                             
-                              <input type="checkbox" id="research"><label for="research">Research and Development</label>
+                              <input type="checkbox" value="research" id="research"><label for="research">Research and Development</label>
                             
                           </div>
                           <div class="col-lg-2">
-                            <input type="checkbox" id="it"><label for="it">IT Related</label>
+                            <input type="checkbox" value="itrelated" id="itrelated"><label for="itrelated">IT Related</label>
                           </div>
                           <div class="col-lg-5">
                                <input type="radio" class="other-company" id="other"><label for="other">Others</label>
@@ -513,25 +493,26 @@
 
                          <div class="row">
                             <div class="col-lg-3 col-lg-offset-1">
-                              <input type="radio" id="less_fifty" name="employee_numbers"><label for="less_fifty">Less than 50</label>
+                              <input type="radio" id="less_fifty" value="Less than 50" name="employee_numbers"><label for="less_fifty">Less than 50</label>
              
                             </div>
                             <div class="col-lg-3 col-lg-offset-1">
-                               <input type="radio" id="fifty_onehundred" name="employee_numbers"><label for="fifty_onehundred">From 50 to 100</label>
+                               <input type="radio" id="fifty_onehundred" value="From 50 to 100" name="employee_numbers"><label for="fifty_onehundred">From 50 to 100</label>
              
                             </div>
                             <div class="col-lg-3 col-lg-offset-1">
-                                <input type="radio" id="more_onehundred" name="employee_numbers"><label for="more_onehundred">More than 100</label>
+                                <input type="radio" id="more_onehundred" value="More than 100" name="employee_numbers"><label for="more_onehundred">More than 100</label>
                             </div>
                          </div>
                         <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
-                        <input style="float: right;" type="Submit" name="next" id="submit_form" class="next action-button" value="Submit" />
+                        <input style="float: right;" type="button" name="next" id="to-last-page" class="next action-button" value="Submit" />
                     </fieldset>
                     <fieldset>
                         <h2 class="fs-title">Almost Done!</h2>
                         <h2 class="fs-title">Just one more step and you are done.</h2>
                         <p style="text-align: center;">An email verification link has been to your email address. Please verify your email to complete the registration.</p>
                         <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+                        <a href="dashboard" style="float: right;">Continue to dashboard</a>
                     </fieldset>
                 </form>
             </div>
@@ -664,11 +645,6 @@
 
         $("#parents_address").val(address);
 
-        if(address.length == 0 ||  address == 'Field is required'){
-            $("#parents_address").css("border-color","red");
-        }else{
-           $("#parents_address").css("border-color","green");
-        }
     });
 
     $("#same-permanent").change(function() {
@@ -689,32 +665,173 @@
 
 </script>
 
-<script type="text/javascript">
-    $(".submit").click(function() {
-        var data = $("input").val();
-        var dataselect = $("select").val();
-    });
-</script>
-<script type="text/javascript">
-    $('#number').blur(function() {
-        var number = $("#number").val();
-
-    });
-</script>
 
 <script type="text/javascript">
-  $('#submit_form').click(function(){
-      var email = $('#email').val();
+    $('#to-next-page2').click(function(){
+        var first_name = $('#first_name').val();
+        var middle_initial = $('#middle_initial').val();
+        var last_name = $('#last_name').val();
+        var college = $('#college').val();
+        var course = $('#course').val();
+        var year = $('#year').val();
+        var present_address = $('#present_address').val();
+        var permanent_address = $('#permanent_address').val();
+        var number = $('#number').val();
+        var email = $('#email').val();
+        var date_of_birth = $('#date_of_birth').val();
+        var age = $('#age').val();
+        var civil_status = $('#civil_status').val();
+        var blood_type = $('#blood_type').val();
+        var weight = $('#weight').val();
+        var height = $('#height').val();
+        var religion = $('#religion').val();
+        var citizenship = $('#citizenship').val();
+
+            // console.log(first_name + middle_initial + last_name + college + course + year + present_address + permanent_address +
+            //      number + email + date_of_birth + age + civil_status + blood_type + weight + height + religion + citizenship);
+
+        $.ajax({
+            url: 'savePersonalDetails',
+            method: 'POST',
+            data: {
+                'id_number': '14-2649-276',
+                'first_name': first_name,
+                'middle_initial': middle_initial,
+                'last_name': last_name,
+                'college': college,
+                'course': course,
+                'year': year,
+                'present_address': present_address,
+                'permanent_address': permanent_address,
+                'contact_number': number,
+                'email_address': email,
+                'date_of_birth': date_of_birth,
+                'age': age,
+                'marital_status': civil_status,
+                'blood_type': blood_type,
+                'weight': weight,
+                'height': height,
+                'religion': religion,
+                'citizenship': citizenship,
+            },
+
+            success: function(data){
+                // console.log(data);
+            }
+        });
+
+
+
+        var fathers_name = $('#fathers_name').val();
+        var fathers_occupation = $('#fathers_occupation').val();
+        var mothers_name = $('#mothers_name').val();
+        var mothers_occupation = $('#mothers_occupation').val();
+        var parents_address = $('#parents_address').val();
+        var tel_no = $('#tel_no').val();
+
+        // console.log(fathers_name + fathers_occupation + mothers_name + mothers_occupation + tel_no);
+ 
+        $.ajax({
+            url: 'saveFamilyData',
+            method: 'POST',
+            data:{
+                'id_number': '14-2649-276',
+                'fathers_name': fathers_name,
+                'fathers_occupation': fathers_occupation,
+                'mothers_name': mothers_name,
+                'mothers_occupation': mothers_occupation,
+                'parents_address': parents_address,
+                'contact_number': tel_no,
+            },
+
+            success: function(data){
+                // console.log(data);
+            }
+        }); 
+
+
+
+        var guardian_name = $('#guardian_name').val();
+        var relationship_emergency = $('#relationship_emergency').val();
+        var tel_no_emergency = $('#tel_no_emergency').val();
+        var emergency_address = $('#emergency_address').val();
+       
+
+
+        $.ajax({
+            url: 'saveEmergencyData',
+            method: 'POST',
+            data:{
+                'id_number': '14-2649-276',
+                'name': guardian_name,
+                'relationship': relationship_emergency,
+                'contact_number': tel_no_emergency,
+                'address': emergency_address,
+            },
+
+            success: function(data){
+                // console.log(data);
+            }
+        }); 
+
+
+       
+    });
+</script>
+
+
+<script type="text/javascript">
+    $('#to-last-page').click(function(){
+        var company_name = $("#company_name").val();
+        var company_address = $("#company_address").val();
+        var company_telephone = $("#company_telephone").val();
+        var company_fax = $("#company_fax").val();
+        var product_lines = $("#product_lines").val();
+
+
+        var assembly = $("#assembly").is(':checked') ? $('#assembly').val() : '';
+        var manufacturing = $("#manufacturing").is(':checked') ? $('#manufacturing').val(): '';
+        var maintenance = $("#maintenance").is(':checked') ? $('#maintenance').val(): '';
+        var marketing = $("#marketing").is(':checked') ? $('#marketing').val(): '';
+        var service = $("#service").is(':checked') ? $('#service').val(): '';
+        var research = $("#research").is(':checked') ? $('#research').val(): '';
+        var itrelated = $("#itrelated").is(':checked') ? $('#itrelated').val(): '';
+        
+
+        var other_classification = $("#other_classification").val();
+
+        var less_fifty = $("#less_fifty").is(':checked') ? $('#less_fifty').val(): '';
+        var fifty_onehundred = $("#fifty_onehundred").is(':checked') ? $('#fifty_onehundred').val(): '';
+        var more_onehundred = $("#more_onehundred").is(':checked') ? $('#more_onehundred').val(): '';
+        var classification = [assembly, manufacturing, maintenance, marketing, service, research, itrelated, other_classification];
+      
+       $.ajax({
+           url: 'saveCompanyData',
+           method: 'POST',
+           data: {
+                'id_number': '14-2649-276',
+                'company_name': company_name,
+                'company_address': company_address,
+                'contact_number': company_telephone,
+                'fax_number': company_fax,
+                'product_lines': product_lines,
+                'company_classification':classification,
+                'number_of_employees': less_fifty + fifty_onehundred + more_onehundred, 
+           },
+           success: function(data){
+                // console.log(data);
+           },
+       });
+
+        var email = $('#email').val();
 
       $.ajax({
         method: 'post',
         url: 'saveEmail',
         data: {
           'email': email,
-
         },
         success: function(data){
-          alert(data);
         }
       });
   });
@@ -727,10 +844,10 @@
     $('.course-section').fadeIn();
    var college = $(this).val();
 
-    $('#msform').submit();
-      
+  
       // $courseEngineering = array("BSCE", "BSME", "BSIE", "BSCPE", "BSEE", "BSMiE");
 
 
  });
+
 </script>

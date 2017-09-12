@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html>
 
@@ -14,10 +15,9 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
     <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>
     <style type="text/css">
@@ -47,6 +47,7 @@
                     <div class="col-lg-7">
                         <div class="header-links">
                             <h5> <a href="#" class="current-link">Home</a></h5>
+                              <?php echo (isset($error) ? $error : '');?>
                             <h5><a href="about">About us</a></h5>
                             <h5><a href="#">Watchlist</a></h5>
                         </div>
@@ -60,13 +61,14 @@
         Log in ▼
       </a>
                                         <div id="login-content">
-                                            <form action="printData" method="POST">
+                                            <form action="loggedin" method="POST">
                                                 <fieldset id="inputs">
                                                     <label style="float: left;">ID Number</label>
 
                                                     <input id="username" type="text" name="username" placeholder="ID Number" required>
                                                     <label style="float: left;">Password</label>
                                                     <input id="password" type="password" name="password" placeholder="Password" required>
+                                                   
                                                 </fieldset>
                                                 <fieldset id="actions">
                                                     <button type="submit" id="submit">Login&nbsp;<i class="fa fa-sign-in"></i></button>

@@ -134,8 +134,8 @@
         }
   
         span:hover{
-            background-color: #777777;
-            color: #FFFFFF;
+            background-color: none;
+            color: none;
         }
 
         .showBorder{
