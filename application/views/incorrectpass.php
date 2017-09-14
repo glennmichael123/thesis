@@ -17,18 +17,29 @@
     <link rel="stylesheet" href="css/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="css/style.css" rel="stylesheet">
     <style type="text/css">
         *{
             font-family: 'Roboto', sans-serif;
         }
         body{
-             background-color: #F4F4F4;
+            background: rgba(241,231,101,0.9);
+background: -moz-linear-gradient(left, rgba(241,231,101,0.9) 8%, rgba(241,231,101,0.9) 27%, rgba(241,229,100,0.9) 28%, rgba(251,193,74,0.9) 49%, rgba(254,182,67,0.91) 55%, rgba(254,182,67,0.96) 74%, rgba(254,182,67,1) 91%);
+background: -webkit-gradient(left top, right top, color-stop(8%, rgba(241,231,101,0.9)), color-stop(27%, rgba(241,231,101,0.9)), color-stop(28%, rgba(241,229,100,0.9)), color-stop(49%, rgba(251,193,74,0.9)), color-stop(55%, rgba(254,182,67,0.91)), color-stop(74%, rgba(254,182,67,0.96)), color-stop(91%, rgba(254,182,67,1)));
+background: -webkit-linear-gradient(left, rgba(241,231,101,0.9) 8%, rgba(241,231,101,0.9) 27%, rgba(241,229,100,0.9) 28%, rgba(251,193,74,0.9) 49%, rgba(254,182,67,0.91) 55%, rgba(254,182,67,0.96) 74%, rgba(254,182,67,1) 91%);
+background: -o-linear-gradient(left, rgba(241,231,101,0.9) 8%, rgba(241,231,101,0.9) 27%, rgba(241,229,100,0.9) 28%, rgba(251,193,74,0.9) 49%, rgba(254,182,67,0.91) 55%, rgba(254,182,67,0.96) 74%, rgba(254,182,67,1) 91%);
+background: -ms-linear-gradient(left, rgba(241,231,101,0.9) 8%, rgba(241,231,101,0.9) 27%, rgba(241,229,100,0.9) 28%, rgba(251,193,74,0.9) 49%, rgba(254,182,67,0.91) 55%, rgba(254,182,67,0.96) 74%, rgba(254,182,67,1) 91%);
+background: linear-gradient(to right, rgba(241,231,101,0.9) 8%, rgba(241,231,101,0.9) 27%, rgba(241,229,100,0.9) 28%, rgba(251,193,74,0.9) 49%, rgba(254,182,67,0.91) 55%, rgba(254,182,67,0.96) 74%, rgba(254,182,67,1) 91%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1e765', endColorstr='#feb643', GradientType=1 );
         }
         h3{
-            color: #818181;
-            font-size: 18px;
+            color: #3e4444;
+            font-size: 25px;
             
+        }
+        .btn{
+            border-radius: 0;
         }
         .top{
             margin-top: 100px;
@@ -50,7 +61,14 @@
         .cont{
             margin-top: 20px;
             padding: 40px 0px 20px 0px;
-            background-color: #FFFFFF;
+            background: rgba(226,226,226,1);
+background: -moz-radial-gradient(center, ellipse cover, rgba(226,226,226,1) 0%, rgba(232,232,232,0.96) 37%, rgba(255,255,255,0.94) 65%, rgba(254,254,254,0.9) 100%);
+background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(226,226,226,1)), color-stop(37%, rgba(232,232,232,0.96)), color-stop(65%, rgba(255,255,255,0.94)), color-stop(100%, rgba(254,254,254,0.9)));
+background: -webkit-radial-gradient(center, ellipse cover, rgba(226,226,226,1) 0%, rgba(232,232,232,0.96) 37%, rgba(255,255,255,0.94) 65%, rgba(254,254,254,0.9) 100%);
+background: -o-radial-gradient(center, ellipse cover, rgba(226,226,226,1) 0%, rgba(232,232,232,0.96) 37%, rgba(255,255,255,0.94) 65%, rgba(254,254,254,0.9) 100%);
+background: -ms-radial-gradient(center, ellipse cover, rgba(226,226,226,1) 0%, rgba(232,232,232,0.96) 37%, rgba(255,255,255,0.94) 65%, rgba(254,254,254,0.9) 100%);
+background: radial-gradient(ellipse at center, rgba(226,226,226,1) 0%, rgba(232,232,232,0.96) 37%, rgba(255,255,255,0.94) 65%, rgba(254,254,254,0.9) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe', GradientType=1 );
             -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
             -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
             box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
@@ -67,6 +85,10 @@
         .sign-in .form-control:focus{
             z-index: 2;
         }
+        p{
+            text-align: center;
+        }
+
     </style>
 
     <title></title>
@@ -85,12 +107,20 @@
                            <div class="cont">
                                <img class="img-circle" src="<?php echo base_url()?>/assets/images/invalid.jpg">
                             <form class="sign-in">
-                                <input type="text" class="form-control" placeholder="ID" required autofocus>
-                                <input type="password" class="form-control" placeholder="Password" required>
+                             <div style="margin-bottom: 10px" class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                        <input id="login-username" type="text" class="form-control"placeholder="ID">                                        
+                                    </div>
+                                <div  class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                        <input id="login-password" type="password" class="form-control" name="Password" placeholder="password">
+                                    </div>
                                 <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-top: 10px;">
                                 Sign in</button>
                             </form>
+                            <p><a href="#" >Forgot Password?</a></p>
                            </div>
+
                         </div>
                     </div>
                     <div class="col-lg-3"></div>
