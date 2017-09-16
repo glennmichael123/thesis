@@ -257,7 +257,7 @@
                                     <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
                                     <li class="divider"></li>
 
-                                    <li><a href="index">Log Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+                                    <li><a href="logout">Log Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
                                 </ul>
                             </li>
                         </ul>

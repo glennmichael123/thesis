@@ -74,6 +74,62 @@
          
          }
 
+         public function getAccountType($data){
+           $username = $data;
+            $result = $this->db->query("SELECT account_type FROM users WHERE id_number = '$username'");
+            return $result->result_array();
+
+         
+         }
+
+         public function dashboardDataAdmin($data){   
+               $username = $data;
+             
+                $result = $this->db->query("SELECT * FROM users WHERE id_number = '$username'");
+                return $result->result_array();
+
+
+        }
+
+        public function insertLogs(){
+            $id_number = $_POST['id_number'];
+            $date =  $_POST['log_date'];
+            $time_in = $_POST['time_in'];
+            $time_out = $_POST['time_out'];
+            $division = $_POST['division'];
+            $department = $_POST['department'];
+            $designation = $_POST['designation'];
+            $log_content = $_POST['log_activity'];
+            $hours_rendered = $_POST['hours_rendered'];
+
+            $data = Array(
+            'id_number' => $id_number,
+            'date' => $date,
+            'time_in' => $time_in,
+            'time_out' => $time_out,
+            'division' => $division,
+            'department' => $department,
+            'designation' => $designation,
+            'log_content' => $log_content,
+            'hours_rendered' => $hours_rendered
+            );
+            return $this->db->insert('logs',$data);
+
+
+        }
+
+        public function getLogs($data){
+            $username = $data;
+            $result = $this->db->query("SELECT * FROM logs WHERE id_number = '$username' ORDER BY id DESC");
+            return $result->result_array();
+        }
+
+        public function deleteLog(){
+            $id = $_POST['log_id'];
+            $this->db->where('id', $id);
+            $this->db->delete('logs');
+        }
+
          public function dashboardData($id_number){   
              $username = $id_number;         
              $result = $this->db->query("SELECT * FROM users WHERE id_number = '$username'");

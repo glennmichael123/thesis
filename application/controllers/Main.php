@@ -91,7 +91,11 @@ class Main extends CI_Controller {
 	}
 
 	public function supervisorDashboard(){
-		$this->load->view('supervisor-dashboard');
+		if(!isset($this->session->userdata['id_number'])){
+          header("location: index");
+     	}else{
+			$this->load->view('supervisor-dashboard');
+		}
 	}
 
 	public function savePersonalDetails(){
@@ -115,12 +119,21 @@ class Main extends CI_Controller {
 				'password' => $this->input->post('password') // this->input->post('password');
 				);
 				$result = $this->users->readUserId($data);
-		
+			
 				$session_data = $result[0]['id_number'];
 				// print_r($session_data);
 			// Add user data in session
 				$this->session->set_userdata('id_number', $session_data);
-				header("location: dashboard");
+				$account_type = $this->users->getAccountType(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
+				if($account_type[0]['account_type'] == 0){
+					header("location: dashboard");
+				}else if($account_type[0]['account_type'] == 1){
+					header("location: supervisorDashboard");
+				 }elseif ($account_type[0]['account_type'] == 2) {
+				 	header("location: adminDashboard");
+				 }
+				
+
 					
 	}else{
 		$error = 'Id number or password does not match';
@@ -129,6 +142,11 @@ class Main extends CI_Controller {
 
 	
 }
+public function addLogs(){
+	$this->users->insertLogs();
+      header("location: dashboard");
+}
+
 
 public function logout(){
 	session_destroy();
@@ -151,20 +169,31 @@ public function logout(){
 
 
 	public function adminDashboard(){
-		$this->load->view('admindashboard');
+		$newdata['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
+
+		$this->load->view('admindashboard', $newdata);
+	}
+
+	public function deleteLog(){
+		
+		$this->users->deleteLog();
 	}
 
 	public function dashboard(){
 		if(!isset($this->session->userdata['id_number'])){
           header("location: index");
      	}else{
-     			$ojtRecords = $this->users->dashboardDataRecords(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
+
+     	$ojtRecords = $this->users->dashboardDataRecords(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
+
 		$data['total'] = $ojtRecords[0]['total_hours'];
 		$data['rendered'] = $ojtRecords[0]['rendered_hours'];
 		$data['all_evaluations'] = $ojtRecords[0]['total_evaluations'];
 		$data['current_evaluations'] = $ojtRecords[0]['current_evaluations'];
 		$data['verified'] = $ojtRecords[0]['logs_verified'];
 		$data['totalLogs'] = $ojtRecords[0]['logs'];
+		$data['logs_list'] = $this->users->getLogs(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
+		
 
 		 $data['user_data'] = $this->users->dashboardData($this->session->userdata['id_number']);
 		 

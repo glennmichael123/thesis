@@ -111,13 +111,13 @@
         Log in ▼
       </a>
                                         <div id="login-content">
-                                            <form action="" method="POST">
+                                            <form action="loggedin" method="POST">
                                                 <fieldset id="inputs">
                                                     <label style="float: left;">ID Number</label>
 
                                                     <input id="username" type="text" name="username" placeholder="ID Number" required>
                                                     <label style="float: left;">Password</label>
-                                                    <input id="password" type="password" name="Password" placeholder="Password" required>
+                                                    <input id="password" type="password" name="password" placeholder="Password" required>
                                                 </fieldset>
                                                 <fieldset id="actions">
                                                     <button type="submit" id="submit">Login&nbsp;<i class="fa fa-sign-in"></i></button>

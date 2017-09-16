@@ -569,7 +569,7 @@
                             <div class="logs-title">
                                 <span>Post your log <i class="fa fa-paper-plane-o" aria-hidden="true"></i></span>
                             </div>
-                            <form class="logs-display" method="post">
+                            <form class="logs-display" action="addLogs" method="post">
                                 <div class="row logs-upper">
                                     <div class="col-lg-6">
 
@@ -588,19 +588,20 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label>Time In</label>
-                                            <input type="time" class="form-control" name="time_in" id="time_in">
+                                            <input type="time" class="form-control" name="time_in" id="time_in" required>
                                             <label>Time Out</label>
-                                            <input type="time" class="form-control" name="time_out" id="time_outs">
+                                            <input type="time" class="form-control" name="time_out" id="time_outs" required>
                                             <label>Hours Rendered</label>
-                                            <input type="text" class="form-control" name="hours_rendered" id="hours_rendered">
+                                            <input type="text" class="form-control" name="hours_rendered" id="hours_rendered" required>
+                                            <input type="hidden" name="id_number" value="<?php echo $this->session->userdata['id_number']?>">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <textarea name="log_activity" id="log_activity" placeholder="Write your log here" class="form-control"></textarea>
+                                    <textarea name="log_activity" id="log_activity" placeholder="Write your log here" class="form-control" required></textarea>
                                 </div>
                                 <div class="form-group logs-lower">
-                                    <button type="submit" name="submit_log" id="submit_log" class="btn btn-primary" value="Submit">Post</button>
+                                    <button type="submit" id="submit_log" class="btn btn-primary" value="Submit">Post</button>
                                     <button type="button" class="btn btn-success">Load last log</button>
                                     <button type="reset" class="btn btn-default">Clear</button>
                                     <button type="button" class="btn btn-danger cancel-btn" style="float: right;" class="btn btn-danger">Cancel</button>
@@ -609,26 +610,29 @@
                             </form>
                         </div>
                     </div>
-                    <?php for($i=1;$i<=5;$i++):?>
+                    <?php if(empty($logs_list)):?>
+                        <?php echo 'You have not posted a log yet';?>
+                    <?php else:?>
+                    <?php foreach($logs_list as $log):?>
 
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="well" style="padding-bottom: 0">
-                                    <span class="user-name">Jon Snow</span>
+                                <div class="well" style="padding-bottom: 0; padding-top: 5px;">
+                                    <span class="user-name" style="font-size: 12px;"><?php echo $user_data[0]['first_name'] . " " . $user_data[0]['last_name']?></span>
                                     <div class="dropdown" style="float: right; width:20px;">
                                         <a href="#" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                            <i style="color: #000000;" class="fa fa-angle-down"></i>
+                                            <i style="color: #000000; font-size: 15px;" class="fa fa-angle-down"></i>
                                         </a>
 
                                         <ul class="dropdown-menu" style="width: 233px;" aria-labelledby="dropdownMenu2">
                                             <li><a href="#" class="edit-log" style="color: #000000;">Edit <i class="fa fa-pencil" aria-hidden="true"></i></a></li>
                                             <li role="separator" class="divider"> </li>
-                                            <li><a href="#" class="delete-log" style="color: #000000;">Delete <i class="fa fa-trash"></i></a></li>
+                                            <li><a href="#" class="delete-log" data-log-id="<?php echo $log['id']?>" style="color: #000000;">Delete <i class="fa fa-trash"></i></a></li>
                                         </ul>
 
                                     </div>
 
-                                    <hr>
+                                    <hr style="margin-bottom: 0; margin-top: 5px;">
 
                                     <form method="post">
                                         <div class="row">
@@ -637,29 +641,33 @@
 
                                                     <div class="form-group">
                                                         <label>Date</label>
-                                                        <input type="text" class="list-logs" name="log_list_date" id="log_list_date" value="<?php echo date(" Y/m/d ");?>" readonly>
+                                                        <input type="text" class="list-logs" name="log_list_date" id="log_list_date" value="<?php echo $log['date']?>" readonly>
                                                         <label>Division</label>
-                                                        <input type="text" class="list-logs" name="log_list_division" id="log_list_division" value="Westeros" readonly>
+                                                        <input type="text" class="list-logs" name="log_list_division" id="log_list_division" value="<?php echo $log['division']?>" readonly>
                                                         <label>Deparment/Area</label>
-                                                        <input type="text" class="list-logs" name="log_lists_department" value="Night's Watch" id="log_lists_department" readonly>
+                                                        <input type="text" class="list-logs" name="log_lists_department" value="<?php echo $log['department']?>" id="log_lists_department" readonly>
                                                         <label>Designation</label>
-                                                        <input type="text" class="list-logs" value="Castle Black" name="    log_lists_designation" id="log_lists_designation" readonly>
+                                                        <input type="text" class="list-logs" value="<?php echo $log['designation']?>" name="    log_lists_designation" id="log_lists_designation" readonly>
                                                     </div>
                                                         <label>Activity</label>
-                                                    <textarea class="list-logs" name="log_lists_activity" id="log_lists_activity" placeholder="Write your log here" readonly>Killed white walkers and wildlings</textarea>
+                                                    <textarea class="list-logs" name="log_lists_activity" id="log_lists_activity" placeholder="Write your log here" readonly><?php echo $log['log_content']?></textarea>
                                                 </div>
 
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label>Time In</label>
-                                                        <input type="text" class="list-logs" name="log_lists_time_in" value="8:30" id="log_lists_time_in" readonly>
+                                                        <input type="text" class="list-logs" name="log_lists_time_in" value="<?php echo $log['time_in']?>" id="log_lists_time_in" readonly>
                                                         <label>Time Out</label>
-                                                        <input type="text" class="list-logs" name="log_lists_time_out" value="12:30" id="log_lists_time_out" readonly>
+                                                        <input type="text" class="list-logs" name="log_lists_time_out" value="<?php echo $log['time_out']?>" id="log_lists_time_out" readonly>
                                                         <label>Hours Rendered</label>
-                                                        <input type="text" class="list-logs" name="log_lists_hours_rendered" id="log_lists_hours_rendered" value="6" readonly>
+                                                        <input type="text" class="list-logs" name="log_lists_hours_rendered" id="log_lists_hours_rendered" value="<?php echo $log['hours_rendered']?>" readonly>
 
                                                     </div>
+                                                    <?php if($log['verified']):?>
                                                      <span style="color:green; font-size: 11px; position: absolute; top: 280px; left: 290px;"> Verified  <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i></span>
+                                                 <?php else:?>
+                                                     <span style="color:black; font-size: 11px; position: absolute; top: 280px; left: 290px;"> Pending  <i style="color: green;" class="fa fa-circle-thin" aria-hidden="true"></i></span>
+                                                 <?php endif;?>
                                                 </div>
                                             </div>
                                         </div>
@@ -683,7 +691,8 @@
                                 </div>
                             </div>
                         </div>
-                        <?php endfor;?>
+                        <?php endforeach;?>
+                    <?php endif;?>
 
                 </div>
             </div>
@@ -736,9 +745,24 @@
 <script type="text/javascript">
     $('.delete-log').click(function(e) {
         e.preventDefault();
-        var test = $(this).closest('.row');
+        var row = $(this).closest('.row');
+        var log_id = $(this).data('log-id');
+        // alert(log_id);
+        if(confirm("Are you sure you want to delete log?")){
+            $.ajax({
+            url: 'deleteLog',
+            method: 'post',
+            data: {
+                'log_id': log_id,
 
-        test.remove();
+            },
+            success: function(data){
+                  row.fadeOut();
+            },
+        });
+        }
+      
+      
     });
 
     $('.edit-log').click(function(e) {
@@ -758,5 +782,6 @@
         location.reload(true);
     });
 </script>
+
 
 </html>
