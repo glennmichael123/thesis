@@ -142,6 +142,10 @@ class Main extends CI_Controller {
 
 	
 }
+
+public function editLog(){
+	$this->users->editLog();
+}
 public function addLogs(){
 	$this->users->insertLogs();
       header("location: dashboard");

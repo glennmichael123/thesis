@@ -641,26 +641,26 @@
 
                                                     <div class="form-group">
                                                         <label>Date</label>
-                                                        <input type="text" class="list-logs" name="log_list_date" id="log_list_date" value="<?php echo $log['date']?>" readonly>
+                                                        <input type="text" class="list-logs date_listed" name="log_list_date" id="log_list_date" value="<?php echo $log['date']?>" readonly>
                                                         <label>Division</label>
-                                                        <input type="text" class="list-logs" name="log_list_division" id="log_list_division" value="<?php echo $log['division']?>" readonly>
+                                                        <input type="text" class="list-logs division_listed" name="log_list_division" id="log_list_division" value="<?php echo $log['division']?>" readonly>
                                                         <label>Deparment/Area</label>
-                                                        <input type="text" class="list-logs" name="log_lists_department" value="<?php echo $log['department']?>" id="log_lists_department" readonly>
+                                                        <input type="text" class="list-logs department_listed" name="log_lists_department" value="<?php echo $log['department']?>" id="log_lists_department" readonly>
                                                         <label>Designation</label>
-                                                        <input type="text" class="list-logs" value="<?php echo $log['designation']?>" name="    log_lists_designation" id="log_lists_designation" readonly>
+                                                        <input type="text" class="list-logs designation_listed" value="<?php echo $log['designation']?>" name="log_lists_designation" id="log_lists_designation" readonly>
                                                     </div>
                                                         <label>Activity</label>
-                                                    <textarea class="list-logs" name="log_lists_activity" id="log_lists_activity" placeholder="Write your log here" readonly><?php echo $log['log_content']?></textarea>
+                                                    <textarea class="list-logs activity_listed" name="log_lists_activity" id="log_lists_activity" placeholder="Write your log here" readonly><?php echo $log['log_content']?></textarea>
                                                 </div>
 
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label>Time In</label>
-                                                        <input type="text" class="list-logs" name="log_lists_time_in" value="<?php echo $log['time_in']?>" id="log_lists_time_in" readonly>
+                                                        <input type="text" class="list-logs time_in_listed" name="log_lists_time_in" value="<?php echo $log['time_in']?>" id="log_lists_time_in" readonly>
                                                         <label>Time Out</label>
-                                                        <input type="text" class="list-logs" name="log_lists_time_out" value="<?php echo $log['time_out']?>" id="log_lists_time_out" readonly>
+                                                        <input type="text" class="list-logs time_out_listed" name="log_lists_time_out" value="<?php echo $log['time_out']?>" id="log_lists_time_out" readonly>
                                                         <label>Hours Rendered</label>
-                                                        <input type="text" class="list-logs" name="log_lists_hours_rendered" id="log_lists_hours_rendered" value="<?php echo $log['hours_rendered']?>" readonly>
+                                                        <input type="text" class="list-logs hours_listed" name="log_lists_hours_rendered" id="log_lists_hours_rendered" value="<?php echo $log['hours_rendered']?>" readonly>
 
                                                     </div>
                                                     <?php if($log['verified']):?>
@@ -673,7 +673,7 @@
                                         </div>
                                         
                                         <div class="save-edit" style="display: none;">
-                                            <button type="submit" class="btn btn-success">Save</button>
+                                            <button type="button" data-log-id="<?php echo $log['id']?>" class="save-edit-log btn btn-success">Save</button>
                                             <button type="button" class="cancel-edit btn btn-danger" class="btn btn-danger">Cancel</button>
                                         </div>
 
@@ -780,6 +780,45 @@
 <script type="text/javascript">
     $('.cancel-edit').click(function() {
         location.reload(true);
+    });
+    $('.save-edit-log').click(function(){
+        var log_id = $(this).data('log-id');
+         var date = $(this).closest(".row").find(".date_listed").val();
+         var time_in = $(this).closest(".row").find(".time_in_listed").val();
+         var time_out = $(this).closest(".row").find(".time_out_listed").val();
+         var division = $(this).closest(".row").find(".division_listed").val();
+         var department = $(this).closest(".row").find(".department_listed").val();
+         var designation = $(this).closest(".row").find(".designation_listed").val();
+         var log_activity = $(this).closest(".row").find(".activity_listed").val();
+         var hours_rendered = $(this).closest(".row").find(".hours_listed").val();
+         var input = $(this).closest(".row").find(".list-logs");
+         var buttons = $(this).closest(".row").find(".save-edit");
+
+         
+      
+        $.ajax({
+            method:'POST',
+            url:'editLog',
+            data: {
+                'log_id': log_id,
+                'date' : date,
+                'time_in': time_in,
+                'time_out': time_out,
+                'division': division,
+                'department':department,
+                'designation':designation,
+                'log_activity':log_activity,
+                'hours_rendered': hours_rendered,
+
+            },
+            success: function(data){
+                   input.prop('readonly', true);
+                    input.css('border', 'none');
+                    input.css('background', '#fff');
+                    buttons.hide();
+                // location.reload(true);
+            }
+        });
     });
 </script>
 

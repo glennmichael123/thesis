@@ -146,6 +146,21 @@
            return $result->result_array();
          }   
 
+         public function editLog(){
+            $id = $_POST['log_id'];
+            $date = $_POST['date'];
+            $time_in = $_POST['time_in'];
+            $time_out = $_POST['time_out'];
+            $division = $_POST['division'];
+            $department = $_POST['department'];
+            $designation = $_POST['designation'];
+            $log_activity = $_POST['log_activity'];
+            $hours_rendered = $_POST['hours_rendered'];
+
+            return $this->db->query("UPDATE logs SET date = '$date', time_in = '$time_in', time_out = '$time_out', division = '$division', department = '$division', designation = '$designation', log_content = '$log_activity', hours_rendered = '$hours_rendered'  WHERE id = $id");
+
+         }
+
 
         public function insertCompanyData(){
                 $result = $this->db->query("SELECT id_number FROM company_information WHERE id_number ='14-2649-276'")->result_array();
