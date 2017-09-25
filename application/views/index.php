@@ -61,7 +61,7 @@
         Log in ▼
       </a>
                                         <div id="login-content">
-                                            <form action="loggedin" method="POST">
+                                            <form action="<?php echo base_url()?>main/loggedin" method="POST">
                                                 <fieldset id="inputs">
                                                     <label style="float: left;">ID Number</label>
 

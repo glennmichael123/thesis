@@ -342,12 +342,12 @@
                         </div>
 
                
-                    <?php for($i=0; $i<=3; $i++):?>
+                    <?php foreach($traineesLog as $log):?>
                         <div class="row"  style="color:#000;">
                        
                              <div class="col-lg-12" >
                                 <div class="well" style="background: #fff; padding-bottom: 0; padding-top: 10px">
-                                    <span class="user-name"><i class="fa fa-user-circle"></i>Jon Snow</span>
+                                    <span class="user-name"><i class="fa fa-user-circle"></i><?php echo $log['first_name'] . " " .$log['last_name']?></span>
                                   
                                     <hr style="margin-top: 0; margin-bottom: 0">
 
@@ -358,24 +358,24 @@
 
                                                     <div class="form-group">
                                                         <label>Date</label>
-                                                        <input type="text" class="list-logs" name="log_list_date" id="log_list_date" value="<?php echo date(" Y/m/d ");?>" readonly>
+                                                        <input type="text" class="list-logs" name="log_list_date" id="log_list_date" value="<?php echo $log['date'];?>" readonly>
                                                         <label>Division</label>
-                                                        <input type="text" class="list-logs" name="log_list_division" id="log_list_division" value="Westeros" readonly>
+                                                        <input type="text" class="list-logs" name="log_list_division" id="log_list_division" value="<?php echo $log['division']?>" readonly>
                                                         <label>Deparment/Area</label>
-                                                        <input type="text" class="list-logs" name="log_lists_department" value="Night's Watch" id="log_lists_department" readonly>
+                                                        <input type="text" class="list-logs" name="log_lists_department" value="<?php echo $log['department']?>" id="log_lists_department" readonly>
                                                         <label>Designation</label>
-                                                        <input type="text" class="list-logs" value="Castle Black" name="    log_lists_designation" id="log_lists_designation" readonly>
+                                                        <input type="text" class="list-logs" value="<?php echo $log['designation']?>" name="    log_lists_designation" id="log_lists_designation" readonly>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label>Time In</label>
-                                                        <input type="text" class="list-logs" name="log_lists_time_in" value="8:30" id="log_lists_time_in" readonly>
+                                                        <input type="text" class="list-logs" name="log_lists_time_in" value="<?php echo $log['time_in']?>" id="log_lists_time_in" readonly>
                                                         <label>Time Out</label>
-                                                        <input type="text" class="list-logs" name="log_lists_time_out" value="12:30" id="log_lists_time_out" readonly>
+                                                        <input type="text" class="list-logs" name="log_lists_time_out" value="<?php echo $log['time_out']?>" id="log_lists_time_out" readonly>
                                                         <label>Hours Rendered</label>
-                                                        <input type="text" class="list-logs" name="log_lists_hours_rendered" id="log_lists_hours_rendered" value="6" readonly>
+                                                        <input type="text" class="list-logs" name="log_lists_hours_rendered" id="log_lists_hours_rendered" value="<?php echo $log['hours_rendered']?>" readonly>
 
                                                     </div>
                                                 </div>
@@ -383,9 +383,15 @@
                                         </div>
                                         
                                             <label style="font-size: 11px;">Activity</label>
-                                            <textarea class="list-logs" name="log_lists_activity" id="log_lists_activity" placeholder="Write your log here" readonly>Killed white walkers and wildlings</textarea>
+                                            <textarea class="list-logs" name="log_lists_activity" id="log_lists_activity" placeholder="Write your log here" readonly><?php echo $log['log_content']?></textarea>
+                                            <?php if($log['verified']):?>
+                                                     <span style="color:green; font-size: 11px; position: absolute; top: 280px; left: 700px;"> Verified  <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i></span>
+                                                 <?php else:?>
+                                                     <span style="color:black; font-size: 11px; position: absolute; top: 280px; left: 700px;"> Pending  <i style="color: green;" class="fa fa-circle-thin" aria-hidden="true"></i></span>
+                                                 <?php endif;?>
 
-                                             <span style="color:green; font-size: 11px; position: absolute; top: 288px; left: 700px;"> Verified  <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i></span>
+
+                                        
                                       
                                        
                                             
@@ -395,7 +401,12 @@
 
                                      <div class="row" style="padding-top: 5px; padding-bottom: 5px;">
                                         <div class="col-lg-2">
-                                                 <a href="#" class="evaluator-option verify-btn"><i class="fa fa-check" aria-hidden="true"></i>Verify</a>
+                                            <?php if($log['verified']):?>
+                                                <a href="#" data-log-id="<?php echo $log['id']?>" style="color: #318ACE" class="evaluator-option verify-btn-verified"><i class="fa fa-check" aria-hidden="true"></i>Verified</a>
+                                            <?php else:?>
+                                                 <a href="#" data-log-id="<?php echo $log['id']?>" class="evaluator-option verify-btn"><i class="fa fa-check" aria-hidden="true"></i>Verify</a>
+                                            <?php endif;?>
+                                                
                                                  
                                         </div>
                                         <div class="col-lg-3">
@@ -403,13 +414,41 @@
                                         </div>
                                      </div>
 
+                                
+
+                                
+                                     
+                                     <div class="row">
+                                        
+                                            <div class="col-lg-12"> 
+
+                                                    
+                                                    <?php foreach ($comments as $comment):?>
+                                                    <?php if(in_array($log['id'], $comment)):?>
+                                                        <div class="well" style="box-shadow: none; border: none; background: #f7f7f7; padding: 10px; margin-bottom: 10px;">
+                                                         <div class="comments-list" style="font-size: 15px;">
+                                                              <b>Supervisor</b> <?php echo $comment['content'];?>
+                                                          </div>
+                                                        </div>
+                                                    <?php endif;?>
+                                                      <?php endforeach;?>
+                                            </div>
+                                         
+                                     </div>
+
+                                           
+                                       
+                                       
+                                        
+                                  
                                     <div class="row">
+
                                         
                                        <div class="comment-section" style="display: none;"> 
                                             <div class="col-lg-12">
                                                 <hr style="margin-top: 0; margin-bottom: 5px;">
-                                                <textarea style="height:45px; resize: none;" class="form-control" placeholder="Write your comment"></textarea>
-                                                <button style="float: right; margin-top: 5px; margin-bottom: 5px; padding: 2px 5px 2px 5px;" class="btn btn-primary">Post</button>
+                                                <textarea style="height:45px; resize: none;" class="form-control comment-content" placeholder="Write your comment"></textarea>
+                                                <button type="button" style="float: right; margin-top: 5px; margin-bottom: 5px; padding: 2px 5px 2px 5px;" class="btn btn-primary submit-comment" data-log-id="<?php echo $log['id']?>">Post</button>
                                             </div>
                                         </div>
                                         
@@ -431,7 +470,7 @@
 
 
 
-                        <?php endfor;?>
+                        <?php endforeach;?>
                       
 
                   
@@ -466,6 +505,50 @@
      $("#dropdown-logout").click(function() {
        $("#show-logout").slideToggle();
        $("#show-notifications").slideUp();
+    });
+</script>
+
+<script type="text/javascript">
+    $('.verify-btn').click(function(e){
+        e.preventDefault();
+
+        var log_id = $(this).data('log-id');
+
+        $.ajax({
+            url: '<?php echo base_url()?>' + 'main/verifyLog',
+            method: 'POST',
+            data:{
+                'log_id' : log_id,
+
+            },
+
+            success: function(data){
+                location.reload(true);
+            }
+        });
+              
+    });
+</script>
+
+<script type="text/javascript">
+    $('.submit-comment').click(function(){
+        var log_id = $(this).data('log-id');
+        var comment = $(this).closest("form").find(".comment-content").val();
+       
+
+        $.ajax({
+            url: '<?php echo base_url()?>' + 'main/addComment',
+            method: 'POST',
+            data:{
+                'log_id': log_id,
+                'comment': comment,
+                'supervisor_id': '<?php echo $this->session->userdata['id_number'];?>'
+            },
+
+            success: function(data){
+                location.reload(true);
+            },
+        });
     });
 </script>
 

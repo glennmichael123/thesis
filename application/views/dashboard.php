@@ -408,8 +408,7 @@
                             <script type="text/javascript">
                                 $(document).ready(function() {
                                     
-                                
-
+                            
                                     // progressbar.js@1.0.0 version is used
                                     // Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
 
@@ -590,7 +589,7 @@
                                             <label>Time In</label>
                                             <input type="time" class="form-control" name="time_in" id="time_in" required>
                                             <label>Time Out</label>
-                                            <input type="time" class="form-control" name="time_out" id="time_outs" required>
+                                            <input type="time" class="form-control" name="time_out" id="time_out" required>
                                             <label>Hours Rendered</label>
                                             <input type="text" class="form-control" name="hours_rendered" id="hours_rendered" required>
                                             <input type="hidden" name="id_number" value="<?php echo $this->session->userdata['id_number']?>">
@@ -821,6 +820,19 @@
         });
     });
 </script>
+<!-- <script type="text/javascript">
+    $('#hours_rendered').focus(function(){
+        var time_in = $('#time_in').val();
+        var time_out = $('#time_out').val();
+
+        
+        alert(time_in + time_out);
+
+        
+
+    });
+</script> -->
 
 
 </html>
+

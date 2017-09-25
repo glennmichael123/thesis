@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+header('Access-Control-Allow-Origin: *');
 class Main extends CI_Controller {
 
 	/**
@@ -24,7 +24,6 @@ class Main extends CI_Controller {
         parent::__construct();
         $this->load->helper('url');
         $this->load->model('users');
-
         $this->load->library('session');
    
        	
@@ -94,7 +93,12 @@ class Main extends CI_Controller {
 		if(!isset($this->session->userdata['id_number'])){
           header("location: index");
      	}else{
-			$this->load->view('supervisor-dashboard');
+     		$data['comments'] = $this->users->getComments();
+
+
+     		$data['traineesLog'] = $this->users->getOjtLogs($this->session->userdata['id_number']);
+
+			$this->load->view('supervisor-dashboard',$data);
 		}
 	}
 
@@ -125,6 +129,12 @@ class Main extends CI_Controller {
 			// Add user data in session
 				$this->session->set_userdata('id_number', $session_data);
 				$account_type = $this->users->getAccountType(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
+				$existId = $this->users->checkExistRecords(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
+				$newId = $this->session->userdata['id_number'];
+				$newRecord = Array('id_number' => $newId, 'total_hours' => 200, 'total_evaluations'=> 2);
+				if(!$existId && $account_type[0]['account_type'] == 0){
+					$this->users->insertNewRecordOjt($newRecord);
+				}
 				if($account_type[0]['account_type'] == 0){
 					header("location: dashboard");
 				}else if($account_type[0]['account_type'] == 1){
@@ -132,11 +142,13 @@ class Main extends CI_Controller {
 				 }elseif ($account_type[0]['account_type'] == 2) {
 				 	header("location: adminDashboard");
 				 }
+			
 				
 
 					
 	}else{
-		$error = 'Id number or password does not match';
+		$error = 'username or password incorrect';
+		$this->load->view('incorrectpass', $error);
 	}	
 
 
@@ -149,6 +161,10 @@ public function editLog(){
 public function addLogs(){
 	$this->users->insertLogs();
       header("location: dashboard");
+}
+
+public function helloworld(){
+	echo 'hello world';
 }
 
 
@@ -184,13 +200,26 @@ public function logout(){
 	}
 
 	public function dashboard(){
+
 		if(!isset($this->session->userdata['id_number'])){
           header("location: index");
      	}else{
 
-     	$ojtRecords = $this->users->dashboardDataRecords(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
 
-		$data['total'] = $ojtRecords[0]['total_hours'];
+     	$totalLogsCount = $this->users->getNumberLogs(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
+     	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
+
+     	$renderedCount = $this->users->getSumRendered(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
+
+
+     	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $this->session->userdata['id_number']);
+     	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $this->session->userdata['id_number']);
+     	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $this->session->userdata['id_number']);
+
+     	$ojtRecords = $this->users->dashboardDataRecords(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
+     	if(!empty($ojtRecords)){
+     		$data['total'] = $ojtRecords[0]['total_hours'];
+
 		$data['rendered'] = $ojtRecords[0]['rendered_hours'];
 		$data['all_evaluations'] = $ojtRecords[0]['total_evaluations'];
 		$data['current_evaluations'] = $ojtRecords[0]['current_evaluations'];
@@ -199,8 +228,9 @@ public function logout(){
 		$data['logs_list'] = $this->users->getLogs(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
 		
 
+		
+     	}
 		 $data['user_data'] = $this->users->dashboardData($this->session->userdata['id_number']);
-		 
 
 		// $this->users->getUserData($this->session->userdata['id_number']);
 		$this->load->view('dashboard', $data);
@@ -208,6 +238,10 @@ public function logout(){
 
 
 	
+	}
+
+	public function addComment(){
+		$this->users->insertComment();
 	}
 
 	public function verify(){
@@ -261,6 +295,10 @@ public function logout(){
 
     	}
     
+    }
+
+    public function verifyLog(){
+    	$this->users->updateLog();
     }
 
 

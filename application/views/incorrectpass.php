@@ -1,3 +1,5 @@
+
+<?php echo $error;?>
 <!DOCTYPE html>
 <html>
 

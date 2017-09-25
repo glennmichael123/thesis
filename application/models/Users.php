@@ -60,8 +60,9 @@
                if($affectedRows>0){
                     return true;
                         
-                }else
+                }else{
                     return false;
+                }
                 }
 
       public function readUserId($data){
@@ -203,10 +204,85 @@
 
         //    return $result->result_array();
         // }
+        public function getNumberLogs($data){
+            $id = $data;
 
+            $result = $this->db->query("SELECT COUNT(logs.id) as logscount FROM logs WHERE id_number = '$id'");
+            return $result->result_array();
+        }
+
+        public function checkExistRecords($data){
+            $id = $data;
+            $query = $this->db->query("SELECT * FROM ojt_records WHERE id_number = '$id'");
+               $affectedRows = $this->db->affected_rows();
+                
+               if($affectedRows>0){
+                    return true;
+                        
+                }else{
+                    return false;
+                }
+
+        }
+
+        public function getSumRendered($data){
+            $id = $data;
+
+            $query = $this->db->query("SELECT SUM(hours_rendered) AS rendered FROM logs WHERE id_number ='$id' AND verified = 1");
+            return $query->result_array();
+        }
+
+        public function updateLogCount($logscount,$id){
+            return $this->db->query("UPDATE ojt_records SET logs = $logscount WHERE id_number ='$id'");
+        }
+        public function updateLogsVerifiedCount($logscount, $id){
+              return $this->db->query("UPDATE ojt_records SET logs_verified = $logscount WHERE id_number = '$id'");
+        }
+
+        public function updateRenderedHours($hours, $id){
+            return $this->db->query("UPDATE ojt_records SET rendered_hours = $hours WHERE id_number = '$id'");
+        }
+
+        public function getNumberLogsVerified($data){
+             $id = $data;
+
+            $result = $this->db->query("SELECT COUNT(verified) as logscount FROM logs WHERE id_number = '$id' AND verified = 1");
+            return $result->result_array();
+        }
+
+        public function insertNewRecordOjt($data){
+            return $this->db->insert('ojt_records', $data);
+        }
+
+        public function getOjtLogs($id){
+            $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.first_name, users.last_name FROM logs INNER JOIN users ON users.id_number = logs.id_number WHERE logs.supervisor_id = '$id' ORDER BY verified ASC");
+            return $query->result_array();
+        }
+
+        public function updateLog(){
+            $log_id = $_POST['log_id'];
+
+            return $this->db->query("UPDATE logs SET verified = 1 WHERE id = $log_id");
+
+        }
+            
+
+        public function getComments(){
+            $query = $this->db->query("SELECT * FROM comments");
+
+            return $query->result_array();
+        }
+
+        public function insertComment(){
+            $log_id = $_POST['log_id'];
+            $comment = $_POST['comment'];
+            $supervisor_id = $_POST['supervisor_id'];
+            return $this->db->query("INSERT INTO comments (log_id, content, supervisor_id) VALUES($log_id, '$comment', '$supervisor_id')");
+        }
 
 
 }
-	
+
+
 
 ?>
