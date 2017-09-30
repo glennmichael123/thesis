@@ -1,7 +1,6 @@
+
 <!DOCTYPE html>
 <html>
-
-
 <head>
     <link rel="icon" href="favicon.ico">
     <!-- Latest compiled and minified CSS -->
@@ -99,6 +98,7 @@
     width:280px;
 
 }
+
 .dropdown ul.dropdown-menu:before {
     content: "";
     border-bottom: 10px solid #fff;
@@ -273,10 +273,10 @@ li.notification-title{
                     </div>
                     <div class="col-lg-6">
                         <section style="display: inline-block; float: right;">
+                            <button class="btn btn-primary" data-target="#watchlistModal" data-toggle="modal">+Watch list</button>
                             <button class="btn btn-primary" data-target="#squarespaceModal" data-toggle="modal">+Announcement</button>
-                          
-                            <button class="btn btn-primary">+Admin</button>
-                            <button class="btn btn-primary">+Supervisor</button>
+                            <button class="btn btn-primary" data-target="#addAdminModal" data-toggle="modal">+Admin</button>
+                            <button class="btn btn-primary" data-target="#addSupervisorModal" data-toggle="modal">+Supervisor</button>
                          </section>
                      </div>
                     </div>
@@ -416,12 +416,13 @@ li.notification-title{
                             <select class="form-control">
                                 <option selected disabled>Course</option>
                                 <option>BSIT</option>
-                                <option>CS</option>
+                                <option>BSCS</option>
                             </select>
                         </div>
                         <div class="col-lg-3">
                              <select class="form-control">
                                 <option selected disabled>Status</option>
+                                <option>All</option>
                                 <option>On Going</option>
                                 <option>Completed</option>
                             </select>
@@ -447,9 +448,10 @@ li.notification-title{
                             
                                 <div class="col-lg-6">
                                     <?php echo $student['first_name'] . " " . $student['last_name']?>
+
                                 </div>
                                 <div class="col-lg-3">
-                                    <a class="btn btn-success" href="" style="float: right;">View Profile</a>
+                                    <a class="btn btn-success" href="dashboard?id=<?php echo 2;?>" style="float: right;">View Profile</a>
                                 </div>
                                   <div class="col-lg-3">
                                     <a class="btn btn-default" href="studentDashboard/<?php echo $student['id_number']?>" style="float: right;">View Dashboard</a>
@@ -480,8 +482,8 @@ li.notification-title{
             <!-- content goes here -->
             <form>
               <div class="form-group">
-                    Announcement
-                    <textarea class="form-control"></textarea>
+                    <label>Announcement</label>
+                    <textarea class="form-control" style="resize: none; border-radius: 5px" id="msg" name="msg"></textarea>
                 </div>
             </form>
 
@@ -489,11 +491,11 @@ li.notification-title{
         <div class="modal-footer">
             <div class="btn-group btn-group-justified" role="group" aria-label="group button">
                 <div class="btn-group" role="group">
-                     <button type="button" id="saveImage" class="btn btn-default btn-hover-green" data-action="save" role="button">Post</button>
+                     <button type="button" class="btn btn-primary btn-hover-green" data-action="save" role="button" style="width: 270px;border-radius: 5px" id="postMsg">Post</button>
                 </div>
                 <div class="btn-group" role="group">
                    
-                    <button type="button" class="btn btn-default" data-dismiss="modal"  role="button">Close</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"  role="button" style="width: 270px;border-radius: 5px; float: right">Cancel</button>
                 </div>
             </div>
         </div>
@@ -501,6 +503,138 @@ li.notification-title{
   </div>
 </div>
 
+<div class="modal fade" id="watchlistModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h3 class="modal-title" id="lineModalLabel">Add watch list</h3>
+        </div>
+        <div class="modal-body">
+            
+            <!-- content goes here -->
+            <form>
+              <div class="form-group">
+                    <label>Company name</label>
+                    <span style="float: right;text-decoration: italic"><a href="#" class="new-company-watchlist">New</a></span>
+                     <textarea class="form-control" name="new_company_watch" id="new_company_watchlist" style="resize: none; height:34px;border-radius: 5px; display: none;"></textarea>
+                    <select class="form-control company_watchlist_choice" style="border-radius: 5px" id="addWatch" name="addWatch">
+                        <option selected disabled>Select company</option>
+
+                        <?php foreach($company_watch_list as $companywatch):?>  
+                               <option value="<?php echo $companywatch['company_name']?>"><?php echo $companywatch['company_name']?></option>
+                         
+                        <?php endforeach;?> 
+                    </select>
+                </div>
+            </form>
+
+        </div>
+        <div class="modal-footer">
+            <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                <div class="btn-group" role="group">
+                     <button type="button" class="btn btn-primary btn-hover-green" data-action="save" role="button" style="width: 270px;border-radius: 5px" id="addWatchList">Add</button>
+                </div>
+                <div class="btn-group" role="group">
+                   
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"  role="button" style="width: 270px;border-radius: 5px; float: right">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addAdminModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h3 class="modal-title" id="lineModalLabel">Add Admin</h3>
+        </div>
+        <div class="modal-body">
+            
+            <!-- content goes here -->
+            <form>
+              <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="adminName" name="adminName">
+                    <label>ID Number</label>
+                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="adminID" name="adminID">
+                    <label>Password</label>
+                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="adminPass" name="adminPass">
+                    <label>Email</label>
+                    <input type="Email" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="adminEmail" name="adminEmail">
+                    
+                </div>
+            </form>
+
+        </div>
+        <div class="modal-footer">
+            <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                <div class="btn-group" role="group">
+                     <button type="button" id="adminAdd" name="adminAdd" class="btn btn-primary btn-hover-green" data-action="save" role="button" style="width: 270px;border-radius: 5px">Add</button>
+                </div>
+                <div class="btn-group" role="group">
+                   
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"  role="button" style="width: 270px;border-radius: 5px; float: right">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addSupervisorModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h3 class="modal-title" id="lineModalLabel">Add Supervisor</h3>
+        </div>
+        <div class="modal-body">
+            
+            <!-- content goes here -->
+            <form>
+              <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supName" name="supName">
+                    <label>Company</label> <span style="float:right;text-decoration: italic"><a href="#" class="new-company">New</a></span>
+                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%; display:none" id="new_company" name="new_company">
+                    <select class="form-control company_list_choice2" style="border-radius:5px;margin-bottom:10px" id="dropCompany" name="dropCompany">
+                                  <option selected disabled>Select company</option>
+                         <?php foreach($company_list as $company):?>  
+                           <option value="<?php echo $company['company_name']?>"><?php echo $company['company_name']?></option>
+                        <?php endforeach;?>  
+                                  
+                    </select>
+                    <label>Designation</label>
+                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supDesig" name="supDesig">
+                    <label>ID Number</label>
+                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supID" name="supID">
+                    <label>Password</label>
+                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supPass" name="supPass">
+                    <label>Email</label>
+                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supEmail" name="supEmail">
+                    
+                </div>
+            </form>
+
+        </div>
+        <div class="modal-footer">
+            <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                <div class="btn-group" role="group">
+                     <button type="button" class="btn btn-primary btn-hover-green" data-action="save" role="button" style="width: 270px;border-radius: 5px" id="addSup">Add</button>
+                </div>
+                <div class="btn-group" role="group">
+                   
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"  role="button" style="width: 270px;border-radius: 5px; float: right">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
 
 </body>
 
@@ -519,14 +653,170 @@ li.notification-title{
         $('#notification-content').slideUp();
     });
 </script>
+<!-- SUPERVISOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOORRRRRRRR -->
+<script type="text/javascript">
+  $('.new-company').click(function(e){
+      e.preventDefault();
+
+      $('.company_list_choice2').toggle();//class
+      $('#new_company').toggle();//
+      var n = $('.new-company').html();
+ 
+      if(n == 'New'){
+         $('.new-company').html('Cancel');
+      
+      }else{
+        $('.new-company').html('New');
+      }
+  });
+</script>
+<!-- ADDDDDDDDDDDDDDDDDDDDDDDD SUPEEEEERRVISSSOOOOOOOOOOOOOOORRRRRR -->
+<script type="text/javascript">
+  $('#addSup').click(function(e){
+      var n = $('.new-company').html();
+        var name = $('#supName').val();
+        if(n == 'New'){
+          var compName = $('#dropCompany').val();
+        }else{
+          var compName = $('#new_company').val();
+        }
+        var desig = $('#supDesig').val();
+        var id = $('#supID').val();
+        var pass = $('#supPass').val();
+        var email = $('#supEmail').val();
+
+        if(name == null || compName == null || desig == null || id == null || pass == null || email == null){
+          alert("Please fill all fields");return false;
+        }else{
+          $.ajax({
+            url: "adminAddSupervisor",
+            type: "POST",
+            data: {
+              'supName':name,
+              'supCompany':compName,
+              'supDesig':desig,
+              'supID':id,
+              'supPass':pass,
+              'supEmail':email,
+            },
+            success:function(data){
+              location.reload();
+              alert("Supervisor added successfully");
+            },
+          });
+
+          $.ajax({
+            url: "saveEmail",
+            type: "POST",
+            data:{
+              'email': email,
+            },
+            success:function(data){
+              alert("Email sent");
+            }
+          });
+        }
+
+
+  });
+</script>
+
+<script type="text/javascript">
+  $('.new-company-watchlist').click(function(e){
+      e.preventDefault();
+
+      $('.company_watchlist_choice').toggle();/*select*/
+      $('#new_company_watchlist').toggle();/*input*/
+      var n = $('.new-company-watchlist').html();
+ 
+      if(n == 'New'){
+         $('.new-company-watchlist').html('Cancel');
+      
+      }else{
+        $('.new-company-watchlist').html('New');
+      }
+  });
+</script>
+
+<script type="text/javascript">
+  $('#addWatchList').click(function(e){
+      var n = $('.new-company-watchlist').html();
+        if(n == 'New'){
+          var compName = $('#addWatch').val();
+        }else{
+          var compName = $('#new_company_watchlist').val();
+        }
+        if(compName == null){
+          alert("Please select a company");
+        }else{
+          $.ajax({
+            url: "addWatchlist",
+            type: "POST",
+            data: {
+              'companyName':compName,
+            },
+            success:function(data){
+              location.reload();
+              alert("Company added to watch list");
+            },
+          });
+        }
+
+
+  });
+      
+</script>
+
+
 
 <script type="text/javascript">
     $("span").hover(function(){
         $("span").css("background","none");
         $("span").css("color","#000");
-    })
+    });
 </script>
 
+<script type="text/javascript">
+      $(document).ready(function(){
+          $("#adminAdd").click(function(){
+            var adminName = $('#adminName').val();
+            var idNum = $('#adminID').val();
+            var pass = $('#adminPass').val();
+            var email = $('#adminEmail').val();
 
+            if(adminName.length == 0 || idNum.length == 0 || pass.length == 0 || email.length == 0){
+             alert("Please fill all fields");    
+            }
+            else{
+                $.ajax({  
+                url : "adminAddAdmin",// your username checker url
+                type : "POST",
+                data : { 
+                    'adName': adminName,
+                    'adID': idNum,
+                    'adPass': pass,
+                    'adEmail': email,
+                   },
+                success:function(data){
+                    location.reload();
+                    alert('Admin added successfully');
+                  },
+              });
+
+            $.ajax({
+            url: "saveEmail",
+            type: "POST",
+            data:{
+              'email': email,
+            },
+            success:function(data){
+              alert("Email sent");
+            }
+          });
+            }
+          
+          });
+       });
+</script>
 
 </html>

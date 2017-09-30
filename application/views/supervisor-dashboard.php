@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html>
 
 <head>
@@ -276,7 +276,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="jumbotron">Dashboard
-                            <button class="btn btn-primary" style="float: right;">+Trainee</button>
+                            <button class="btn btn-primary" style="float: right;" data-target="#addtraineeModal" data-toggle="modal">+Trainee</button>
                         </div>
                     </div>
                 </div>
@@ -337,6 +337,8 @@
                             <div class="col-lg-5">
                                 <select class="form-control">
                                     <option selected disabled>Log status</option>
+                                    <option>Pending</option>
+                                    <option>Verified</option>
                                 </select>
                             </div>
                             <div class="col-lg-2">
@@ -460,10 +462,6 @@
                                     
                                     </form>
                                    
-                                     
-
-                                  
-
                                 </div>
                                   
                                 </div>
@@ -483,6 +481,45 @@
                 </div>
             </div>
 
+        </div>
+
+        <!-- line modal -->
+        <div class="modal fade" id="addtraineeModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" id="lineModalLabel">Add trainee</h3>
+                </div>
+                <div class="modal-body">
+                    
+                    <!-- content goes here -->
+                    <form>
+                      <div class="form-group">
+                            Trainee name
+                            <select class="form-control" style="margin-top:5px;border-radius: 5px" id="names">
+                                <option selected disabled>Select trainee</option>
+                                <?php foreach($supervisorAddOjt as $trainees):?>  
+                                    <option value="<?php echo $trainees['id_number']?>"><?php echo $trainees['first_name'] . " " . $trainees['last_name']?></option>
+                                <?php endforeach;?> 
+                            </select>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                        <div class="btn-group" role="group">
+                             <button type="button" class="btn btn-primary btn-hover-green" data-action="save" role="button" style="width: 270px;border-radius: 5px" id="addTrainee" name="addTrainee">Add</button>
+                        </div>
+                        <div class="btn-group" role="group">
+                           
+                            <button type="button" class="btn btn-danger" data-dismiss="modal"  role="button" style="width: 270px;border-radius: 5px; float: right">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
         </div>
 
 </body>
@@ -561,4 +598,32 @@
     });
 </script>
 
+<script type="text/javascript">
+
+      $(document).ready(function(){
+          $("#addTrainee").click(function () {
+            var studId = $('#names').val();
+
+            if(studId == null){
+             alert("Select a trainee");    
+            }else{
+                $.ajax({  
+                url : "addTrainee",// your username checker url
+                type : "POST",
+                data : { 
+                    'studentID': studId,
+                    'supervisor_id': '<?php echo $this->session->userdata['id_number']?>',
+
+                   },
+                success:function(data){
+                    location.reload();
+                    alert('Trainee added successfully');
+                  },
+              });  
+            }
+          
+          });
+       });
+</script>
+</script>
 </html>

@@ -56,7 +56,7 @@
             
     }
     </style>
-    <title></title>
+    <title>OJT Automate</title>
 
 </head>
 
@@ -69,19 +69,19 @@
 	<div class="modal-content">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i><span class="sr-only">Close</span></button>
-			<h3 class="modal-title" id="lineModalLabel">Watchlist</h3>
+			<h3 class="modal-title" id="lineModalLabel">Watch list</h3>
 		</div>
 		<div class="modal-body">
 			<div class="ban-title">
-				<h4>The following are the watchlist companies</h4>
+				<h4>The following are on the company watch list</h4>
 			</div>
           <ul>
-          	<li>sasa</li>
-          	<li>sasa</li>
-          	<li>sasa</li>
-          	<li>sasa</li>
-          	<li>sasa</li>
-          	<li>sasa</li>
+          	<li>Compay X</li>
+            <li>Compay Y</li>
+            <li>Compay Z</li>
+            <li>Compay A</li>
+            <li>Compay B</li>
+            <li>Compay C</li>
           </ul>
 
 		</div>
@@ -99,7 +99,7 @@
                         <div class="header-links">
                             <h5> <a href="index">Home</a></h5>
                             <h5><a href="about" class="current-link">About us</a></h5>
-                            <h5><a href="#" data-toggle="modal" data-target="#squarespaceModal">Watchlist</a></h5>
+                            <h5><a href="#" data-toggle="modal" data-target="#squarespaceModal">Watch list</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-1">

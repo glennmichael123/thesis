@@ -176,7 +176,7 @@
 
                         <div class="col-lg-8">
                             <p style="text-align: center;">
-                                <label style="margin:0; padding: 0;">Trainees Evaluation</label>
+                                <label style="margin:0; padding: 0;">Trainee Evaluation</label>
                             </p>
                             <div class="well">
                                 <label>WORK ATTITUDE(<div class="badge">40</div> points)</label>

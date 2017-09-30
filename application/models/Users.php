@@ -121,15 +121,36 @@
   
             $result = $this->db->query("SELECT * FROM supervisor WHERE id_number = '$username' AND password = '$password'");
              return $result->result_array();
+         }
+
+
+
+           public function supervisorGetTrainee($company_name){
+          $company_name2 = $company_name[0]['company_name'];
         
+            $query = $this->db->query("SELECT users.id_number, users.first_name, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.company_name = '$company_name2'");
+           return $query->result_array();
+       }
+
+        public function getCompanyNames(){
+            $query = $this->db->query("SELECT company_name FROM company_information");
+
+           return $query->result_array();
+         }
+
+         public function getCompanyWatchlist(){
+            $query = $this->db->query("SELECT company_name FROM company_information WHERE watchlisted = 0");
+           return $query->result_array();
+         }
+         public function getCompanySupervisor($id_number){
+             $query = $this->db->query("SELECT company_name FROM supervisor WHERE id_number= '$id_number'");
+             return $query->result_array();
          }
 
          public function getAccountType($data){
            $username = $data;
             $result = $this->db->query("SELECT account_type FROM users WHERE id_number = '$username'");
             return $result->result_array();
-
-         
          }
 
         //  public function dashboardDataAdmin($data){   
@@ -336,7 +357,38 @@
             return $this->db->query("INSERT INTO comments (log_id, content, supervisor_id) VALUES($log_id, '$comment', '$supervisor_id')");
         }
 
+         public function updateTraineeSupID(){
+            $supervisor_id = $_POST['supervisor_id'];
+            $student_id = $_POST['studentID'];
+            
+           return $this->db->query("UPDATE company_information SET supervisor_id = '$supervisor_id' WHERE id_number='$student_id'");
+         
+         }
 
+         public function addAdmin(){
+            $adminName = $_POST['adName'];
+            $adminID = $_POST['adID'];
+            $adminPass = $_POST['adPass'];
+            $adminEmail = $_POST['adEmail'];
+            
+           return $this->db->query("INSERT INTO admin (name, id_number, password, email) VALUES('$adminName', '$adminID', '$adminPass', '$adminEmail')");
+         }
+         public function addWatch(){
+            $companyToWatch = $_POST['companyName'];
+
+           return $this->db->query("INSERT INTO watchlist (company_name) VALUES('$companyToWatch')");
+         }
+
+         public function addSupervisor(){
+            $supervisorName = $_POST['supName'];
+            $supervisorComp = $_POST['supCompany'];
+            $supervisorDesig = $_POST['supDesig'];
+            $supervisorID = $_POST['supID'];
+            $supervisorPass = $_POST['supPass'];
+            $supervisorEmail = $_POST['supEmail'];
+            
+           return $this->db->query("INSERT INTO supervisor (name,company_name,designation,id_number,password,email) VALUES('$supervisorName','$supervisorComp','$supervisorDesig','$supervisorID','$supervisorPass','$supervisorEmail')");
+         }
 }
 
 

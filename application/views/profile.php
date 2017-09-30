@@ -166,6 +166,18 @@
                                 <div class="profile-name">
                                     <div class="label label-default">Renato A. Manalili Jr.</div>
                                 </div>
+                                <div class="change-photo" style="margin-top: 10px">
+                                    <!-- browse -->
+                                    <button class="btn btn-default click-photo"><i class="fa fa-picture-o" aria-hidden="true"></i></button>
+                                    <input class="browse-photo" type="file" accept="image/*" onchange="previewFile()" name="" style="display: none;">
+                                    <img src="" height="200">
+                                    <!-- camera -->
+                                    <button class="btn btn-default"><i class="fa fa-camera" aria-hidden="true"></i></button>
+                                </div>
+                                <div class="saveCancel" style="margin-top: 10px; display: none;">
+                                    <button class="btn btn-default" style="width:75px">Save</button>
+                                    <button class="btn btn-default">Cancel</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -292,6 +304,26 @@
         $(".family-info").prop("readonly",true);
         $(".bts").css("display","none");
     });
+
+    $('.click-photo').click(function(){
+        $('.browse-photo').trigger('click');
+    });
 </script>
 
+
+<script type="text/javascript">
+    function previewFile() {
+     var preview = document.querySelector('img');
+     var file    = document.querySelector('input[type=file]').files[0];
+     var reader  = new FileReader();
+
+     reader.addEventListener("load", function () {
+       preview.src = reader.result;
+    }, false);
+
+    if (file) {
+     reader.readAsDataURL(file);
+    }
+}
+</script>
 </html>

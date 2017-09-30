@@ -46,14 +46,22 @@ class Main extends CI_Controller {
 
 	public function index()
 	{
-	
+		$account_type = $this->users->getAccountType(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
      if(isset($this->session->userdata['id_number'])){
-          header("location: dashboard");
+     	if($account_type[0]['account_type'] == 0){
+					header("location: dashboard");
+				}else if($account_type[0]['account_type'] == 1){
+					header("location: supervisorDashboard");
+				 }elseif ($account_type[0]['account_type'] == 2) {
+				 	header("location: adminDashboard");
+				 }
      }else{
      	$this->load->view('index');
      }
 		
 	}
+
+
 	public function profile()
 	{
 		if(!isset($this->session->userdata['id_number'])){
@@ -93,19 +101,44 @@ class Main extends CI_Controller {
 		$this->users->hello();
 	}
 	public function evaluate(){
-		$this->load->view('evaluate');
+		if(!isset($this->session->userdata['id_number'])){
+          header("location: index");
+      	}
+		else{
+     		$account_type = $this->users->getAccountType(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number']: '');
+     		if($account_type[0]['account_type'] == 0){
+					header("location: dashboard");
+			}
+			else if($account_type[0]['account_type'] == 1){
+				$this->load->view('evaluate');
+			}
+			elseif ($account_type[0]['account_type'] == 2) {
+				 header("location: adminDashboard");
+			}
+		}
 	}
 
 	public function supervisorDashboard(){
+
 		if(!isset($this->session->userdata['id_number'])){
           header("location: index");
      	}else{
      		$data['comments'] = $this->users->getComments();
-
-
+     		$company_name = $this->users->getCompanySupervisor($this->session->userdata['id_number']);
+     		$data['supervisorAddOjt'] = $this->users->supervisorGetTrainee($company_name);
      		$data['traineesLog'] = $this->users->getOjtLogs($this->session->userdata['id_number']);
 
-			$this->load->view('supervisor-dashboard',$data);
+			$account_type = $this->users->getAccountType(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number']: '');
+     		if($account_type[0]['account_type'] == 0){
+					header("location: dashboard");
+			}
+			else if($account_type[0]['account_type'] == 1){
+				$newdata['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
+				$this->load->view('supervisor-dashboard',$data);
+			}
+			elseif ($account_type[0]['account_type'] == 2) {
+				 header("location: adminDashboard");
+			}
 		}
 	}
 
@@ -244,7 +277,6 @@ public function helloworld(){
 
 public function logout(){
 	session_destroy();
-
 	header("location: index");
 }
 
@@ -263,10 +295,35 @@ public function logout(){
 
 
 	public function adminDashboard(){
+<<<<<<< Updated upstream
 		// $newdata['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
 		   $data['student_list'] = $this->users->getStudentList();
 		$this->load->view('admindashboard', $data);
 	}
+=======
+		if(!isset($this->session->userdata['id_number'])){
+          header("location: index");
+     	}else{
+
+     		$account_type = $this->users->getAccountType(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
+     		if($account_type[0]['account_type'] == 0){
+					header("location: dashboard");
+			}
+			else if($account_type[0]['account_type'] == 1){
+					header("location: supervisorDashboard");
+			}
+			elseif ($account_type[0]['account_type'] == 2) {
+				 	$data['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
+				 	$data['company_list'] = $this->users->getCompanyNames();
+				 	$data['company_watch_list'] = $this->users->getCompanyWatchlist();
+					$this->load->view('admindashboard', $data);
+			}
+     }
+		}
+
+		
+	
+>>>>>>> Stashed changes
 
 	public function deleteLog(){
 		
@@ -301,13 +358,34 @@ public function logout(){
 		$data['totalLogs'] = $ojtRecords[0]['logs'];
 		$data['logs_list'] = $this->users->getLogs(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
 		
+		$account_type = $this->users->getAccountType(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
+     		if($account_type[0]['account_type'] == 0){
+			     	$ojtRecords = $this->users->dashboardDataRecords(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
+
+					$data['total'] = $ojtRecords[0]['total_hours'];
+					$data['rendered'] = $ojtRecords[0]['rendered_hours'];
+					$data['all_evaluations'] = $ojtRecords[0]['total_evaluations'];
+					$data['current_evaluations'] = $ojtRecords[0]['current_evaluations'];
+					$data['verified'] = $ojtRecords[0]['logs_verified'];
+					$data['totalLogs'] = $ojtRecords[0]['logs'];
+					$data['logs_list'] = $this->users->getLogs(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
+					
+
+					 $data['user_data'] = $this->users->dashboardData($this->session->userdata['id_number']);
 
 		
      	}
 		 $data['user_data'] = $this->users->dashboardData($this->session->userdata['id_number']);
 
-		// $this->users->getUserData($this->session->userdata['id_number']);
-		$this->load->view('dashboard', $data);
+					// $this->users->getUserData($this->session->userdata['id_number']);
+					$this->load->view('dashboard', $data);
+			}
+			else if($account_type[0]['account_type'] == 1){
+					header("location: supervisorDashboard");
+			}
+			elseif ($account_type[0]['account_type'] == 2) {
+					header("location: admindashboard");
+			}
      	}
 
 
@@ -341,6 +419,23 @@ public function logout(){
      	$this->load->view('dashboard', $data);
 	}
 
+
+
+	public function addTrainee(){
+		$this->users->updateTraineeSupID();
+	}
+
+	public function adminAddAdmin(){
+		$this->users->addAdmin();
+	}
+
+	public function adminAddSupervisor(){
+		$this->users->addSupervisor();
+	}
+
+	public function addWatchlist(){
+		$this->users->addWatch();
+	}
 
 
 	public function addComment(){

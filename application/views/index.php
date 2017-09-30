@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
 
@@ -49,43 +47,42 @@
                             <h5> <a href="#" class="current-link">Home</a></h5>
                               <?php echo (isset($error) ? $error : '');?>
                             <h5><a href="<?php echo base_url()?>main/about">About us</a></h5>
-                            <h5><a href="#">Watchlist</a></h5>
+                            <h5><a href="#" data-target="#watchlistModal" data-toggle="modal">Watch list</a></h5>
+
                         </div>
                     </div>
+
                     <div class="col-lg-1">
-                    <!--     <div class="signin">
-                            <nav>
-                                <ul>
-                                    <li id="login">
-                                        <a id="login-trigger" href="#">
-        Log in ▼
-      </a>
-                                        <div id="login-content">
-                                            <form action="<?//php echo base_url()?>main/loggedin" method="POST">
-                                                <fieldset id="inputs">
-                                                    <label style="float: left;">ID Number</label>
-
-                                                    <input id="username" type="text" name="username" placeholder="ID Number" required>
-                                                    <label style="float: left;">Password</label>
-                                                    <input id="password" type="password" name="password" placeholder="Password" required>
-                                                   
-                                                </fieldset>
-                                                <fieldset id="actions">
-                                                    <button type="submit" id="submit">Login&nbsp;<i class="fa fa-sign-in"></i></button>
-                                                    <a href="#" class="forgot-password">Forgot password?</a>
-                                                </fieldset>
-
-                                            </form>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div> -->
 
                         <a class="btn btn-primary login-btn" href="<?php echo base_url()?>main/loginojt" class="btn btn-primary">Login</a>
                     </div>
                 </div>
             </div>
+        </div>
+        <!-- line modal -->
+        <div class="modal fade" id="watchlistModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" id="lineModalLabel">Watch list</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="ban-title">
+                        <h4>The following are on the company watch list</h4>
+                    </div>
+                  <ul>
+                    <li>Compay X</li>
+                    <li>Compay Y</li>
+                    <li>Compay Z</li>
+                    <li>Compay A</li>
+                    <li>Compay B</li>
+                    <li>Compay C</li>
+                  </ul>
+
+                </div>
+            </div>
+          </div>
         </div>
 
         <div class="content">

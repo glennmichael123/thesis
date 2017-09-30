@@ -150,7 +150,7 @@
                             </div>
                             <div class="form-group">
                                 <button type="submit" id="save-changes" class="btn btn-success">Save changes</button>
-                                <a href="dashboard" id="cancel" class="btn btn-danger" style="float: right;">Cancel</a>
+                                <a href="dashboard" id="cancel" class="btn btn-danger" style="float: right;width: 115px">Cancel</a>
                             </div>
                         </form>
                     </div>
