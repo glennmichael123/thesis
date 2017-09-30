@@ -612,10 +612,14 @@
                         </div>
                     </div>
                 <?php endif;?>
-                    <?php if(empty($logs_list) && !isset($id_number)):?>
-                        <?php echo 'You have not posted a log yet';?>
-                    <?php else:?>
-                           <?php echo 'This student has not posted a log yet';?>
+                    <?php if(empty($logs_list)):?>
+                        <?php if(isset($id_number)):?>
+                         <?php echo 'This student has not posted a log yet';?>
+                     <?php else:?>
+                          <?php echo 'You have not posted a log yet';?>   
+                    <?php endif;?>
+                <?php else:?>
+
                     <?php foreach($logs_list as $log):?>
 
                         <div class="row">
