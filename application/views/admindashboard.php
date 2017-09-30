@@ -640,17 +640,10 @@ li.notification-title{
 
  
 <script type="text/javascript">
-    $("#dropdownMenu1").click(function(){
-        $('#notification-content').slideToggle();
-         $("#show-logout").slideUp();
-    
-        
-
-    });
-
+  
     $("#dropdown-logout").click(function(){
         $("#show-logout").slideToggle();
-        $('#notification-content').slideUp();
+        // $('#notification-content').slideUp();
     });
 </script>
 <!-- SUPERVISOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOORRRRRRRR -->

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 29, 2017 at 05:50 AM
+-- Generation Time: Sep 30, 2017 at 12:11 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -25,6 +25,54 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL,
+  `name` text NOT NULL,
+  `id_number` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `name`, `id_number`, `password`, `email`) VALUES
+(1, 'James Bond', '007', '123456', 'bondjames1212@gmail.com'),
+(4, 'Glenn Michael Torregosa', '14-2649-276', '123456', 'gtorregosa@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comments`
+--
+
+CREATE TABLE `comments` (
+  `id` int(11) NOT NULL,
+  `log_id` int(11) NOT NULL,
+  `content` text NOT NULL,
+  `comment_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `supervisor_id` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`id`, `log_id`, `content`, `comment_time`, `supervisor_id`) VALUES
+(1, 13, 'very good', '2017-09-25 11:30:52', '14-111'),
+(2, 13, 'very nice', '2017-09-25 11:30:52', '14-111'),
+(3, 17, 'very good', '2017-09-25 11:30:52', '14-111'),
+(4, 14, 'aaaa', '2017-09-25 13:10:48', '14-111'),
+(5, 14, 'bbb', '2017-09-25 13:10:58', '14-111'),
+(6, 21, 'very goodaaa', '2017-09-30 01:16:40', '14-111');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `company_information`
 --
 
@@ -32,13 +80,47 @@ CREATE TABLE `company_information` (
   `id` int(11) NOT NULL,
   `id_number` varchar(255) NOT NULL,
   `company_name` text NOT NULL,
+  `supervisor_id` varchar(255) NOT NULL,
   `company_address` text NOT NULL,
   `contact_number` int(11) NOT NULL,
   `fax_number` int(11) NOT NULL,
   `product_lines` text NOT NULL,
   `company_classification` text NOT NULL,
-  `number_of_employees` int(11) NOT NULL
+  `number_of_employees` text NOT NULL,
+  `watchlisted` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `company_information`
+--
+
+INSERT INTO `company_information` (`id`, `id_number`, `company_name`, `supervisor_id`, `company_address`, `contact_number`, `fax_number`, `product_lines`, `company_classification`, `number_of_employees`, `watchlisted`) VALUES
+(1, '14-2649-276', 'nettrac', '14-111', 'lagtang', 9211, 0, 'software', 'assembly,manufacturing,maintenance,,,research,,', 'From 50 to 100', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `email`
+--
+
+CREATE TABLE `email` (
+  `id` int(11) NOT NULL,
+  `id_number` varchar(255) NOT NULL,
+  `email_address` text NOT NULL,
+  `hash` text NOT NULL,
+  `status` tinyint(1) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `email`
+--
+
+INSERT INTO `email` (`id`, `id_number`, `email_address`, `hash`, `status`) VALUES
+(1, '14-2649-276', 'gtorregosa@gmail.com', '8f8e3cac19bc69526d164a93e679685a', 0),
+(2, '14-2649-276', 'gtorregosa@gmail.com', '8f8e3cac19bc69526d164a93e679685a', 0),
+(3, '14-2649-276', 'bondjames1212@gmail.com', '2ba649a11e9d026d642bdbb36277c5d8', 0),
+(4, '14-2649-276', 'gtorregosa@gmail.com', '8f8e3cac19bc69526d164a93e679685a', 0),
+(5, '14-2649-276', 'gtorregosa@gmail.com', '8f8e3cac19bc69526d164a93e679685a', 0);
 
 -- --------------------------------------------------------
 
@@ -52,8 +134,15 @@ CREATE TABLE `emergency_details` (
   `name` text NOT NULL,
   `relationship` text NOT NULL,
   `contact_number` int(11) NOT NULL,
-  `address` int(11) NOT NULL
+  `address` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `emergency_details`
+--
+
+INSERT INTO `emergency_details` (`id`, `id_number`, `name`, `relationship`, `contact_number`, `address`) VALUES
+(1, '14-2649-276', 'Glenda', 'Guardian', 9212, 'cebu');
 
 -- --------------------------------------------------------
 
@@ -72,6 +161,13 @@ CREATE TABLE `family_details` (
   `contact_number` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `family_details`
+--
+
+INSERT INTO `family_details` (`id`, `id_number`, `fathers_name`, `fathers_occupation`, `mothers_name`, `mothers_occupation`, `parents_address`, `contact_number`) VALUES
+(1, '14-2649-276', 'father ', 'father occu ', 'mother ', 'mother occu', 'cebu', 921212);
+
 -- --------------------------------------------------------
 
 --
@@ -88,8 +184,22 @@ CREATE TABLE `logs` (
   `department` text,
   `designation` text,
   `log_content` text NOT NULL,
-  `hours_rendered` int(11) NOT NULL
+  `hours_rendered` int(11) NOT NULL,
+  `verified` tinyint(1) NOT NULL DEFAULT '0',
+  `supervisor_id` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `logs`
+--
+
+INSERT INTO `logs` (`id`, `id_number`, `date`, `time_in`, `time_out`, `division`, `department`, `designation`, `log_content`, `hours_rendered`, `verified`, `supervisor_id`) VALUES
+(13, '14-2649-276', '2017-09-25', '23:59:00', '12:55:00', 'aa', 'bb', 'cc', 'aa', 8, 1, '14-111'),
+(14, '14-2649-276', '2017-09-25', '08:00:00', '17:00:00', 'bb', 'bb', 'bb', 'bb', 8, 1, '14-111'),
+(17, '14-2649-276', '2017-09-25', '08:00:00', '17:00:00', 'cc', 'cc', 'cc', 'cc', 8, 1, '14-111'),
+(18, '14-2649-276', '2017-09-25', '08:00:00', '17:00:00', 'dd', 'dd', 'dd', 'dd', 8, 1, '14-111'),
+(20, '1234', '2017-09-25', '17:00:00', '20:00:00', 'y', 'y', 'y', 'y', 8, 1, '14-111'),
+(21, '14-2649-276', '2017-09-30', '08:00:00', '17:00:00', 'post', 'post', 'post', 'post', 5, 1, '14-111');
 
 -- --------------------------------------------------------
 
@@ -102,11 +212,21 @@ CREATE TABLE `ojt_records` (
   `id_number` varchar(255) NOT NULL,
   `total_hours` int(11) NOT NULL,
   `rendered_hours` int(11) NOT NULL,
-  `total_evaluations` int(11) NOT NULL,
-  `current_evaluations` int(11) NOT NULL,
-  `logs` int(11) NOT NULL,
-  `logs_verified` int(11) NOT NULL
+  `total_evaluations` int(11) NOT NULL DEFAULT '2',
+  `current_evaluations` int(11) NOT NULL DEFAULT '0',
+  `logs` int(11) NOT NULL DEFAULT '0',
+  `logs_verified` int(11) NOT NULL DEFAULT '0',
+  `supervisor_id` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ojt_records`
+--
+
+INSERT INTO `ojt_records` (`id`, `id_number`, `total_hours`, `rendered_hours`, `total_evaluations`, `current_evaluations`, `logs`, `logs_verified`, `supervisor_id`) VALUES
+(1, '14-2649-276', 200, 37, 2, 1, 5, 5, '14-111'),
+(2, '123', 200, 0, 2, 0, 0, 0, '14-111'),
+(3, '1234', 200, 8, 2, 0, 1, 1, '14-111');
 
 -- --------------------------------------------------------
 
@@ -137,6 +257,39 @@ CREATE TABLE `personal_details` (
   `citizenship` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `personal_details`
+--
+
+INSERT INTO `personal_details` (`id`, `id_number`, `first_name`, `middle_initial`, `last_name`, `college`, `course`, `year`, `present_address`, `permanent_address`, `contact_number`, `email_address`, `date_of_birth`, `age`, `marital_status`, `blood_type`, `weight`, `height`, `religion`, `citizenship`) VALUES
+(1, '14-2649-276', 'Glenn', 'P. ', 'Torregosa', 'CCS', 'course', 1, 'cebu', 'cebu', 92122, 'gtorregosa@gmail.com', '2015-12-31', 20, 'Single', 'Type B', 20, 20, 'Catholic', 'Filipino');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `supervisor`
+--
+
+CREATE TABLE `supervisor` (
+  `id` int(11) NOT NULL,
+  `name` text NOT NULL,
+  `company_name` text NOT NULL,
+  `designation` text NOT NULL,
+  `id_number` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `supervisor`
+--
+
+INSERT INTO `supervisor` (`id`, `name`, `company_name`, `designation`, `id_number`, `password`, `email`) VALUES
+(1, 'Yehye', 'nettrac', 'president', '14-111', '123456', 'email@email.com'),
+(2, 'Jack Sparrow', 'nettrac', 'Manager', '1043', '123456', 'jack.sparrow@gmail.com'),
+(3, 'Peter Andrew', 'Innosoft', 'Technical Support', '14-1893-273', '123456', 'bondjames1212@gmail.com'),
+(4, 'Glenn Michaels', 'nettrac', 'Web Developer', '14-2649-276', '123456', 'gtorregosa@gmail.com');
+
 -- --------------------------------------------------------
 
 --
@@ -150,13 +303,69 @@ CREATE TABLE `users` (
   `middle_initial` text NOT NULL,
   `last_name` text NOT NULL,
   `account_type` int(11) NOT NULL,
-  `email_address` varchar(255) NOT NULL,
   `password` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `id_number`, `first_name`, `middle_initial`, `last_name`, `account_type`, `password`) VALUES
+(1, '14-2649-276', 'Glenn Michael', 'P.', 'Torregosa', 0, '123456'),
+(2, '14-111', 'admin', 'admin', 'admin', 1, '123456'),
+(3, '111', 'adminsuper', 'adminsuper', 'adminsuper', 2, '123456'),
+(4, '123', 'Peter', 'I.', 'Into', 0, '123456'),
+(5, '1234', 'renato', 'maoy', 'manalili', 0, '123456');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `watchlist`
+--
+
+CREATE TABLE `watchlist` (
+  `id` int(11) NOT NULL,
+  `company_name` text NOT NULL,
+  `company_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `watchlist`
+--
+
+INSERT INTO `watchlist` (`id`, `company_name`, `company_id`) VALUES
+(1, 'nettrac', NULL),
+(2, 'innosoft', NULL),
+(3, 'nettrac', NULL),
+(4, 'Innosoft Heh', NULL);
+
+--
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `company_information`
+--
+ALTER TABLE `company_information`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `email`
+--
+ALTER TABLE `email`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `emergency_details`
@@ -168,6 +377,12 @@ ALTER TABLE `emergency_details`
 -- Indexes for table `family_details`
 --
 ALTER TABLE `family_details`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `logs`
+--
+ALTER TABLE `logs`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -183,9 +398,21 @@ ALTER TABLE `personal_details`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `supervisor`
+--
+ALTER TABLE `supervisor`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `watchlist`
+--
+ALTER TABLE `watchlist`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -193,30 +420,65 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `company_information`
+--
+ALTER TABLE `company_information`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `email`
+--
+ALTER TABLE `email`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
 -- AUTO_INCREMENT for table `emergency_details`
 --
 ALTER TABLE `emergency_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `family_details`
 --
 ALTER TABLE `family_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `logs`
+--
+ALTER TABLE `logs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `ojt_records`
 --
 ALTER TABLE `ojt_records`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `personal_details`
 --
 ALTER TABLE `personal_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `supervisor`
+--
+ALTER TABLE `supervisor`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;COMMIT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `watchlist`
+--
+ALTER TABLE `watchlist`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -128,17 +128,10 @@ class Main extends CI_Controller {
      		$data['supervisorAddOjt'] = $this->users->supervisorGetTrainee($company_name);
      		$data['traineesLog'] = $this->users->getOjtLogs($this->session->userdata['id_number']);
 
-			$account_type = $this->users->getAccountType(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number']: '');
-     		if($account_type[0]['account_type'] == 0){
-					header("location: dashboard");
-			}
-			else if($account_type[0]['account_type'] == 1){
-				$newdata['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
-				$this->load->view('supervisor-dashboard',$data);
-			}
-			elseif ($account_type[0]['account_type'] == 2) {
-				 header("location: adminDashboard");
-			}
+     		$this->load->view('supervisor-dashboard', $data);
+			
+				
+			
 		}
 	}
 
@@ -295,35 +288,26 @@ public function logout(){
 
 
 	public function adminDashboard(){
-<<<<<<< Updated upstream
 		// $newdata['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
 		   $data['student_list'] = $this->users->getStudentList();
-		$this->load->view('admindashboard', $data);
-	}
-=======
+	
+
 		if(!isset($this->session->userdata['id_number'])){
           header("location: index");
      	}else{
 
      		$account_type = $this->users->getAccountType(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
-     		if($account_type[0]['account_type'] == 0){
-					header("location: dashboard");
-			}
-			else if($account_type[0]['account_type'] == 1){
-					header("location: supervisorDashboard");
-			}
-			elseif ($account_type[0]['account_type'] == 2) {
-				 	$data['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
+				 	// $data['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
 				 	$data['company_list'] = $this->users->getCompanyNames();
 				 	$data['company_watch_list'] = $this->users->getCompanyWatchlist();
 					$this->load->view('admindashboard', $data);
-			}
-     }
+			
+     
 		}
+	}
 
 		
-	
->>>>>>> Stashed changes
+
 
 	public function deleteLog(){
 		
