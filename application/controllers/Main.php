@@ -290,23 +290,26 @@ public function logout(){
 	public function adminDashboard(){
 		// $newdata['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
 		   $data['student_list'] = $this->users->getStudentList();
-	
+
+		// $newdata['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
+		   $data['student_list'] = $this->users->getStudentList();
 
 		if(!isset($this->session->userdata['id_number'])){
           header("location: index");
      	}else{
 
-     		$account_type = $this->users->getAccountType(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
+     		
 				 	// $data['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
 				 	$data['company_list'] = $this->users->getCompanyNames();
 				 	$data['company_watch_list'] = $this->users->getCompanyWatchlist();
 					$this->load->view('admindashboard', $data);
-			
-     
-		}
-	}
 
+			}
+     }
+ 
 		
+
+	
 
 
 	public function deleteLog(){
