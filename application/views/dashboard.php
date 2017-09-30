@@ -563,6 +563,8 @@
                     </div>
                 </div>
                 <div class="col-lg-8">
+                    <?php if(isset($id_number)): ?>
+                    <?php else:?>
                     <div class="logs-students">
                         <div class="well">
                             <div class="logs-title">
@@ -609,9 +611,11 @@
                             </form>
                         </div>
                     </div>
-                    <?php if(empty($logs_list)):?>
+                <?php endif;?>
+                    <?php if(empty($logs_list) && !isset($id_number)):?>
                         <?php echo 'You have not posted a log yet';?>
                     <?php else:?>
+                           <?php echo 'This student has not posted a log yet';?>
                     <?php foreach($logs_list as $log):?>
 
                         <div class="row">

@@ -131,7 +131,6 @@
 
 
 
-
     </style>
 
     <title></title>
@@ -143,32 +142,37 @@
         <div class="row">
             <div class="col-lg-12">
                 
-                    <div class="ojt-section">
-                      <div class="modal-dialog">
+                  
+                        <div class="supervisor-section">
+                            
+                     
+                         <div class="modal-dialog">
                             <div class="loginmodal-container">
-                                <h1>Login as OJT</h1><br>
-                              <form  method="POST" action="<?php echo base_url()?>main/loggedin">
+                                <h1>Login as Supervisor</h1><br>
+                              <form action="loggedinSupervisor" method="POST">
                                 <input type="text" name="username" placeholder="Username">
                                 <input type="password" name="password" placeholder="Password">
-                                 <span class="error-section" style="color: red; font-family: Roboto, sans-serif; font-style: italic;"><?php echo (isset($error) ? $error : '');?></span>
-                                <input type="submit" id="login-to-dashboard" name="login" class="login loginmodal-submit" value="Login">
+                               
+                                <input type="submit" name="login"  class="login loginmodal-submit" value="Login">
                               </form>
                                 
                               <div class="login-help">
                                 <a href="#">Forgot Password?</a>
                               </div>
                               <div class="login-option" style="margin-top: 20px;">
-                                    <span style="float: left;"><a href="loginsupervisor">Login as Supervisor</a></span>
-                                    <span style="float: right;"><a href="loginadmin">Login as Administrator</a></span>
+                                    <span style="float: left;"><a class="link-supervisor-ojt" href="loginojt">Login as OJT</a></span>
+                                    <span style="float: right;"><a class="link-supervisor-administrator" href="loginadmin">Login as Administrator</a></span>
                               </div>
                             </div>
                         </div>
                     </div>
+             
             </div>
         </div>  
     </div>
 
 </body>
+
 
 
 <!-- <script type="text/javascript">

@@ -48,7 +48,7 @@
                         <div class="header-links">
                             <h5> <a href="#" class="current-link">Home</a></h5>
                               <?php echo (isset($error) ? $error : '');?>
-                            <h5><a href="<?php echo base_url()?>main/   about">About us</a></h5>
+                            <h5><a href="<?php echo base_url()?>main/about">About us</a></h5>
                             <h5><a href="#">Watchlist</a></h5>
                         </div>
                     </div>
@@ -82,7 +82,7 @@
                             </nav>
                         </div> -->
 
-                        <a class="btn btn-primary login-btn" href="<?php echo base_url()?>main/loginall" class="btn btn-primary">Login</a>
+                        <a class="btn btn-primary login-btn" href="<?php echo base_url()?>main/loginojt" class="btn btn-primary">Login</a>
                     </div>
                 </div>
             </div>

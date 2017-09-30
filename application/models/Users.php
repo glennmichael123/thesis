@@ -63,7 +63,47 @@
                 }else{
                     return false;
                 }
+        }
+
+         public function user_login_administrator(){
+                $username = $_POST['username']; //need to be dynamic
+                $password = $_POST['password']; //need to be dynamic
+                $result = $this->db->query("SELECT * FROM admin WHERE id_number = '$username' AND password = '$password'");
+                //print_r($result->result_array());
+                $affectedRows = $this->db->affected_rows();
+                
+               if($affectedRows>0){
+                    return true;
+                        
+                }else{
+                    return false;
                 }
+        }
+
+        public function readUserAdmin($data){
+            $username = $data['username'];
+            $password = $data['password'];
+      
+            $result = $this->db->query("SELECT * FROM admin WHERE id_number = '$username' AND password = '$password'");
+            return $result->result_array();
+
+         
+         }
+
+         public function user_login_supervisor(){
+                $username = $_POST['username']; //need to be dynamic
+                $password = $_POST['password']; //need to be dynamic
+                $result = $this->db->query("SELECT * FROM supervisor WHERE id_number = '$username' AND password = '$password'");
+                //print_r($result->result_array());
+                $affectedRows = $this->db->affected_rows();
+                
+               if($affectedRows>0){
+                    return true;
+                        
+                }else{
+                    return false;
+                }
+        }
 
       public function readUserId($data){
         $username = $data['username'];
@@ -75,6 +115,15 @@
          
          }
 
+         public function readUserSupervisor($data){
+             $username = $data['username'];
+             $password = $data['password'];
+  
+            $result = $this->db->query("SELECT * FROM supervisor WHERE id_number = '$username' AND password = '$password'");
+             return $result->result_array();
+        
+         }
+
          public function getAccountType($data){
            $username = $data;
             $result = $this->db->query("SELECT account_type FROM users WHERE id_number = '$username'");
@@ -83,14 +132,21 @@
          
          }
 
-         public function dashboardDataAdmin($data){   
-               $username = $data;
+        //  public function dashboardDataAdmin($data){   
+        //        $username = $data;
              
-                $result = $this->db->query("SELECT * FROM users WHERE id_number = '$username'");
-                return $result->result_array();
+        //         $result = $this->db->query("SELECT * FROM users WHERE id_number = '$username'");
+        //         return $result->result_array();
 
 
-        }
+        // }
+
+         public function getStudentList(){
+            $query = $this->db->query("SELECT * FROM users");
+        
+            return $query->result_array();
+
+         }
 
         public function insertLogs(){
             $id_number = $_POST['id_number'];

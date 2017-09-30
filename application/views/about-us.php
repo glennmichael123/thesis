@@ -103,7 +103,7 @@
                         </div>
                     </div>
                     <div class="col-lg-1">
-                        <div class="signin">
+                        <!-- <div class="signin">
                             <nav>
                                 <ul>
                                     <li id="login">
@@ -130,7 +130,8 @@
                                  
                                 </ul>
                             </nav>
-                        </div>
+                        </div> -->
+                          <a class="btn btn-primary login-btn" href="<?php echo base_url()?>main/loginojt" class="btn btn-primary">Login</a>
                     </div>
                 </div>
             </div>

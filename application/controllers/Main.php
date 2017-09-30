@@ -29,8 +29,16 @@ class Main extends CI_Controller {
        	
 
     }
-    public function loginall(){
+    public function loginojt(){
     	$this->load->view('loginojt');
+    }
+
+    public function loginsupervisor(){
+    	$this->load->view('loginsupervisor');
+    }
+
+    public function loginadmin(){
+    	$this->load->view('loginadministrator');
     }
     public function finalevaluation(){
     	$this->load->view('finalevaluation');
@@ -38,7 +46,6 @@ class Main extends CI_Controller {
 
 	public function index()
 	{
-
 	
      if(isset($this->session->userdata['id_number'])){
           header("location: dashboard");
@@ -115,7 +122,7 @@ class Main extends CI_Controller {
 
 	public function loggedin(){
 		$condition = $this->users->user_login();
-		$error = '';
+		$data['error'] = 'abcd';
 		// print_r("condition = " . $condition. "   ");
 		if($condition){
 			$data = array(
@@ -147,12 +154,79 @@ class Main extends CI_Controller {
 
 					
 	}else{
-		$error = 'username or password incorrect';
-		$this->load->view('incorrectpass', $error);
+		header("location: loginojt");
 	}	
 
 
 	
+}
+
+public function loggedinSupervisor(){
+	$condition = $this->users->user_login_supervisor();
+		$data['error'] = 'abcd';
+		// print_r("condition = " . $condition. "   ");
+		if($condition){
+			$data = array(
+				'username' => $this->input->post('username'), //need to be dynamic e.g $this->input->post('username')
+				'password' => $this->input->post('password') // this->input->post('password');
+				);
+				$result = $this->users->readUserSupervisor($data);
+			
+				$session_data = $result[0]['id_number'];
+				// print_r($session_data);
+			// Add user data in session
+				$this->session->set_userdata('id_number', $session_data);
+				// $account_type = $this->users->getAccountType(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
+				// $existId = $this->users->checkExistRecords(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
+				// $newId = $this->session->userdata['id_number'];
+				// $newRecord = Array('id_number' => $newId, 'total_hours' => 200, 'total_evaluations'=> 2);
+				header("location: supervisorDashboard");
+				
+
+					
+	}else{
+		header("location: loginsupervisor");
+	}	
+
+}
+
+public function loggedinAdministrator(){
+	$condition = $this->users->user_login_administrator();
+		$data['error'] = '';
+		// print_r("condition = " . $condition. "   ");
+		if($condition){
+			$data = array(
+				'username' => $this->input->post('username'), //need to be dynamic e.g $this->input->post('username')
+				'password' => $this->input->post('password') // this->input->post('password');
+				);
+				$result = $this->users->readUserAdmin($data);
+			
+				$session_data = $result[0]['id_number'];
+				// print_r($session_data);
+			// Add user data in session
+				$this->session->set_userdata('id_number', $session_data);
+				// $account_type = $this->users->getAccountType(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
+				// $existId = $this->users->checkExistRecords(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
+				// $newId = $this->session->userdata['id_number'];
+				// $newRecord = Array('id_number' => $newId, 'total_hours' => 200, 'total_evaluations'=> 2);
+				// if(!$existId && $account_type[0]['account_type'] == 0){
+				// 	$this->users->insertNewRecordOjt($newRecord);
+				// }
+				// if($account_type[0]['account_type'] == 0){
+				// 	header("location: dashboard");
+				// }else if($account_type[0]['account_type'] == 1){
+				// 	header("location: supervisorDashboard");
+				//  }elseif ($account_type[0]['account_type'] == 2) {
+				//  	header("location: adminDashboard");
+				//  }
+				header("location: adminDashboard");	
+			
+				
+
+					
+	}else{
+		header("location: loginadmin");
+	}	
 }
 
 public function editLog(){
@@ -189,9 +263,9 @@ public function logout(){
 
 
 	public function adminDashboard(){
-		$newdata['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
-
-		$this->load->view('admindashboard', $newdata);
+		// $newdata['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
+		   $data['student_list'] = $this->users->getStudentList();
+		$this->load->view('admindashboard', $data);
 	}
 
 	public function deleteLog(){
@@ -239,6 +313,35 @@ public function logout(){
 
 	
 	}
+
+	public function studentDashboard($id_number){
+		$totalLogsCount = $this->users->getNumberLogs(isset($id_number) ? $id_number : '');
+     	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified(isset($id_number) ? $id_number : '');
+     	$renderedCount = $this->users->getSumRendered(isset($id_number) ? $id_number : '');
+
+     	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $id_number);
+     	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $id_number);
+     	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $id_number);
+     	$ojtRecords = $this->users->dashboardDataRecords(isset($id_number) ? $id_number : '');
+
+     	if(!empty($ojtRecords)){
+     		$data['total'] = $ojtRecords[0]['total_hours'];
+		$data['rendered'] = $ojtRecords[0]['rendered_hours'];
+		$data['all_evaluations'] = $ojtRecords[0]['total_evaluations'];
+		$data['current_evaluations'] = $ojtRecords[0]['current_evaluations'];
+		$data['verified'] = $ojtRecords[0]['logs_verified'];
+		$data['totalLogs'] = $ojtRecords[0]['logs'];
+		$data['logs_list'] = $this->users->getLogs(isset($id_number) ? $id_number : '');
+     	}
+
+     	$data['id_number'] = $id_number;
+
+     	$data['user_data'] = $this->users->dashboardData($id_number);
+
+     	$this->load->view('dashboard', $data);
+	}
+
+
 
 	public function addComment(){
 		$this->users->insertComment();
@@ -300,6 +403,8 @@ public function logout(){
     public function verifyLog(){
     	$this->users->updateLog();
     }
+
+
 
 
 }

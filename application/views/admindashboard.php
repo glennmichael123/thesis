@@ -441,23 +441,23 @@ li.notification-title{
                     </div>
                     <div class="well dashboard-list">
                         <h4 style="padding-bottom: 20px;">List of students</h4>
-                        <?php for($i=1; $i<=5; $i++):?>
+                        <?php foreach($student_list as $student):?>
                         <div class="well student-list">
                             <div class="row">
                             
                                 <div class="col-lg-6">
-                                    Tyrion Lannister
+                                    <?php echo $student['first_name'] . " " . $student['last_name']?>
                                 </div>
                                 <div class="col-lg-3">
                                     <a class="btn btn-success" href="" style="float: right;">View Profile</a>
                                 </div>
                                   <div class="col-lg-3">
-                                    <a class="btn btn-default" href="dashboard" style="float: right;">View Dashboard</a>
+                                    <a class="btn btn-default" href="studentDashboard/<?php echo $student['id_number']?>" style="float: right;">View Dashboard</a>
                                 </div>
 
                             </div>
                         </div>
-                    <?php endfor;?>
+                    <?php endforeach;?>
                     </div>
                 </div>
            </div>

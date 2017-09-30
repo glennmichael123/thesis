@@ -250,6 +250,9 @@
                         <ul class="nav navbar-nav">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown"><img src="<?php echo base_url();?>/assets/images/snow.jpg" class="pull-right circular-square" style="width: 40px; height: 40px; margin-top: -5px;"> </a>
+
+
+                                
                                 <ul class="dropdown-menu" id="show-logout">
                                     <li><a href="#">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                     <li class="divider"></li>
@@ -343,7 +346,7 @@
 
                
                     <?php foreach($traineesLog as $log):?>
-                        <div class="row"  style="color:#000;">
+                        <div class="row row-logs"  style="color:#000;">
                        
                              <div class="col-lg-12" >
                                 <div class="well" style="background: #fff; padding-bottom: 0; padding-top: 10px">
@@ -384,10 +387,11 @@
                                         
                                             <label style="font-size: 11px;">Activity</label>
                                             <textarea class="list-logs" name="log_lists_activity" id="log_lists_activity" placeholder="Write your log here" readonly><?php echo $log['log_content']?></textarea>
+
                                             <?php if($log['verified']):?>
                                                      <span style="color:green; font-size: 11px; position: absolute; top: 280px; left: 700px;"> Verified  <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                  <?php else:?>
-                                                     <span style="color:black; font-size: 11px; position: absolute; top: 280px; left: 700px;"> Pending  <i style="color: green;" class="fa fa-circle-thin" aria-hidden="true"></i></span>
+                                                     <span class="pending-log" style="color:black; font-size: 11px; position: absolute; top: 280px; left: 700px;"> Pending  <i style="color: green;" class="fa fa-circle-thin" aria-hidden="true"></i></span>
                                                  <?php endif;?>
 
 
@@ -513,6 +517,9 @@
         e.preventDefault();
 
         var log_id = $(this).data('log-id');
+        var pending = $(this).closest('form').find('.pending-log');
+                 
+
 
         $.ajax({
             url: '<?php echo base_url()?>' + 'main/verifyLog',
@@ -521,11 +528,14 @@
                 'log_id' : log_id,
 
             },
-
             success: function(data){
-                location.reload(true);
+               
+                 pending.html('Verified <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i>');
             }
         });
+
+         $(this).css("color", "#318ACE");
+         $(this).html('<i class="fa fa-check" aria-hidden="true"></i> Verified');
               
     });
 </script>
@@ -534,7 +544,6 @@
     $('.submit-comment').click(function(){
         var log_id = $(this).data('log-id');
         var comment = $(this).closest("form").find(".comment-content").val();
-       
 
         $.ajax({
             url: '<?php echo base_url()?>' + 'main/addComment',
