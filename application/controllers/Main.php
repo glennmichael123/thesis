@@ -29,8 +29,8 @@ class Main extends CI_Controller {
        	
 
     }
-    public function incorrectpass(){
-    	$this->load->view('incorrectpass');
+    public function loginall(){
+    	$this->load->view('loginojt');
     }
     public function finalevaluation(){
     	$this->load->view('finalevaluation');

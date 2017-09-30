@@ -48,12 +48,12 @@
                         <div class="header-links">
                             <h5> <a href="#" class="current-link">Home</a></h5>
                               <?php echo (isset($error) ? $error : '');?>
-                            <h5><a href="about">About us</a></h5>
+                            <h5><a href="<?php echo base_url()?>main/   about">About us</a></h5>
                             <h5><a href="#">Watchlist</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-1">
-                        <div class="signin">
+                    <!--     <div class="signin">
                             <nav>
                                 <ul>
                                     <li id="login">
@@ -61,7 +61,7 @@
         Log in ▼
       </a>
                                         <div id="login-content">
-                                            <form action="<?php echo base_url()?>main/loggedin" method="POST">
+                                            <form action="<?//php echo base_url()?>main/loggedin" method="POST">
                                                 <fieldset id="inputs">
                                                     <label style="float: left;">ID Number</label>
 
@@ -80,7 +80,9 @@
                                     </li>
                                 </ul>
                             </nav>
-                        </div>
+                        </div> -->
+
+                        <a class="btn btn-primary login-btn" href="<?php echo base_url()?>main/loginall" class="btn btn-primary">Login</a>
                     </div>
                 </div>
             </div>
