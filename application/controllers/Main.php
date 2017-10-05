@@ -180,7 +180,7 @@ class Main extends CI_Controller {
 
 					
 	}else{
-		header("location: loginojt");
+		header("location: loginojt?error=Username or password incorrect");
 	}	
 
 
@@ -211,7 +211,7 @@ public function loggedinSupervisor(){
 
 					
 	}else{
-		header("location: loginsupervisor");
+		header("location: loginsupervisor?error=Username or password incorrect");
 	}	
 
 }
@@ -251,7 +251,7 @@ public function loggedinAdministrator(){
 
 					
 	}else{
-		header("location: loginadmin");
+		header("location: loginadmin?error=Username or password incorrect");
 	}	
 }
 

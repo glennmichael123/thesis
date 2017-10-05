@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -128,7 +127,9 @@
     text-decoration: underline;
 }
 
-
+.addborder{
+  border: 1px solid red;
+}
 
 
 
@@ -150,14 +151,19 @@
                               <form  method="POST" action="<?php echo base_url()?>main/loggedin">
                                 <input type="text" name="username" placeholder="Username">
                                 <input type="password" name="password" placeholder="Password">
-                                 <span class="error-section" style="color: red; font-family: Roboto, sans-serif; font-style: italic;"><?php echo (isset($error) ? $error : '');?></span>
+                                 
+                                  <span class="error" style="color: red; font-style: italic;"><?php 
+                                  if(isset($_GET['error'])){
+                                      echo $_GET['error'];
+
+                                  }?></span>
                                 <input type="submit" id="login-to-dashboard" name="login" class="login loginmodal-submit" value="Login">
                               </form>
                                 
                               <div class="login-help">
                                 <a href="#">Forgot Password?</a>
                               </div>
-                              <div class="login-option" style="margin-top: 20px;">
+                                                           <div class="login-option" style="margin-top: 20px;">
                                     <span style="float: left;"><a href="loginsupervisor">Login as Supervisor</a></span>
                                     <span style="float: right;"><a href="loginadmin">Login as Administrator</a></span>
                               </div>
@@ -184,6 +190,20 @@
        
     });
 </script> -->
+<!-- 
+<script type="text/javascript">
+  $(document).ready(function(){
+      var error = $('.error').html();
 
+      console.log(error);
+      if(error = 'Username or password incorrect'){
+        $('.loginmodal-container').addClass('addborder');
+        console.log('he');
+      }else{
+          $('.loginmodal-container').removeClass('addborder');
+      }
+  });
+</script>
+ -->
 
 </html>
