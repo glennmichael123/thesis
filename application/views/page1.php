@@ -10,15 +10,14 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+  
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+    
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="css/style.css" rel="stylesheet">
+
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
    
@@ -92,7 +91,19 @@
         }
 
 
-       
+       .topage2{
+            position: relative;
+            top: 10px;
+            font-size: 20px;
+            border: 1px solid gray;
+            padding: 5px 20px 5px 20px;
+            color:white;
+            background: #4285F4;
+       }
+       .topage2:hover{
+        text-decoration: none;
+        color: white;
+       }
 
     </style>
 
@@ -110,7 +121,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-1"></div>
-                    <div class="col-lg-10">
+                    <div class="col-lg-10" style="position: relative;">
                     <div class="body">
                     <h2 class="fs-title">Personal Details <i class="fa fa-user" aria-hidden="true"></i></h2>
                         <div class="row">
@@ -285,7 +296,7 @@
                             <input type="radio" id="same-address-permanent-emergency" name="same-address-emergency"><label for="same-address-permanent-emergency">Same as my permanent Address</label>
                           </div>
                         </div>
-                            <a class="btn icon-btn btn-primary" href="page2">Next<span class="glyphicon btn-glyphicon glyphicon-step-forward img-circle text-muted"></span></a>
+                            <a class="topage2" href="page2">Next</a>
                      </div>
                     </div>
                     <div class="col-lg-1"></div>
@@ -294,9 +305,7 @@
         </div> 
              
     </div>
-<script src="js/jquery-2.1.4.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/script.js"></script>
+
 </body>
 
 

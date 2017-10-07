@@ -215,6 +215,9 @@ li.notification-title{
 .student-list{
     background: #fff;    
 }
+.view-student-options{
+    font-size: 15px;
+}
         
     </style>
 
@@ -443,18 +446,18 @@ li.notification-title{
                     <div class="well dashboard-list">
                         <h4 style="padding-bottom: 20px;">List of students</h4>
                         <?php foreach($student_list as $student):?>
-                        <div class="well student-list">
+                        <div class="student-list" style="padding: 10px 10px 10px 10px; margin-bottom: 0px;">
                             <div class="row">
                             
-                                <div class="col-lg-6">
+                                <div class="col-lg-6" style="color: black;">
                                     <?php echo $student['first_name'] . " " . $student['last_name']?>
 
                                 </div>
                                 <div class="col-lg-3">
-                                    <a class="btn btn-success" href="dashboard?id=<?php echo 2;?>" style="float: right;">View Profile</a>
+                                    <a class="view-student-options" href="dashboard?id=<?php echo 2;?>" style="float: right;">View Profile</a>
                                 </div>
                                   <div class="col-lg-3">
-                                    <a class="btn btn-default" href="studentDashboard/<?php echo $student['id_number']?>" style="float: right;">View Dashboard</a>
+                                    <a class="view-student-options" href="studentDashboard/<?php echo $student['id_number']?>" style="float: right;">View Dashboard</a>
                                 </div>
 
                             </div>

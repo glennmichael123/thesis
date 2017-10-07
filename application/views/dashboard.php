@@ -338,7 +338,8 @@
                         <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
                     </div>
                     <div class="col-lg-7 col-sm-7">
-                        
+                        <?php if(isset($id_number)):?>
+                        <?php else:?>
                         <ul class="nav navbar-nav">
                             <li class="dropdown">
                             <a href="#" class="dropdown-toggle" id="dropdown-notification" data-toggle="dropdown"><i class="pull-right fa fa-bell-o fa-2x" style="width: 40px; height: 40px; margin-top: 0px;"></i> </a>
@@ -355,10 +356,25 @@
                                    </ul>
                             </li>
                         </ul>
-
+                    <?php endif;?>
                     </div>
                     <div class="col-lg-1 col-sm-1">
-
+                        <?php if(isset($id_number)):?>
+                               <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown"><img src="<?php echo base_url();?>/assets/images/snow.jpg" class="pull-right circular-square" style="width: 40px; height: 40px; margin-top: -5px;"> </a>
+                              <ul class="dropdown-menu" id="show-logout">
+                                <li><a href="#">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
+                                <li class="divider"></li>
+        
+                                <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                                <li class="divider"></li>
+                    
+                                <li><a href="<?php echo base_url()?>main/logout">Log Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+                              </ul>
+                            </li>
+                          </ul>
+                        <?php else:?>
                         <ul class="nav navbar-nav">
                             <li class="dropdown">
                             <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown">
@@ -378,6 +394,7 @@
                                 </ul>
                             </li>
                         </ul>
+                    <?php endif;?>
                     </div>
 
                 </div>
@@ -495,6 +512,38 @@
                             <span>Verified Logs</span>
                             <div id="verifiedLogs">
                             </div>
+                            <?php if(empty($verified) && empty($totalLogs)):?>
+                                <script type="text/javascript">
+                                $(document).ready(function() {
+                                    var bar = new ProgressBar.Circle(verifiedLogs, {
+                                        strokeWidth: 6,
+                                        easing: 'bounce',
+                                        duration: 1400,
+                                        text: {
+                                            value: 'You have not posted logs yet',
+                                        },
+                                        from: {
+                                            color: '#9ebdef',
+                                            a: 0
+                                        },
+                                        to: {
+                                            color: '#65f771',
+                                            a: 1
+                                        },
+                                        // Set default step function for all animate calls
+                                        step: function(state, circle) {
+                                            circle.path.setAttribute('stroke', state.color);
+                                        },
+                                        color: '#53b1e0',
+                                        trailColor: '#eee',
+                                        trailWidth: 1,
+                                        svgStyle: null
+                                    });
+
+                                    bar.animate(<?php echo 1/1?>); // Number from 0.0 to 1.0
+                                });
+                            </script>
+                            <?php else:?>
                             <script type="text/javascript">
                                 $(document).ready(function() {
                                     var bar = new ProgressBar.Circle(verifiedLogs, {
@@ -525,6 +574,7 @@
                                     bar.animate(<?php echo $verified/$totalLogs?>); // Number from 0.0 to 1.0
                                 });
                             </script>
+                        <?php endif; ?>
 
                         </div>
                     </div>
@@ -628,6 +678,8 @@
                             <div class="col-lg-12">
                                 <div class="well" style="padding-bottom: 0; padding-top: 5px;">
                                     <span class="user-name" style="font-size: 12px;"><?php echo $user_data[0]['first_name'] . " " . $user_data[0]['last_name']?></span>
+                                    <?php if(isset($id_number)):?>
+                                    <?php else:?>
                                     <div class="dropdown" style="float: right; width:20px;">
                                         <a href="#" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                             <i style="color: #000000; font-size: 15px;" class="fa fa-angle-down"></i>
@@ -640,6 +692,7 @@
                                         </ul>
 
                                     </div>
+                                <?php endif;?>
 
                                     <hr style="margin-bottom: 0; margin-top: 5px;">
 
@@ -689,10 +742,30 @@
                                         <div class="row">
                                             <div class="col-lg-12">
                                                     <hr style="margin-bottom: 0; margin-top: 0;">
-                                                   
-                                                        <label>Comments</label>
-                                                        <span style="font-size: 11px;">No comments</span>                                                      
-                                                   
+                                                    <?php if(in_array($log['id'], array_column($comments, 'log_id'))):?>  
+                                                         <label>Comments</label>
+                                                         <?php endif;?>
+
+
+                                                    <?php foreach ($comments as $comment):?>
+                                                    <?php if(in_array($log['id'], $comment)):?>
+
+                                                        <div class="well" style="box-shadow: none; border: none; background: #f7f7f7; padding: 10px; margin-bottom: 10px;">
+                                                         <div class="comments-list" style="font-size: 15px;">
+                                                              <b>Supervisor</b> <?php echo $comment['content'];?>
+                                                          </div>
+                                                        </div>
+                                                    <?php endif;?>
+                                              
+                                                    <?php endforeach;?>
+
+                                                   <?php if(!in_array($log['id'], array_column($comments, 'log_id'))):?>  
+                                                        
+                                                     <label>Comments</label>
+                                                        <span style="font-size: 11px;">No comments</span>
+                                                        
+                                                   <?php endif;?>
+
                                             </div>
                                         </div>
 

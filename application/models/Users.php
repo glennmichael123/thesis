@@ -349,6 +349,22 @@
             return $query->result_array();
         }
 
+        public function updatePassword($id){
+            $old_pass = $this->db->query("SELECT password FROM users WHERE id_number = '$id'")->row();
+           
+            $new_pass = $_POST['newpass'];
+            $confirm = $_POST['confirm_newpass'];
+            $old = $_POST['old_password'];
+            if($old!=$old_pass->password){
+               echo '<script>alert("Old passwords did not match");  window.location.href = "changepassword"</script>';
+            }else{
+               $this->db->query("UPDATE users SET password = '$new_pass' WHERE id_number = '$id'");
+               echo '<script>alert("Password successfully changed"); window.location.href = "dashboard";</script> ';
+
+            }
+          
+        }
+
         public function insertComment(){
             $log_id = $_POST['log_id'];
             $comment = $_POST['comment'];

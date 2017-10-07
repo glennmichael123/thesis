@@ -219,7 +219,7 @@
                   <h2 class="text-center" style="color: #000000;">Report a Bug or Suggestion</h2>
                   <form class="doo" method="post" action="report.php">
                     <div class="col-sm-12">
-                      <textarea required name="comment" class="form-control" placeholder="Please tell us what bug or issue you've found, provide as much detail as possible."></textarea>
+                      <textarea name="comment" class="form-control" placeholder="Please tell us any bugs or issues you've found, provide as much detail as possible." required></textarea>
                       
                      </div>
                      <div class="col-sm-12 clearfix">

@@ -675,7 +675,7 @@
             },
             success: function(data){
                
-                 pending.html('Verified <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i>');
+                 pending.html('<span style="color: green;">Verified</span> <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i>');
             }
         });
 

@@ -101,6 +101,10 @@ class Main extends CI_Controller {
 		$this->load->view('change-password');
 	}
 
+	public function savePassword(){
+		$this->users->updatePassword($this->session->userdata['id_number']);
+	}
+
 	public function signup()
 	{
 
@@ -340,7 +344,7 @@ public function logout(){
           header("location: index");
      	}else{
 
-
+     	$data['comments'] = $this->users->getComments();
      	$totalLogsCount = $this->users->getNumberLogs(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
      	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
 
@@ -397,6 +401,7 @@ public function logout(){
 	}
 
 	public function studentDashboard($id_number){
+		$data['comments'] = $this->users->getComments();
 		$totalLogsCount = $this->users->getNumberLogs(isset($id_number) ? $id_number : '');
      	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified(isset($id_number) ? $id_number : '');
      	$renderedCount = $this->users->getSumRendered(isset($id_number) ? $id_number : '');

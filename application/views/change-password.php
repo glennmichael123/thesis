@@ -132,18 +132,18 @@
                     </div>
                     <div class="col-lg-4">
                          <h3 style="text-align: center;">Change password</h3>
-                        <form class="well">
+                        <form class="well" action="savePassword" method="POST">
                             <div class="form-group">
                                 <label for="old_password">Old password</label>
-                                <input type="password" id="old_password" placeholder="Old password" name="old_password" class="form-control" required="required">
+                                <input type="password" id="old_password"  name="old_password" class="form-control" required="required">
                             </div>
                             <div class="form-group">
                                 <label for="newpass">New password</label>
-                                <input type="password" name="newpass" placeholder="New password" class="form-control" id="newpass" required="required">
+                                <input type="password" name="newpass"  class="form-control" id="newpass" required="required">
                             </div>
                             <div class="form-group">
                                 <label for="confirm_newpass">Confirm password</label>
-                                <input type="password" name="confirm_newpass" placeholder="Confirm password" class="form-control" id="confirm_newpass" required="required">
+                                <input type="password" name="confirm_newpass" class="form-control" id="confirm_newpass" required="required">
                             </div>
                             <div class="error">
 
