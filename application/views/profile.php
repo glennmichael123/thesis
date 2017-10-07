@@ -17,6 +17,7 @@
  
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
 
     <style type="text/css">
@@ -26,11 +27,10 @@
         body {
             background-color: #F4F4F4;
         }
-        #student_info{
-
-        }
+        
+        
         .jumbotron{
-            background-color: #000080;
+            background-color: #EDC844;
             padding: 20px 20px !important;
             color: #FFFFFF;
             font-size: 1.5em;
@@ -41,6 +41,7 @@
         .well{
             background: #FFFFFF;
             border-radius: 0px;
+
         }
         .profile-container{
             margin: 0 auto;
@@ -54,24 +55,24 @@
         .profile-image>img.img-circle{
             width: 150px;
             height: 150px;
-            border: 3px solid #C0C0C0;
+            border: 3px solid #915B51;
         }
-        .label.label-default.profile-name {
-        background-color:#C0C0C0;
+        .label-default{
+        background-color:#A55D35;
         padding: 5px 10px 5px 10px;
-        border-radius: 27px;
+        border-radius: 30px;
         font-size: 1em;
         }
         legend{
-            background-color: #FFFFFF;
+            background-color: #915B51;
             margin-bottom: 0px;
             width: auto; 
-            border: 1px solid #C0C0C0;
+            border: 1px solid #915B51;
             border-radius: 0px; 
             padding: 5px 5px 5px 10px; 
-            color:  #000080
-            text-align: center;
+            color:  #EED090;
             font-size: 20px;
+            font-family: 'Oswald', sans-serif;
 
         }
         fieldset{
@@ -88,14 +89,11 @@
             margin-top: -25px;
             margin-right: -10px;
         }
-        #btn-edit{
+        #btn-edit,#btn-edit1,#btn-edit2{
             background-color: #FFFFFF;
             border: 0px #FFFFFF;
         }
-        #btn-edit1{
-            background-color: #FFFFFF;
-            border: 0px #FFFFFF;
-        }
+        
         .fa-pencil-square-o{
             color: #000080;
             font-size: 1.5em;
@@ -108,8 +106,9 @@
         }
         .labels{
             font-size: 15px;
-            color: #000080;
+            color: #000000;
             display: inline;
+            font-family: 'Roboto', sans-serif;
         }
         .personal-info{
             font-size: 13px;
@@ -142,6 +141,12 @@
             border: 1px solid #e5e6e8 !important;
             background: #F4F4F4 !important;
         }
+        h2{
+            text-align: center;
+            color:  #915B51;
+            font-family: 'Oswald', sans-serif;
+
+        }
         
     </style>
 
@@ -152,7 +157,7 @@
         <div class="content">
             <div class="container">
                 <div class="jumbotron">
-                    <label ><span class="fa fa-user" aria-hidden="true"></span> Student Information</label>
+                    <label style="color: #A55D35;"><span class="fa fa-user" aria-hidden="true"></span> Student Information</label>
                 </div>
                 <div class="row">
                     <div class="col-lg-3">
@@ -255,11 +260,88 @@
                         </div>
                         <p style="text-align: center; margin-top: 10px;">
                                <button class="btn btn-primary bts" style="display: none" type="submit">Save Changes</button>
-                               <button class="btn btn-danger bts" id="cancel"style="display: none;" type="button">Cancel</button>
+                               <button class="btn btn-danger bts" id="cancels"style="display: none;" type="button">Cancel</button>
                            </p>
                         
                     </fieldset>
+                     <fieldset id="second-fieldset">
+                    <legend><i class="fa fa-building-o"> </i>Company Information</legend>
+                         <div id="edit">
+                             <button id="btn-edit2"><span class="fa fa-pencil-square-o" aria-hidden="true"></span></button>
+                         </div>
+                        <div class="row" id="pos">
+                            <div class="col-lg-6">
+                                <label class="labels">Company Name:</label>
+                                  <input type="text" name="" value=" BSIT" readonly class="family-info form-control">
+                                  <label class="labels">Company Address:</label>
+                                  <input type="text" name="" value=" BSIT" readonly class="family-info form-control">
+                                  <label class="labels">Telephone Number:</label>
+                                <input type="text" name="" value=" 4th Year" readonly class="family-info form-control">
+                                
+                            </div>
+                            <div class="col-lg-6">
+                             <label class="labels">Product Lines:</label>
+                                <input type="text" name="" value=" 4th Year" readonly class="family-info form-control">
+                               <label class="labels">Fax Number:</label>
+                               <input type="text" name="" value=" 4th Year" readonly class="family-info form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h2>Company Classification <i class="fa fa-list-alt" aria-hidden="true"></i></h2>
+                             <div class="col-lg-2">
+                            <input id="assembly" value="assembly" type="checkbox"><label class="labels" for="assembly">Assembly</label>
+                         </div> 
+                         <div class="col-lg-2">
+                            <input type="checkbox" value="manufacturing" id="manufacturing"><label class="labels"for="manufacturing">Manufacturing</label>
+                         </div> 
+                         <div class="col-lg-2">
+                            <input type="checkbox" value="maintenance" id="maintenance"><label class="labels"for="maintenance">Maintenance</label>
+                         </div>
+                         <div class="col-lg-3">
+                            <input type="checkbox" value="marketing" id="marketing"><label class="labels"for="marketing">Sales/Marketing</label>
+                         </div>
+                         <div class="col-lg-3">
+                             <input type="checkbox" value="service" id="service"><label class="labels"for="service">Service/Utility</label>
+                         </div>
+                         
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-4">
+                            
+                              <input type="checkbox" value="research" id="research"><label class="labels"for="research">Research and Development</label>
+                            
+                          </div>
+                          <div class="col-lg-2">
+                            <input type="checkbox" value="itrelated" id="itrelated"><label class="labels"for="itrelated">IT Related</label>
+                          </div>
+                          <div class="col-lg-5">
+                               <input type="radio" class="other-company" id="other"><label class="labels"for="other">Others</label>
+                               <input type="text" id="other_classification" name="other_classification" style="height: 15px; width: 250px; display: none;" placeholder="Please specify">
+                          </div>
+                       
+                        </div>
+                        <div class="row">
+                            <h2 class="fs-title">Total number of employees <i class="fa fa-list-ol" aria-hidden="true"></i></h2>
+                            <div class="col-lg-3 col-lg-offset-1">
+                              <input type="radio" id="less_fifty" value="Less than 50" name="employee_numbers"><label class="labels"for="less_fifty">Less than 50</label>
+             
+                            </div>
+                            <div class="col-lg-3 col-lg-offset-1">
+                               <input type="radio" id="fifty_onehundred" value="From 50 to 100" name="employee_numbers"><label class="labels"for="fifty_onehundred">From 50 to 100</label>
+             
+                            </div>
+                            <div class="col-lg-3 col-lg-offset-1">
+                                <input type="radio" id="more_onehundred" value="More than 100" name="employee_numbers"><label class="labels"for="more_onehundred">More than 100</label>
+                            </div>
+                        </div>
+                        </div>
+                        <p style="text-align: center; margin-top: 10px;">
+                               <button class="btn btn-primary bts" style="display: none" type="submit">Save Changes</button>
+                               <button class="btn btn-danger bts" id="cancels"style="display: none;" type="button">Cancel</button>
+                           </p>
+                    </fieldset>
                     </div>
+                   
                     </div>
                 </div>
             </div>    
@@ -299,7 +381,7 @@
     });
 </script>
 <script type="text/javascript">
-    $("#cancel").click(function(){
+    $("#cancels").click(function(){
         $(".family-info").removeClass("showBorder");
         $(".family-info").prop("readonly",true);
         $(".bts").css("display","none");

@@ -27,8 +27,8 @@
         }
         .partlist{
             margin-top: 20px;
-            background-color: #000080;
-            color: #FFFFFF;
+            background-color: #EDC844;
+            color: #A55D35;
             padding: 10px;
         }
         .fields{

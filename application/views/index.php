@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 
@@ -19,7 +21,23 @@
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
     <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>
     <style type="text/css">
-   
+    .btn-circle.btn-lg {
+        width: 40px;
+        height: 40px;
+        padding: 5px 8px;
+        font-size: 12px;
+        line-height: 1.33;
+        border-radius: 25px;
+    }
+    .feedback{position: fixed;}
+    .feedback textarea{height: 180px; }
+    .feedback .reported p, .feedback .failed p  { height: 190px}
+    .feedback.left{left:5px; bottom:15px}
+    .feedback.right{right:5px; bottom:15px}
+    .feedback .dropdown-menu{width: 290px;height: 320px;bottom: 50px;}
+    .feedback.left .dropdown-menu{ left: 0px}
+    .feedback.right .dropdown-menu{ right: 0px}
+    .feedback .hideme{ display: none}
     </style>
     <title></title>
 
@@ -46,43 +64,15 @@
                         <div class="header-links">
                             <h5> <a href="#" class="current-link">Home</a></h5>
                               <?php echo (isset($error) ? $error : '');?>
-                            <h5><a href="<?php echo base_url()?>main/about">About us</a></h5>
-                            <h5><a href="#" data-target="#watchlistModal" data-toggle="modal">Watch list</a></h5>
-
+                            <h5><a href="about">About us</a></h5>
+                            <h5><a href="#">Watchlist</a></h5>
                         </div>
                     </div>
-
                     <div class="col-lg-1">
-
                         <a class="btn btn-primary login-btn" href="<?php echo base_url()?>main/loginojt" class="btn btn-primary">Login</a>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- line modal -->
-        <div class="modal fade" id="watchlistModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i><span class="sr-only">Close</span></button>
-                    <h3 class="modal-title" id="lineModalLabel">Watch list</h3>
-                </div>
-                <div class="modal-body">
-                    <div class="ban-title">
-                        <h4>The following are on the company watch list</h4>
-                    </div>
-                  <ul>
-                    <li>Compay X</li>
-                    <li>Compay Y</li>
-                    <li>Compay Z</li>
-                    <li>Compay A</li>
-                    <li>Compay B</li>
-                    <li>Compay C</li>
-                  </ul>
-
-                </div>
-            </div>
-          </div>
         </div>
 
         <div class="content">
@@ -194,9 +184,54 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="copyright">
-                            &copy;Copyright OJT Automate 2017 | All rights reserved
-                        </div>
+                <div class="feedback left">
+      <div class="tooltips">
+          <div class="btn-group dropup">
+            <button type="button" class="btn btn-primary dropdown-toggle btn-circle btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-bug fa-2x" title="Report Bug"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right dropdown-menu-form">
+              <li>
+                <div class="report">
+                  <h2 class="text-center" style="color: #000000;">Report a Bug or Suggestion</h2>
+                  <form class="doo" method="post" action="report.php">
+                    <div class="col-sm-12">
+                      <textarea required name="comment" class="form-control" placeholder="Please tell us what bug or issue you've found, provide as much detail as possible."></textarea>
+                      
+                     </div>
+                     <div class="col-sm-12 clearfix">
+                      <button class="btn btn-primary btn-block">Submit Report</button>
+                     </div>
+                 </form>
+                </div>
+                <div class="loading text-center hideme">
+                  <h2>Please wait...</h2>
+                  <h2><i class="fa fa-refresh fa-spin"></i></h2>
+                </div>
+                <div class="reported text-center hideme">
+                  <h2>Thank you!</h2>
+                  <p>Your submission has been received, we will review it shortly.</p>
+                   <div class="col-sm-12 clearfix">
+                      <button class="btn btn-success btn-block do-close">Close</button>
+                   </div>
+                </div>
+                <div class="failed text-center hideme">
+                  <h2>Oh no!</h2>
+                  <p>It looks like your submission was not sent.<br><br><a href="mailto:">Try contacting us by the old method.</a></p>
+                   <div class="col-sm-12 clearfix">
+                      <button class="btn btn-danger btn-block do-close">Close</button>
+                   </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+      </div>
+    </div>
+                    </div>
+                    <div class="col-lg-6">
+                        
+                            <p class="copyright" style="float: right;">&copy;Copyright OJT Automate 2017 | All rights reserved</p>
+                        
                     </div>
                 </div>
             </div>

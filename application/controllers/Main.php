@@ -29,6 +29,15 @@ class Main extends CI_Controller {
        	
 
     }
+    public function page1(){
+    	$this->load->view('page1');
+    }
+     public function page2(){
+    	$this->load->view('page2');
+    }
+     public function page3(){
+    	$this->load->view('page3');
+    }
     public function loginojt(){
     	$this->load->view('loginojt');
     }
