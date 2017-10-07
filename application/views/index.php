@@ -18,6 +18,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+    
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
     <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>
     <style type="text/css">
@@ -65,7 +66,7 @@
                             <h5> <a href="#" class="current-link">Home</a></h5>
                               <?php echo (isset($error) ? $error : '');?>
                             <h5><a href="about">About us</a></h5>
-                            <h5><a href="#">Watchlist</a></h5>
+                            <h5><a href="#" data-toggle="modal" data-target="#watchlistModal">Watchlist</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-1">
@@ -73,6 +74,28 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- line modal -->
+        <div class="modal fade" id="watchlistModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" id="lineModalLabel">Watch list</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="ban-title">
+                        <h4>The following are on the company watch list</h4>
+                    </div>
+                    <ul>
+                        <?php foreach ($watch_list as $watchlists): ?>
+                            <li><?php echo $watchlists['company_name'] ?></li>
+                        <?php endforeach ?>
+                    </ul>
+                </div>
+            </div>
+          </div>
         </div>
 
         <div class="content">

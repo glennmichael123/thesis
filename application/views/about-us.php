@@ -75,14 +75,12 @@
 			<div class="ban-title">
 				<h4>The following are on the company watch list</h4>
 			</div>
-          <ul>
-          	<li>Compay X</li>
-            <li>Compay Y</li>
-            <li>Compay Z</li>
-            <li>Compay A</li>
-            <li>Compay B</li>
-            <li>Compay C</li>
-          </ul>
+           
+            <ul>
+                <?php foreach ($watch_list as $watchlists): ?>
+                    <li><?php echo $watchlists['company_name'] ?></li>
+                <?php endforeach ?>
+            </ul>
 
 		</div>
 	</div>

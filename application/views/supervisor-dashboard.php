@@ -224,6 +224,23 @@
             color: #000;
 
         }
+
+        .profile-image{
+
+            padding: 20px;
+        }
+        .profile-image>img.img-circle{
+            width: 150px;
+            height: 150px;
+            border: 3px solid #915B51;
+        }
+
+        .label-default{
+        background-color:#A55D35;
+        padding: 5px 10px 5px 10px;
+        border-radius: 30px;
+        font-size: 1em;
+        }
     </style>
 
 
@@ -249,12 +266,15 @@
 
                         <ul class="nav navbar-nav">
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown"><img src="<?php echo base_url();?>/assets/images/snow.jpg" class="pull-right circular-square" style="width: 40px; height: 40px; margin-top: -5px;"> </a>
+                                <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown">
+                                    
+                                    <?php echo $supImage[0]['image_id'];?>
 
-
-                                
                                 <ul class="dropdown-menu" id="show-logout">
                                     <li><a href="#">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
+                                    <li class="divider"></li>
+
+                                    <li><a href="#" data-toggle="modal" data-target="#changeImage">Change profile image<i class="fa fa-picture-o pull-right" aria-hidden="true"></i></a></li>
                                     <li class="divider"></li>
 
                                     <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
@@ -496,7 +516,7 @@
                     <!-- content goes here -->
                     <form>
                       <div class="form-group">
-                            Trainee name
+                            <label>Trainee name</label>
                             <select class="form-control" style="margin-top:5px;border-radius: 5px" id="names">
                                 <option selected disabled>Select trainee</option>
                                 <?php foreach($supervisorAddOjt as $trainees):?>  
@@ -522,7 +542,83 @@
           </div>
         </div>
 
+        <!-- MODAL CHANGE IMAGE -->
+
+        <div class="modal fade" id="changeImage" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" id="lineModalLabel">Change image</h3>
+                </div>
+                <div class="modal-body">
+                    <!-- content goes here -->
+                    <div class="profile-image" style="text-align: center">
+                        
+                        <?php if($supImage[0]['imageDisplayToChange'] == '<i class="fa fa-user-circle fa-5x" style="font-size: 150px;" aria-hidden="true"></i>'):?>
+                            <?php echo $supImage[0]['imageDisplayToChange'];?>
+                            <img class="img-circle" id="image-modal" src="" style="display: none;">
+                        <?php else:?>
+                            <?php echo $supImage[0]['imageDisplayToChange']?>
+                        <?php endif; ?>
+
+                        <div class="profile-name" style="margin-top: 15px">
+                            <div class="label label-default"><?php echo $supImage[0]['name'];?></div>
+                        </div>
+                        <div class="change-photo" style="margin-top: 10px">
+                            <!-- browse -->
+                            <button class="btn btn-default click-photo" id="btn-browse"><i class="fa fa-picture-o" aria-hidden="true"></i> Browse image</button>
+                        </div>
+
+                        <form action="supervisorSaveImage" method="POST" enctype="multipart/form-data">
+                            <input class="browse-photo" type="file" accept="image/*" onchange="previewFile()" name="supFiles" style="display: none;">
+                            <div class="saveCancel" style="margin-top: 10px; display: none;">
+                                <button type="submit" class="btn btn-default" style="width:75px" id="supSave" name="supSave">Save</button>
+                                <button type="button" class="btn btn-default" id="cancelBrowse">Cancel</button>
+                            </div>   
+                        </form> 
+
+                    </div>
+
+                    
+                    
+                </div>
+                <!-- <div class="modal-footer">
+                    <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                        <div class="btn-group" role="group">
+                             <button type="button" class="btn btn-primary btn-hover-green" data-action="save" role="button" style="width: 270px;border-radius: 5px" id="addTrainee" name="addTrainee">Save Changes</button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-success" data-dismiss="modal"  role="button" style="width: 150px;border-radius: 5px;float:right;display: block" id="btnSaveChanges">Save Changes</button>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+          </div>
+        </div>
+
 </body>
+
+<script type="text/javascript">
+  
+    function previewFile() {
+     var preview = document.querySelector('#image-modal');
+     var file    = document.querySelector('input[type=file]').files[0];
+     var reader  = new FileReader();
+
+     reader.addEventListener("load", function () {
+       preview.src = reader.result;
+       $('#image-modal').show();
+       $('.fa-user-circle').hide();
+       $(".saveCancel").css("display","inline-block");
+    }, false);
+
+    if (file) {
+     reader.readAsDataURL(file);
+     alert(reader.readAsDataURL(file));
+    }
+}
+</script>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -531,6 +627,18 @@
                 return $(this).attr("aria-valuenow") + "%";
             }
         )
+    });
+
+    //trigger browse photo
+    $('.click-photo').click(function(){
+        $('.browse-photo').trigger('click');
+    });
+</script>
+
+<script type="text/javascript">
+    $("#cancelBrowse").click(function(){
+        $(".saveCancel").css("display","none");
+        location.reload();
     });
 </script>
 
@@ -608,7 +716,7 @@
              alert("Select a trainee");    
             }else{
                 $.ajax({  
-                url : "addTrainee",// your username checker url
+                url : "addTrainee",
                 type : "POST",
                 data : { 
                     'studentID': studId,

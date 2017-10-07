@@ -361,7 +361,9 @@
 
                         <ul class="nav navbar-nav">
                             <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown"><img src="<?php echo base_url();?>/assets/images/snow.jpg" class="pull-right circular-square user-image" style="width: 40px; height: 40px; margin-top: -5px;"> </a>
+                            <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown">
+    
+                                 <?php echo $image_header[0]['user_image'];?>
                                 
                                 <ul class="dropdown-menu" id="show-logout">
                                     <li><a href="profile"><?php echo $user_data[0]['first_name'] . " " .$user_data[0]['last_name'];?><i class="fa fa-user pull-right"></i></a></li>
@@ -500,7 +502,7 @@
                                         easing: 'bounce',
                                         duration: 1400,
                                         text: {
-                                            value: <?php echo $verified?> + "/" + <?php echo $totalLogs?> + " " + 'logs',
+                                            value: <?php echo $verified?> + "/" + <?php echo $totalLogs;?> + " " + 'logs',
                                         },
                                         from: {
                                             color: '#9ebdef',
@@ -518,7 +520,7 @@
                                         trailColor: '#eee',
                                         trailWidth: 1,
                                         svgStyle: null
-                                    });
+                                    }); 
 
                                     bar.animate(<?php echo $verified/$totalLogs?>); // Number from 0.0 to 1.0
                                 });

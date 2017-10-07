@@ -693,21 +693,31 @@ li.notification-title{
               'supEmail':email,
             },
             success:function(data){
-              location.reload();
-              alert("Supervisor added successfully");
+              if(data == "name_exist"){
+                  alert("Name already exists");return false;
+              }else if(data == "id_exist"){
+                  alert("ID already exists");return false;
+              }else if(data == "email_exist"){
+                  alert("Email already exists");return false;
+              }else{
+                location.reload();
+                alert("Supervisor added successfully");
+
+                 $.ajax({
+                    url: "saveEmail",
+                    type: "POST",
+                    data:{
+                      'email': email,
+                    },
+                    success:function(data){
+                      alert("Email sent");
+                    }
+                  });
+              }
             },
           });
 
-          $.ajax({
-            url: "saveEmail",
-            type: "POST",
-            data:{
-              'email': email,
-            },
-            success:function(data){
-              alert("Email sent");
-            }
-          });
+          
         }
 
 
@@ -730,7 +740,7 @@ li.notification-title{
       }
   });
 </script>
-
+<!-- ADD WAAAAAAAAAAAAAAAAAAAAATTTCCCHHHHHHLLLLIIIIIIIIIIIIIIIIIISSSSSSSSSSSSTTTT -->
 <script type="text/javascript">
   $('#addWatchList').click(function(e){
       var n = $('.new-company-watchlist').html();
@@ -749,13 +759,18 @@ li.notification-title{
               'companyName':compName,
             },
             success:function(data){
-              location.reload();
-              alert("Company added to watch list");
+
+              if(data == "fail"){
+                alert("That company is already in the watch list");
+              }else{  
+                location.reload();
+                alert("Company added to watch list");
+              }
+
+               
             },
           });
         }
-
-
   });
       
 </script>
@@ -768,7 +783,7 @@ li.notification-title{
         $("span").css("color","#000");
     });
 </script>
-
+<!-- ADDDD ADMIIIIIIIIIIIIIIIIIIIINNNNNN -->
 <script type="text/javascript">
       $(document).ready(function(){
           $("#adminAdd").click(function(){
@@ -791,21 +806,32 @@ li.notification-title{
                     'adEmail': email,
                    },
                 success:function(data){
-                    location.reload();
-                    alert('Admin added successfully');
+                    if(data=="name_exist"){
+                      alert('Name already exists');return false;
+                    }
+                    else if(data=="id_exist"){
+                      alert('ID already exists');return false;
+                    }
+                    else if(data=="email_exist"){
+                      alert('Email already exists');return false;
+                    }
+                    else{
+                      location.reload();
+                      alert('Admin added successfully');
+                        
+                        $.ajax({
+                          url: "saveEmail",
+                          type: "POST",
+                          data:{
+                            'email': email,
+                          },
+                          success:function(data){
+                            alert("Email sent");
+                          }
+                        });
+                    }
                   },
               });
-
-            $.ajax({
-            url: "saveEmail",
-            type: "POST",
-            data:{
-              'email': email,
-            },
-            success:function(data){
-              alert("Email sent");
-            }
-          });
             }
           
           });

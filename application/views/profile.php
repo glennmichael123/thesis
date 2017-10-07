@@ -163,26 +163,38 @@
                     <div class="col-lg-3">
                         <div class="well">
                             <div class="profile-container">
-                                <div class="profile-image">
-                                    <img class="img-circle" src="<?php echo base_url()?>/assets/images/natoy.jpg">
-                                </div>
-                                <div style="margin-top: -10px;">
-                                </div>
-                                <div class="profile-name">
-                                    <div class="label label-default">Renato A. Manalili Jr.</div>
-                                </div>
-                                <div class="change-photo" style="margin-top: 10px">
-                                    <!-- browse -->
-                                    <button class="btn btn-default click-photo"><i class="fa fa-picture-o" aria-hidden="true"></i></button>
-                                    <input class="browse-photo" type="file" accept="image/*" onchange="previewFile()" name="" style="display: none;">
-                                    <img src="" height="200">
-                                    <!-- camera -->
-                                    <button class="btn btn-default"><i class="fa fa-camera" aria-hidden="true"></i></button>
-                                </div>
-                                <div class="saveCancel" style="margin-top: 10px; display: none;">
-                                    <button class="btn btn-default" style="width:75px">Save</button>
-                                    <button class="btn btn-default">Cancel</button>
-                                </div>
+                                
+                                    <div class="profile-image">
+                                        
+                                        <?php if($personalDetails[0]['image_id'] == '<i class="fa fa-user-circle fa-5x" style="font-size: 150px;" aria-hidden="true"></i>'):?>
+                                            <?php echo $personalDetails[0]['image_id'];?>
+
+                                             <img class="img-circle" src="" style="display: none;">
+                                        <?php else:?>
+                                            <?php echo $personalDetails[0]['image_id']?>
+                                            
+                                        <?php endif; ?>
+                                       
+                                        
+                                    </div>
+                                    <div style="margin-top: -10px;"></div>
+                                    <div class="profile-name">
+                                        <div class="label label-default"><?php echo $personalDetails[0]['first_name']." ".$personalDetails[0]['middle_initial']." ".$personalDetails[0]['last_name'];?>
+                                    </div>
+                                    </div>
+                                    <div class="change-photo" style="margin-top: 10px">
+                                        <!-- browse -->
+                                        <button class="btn btn-default click-photo" id="btn-browse"><i class="fa fa-picture-o" aria-hidden="true"></i></button>
+                                        <button class="btn btn-default"><i class="fa fa-camera" aria-hidden="true"></i></button>
+                                    </div>
+                                   
+                                <form action="saveImage" method="POST" enctype="multipart/form-data">
+                                    <input class="browse-photo" type="file" accept="image/*" onchange="previewFile()" name="files" style="display: none;">
+                                      <div class="saveCancel" style="margin-top: 10px; display: none;">
+                                        <button type="submit"class="btn btn-default" style="width:75px" id="saveBrowse" name="saveBrowse">Save</button>
+                                        <button type="button" class="btn btn-default" id="cancelBrowse">Cancel</button>
+                                    </div>
+                                </form> 
                             </div>
                         </div>
                     </div>
@@ -231,7 +243,7 @@
                             </div>
                              <p style="text-align: center; margin-top: 10px;">
                                <button class="btn btn-primary bt" style="display: none" type="submit">Save Changes</button>
-                               <button class="btn btn-danger bt" id="cancel"style="display: none;" type="button">Cancel</button>
+                               <button class="btn btn-danger bt" id="cancel" style="display: none;" type="button">Cancel</button>
                            </p>
                             
                     </fieldset>
@@ -260,7 +272,9 @@
                         </div>
                         <p style="text-align: center; margin-top: 10px;">
                                <button class="btn btn-primary bts" style="display: none" type="submit">Save Changes</button>
+
                                <button class="btn btn-danger bts" id="cancels"style="display: none;" type="button">Cancel</button>
+
                            </p>
                         
                     </fieldset>
@@ -337,7 +351,7 @@
                         </div>
                         <p style="text-align: center; margin-top: 10px;">
                                <button class="btn btn-primary bts" style="display: none" type="submit">Save Changes</button>
-                               <button class="btn btn-danger bts" id="cancels"style="display: none;" type="button">Cancel</button>
+                               <button class="btn btn-danger bts" id="cancels" style="display: none;" type="button">Cancel</button>
                            </p>
                     </fieldset>
                     </div>
@@ -352,6 +366,17 @@
     
        
 </body>
+
+<!-- click save from browse photo -->
+
+
+<!-- click cancel from browse photo -->
+<script type="text/javascript">
+    $("#cancelBrowse").click(function(){
+        $(".saveCancel").css("display","none");
+        location.reload();
+    });
+</script>
 
 <script type="text/javascript">
     $("span").hover(function() {
@@ -380,6 +405,7 @@
          $(".bts").css("display","inline-block"); 
     });
 </script>
+
 <script type="text/javascript">
     $("#cancels").click(function(){
         $(".family-info").removeClass("showBorder");
@@ -394,6 +420,7 @@
 
 
 <script type="text/javascript">
+  
     function previewFile() {
      var preview = document.querySelector('img');
      var file    = document.querySelector('input[type=file]').files[0];
@@ -401,10 +428,14 @@
 
      reader.addEventListener("load", function () {
        preview.src = reader.result;
+       $('img').show();
+       $('.fa-user-circle').hide();
+       $(".saveCancel").css("display","inline-block");
     }, false);
 
     if (file) {
      reader.readAsDataURL(file);
+     alert(reader.readAsDataURL(file));
     }
 }
 </script>

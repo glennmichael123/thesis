@@ -125,13 +125,13 @@
 
 
 
-           public function supervisorGetTrainee($company_name){
+        public function supervisorGetTrainee($company_name){
           $company_name2 = $company_name[0]['company_name'];
         
             $query = $this->db->query("SELECT users.id_number, users.first_name, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.company_name = '$company_name2'");
            return $query->result_array();
        }
-
+       
         public function getCompanyNames(){
             $query = $this->db->query("SELECT company_name FROM company_information");
 
@@ -166,7 +166,6 @@
             $query = $this->db->query("SELECT * FROM users");
         
             return $query->result_array();
-
          }
 
         public function insertLogs(){
@@ -371,12 +370,39 @@
             $adminPass = $_POST['adPass'];
             $adminEmail = $_POST['adEmail'];
             
-           return $this->db->query("INSERT INTO admin (name, id_number, password, email) VALUES('$adminName', '$adminID', '$adminPass', '$adminEmail')");
+            //check duplicate name
+            $result = $this->db->query("SELECT * FROM admin WHERE name = '".$adminName."' ");
+            if($this->db->affected_rows() > 0){
+                echo "name_exist"; exit;
+            }
+
+            //check duplicate id
+            $result = $this->db->query("SELECT * FROM admin WHERE id_number = '".$adminID."' ");
+            if($this->db->affected_rows() > 0){
+                echo "id_exist"; exit;
+            }
+
+            //check duplicate email
+            $result = $this->db->query("SELECT * FROM admin WHERE email = '".$adminEmail."' ");
+            if($this->db->affected_rows() > 0){
+               echo "email_exist"; exit;
+            }
+            else{
+                return $this->db->query("INSERT INTO admin (name, id_number, password, email) VALUES('$adminName', '$adminID', '$adminPass', '$adminEmail')");
+             }
          }
          public function addWatch(){
             $companyToWatch = $_POST['companyName'];
 
-           return $this->db->query("INSERT INTO watchlist (company_name) VALUES('$companyToWatch')");
+
+            $result = $this->db->query("SELECT * FROM watchlist WHERE company_name = '".$companyToWatch."'");
+            if($this->db->affected_rows() > 0){
+                echo "fail";
+            }
+            else{  
+               $this->db->query("UPDATE company_information SET watchlisted = 1");
+               return $this->db->query("INSERT INTO watchlist (company_name) VALUES('$companyToWatch')");
+            }
          }
 
          public function addSupervisor(){
@@ -387,10 +413,101 @@
             $supervisorPass = $_POST['supPass'];
             $supervisorEmail = $_POST['supEmail'];
             
-           return $this->db->query("INSERT INTO supervisor (name,company_name,designation,id_number,password,email) VALUES('$supervisorName','$supervisorComp','$supervisorDesig','$supervisorID','$supervisorPass','$supervisorEmail')");
+            //check duplicate name
+            $result = $this->db->query("SELECT * FROM supervisor WHERE name = '".$supervisorName."'");
+            if($this->db->affected_rows() > 0){
+                echo "name_exist";exit;
+            }
+            
+            //check duplicate id
+            $result = $this->db->query("SELECT * FROM supervisor WHERE id_number = '".$supervisorID."'");
+            if($this->db->affected_rows() > 0){
+                echo "id_exist";exit;
+            }
+            
+            //check duplicate email
+            $result = $this->db->query("SELECT * FROM supervisor WHERE email = '".$supervisorEmail."'");
+            if($this->db->affected_rows() > 0){
+                echo "email_exist";exit;
+            }
+            else{
+                return $this->db->query("INSERT INTO supervisor (name,company_name,designation,id_number,password,email) VALUES('$supervisorName','$supervisorComp','$supervisorDesig','$supervisorID','$supervisorPass','$supervisorEmail')");
+            }
+           
+         }
+
+         public function getWatchlists(){
+            $query = $this->db->query("SELECT * FROM watchlist");
+            return $query->result_array();
+         }
+
+         public function getProfile($id){
+            return $this->db->query("SELECT * FROM personal_details WHERE id_number = '$id'")->result_array();
+         }
+
+         public function displayImageToHeader($id){
+            return $this->db->query("SELECT * FROM users WHERE id_number = '$id'")->result_array();
+         }
+         public function profileImage(){
+            if(isset($_POST['saveBrowse'])){
+                $id = $this->session->userdata['id_number'];
+                $file = $_FILES['files'];
+
+                $path = $_FILES['files']['name'];
+                $ext = pathinfo($path, PATHINFO_EXTENSION);
+                $fileTmpName = $file['tmp_name'];
+                $fileError = $file['error'];
+
+                if($fileError === 0){
+                    $newFileName = $id.".".$ext;
+                    $fileDestination = FCPATH."assets\uploads\\";
+                    $full_path = base_url() . 'assets/uploads/'.$newFileName;
+                    $img_tag = '<img src='.$full_path.' class="img-circle">';
+                    $img_tag_toHeader = '<img src='.$full_path.' class="pull-right circular-square user-image" style="width: 40px; height: 40px; margin-top: -5px;">';
+
+                    if (move_uploaded_file($_FILES['files']['tmp_name'], $fileDestination. $newFileName)) {
+                            header("Location: profile");
+                    $this->db->query("UPDATE users SET user_image = '$img_tag_toHeader' WHERE id_number = '$id'");   
+                    return $this->db->query("UPDATE personal_details SET image_id = '$img_tag' WHERE id_number = '$id'");
+                    }
+                }else{
+                    echo "There was an error uploading the file";
+                }
+
+            }
+         }
+
+         public function supervisorImage($id){
+            return $this->db->query("SELECT * FROM supervisor WHERE id_number = '$id'")->result_array();
+         }
+
+         public function sup_image(){
+            if(isset($_POST['supSave'])){
+                $id = $this->session->userdata['id_number'];
+                $file = $_FILES['supFiles'];
+                $path = $_FILES['supFiles']['name'];
+                $ext = pathinfo($path, PATHINFO_EXTENSION);
+                $fileTmpName = $file['tmp_name'];
+                $fileError = $file['error'];
+
+                if($fileError === 0){
+                    $newFileName = $id.".".$ext;
+                    $fileDestination = FCPATH."assets\uploads\\";
+                    $full_path = base_url() . 'assets/uploads/'.$newFileName;
+                    $img_tag = '<img src='.$full_path.' class="img-circle" id="image-modal">';
+                    $img_tag_toHeader = '<img src='.$full_path.' class="pull-right circular-square user-image" style="width: 40px; height: 40px; margin-top: -5px;">';
+
+                    if (move_uploaded_file($_FILES['supFiles']['tmp_name'], $fileDestination. $newFileName)) {
+                            header("Location: supervisorDashboard");
+                    $this->db->query("UPDATE supervisor SET imageDisplayToChange = '$img_tag' WHERE id_number = '$id'");   
+                    return $this->db->query("UPDATE supervisor SET image_id = '$img_tag_toHeader' WHERE id_number = '$id'");
+                    }
+                }else{
+                    echo "There was an error uploading the file";
+                }
+
+            }
          }
 }
-
-
 
 ?>

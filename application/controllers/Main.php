@@ -39,7 +39,13 @@ class Main extends CI_Controller {
     	$this->load->view('page3');
     }
     public function loginojt(){
-    	$this->load->view('loginojt');
+    	if(isset($this->session->userdata['id_number'])){
+    		header("Location: dashboard");
+    	}
+    	else{
+    		$this->load->view('loginojt');
+    	}
+    	
     }
 
     public function loginsupervisor(){
@@ -65,7 +71,8 @@ class Main extends CI_Controller {
 				 	header("location: adminDashboard");
 				 }
      }else{
-     	$this->load->view('index');
+     	$data['watch_list'] = $this->users->getWatchlists();
+     	$this->load->view('index',$data);
      }
 		
 	}
@@ -76,15 +83,16 @@ class Main extends CI_Controller {
 		if(!isset($this->session->userdata['id_number'])){
           header("location: index");
      	}else{
-     		$this->load->view('profile');
+     		$data['personalDetails'] = $this->users->getProfile($this->session->userdata['id_number']);
+     		$this->load->view('profile',$data);
      	}
 		
 		
 	}
 	public function about()
 	{
-
-		$this->load->view('about-us');
+		$data['watch_list'] = $this->users->getWatchlists();
+		$this->load->view('about-us',$data);
 	}
 
 	public function changepassword()
@@ -112,19 +120,20 @@ class Main extends CI_Controller {
 	public function evaluate(){
 		if(!isset($this->session->userdata['id_number'])){
           header("location: index");
-      	}
-		else{
+         
+      	} $this->load->view('evaluate');
+		/*else{
      		$account_type = $this->users->getAccountType(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number']: '');
      		if($account_type[0]['account_type'] == 0){
 					header("location: dashboard");
 			}
 			else if($account_type[0]['account_type'] == 1){
-				$this->load->view('evaluate');
+				
 			}
 			elseif ($account_type[0]['account_type'] == 2) {
 				 header("location: adminDashboard");
 			}
-		}
+		}*/
 	}
 
 	public function supervisorDashboard(){
@@ -136,6 +145,7 @@ class Main extends CI_Controller {
      		$company_name = $this->users->getCompanySupervisor($this->session->userdata['id_number']);
      		$data['supervisorAddOjt'] = $this->users->supervisorGetTrainee($company_name);
      		$data['traineesLog'] = $this->users->getOjtLogs($this->session->userdata['id_number']);
+     		$data['supImage'] = $this->users->supervisorImage($this->session->userdata['id_number']);
 
      		$this->load->view('supervisor-dashboard', $data);
 			
@@ -216,8 +226,7 @@ public function loggedinSupervisor(){
 				// $newId = $this->session->userdata['id_number'];
 				// $newRecord = Array('id_number' => $newId, 'total_hours' => 200, 'total_evaluations'=> 2);
 				header("location: supervisorDashboard");
-				
-
+			
 					
 	}else{
 		header("location: loginsupervisor?error=Username or password incorrect");
@@ -371,16 +380,16 @@ public function logout(){
 		
      	}
 		 $data['user_data'] = $this->users->dashboardData($this->session->userdata['id_number']);
-
+		 $data['image_header'] = $this->users->displayImageToHeader($this->session->userdata['id_number']);
 					// $this->users->getUserData($this->session->userdata['id_number']);
 					$this->load->view('dashboard', $data);
 			}
-			else if($account_type[0]['account_type'] == 1){
+			/*else if($account_type[0]['account_type'] == 1){
 					header("location: supervisorDashboard");
 			}
 			elseif ($account_type[0]['account_type'] == 2) {
 					header("location: admindashboard");
-			}
+			}*/
      	}
 
 
@@ -494,7 +503,11 @@ public function logout(){
     	$this->users->updateLog();
     }
 
+    public function saveImage(){
+    	$this->users->profileImage();
+    }
 
-
-
+    public function supervisorSaveImage(){
+    	$this->users->sup_image();
+    }
 }
