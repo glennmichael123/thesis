@@ -1,5 +1,5 @@
 
- 
+
 <!DOCTYPE html>
 <html>
 
@@ -34,6 +34,11 @@
         }
         
         .header {
+            position: fixed;
+            right: 0;
+            left: 0;
+            z-index: 99;
+
             height: 60px;
         }
         
@@ -98,7 +103,7 @@
         .dropdown ul.dropdown-menu {
             border-radius:0px;
             box-shadow: none;
-            margin-top: 20px;
+            margin-top: 12px;
             margin-left: -200px;
             width: 280px;
         }
@@ -322,7 +327,41 @@
             border: 2px solid #A55D35;
             transition: 0.1s linear;
         }
-        
+
+        .animateHeader{
+            height: 45px;
+            transition: 0.3s;
+        }
+
+        .toNormal{
+            height: 60px;
+            transition: 0.3s;
+        }
+
+        .toTopImage{
+            margin-top: -14px !important;
+            transition: 0.3s !important;
+        }
+        .toNormalImage{
+            margin-top: -5px !important;
+            transition: 0.3s !important;
+        }
+        .toTopBell{
+            margin-top: -9px !important;
+            transition: 0.3s !important;
+        }
+        .toNormalBell{
+            margin-top: 0px !important;
+            transition: 0.3s !important;
+        }
+        .toTopLogo{
+            margin-top: 5px !important;
+            transition: 0.3s !important;
+        }
+        .toNormalLogo{
+            margin-top: 0px !important;
+            transition: 0.3s !important;
+        }
     </style>
     <title>OJT Automate</title>
 
@@ -344,7 +383,7 @@
                             <li class="dropdown">
                             <a href="#" class="dropdown-toggle" id="dropdown-notification" data-toggle="dropdown"><i class="pull-right fa fa-bell-o fa-2x" style="width: 40px; height: 40px; margin-top: 0px;"></i> </a>
                                 
-                                <ul class="dropdown-menu" id="show-notifications" style="position: absolute; top: 35px; left: -63px; width: 340px;">
+                                <ul class="dropdown-menu" id="show-notifications" style="position: relative; margin-top:20px; top: -22px; left: -63px; width: 340px;">
                                 
                                          <li><div class="notification-title">Notifications <a href="#" class="as-all-read pull-right">Mark all as read</a></div></li>
                                          <li class="divider"></li>
@@ -362,7 +401,8 @@
                         <?php if(isset($id_number)):?>
                                <ul class="nav navbar-nav">
                             <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown"><img src="<?php echo base_url();?>/assets/images/snow.jpg" class="pull-right circular-square" style="width: 40px; height: 40px; margin-top: -5px;"> </a>
+                              <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown"><i class="fa fa-user-circle fa-2x"></i><?php //echo $supImage[0]['image_id']?></a>
+                    
                               <ul class="dropdown-menu" id="show-logout">
                                 <li><a href="#">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                 <li class="divider"></li>
@@ -380,6 +420,7 @@
                             <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown">
     
                                  <?php echo $image_header[0]['user_image'];?>
+                             </a>
                                 
                                 <ul class="dropdown-menu" id="show-logout">
                                     <li><a href="profile"><?php echo $user_data[0]['first_name'] . " " .$user_data[0]['last_name'];?><i class="fa fa-user pull-right"></i></a></li>
@@ -403,7 +444,7 @@
         </div>
     </div>
     <div class="content">
-    <div class="container">
+    <div class="container" style="margin-top: 40px;">
         <div class="well">
             <div class="row">
                 <div class="col-lg-12">
@@ -903,19 +944,34 @@
         });
     });
 </script>
-<!-- <script type="text/javascript">
-    $('#hours_rendered').focus(function(){
-        var time_in = $('#time_in').val();
-        var time_out = $('#time_out').val();
-
-        
-        alert(time_in + time_out);
-
-        
-
+<script type="text/javascript">
+    $(document).ready(function(){
+         $(window).scroll(function(){
+        var aTop = $('.header').height();
+    if($(this).scrollTop()>aTop){
+         $('.fa-bell-o').removeClass('toNormalBell');
+         $('.circular-square').removeClass('toNormalImage');
+        $('.header').removeClass('toNormal');
+        $('.header').addClass('animateHeader');
+        $('.circular-square').addClass('toTopImage');
+        $('.fa-bell-o').addClass('toTopBell');
+        $('.logo').addClass('toTopImage');
+         $('.logo').removeClass('toNormalLogo');
+        // instead of alert you can use to show your ad
+        // something like $('#footAd').slideup();
+    }else{
+        $('.logo').removeClass('toTopImage');
+        $('.logo').addClass('toNormalLogo');
+         $('.header').removeClass('animateHeader');
+         $('.header').addClass('toNormal');
+          $('.circular-square').removeClass('toTopImage');
+          $('.circular-square').addClass('toNormalImage');
+         $('.fa-bell-o').removeClass('toTopBell');
+         $('.fa-bell-o').addClass('toNormalBell');
+    }
+  });
     });
-</script> -->
-
+</script>
 
 </html>
 

@@ -28,7 +28,13 @@
             background-color: #F4F4F4;
         }
         
+
+        .header{
+          height: 60px;
+        }
         
+
+
         .jumbotron{
             background-color: #EDC844;
             padding: 20px 20px !important;
@@ -154,7 +160,11 @@
 </head>
 <body>
     <div class="page-wrap">
-        <div class="content">
+      <!-- <div class="header">
+          <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
+      </div>
+       -->  <div class="content">
+
             <div class="container">
                 <div class="jumbotron">
                     <label style="color: #A55D35;"><span class="fa fa-user" aria-hidden="true"></span> Student Information</label>
@@ -171,7 +181,7 @@
 
                                              <img class="img-circle" src="" style="display: none;">
                                         <?php else:?>
-                                            <?php echo $personalDetails[0]['image_id']?>
+                                            <img src="<?php echo base_url().$personalDetails[0]['image_id']?>" class="img-circle">
                                             
                                         <?php endif; ?>
                                        

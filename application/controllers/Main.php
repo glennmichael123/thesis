@@ -61,19 +61,15 @@ class Main extends CI_Controller {
 
 	public function index()
 	{
-		$account_type = $this->users->getAccountType(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
+		// print_r($this->session->userdata['id_number']);exit;
      if(isset($this->session->userdata['id_number'])){
-     	if($account_type[0]['account_type'] == 0){
-					header("location: dashboard");
-				}else if($account_type[0]['account_type'] == 1){
-					header("location: supervisorDashboard");
-				 }elseif ($account_type[0]['account_type'] == 2) {
-				 	header("location: adminDashboard");
-				 }
+     	header("location: dashboard");
      }else{
      	$data['watch_list'] = $this->users->getWatchlists();
      	$this->load->view('index',$data);
+     	//print_r($this->session->userdata['id_number']);exit;
      }
+		
 		
 	}
 
@@ -83,6 +79,8 @@ class Main extends CI_Controller {
 		if(!isset($this->session->userdata['id_number'])){
           header("location: index");
      	}else{
+     		$data['user_data'] = $this->users->dashboardData($this->session->userdata['id_number']);
+     		 $data['image_header'] = $this->users->displayImageToHeader($this->session->userdata['id_number']);
      		$data['personalDetails'] = $this->users->getProfile($this->session->userdata['id_number']);
      		$this->load->view('profile',$data);
      	}
@@ -185,7 +183,7 @@ class Main extends CI_Controller {
 			// Add user data in session
 				$this->session->set_userdata('id_number', $session_data);
 				$account_type = $this->users->getAccountType(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
-				$existId = $this->users->checkExistRecords(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
+				$existId = $this->users->checkExistRecords($this->session->userdata['id_number']);
 				$newId = $this->session->userdata['id_number'];
 				$newRecord = Array('id_number' => $newId, 'total_hours' => 200, 'total_evaluations'=> 2);
 				if(!$existId && $account_type[0]['account_type'] == 0){
@@ -209,6 +207,8 @@ class Main extends CI_Controller {
 
 	
 }
+
+
 
 public function loggedinSupervisor(){
 	$condition = $this->users->user_login_supervisor();
@@ -347,6 +347,7 @@ public function logout(){
      	$data['comments'] = $this->users->getComments();
      	$totalLogsCount = $this->users->getNumberLogs(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
      	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
+     	
 
      	$renderedCount = $this->users->getSumRendered(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
 
@@ -405,7 +406,7 @@ public function logout(){
 		$totalLogsCount = $this->users->getNumberLogs(isset($id_number) ? $id_number : '');
      	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified(isset($id_number) ? $id_number : '');
      	$renderedCount = $this->users->getSumRendered(isset($id_number) ? $id_number : '');
-
+     	$data['supImage'] = $this->users->supervisorImage($this->session->userdata['id_number']);
      	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $id_number);
      	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $id_number);
      	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $id_number);

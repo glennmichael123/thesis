@@ -464,6 +464,8 @@
          public function displayImageToHeader($id){
             return $this->db->query("SELECT * FROM users WHERE id_number = '$id'")->result_array();
          }
+
+         
          public function profileImage(){
             if(isset($_POST['saveBrowse'])){
                 $id = $this->session->userdata['id_number'];
@@ -477,14 +479,14 @@
                 if($fileError === 0){
                     $newFileName = $id.".".$ext;
                     $fileDestination = FCPATH."assets\uploads\\";
-                    $full_path = base_url() . 'assets/uploads/'.$newFileName;
-                    $img_tag = '<img src='.$full_path.' class="img-circle">';
+                    $full_path = 'assets/uploads/'.$newFileName;
+                    // $img_tag = '<img src='.$full_path.' class="img-circle">';
                     $img_tag_toHeader = '<img src='.$full_path.' class="pull-right circular-square user-image" style="width: 40px; height: 40px; margin-top: -5px;">';
 
                     if (move_uploaded_file($_FILES['files']['tmp_name'], $fileDestination. $newFileName)) {
                             header("Location: profile");
                     $this->db->query("UPDATE users SET user_image = '$img_tag_toHeader' WHERE id_number = '$id'");   
-                    return $this->db->query("UPDATE personal_details SET image_id = '$img_tag' WHERE id_number = '$id'");
+                    $this->db->query("UPDATE personal_details SET image_id = '$full_path' WHERE id_number = '$id'");
                     }
                 }else{
                     echo "There was an error uploading the file";

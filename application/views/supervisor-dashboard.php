@@ -372,7 +372,7 @@
                        
                              <div class="col-lg-12" >
                                 <div class="well" style="background: #fff; padding-bottom: 0; padding-top: 10px">
-                                    <span class="user-name"><i class="fa fa-user-circle"></i><?php echo $log['first_name'] . " " .$log['last_name']?></span>
+                                    <span class="user-name"><a href="studentDashboard/<?php echo $log['id_number'];?>"><i class="fa fa-user-circle"></i><?php echo $log['first_name'] . " " .$log['last_name']?></span></a>
                                   
                                     <hr style="margin-top: 0; margin-bottom: 0">
 
