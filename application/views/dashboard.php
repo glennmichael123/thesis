@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
 
@@ -418,8 +416,13 @@
                         <ul class="nav navbar-nav">
                             <li class="dropdown">
                             <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown">
-    
-                                 <?php echo $image_header[0]['user_image'];?>
+                                <?php if ($image_header[0]['user_image'] == '<i class="fa fa-user-circle pull-right" style="font-size: 40px; margin-top: -5px;" aria-hidden="true"></i>'):?>
+                                    <?php echo $image_header[0]['user_image'];?>
+                                    <?php else:?> 
+                                        <img src="<?php echo base_url().$image_header[0]['user_image'];?>" class="pull-right circular-square user-image" style="width: 40px; height: 40px; margin-top: -5px;">
+                                <?php endif ?>
+                                 
+
                              </a>
                                 
                                 <ul class="dropdown-menu" id="show-logout">

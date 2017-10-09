@@ -128,7 +128,7 @@
         public function supervisorGetTrainee($company_name){
           $company_name2 = $company_name[0]['company_name'];
         
-            $query = $this->db->query("SELECT users.id_number, users.first_name, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.company_name = '$company_name2'");
+            $query = $this->db->query("SELECT users.id_number, users.first_name, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.company_name = '$company_name2' AND supervisor_id = ''");
            return $query->result_array();
        }
        
@@ -481,11 +481,11 @@
                     $fileDestination = FCPATH."assets\uploads\\";
                     $full_path = 'assets/uploads/'.$newFileName;
                     // $img_tag = '<img src='.$full_path.' class="img-circle">';
-                    $img_tag_toHeader = '<img src='.$full_path.' class="pull-right circular-square user-image" style="width: 40px; height: 40px; margin-top: -5px;">';
-
+                    /*$img_tag_toHeader = '<img src='.$full_path.' class="pull-right circular-square user-image" style="width: 40px; height: 40px; margin-top: -5px;">';
+*/
                     if (move_uploaded_file($_FILES['files']['tmp_name'], $fileDestination. $newFileName)) {
                             header("Location: profile");
-                    $this->db->query("UPDATE users SET user_image = '$img_tag_toHeader' WHERE id_number = '$id'");   
+                    $this->db->query("UPDATE users SET user_image = '$full_path' WHERE id_number = '$id'");   
                     $this->db->query("UPDATE personal_details SET image_id = '$full_path' WHERE id_number = '$id'");
                     }
                 }else{
@@ -511,14 +511,14 @@
                 if($fileError === 0){
                     $newFileName = $id.".".$ext;
                     $fileDestination = FCPATH."assets\uploads\\";
-                    $full_path = base_url() . 'assets/uploads/'.$newFileName;
-                    $img_tag = '<img src='.$full_path.' class="img-circle" id="image-modal">';
-                    $img_tag_toHeader = '<img src='.$full_path.' class="pull-right circular-square user-image" style="width: 40px; height: 40px; margin-top: -5px;">';
+                    $full_path ='assets/uploads/'.$newFileName;
+                    /*$img_tag = '<img src='.$full_path.' class="img-circle" id="image-modal">';
+                    $img_tag_toHeader = '<img src='.$full_path.' class="pull-right circular-square user-image" style="width: 40px; height: 40px; margin-top: -5px;">';*/
 
                     if (move_uploaded_file($_FILES['supFiles']['tmp_name'], $fileDestination. $newFileName)) {
                             header("Location: supervisorDashboard");
-                    $this->db->query("UPDATE supervisor SET imageDisplayToChange = '$img_tag' WHERE id_number = '$id'");   
-                    return $this->db->query("UPDATE supervisor SET image_id = '$img_tag_toHeader' WHERE id_number = '$id'");
+                    $this->db->query("UPDATE supervisor SET imageDisplayToChange = '$full_path' WHERE id_number = '$id'");   
+                    return $this->db->query("UPDATE supervisor SET image_id = '$full_path' WHERE id_number = '$id'");
                     }
                 }else{
                     echo "There was an error uploading the file";

@@ -267,8 +267,12 @@
                         <ul class="nav navbar-nav">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown">
-                                    
+                                
+                                    <?php if ($supImage[0]['image_id'] == '<i class="fa fa-user-circle pull-right" style="font-size: 40px; margin-top: -5px;" aria-hidden="true"></i>'):?>
                                     <?php echo $supImage[0]['image_id'];?>
+                                    <?php else:?> 
+                                        <img src="<?php echo base_url().$supImage[0]['image_id'];?>" class="pull-right circular-square user-image" style="width: 40px; height: 40px; margin-top: -5px;">
+                                    <?php endif ?>
 
                                 <ul class="dropdown-menu" id="show-logout">
                                     <li><a href="#">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
@@ -559,7 +563,7 @@
                             <?php echo $supImage[0]['imageDisplayToChange'];?>
                             <img class="img-circle" id="image-modal" src="" style="display: none;">
                         <?php else:?>
-                            <?php echo $supImage[0]['imageDisplayToChange']?>
+                            <img src="<?php echo base_url().$supImage[0]['imageDisplayToChange']?>" class="img-circle" id="image-modal">
                         <?php endif; ?>
 
                         <div class="profile-name" style="margin-top: 15px">

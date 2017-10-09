@@ -311,7 +311,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <h2>Company Classification <i class="fa fa-list-alt" aria-hidden="true"></i></h2>
+                            <h2 style="margin-bottom: 30px">Company Classification <i class="fa fa-list-alt" aria-hidden="true"></i></h2>
                              <div class="col-lg-2">
                             <input id="assembly" value="assembly" type="checkbox"><label class="labels" for="assembly">Assembly</label>
                          </div> 
@@ -345,7 +345,7 @@
                        
                         </div>
                         <div class="row">
-                            <h2 class="fs-title">Total number of employees <i class="fa fa-list-ol" aria-hidden="true"></i></h2>
+                            <h2 class="fs-title" style="margin: 30px 30px">Total number of employees <i class="fa fa-list-ol" aria-hidden="true"></i></h2>
                             <div class="col-lg-3 col-lg-offset-1">
                               <input type="radio" id="less_fifty" value="Less than 50" name="employee_numbers"><label class="labels"for="less_fifty">Less than 50</label>
              
@@ -362,7 +362,7 @@
                         <p style="text-align: center; margin-top: 10px;">
                                <button class="btn btn-primary bts" style="display: none" type="submit">Save Changes</button>
                                <button class="btn btn-danger bts" id="cancels" style="display: none;" type="button">Cancel</button>
-                           </p>
+                        </p>
                     </fieldset>
                     </div>
                    
