@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
-    
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
     <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>
     <style type="text/css">
@@ -29,16 +29,99 @@
         font-size: 12px;
         line-height: 1.33;
         border-radius: 25px;
+
+    }
+    .btn-bug{
+        background-color: #800000;
+    }
+    .btn-bug:hover{
+        color: #FFFFFF;
+    }
+    .btn-submit{
+        color: #FFFFFF;
+        background-color: #FFBA00;
+    }
+    .btn-submit:hover{
+        color: #FFFFFF;
+        background-color: #f5b301;
+
     }
     .feedback{position: fixed;}
-    .feedback textarea{height: 180px; }
+    .feedback textarea{height: 150px; }
     .feedback .reported p, .feedback .failed p  { height: 190px}
     .feedback.left{left:5px; bottom:15px}
     .feedback.right{right:5px; bottom:15px}
-    .feedback .dropdown-menu{width: 290px;height: 320px;bottom: 50px;}
+    .feedback .dropdown-menu{width: 290px;height: 300px;bottom: 50px;}
     .feedback.left .dropdown-menu{ left: 0px}
     .feedback.right .dropdown-menu{ right: 0px}
     .feedback .hideme{ display: none}
+    
+    .btn-login{
+        background-color: #FFBA00;
+        color: #FFFFFF;
+        width: 100%;
+        margin-top: 5px;
+        font-size: 1.25em;
+    }
+    .btn-login:hover{
+        color: #FFFFFF;
+        background-color: #f5b301;
+        border-radius: 0;
+    }
+    .btn-loginas{
+        font-size: 15px;
+        color: #FFFFFF;
+        background-color: #FFBA00;
+
+    }
+    .btn-loginas:hover{
+        color: #FFFFFF;
+        background-color: #f5b301;
+        
+    }
+    .forget{
+        margin-top: 10px;
+    }
+  
+    input{
+        margin-top: 5px;
+        width: 100%;
+        
+
+    }
+    .login-container{
+        margin-top: 100px;
+    }
+    .login-footer{
+
+    }
+    h6{
+        display: inline-block;
+
+
+    }
+    body{
+        background-image: url('<?php echo base_url()?>assets/images/backgrounds.jpg');
+    }
+   
+    .login{
+        margin-top: 120px;
+    }
+    a{
+        color: #FFFFFF;
+    }
+    a:hover{
+        color: #FFFFFF;
+    }
+    option{
+        background-color: #FFFFFF;
+        color: #000000;
+    }
+  
+
+
+    
+
     </style>
     <title></title>
 
@@ -69,9 +152,9 @@
                             <h5><a href="#" data-toggle="modal" data-target="#watchlistModal">Watchlist</a></h5>
                         </div>
                     </div>
-                    <div class="col-lg-1">
+                   <!--  <div class="col-lg-1">
                         <a class="btn btn-primary login-btn" href="<?php echo base_url()?>main/loginojt" class="btn btn-primary">Login</a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -99,111 +182,47 @@
         </div>
 
         <div class="content">
-        
-            <section>
-                <div class="img-carousel">
-                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators">
-                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4"></div>
+                        <div class="col-lg-4">
+                            <div class="login">
+                                 <h2 style="color: #FFFFFF; text-align: center;">Please Login</h2>
+                                    <form action="" method="POST">
+                                         <div class="form-group">
+                                             <input type="text" name="username" class="form-control" placeholder="Username">
+                                         </div>
+                                         <div class="form-group">
+                                              <input type="password" name="password" class="form-control" placeholder="Password">
+                                              <div class="forget">
+                                                     <h6><a href="incorrectpassword">Forgot Password?</a></h6> 
+                                                       <div class="btn-group" style="float: right;">
+                                                      <select type="button" class="btn btn-loginas" name="options">
+                                                       <span class="caret"></span>
+                                                       <option>Login-As</option>
+                                                        <option value="supervisor">Supervisor</option>
+                                                        <option value="administrator">Administrator</option>
+                                                      </select>
+                                                      
+                                                    </div> 
 
-                        </ol>
+                                                    
+                                              </div>
+                                          </div>
+                                             <button class="btn btn-login btn-block">Sign In</button>
 
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <img src="<?php echo base_url();?>assets/images/imgfront.png" style="width: 100%; height: 500px;" alt="...">
+                                    </form>
                             </div>
-                            <div class="item">
-                                <img src="<?php echo base_url();?>assets/images/img1.png" style="width: 100%; height: 500px;">
-                                <div class="carousel-caption">
-                                    <h3><a id="goto_feature1" class="btn btn-primary">Learn More</a></h3>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img src="<?php echo base_url();?>assets/images/img2.png" style="width: 100%; height: 500px;" alt="...">
-                                <div class="carousel-caption">
-                                    <h3><a id="goto_feature2" class="btn btn-primary">Learn More</a></h3>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img src="<?php echo base_url();?>assets/images/img3.png" style="width: 100%; height: 500px;" alt="...">
-                                <div class="carousel-caption">
-                                    <h3><a id="goto_feature3" class="btn btn-primary">Learn More</a></h3>
-                                </div>
-                            </div>
-
                         </div>
-
-                        <!-- Controls -->
-                        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                        </a>
-                        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                        </a>
-                    </div>
-                    <!-- Carousel -->
+                    <div class="col-lg-4"></div>
                 </div>
-            </section>
-            <section>
-                <div class="features">
-
-                    <div class="container">
-                        <section id="feature1">
-                            <div class="row">
-                                <div class="col-lg-3" data-aos="fade-right">
-                                    <img src="<?php echo base_url();?>assets/images/feature1.png" style="height: 250px; border-radius: 100%;">
-                                </div>
-                                <div class="col-lg-9">
-                                    <div class="description" data-aos="zoom-in">
-                                    <!-- THIS PART IS EVALUATION -->
-                                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-                                    </div>
-                                </div>
-                            </div>
-
-                        </section>
-
-                        <section id="feature2" style="margin-top: 100px;">
-                            <div class="row">
-                                <div class="col-lg-9" style="margin-top: 50px;" data-aos="fade-right">
-                                    <div class="description">
-                                    <!-- THIS PART IS LOGS -->
-                                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-                                    </div>
-
-                                </div>
-                                <div class="colg-lg-3" data-aos="fade-up">
-                                    <img src="<?php echo base_url();?>assets/images/feature2.png" style="height: 250px; border-radius: 100%;">
-                                </div>
-                            </div>
-                        </section>
-
-                        <section id="feature3" style="margin-top: 100px;">
-                            <div class="row">
-                                <div class="col-lg-3" style="margin-top: 50px;" data-aos="fade-up">
-                                    <img src="<?php echo base_url();?>assets/images/feature3.png" style="height: 250px; border-radius: 100%;">
-
-                                </div>
-                                <div class="colg-lg-9" data-aos="fade-right">
-
-                                    <div class="description" style="margin-top: 100px;">
-                                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-
-                </div>
-            </section>
+            </div>
+            
+            
+           
 
         </div>
-        <div class="footer">
+        <!-- <div class="footer">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-6">
@@ -260,7 +279,13 @@
             </div>
 
         </div>
+    </div> -->
+
+        
+        </div>
+       
     </div>
+
 </body>
 <script type="text/javascript">
     $(document).ready(function() {
@@ -291,5 +316,22 @@
             },
             'slow');
     });
+
+ 
+     
+  
 </script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+        $('.btn-submit').click(function(){
+            alert("natoy");
+        });
+    });
+        $(function () {
+  $('[data-toggle="popover"]').popover()
+})
+</script> 
+
+
+
 </html>

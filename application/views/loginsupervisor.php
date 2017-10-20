@@ -76,7 +76,7 @@
 .loginmodal {
   text-align: center;
   font-size: 14px;
-  font-family: 'Arial', sans-serif;
+ 
   font-weight: 700;
   height: 36px;
   padding: 0 8px;
@@ -90,10 +90,10 @@
   border: 0px;
   color: #fff;
   text-shadow: 0 1px rgba(0,0,0,0.1); 
-  background-color: #4d90fe;
   padding: 17px 0px;
   font-family: roboto;
-  font-size: 14px;
+  background-color: #FFB900;
+  font-size: 1.5em;
   /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
 }
 
@@ -101,7 +101,8 @@
   /* border: 1px solid #2f5bb7; */
   border: 0px;
   text-shadow: 0 1px rgba(0,0,0,0.3);
-  background-color: #357ae8;
+  background-color: #f5b301;
+  font-size: 1.5em;
   /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
 }
 
@@ -161,7 +162,7 @@
                               </form>
                                 
                               <div class="login-help">
-                                <a href="#">Forgot Password?</a>
+                                <a href="incorrectpassword">Forgot Password?</a>
                               </div>
                               <div class="login-option" style="margin-top: 20px;">
                                     <span style="float: left;"><a class="link-supervisor-ojt" href="loginojt">Login as OJT</a></span>

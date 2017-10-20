@@ -29,14 +29,183 @@
         }
         
 
-        .header{
-          height: 60px;
+       /*  .header {
+            position: fixed;
+            right: 0;
+            left: 0;
+            z-index: 99;
+
+            height: 60px;
+        }*/
+        
+        .mission {
+            height: 200px;
+        }
+        
+        .txt {
+            text-align: justify;
+            font-size: 1em;
+            padding: 30px;
+            margin-top: -40px;
+        }
+        
+        .title-txt {
+            text-align: center;
+            font-weight: bold;
+            font-size: 3em;
+            color: #800000;
+        }
+        
+        .missim {
+            height: 75px;
+            margin-top: -10px;
+        }
+        
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            margin: 0;
+        }
+        
+        .nav {
+            float: right;
+        }
+        
+        .nav a {
+            color: #915B51;
+        }
+        
+        .nav>li>a:hover,
+        .nav>li>a:focus,
+        .nav .open>a,
+        .nav .open>a:hover,
+        .nav .open>a:focus {
+            background: inherit;
+        }
+        
+        .dropdown {
+            background: inherit;
+            border: 1px solid inherit;
+            border-radius: 4px;
+            width: 90px;
+        }
+        
+        .dropdown-menu>li>a {
+            color: #915B51;
+        }
+        
+        .dropdown ul.dropdown-menu {
+            border-radius:0px;
+            box-shadow: none;
+            margin-top: 12px;
+            margin-left: -200px;
+            width: 280px;
+        }
+        
+        .dropdown ul.dropdown-menu:before {
+            content: "";
+            border-bottom: 10px solid #fff;
+            border-right: 10px solid transparent;
+            border-left: 10px solid transparent;
+            position: absolute;
+            top: -10px;
+            right: 16px;
+            z-index: 10;
+        }
+        
+        .dropdown ul.dropdown-menu:after {
+            content: "";
+            border-bottom: 12px solid #ccc;
+            border-right: 12px solid transparent;
+            border-left: 12px solid transparent;
+            position: absolute;
+            top: -12px;
+            right: 14px;
+            z-index: 9;
+        }
+        
+        .notification {
+            float: right;
+            margin-top: 20px;
+        }
+        
+        .fa-bell-o {
+            cursor: pointer;
+            color: #915B51;
+        }
+        
+        .fa-bell:hover {
+            color: #A55D35;
+        }
+        
+        
+      /*  
+        li > .notifications {
+            padding-left: 20px;
+            color: #915B51;
+            padding-top: 10px;
+            width: 280px;
+            display: inline-block;
+        }
+        
+       
+        
+      
+        */
+
+          .notifs {
+            padding-left: 10px;
+            padding-top: 10px;
+            height: 60px;
+         }
+
+        .fa-check:hover {
+            cursor: pointer;
+            color: #DABD95;
+        }
+        
+
+       
+        .fa-check {
+            color: #915B51;
+            padding-right: 10px; 
+        }
+        
+          .notification-title {
+            padding-top: 10px;
+            padding-left: 10px;
+            padding-bottom: 10px;
+        }
+
+        .badge {
+            background: #A55D35;
+        }
+        
+        .as-all-read {
+          padding-right: 10px;
+        }
+        
+        .circular-square {
+            border-top-left-radius: 50% 50%;
+            border-top-right-radius: 50% 50%;
+            border-bottom-right-radius: 50% 50%;
+            border-bottom-left-radius: 50% 50%;
+        }
+        
+        .content {
+            padding-top: 30px;
+            padding-bottom: 30px;
+            background: #E9EBEE;
+            color: #000000 !important;
         }
         
 
 
         .jumbotron{
-            background-color: #EDC844;
+            
+            background-color: #800000;
             padding: 20px 20px !important;
             color: #FFFFFF;
             font-size: 1.5em;
@@ -61,16 +230,17 @@
         .profile-image>img.img-circle{
             width: 150px;
             height: 150px;
-            border: 3px solid #915B51;
+            border: 3px solid #800000;
         }
         .label-default{
-        background-color:#A55D35;
+        background-color:#800000;
         padding: 5px 10px 5px 10px;
         border-radius: 30px;
         font-size: 1em;
+
         }
         legend{
-            background-color: #915B51;
+            background-color: #800000;
             margin-bottom: 0px;
             width: auto; 
             border: 1px solid #915B51;
@@ -79,6 +249,7 @@
             color:  #EED090;
             font-size: 20px;
             font-family: 'Oswald', sans-serif;
+            color: #FFFFFF;
 
         }
         fieldset{
@@ -101,7 +272,7 @@
         }
         
         .fa-pencil-square-o{
-            color: #000080;
+            color: #800000;
             font-size: 1.5em;
         }
         #pos{
@@ -137,6 +308,16 @@
             background:none !important;
             box-shadow: none !important;
         }
+        .company-info{
+            font-size: 13px;
+            margin-left: 3px;
+            display: inline;
+            border: 0;
+            color: #000000;
+            width: 100%;
+            background:none !important;
+            box-shadow: none !important;
+        }
   
         span:hover{
             background-color: none;
@@ -163,11 +344,89 @@
       <!-- <div class="header">
           <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
       </div>
-       -->  <div class="content">
+       --> 
+       <div class="header">
+            <!-- <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-4 col-sm-4">
+                        <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
+                    </div>
+                    <div class="col-lg-7 col-sm-7">
+                        <?php if(isset($id_number)):?>
+                        <?php else:?>
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" id="dropdown-notification" data-toggle="dropdown"><i class="pull-right fa fa-bell-o fa-2x" style="width: 40px; height: 40px; margin-top: 0px;"></i> </a>
+                                
+                                <ul class="dropdown-menu" id="show-notifications" style="position: relative; margin-top:20px; top: -22px; left: -63px; width: 340px;">
+                                
+                                         <li><div class="notification-title">Notifications <a href="#" class="as-all-read pull-right">Mark all as read</a></div></li>
+                                         <li class="divider"></li>
+                                <?php for($i=1; $i<=3; $i++):?>
+                                         <a href="#" class="view-notif"><li class="view-notification"><div class="notifs">Lfeliz posted announcement <i class="fa fa-check pull-right" title="Mark as read"></i></div></li></a>
+                                         <li class="divider"></li>
+                                <?php endfor;?>    
+
+                                   </ul>
+                            </li>
+                        </ul>
+                    <?php endif;?>
+                    </div>
+                    <div class="col-lg-1 col-sm-1">
+                        <?php if(isset($id_number)):?>
+                               <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown"><i class="fa fa-user-circle fa-2x"></i><?php //echo $supImage[0]['image_id']?></a>
+                    
+                              <ul class="dropdown-menu" id="show-logout">
+                                <li><a href="#">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
+                                <li class="divider"></li>
+        
+                                <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                                <li class="divider"></li>
+                    
+                                <li><a href="<?php echo base_url()?>main/logout">Log Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+                              </ul>
+                            </li>
+                          </ul>
+                        <?php else:?>
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown">
+                                <?php if ($image_header[0]['user_image'] == '<i class="fa fa-user-circle pull-right" style="font-size: 40px; margin-top: -5px;" aria-hidden="true"></i>'):?>
+                                    <?php echo $image_header[0]['user_image'];?>
+                                    <?php else:?> 
+                                        <img src="<?php echo base_url().$image_header[0]['user_image'];?>" class="pull-right circular-square user-image" style="width: 40px; height: 40px; margin-top: -5px;">
+                                <?php endif ?>
+                                 
+
+                             </a>
+                                
+                                <ul class="dropdown-menu" id="show-logout">
+                                    <li><a href="profile"><?php echo $user_data[0]['first_name'] . " " .$user_data[0]['last_name'];?><i class="fa fa-user pull-right"></i></a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="dashboard">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
+                                    <li class="divider"></li>
+
+                                    <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                                    <li class="divider"></li>
+
+                                    <li><a href="logout">Log Out <i class="fa fa-sign-out pull-right"></i></a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    <?php endif;?>
+                    </div>
+
+                </div> -->
+
+            </div>
+        </div>
+       <div class="content">
 
             <div class="container">
                 <div class="jumbotron">
-                    <label style="color: #A55D35;"><span class="fa fa-user" aria-hidden="true"></span> Student Information</label>
+                    <label style="color: #FFFFFF;"><span class="fa fa-user" aria-hidden="true"></span> Student Information</label>
                 </div>
                 <div class="row">
                     <div class="col-lg-3">
@@ -296,18 +555,18 @@
                         <div class="row" id="pos">
                             <div class="col-lg-6">
                                 <label class="labels">Company Name:</label>
-                                  <input type="text" name="" value=" BSIT" readonly class="family-info form-control">
+                                  <input type="text" name="" value=" BSIT" readonly class="company-info form-control">
                                   <label class="labels">Company Address:</label>
-                                  <input type="text" name="" value=" BSIT" readonly class="family-info form-control">
+                                  <input type="text" name="" value=" BSIT" readonly class="company-info form-control">
                                   <label class="labels">Telephone Number:</label>
-                                <input type="text" name="" value=" 4th Year" readonly class="family-info form-control">
+                                <input type="text" name="" value=" 4th Year" readonly class="company-info form-control">
                                 
                             </div>
                             <div class="col-lg-6">
                              <label class="labels">Product Lines:</label>
-                                <input type="text" name="" value=" 4th Year" readonly class="family-info form-control">
+                                <input type="text" name="" value=" 4th Year" readonly class="company-info form-control">
                                <label class="labels">Fax Number:</label>
-                               <input type="text" name="" value=" 4th Year" readonly class="family-info form-control">
+                               <input type="text" name="" value=" 4th Year" readonly class="company-info form-control">
                             </div>
                         </div>
                         <div class="row">
@@ -358,11 +617,12 @@
                                 <input type="radio" id="more_onehundred" value="More than 100" name="employee_numbers"><label class="labels"for="more_onehundred">More than 100</label>
                             </div>
                         </div>
-                        </div>
                         <p style="text-align: center; margin-top: 10px;">
-                               <button class="btn btn-primary bts" style="display: none" type="submit">Save Changes</button>
-                               <button class="btn btn-danger bts" id="cancels" style="display: none;" type="button">Cancel</button>
+                               <button class="btn btn-primary btss" style="display: none" type="submit">Save Changes</button>
+                               <button class="btn btn-danger btss" id="cancelss" style="display: none;" type="button">Cancel</button>
                         </p>
+                        </div>
+                        
                     </fieldset>
                     </div>
                    
@@ -413,6 +673,20 @@
          $(".family-info").addClass("showBorder");
          $(".family-info").prop("readonly",false);
          $(".bts").css("display","inline-block"); 
+    });
+</script>
+<script type="text/javascript">
+    $("#btn-edit2").click(function(){
+         $(".company-info").addClass("showBorder");
+         $(".company-info").prop("readonly",false);
+         $(".btss").css("display","inline-block"); 
+    });
+</script>
+<script type="text/javascript">
+    $("#cancelss").click(function(){
+        $(".company-info").removeClass("showBorder");
+        $(".company-info").prop("readonly",true);
+        $(".btss").css("display","none");
     });
 </script>
 

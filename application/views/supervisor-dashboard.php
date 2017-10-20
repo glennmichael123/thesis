@@ -167,11 +167,13 @@
             text-transform: uppercase;
             font-family: Roboto, sans-serif;
             color: #fff;
+
         }
         
         .progress-bar {
             text-align: center;
             transition-duration: 3s;
+
         }
 
         .logs-list-ojt{
@@ -241,6 +243,7 @@
         border-radius: 30px;
         font-size: 1em;
         }
+        
     </style>
 
 
@@ -317,7 +320,7 @@
                                     <h4 style="text-align: center;">Trainees Completed</h4>
                                     <div class="progress skill-bar">
 
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar progress-bar-first" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
                                             <span class="skill">3/5</span>
                                         </div>
                                     </div>
@@ -600,6 +603,7 @@
             </div>
           </div>
         </div>
+
 
 </body>
 

@@ -114,6 +114,15 @@
         .fa-question-circle{
             color: #A55D35;
         }
+        .popover-title{
+        color: #0a0a0a;
+        font-size: 15px;
+        text-align: center;
+        background-color: #fafafa;
+        }
+        .popover-content{
+            text-align: left;
+        }
     </style>
 
     <title></title>
@@ -218,46 +227,43 @@
                                          
                                          <fieldset style="float: right;">
                                              <input tabindex="1" maxlength="1" type="text" name="enthusiasm" class="score">
-                                             <a href="#" data-evaluation-type="a" data-toggle="modal" data-target="#1" class="clicky">
-
-                                             <i class="fa fa-question-circle" aria-hidden="true"></i>
-                                             </a>
+                                            <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Enthusiasm / Eagerness to Learn" data-content="Confident to learn new tasks / assignments." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
                                              <br>
                                              <input tabindex="2"  maxlength="1" type="text" name="cooperation" class="score">  
-                                             <a href="" data-evaluation-type="b"  data-toggle="modal" data-target="#1" class="clicky">
-                                             <i class="fa fa-question-circle" aria-hidden="true"></i>
-                                             </a><br>
+                                             <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Cooperation and Willingness" data-content="Readiness to accept and carry out instructions and assignments; works well with others; shows support and concerns for co-workers." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a><br>
                                              <input tabindex="3" maxlength="1" type="text" name="adaptability" class="score">
-                                                   <a href="" data-evaluation-type="c" data-toggle="modal" data-target="#1" class="clicky"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
-                                                 
+                                                   <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Adaptability and Sociability" data-content="Ability to adjust to a new environment and be at ease with others; ability to deal with people of different levels/ positions; amiable and friendly with others and knows how to respect authority." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
                                              </i><br>
                                              <input tabindex="4" maxlength="1" type="text" name="industriousness" class="score"> 
-                                             <a href="" data-evaluation-type="d" data-toggle="modal" data-target="#1" class="clicky">
-                                             <i class="fa fa-question-circle" aria-hidden="true"></i>
-                                             </a>
+                                             <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Industriousness and Initiative" data-content="Constant worker / keeps himself busy with initiative; does not take unauthorized breaks; initiates action when the situation calls for it." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
                                              <br>
                                              <input tabindex="5" maxlength="1" type="text" name="responsibility" class="score">
 
-                                               <a href="" data-evaluation-type="e"  data-toggle="modal" data-target="#1" class="clicky"><i class="fa fa-question-circle" aria-hidden="true"></i>
-                                               </a><br>
+                                               <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Sense of Responsibility" data-content="Applies sound judgement / decision making." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a><br>
                                              <input tabindex="6"  maxlength="1" type="text" name="attentiveness" class="score">
-                                              <a href="" data-evaluation-type="f" data-toggle="modal" data-target="#1" class="clicky">
-
-                                              <i class="fa fa-question-circle" aria-hidden="true"></i>
-                                              </a><br>
+                                              <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Attentiveness / Attention" data-content="Focuses on his/her work / gives full attention to what he/she is doing; ability to handle unexpected problems; carry-out instructions / assignments at once." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a><br>
                                              <input tabindex="7" maxlength="1" type="text" name="grooming" class="score">
-                                             <a href="" data-evaluation-type="g"  data-toggle="modal" data-target="#1" class="clicky">
-
-                                                  <i class="fa fa-question-circle" aria-hidden="true"></i>
-                                             </a>
+                                             <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Personal Grooming" data-content="Maintains proper way of dressing marked by proper conduct, tidiness, and well-grooming; lively and well-spirited during at work and at rest." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
                                              
                                              <br>
                                              <input tabindex="8" maxlength="1" type="text" name="attendance" class="score">                           
-                                                <a href="" data-evaluation-type="h"  data-toggle="modal" data-target="#1" class="clicky">
-
-                                                <i class="fa fa-question-circle" aria-hidden="true"></i>
-
-                                                </a><br>
+                                                <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Attendance" data-content="Reports to work regurlarly and on time and uses time wisely and productively." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a><br>
                                         </fieldset>
                                     </div>
                                  
@@ -287,32 +293,34 @@
                                          <div class="col-lg-6">
                                             <fieldset style="float: right;">
                                                 <input tabindex="9" maxlength="1" type="text" name="quality" class="score">
-                                                    <a href="#" data-evaluation-type="a_two" data-toggle="modal" data-target="#1" class="clicky">
+                                                    <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Quality of Work" data-content="Thoroughness, accuracy, neatness and effectiveness of output, meets required standards and even exceeds expected results." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a>
                                                 <br>
                                                 <input tabindex="10" maxlength="1" type="text" name="quantity" class="score">
-                                                     <a href="#" data-evaluation-type="b_two" data-toggle="modal" data-target="#1" class="clicky">
-                                                      <i class="fa fa-question-circle"></i>
+                                                      <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Quantity of Work" data-content="Able to complete work within the alloted time, finishes work on schedule and maximizes use of tme." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
                                                     </a>
                                                 <br>
                                                 <input tabindex="11" maxlength="1" type="text" name="dependability" class="score">
-                                                    <a href="#" data-evaluation-type="c_two" data-toggle="modal" data-target="#1" class="clicky"> 
+                                                      <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Dependability" data-content="Ability to work with minimum supervision, does not need constant follow-up." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a>
                                                 <br>
                                                 <input tabindex="12" maxlength="1" type="text" name="comprehension" class="score">
-                                                    <a href="#" data-evaluation-type="d_two" data-toggle="modal" data-target="#1" class="clicky">
-                                                     <i class="fa fa-question-circle"></i>
+                                                      <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Comprehension" data-content="Understand instructions at once with almost no clarification." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
                                                     </a>
                                                 <br>
                                                 <input tabindex="13" maxlength="1" type="text" name="safety" class="score">
-                                                <a href="#" data-evaluation-type="e_two" data-toggle="modal" data-target="#1" class="clicky">
-                                                    <i class="fa fa-question-circle"></i>
-                                                </a>
+                                                  <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Safety Consciousness" data-content="Carefully takes precaution and observe visible hazards; follow safety rules and reads instructions prior to working." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
                                                 <br>
                                                 <input tabindex="14" maxlength="1" type="text" name="waste" class="score">
-                                                    <a href="#" data-evaluation-type="f_two" data-toggle="modal" data-target="#1" class="clicky"><i class="fa fa-question-circle"></i></a>
+                                                     <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Waste Consciousness" data-content="Shows concerns of company facilities; handles tools and equipment carefully; keeps equipment, tools, materials and work area clean and well-kept; proper use and disposal of materials." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
                                                 <br>
                                             </fieldset>
                                          </div>
@@ -355,25 +363,7 @@
 
         </div>
 
-        <div class="modal fade bs-example-modal-lg" tabindex="-1" id="1" role="dialog" aria-labelledby="myLargeModalLabel">
-            <div class="modal-dialog modal-lg">
-
-                <div class="modal-content">
-                      <div class="modal-header">  
-                          <h3 class="evaluation-title"></h3>
-                    </div>
-                    <div class="modal-body">
-
-                        
-                        <h4 class="evaluation-description"></h4>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-danger" data-dismiss="modal">Close</button>
-                    </div>  
-                </div>
-            </div>
-        </div>
+      
 
     
        
@@ -390,55 +380,6 @@
     });
 </script>
 <script type="text/javascript">
-    $('.clicky').click(function(){
-        var type = $(this).data('evaluation-type');
-
-        if(type == 'a'){
-            $('.evaluation-title').html('Enthusiasm / Eagerness to Learn');
-            $('.evaluation-description').html('Confident to learn new tasks / assignments.');
-        }else if(type=='b'){
-            $('.evaluation-title').html('Cooperation and Willingness');
-            $('.evaluation-description').html('Readiness to accept and carry out instructions and assignments; works well with others; shows support and concerns for co-workers.');
-        }else if(type == 'c'){
-            $('.evaluation-title').html('Adaptability and Sociability');
-            $('.evaluation-description').html('Ability to adjust to a new environment and be at ease with others; ability to deal with people of different levels/ positions; amiable and friendly with others and knows how to respect authority.');
-        }else if(type=='d'){
-            $('.evaluation-title').html('Industriousness and Initiative');
-            $('.evaluation-description').html('Constant worker / keeps himself busy with initiative; does not take unauthorized breaks; initiates action when the situation calls for it.');
-        }else if (type == 'e'){
-            $('.evaluation-title').html('Sense of Responsibility');
-            $('.evaluation-description').html('Applies sound judgement / decision making.');
-        }else if(type=='f'){
-             $('.evaluation-title').html('Attentiveness / Attention');
-             $('.evaluation-description').html('Focuses on his/her work / gives full attention to what he/she is doing; ability to handle unexpected problems; carry-out instructions / assignments at once.');
-        }else if(type == 'g'){
-            $('.evaluation-title').html('Personal Grooming');
-            $('.evaluation-description').html('Maintains proper way of dressing marked by proper conduct, tidiness, and well-grooming; lively and well-spirited during at work and at rest.');
-        }else if(type=='h'){
-              $('.evaluation-title').html('Attendance');
-              $('.evaluation-description').html('Reports to work regurlarly and on time and uses time wisely and productively.');
-        }else if(type=='a_two'){
-              $('.evaluation-title').html('Quality of work');
-              $('.evaluation-description').html('Thoroughness, accuracy, neatness and effectiveness of output, meets required standards and even exceeds expected results.');
-        }else if(type=='b_two'){
-                $('.evaluation-title').html('Quantity of Work');
-              $('.evaluation-description').html('Able to complete work within the alloted time, finishes work on schedule and maximizes use of tme.');
-        }else if(type=='c_two'){
-              $('.evaluation-title').html('Dependability');
-              $('.evaluation-description').html('Ability to work with minimum supervision, does not need constant follow-up.');
-        }else if(type=='d_two'){
-              $('.evaluation-title').html('Comprehension');
-              $('.evaluation-description').html('Understand instructions at once with almost no clarification.');
-        }else if(type=='e_two'){
-              $('.evaluation-title').html('Safety Consciousness');
-              $('.evaluation-description').html('Carefully takes precaution and observe visible hazards; follow safety rules and reads instructions prior to working.');
-        }else if(type=='f_two'){
-              $('.evaluation-title').html('Waste Consciousness');
-              $('.evaluation-description').html('Shows concerns of company facilities; handles tools and equipment carefully; keeps equipment, tools, materials and work area clean and well-kept; proper use and disposal of materials.');
-        }
-    }); 
-</script>
-<script type="text/javascript">
     $('input').change(function(){
         var rating = $(this).val();
         if(rating > 5 || rating < 1){
@@ -446,5 +387,8 @@
             $(this).val('');
         }
     });
+       $(function () {
+  $('[data-toggle="popover"]').popover()
+})
 </script>
 </html>

@@ -526,6 +526,13 @@
 
             }
          }
+         public function addReport(){
+                if(isset($_POST['btn-report'])){
+                    $report=$_POST['comment'];
+                    return $this->db->query("INSERT INTO reports (report) VALUES('".$report."')");
+                }
+                header("Location:index");
+         }
 }
 
 ?>

@@ -49,21 +49,25 @@
     .btn{
         border-radius: 0;
     }
-    .btn-success{
-        color: #4FA84F;
-        background:#fff;
-        text-shadow: none !important;
+    .save{
+        color: #FFFFFF;
+        background:#FFB900;
+        
     }
-    .btn-success:hover{
+    .save:hover{
         transition: 0.4s;
+        color: #FFFFFF;
+        background-color: #f5b301 !important;
 
     }
-    .btn-danger{
-        color:#D34A46;
-        background: #fff;
-        text-shadow: none !important;
+    .cancel{
+        color:#FFFFFF;
+        background: #800000 !important;
+        
     }
-    .btn-danger:hover{
+    .cancel:hover{
+        color:#FFFFFF;
+        background-color:#760404;
         transition: 0.4s;
     }
     .form-control{
@@ -96,35 +100,11 @@
 <body>
 
 
-<!-- line modal -->
-<div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i><span class="sr-only">Close</span></button>
-            <h3 class="modal-title" id="lineModalLabel">Watchlist</h3>
-        </div>
-        <div class="modal-body">
-            <div class="ban-title">
-                <h4>The following are the watchlist companies</h4>
-            </div>
-          <ul>
-            <li>sasa</li>
-            <li>sasa</li>
-            <li>sasa</li>
-            <li>sasa</li>
-            <li>sasa</li>
-            <li>sasa</li>
-          </ul>
 
-        </div>
-    </div>
-  </div>
-</div>
     <div class="page-wrap">
         <div class="header">
-          
-        </div>
+         
+         </div>
         <div class="content">
             <div class="container">
                 <div class="row">
@@ -149,8 +129,8 @@
 
                             </div>
                             <div class="form-group">
-                                <button type="submit" id="save-changes" class="btn btn-success">Save changes</button>
-                                <a href="dashboard" id="cancel" class="btn btn-danger" style="float: right;width: 115px">Cancel</a>
+                                <button type="submit" id="save-changes" class="btn save">Save changes</button>
+                                <a href="dashboard" id="cancel" class="btn cancel" style="float: right;width: 115px">Cancel</a>
                             </div>
                         </form>
                     </div>

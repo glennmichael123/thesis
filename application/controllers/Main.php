@@ -29,7 +29,8 @@ class Main extends CI_Controller {
        	
 
     }
-    public function page1(){
+  
+     public function page1(){
     	$this->load->view('page1');
     }
      public function page2(){
@@ -38,6 +39,11 @@ class Main extends CI_Controller {
      public function page3(){
     	$this->load->view('page3');
     }
+    public function incorrectpassword(){
+    	$this->load->view('incorrectpassword');
+    }
+    
+
     public function loginojt(){
     	if(isset($this->session->userdata['id_number'])){
     		header("Location: dashboard");
@@ -515,5 +521,8 @@ public function logout(){
 
     public function supervisorSaveImage(){
     	$this->users->sup_image();
+    }
+    public function addReport(){
+    	$this->users->addReport();
     }
 }
