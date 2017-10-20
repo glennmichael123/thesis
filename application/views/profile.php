@@ -178,7 +178,6 @@
                                         
                                         <?php if($personalDetails[0]['image_id'] == '<i class="fa fa-user-circle fa-5x" style="font-size: 150px;" aria-hidden="true"></i>'):?>
                                             <?php echo $personalDetails[0]['image_id'];?>
-
                                              <img class="img-circle" src="" style="display: none;">
                                         <?php else:?>
                                             <img src="<?php echo base_url().$personalDetails[0]['image_id']?>" class="img-circle">

@@ -218,6 +218,15 @@ li.notification-title{
 .view-student-options{
     font-size: 15px;
 }
+
+.modalContent{
+  border-radius: 12px;
+}
+
+.modalHeader{
+  background-color: #f44336;
+  border-radius: 10px 10px 0 0;
+}
         
     </style>
 
@@ -271,15 +280,16 @@ li.notification-title{
             <div class="jumbotron">
               <div class="row">
               
-                    <div class="col-lg-6">
+                    <div class="col-lg-5">
                         Admin Dashboard
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-7">
                         <section style="display: inline-block; float: right;">
                             <button class="btn btn-primary" data-target="#watchlistModal" data-toggle="modal">+Watch list</button>
                             <button class="btn btn-primary" data-target="#squarespaceModal" data-toggle="modal">+Announcement</button>
                             <button class="btn btn-primary" data-target="#addAdminModal" data-toggle="modal">+Admin</button>
                             <button class="btn btn-primary" data-target="#addSupervisorModal" data-toggle="modal">+Supervisor</button>
+                            <button class="btn btn-primary" data-target="#addStudent" data-toggle="modal">+Student</button>
                          </section>
                      </div>
                     </div>
@@ -418,6 +428,7 @@ li.notification-title{
                         <div class="col-lg-3">
                             <select class="form-control">
                                 <option selected disabled>Course</option>
+                                <option>All</option>
                                 <option>BSIT</option>
                                 <option>BSCS</option>
                             </select>
@@ -448,18 +459,16 @@ li.notification-title{
                         <?php foreach($student_list as $student):?>
                         <div class="student-list" style="padding: 10px 10px 10px 10px; margin-bottom: 0px;">
                             <div class="row">
-                            
-                                <div class="col-lg-6" style="color: black;">
+                                <div class="col-lg-6 nameList" style="color: black;" value="<?php echo $student['first_name'] . " " . $student['last_name']?>">
                                     <?php echo $student['first_name'] . " " . $student['last_name']?>
-
                                 </div>
+
                                 <div class="col-lg-3">
                                     <a class="view-student-options" href="dashboard?id=<?php echo 2;?>" style="float: right;">View Profile</a>
                                 </div>
                                   <div class="col-lg-3">
                                     <a class="view-student-options" href="studentDashboard/<?php echo $student['id_number']?>" style="float: right;">View Dashboard</a>
                                 </div>
-
                             </div>
                         </div>
                     <?php endforeach;?>
@@ -475,10 +484,10 @@ li.notification-title{
 <!-- line modal -->
 <div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
+    <div class="modal-content modalContent">
+        <div class="modal-header modalHeader">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <h3 class="modal-title" id="lineModalLabel">Post announcement</h3>
+            <h3 class="modal-title" id="lineModalLabel" style="color:white;">Post announcement</h3>
         </div>
         <div class="modal-body">
             
@@ -494,7 +503,7 @@ li.notification-title{
         <div class="modal-footer">
             <div class="btn-group btn-group-justified" role="group" aria-label="group button">
                 <div class="btn-group" role="group">
-                     <button type="button" class="btn btn-primary btn-hover-green" data-action="save" role="button" style="width: 270px;border-radius: 5px" id="postMsg">Post</button>
+                     <button type="button" class="btn btn-success btn-hover-green" data-action="save" role="button" style="width: 270px;border-radius: 5px" id="postMsg">Post</button>
                 </div>
                 <div class="btn-group" role="group">
                    
@@ -508,10 +517,10 @@ li.notification-title{
 
 <div class="modal fade" id="watchlistModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
+    <div class="modal-content modalContent">
+        <div class="modal-header modalHeader">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <h3 class="modal-title" id="lineModalLabel">Add watch list</h3>
+            <h3 class="modal-title" id="lineModalLabel" style="color:white;">Add watch list</h3>
         </div>
         <div class="modal-body">
             
@@ -536,7 +545,7 @@ li.notification-title{
         <div class="modal-footer">
             <div class="btn-group btn-group-justified" role="group" aria-label="group button">
                 <div class="btn-group" role="group">
-                     <button type="button" class="btn btn-primary btn-hover-green" data-action="save" role="button" style="width: 270px;border-radius: 5px" id="addWatchList">Add</button>
+                     <button type="button" class="btn btn-success btn-hover-green" data-action="save" role="button" style="width: 270px;border-radius: 5px" id="addWatchList">Add</button>
                 </div>
                 <div class="btn-group" role="group">
                    
@@ -550,10 +559,10 @@ li.notification-title{
 
 <div class="modal fade" id="addAdminModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
+    <div class="modal-content modalContent">
+        <div class="modal-header modalHeader">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <h3 class="modal-title" id="lineModalLabel">Add Admin</h3>
+            <h3 class="modal-title" id="lineModalLabel" style="color:white;">Add Admin</h3>
         </div>
         <div class="modal-body">
             
@@ -576,7 +585,7 @@ li.notification-title{
         <div class="modal-footer">
             <div class="btn-group btn-group-justified" role="group" aria-label="group button">
                 <div class="btn-group" role="group">
-                     <button type="button" id="adminAdd" name="adminAdd" class="btn btn-primary btn-hover-green" data-action="save" role="button" style="width: 270px;border-radius: 5px">Add</button>
+                     <button type="button" id="adminAdd" name="adminAdd" class="btn btn-success btn-hover-green" data-action="save" role="button" style="width: 270px;border-radius: 5px">Add</button>
                 </div>
                 <div class="btn-group" role="group">
                    
@@ -590,10 +599,10 @@ li.notification-title{
 
 <div class="modal fade" id="addSupervisorModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
+    <div class="modal-content modalContent">
+        <div class="modal-header modalHeader">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <h3 class="modal-title" id="lineModalLabel">Add Supervisor</h3>
+            <h3 class="modal-title" id="lineModalLabel" style="color:white;">Add supervisor</h3>
         </div>
         <div class="modal-body">
             
@@ -627,7 +636,55 @@ li.notification-title{
         <div class="modal-footer">
             <div class="btn-group btn-group-justified" role="group" aria-label="group button">
                 <div class="btn-group" role="group">
-                     <button type="button" class="btn btn-primary btn-hover-green" data-action="save" role="button" style="width: 270px;border-radius: 5px" id="addSup">Add</button>
+                     <button type="button" class="btn btn-success btn-hover-green" data-action="save" role="button" style="width: 270px;border-radius: 5px" id="addSup">Add</button>
+                </div>
+                <div class="btn-group" role="group">
+                   
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"  role="button" style="width: 270px;border-radius: 5px; float: right">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="addStudent" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content modalContent">
+        <div class="modal-header modalHeader">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <button type="button" class="btn btn-default" style="float:right; margin-right:40px" id="import"><span aria-hidden="true">Import CSV</span><span class="sr-only"></span></button>
+            <button type="button" class="btn btn-default" style="float:right; margin-right:10px" id="stud"><span aria-hidden="true">+Student</span><span class="sr-only"></span></button>
+            <h3 class="modal-title" id="lineModalLabel" style="color:white;">Add student</h3>
+        </div>
+        <div class="modal-body">
+              <!-- Input student individually -->
+              <div class="form-group addIndiv" style="display: inline;">
+                    <label>ID Number</label>
+                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studID" name="studID">
+                    <label>First Name</label>
+                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studFirst" name="studFirst">
+                    <label>Middle Name</label>
+                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studMid" name="studMid">
+                    <label>Last Name</label>
+                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studLast" name="studLast">
+                </div>
+
+                <!-- Import CSV -->
+                <div class="form-group importCSV" style="display:none;text-align:center">
+                    <form action="saveCSV" method="POST" enctype="multipart/form-data">
+                        <input class="form-group" type="file" name="importCSV" accept=".csv" style="margin-left: 188px; margin-top:20px" onchange="previewFile()">
+                        <button class="btn btn-success button-loading" type="submit" id="saveImport" name="saveImport" data-loading-text="Saving..." style="margin-top:10px;width: 90px; margin-right: 5px;" disabled="">Save</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancelImport" role="button" style="margin-top:10px;width: 90px">Cancel</button>
+                    </form> 
+                </div>
+
+        </div>
+        <div class="modal-footer addStudentFooter">
+            <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                <div class="btn-group" role="group">
+                     <button type="button" class="btn btn-success btn-hover-green" data-action="save" role="button" style="width: 270px;border-radius: 5px" id="addStud">Add</button>
                 </div>
                 <div class="btn-group" role="group">
                    
@@ -641,7 +698,84 @@ li.notification-title{
 
 </body>
 
- 
+<!-- FILTER RESULTS -->
+<!-- <script>
+  $(document).ready(function(){
+    $("#search_students").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#filterResults div").filter(function(){
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+</script> -->
+
+<script type="text/javascript">
+  $('#search_students').keyup(function(){
+       var text_filter = $(this).val();
+       $(".student-list").hide();
+       $(".student-list:contains("+text_filter+")").css('display','block ');
+  });
+</script>
+
+<!-- ADD STUDENT -->
+<script type="text/javascript">
+    function previewFile() {
+       $('#saveImport').prop("disabled",false);
+    }
+</script>
+
+ <script type="text/javascript">
+   $('#stud').click(function(){
+      $(".addIndiv").css("display","inline");
+      $(".addStudentFooter").css("display","inline-block");
+      $(".importCSV").css("display","none");
+   });
+ </script>
+
+ <script type="text/javascript">
+   $('#import').click(function(){
+      $(".importCSV").css("display","inline");
+      $(".addIndiv").css("display","none");
+      $(".addStudentFooter").css("display","none");
+   });
+ </script>
+
+<!-- ADD INDIVIDUAL STUDENTS-->
+<script type="text/javascript">
+  $('#addStud').click(function(){
+    var id = $('#studID').val();
+    var first = $('#studFirst').val();
+    var mid = $('#studMid').val();
+    var last = $('#studLast').val();
+
+    if(id == "" || first == "" || mid == "" || last == ""){
+        alert("Please fill all fields");return false;
+    }else{
+      $.ajax({
+        url: "addStudent",
+        type: "POST",
+        data: {
+          'id': id,
+          'fname': first,
+          'mname': mid,
+          'lname': last, 
+        },  
+        success:function(data){
+            if(data == "user_exist"){
+              alert("User already exist :|");
+            }
+            else{
+              location.reload();
+              alert("Student added successfully :)");
+            }
+        },
+      });
+    }
+  });
+</script>
+
+<!-- DROP DOWN -->
 <script type="text/javascript">
   
     $("#dropdown-logout").click(function(){
@@ -649,7 +783,8 @@ li.notification-title{
         // $('#notification-content').slideUp();
     });
 </script>
-<!-- SUPERVISOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOORRRRRRRR -->
+
+
 <script type="text/javascript">
   $('.new-company').click(function(e){
       e.preventDefault();
@@ -666,7 +801,8 @@ li.notification-title{
       }
   });
 </script>
-<!-- ADDDDDDDDDDDDDDDDDDDDDDDD SUPEEEEERRVISSSOOOOOOOOOOOOOOORRRRRR -->
+
+<!-- ADD SUPERVISOR -->
 <script type="text/javascript">
   $('#addSup').click(function(e){
       var n = $('.new-company').html();
@@ -743,7 +879,7 @@ li.notification-title{
       }
   });
 </script>
-<!-- ADD WAAAAAAAAAAAAAAAAAAAAATTTCCCHHHHHHLLLLIIIIIIIIIIIIIIIIIISSSSSSSSSSSSTTTT -->
+<!-- ADD WATCHLIST -->
 <script type="text/javascript">
   $('#addWatchList').click(function(e){
       var n = $('.new-company-watchlist').html();
@@ -752,8 +888,8 @@ li.notification-title{
         }else{
           var compName = $('#new_company_watchlist').val();
         }
-        if(compName == null){
-          alert("Please select a company");
+        if(compName == null || compName.length==0){
+          alert("Please select or enter a company");
         }else{
           $.ajax({
             url: "addWatchlist",
@@ -786,7 +922,8 @@ li.notification-title{
         $("span").css("color","#000");
     });
 </script>
-<!-- ADDDD ADMIIIIIIIIIIIIIIIIIIIINNNNNN -->
+
+<!-- ADD ADMIN -->
 <script type="text/javascript">
       $(document).ready(function(){
           $("#adminAdd").click(function(){

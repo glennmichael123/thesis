@@ -526,6 +526,49 @@
 
             }
          }
-}
 
+         //import csv
+         public function importCSV(){
+            $filename=$_FILES["importCSV"]["tmp_name"];      
+ 
+ 
+             if($_FILES["importCSV"]["size"] > 0)
+             {
+                $file = fopen($filename, "r");
+                fgets($file);
+                while (($getData = fgetcsv($file, 10000, ",")) !== FALSE)
+                 {
+                    $username = strtolower($getData[1].".".$getData[3]);
+                    $this->db->query("INSERT INTO users (id_number,first_name,middle_initial,last_name,password) 
+                        values ('$username','".$getData[1]."','".$getData[2]."','".$getData[3]."','123456')");
+                 }
+                 fclose($file);
+                 echo "success";exit;
+             }
+             else{
+                echo "<script type=\"text/javascript\">
+                            alert(\"Invalid File:Please Upload CSV File.\");
+                            window.location = \"adminDashboard\"
+                        </script>";exit;
+             }
+         }
+
+         //add student
+         public function addStud(){
+            $id = $_POST['id'];
+            $first = $_POST['fname'];
+            $mid = $_POST['mname'];
+            $last = $_POST['lname'];
+            $password = '123456';
+
+            $username = strtolower($first.".".$last);
+            $result = $this->db->query("SELECT * FROM users WHERE id_number = '".$username."'");
+            if($this->db->affected_rows() > 0){
+                echo "user_exist";exit;
+            }
+            else{
+                return $this->db->query("INSERT INTO users (id_number,first_name,middle_initial,last_name,password) VALUES('".$username."','".$first."','".$mid."','".$last."','".$password."')");
+            }
+         }
+}
 ?>

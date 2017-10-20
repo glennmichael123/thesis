@@ -232,14 +232,16 @@
         .profile-image>img.img-circle{
             width: 150px;
             height: 150px;
-            border: 3px solid #915B51;
+            border: 2px solid #f44336;
         }
 
         .label-default{
-        background-color:#A55D35;
+        background-color: white;
+        font-family: Arial, Helvetica, sans-serif;
         padding: 5px 10px 5px 10px;
-        border-radius: 30px;
-        font-size: 1em;
+        border-radius: 10px;
+        font-size: 1.3em;
+        color:#f44336;
         }
     </style>
 
@@ -510,10 +512,10 @@
         <!-- line modal -->
         <div class="modal fade" id="addtraineeModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
           <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
+            <div class="modal-content" style="border-radius: 12px">
+                <div class="modal-header" style="background-color: #f44336;border-radius: 10px 10px 0 0">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    <h3 class="modal-title" id="lineModalLabel">Add trainee</h3>
+                    <h3 class="modal-title" id="lineModalLabel" style="color:white;">Add trainee</h3>
                 </div>
                 <div class="modal-body">
                     
@@ -534,7 +536,7 @@
                 <div class="modal-footer">
                     <div class="btn-group btn-group-justified" role="group" aria-label="group button">
                         <div class="btn-group" role="group">
-                             <button type="button" class="btn btn-primary btn-hover-green" data-action="save" role="button" style="width: 270px;border-radius: 5px" id="addTrainee" name="addTrainee">Add</button>
+                             <button type="button" class="btn btn-success btn-hover-green" data-action="save" role="button" style="width: 270px;border-radius: 5px" id="addTrainee" name="addTrainee">Add</button>
                         </div>
                         <div class="btn-group" role="group">
                            
@@ -550,10 +552,10 @@
 
         <div class="modal fade" id="changeImage" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
           <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
+            <div class="modal-content" style="border-radius: 12px">
+                <div class="modal-header" style="background-color: #d32f2f;border-radius: 10px 10px 0 0">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    <h3 class="modal-title" id="lineModalLabel">Change image</h3>
+                    <h3 class="modal-title" id="lineModalLabel" style="color:white">Change image</h3>
                 </div>
                 <div class="modal-body">
                     <!-- content goes here -->
@@ -571,7 +573,7 @@
                         </div>
                         <div class="change-photo" style="margin-top: 10px">
                             <!-- browse -->
-                            <button class="btn btn-default click-photo" id="btn-browse"><i class="fa fa-picture-o" aria-hidden="true"></i> Browse image</button>
+                            <button class="btn btn-success click-photo" id="btn-browse"><i class="fa fa-picture-o" aria-hidden="true"></i> Browse image</button>
                         </div>
 
                         <form action="supervisorSaveImage" method="POST" enctype="multipart/form-data">

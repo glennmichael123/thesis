@@ -516,4 +516,12 @@ public function logout(){
     public function supervisorSaveImage(){
     	$this->users->sup_image();
     }
+
+   	public function saveCSV(){
+   		$this->users->importCSV();
+   	}
+
+   	public function addStudent(){
+   		$this->users->addStud();
+   	}
 }

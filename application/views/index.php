@@ -39,6 +39,9 @@
     .feedback.left .dropdown-menu{ left: 0px}
     .feedback.right .dropdown-menu{ right: 0px}
     .feedback .hideme{ display: none}
+    .modal-header-color:{
+        background-color: #f44336;
+    }
     </style>
     <title></title>
 
@@ -79,10 +82,10 @@
         <!-- line modal -->
         <div class="modal fade" id="watchlistModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
           <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
+            <div class="modal-content" style="border-radius: 12px">
+                <div class="modal-header" style="background-color: #f44336;border-radius: 10px 10px 0 0">
                     <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i><span class="sr-only">Close</span></button>
-                    <h3 class="modal-title" id="lineModalLabel">Watch list</h3>
+                    <h3 class="modal-title" id="lineModalLabel" style="color:white">Watch list</h3>
                 </div>
                 <div class="modal-body">
                     <div class="ban-title">
