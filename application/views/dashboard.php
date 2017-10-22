@@ -22,6 +22,211 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
     <style type="text/css">
+
+
+
+/* -------------------------------- 
+
+Modules - reusable parts of our design
+
+-------------------------------- */
+.img-replace {
+  /* replace text with an image */
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 100%;
+  color: transparent;
+  white-space: nowrap;
+}
+
+/* -------------------------------- 
+
+xnugget info 
+
+-------------------------------- */
+.cd-nugget-info {
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  bottom: 0;
+  left: 0;
+}
+.cd-nugget-info a {
+  position: relative;
+  font-size: 14px;
+  color: #5e6e8d;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  transition: all 0.2s;
+}
+.no-touch .cd-nugget-info a:hover {
+  opacity: .8;
+}
+.cd-nugget-info span {
+  vertical-align: middle;
+  display: inline-block;
+}
+.cd-nugget-info span svg {
+  display: block;
+}
+.cd-nugget-info .cd-nugget-info-arrow {
+  fill: #5e6e8d;
+}
+
+/* -------------------------------- 
+
+Main components 
+
+-------------------------------- */
+header {
+  height: 200px;
+  line-height: 200px;
+  text-align: center;
+  background-color: #5e6e8d;
+  color: #FFF;
+}
+header h1 {
+  font-size: 20px;
+  font-size: 1.25rem;
+}
+
+
+@media only screen and (min-width: 1170px) {
+  
+}
+
+/* -------------------------------- 
+
+xpopup 
+
+-------------------------------- */
+.cd-popup {
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+ 
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  transition: opacity 0.3s 0s, visibility 0s 0.3s;
+}
+.cd-popup.is-visible {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
+  transition: opacity 0.3s 0s, visibility 0s 0s;
+}
+
+.cd-popup-container {
+  position: relative;
+  width: 90%;
+  max-width: 400px;
+  margin: 4em auto;
+  background: #FFF;
+  border-radius: .25em .25em .4em .4em;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  -webkit-transform: translateY(-40px);
+  -moz-transform: translateY(-40px);
+  -ms-transform: translateY(-40px);
+  -o-transform: translateY(-40px);
+  transform: translateY(-40px);
+  /* Force Hardware Acceleration in WebKit */
+  -webkit-backface-visibility: hidden;
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+.cd-popup-container p {
+  padding: 3em 1em;
+}
+.cd-popup-container .cd-buttons:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.cd-popup-container .cd-buttons li {
+  float: left;
+  width: 50%;
+  list-style: none;
+}
+.cd-popup-container .cd-buttons a {
+  display: block;
+  height: 60px;
+  line-height: 60px;
+  text-transform: uppercase;
+  color: #FFF;
+  -webkit-transition: background-color 0.2s;
+  -moz-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+.cd-popup-container .cd-buttons li:first-child a {
+  background: #EDC844;
+  border-radius: 0 0 0 .25em;
+}
+.no-touch .cd-popup-container .cd-buttons li:first-child a:hover {
+  background-color: #fc8982;
+}
+.cd-popup-container .cd-buttons li:last-child a {
+  background-color: #DABD95 !important;
+  border-radius: 0 0 .25em 0;
+}
+.no-touch .cd-popup-container .cd-buttons li:last-child a:hover {
+  background-color: #c5ccd8;
+}
+.cd-popup-container .cd-popup-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+}
+.cd-popup-container .cd-popup-close::before, .cd-popup-container .cd-popup-close::after {
+  content: '';
+  position: absolute;
+  top: 12px;
+  width: 14px;
+  height: 3px;
+  background-color: #8f9cb5;
+}
+.cd-popup-container .cd-popup-close::before {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  left: 8px;
+}
+.cd-popup-container .cd-popup-close::after {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  right: 8px;
+}
+.is-visible .cd-popup-container {
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+  transform: translateY(0);
+}
+@media only screen and (min-width: 1170px) {
+  .cd-popup-container {
+    margin: 8em auto;
+  }
+}
         .top {
             background-color: #915B51;
             height: 50px;
@@ -255,18 +460,20 @@
         }
         
         .logs-lists label {
-            font-size: 11px;
+            font-size: 15px;
         }
         
         .logs-lists input {
-            font-size: 11px;
+            font-size: 15px;
             border: none;
             background-color: #fff;
         }
         
         #log_lists_activity {
-            width: 100%;
-            font-size: 11px;
+            width: 95%;
+            font-size: 15px;
+            margin-left:20px;
+
             border: none;
             background-color: #fff;
             resize: none;
@@ -399,15 +606,28 @@
 </head>
 
 <body>
+   
 
+<div class="cd-popup" role="alert">
+    <div class="cd-popup-container" style="background-color: #EED090;color: #A55D35">
+        <p style="font-size: 15px;">Are you sure you want to delete this log?</p>
+        <ul class="cd-buttons" style="padding: 0px;">
+            <li><a href="#0" class="confirm-delete-log">Yes</a></li>
+            <li><a href="#0" class="cancel-delete-log">No</a></li>
+           
+        </ul>
+         <p id="display-log-id" style="display: none;"></p>
+        <a href="#0" class="cd-popup-close img-replace">Close</a>
+    </div> <!-- cd-popup-container -->
+</div> <!-- cd-popup -->
     <div class="page-wrap">
         <div class="header">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-4 col-sm-4">
+                    <div class="col-lg-4">
                         <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
                     </div>
-                    <div class="col-lg-7 col-sm-7">
+                    <div class="col-lg-6 ">
                         <?php if(isset($id_number)):?>
                         <?php else:?>
                         <ul class="nav navbar-nav">
@@ -428,9 +648,10 @@
                         </ul>
                     <?php endif;?>
                     </div>
-                    <div class="col-lg-1 col-sm-1">
+                    <div class="col-lg-2">
                         <?php if(isset($id_number)):?>
                                <ul class="nav navbar-nav">
+                                
                             <li class="dropdown">
                               <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown"><i class="fa fa-user-circle fa-2x"></i><?php //echo $supImage[0]['image_id']?></a>
                     
@@ -447,7 +668,9 @@
                           </ul>
                         <?php else:?>
                         <ul class="nav navbar-nav">
+                            
                             <li class="dropdown">
+                                
                             <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown">
                                 <?php if ($image_header[0]['user_image'] == '<i class="fa fa-user-circle pull-right" style="font-size: 40px; margin-top: -5px;" aria-hidden="true"></i>'):?>
                                     <?php echo $image_header[0]['user_image'];?>
@@ -732,7 +955,7 @@
                                 </div>
                                 <div class="form-group logs-lower">
                                     <button type="submit" id="submit_log" class="btn btn-primary" value="Submit">Post</button>
-                                    <button type="button" class="btn btn-success">Load last log</button>
+                                    <button type="button" class="btn btn-success" id="load_last_log">Load last log</button>
                                     <button type="reset" class="btn btn-default">Clear</button>
                                     <button type="button" class="btn btn-danger cancel-btn" style="float: right;" class="btn btn-danger">Cancel</button>
                                 </div>
@@ -754,7 +977,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="well" style="padding-bottom: 0; padding-top: 5px;">
-                                    <span class="user-name" style="font-size: 12px;"><?php echo $user_data[0]['first_name'] . " " . $user_data[0]['last_name']?></span>
+                                    <span class="user-name" style="font-size: 15px;"><?php echo $user_data[0]['first_name'] . " " . $user_data[0]['last_name']?></span>
                                     <?php if(isset($id_number)):?>
                                     <?php else:?>
                                     <div class="dropdown" style="float: right; width:20px;">
@@ -765,7 +988,7 @@
                                         <ul class="dropdown-menu" style="width: 233px;" aria-labelledby="dropdownMenu2">
                                             <li><a href="#" class="edit-log" style="color: #000000;">Edit <i class="fa fa-pencil" aria-hidden="true"></i></a></li>
                                             <li role="separator" class="divider"> </li>
-                                            <li><a href="#" class="delete-log" data-log-id="<?php echo $log['id']?>" style="color: #000000;">Delete <i class="fa fa-trash"></i></a></li>
+                                            <li><a href="#" class="delete-log cd-popup-trigger" data-log-id="<?php echo $log['id']?>" style="color: #000000;">Delete <i class="fa fa-trash"></i></a></li>
                                         </ul>
 
                                     </div>
@@ -776,9 +999,12 @@
                                     <form method="post">
                                         <div class="row">
                                             <div class="logs-lists">
+                                                <span class="show-more-info" style="float: right; margin-right: 20px;"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>
+
+                                                 <span class="show-less-info" style="float: right; display: none; margin-right: 20px;"><i class="fa fa-minus-circle" aria-hidden="true"></i></span>
                                                 <div class="col-lg-6">
 
-                                                    <div class="form-group">
+                                                    <div class="form-group show-more-right" style="display: none;">
                                                         <label>Date</label>
                                                         <input type="text" class="list-logs date_listed" name="log_list_date" id="log_list_date" value="<?php echo $log['date']?>" readonly>
                                                         <label>Division</label>
@@ -788,12 +1014,15 @@
                                                         <label>Designation</label>
                                                         <input type="text" class="list-logs designation_listed" value="<?php echo $log['designation']?>" name="log_lists_designation" id="log_lists_designation" readonly>
                                                     </div>
-                                                        <label>Activity</label>
-                                                    <textarea class="list-logs activity_listed" name="log_lists_activity" id="log_lists_activity" placeholder="Write your log here" readonly><?php echo $log['log_content']?></textarea>
+                                                    <label>Activity</label>
+                                                      
                                                 </div>
 
+                                                   
+                                                     
+
                                                 <div class="col-lg-6">
-                                                    <div class="form-group">
+                                                    <div class="form-group show-more-left" style="display: none;">
                                                         <label>Time In</label>
                                                         <input type="text" class="list-logs time_in_listed" name="log_lists_time_in" value="<?php echo $log['time_in']?>" id="log_lists_time_in" readonly>
                                                         <label>Time Out</label>
@@ -802,12 +1031,12 @@
                                                         <input type="text" class="list-logs hours_listed" name="log_lists_hours_rendered" id="log_lists_hours_rendered" value="<?php echo $log['hours_rendered']?>" readonly>
 
                                                     </div>
-                                                    <?php if($log['verified']):?>
-                                                     <span style="color:green; font-size: 11px; position: absolute; top: 280px; left: 290px;"> Verified  <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i></span>
-                                                 <?php else:?>
-                                                     <span style="color:black; font-size: 11px; position: absolute; top: 280px; left: 290px;"> Pending  <i style="color: green;" class="fa fa-circle-thin" aria-hidden="true"></i></span>
-                                                 <?php endif;?>
+
+                                                  
+                                                  
                                                 </div>
+
+                                                 <textarea class="list-logs activity_listed" name="log_lists_activity" id="log_lists_activity" placeholder="Write your log here" readonly><?php echo $log['log_content']?></textarea>
                                             </div>
                                         </div>
                                         
@@ -819,6 +1048,7 @@
                                         <div class="row">
                                             <div class="col-lg-12">
                                                     <hr style="margin-bottom: 0; margin-top: 0;">
+                                                    <span style="color:green; font-size: 11px; float: right; margin-top: 15px;"> Verified  <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     <?php if(in_array($log['id'], array_column($comments, 'log_id'))):?>  
                                                          <label>Comments</label>
                                                          <?php endif;?>
@@ -827,11 +1057,11 @@
                                                     <?php foreach ($comments as $comment):?>
                                                     <?php if(in_array($log['id'], $comment)):?>
 
-                                                        <div class="well" style="box-shadow: none; border: none; background: #f7f7f7; padding: 10px; margin-bottom: 10px;">
-                                                         <div class="comments-list" style="font-size: 15px;">
+                                                        <!-- <div class="well" style="box-shadow: none; border: none; background: #f7f7f7; padding: 10px; margin-bottom: 10px;"> -->
+                                                         <div class="comments-list" style="font-size: 12px; margin-bottom: 10px;">
                                                               <b>Supervisor</b> <?php echo $comment['content'];?>
                                                           </div>
-                                                        </div>
+                                                        
                                                     <?php endif;?>
                                               
                                                     <?php endforeach;?>
@@ -949,24 +1179,40 @@
 <script type="text/javascript">
     $('.delete-log').click(function(e) {
         e.preventDefault();
-        var row = $(this).closest('.row');
         var log_id = $(this).data('log-id');
+        $('#display-log-id').html(log_id);
+        // queryLogId(log_id);
+        // function queryLogId(log_id){
+            
+        //     $.ajax({
+        //         method: 'POST',
+        //         url: 'getLogId',
+        //         data:{
+        //             'log_id': log_id,
+        //         },
+        //         success: function(data){
+        //             console.log(data);
+        //         }
+        //     })
+        // }
         // alert(log_id);
-        if(confirm("Are you sure you want to delete log?")){
-            $.ajax({
-            url: 'deleteLog',
-            method: 'post',
-            data: {
-                'log_id': log_id,
+      
+      
+    });
 
+    $('.confirm-delete-log').click(function(){
+        var log_id = $('#display-log-id').html();
+
+        $.ajax({
+            method: 'POST',
+            url: 'deleteLog',
+            data:{
+                'log_id': log_id,
             },
-            success: function(data){
-                  row.fadeOut();
-            },
+            success: function(){
+                location.reload(true);
+            }
         });
-        }
-      
-      
     });
 
     $('.edit-log').click(function(e) {
@@ -983,7 +1229,12 @@
 
 <script type="text/javascript">
     $('.cancel-edit').click(function() {
-        location.reload(true);
+       var input = $(this).closest(".row").find(".list-logs");
+        var buttons = $(this).closest(".row").find(".save-edit");
+        buttons.hide();
+        input.prop('readonly', true);
+        input.css('border', 'none');
+        input.css('background', 'none');
     });
     $('.save-edit-log').click(function(){
         var log_id = $(this).data('log-id');
@@ -1025,7 +1276,7 @@
         });
     });
 </script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     $(document).ready(function(){
          $(window).scroll(function(){
         var aTop = $('.header').height();
@@ -1052,12 +1303,90 @@
     }
   });
     });
+</script> -->
+<script type="text/javascript">
+    jQuery(document).ready(function($){
+    //open popup
+    $('.cd-popup-trigger').on('click', function(event){
+        event.preventDefault();
+        $('.cd-popup').addClass('is-visible');
+    });
+    
+    //close popup
+    $('.cd-popup').on('click', function(event){
+        if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
+            event.preventDefault();
+            $(this).removeClass('is-visible');
+        }
+    });
+    $('.cancel-delete-log').click(function(){
+        $('.cd-popup').removeClass('is-visible');
+    });
+    //close popup when clicking the esc keyboard button
+    $(document).keyup(function(event){
+        if(event.which=='27'){
+            $('.cd-popup').removeClass('is-visible');
+        }
+    });
+});
 </script>
+
  <script type="text/javascript">
     $(document).ready(function(){
         $('.btn-submit').click(function(){
             alert("natoy");
         });
     });
+</script>
+
+<script type="text/javascript">
+    $('.show-more-info').click(function(){
+        var right = $(this).closest('.row').find('.show-more-right');
+        var left = $(this).closest('.row').find('.show-more-left');
+        var show_less = $(this).closest('.row').find('.show-less-info');
+        right.slideDown();
+        left.slideDown();
+        $(this).hide();
+
+        show_less.show();
+       
+    });
+
+    $('.show-less-info').click(function(){
+        var right = $(this).closest('.row').find('.show-more-right');
+        var left = $(this).closest('.row').find('.show-more-left');
+
+        right.slideUp();
+        left.slideUp();
+        $(this).hide();
+
+        $('.show-more-info').show();
+       
+    });
+</script>
+<script type="text/javascript">
+    $('#load_last_log').click(function(){
+
+        $.ajax({
+            url: '<?php echo base_url()?>main/getLastLog',
+            method: 'POST',
+            data:{
+                'username': '<?php echo $this->session->userdata['id_number']?>',
+
+            },
+            success: function(data){
+                var logdata = JSON.parse(data);
+               // console.log(logdata.division);
+                $('#division').val(logdata.division);
+                $('#department').val(logdata.department);
+                $('#designation').val(logdata.designation);
+                $('#time_in').val(logdata.time_in);
+                $('#time_out').val(logdata.time_out);
+                $('#hours_rendered').val(logdata.hours_rendered);
+                $('#log_activity').val(logdata.log_content);
+            },
+        });
+    });
+</script>
 </html>
 

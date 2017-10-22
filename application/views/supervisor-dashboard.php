@@ -458,11 +458,11 @@
                                                     
                                                     <?php foreach ($comments as $comment):?>
                                                     <?php if(in_array($log['id'], $comment)):?>
-                                                        <div class="well" style="box-shadow: none; border: none; background: #f7f7f7; padding: 10px; margin-bottom: 10px;">
-                                                         <div class="comments-list" style="font-size: 15px;">
+                                                        <!-- <div class="well" style="box-shadow: none; border: none; background: #f7f7f7; padding: 10px; margin-bottom: 10px;"> -->
+                                                         <div class="comments-list" style="font-size: 12px; margin-bottom: 10px;">
                                                               <b>Supervisor</b> <?php echo $comment['content'];?>
                                                           </div>
-                                                        </div>
+                                                        
                                                     <?php endif;?>
                                                       <?php endforeach;?>
                                             </div>
@@ -564,8 +564,10 @@
                         
                         <?php if($supImage[0]['imageDisplayToChange'] == '<i class="fa fa-user-circle fa-5x" style="font-size: 150px;" aria-hidden="true"></i>'):?>
                             <?php echo $supImage[0]['imageDisplayToChange'];?>
+
                             <img class="img-circle" id="image-modal" src="" style="display: none;">
                         <?php else:?>
+                           
                             <img src="<?php echo base_url().$supImage[0]['imageDisplayToChange']?>" class="img-circle" id="image-modal">
                         <?php endif; ?>
 

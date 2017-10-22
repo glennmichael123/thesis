@@ -18,7 +18,6 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
     <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>
     <style type="text/css">
@@ -148,7 +147,7 @@
                         <div class="header-links">
                             <h5> <a href="#" class="current-link">Home</a></h5>
                               <?php echo (isset($error) ? $error : '');?>
-                            <h5><a href="about">About us</a></h5>
+                            <h5><a href="<?php echo base_url()?>main/about">About us</a></h5>
                             <h5><a href="#" data-toggle="modal" data-target="#watchlistModal">Watchlist</a></h5>
                         </div>
                     </div>
@@ -188,7 +187,7 @@
                         <div class="col-lg-4">
                             <div class="login">
                                  <h2 style="color: #FFFFFF; text-align: center;">Please Login</h2>
-                                    <form action="" method="POST">
+                                    <form action="<?php echo base_url()?>main/loggedin" method="POST">
                                          <div class="form-group">
                                              <input type="text" name="username" class="form-control" placeholder="Username">
                                          </div>
@@ -197,11 +196,11 @@
                                               <div class="forget">
                                                      <h6><a href="incorrectpassword">Forgot Password?</a></h6> 
                                                        <div class="btn-group" style="float: right;">
-                                                      <select type="button" class="btn btn-loginas" name="options">
-                                                       <span class="caret"></span>
-                                                       <option>Login-As</option>
-                                                        <option value="supervisor">Supervisor</option>
-                                                        <option value="administrator">Administrator</option>
+                                                      <select type="button" class="btn btn-loginas" name="login-options">
+                                                       <span class="caret"></span>         
+                                                        <option value="ojt">Login as OJT</option>
+                                                        <option value="supervisor">Login as Supervisor</option>
+                                                        <option value="administrator">Login as Administrator</option>
                                                       </select>
                                                       
                                                     </div> 

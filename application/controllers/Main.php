@@ -43,6 +43,9 @@ class Main extends CI_Controller {
     	$this->load->view('incorrectpassword');
     }
     
+    public function getLogId(){
+    	print_r($_POST);
+    }
 
     public function loginojt(){
     	if(isset($this->session->userdata['id_number'])){
@@ -174,9 +177,12 @@ class Main extends CI_Controller {
 
 
 	public function loggedin(){
-		$condition = $this->users->user_login();
-		$data['error'] = 'abcd';
+		$logintype = $_POST['login-options'];
+		if($logintype == 'ojt'){
+			$condition = $this->users->user_login();
+			$data['error'] = 'abcd';
 		// print_r("condition = " . $condition. "   ");
+		
 		if($condition){
 			$data = array(
 				'username' => $this->input->post('username'), //need to be dynamic e.g $this->input->post('username')
@@ -207,8 +213,14 @@ class Main extends CI_Controller {
 
 					
 	}else{
-		header("location: loginojt?error=Username or password incorrect");
+		header("location: index?error=Username or password incorrect");
 	}	
+	}else if($logintype == 'supervisor'){
+		$this->loggedinSupervisor();
+	}else if($logintype == 'administrator'){
+		$this->loggedinAdministrator();
+	}
+		
 
 
 	
@@ -524,5 +536,8 @@ public function logout(){
     }
     public function addReport(){
     	$this->users->addReport();
+    }
+    public function getLastLog(){
+    	$this->users->getLastLog();
     }
 }

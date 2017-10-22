@@ -533,6 +533,17 @@
                 }
                 header("Location:index");
          }
+
+         public function getLastLog(){
+            $username = $_POST['username'];
+
+            $latestId = $this->db->query("SELECT MAX(id) AS latest_id FROM logs WHERE id_number = '$username'")->row();
+            $maxId = $latestId->latest_id;
+
+             $lastlog = $this->db->query("SELECT * FROM logs WHERE id = $maxId")->row();
+
+             echo json_encode($lastlog);
+         }
 }
 
 ?>

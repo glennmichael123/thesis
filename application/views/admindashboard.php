@@ -449,14 +449,14 @@ li.notification-title{
                         <div class="student-list" style="padding: 10px 10px 10px 10px; margin-bottom: 0px;">
                             <div class="row">
                             
-                                <div class="col-lg-6" style="color: black;">
+                                <div class="col-lg-6 dummy-td" style="color: black;">
                                     <?php echo $student['first_name'] . " " . $student['last_name']?>
 
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-3 dummy-td">
                                     <a class="view-student-options" href="dashboard?id=<?php echo 2;?>" style="float: right;">View Profile</a>
                                 </div>
-                                  <div class="col-lg-3">
+                                  <div class="col-lg-3 dummy-td">
                                     <a class="view-student-options" href="studentDashboard/<?php echo $student['id_number']?>" style="float: right;">View Dashboard</a>
                                 </div>
 
@@ -778,7 +778,20 @@ li.notification-title{
       
 </script>
 
+<script type="text/javascript">
+  $('#search_students').keyup(function(){
+  
+       var text_filter = $(this).val();
+       var res = text_filter.toLowerCase();
 
+      
+       $(".student-list").hide();
+       
+       $(".student-list:contains("+text_filter+")").show();
+       
+  
+  });
+</script>
 
 <script type="text/javascript">
     $("span").hover(function(){
