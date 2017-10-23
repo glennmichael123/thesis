@@ -534,10 +534,20 @@ public function logout(){
     public function supervisorSaveImage(){
     	$this->users->sup_image();
     }
+
     public function addReport(){
     	$this->users->addReport();
     }
     public function getLastLog(){
     	$this->users->getLastLog();
     }
+
+
+   	public function saveCSV(){
+   		$this->users->importCSV();
+   	}
+
+   	public function addStudent(){
+   		$this->users->addStud();
+   	}
 }

@@ -361,6 +361,9 @@ xpopup
         
       
         */
+        textarea{
+            resize: none;
+        }
 
           .notifs {
             padding-left: 10px;
@@ -442,15 +445,22 @@ xpopup
         }
         
         #log_activity {
-            height: 80px;
             resize: none;
+            height: 80px;
+            overflow: hidden;
+           
+            outline: none;
+           
         }
         
         .logs-upper,
         .logs-lower {
             display: none;
         }
-        
+        .logs-lower button{
+            font-size: 11px;
+            border-radius: 20px;
+        }
         .logs-title {
             margin-bottom: 20px;
         }
@@ -579,6 +589,11 @@ xpopup
     .btn-bug{
         background-color: #800000;
     }
+
+    .save-edit button{
+        border-radius: 20px;
+        font-size: 12px;
+    }
     .btn-bug:hover{
         color: #FFFFFF;
     }
@@ -605,7 +620,7 @@ xpopup
 
 </head>
 
-<body>
+<body onload="init()">
    
 
 <div class="cd-popup" role="alert">
@@ -648,6 +663,7 @@ xpopup
                         </ul>
                     <?php endif;?>
                     </div>
+                    <span style="position: absolute; top: 20px; right: 120px;">Hi, <?php echo $user_data[0]['first_name']?></span>
                     <div class="col-lg-2">
                         <?php if(isset($id_number)):?>
                                <ul class="nav navbar-nav">
@@ -682,7 +698,7 @@ xpopup
                              </a>
                                 
                                 <ul class="dropdown-menu" id="show-logout">
-                                    <li><a href="profile"><?php echo $user_data[0]['first_name'] . " " .$user_data[0]['last_name'];?><i class="fa fa-user pull-right"></i></a></li>
+                                    <li><a href="profile">Profile<i class="fa fa-user pull-right"></i></a></li>
                                     <li class="divider"></li>
                                     <li><a href="dashboard">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                     <li class="divider"></li>
@@ -951,13 +967,13 @@ xpopup
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <textarea name="log_activity" id="log_activity" placeholder="Write your log here" class="form-control" required></textarea>
+                                    <textarea name="log_activity" rows="4" id="log_activity" placeholder="Write your log here" class="form-control" required></textarea>
                                 </div>
                                 <div class="form-group logs-lower">
-                                    <button type="submit" id="submit_log" class="btn btn-primary" value="Submit">Post</button>
-                                    <button type="button" class="btn btn-success" id="load_last_log">Load last log</button>
-                                    <button type="reset" class="btn btn-default">Clear</button>
-                                    <button type="button" class="btn btn-danger cancel-btn" style="float: right;" class="btn btn-danger">Cancel</button>
+                                    <button type="submit" id="submit_log" class="btn btn-primary" value="Submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i>Post</button>
+                                    <button type="button" class="btn btn-success" id="load_last_log"><i class="fa fa-history" aria-hidden="true"></i>Load last log</button>
+                                    <button type="reset" class="btn btn-default"><i class="fa fa-eraser" aria-hidden="true"></i>Clear</button>
+                                    <button type="button" class="btn btn-danger cancel-btn" style="float: right;" class="btn btn-danger"><i class="fa fa-ban" aria-hidden="true"></i>Cancel</button>
                                 </div>
 
                             </form>
@@ -999,7 +1015,7 @@ xpopup
                                     <form method="post">
                                         <div class="row">
                                             <div class="logs-lists">
-                                                <span class="show-more-info" style="float: right; margin-right: 20px;"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>
+                                                <span class="show-more-info" style="float: right; margin-right: 20px;"><i class="fa fa-plus-circle" aria-hidden="true" title="show more info"></i></span>
 
                                                  <span class="show-less-info" style="float: right; display: none; margin-right: 20px;"><i class="fa fa-minus-circle" aria-hidden="true"></i></span>
                                                 <div class="col-lg-6">
@@ -1032,10 +1048,10 @@ xpopup
 
                                                     </div>
 
-                                                  
+                                                   
                                                   
                                                 </div>
-
+                                                   
                                                  <textarea class="list-logs activity_listed" name="log_lists_activity" id="log_lists_activity" placeholder="Write your log here" readonly><?php echo $log['log_content']?></textarea>
                                             </div>
                                         </div>
@@ -1048,7 +1064,11 @@ xpopup
                                         <div class="row">
                                             <div class="col-lg-12">
                                                     <hr style="margin-bottom: 0; margin-top: 0;">
-                                                    <span style="color:green; font-size: 11px; float: right; margin-top: 15px;"> Verified  <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i></span>
+                                                    <?php if($log['verified']):?>
+                                                        <span style="color:green; font-size: 11px; float: right; margin-top: 15px;"> Verified  <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i></span>
+                                                    <?php else:?>
+                                                     <span style="font-size: 11px; float: right; margin-top: 15px;"> Pending  <i class="fa fa-circle-thin" aria-hidden="true"></i></span>
+                                                    <?php endif;?>
                                                     <?php if(in_array($log['id'], array_column($comments, 'log_id'))):?>  
                                                          <label>Comments</label>
                                                          <?php endif;?>
@@ -1104,7 +1124,7 @@ xpopup
             <ul class="dropdown-menu dropdown-menu-right dropdown-menu-form">
               <li>
                 <div class="report">
-                  <h2 class="text-center" style="color: #000000;">Report a Bug or Suggestion</h2>
+                  <h3 class="text-center" style="color: #000000;">Report a Bug or Suggestion</h3>
                   <form class="doo" method="POST" action="addReport">
                     <div class="col-sm-12">
                       <textarea name="comment" id="reports"class="form-control" placeholder="Please tell us any bugs or issues you've found, provide as much detail as possible." required></textarea>
@@ -1231,13 +1251,15 @@ xpopup
     $('.cancel-edit').click(function() {
        var input = $(this).closest(".row").find(".list-logs");
         var buttons = $(this).closest(".row").find(".save-edit");
+        var currentform = $(this).closest('form');
         buttons.hide();
         input.prop('readonly', true);
         input.css('border', 'none');
         input.css('background', 'none');
+        currentform.trigger('reset');
     });
     $('.save-edit-log').click(function(){
-        var log_id = $(this).data('log-id');
+         var log_id = $(this).data('log-id');
          var date = $(this).closest(".row").find(".date_listed").val();
          var time_in = $(this).closest(".row").find(".time_in_listed").val();
          var time_out = $(this).closest(".row").find(".time_out_listed").val();
@@ -1364,6 +1386,7 @@ xpopup
        
     });
 </script>
+
 <script type="text/javascript">
     $('#load_last_log').click(function(){
 
@@ -1387,6 +1410,52 @@ xpopup
             },
         });
     });
+</script>
+<script type="text/javascript">
+        var observe;
+        if (window.attachEvent) {
+            observe = function (element, event, handler) {
+                element.attachEvent('on'+event, handler);
+            };
+        }
+        else {
+            observe = function (element, event, handler) {
+                element.addEventListener(event, handler, false);
+            };
+        }
+        function init () {
+            var text = document.getElementById('log_activity');
+            function resize () {
+                text.style.height = 'auto';
+                text.style.height = text.scrollHeight+'px';
+            }
+            /* 0-timeout to get the already changed text */
+            function delayedResize () {
+                window.setTimeout(resize, 0);
+            }
+            observe(text, 'change',  resize);
+            observe(text, 'cut',     delayedResize);
+            observe(text, 'paste',   delayedResize);
+            observe(text, 'drop',    delayedResize);
+            observe(text, 'keydown', delayedResize);
+
+            text.focus();
+            text.select();
+            resize();
+        }
+  
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+      $('.activity_listed').each(function () {
+          this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+        }).on('input', function () {
+          this.style.height = 'auto';
+          this.style.height = (this.scrollHeight) + 'px';
+        });
+    })
 </script>
 </html>
 

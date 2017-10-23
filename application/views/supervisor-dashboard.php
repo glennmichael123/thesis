@@ -234,14 +234,20 @@
         .profile-image>img.img-circle{
             width: 150px;
             height: 150px;
-            border: 3px solid #915B51;
+            border: 2px solid #f44336;
         }
 
         .label-default{
-        background-color:#A55D35;
+        background-color: white;
+        font-family: Arial, Helvetica, sans-serif;
         padding: 5px 10px 5px 10px;
-        border-radius: 30px;
-        font-size: 1em;
+        border-radius: 10px;
+        font-size: 1.3em;
+        color:#f44336;
+        }
+
+        .comment-btn:focus{
+            color: #000;
         }
         
     </style>
@@ -403,9 +409,9 @@
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label>Time In</label>
-                                                        <input type="text" class="list-logs" name="log_lists_time_in" value="<?php echo $log['time_in']?>" id="log_lists_time_in" readonly>
+                                                        <input type="time" class="list-logs" name="log_lists_time_in" value="<?php echo $log['time_in']?>" id="log_lists_time_in" readonly>
                                                         <label>Time Out</label>
-                                                        <input type="text" class="list-logs" name="log_lists_time_out" value="<?php echo $log['time_out']?>" id="log_lists_time_out" readonly>
+                                                        <input type="time" class="list-logs" name="log_lists_time_out" value="<?php echo $log['time_out']?>" id="log_lists_time_out" readonly>
                                                         <label>Hours Rendered</label>
                                                         <input type="text" class="list-logs" name="log_lists_hours_rendered" id="log_lists_hours_rendered" value="<?php echo $log['hours_rendered']?>" readonly>
 
@@ -461,6 +467,18 @@
                                                         <!-- <div class="well" style="box-shadow: none; border: none; background: #f7f7f7; padding: 10px; margin-bottom: 10px;"> -->
                                                          <div class="comments-list" style="font-size: 12px; margin-bottom: 10px;">
                                                               <b>Supervisor</b> <?php echo $comment['content'];?>
+                                                                    <div class="dropdown" style="float: right; width:20px;">
+                                                                            <a href="#" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                                                <i style="color: #000000; font-size: 15px;" class="fa fa-caret-down"></i>
+                                                                            </a>
+
+                                                                            <ul class="dropdown-menu" style="width: 180px; padding-bottom: 0px; padding-top: 0px; font-size: 11px; margin-left: -149px; margin-top: 5px;" aria-labelledby="dropdownMenu2">
+                                                                                <li><a href="#" class="edit-log" style="color: #000000;">Edit <i class="fa fa-pencil" aria-hidden="true"></i></a></li>
+                                                                                <li role="separator" class="divider" style="margin: 0;"> </li>
+                                                                                <li><a href="#" class="delete-log cd-popup-trigger" data-log-id="<?php echo $log['id']?>" style="color: #000000;">Delete <i class="fa fa-trash"></i></a></li>
+                                                                            </ul>
+
+                                                                        </div>
                                                           </div>
                                                         
                                                     <?php endif;?>
@@ -513,10 +531,10 @@
         <!-- line modal -->
         <div class="modal fade" id="addtraineeModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
           <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
+            <div class="modal-content" style="border-radius: 12px">
+                <div class="modal-header" style="background-color: #f44336;border-radius: 10px 10px 0 0">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    <h3 class="modal-title" id="lineModalLabel">Add trainee</h3>
+                    <h3 class="modal-title" id="lineModalLabel" style="color:white;">Add trainee</h3>
                 </div>
                 <div class="modal-body">
                     
@@ -537,7 +555,7 @@
                 <div class="modal-footer">
                     <div class="btn-group btn-group-justified" role="group" aria-label="group button">
                         <div class="btn-group" role="group">
-                             <button type="button" class="btn btn-primary btn-hover-green" data-action="save" role="button" style="width: 270px;border-radius: 5px" id="addTrainee" name="addTrainee">Add</button>
+                             <button type="button" class="btn btn-success btn-hover-green" data-action="save" role="button" style="width: 270px;border-radius: 5px" id="addTrainee" name="addTrainee">Add</button>
                         </div>
                         <div class="btn-group" role="group">
                            
@@ -553,10 +571,10 @@
 
         <div class="modal fade" id="changeImage" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
           <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
+            <div class="modal-content" style="border-radius: 12px">
+                <div class="modal-header" style="background-color: #d32f2f;border-radius: 10px 10px 0 0">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    <h3 class="modal-title" id="lineModalLabel">Change image</h3>
+                    <h3 class="modal-title" id="lineModalLabel" style="color:white">Change image</h3>
                 </div>
                 <div class="modal-body">
                     <!-- content goes here -->
@@ -576,7 +594,7 @@
                         </div>
                         <div class="change-photo" style="margin-top: 10px">
                             <!-- browse -->
-                            <button class="btn btn-default click-photo" id="btn-browse"><i class="fa fa-picture-o" aria-hidden="true"></i> Browse image</button>
+                            <button class="btn btn-success click-photo" id="btn-browse"><i class="fa fa-picture-o" aria-hidden="true"></i> Browse image</button>
                         </div>
 
                         <form action="supervisorSaveImage" method="POST" enctype="multipart/form-data">
