@@ -26,9 +26,9 @@
         }
         
         .jumbotron {
-            background-color: #EED090;
+            background-color: #871F21;
             padding: 10px;
-            color: white;
+            color: #FFFFFF;
             font-size: 1.5em;
             margin-top: 10px;
             margin-left: 10px;
@@ -217,6 +217,8 @@
         .well{
             border-radius: 0px;
             margin-bottom: 20px;
+            background-color: #FFFFFF;
+            background-image: none;
         }
         .evaluator-option{
             color: #000;
@@ -242,6 +244,31 @@
         padding: 5px 10px 5px 10px;
         border-radius: 30px;
         font-size: 1em;
+        }
+        .btn-trainee{
+        background-color: #FFC019;
+        color: #FFFFFF;
+        transition: 0.4s;
+        border-radius: 5px;
+        font-size: .65em;
+        }
+        .btn-trainee:hover{
+        color: #FFFFFF;
+        background-color: #f5b301;
+        transition: 0.4s;
+        font-size: .65em;
+        }
+        .progress-bar-first{
+            background: #CA2E32;
+        }
+        .progress-bar-second{
+            background: #800000;
+        }
+        .progress-bar-third{
+            background: #FFC019;
+        }
+        .skill{
+            font-size: 1.5em !important;
         }
         
     </style>
@@ -303,7 +330,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="jumbotron">Dashboard
-                            <button class="btn btn-primary" style="float: right;" data-target="#addtraineeModal" data-toggle="modal">+Trainee</button>
+                            <button class="btn btn-trainee" style="float: right;" data-target="#addtraineeModal" data-toggle="modal">+Trainee</button>
                         </div>
                     </div>
                 </div>
@@ -317,7 +344,7 @@
 
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <h4 style="text-align: center;">Trainees Completed</h4>
+                                    <h4 style="text-align: center; margin-bottom: 10px;">Trainees Completed</h4>
                                     <div class="progress skill-bar">
 
                                         <div class="progress-bar progress-bar-first" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
@@ -329,10 +356,10 @@
 
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <h4 style="text-align: center;">Evaluations</h4>
+                                    <h4 style="text-align: center; margin-bottom: 10px;">Evaluations</h4>
                                     <div class="progress skill-bar">
 
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar progress-bar-second" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
                                             <span class="skill">2/10</span>
                                         </div>
                                     </div>
@@ -341,10 +368,10 @@
 
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <h4 style="text-align: center;">Pending logs</h4>
+                                    <h4 style="text-align: center; margin-bottom: 10px;">Pending logs</h4>
                                     <div class="progress skill-bar">
 
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar progress-bar-third" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
                                             <span class="skill">10</span>
                                         </div>
                                     </div>

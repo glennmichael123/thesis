@@ -334,7 +334,47 @@
             font-family: 'Oswald', sans-serif;
 
         }
+        .btn-loginas{
+            margin-top: 10px;
+        }
+         label {
+            color: #A55D35;
+            padding-bottom: 20px;
+            padding-top: 20px;
+        }
         
+        .badge {
+            background-color: #A55D35;
+        }
+        .modal-body{
+            font-family: 'Roboto', sans-serif;
+        }
+        .fa-question-circle{
+            color: #A55D35;
+        }
+        .popover-title{
+        color: #0a0a0a;
+        font-size: 15px;
+        text-align: center;
+        background-color: #fafafa;
+        }
+        .popover-content{
+            text-align: left;
+        }
+         ol {
+            list-style: lower-alpha;
+        }
+        
+        textarea {
+            height: 100px;
+            width: 250px;
+        }
+        
+        .score {
+            height: 25px;
+            width: 50px;
+            
+        }
     </style>
 
     <title></title>
@@ -621,11 +661,177 @@
                                <button class="btn btn-primary btss" style="display: none" type="submit">Save Changes</button>
                                <button class="btn btn-danger btss" id="cancelss" style="display: none;" type="button">Cancel</button>
                         </p>
-                        </div>
-                        
                     </fieldset>
+                    <div class="row">
+                        <div class="col-lg-3"></div>
+                             <div class="col-lg-6">
+                                <form class="form-group">
+                                     <select type="button" class="btn btn-loginas btn-block" name="login-options" id="login-as">
+                                         <span class="caret"></span>
+                                         <option value="midtermevaluation">Midterm Evaluation</option>
+                                         <option value="finalevaluation">Final Evaluation</option>
+                                     </select>
+                                </form>
+                             </div>
+                        <div class="col-lg-3"></div>
+
                     </div>
-                   
+                    <fieldset id="second-fieldset">
+                    <legend><i class="fa fa-users"></i> My Evaluation</legend>
+                         <label>WORK ATTITUDE(<div class="badge">40</div> points)</label>
+                                <ol>
+                                    
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            
+                                                <li>Enthusiasm / Eagerness to Learn</li>
+                                                
+                                            
+                                          
+                                                <li>Cooperation and Willingness</li>
+                                           
+                                            
+                                           
+                                                <li>Adaptability and Sociability</li>
+                                            
+                                           
+                                          
+                                                <li>Industriousness and Initiative</li>
+                                          
+                                           
+                                           
+                                                <li>Sense of Responsibility</li>
+                                           
+                                            
+                                                <li>Attentiveness / Attention</li>
+                                        
+                                            
+                                                <li>Personal Grooming</li>
+                                          
+                                                <li>Attendance</li>
+                                            
+                                        </div>
+
+                                    <div class="col-lg-6">
+                                        <form method="post">
+                                         
+                                         <fieldset style="float: right;">
+                                             <input tabindex="1" maxlength="1" type="text" name="enthusiasm" class="score">
+                                            <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Enthusiasm / Eagerness to Learn" data-content="Confident to learn new tasks / assignments." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
+                                             <br>
+                                             <input tabindex="2"  maxlength="1" type="text" name="cooperation" class="score">  
+                                             <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Cooperation and Willingness" data-content="Readiness to accept and carry out instructions and assignments; works well with others; shows support and concerns for co-workers." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a><br>
+                                             <input tabindex="3" maxlength="1" type="text" name="adaptability" class="score">
+                                                   <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Adaptability and Sociability" data-content="Ability to adjust to a new environment and be at ease with others; ability to deal with people of different levels/ positions; amiable and friendly with others and knows how to respect authority." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
+                                             </i><br>
+                                             <input tabindex="4" maxlength="1" type="text" name="industriousness" class="score"> 
+                                             <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Industriousness and Initiative" data-content="Constant worker / keeps himself busy with initiative; does not take unauthorized breaks; initiates action when the situation calls for it." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
+                                             <br>
+                                             <input tabindex="5" maxlength="1" type="text" name="responsibility" class="score">
+
+                                               <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Sense of Responsibility" data-content="Applies sound judgement / decision making." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a><br>
+                                             <input tabindex="6"  maxlength="1" type="text" name="attentiveness" class="score">
+                                              <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Attentiveness / Attention" data-content="Focuses on his/her work / gives full attention to what he/she is doing; ability to handle unexpected problems; carry-out instructions / assignments at once." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a><br>
+                                             <input tabindex="7" maxlength="1" type="text" name="grooming" class="score">
+                                             <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Personal Grooming" data-content="Maintains proper way of dressing marked by proper conduct, tidiness, and well-grooming; lively and well-spirited during at work and at rest." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
+                                             
+                                             <br>
+                                             <input tabindex="8" maxlength="1" type="text" name="attendance" class="score">                           
+                                                <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Attendance" data-content="Reports to work regurlarly and on time and uses time wisely and productively." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a><br>
+                                        </fieldset>
+                                    </div>
+                                 
+                                    </div>
+                                   
+                                       
+                                    
+                                </ol>
+                                <label>WORK PERFORMANCE (30 x 2 =
+                                    <div class="badge">60</div> points)</label>
+
+                                <ol>
+                                    
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                                <li>Quality of Work</li>
+                                               
+                                                <li>Quantity of Work</li>
+                                             
+                                                <li>Dependability</li>
+                                              
+                                                <li>Comprehension</li>
+                                                <li>Safety Consciousness</li>
+                                               
+                                                <li>Waste Consciousness</li>
+                                         </div>
+                                         <div class="col-lg-6">
+                                            <fieldset style="float: right;">
+                                                <input tabindex="9" maxlength="1" type="text" name="quality" class="score">
+                                                    <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Quality of Work" data-content="Thoroughness, accuracy, neatness and effectiveness of output, meets required standards and even exceeds expected results." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
+                                                <br>
+                                                <input tabindex="10" maxlength="1" type="text" name="quantity" class="score">
+                                                      <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Quantity of Work" data-content="Able to complete work within the alloted time, finishes work on schedule and maximizes use of tme." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
+                                                <br>
+                                                <input tabindex="11" maxlength="1" type="text" name="dependability" class="score">
+                                                      <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Dependability" data-content="Ability to work with minimum supervision, does not need constant follow-up." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
+                                                <br>
+                                                <input tabindex="12" maxlength="1" type="text" name="comprehension" class="score">
+                                                      <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Comprehension" data-content="Understand instructions at once with almost no clarification." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
+                                                <br>
+                                                <input tabindex="13" maxlength="1" type="text" name="safety" class="score">
+                                                  <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Safety Consciousness" data-content="Carefully takes precaution and observe visible hazards; follow safety rules and reads instructions prior to working." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
+                                                <br>
+                                                <input tabindex="14" maxlength="1" type="text" name="waste" class="score">
+                                                     <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Waste Consciousness" data-content="Shows concerns of company facilities; handles tools and equipment carefully; keeps equipment, tools, materials and work area clean and well-kept; proper use and disposal of materials." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
+                                                <br>
+                                            </fieldset>
+                                            </ol>
+                                             <div class="row">
+                                    <div class="col-lg-6">
+                                     <label class="pointy">OVERALL TOTAL</label>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <fieldset style="float: right;">
+                                            <input type="text" name="" class="score" style="margin-right: 25px; margin-top: 20px;" readonly> 
+                                         </fieldset>
+                                    </div>
+                                </div>
+                                <label for="remark" style="margin:0; padding: 0;" class="pointy">REMARKS</label>
+                              
+                                    <textarea tabindex="15" name="remarks" id="remark" class="form-control"></textarea>
+                                         </div>
+
+                    </fieldset>
+
+                    </div>
                     </div>
                 </div>
             </div>    
@@ -722,5 +928,8 @@
      alert(reader.readAsDataURL(file));
     }
 }
+  $(function () {
+  $('[data-toggle="popover"]').popover()
+})
 </script>
 </html>

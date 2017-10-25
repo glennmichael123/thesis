@@ -95,14 +95,19 @@
             position: relative;
             top: 10px;
             font-size: 20px;
-            border: 1px solid gray;
+            border-radius: 5px;
             padding: 5px 20px 5px 20px;
-            color:white;
-            background: #4285F4;
+            color:#FFFFFF;
+            background: #FFBA00;
+            text-decoration: none;
        }
        .topage2:hover{
         text-decoration: none;
-        color: white;
+        color: #FFFFFF;
+        background-color: #f5b301;
+       }
+       .address{
+        display: none;
        }
 
     </style>
@@ -287,15 +292,25 @@
                               <input type="text" name="emergency_address" placeholder="Address" id="emergency_address">
                           </div>
                         </div>
-                        <div class="row choose-same-address-emergency" style="display: none;">
-                          <div class="col-lg-5">
-                            <input type="radio" id="same-address-present-emergency" name="same-address-emergency"><label for="same-address-present-emergency">Same as my present Address</label>
-                            
-                          </div>
-                          <div class="col-lg-6">
-                            <input type="radio" id="same-address-permanent-emergency" name="same-address-emergency"><label for="same-address-permanent-emergency">Same as my permanent Address</label>
-                          </div>
-                        </div>
+                         <!-- <div class="row">
+                            <div class="col-lg-1">
+                                <div style="float: left;">
+                                  <input type="radio" name="address" value="address" id="present_address" class="address" style="width: 25px;">
+                                  <input type="radio" name="address" value="address" id="permanent_address" class="address" style="width: 25px;">
+                                </div>
+                            </div>  
+                         </div> -->
+                         <div class="row">
+                            <div class="col-lg-3 col-lg-offset-1">
+                              <input type="radio" id="presents_address" class="address" value="address" name="address"><label for="presents_address" class="address"  style="margin-left: 30px;">Same as Present Address</label>
+             
+                            </div>
+                            <div class="col-lg-3 col-lg-offset-1">
+                            </div>
+                            <div class="col-lg-3 col-lg-offset-1">
+                                <input type="radio" id="permanents_address" value="address" name="address" class="address"><label for="permanents_address" class="address"  style="margin-left: 20px;">Same as Permanent Address</label>
+                            </div>
+                         </div>
                             <a class="topage2" href="page2">Next</a>
                      </div>
                     </div>
@@ -307,6 +322,12 @@
     </div>
 
 </body>
-
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#emergency_address').focus(function(){
+            $('.address').css('display','inline');
+        })
+    })
+</script>
 
 </html>

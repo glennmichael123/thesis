@@ -32,10 +32,10 @@
 
     }
     .btn-bug{
-        background-color: #800000;
+        background-color: #d96c6f;
     }
     .btn-bug:hover{
-        color: #FFFFFF;
+        color: #cf4246;
     }
     .btn-submit{
         color: #FFFFFF;
@@ -60,18 +60,21 @@
         background-color: #FFBA00;
         color: #FFFFFF;
         width: 100%;
-        margin-top: 5px;
+        margin-top: 15px;
         font-size: 1.25em;
+        transition: 0.4s;
     }
     .btn-login:hover{
         color: #FFFFFF;
         background-color: #f5b301;
-        border-radius: 0;
+        transition: 0.4s;
+        
     }
     .btn-loginas{
         font-size: 15px;
         color: #FFFFFF;
         background-color: #FFBA00;
+        
 
     }
     .btn-loginas:hover{
@@ -80,7 +83,7 @@
         
     }
     .forget{
-        margin-top: 10px;
+        margin-top: 15px;
     }
   
     input{
@@ -100,23 +103,54 @@
 
 
     }
-    body{
+    .content{
         background-image: url('<?php echo base_url()?>assets/images/backgrounds.jpg');
+        height: 650px;
+
     }
    
     .login{
         margin-top: 120px;
     }
     a{
-        color: #FFFFFF;
+        color: #000000;
     }
     a:hover{
-        color: #FFFFFF;
+        color: #000000;
     }
     option{
         background-color: #FFFFFF;
         color: #000000;
     }
+    .well{
+      
+        background-color: #F4F4F4;
+        
+    }
+    .panel-header{
+        background-color: #CA2E32;
+        color: #FFFFFF;
+    }
+    .panel-body{
+        height: 220px;
+
+    }
+    .panel .panel-header{
+        border-color:  #d32f2f;
+    }
+    .incorrect{
+        color: red;
+        text-align: center;
+        display: none;
+    }
+    .header-links{
+        position: relative;
+    }
+    .footer{
+       background-color: #a12428;
+       position: relative;
+    }
+
   
 
 
@@ -144,7 +178,8 @@
                     <div class="col-lg-4">
                         <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 175px;"></div>
                     </div>
-                    <div class="col-lg-7">
+                    <div class="col-lg-5"></div>
+                    <div class="col-lg-3">
                         <div class="header-links">
                             <h5> <a href="#" class="current-link">Home</a></h5>
                               <?php echo (isset($error) ? $error : '');?>
@@ -187,19 +222,26 @@
                     <div class="col-lg-4"></div>
                         <div class="col-lg-4">
                             <div class="login">
-                                 <h2 style="color: #FFFFFF; text-align: center;">Please Login</h2>
-                                    <form action="" method="POST">
-                                         <div class="form-group">
+                            <div class="panel panel-default">
+                            <div class="panel panel-header">
+                                 <h2 style="color:#FFFFFF; text-align: center;">LOGIN</h2>
+                            </div>
+                            <div class="panel panel-body">
+                                    <form action="<?php echo base_url()?>main/loggedin" method="POST">
+                                   
+                                         <div class="form-group" style="margin-top: -10px;">
                                              <input type="text" name="username" class="form-control" placeholder="Username">
                                          </div>
                                          <div class="form-group">
                                               <input type="password" name="password" class="form-control" placeholder="Password">
                                               <div class="forget">
+                                                <div>
                                                      <h6><a href="incorrectpassword">Forgot Password?</a></h6> 
+                                                      <h6 style="margin-left: 20px; font-size: 13px;" >Login-As:</h6>
                                                        <div class="btn-group" style="float: right;">
-                                                      <select type="button" class="btn btn-loginas" name="options">
+                                                      <select type="button" class="btn btn-loginas" name="login-options" id="login-as">
                                                        <span class="caret"></span>
-                                                       <option>Login-As</option>
+                                                       <option value="ojt">OJT</option>
                                                         <option value="supervisor">Supervisor</option>
                                                         <option value="administrator">Administrator</option>
                                                       </select>
@@ -208,10 +250,14 @@
 
                                                     
                                               </div>
+                                            
                                           </div>
-                                             <button class="btn btn-login btn-block">Sign In</button>
+                                             <button class="btn btn-login btn-block" id="login-sign">Sign In</button>
 
                                     </form>
+                                        
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     <div class="col-lg-4"></div>
@@ -222,27 +268,27 @@
            
 
         </div>
-        <!-- <div class="footer">
+            <!-- <div class="footer">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-6">
                 <div class="feedback left">
       <div class="tooltips">
           <div class="btn-group dropup">
-            <button type="button" class="btn btn-primary dropdown-toggle btn-circle btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-bug fa-2x" title="Report Bug"></i>
+            <button type="button" class="btn btn-bug dropdown-toggle btn-circle btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-bug fa-2x" style="color: #FFFFFF;"title="Report Bug"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-right dropdown-menu-form">
               <li>
                 <div class="report">
                   <h2 class="text-center" style="color: #000000;">Report a Bug or Suggestion</h2>
-                  <form class="doo" method="post" action="report.php">
+                  <form class="doo" method="POST" action="addReport">
                     <div class="col-sm-12">
-                      <textarea name="comment" class="form-control" placeholder="Please tell us any bugs or issues you've found, provide as much detail as possible." required></textarea>
+                      <textarea name="comment" id="reports"class="form-control" placeholder="Please tell us any bugs or issues you've found, provide as much detail as possible." required></textarea>
                       
                      </div>
                      <div class="col-sm-12 clearfix">
-                      <button class="btn btn-primary btn-block">Submit Report</button>
+                      <button class="btn btn-submit btn-block" id="btn-report" name="btn-report" style="margin-top: 5px;">Submit Report</button>
                      </div>
                  </form>
                 </div>
@@ -278,8 +324,7 @@
                 </div>
             </div>
 
-        </div>
-    </div> -->
+        </div> -->
 
         
         </div>
@@ -321,15 +366,10 @@
      
   
 </script>
-  <script type="text/javascript">
-    $(document).ready(function(){
-        $('.btn-submit').click(function(){
-            alert("natoy");
-        });
-    });
-        $(function () {
-  $('[data-toggle="popover"]').popover()
-})
+<script type="text/javascript">
+
+
+
 </script> 
 
 

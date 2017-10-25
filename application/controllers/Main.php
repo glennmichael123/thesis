@@ -174,10 +174,13 @@ class Main extends CI_Controller {
 
 
 	public function loggedin(){
-		$condition = $this->users->user_login();
-		$data['error'] = 'abcd';
+		
+		
+		//$data['error'] = 'abcd';
 		// print_r("condition = " . $condition. "   ");
-		if($condition){
+		if($_POST['login-options']=='ojt' || !isset($_POST['login-options'])){
+			$condition = $this->users->user_login();
+			if($condition){
 			$data = array(
 				'username' => $this->input->post('username'), //need to be dynamic e.g $this->input->post('username')
 				'password' => $this->input->post('password') // this->input->post('password');
@@ -207,8 +210,15 @@ class Main extends CI_Controller {
 
 					
 	}else{
-		header("location: loginojt?error=Username or password incorrect");
-	}	
+		header("location: index?error=Username or password incorrect");
+	}
+		}else if($_POST['login-options']=='supervisor'){
+			$this->loggedinSupervisor($_POST['username'], $_POST['password']);
+		}
+		else if($_POST['login-options']=='administrator'){
+			$this->loggedinAdministrator($_POST['username'],$_POST['password']);
+		}
+			
 
 
 	
@@ -216,14 +226,15 @@ class Main extends CI_Controller {
 
 
 
-public function loggedinSupervisor(){
+public function loggedinSupervisor($user,$pass){
 	$condition = $this->users->user_login_supervisor();
 		$data['error'] = 'abcd';
 		// print_r("condition = " . $condition. "   ");
 		if($condition){
 			$data = array(
-				'username' => $this->input->post('username'), //need to be dynamic e.g $this->input->post('username')
-				'password' => $this->input->post('password') // this->input->post('password');
+				'username' => $user, //need to be dynamic e.g $this->input->post('username')
+				'password' => $pass // this->input->post('password');
+
 				);
 				$result = $this->users->readUserSupervisor($data);
 			
@@ -239,19 +250,19 @@ public function loggedinSupervisor(){
 			
 					
 	}else{
-		header("location: loginsupervisor?error=Username or password incorrect");
+		header("location: index?error=Username or password incorrect");
 	}	
 
 }
 
-public function loggedinAdministrator(){
+public function loggedinAdministrator($user,$pass){
 	$condition = $this->users->user_login_administrator();
 		$data['error'] = '';
 		// print_r("condition = " . $condition. "   ");
 		if($condition){
 			$data = array(
-				'username' => $this->input->post('username'), //need to be dynamic e.g $this->input->post('username')
-				'password' => $this->input->post('password') // this->input->post('password');
+				'username' => $user, //need to be dynamic e.g $this->input->post('username')
+				'password' => $pass // this->input->post('password');
 				);
 				$result = $this->users->readUserAdmin($data);
 			
@@ -279,7 +290,7 @@ public function loggedinAdministrator(){
 
 					
 	}else{
-		header("location: loginadmin?error=Username or password incorrect");
+		header("location: index?error=Username or password incorrect");
 	}	
 }
 
@@ -524,5 +535,7 @@ public function logout(){
     }
     public function addReport(){
     	$this->users->addReport();
-    }
+    	header("Location: index");
+
+  	}
 }

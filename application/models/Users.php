@@ -531,7 +531,6 @@
                     $report=$_POST['comment'];
                     return $this->db->query("INSERT INTO reports (report) VALUES('".$report."')");
                 }
-                header("Location:index");
          }
 }
 
