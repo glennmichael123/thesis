@@ -45,6 +45,7 @@
         background-color: #f5b301;
 
     }
+    
     .feedback{position: fixed;}
     .feedback textarea{height: 150px; }
     .feedback .reported p, .feedback .failed p  { height: 190px}
@@ -54,6 +55,7 @@
     .feedback.left .dropdown-menu{ left: 0px}
     .feedback.right .dropdown-menu{ right: 0px}
     .feedback .hideme{ display: none}
+
     
     .btn-login{
         background-color: #FFBA00;
@@ -117,16 +119,9 @@
         background-color: #FFFFFF;
         color: #000000;
     }
-  
-
-
-    
-
-
     .modal-header-color:{
         background-color: #f44336;
     }
-
     </style>
     <title></title>
 

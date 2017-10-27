@@ -209,9 +209,6 @@ class Main extends CI_Controller {
 				 	header("location: adminDashboard");
 				 }
 			
-				
-
-					
 	}else{
 		header("location: index?error=Username or password incorrect");
 	}	
@@ -220,10 +217,6 @@ class Main extends CI_Controller {
 	}else if($logintype == 'administrator'){
 		$this->loggedinAdministrator();
 	}
-		
-
-
-	
 }
 
 
@@ -331,9 +324,6 @@ public function logout(){
 		// $newdata['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
 		   $data['student_list'] = $this->users->getStudentList();
 
-		// $newdata['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
-		   $data['student_list'] = $this->users->getStudentList();
-
 		if(!isset($this->session->userdata['id_number'])){
           header("location: index");
      	}else{
@@ -355,7 +345,7 @@ public function logout(){
 		
 		$this->users->deleteLog();
 	}
-
+	
 	public function dashboard(){
 
 		if(!isset($this->session->userdata['id_number'])){
@@ -541,8 +531,6 @@ public function logout(){
     public function getLastLog(){
     	$this->users->getLastLog();
     }
-
-
    	public function saveCSV(){
    		$this->users->importCSV();
    	}

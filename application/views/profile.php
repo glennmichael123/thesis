@@ -459,7 +459,7 @@
                                 <form action="saveImage" method="POST" enctype="multipart/form-data">
                                     <input class="browse-photo" type="file" accept="image/*" onchange="previewFile()" name="files" style="display: none;">
                                       <div class="saveCancel" style="margin-top: 10px; display: none;">
-                                        <button type="submit"class="btn btn-default" style="width:75px" id="saveBrowse" name="saveBrowse">Save</button>
+                                        <button type="submit" class="btn btn-default" style="width:75px" id="saveBrowse" name="saveBrowse">Save</button>
                                         <button type="button" class="btn btn-default" id="cancelBrowse">Cancel</button>
                                     </div>
                                 </form> 

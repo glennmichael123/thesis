@@ -20,6 +20,10 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
+
+     <!-- Sweet Alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="bower_components/sweetalert2/dist/sweetalert2.all.min.js"></script>
     <style type="text/css">
         body {
             background-color: #F4F4F4;
@@ -234,7 +238,7 @@
         .profile-image>img.img-circle{
             width: 150px;
             height: 150px;
-            border: 2px solid #f44336;
+            border: 1px solid #C0C0C0;
         }
 
         .label-default{
@@ -243,7 +247,7 @@
         padding: 5px 10px 5px 10px;
         border-radius: 10px;
         font-size: 1.3em;
-        color:#f44336;
+        color:#606060;
         }
 
         .comment-btn:focus{
@@ -741,7 +745,8 @@
             var studId = $('#names').val();
 
             if(studId == null){
-             alert("Select a trainee");    
+             //alert("Select a trainee");
+             swal('Oops...', 'Select a trainee', 'error');    
             }else{
                 $.ajax({  
                 url : "addTrainee",
@@ -752,8 +757,13 @@
 
                    },
                 success:function(data){
-                    location.reload();
-                    alert('Trainee added successfully');
+                    swal({
+                    	title: "Success!",
+                    	text: "Trainee added successfully",
+                    	icon: "success",
+                    }).then(function(){
+                    	location.reload();
+                    });
                   },
               });  
             }

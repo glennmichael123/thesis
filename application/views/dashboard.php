@@ -936,7 +936,7 @@ xpopup
                     <div class="logs-students">
                         <div class="well">
                             <div class="logs-title">
-                                <span>Post your log <i class="fa fa-paper-plane-o" aria-hidden="true"></i></span>
+                                <span>Create a log <i class="fa fa-paper-plane-o" aria-hidden="true"></i></span>
                             </div>
                             <form class="logs-display" action="addLogs" method="post">
                                 <div class="row logs-upper">

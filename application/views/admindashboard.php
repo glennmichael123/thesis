@@ -20,6 +20,22 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
+
+    <!-- Sweet Alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="bower_components/sweetalert2/dist/sweetalert2.all.min.js"></script>
+
+    <!-- Data table -->
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></script>
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+    <!-- <script type="text/javascript" src="jquery.dataTables.js"></script>
+    <script type="text/javascript" src="dataTables.scrollingPagination.js"></script>
+ -->
+
     <style type="text/css">
         body{
              background-color: #F4F4F4;
@@ -216,7 +232,8 @@ li.notification-title{
     background: #fff;    
 }
 .view-student-options{
-    font-size: 15px;
+    font-size: 12px;
+    color: white;
 }
 
 .modalContent{
@@ -226,6 +243,28 @@ li.notification-title{
 .modalHeader{
   background-color: #f44336;
   border-radius: 10px 10px 0 0;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.dashTable{
+  color: black;
+  font-size: 13px;
+}
+
+.pagination > li.active > a{
+    background-color:#f44336 !important;
+    border:2px solid #d32f2f !important;
+ }
+
+.pagination > li > a:hover{
+  background-color:#ffc107;
+}
+
+.dataTables_wrapper > div > div > div{
+  font-size: 14px !important;
 }
         
     </style>
@@ -452,26 +491,74 @@ li.notification-title{
                         </div>
                         </div>
 
-                     
                     </div>
                     <div class="well dashboard-list">
-                        <h4 style="padding-bottom: 20px;">List of students</h4>
+                      <table id="adminDataTable" class="table table-striped table-bordered" cellspacing="0" width="100%" style="font-size: 13px;">
+                              <thead>
+                                  <tr style="background-color: #f44336; color:white;">
+                                      <th>Name</th>
+                                      <th>Course</th>
+                                      <th>Evaluations</th>
+                                      <!-- <th>Profile</th>
+                                      <th>Dashboard</th> -->
+                                      <th>Actions</th>
+                                      <th>Status</th>
+                                  </tr>
+                              </thead>
+                             <!--  <tfoot>
+                                  <tr>
+                                      <th>Name</th>
+                                      <th>Course</th>
+                                      <th>Evaluations</th>
+                                      <th>Profile</th>
+                                      <th>Dashboard</th>
+                                      <th>Status</th>
+                                  </tr>
+                              </tfoot> -->
+                              <tbody>
+                                <?php foreach($student_list as $student):?>
+                                    <tr class="dashTable">
+                                        <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
+                                        <td><?php echo $student['course']?></td>
+                                        <td><?php echo $student['current_evaluations']?></td>
+                                        <td style="text-align: center"><a class="btn btn-success view-student-options" href="dashboard?id=<?php echo 2;?>" style="width: 90px">Profile</a> <a class="btn btn-warning view-student-options" href="studentDashboard/<?php echo $student['id_number']?>">Dashboard</a></td>
+                                        <td style="color:#f44336;">On going</td>
+                                    </tr>
+                                <?php endforeach;?>
+                            </tbody>
+                        </table>
+                       <!--  <div class="row">
+                            <div class="col-lg-4"> <h4 style="padding-bottom: 20px;margin-left: 20px">Name</h4></div>
+                            <div class="col-lg-1"> <h4 style="padding-bottom: 20px;">Course</h4></div>
+                            <div class="col-lg-1"> <h4 style="padding-bottom: 20px;">Evaluations</h4></div>
+                            <div class="col-lg-2"> <h4 style="padding-bottom: 20px;">Profile</h4></div>
+                            <div class="col-lg-2"> <h4 style="padding-bottom: 20px;">Dashboard</h4></div>
+                            <div class="col-lg-2"> <h4 style="padding-bottom: 20px;">Status</h4></div>
+                             
+                        </div> -->
+                            
                         <?php foreach($student_list as $student):?>
                         <div class="student-list" style="padding: 10px 10px 10px 10px; margin-bottom: 0px;">
-                            <div class="row">
-                            
-                                <div class="col-lg-6 dummy-td" style="color: black;">
+                            <!-- <div class="row">
+                                <div class="col-lg-2 nameList" style="color: black; font-size: 13px;" value="<?php echo $student['first_name'] . " " . $student['last_name']?>">
                                     <?php echo $student['first_name'] . " " . $student['last_name']?>
-
                                 </div>
-                                <div class="col-lg-3 dummy-td">
-                                    <a class="view-student-options" href="dashboard?id=<?php echo 2;?>" style="float: right;">View Profile</a>
+                                <div class="col-lg-2 view-student-options">
+                                   <?php echo $student['course']?>
                                 </div>
-                                  <div class="col-lg-3 dummy-td">
-                                    <a class="view-student-options" href="studentDashboard/<?php echo $student['id_number']?>" style="float: right;">View Dashboard</a>
+                                <div class="col-lg-2 view-student-options">
+                                   Evaluations
                                 </div>
-
-                            </div>
+                                <div class="col-lg-2 view-student-options">
+                                    <a class="view-student-options" href="dashboard?id=<?php echo 2;?>">Profile</a>
+                                </div>
+                                <div class="col-lg-2 view-student-options">
+                                    <a class="view-student-options" href="studentDashboard/<?php echo $student['id_number']?>" style="margin-left: 10px">Dashboard</a>
+                                </div>
+                                <div class="col-lg-2 view-student-options">
+                                    Status
+                                </div>
+                            </div> -->
                         </div>
                     <?php endforeach;?>
                     </div>
@@ -572,8 +659,8 @@ li.notification-title{
             <form>
               <div class="form-group">
                     <label>Name</label>
-                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="adminName" name="adminName">
-                    <label>ID Number</label>
+                    <input type="text" class="form-control capitalize" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="adminName" name="adminName">
+                    <label>Username</label>
                     <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="adminID" name="adminID">
                     <label>Password</label>
                     <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="adminPass" name="adminPass">
@@ -612,7 +699,7 @@ li.notification-title{
             <form>
               <div class="form-group">
                     <label>Name</label>
-                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supName" name="supName">
+                    <input type="text" class="form-control capitalize" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supName" name="supName">
                     <label>Company</label> <span style="float:right;text-decoration: italic"><a href="#" class="new-company">New</a></span>
                     <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%; display:none" id="new_company" name="new_company">
                     <select class="form-control company_list_choice2" style="border-radius:5px;margin-bottom:10px" id="dropCompany" name="dropCompany">
@@ -624,7 +711,7 @@ li.notification-title{
                     </select>
                     <label>Designation</label>
                     <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supDesig" name="supDesig">
-                    <label>ID Number</label>
+                    <label>Username</label>
                     <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supID" name="supID">
                     <label>Password</label>
                     <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supPass" name="supPass">
@@ -663,14 +750,16 @@ li.notification-title{
         <div class="modal-body">
               <!-- Input student individually -->
               <div class="form-group addIndiv" style="display: inline;">
-                    <label>ID Number</label>
+
+                    <label>Username</label>
                     <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studID" name="studID">
                     <label>First Name</label>
-                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studFirst" name="studFirst">
+                    <input type="text" class="form-control capitalize" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studFirst" name="studFirst">
                     <label>Middle Name</label>
-                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studMid" name="studMid">
+                    <input type="text" class="form-control capitalize" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studMid" name="studMid">
                     <label>Last Name</label>
-                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studLast" name="studLast">
+                    <input type="text" class="form-control capitalize" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studLast" name="studLast">
+
                 </div>
 
                 <!-- Import CSV -->
@@ -699,7 +788,6 @@ li.notification-title{
 </div>
 
 </body>
-
 <!-- FILTER RESULTS -->
 <!-- <script>
   $(document).ready(function(){
@@ -713,8 +801,20 @@ li.notification-title{
 </script> -->
 
 <script type="text/javascript">
+  $(document).ready(function() {
+    $('#adminDataTable').DataTable({
+      "processing": true,
+    });
+} );
+</script>
+
+<script type="text/javascript">
+  String.prototype.capitalize = function() {
+    return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+  };
+
   $('#search_students').keyup(function(){
-       var text_filter = $(this).val();
+       var text_filter = $(this).val().capitalize();
        $(".student-list").hide();
        $(".student-list:contains("+text_filter+")").css('display','block ');
   });
@@ -745,11 +845,15 @@ li.notification-title{
 
 <!-- ADD INDIVIDUAL STUDENTS-->
 <script type="text/javascript">
+  String.prototype.capitalize = function() {
+    return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+  };
+
   $('#addStud').click(function(){
     var id = $('#studID').val();
-    var first = $('#studFirst').val();
-    var mid = $('#studMid').val();
-    var last = $('#studLast').val();
+    var first = $('#studFirst').val().capitalize();
+    var mid = $('#studMid').val().capitalize();
+    var last = $('#studLast').val().capitalize();
 
     if(id == "" || first == "" || mid == "" || last == ""){
         alert("Please fill all fields");return false;
@@ -765,11 +869,16 @@ li.notification-title{
         },  
         success:function(data){
             if(data == "user_exist"){
-              alert("User already exist :|");
+              swal('Oops...','Student already exist!','error');
             }
             else{
-              location.reload();
-              alert("Student added successfully :)");
+              swal({
+                title: "Success!",
+                text: "Student added successfully",
+                icon: "success",
+              }).then(function () {
+                location.reload();
+              });
             }
         },
       });
@@ -806,15 +915,19 @@ li.notification-title{
 
 <!-- ADD SUPERVISOR -->
 <script type="text/javascript">
+  String.prototype.capitalize = function() {
+    return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+  };
+
   $('#addSup').click(function(e){
       var n = $('.new-company').html();
-        var name = $('#supName').val();
+        var name = $('#supName').val().capitalize();
         if(n == 'New'){
           var compName = $('#dropCompany').val();
         }else{
           var compName = $('#new_company').val();
         }
-        var desig = $('#supDesig').val();
+        var desig = $('#supDesig').val().capitalize();
         var id = $('#supID').val();
         var pass = $('#supPass').val();
         var email = $('#supEmail').val();
@@ -835,14 +948,19 @@ li.notification-title{
             },
             success:function(data){
               if(data == "name_exist"){
-                  alert("Name already exists");return false;
+                  swal('Oops...','Name already exist!','error');return false;
               }else if(data == "id_exist"){
-                  alert("ID already exists");return false;
+                  swal('Oops...','Username already exist!','error');return false;
               }else if(data == "email_exist"){
-                  alert("Email already exists");return false;
+                  swal('Oops...','Email already exist!','error');return false;
               }else{
-                location.reload();
-                alert("Supervisor added successfully");
+                swal({
+                    title: "Success!",
+                    text: "Supervisor added successfully",
+                    icon: "success",
+                  }).then(function () {
+                    location.reload();
+                  });
 
                  $.ajax({
                     url: "saveEmail",
@@ -851,7 +969,7 @@ li.notification-title{
                       'email': email,
                     },
                     success:function(data){
-                      alert("Email sent");
+                      alert("Email verification sent");
                     }
                   });
               }
@@ -904,31 +1022,19 @@ li.notification-title{
               if(data == "fail"){
                 alert("That company is already in the watch list");
               }else{  
-                location.reload();
-                alert("Company added to watch list");
+                swal({
+                  title: "Success!",
+                  text: "Company added to watch list",
+                  icon: "success",
+                }).then(function(){
+                  location.reload();
+                });
               }
-
-               
             },
           });
         }
   });
       
-</script>
-
-<script type="text/javascript">
-  $('#search_students').keyup(function(){
-  
-       var text_filter = $(this).val();
-       var res = text_filter.toLowerCase();
-
-      
-       $(".student-list").hide();
-       
-       $(".student-list:contains("+text_filter+")").show();
-       
-  
-  });
 </script>
 
 <script type="text/javascript">
@@ -940,9 +1046,12 @@ li.notification-title{
 
 <!-- ADD ADMIN -->
 <script type="text/javascript">
+  String.prototype.capitalize = function() {
+    return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+  };
       $(document).ready(function(){
           $("#adminAdd").click(function(){
-            var adminName = $('#adminName').val();
+            var adminName = $('#adminName').val().capitalize();
             var idNum = $('#adminID').val();
             var pass = $('#adminPass').val();
             var email = $('#adminEmail').val();
@@ -962,17 +1071,22 @@ li.notification-title{
                    },
                 success:function(data){
                     if(data=="name_exist"){
-                      alert('Name already exists');return false;
+                      swal('Oops...','Name already exist!','error');return false;
                     }
                     else if(data=="id_exist"){
-                      alert('ID already exists');return false;
+                      swal('Oops...','Username already exist!','error');return false;
                     }
                     else if(data=="email_exist"){
-                      alert('Email already exists');return false;
+                      swal('Oops...','Email already exist!','error');return false;
                     }
                     else{
-                      location.reload();
-                      alert('Admin added successfully');
+                     swal({
+                        title: "Success!",
+                        text: "Admin added successfully",
+                        icon: "success",
+                      }).then(function(){
+                        location.reload();
+                      });
                         
                         $.ajax({
                           url: "saveEmail",
@@ -981,7 +1095,7 @@ li.notification-title{
                             'email': email,
                           },
                           success:function(data){
-                            alert("Email sent");
+                            alert("Email verification sent");
                           }
                         });
                     }

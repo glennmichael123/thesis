@@ -164,8 +164,7 @@
         // }
 
          public function getStudentList(){
-            $query = $this->db->query("SELECT * FROM users");
-        
+            $query = $this->db->query("SELECT * FROM personal_details INNER JOIN ojt_records ON personal_details.id_number = ojt_records.id_number");
             return $query->result_array();
          }
 
@@ -535,7 +534,6 @@
                 }
                 header("Location:index");
          }
-
          public function getLastLog(){
             $username = $_POST['username'];
 
@@ -545,10 +543,7 @@
              $lastlog = $this->db->query("SELECT * FROM logs WHERE id = $maxId")->row();
 
              echo json_encode($lastlog);
-         }
-
-
-
+         }  
          //import csv
          public function importCSV(){
             $filename=$_FILES["importCSV"]["tmp_name"];      
@@ -574,6 +569,7 @@
                         </script>";exit;
              }
          }
+
 
          //add student
          public function addStud(){
