@@ -375,6 +375,9 @@
             width: 50px;
             
         }
+        #third-fieldset{
+        
+        }
     </style>
 
     <title></title>
@@ -477,7 +480,6 @@
                                         
                                         <?php if($personalDetails[0]['image_id'] == '<i class="fa fa-user-circle fa-5x" style="font-size: 150px;" aria-hidden="true"></i>'):?>
                                             <?php echo $personalDetails[0]['image_id'];?>
-
                                              <img class="img-circle" src="" style="display: none;">
                                         <?php else:?>
                                             <img src="<?php echo base_url().$personalDetails[0]['image_id']?>" class="img-circle">
@@ -666,18 +668,18 @@
                         <div class="col-lg-3"></div>
                              <div class="col-lg-6">
                                 <form class="form-group">
-                                     <select type="button" class="btn btn-loginas btn-block" name="login-options" id="login-as">
+                                     <select type="button" class="btn btn-loginas btn-block" name="login-options" id="select_evaluation">
                                          <span class="caret"></span>
-                                         <option value="midtermevaluation">Midterm Evaluation</option>
-                                         <option value="finalevaluation">Final Evaluation</option>
+                                         <option value="midtermevaluation" id="eval" selected="">Midterm Evaluation</option>
+                                         <option value="finalevaluation" id="eval">Final Evaluation</option>
                                      </select>
                                 </form>
                              </div>
                         <div class="col-lg-3"></div>
 
                     </div>
-                    <fieldset id="second-fieldset">
-                    <legend><i class="fa fa-users"></i> My Evaluation</legend>
+                    <fieldset id="third-fieldset">
+                         <legend><i class="fa fa-users"></i> My Evaluation</legend>
                          <label>WORK ATTITUDE(<div class="badge">40</div> points)</label>
                                 <ol>
                                     
@@ -832,10 +834,15 @@
                     </fieldset>
 
                     </div>
+
                     </div>
+
                 </div>
-            </div>    
+
+            </div>  
+
         </div>
+
     </div>
 
 
@@ -931,5 +938,16 @@
   $(function () {
   $('[data-toggle="popover"]').popover()
 })
+</script>
+<script type="text/javascript">
+    $("#select_evaluation").change(function(){
+        var evaltype=$(this).val();
+        if(evaltype=='finalevaluation'){
+            $('#third-fieldset').hide();
+        }
+        else{
+            $('#third-fieldset').show();
+        }
+    })
 </script>
 </html>

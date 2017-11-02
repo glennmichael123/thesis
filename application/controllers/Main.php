@@ -43,6 +43,9 @@ class Main extends CI_Controller {
     	$this->load->view('incorrectpassword');
     }
     
+    public function getLogId(){
+    	print_r($_POST);
+    }
 
     public function loginojt(){
     	if(isset($this->session->userdata['id_number'])){
@@ -154,6 +157,8 @@ class Main extends CI_Controller {
      		$data['supervisorAddOjt'] = $this->users->supervisorGetTrainee($company_name);
      		$data['traineesLog'] = $this->users->getOjtLogs($this->session->userdata['id_number']);
      		$data['supImage'] = $this->users->supervisorImage($this->session->userdata['id_number']);
+     		$data['dashTrainees'] = $this->users->getTrainess();
+
 
      		$this->load->view('supervisor-dashboard', $data);
 			
@@ -174,13 +179,13 @@ class Main extends CI_Controller {
 
 
 	public function loggedin(){
-		
-		
-		//$data['error'] = 'abcd';
-		// print_r("condition = " . $condition. "   ");
-		if($_POST['login-options']=='ojt' || !isset($_POST['login-options'])){
+		$logintype = $_POST['login-options'];
+		if($logintype == 'ojt'){
 			$condition = $this->users->user_login();
-			if($condition){
+			$data['error'] = 'abcd';
+		// print_r("condition = " . $condition. "   ");
+		
+		if($condition){
 			$data = array(
 				'username' => $this->input->post('username'), //need to be dynamic e.g $this->input->post('username')
 				'password' => $this->input->post('password') // this->input->post('password');
@@ -206,35 +211,26 @@ class Main extends CI_Controller {
 				 	header("location: adminDashboard");
 				 }
 			
-				
-
-					
 	}else{
 		header("location: index?error=Username or password incorrect");
+	}	
+	}else if($logintype == 'supervisor'){
+		$this->loggedinSupervisor();
+	}else if($logintype == 'administrator'){
+		$this->loggedinAdministrator();
 	}
-		}else if($_POST['login-options']=='supervisor'){
-			$this->loggedinSupervisor($_POST['username'], $_POST['password']);
-		}
-		else if($_POST['login-options']=='administrator'){
-			$this->loggedinAdministrator($_POST['username'],$_POST['password']);
-		}
-			
-
-
-	
 }
 
 
 
-public function loggedinSupervisor($user,$pass){
+public function loggedinSupervisor(){
 	$condition = $this->users->user_login_supervisor();
 		$data['error'] = 'abcd';
 		// print_r("condition = " . $condition. "   ");
 		if($condition){
 			$data = array(
-				'username' => $user, //need to be dynamic e.g $this->input->post('username')
-				'password' => $pass // this->input->post('password');
-
+				'username' => $this->input->post('username'), //need to be dynamic e.g $this->input->post('username')
+				'password' => $this->input->post('password') // this->input->post('password');
 				);
 				$result = $this->users->readUserSupervisor($data);
 			
@@ -255,14 +251,14 @@ public function loggedinSupervisor($user,$pass){
 
 }
 
-public function loggedinAdministrator($user,$pass){
+public function loggedinAdministrator(){
 	$condition = $this->users->user_login_administrator();
 		$data['error'] = '';
 		// print_r("condition = " . $condition. "   ");
 		if($condition){
 			$data = array(
-				'username' => $user, //need to be dynamic e.g $this->input->post('username')
-				'password' => $pass // this->input->post('password');
+				'username' => $this->input->post('username'), //need to be dynamic e.g $this->input->post('username')
+				'password' => $this->input->post('password') // this->input->post('password');
 				);
 				$result = $this->users->readUserAdmin($data);
 			
@@ -330,9 +326,6 @@ public function logout(){
 		// $newdata['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
 		   $data['student_list'] = $this->users->getStudentList();
 
-		// $newdata['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
-		   $data['student_list'] = $this->users->getStudentList();
-
 		if(!isset($this->session->userdata['id_number'])){
           header("location: index");
      	}else{
@@ -354,7 +347,7 @@ public function logout(){
 		
 		$this->users->deleteLog();
 	}
-
+	
 	public function dashboard(){
 
 		if(!isset($this->session->userdata['id_number'])){
@@ -442,6 +435,7 @@ public function logout(){
      	$data['id_number'] = $id_number;
 
      	$data['user_data'] = $this->users->dashboardData($id_number);
+
 
      	$this->load->view('dashboard', $data);
 	}
@@ -533,9 +527,23 @@ public function logout(){
     public function supervisorSaveImage(){
     	$this->users->sup_image();
     }
+
     public function addReport(){
     	$this->users->addReport();
-    	header("Location: index");
+    		header("location: dashboard");
 
-  	}
+    		
+    }
+    
+
+    public function getLastLog(){
+    	$this->users->getLastLog();
+    }
+   	public function saveCSV(){
+   		$this->users->importCSV();
+   	}
+
+   	public function addStudent(){
+   		$this->users->addStud();
+   	}
 }

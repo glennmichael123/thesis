@@ -18,9 +18,9 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
     <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <style type="text/css">
     .btn-circle.btn-lg {
         width: 40px;
@@ -30,6 +30,12 @@
         line-height: 1.33;
         border-radius: 25px;
 
+    }
+
+      .header{
+        padding: 5px;
+       height: 70px;
+       border-bottom: 3px solid #791b1e;
     }
     .btn-bug{
         background-color: #d96c6f;
@@ -55,7 +61,6 @@
     .feedback.left .dropdown-menu{ left: 0px}
     .feedback.right .dropdown-menu{ right: 0px}
     .feedback .hideme{ display: none}
-    
     .btn-login{
         background-color: #FFBA00;
         color: #FFFFFF;
@@ -104,6 +109,7 @@
 
     }
     .content{
+        height: 480px;
         background-image: url('<?php echo base_url()?>assets/images/backgrounds.jpg');
         height: 650px;
 
@@ -151,9 +157,13 @@
        position: relative;
     }
 
-  
+
+    
 
 
+    .modal-header-color:{
+        background-color: #f44336;
+    }
     
 
     </style>
@@ -170,20 +180,21 @@
       delay: 50,
 
     });
+
   </script>
     <div class="page-wrap">
         <div class="header">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-4">
-                        <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 175px;"></div>
+                        <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 150px;"></div>
                     </div>
                     <div class="col-lg-5"></div>
                     <div class="col-lg-3">
                         <div class="header-links">
                             <h5> <a href="#" class="current-link">Home</a></h5>
                               <?php echo (isset($error) ? $error : '');?>
-                            <h5><a href="about">About us</a></h5>
+                            <h5><a href="<?php echo base_url()?>main/about">About us</a></h5>
                             <h5><a href="#" data-toggle="modal" data-target="#watchlistModal">Watchlist</a></h5>
                         </div>
                     </div>
@@ -197,10 +208,10 @@
         <!-- line modal -->
         <div class="modal fade" id="watchlistModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
           <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
+            <div class="modal-content" style="border-radius: 12px">
+                <div class="modal-header" style="background-color: #f44336;border-radius: 10px 10px 0 0">
                     <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i><span class="sr-only">Close</span></button>
-                    <h3 class="modal-title" id="lineModalLabel">Watch list</h3>
+                    <h3 class="modal-title" id="lineModalLabel" style="color:white">Watch list</h3>
                 </div>
                 <div class="modal-body">
                     <div class="ban-title">
@@ -227,31 +238,33 @@
                                  <h2 style="color:#FFFFFF; text-align: center;">LOGIN</h2>
                             </div>
                             <div class="panel panel-body">
-                                    <form action="<?php echo base_url()?>main/loggedin" method="POST">
-                                   
                                          <div class="form-group" style="margin-top: -10px;">
+                                    <form action="<?php echo base_url()?>main/loggedin" method="POST">
+                                         <div class="form-group">
                                              <input type="text" name="username" class="form-control" placeholder="Username">
                                          </div>
                                          <div class="form-group">
                                               <input type="password" name="password" class="form-control" placeholder="Password">
                                               <div class="forget">
                                                 <div>
-                                                     <h6><a href="incorrectpassword">Forgot Password?</a></h6> 
-                                                      <h6 style="margin-left: 20px; font-size: 13px;" >Login-As:</h6>
-                                                       <div class="btn-group" style="float: right;">
-                                                      <select type="button" class="btn btn-loginas" name="login-options" id="login-as">
-                                                       <span class="caret"></span>
-                                                       <option value="ojt">OJT</option>
-                                                        <option value="supervisor">Supervisor</option>
-                                                        <option value="administrator">Administrator</option>
-                                                      </select>
-                                                      
-                                                    </div> 
+                                                 <p style="font-size: 14px; text-align: center; color: red; font-weight: bold;">
+                                                 <?php if(isset($_GET['error'])){
+                                                    echo 'Username or Password Incorrect';
+                                                 }
 
-                                                    
-                                              </div>
-                                            
-                                          </div>
+                                                 ?></p>
+                                                     <h6><a href="incorrectpassword">Forgot Password?</a></h6>         
+                                                       <div class="btn-group" style="float: right;">
+                                                      <select type="button" class="btn btn-loginas" name="login-options">
+                                                       <span class="caret"></span>         
+                                                        <option value="ojt">Login as OJT</option>
+                                                        <option value="supervisor">Login as Supervisor</option>
+                                                        <option value="administrator">Login as Administrator</option>
+                                                        </select>
+
+                                                     </div>
+                                                </div>
+                                            </div>
                                              <button class="btn btn-login btn-block" id="login-sign">Sign In</button>
 
                                     </form>
@@ -263,12 +276,10 @@
                     <div class="col-lg-4"></div>
                 </div>
             </div>
-            
-            
-           
+</div>
+     
 
-        </div>
-            <!-- <div class="footer">
+        <div class="footer">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-6">
@@ -317,19 +328,14 @@
     </div>
                     </div>
                     <div class="col-lg-6">
-                        
                             <p class="copyright" style="float: right;">&copy;Copyright OJT Automate 2017 | All rights reserved</p>
                         
                     </div>
                 </div>
             </div>
-
-        </div> -->
-
-        
-        </div>
+</div> 
        
-    </div>
+   
 
 </body>
 <script type="text/javascript">
@@ -367,11 +373,15 @@
   
 </script>
 <script type="text/javascript">
-
-
-
-</script> 
-
-
+  $(document).ready(function(){
+      $("#btn-report").click(function(){
+          swal({
+              title:"You have Successfully reported a bug",
+              text: "We will review your report",
+              icon: "success",
+            });
+      });
+  });
+</script>
 
 </html>

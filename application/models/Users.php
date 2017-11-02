@@ -4,6 +4,7 @@
         public function __construct()
         {
                 $this->load->database();
+                $this->load->library('session');
                 parent::__construct();      
         }
 
@@ -12,9 +13,9 @@
         }
 
         public function saveEmail($hash){
-                
+                $username = $this->session->userdata['id_number'];
                 $email = $_POST['email'];
-                return $this->db->query("INSERT INTO email (id_number, email_address, hash) VALUES('14-2649-276','$email', '$hash')");     
+                return $this->db->query("INSERT INTO email (id_number, email_address, hash) VALUES('$username','$email', '$hash')");     
         }
 
         public function insertPersonalData(){
@@ -465,7 +466,11 @@
             return $this->db->query("SELECT * FROM users WHERE id_number = '$id'")->result_array();
          }
 
-         
+         public function getStudentInfo($id_number){
+
+            return $this->db->query("SELECT * FROM users WHERE id_number ='$id_number'")->result_array();
+
+         }
          public function profileImage(){
             if(isset($_POST['saveBrowse'])){
                 $id = $this->session->userdata['id_number'];
@@ -526,12 +531,78 @@
 
             }
          }
+
          public function addReport(){
                 if(isset($_POST['btn-report'])){
                     $report=$_POST['comment'];
                     return $this->db->query("INSERT INTO reports (report) VALUES('".$report."')");
                 }
          }
-}
 
+         public function getLastLog(){
+            $username = $_POST['username'];
+
+            $latestId = $this->db->query("SELECT MAX(id) AS latest_id FROM logs WHERE id_number = '$username'")->row();
+            $maxId = $latestId->latest_id;
+
+             $lastlog = $this->db->query("SELECT * FROM logs WHERE id = $maxId")->row();
+
+             echo json_encode($lastlog);
+         }
+
+
+
+         //import csv
+         public function importCSV(){
+            $filename=$_FILES["importCSV"]["tmp_name"];      
+ 
+ 
+             if($_FILES["importCSV"]["size"] > 0)
+             {
+                $file = fopen($filename, "r");
+                fgets($file);
+                while (($getData = fgetcsv($file, 10000, ",")) !== FALSE)
+                 {
+                    $username = strtolower($getData[1].".".$getData[3]);
+                    $this->db->query("INSERT INTO users (id_number,first_name,middle_initial,last_name,password) 
+                        values ('$username','".$getData[1]."','".$getData[2]."','".$getData[3]."','123456')");
+                 }
+                 fclose($file);
+                 echo "success";exit;
+             }
+             else{
+                echo "<script type=\"text/javascript\">
+                            alert(\"Invalid File:Please Upload CSV File.\");
+                            window.location = \"adminDashboard\"
+                        </script>";exit;
+             }
+         }
+
+         //add student
+         public function addStud(){
+            $id = $_POST['id'];
+            $first = $_POST['fname'];
+            $mid = $_POST['mname'];
+            $last = $_POST['lname'];
+            $password = '123456';
+
+            $username = strtolower($first.".".$last);
+            $result = $this->db->query("SELECT * FROM users WHERE id_number = '".$username."'");
+            if($this->db->affected_rows() > 0){
+                echo "user_exist";exit;
+            }
+            else{
+                return $this->db->query("INSERT INTO users (id_number,first_name,middle_initial,last_name,password) VALUES('".$username."','".$first."','".$mid."','".$last."','".$password."')");
+            }
+         }
+         public function getTrainess(){
+            $supp_id=$this->session->userdata['id_number'];
+            $query = $this->db->query("SELECT users.id_number,users.first_name,users.last_name FROM users INNER JOIN company_information
+                 ON users.id_number = company_information.id_number WHERE company_information.supervisor_id = '$supp_id'"
+                 );
+            
+            return $query->result_array();
+         }
+
+}
 ?>
