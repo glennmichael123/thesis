@@ -130,7 +130,13 @@
                             </div>
                             <div class="form-group">
                                 <button type="submit" id="save-changes" class="btn save">Save changes</button>
+                                <?php if($this->session->userdata['account_type'] == 'student'):?>
                                 <a href="dashboard" id="cancel" class="btn cancel" style="float: right;width: 115px">Cancel</a>
+                            <?php elseif($this->session->userdata['account_type'] == 'supervisor'):?>
+                                 <a href="supervisorDashboard" id="cancel" class="btn cancel" style="float: right;width: 115px">Cancel</a>
+                            <?php elseif($this->session->userdata['account_type'] == 'admin'):?>
+                                 <a href="adminDashboard" id="cancel" class="btn cancel" style="float: right;width: 115px">Cancel</a>
+                             <?php endif;?>
                             </div>
                         </form>
                     </div>

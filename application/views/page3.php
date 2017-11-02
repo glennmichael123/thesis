@@ -86,29 +86,44 @@
             width: 15%;
             border-radius: 10px;
         }*/
-       
-        .btn-glyphicon 
-        { 
-            
-            padding:8px; 
-            background:#ffffff; 
-            margin-left:8px;
-            margin-right: 5px; 
-
-        }
-        .icon-btn 
-        { 
-            font-size: 18px;
-            border-radius:25px;
-            font-family: 'Oswald', sans-serif;
-            margin-top: 10px;
-        }
         label {
             cursor: pointer;
             padding: 5px;
             font-family: 'Rajdhani', sans-serif;
             
         }
+        .topage2{
+            position: relative;
+            top: 10px;
+            font-size: 20px;
+            border-radius: 5px;
+            padding: 5px 20px 5px 20px;
+            color:#FFFFFF;
+            background: #800000;
+            float: right;
+       }
+       .topage2:hover{
+        text-decoration: none;
+        color:#FFFFFF;
+        background-color:#760404;
+        float: right;
+       }
+       .topage1{
+            position: relative;
+            top: 10px;
+            font-size: 20px;
+            border-radius: 5px;
+            padding: 5px 20px 5px 20px;
+            color:#FFFFFF;
+            background: #FFBA00;
+            float: left;
+       }
+       .topage1:hover{
+        text-decoration: none;
+        color: #FFFFFF;
+        background-color: #f5b301;
+        float: left;
+       }
 
 
 
@@ -136,8 +151,8 @@
                         <h2 class="fs-title">Almost Done!</h2>
                         <h2 class="fs-title">Just one more step and you are done.</h2>
                         <p style="text-align: center;">An email verification link has been to your email address. Please verify your email to complete the registration.</p>
-                        <a class="btn icon-btn btn-danger" href="page2"><span class="glyphicon btn-glyphicon glyphicon-step-backward img-circle text-muted"></span>Previous</a>
-                        <a class="btn btn-primary"href="dashboard" style="float: right; margin-top: 15px; color: #FFFFFF; padding: 10px; border-radius:25px;">Continue to dashboard</a>
+                        <a class="topage1" href="page2">Previous</a>
+                        <a class="topage2" href="dashboard">Continue to Dashboard</a>
                     </fieldset>
                      </div>
                     </div>

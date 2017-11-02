@@ -39,6 +39,7 @@
             padding: 20px 30px;
             width: 100%;
             margin: 5% 0%;
+            height: 600px;
 
         }
         input{
@@ -86,29 +87,45 @@
             width: 15%;
             border-radius: 10px;
         }*/
-       
-        .btn-glyphicon 
-        { 
-            
-            padding:8px; 
-            background:#ffffff; 
-            margin-left:8px;
-            margin-right: 5px; 
-
-        }
-        .icon-btn 
-        { 
-            font-size: 18px;
-            border-radius:25px;
-            font-family: 'Oswald', sans-serif;
-            margin-top: 10px;
-        }
         label {
             cursor: pointer;
             padding: 5px;
             font-family: 'Rajdhani', sans-serif;
             
         }
+        .topage2{
+            position: relative;
+            top: 10px;
+            font-size: 20px;
+            border-radius: 5px;
+            padding: 5px 20px 5px 20px;
+            color:#FFFFFF;
+            background: #800000;
+            float: right;
+       }
+       .topage2:hover{
+        text-decoration: none;
+        color:#FFFFFF;
+        background-color:#760404;
+        float: right;
+       }
+       .topage1{
+            position: relative;
+            top: 10px;
+            font-size: 20px;
+            border-radius: 5px;
+            padding: 5px 20px 5px 20px;
+            color:#FFFFFF;
+            background: #FFBA00;
+            float: left;
+       }
+       .topage1:hover{
+        text-decoration: none;
+        color: #FFFFFF;
+        background-color: #f5b301;
+        float: left;
+       }
+
 
 
 
@@ -207,8 +224,8 @@
                                 <input type="radio" id="more_onehundred" value="More than 100" name="employee_numbers"><label for="more_onehundred">More than 100</label>
                             </div>
                          </div>
-                            <a class="btn icon-btn btn-danger" href="page1"><span class="glyphicon btn-glyphicon glyphicon-step-backward img-circle text-muted"></span>Previous</a>
-                            <a class="btn icon-btn btn-primary" href="page3" style="float: right;">Next<span class="glyphicon btn-glyphicon glyphicon-step-forward img-circle text-muted"></span></a>
+                            <a class="topage1" href="page1">Previous</a>
+                            <a class="topage2" href="page3">Next</a>
                      </div>
                     </div>
                     <div class="col-lg-1"></div>

@@ -27,8 +27,8 @@
         }
         .partlist{
             margin-top: 20px;
-            background-color: #EDC844;
-            color: #A55D35;
+            background-color: #ffba00;
+            color: #FFFFFF;
             padding: 10px;
         }
         .fields{
@@ -69,7 +69,7 @@
         <div class="content">
             <div class="container">
                 <header>
-                    <h1>ON-THE-JOB (OJT)</h1>
+                    <h1>ON-THE-JOB TRAINING (OJT)</h1>
                     <h3>PERFORMANCE EVALUATION REPORT</h3>
                 </header>
                 <div class="partlist">

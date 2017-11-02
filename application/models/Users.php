@@ -126,12 +126,14 @@
 
 
 
-        public function supervisorGetTrainee($company_name){
+        public function supervisorGetTrainee($company_name,$username){
           $company_name2 = $company_name[0]['company_name'];
         
-            $query = $this->db->query("SELECT users.id_number, users.first_name, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.company_name = '$company_name2' AND supervisor_id = ''");
+            $query = $this->db->query("SELECT users.id_number, users.first_name, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.company_name = '$company_name2' AND supervisor_id = '$username'");
            return $query->result_array();
        }
+
+
        
         public function getCompanyNames(){
             $query = $this->db->query("SELECT company_name FROM company_information");
@@ -222,6 +224,12 @@
                   
            return $result->result_array();
          }   
+
+         public function getOjtRecordsForSupervisor($username){
+             
+            $result = $this->db->query("SELECT ojt_records.id_number, ojt_records.rendered_hours, users.first_name, users.last_name FROM ojt_records INNER JOIN users ON users.id_number = ojt_records.id_number WHERE supervisor_id = '$username'");         
+            return $result->result_array();
+         }
 
          public function editLog(){
             $id = $_POST['log_id'];
@@ -465,7 +473,11 @@
             return $this->db->query("SELECT * FROM users WHERE id_number = '$id'")->result_array();
          }
 
-         
+         public function getStudentInfo($id_number){
+
+            return $this->db->query("SELECT * FROM users WHERE id_number ='$id_number'")->result_array();
+
+         }
          public function profileImage(){
             if(isset($_POST['saveBrowse'])){
                 $id = $this->session->userdata['id_number'];
@@ -484,7 +496,7 @@
                     /*$img_tag_toHeader = '<img src='.$full_path.' class="pull-right circular-square user-image" style="width: 40px; height: 40px; margin-top: -5px;">';
 */
                     if (move_uploaded_file($_FILES['files']['tmp_name'], $fileDestination. $newFileName)) {
-                            header("Location: profile");
+                           echo "<script>window.location.href='profile'</script>";
                     $this->db->query("UPDATE users SET user_image = '$full_path' WHERE id_number = '$id'");   
                     $this->db->query("UPDATE personal_details SET image_id = '$full_path' WHERE id_number = '$id'");
                     }
@@ -516,7 +528,7 @@
                     $img_tag_toHeader = '<img src='.$full_path.' class="pull-right circular-square user-image" style="width: 40px; height: 40px; margin-top: -5px;">';*/
 
                     if (move_uploaded_file($_FILES['supFiles']['tmp_name'], $fileDestination. $newFileName)) {
-                            header("Location: supervisorDashboard");
+                           echo '<script>window.location.href="supervisorDashboard"</script>';
                     $this->db->query("UPDATE supervisor SET imageDisplayToChange = '$full_path' WHERE id_number = '$id'");   
                     return $this->db->query("UPDATE supervisor SET image_id = '$full_path' WHERE id_number = '$id'");
                     }
@@ -532,7 +544,6 @@
                     $report=$_POST['comment'];
                     return $this->db->query("INSERT INTO reports (report) VALUES('".$report."')");
                 }
-                header("Location:index");
          }
          public function getLastLog(){
             $username = $_POST['username'];
@@ -543,7 +554,20 @@
              $lastlog = $this->db->query("SELECT * FROM logs WHERE id = $maxId")->row();
 
              echo json_encode($lastlog);
+
          }  
+        
+
+         public function getMaxComment(){
+            $username = $_POST['username'];
+
+            $latestId = $this->db->query("SELECT MAX(id) AS latest_id FROM comments WHERE supervisor_id = '$username'")->row();
+            $maxId = $latestId->latest_id;
+            echo $maxId;
+
+         }
+
+
          //import csv
          public function importCSV(){
             $filename=$_FILES["importCSV"]["tmp_name"];      
@@ -588,5 +612,22 @@
                 return $this->db->query("INSERT INTO users (id_number,first_name,middle_initial,last_name,password) VALUES('".$username."','".$first."','".$mid."','".$last."','".$password."')");
             }
          }
+         public function getTrainess(){
+            $supp_id=$this->session->userdata['id_number'];
+            $query = $this->db->query("SELECT users.id_number,users.first_name,users.last_name FROM users INNER JOIN company_information
+                 ON users.id_number = company_information.id_number WHERE company_information.supervisor_id = '$supp_id'"
+                 );
+            
+            return $query->result_array();
+         }
+
+
+
+         public function deleteComment(){
+            $comment_id = $_POST['comment_id'];
+            $this->db->where('id',$comment_id);
+            $this->db->delete('comments');
+         }
+
 }
 ?>

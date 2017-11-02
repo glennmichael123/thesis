@@ -1,4 +1,5 @@
-    <!DOCTYPE html>
+<?php //echo $this->session->userdata['account_type']; ?>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -30,9 +31,9 @@
         }
         
         .jumbotron {
-            background-color: #EED090;
+            background-color: #871F21;
             padding: 10px;
-            color: white;
+            color: #FFFFFF;
             font-size: 1.5em;
             margin-top: 10px;
             margin-left: 10px;
@@ -46,6 +47,7 @@
         * {
             font-family: Roboto, sans-serif;
         }
+        
         
         .btn {
             border-radius: 0;
@@ -82,6 +84,11 @@
             font-weight: bold;
             font-size: 3em;
             color: #800000;
+        }
+
+
+        .comment-section .col-lg-12{
+            padding-bottom: 5px;
         }
         
         .missim {
@@ -122,14 +129,22 @@
         
         .dropdown-menu>li>a {
             color: #915B51;
+            padding: 2px 20px;
+        }
+          .dropdown-menu{
+           padding-top: 0;
+           padding-bottom: 0;
         }
         
         .dropdown ul.dropdown-menu {
             border-radius: 4px;
             box-shadow: none;
-            margin-top: 20px;
-            margin-left: -200px;
+            margin-top: 10px;
+            margin-left: -198px;
             width: 280px;
+        }
+        .dropdown-menu .divider{
+            margin: 0;
         }
         
         .dropdown ul.dropdown-menu:before {
@@ -221,6 +236,8 @@
         .well{
             border-radius: 0px;
             margin-bottom: 20px;
+            background-color: #FFFFFF;
+            background-image: none;
         }
         .evaluator-option{
             color: #000;
@@ -253,7 +270,57 @@
         .comment-btn:focus{
             color: #000;
         }
-        
+
+        .btn-trainee{
+        background-color: #FFC019;
+        color: #FFFFFF;
+        transition: 0.4s;
+        border-radius: 5px;
+        font-size: .65em;
+        }
+        .btn-trainee:hover{
+        color: #FFFFFF;
+        background-color: #f5b301;
+        transition: 0.4s;
+        font-size: .65em;
+        }
+        .progress-bar-first{
+            background: #CA2E32;
+        }
+        .progress-bar-second{
+            background: #800000;
+        }
+        .progress-bar-third{
+            background: #FFC019;
+        }
+        .skill{
+            font-size: 1.5em !important;
+        }
+        .btn-trainee{
+        background-color: #FFC019;
+        color: #FFFFFF;
+        transition: 0.4s;
+        border-radius: 5px;
+        }
+        .btn-trainee:hover{
+        color: #FFFFFF;
+        background-color: #f5b301;
+        transition: 0.4s;
+        }
+        .progress-bar-first{
+            background: #CA2E32;
+        }
+        .progress-bar-second{
+            background: #800000;
+        }
+        .progress-bar-third{
+            background: #FFC019;
+        }
+        .skill{
+            font-size: 1.5em !important;
+}
+
+    
     </style>
 
 
@@ -313,7 +380,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="jumbotron">Dashboard
-                            <button class="btn btn-primary" style="float: right;" data-target="#addtraineeModal" data-toggle="modal">+Trainee</button>
+                            <button class="btn btn-trainee" style="float: right;" data-target="#addtraineeModal" data-toggle="modal">+Trainee</button>
                         </div>
                     </div>
                 </div>
@@ -327,7 +394,7 @@
 
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <h4 style="text-align: center;">Trainees Completed</h4>
+                                    <h4 style="text-align: center; margin-bottom: 10px;">Trainees Completed</h4>
                                     <div class="progress skill-bar">
 
                                         <div class="progress-bar progress-bar-first" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
@@ -339,10 +406,10 @@
 
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <h4 style="text-align: center;">Evaluations</h4>
+                                    <h4 style="text-align: center; margin-bottom: 10px;">Evaluations</h4>
                                     <div class="progress skill-bar">
 
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar progress-bar-second" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
                                             <span class="skill">2/10</span>
                                         </div>
                                     </div>
@@ -351,15 +418,40 @@
 
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <h4 style="text-align: center;">Pending logs</h4>
+                                    <h4 style="text-align: center; margin-bottom: 10px;">Pending logs</h4>
                                     <div class="progress skill-bar">
 
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar progress-bar-third" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
                                             <span class="skill">10</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="well">
+                                <h4 style="text-align: center; color: #000;">Trainees</h4>
+
+                                <table style="width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach($ojtRecords as $student):?>
+                                        <tr style="font-size: 15px; color: #000;">
+                                            <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
+                                            <?php if($student['rendered_hours'] < 50):?>
+                                                <td><a href="#" class="evaluate-btn" disabled>Evaluate</a></td>
+                                            <?php else:?>
+                                            <td><a href="<?php echo base_url()?>main/evaluate/<?php echo $student['id_number']?>" class="btn btn-default evaluate-btn">Evaluate</a></td>
+                                            <?php endif;?>
+                                        </tr>
+                                    <?php endforeach;?>
+                                    </tbody>
+                                </table>
+
                         </div>
                     </div>
 
@@ -378,9 +470,7 @@
                                     <option>Verified</option>
                                 </select>
                             </div>
-                            <div class="col-lg-2">
-                                <button class="btn btn-default" disabled>Evaluate</button>
-                            </div>
+                            
                         </div>
 
                
@@ -461,7 +551,7 @@
 
                                 
                                      
-                                     <div class="row">
+                                     <div class="row display-comments">
                                         
                                             <div class="col-lg-12"> 
 
@@ -476,10 +566,10 @@
                                                                                 <i style="color: #000000; font-size: 15px;" class="fa fa-caret-down"></i>
                                                                             </a>
 
-                                                                            <ul class="dropdown-menu" style="width: 180px; padding-bottom: 0px; padding-top: 0px; font-size: 11px; margin-left: -149px; margin-top: 5px;" aria-labelledby="dropdownMenu2">
+                                                                            <ul class="dropdown-menu" style="width: 180px; padding-bottom: 0px; padding-top: 0px; font-size: 11px; margin-left: -149px; margin-top: 4px;" aria-labelledby="dropdownMenu2">
                                                                                 <li><a href="#" class="edit-log" style="color: #000000;">Edit <i class="fa fa-pencil" aria-hidden="true"></i></a></li>
                                                                                 <li role="separator" class="divider" style="margin: 0;"> </li>
-                                                                                <li><a href="#" class="delete-log cd-popup-trigger" data-log-id="<?php echo $log['id']?>" style="color: #000000;">Delete <i class="fa fa-trash"></i></a></li>
+                                                                                <li><a href="#" class="delete-comment cd-popup-trigger" data-comment-id="<?php echo $comment['id']?>" style="color: #000000;">Delete <i class="fa fa-trash"></i></a></li>
                                                                             </ul>
 
                                                                         </div>
@@ -502,8 +592,8 @@
                                        <div class="comment-section" style="display: none;"> 
                                             <div class="col-lg-12">
                                                 <hr style="margin-top: 0; margin-bottom: 5px;">
-                                                <textarea style="height:45px; resize: none;" class="form-control comment-content" placeholder="Write your comment"></textarea>
-                                                <button type="button" style="float: right; margin-top: 5px; margin-bottom: 5px; padding: 2px 5px 2px 5px;" class="btn btn-primary submit-comment" data-log-id="<?php echo $log['id']?>">Post</button>
+                                                <textarea style="height:35px; resize: none;" class="form-control comment-content" data-log-id="<?php echo $log['id']?>" placeholder="Write your comment"></textarea>
+                                                <!-- <button type="button" style="float: right; margin-top: 5px; margin-bottom: 5px; padding: 2px 5px 2px 5px;" class="btn btn-primary submit-comment" data-log-id="<?php echo $log['id']?>">Post</button> -->
                                             </div>
                                         </div>
                                         
@@ -679,13 +769,12 @@
         e.preventDefault();
         var commentSection = $(this).closest("form").find(".comment-section");
 
-        commentSection.slideToggle();
+        commentSection.toggle();
       
     });
 
      $("#dropdown-logout").click(function() {
-       $("#show-logout").slideToggle();
-       $("#show-notifications").slideUp();
+       $("#show-logout").toggle();
     });
 </script>
 
@@ -718,24 +807,64 @@
 </script>
 
 <script type="text/javascript">
+
+    $('.comment-content').bind('keyup', function(e){
+        if ( e.keyCode === 13 ) { // 13 is enter key
+
+                var log_id = $(this).data('log-id');
+                var comment = $(this).val();
+                var commentSection = $(this).closest('.comment-section');
+                var student_username = $(this).data('student-username');
+                var commentToAppend = $(this).closest("form").find(".display-comments");
+
+
+            
+            $.ajax({
+                url: '<?php echo base_url()?>' + 'main/addComment',
+                method: 'POST',
+                data:{
+                    'log_id': log_id,
+                    'comment': comment,
+                    'supervisor_id': '<?php echo $this->session->userdata['id_number'];?>',
+                },
+                success: function(data){
+                   location.reload(true);
+                },
+            });
+        
+
+         }
+    });
+
+
+
     $('.submit-comment').click(function(){
         var log_id = $(this).data('log-id');
         var comment = $(this).closest("form").find(".comment-content").val();
+        var commentSection = $(this).closest('.comment-section');
+        var student_username = $(this).data('student-username');
+        var commentToAppend = $(this).closest("form").find(".display-comments");
 
-        $.ajax({
-            url: '<?php echo base_url()?>' + 'main/addComment',
-            method: 'POST',
-            data:{
-                'log_id': log_id,
-                'comment': comment,
-                'supervisor_id': '<?php echo $this->session->userdata['id_number'];?>'
-            },
-
-            success: function(data){
-                location.reload(true);
-            },
-        });
+            
+            $.ajax({
+                url: '<?php echo base_url()?>' + 'main/addComment',
+                method: 'POST',
+                data:{
+                    'log_id': log_id,
+                    'comment': comment,
+                    'supervisor_id': '<?php echo $this->session->userdata['id_number'];?>',
+                },
+                success: function(data){
+                   location.reload(true);
+                },
+            });
+        
+        
+        
+        
     });
+
+
 </script>
 
 <script type="text/javascript">
@@ -771,5 +900,22 @@
           });
        });
 </script>
+<script type="text/javascript">
+    $('.delete-comment').click(function(e){
+        e.preventDefault();
+        var comment_id = $(this).data('comment-id');
+        var comment_row = $(this).closest('.comments-list');
+        $.ajax({
+            url:'<?php echo base_url()?>main/deleteComment',
+            method: 'POST',
+            data:{
+                'comment_id': comment_id, 
+            },
+            success: function(data){
+                comment_row.remove();
+            }
+        });
+    });
 </script>
+
 </html>

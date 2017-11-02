@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -18,7 +19,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
     <style type="text/css">
@@ -80,13 +81,11 @@ xnugget info
 Main components 
 
 -------------------------------- */
-header {
-  height: 200px;
-  line-height: 200px;
-  text-align: center;
-  background-color: #5e6e8d;
-  color: #FFF;
-}
+   .header{
+        padding: 5px;
+       height: 60px;
+       border-bottom: 3px solid #791b1e;
+    }
 header h1 {
   font-size: 20px;
   font-size: 1.25rem;
@@ -206,6 +205,22 @@ xpopup
   -o-transform: rotate(45deg);
   transform: rotate(45deg);
   left: 8px;
+}
+.show-more-right input[type=text]{
+  font-size: 12px;
+}
+
+.show-more-left input[type=time]{
+  font-size: 12px;
+}
+.show-more-left input[type=text]{
+  font-size: 12px;
+}
+.show-more-left label{
+  font-size: 12px !important; 
+}
+.show-more-right label{
+  font-size: 13px !important;
 }
 .cd-popup-container .cd-popup-close::after {
   -webkit-transform: rotate(-45deg);
@@ -586,16 +601,16 @@ xpopup
         border-radius: 25px;
 
     }
-    .btn-bug{
-        background-color: #800000;
-    }
-
+    
     .save-edit button{
         border-radius: 20px;
         font-size: 12px;
     }
+    .btn-bug{
+        background-color: #d96c6f;
+    }
     .btn-bug:hover{
-        color: #FFFFFF;
+        color: #cf4246;
     }
     .btn-submit{
         color: #FFFFFF;
@@ -611,10 +626,19 @@ xpopup
     .feedback .reported p, .feedback .failed p  { height: 190px}
     .feedback.left{left:5px; bottom:15px}
     .feedback.right{right:5px; bottom:15px}
-    .feedback .dropdown-menu{width: 290px;height: 300px;bottom: 50px;}
+    .feedback .dropdown-menu{width: 290px;height: 275px;bottom: 50px;}
     .feedback.left .dropdown-menu{ left: 0px}
     .feedback.right .dropdown-menu{ right: 0px}
     .feedback .hideme{ display: none}
+    .footer{
+        height: 50px;
+    }
+    .panel-heading{
+      color: #FFFFFF !important;
+      font-size: 20px;
+      background-color: #CA2E32 !important;
+      background-image: none !important;
+    }
     </style>
     <title>OJT Automate</title>
 
@@ -663,7 +687,11 @@ xpopup
                         </ul>
                     <?php endif;?>
                     </div>
-                    <span style="position: absolute; top: 20px; right: 120px;">Hi, <?php echo $user_data[0]['first_name']?></span>
+                     <?php if(isset($id_number)):?>
+                     <?php else:?>
+                          <span style="position: absolute; top: 20px; right: 120px;">Hi, <?php echo $user_data[0]['first_name']?></span>
+                     <?php endif;?>
+                  
                     <div class="col-lg-2">
                         <?php if(isset($id_number)):?>
                                <ul class="nav navbar-nav">
@@ -671,8 +699,8 @@ xpopup
                             <li class="dropdown">
                               <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown"><i class="fa fa-user-circle fa-2x"></i><?php //echo $supImage[0]['image_id']?></a>
                     
-                              <ul class="dropdown-menu" id="show-logout">
-                                <li><a href="#">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
+                              <ul class="dropdown-menu" style="margin-top: -6px; margin-left: -222px;" id="show-logout">
+                                <li><a href="<?php echo base_url()?>main/supervisorDashboard">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                 <li class="divider"></li>
         
                                 <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
@@ -748,21 +776,21 @@ xpopup
                                     // Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
 
                                     var bar = new ProgressBar.Circle(hoursProgress, {
-                                        color: '#53b1e0',
+                                        color: '#A55D35',
                                         trailColor: '#eee',
                                         trailWidth: 1,
                                         duration: 1400,
-                                        easing: 'bounce',
+                                        easing: 'easeInOut',
                                         strokeWidth: 6,
                                         text: {
                                             value: <?php echo $rendered?> + "/" + <?php echo $total?> + " " + 'hours',
                                         },
                                         from: {
-                                            color: '#9ebdef',
+                                            color: '#EECD86',
                                             a: 0
                                         },
                                         to: {
-                                            color: '#65f771',
+                                            color: '#B95835',
                                             a: 1
                                         },
                                         // Set default step function for all animate calls
@@ -792,24 +820,24 @@ xpopup
 
                                     var bar = new ProgressBar.SemiCircle(progressEvaluations, {
                                         strokeWidth: 6,
-                                        easing: 'bounce',
+                                        easing: 'easeInOut',
                                         duration: 1400,
                                         text: {
                                             value: <?php echo $current_evaluations?> + "/" + <?php echo $all_evaluations?> + " " + 'evaluations',
                                         },
                                         from: {
-                                            color: '#9ebdef',
+                                            color: '#EECD86',
                                             a: 0
                                         },
                                         to: {
-                                            color: '#65f771',
+                                            color: '#B95835',
                                             a: 1
                                         },
                                         // Set default step function for all animate calls
                                         step: function(state, circle) {
                                             circle.path.setAttribute('stroke', state.color);
                                         },
-                                        color: '#53b1e0',
+                                        color: '#A55D35',
                                         trailColor: '#eee',
                                         trailWidth: 1,
                                         svgStyle: null
@@ -833,24 +861,24 @@ xpopup
                                 $(document).ready(function() {
                                     var bar = new ProgressBar.Circle(verifiedLogs, {
                                         strokeWidth: 6,
-                                        easing: 'bounce',
+                                        easing: 'easeInOut',
                                         duration: 1400,
                                         text: {
                                             value: 'You have not posted logs yet',
                                         },
                                         from: {
-                                            color: '#9ebdef',
+                                            color: '#EECD86',
                                             a: 0
                                         },
                                         to: {
-                                            color: '#65f771',
+                                            color: '#B95835',
                                             a: 1
                                         },
                                         // Set default step function for all animate calls
                                         step: function(state, circle) {
                                             circle.path.setAttribute('stroke', state.color);
                                         },
-                                        color: '#53b1e0',
+                                        color: '#A55D35',
                                         trailColor: '#eee',
                                         trailWidth: 1,
                                         svgStyle: null
@@ -864,24 +892,24 @@ xpopup
                                 $(document).ready(function() {
                                     var bar = new ProgressBar.Circle(verifiedLogs, {
                                         strokeWidth: 6,
-                                        easing: 'bounce',
+                                        easing: 'easeInOut',
                                         duration: 1400,
                                         text: {
                                             value: <?php echo $verified?> + "/" + <?php echo $totalLogs;?> + " " + 'logs',
                                         },
                                         from: {
-                                            color: '#9ebdef',
+                                            color: '#EECD86',
                                             a: 0
                                         },
                                         to: {
-                                            color: '#65f771',
+                                            color: '#B95835',
                                             a: 1
                                         },
                                         // Set default step function for all animate calls
                                         step: function(state, circle) {
                                             circle.path.setAttribute('stroke', state.color);
                                         },
-                                        color: '#53b1e0',
+                                        color: '#A55D35',
                                         trailColor: '#eee',
                                         trailWidth: 1,
                                         svgStyle: null
@@ -901,33 +929,18 @@ xpopup
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="well" style="background: #fff">
-                        <p>OJT Workmates</p>
-                        <div class="well workmates-list">
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <h6>Ser Davos Seaworth</h6>
-                                </div>
-                                <div class="col-lg-4">
-                                    <a href="#" style="font-size: 12px;">View profile</a>
-                                </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="text-align: center;">OJT Workmates</div>
+                        <div class="panel-body">
+                          <div class="row">
+                            <div class="col-lg-8">
+                             <h4>Glenn Michael Torregossa</h4>
                             </div>
-
-                        </div>
-
-                        <div class="well workmates-list">
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <h6>Ser Davos Seaworth</h6>
-                                </div>
-                                <div class="col-lg-4">
-                                    <a href="#" style="font-size: 12px;">View profile</a>
-                                </div>
+                            <div class="col-lg-4">
+                              <a href=""><h5 style="text-align: center;">View Profile</h5></a>
                             </div>
-
+                          </div>
                         </div>
-                        
-
                     </div>
                 </div>
                 <div class="col-lg-8">
@@ -1015,9 +1028,10 @@ xpopup
                                     <form method="post">
                                         <div class="row">
                                             <div class="logs-lists">
-                                                <span class="show-more-info" style="float: right; margin-right: 20px;"><i class="fa fa-plus-circle" aria-hidden="true" title="show more info"></i></span>
+                                                <span class="show-more-info" style="float: right; cursor: pointer; font-size: 12px; text-decoration: underline; margin-right: 20px;
+                                                ">Show more</i></span>
 
-                                                 <span class="show-less-info" style="float: right; display: none; margin-right: 20px;"><i class="fa fa-minus-circle" aria-hidden="true"></i></span>
+                                                 <span class="show-less-info" style="float: right; display: none; margin-right: 20px; cursor: pointer; text-decoration: underline; font-size: 12px;">Show less</i></span>
                                                 <div class="col-lg-6">
 
                                                     <div class="form-group show-more-right" style="display: none;">
@@ -1040,9 +1054,9 @@ xpopup
                                                 <div class="col-lg-6">
                                                     <div class="form-group show-more-left" style="display: none;">
                                                         <label>Time In</label>
-                                                        <input type="text" class="list-logs time_in_listed" name="log_lists_time_in" value="<?php echo $log['time_in']?>" id="log_lists_time_in" readonly>
+                                                        <input type="time" class="list-logs time_in_listed" name="log_lists_time_in" value="<?php echo $log['time_in']?>" id="log_lists_time_in" readonly>
                                                         <label>Time Out</label>
-                                                        <input type="text" class="list-logs time_out_listed" name="log_lists_time_out" value="<?php echo $log['time_out']?>" id="log_lists_time_out" readonly>
+                                                        <input type="time" class="list-logs time_out_listed" name="log_lists_time_out" value="<?php echo $log['time_out']?>" id="log_lists_time_out" readonly>
                                                         <label>Hours Rendered</label>
                                                         <input type="text" class="list-logs hours_listed" name="log_lists_hours_rendered" id="log_lists_hours_rendered" value="<?php echo $log['hours_rendered']?>" readonly>
 
@@ -1116,22 +1130,26 @@ xpopup
                 <div class="row">
                     <div class="col-lg-6">
                 <div class="feedback left">
+              <?php if(isset($id_number)):?>
+              <?php else: ?>
+
       <div class="tooltips">
           <div class="btn-group dropup">
             <button type="button" class="btn btn-bug dropdown-toggle btn-circle btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-bug fa-2x" style="color: #FFFFFF;"title="Report Bug"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-right dropdown-menu-form">
-              <li>
+              <li> 
                 <div class="report">
                   <h3 class="text-center" style="color: #000000;">Report a Bug or Suggestion</h3>
-                  <form class="doo" method="POST" action="addReport">
+                  <form class="doo" method="POST" action="<?php echo base_url()?>main/addReport">
+
                     <div class="col-sm-12">
                       <textarea name="comment" id="reports"class="form-control" placeholder="Please tell us any bugs or issues you've found, provide as much detail as possible." required></textarea>
                       
                      </div>
                      <div class="col-sm-12 clearfix">
-                      <button class="btn btn-submit btn-block" id="btn-report" style="margin-top: 5px;">Submit Report</button>
+                      <button class="btn btn-submit btn-block" id="btn-report" name="btn-report"style="margin-top: 5px;" >Submit Report</button >
                      </div>
                  </form>
                 </div>
@@ -1157,6 +1175,7 @@ xpopup
             </ul>
           </div>
       </div>
+    <?php endif;?>
     </div>
                     </div>
                     <div class="col-lg-6">
@@ -1353,13 +1372,6 @@ xpopup
 });
 </script>
 
- <script type="text/javascript">
-    $(document).ready(function(){
-        $('.btn-submit').click(function(){
-            alert("natoy");
-        });
-    });
-</script>
 
 <script type="text/javascript">
     $('.show-more-info').click(function(){
@@ -1411,6 +1423,8 @@ xpopup
         });
     });
 </script>
+<?php if(isset($id_number)):?>
+<?php else:?>
 <script type="text/javascript">
         var observe;
         if (window.attachEvent) {
@@ -1446,6 +1460,7 @@ xpopup
   
 
 </script>
+<?php endif;?>
 
 <script type="text/javascript">
     $(document).ready(function(){
@@ -1455,7 +1470,19 @@ xpopup
           this.style.height = 'auto';
           this.style.height = (this.scrollHeight) + 'px';
         });
-    })
+    });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+      $("#btn-report").click(function(){
+          swal({
+              title: "You have Successfully reported a bug",
+              text: "We will review your report",
+              icon: "success",
+            });
+      });
+  });
 </script>
 </html>
 

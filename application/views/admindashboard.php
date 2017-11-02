@@ -41,7 +41,7 @@
              background-color: #F4F4F4;
         }
         .jumbotron{
-            background-color: #EED090;
+            background-color: #871F21;
             padding: 10px;
             color: white;
             font-size: 1.5em;
@@ -53,7 +53,9 @@
         }
 
       .header{
+        padding: 5px;
        height: 60px;
+       border-bottom: 3px solid #791b1e;
     }
 
     .mission{
@@ -266,6 +268,23 @@ li.notification-title{
 .dataTables_wrapper > div > div > div{
   font-size: 14px !important;
 }
+
+.btn-admin{
+  background-color: #ca2e32;
+        color: #FFFFFF;
+        transition: 0.4s;
+        border-radius: 5px;
+        
+}
+.btn-admin:hover{
+   background-color: #cf4246;
+        color: #FFFFFF;
+        transition: 0.4s;
+        border-radius: 5px;
+       
+}
+
+
         
     </style>
 
@@ -285,8 +304,6 @@ li.notification-title{
                         <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
                     </div>
                     <div class="col-lg-7">
-                       
-                       
                     </div>
               <div class="col-lg-1">
 
@@ -319,16 +336,16 @@ li.notification-title{
             <div class="jumbotron">
               <div class="row">
               
-                    <div class="col-lg-5">
+                    <div class="col-lg-4">
                         Admin Dashboard
                     </div>
-                    <div class="col-lg-7">
+                    <div class="col-lg-8">
                         <section style="display: inline-block; float: right;">
-                            <button class="btn btn-primary" data-target="#watchlistModal" data-toggle="modal">+Watch list</button>
-                            <button class="btn btn-primary" data-target="#squarespaceModal" data-toggle="modal">+Announcement</button>
-                            <button class="btn btn-primary" data-target="#addAdminModal" data-toggle="modal">+Admin</button>
-                            <button class="btn btn-primary" data-target="#addSupervisorModal" data-toggle="modal">+Supervisor</button>
-                            <button class="btn btn-primary" data-target="#addStudent" data-toggle="modal">+Student</button>
+                            <button class="btn btn-admin" data-target="#watchlistModal" data-toggle="modal">+Watch list</button>
+                            <button class="btn btn-admin" data-target="#squarespaceModal" data-toggle="modal">+Announcement</button>
+                            <button class="btn btn-admin" data-target="#addAdminModal" data-toggle="modal">+Admin</button>
+                            <button class="btn btn-admin" data-target="#addSupervisorModal" data-toggle="modal">+Supervisor</button>
+                            <button class="btn btn-admin" data-target="#addStudent" data-toggle="modal">+Student</button>
                          </section>
                      </div>
                     </div>
@@ -390,9 +407,9 @@ li.notification-title{
                                     labels: [<?php echo implode($course, ',')?>],
                                     datasets: [{
                                       backgroundColor: [
-                                        "rgba(255, 159, 64, 0.2)",
+                                        "rgba(255, 165, 0, 0.2)",
                                         "rgba(54, 162, 235, 0.2)",
-                                        
+                                         
                                       ],
                                       hoverBackgroundColor: [
                                          "rgba(255, 159, 64, 0.5)",
@@ -890,7 +907,7 @@ li.notification-title{
 <script type="text/javascript">
   
     $("#dropdown-logout").click(function(){
-        $("#show-logout").slideToggle();
+        $("#show-logout").toggle();
         // $('#notification-content').slideUp();
     });
 </script>

@@ -88,8 +88,8 @@ class Main extends CI_Controller {
 		if(!isset($this->session->userdata['id_number'])){
           header("location: index");
      	}else{
+     		$data['image_header'] = $this->users->displayImageToHeader($this->session->userdata['id_number']);
      		$data['user_data'] = $this->users->dashboardData($this->session->userdata['id_number']);
-     		 $data['image_header'] = $this->users->displayImageToHeader($this->session->userdata['id_number']);
      		$data['personalDetails'] = $this->users->getProfile($this->session->userdata['id_number']);
      		$this->load->view('profile',$data);
      	}
@@ -154,10 +154,11 @@ class Main extends CI_Controller {
      	}else{
      		$data['comments'] = $this->users->getComments();
      		$company_name = $this->users->getCompanySupervisor($this->session->userdata['id_number']);
-     		$data['supervisorAddOjt'] = $this->users->supervisorGetTrainee($company_name);
-     		$data['traineesLog'] = $this->users->getOjtLogs($this->session->userdata['id_number']);
-     		$data['supImage'] = $this->users->supervisorImage($this->session->userdata['id_number']);
+     		$data['supervisorAddOjt'] = $this->users->supervisorGetTrainee($company_name,$this->session->userdata['id_number']);
+     		$data['ojtRecords'] = $this->users->getOjtRecordsForSupervisor($this->session->userdata['id_number']);
 
+     		$data['traineesLog'] = $this->users->getOjtLogs($this->session->userdata['id_number']);
+     		$data['supImage'] = $this->users->supervisorImage($this->session->userdata['id_number']); 
      		$this->load->view('supervisor-dashboard', $data);
 			
 				
@@ -182,7 +183,7 @@ class Main extends CI_Controller {
 			$condition = $this->users->user_login();
 			$data['error'] = 'abcd';
 		// print_r("condition = " . $condition. "   ");
-		
+			$account_type = 'student';
 		if($condition){
 			$data = array(
 				'username' => $this->input->post('username'), //need to be dynamic e.g $this->input->post('username')
@@ -194,34 +195,31 @@ class Main extends CI_Controller {
 				// print_r($session_data);
 			// Add user data in session
 				$this->session->set_userdata('id_number', $session_data);
-				$account_type = $this->users->getAccountType(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
+				$this->session->set_userdata('account_type', $account_type);
+				
 				$existId = $this->users->checkExistRecords($this->session->userdata['id_number']);
 				$newId = $this->session->userdata['id_number'];
 				$newRecord = Array('id_number' => $newId, 'total_hours' => 200, 'total_evaluations'=> 2);
 				if(!$existId && $account_type[0]['account_type'] == 0){
 					$this->users->insertNewRecordOjt($newRecord);
 				}
-				if($account_type[0]['account_type'] == 0){
-					header("location: dashboard");
-				}else if($account_type[0]['account_type'] == 1){
-					header("location: supervisorDashboard");
-				 }elseif ($account_type[0]['account_type'] == 2) {
-				 	header("location: adminDashboard");
-				 }
+				redirect('dashboard');
 			
 	}else{
 		header("location: index?error=Username or password incorrect");
 	}	
 	}else if($logintype == 'supervisor'){
-		$this->loggedinSupervisor();
+		$account_type = 'supervisor';
+		$this->loggedinSupervisor($account_type);
 	}else if($logintype == 'administrator'){
-		$this->loggedinAdministrator();
+		$account_type = 'admin';
+		$this->loggedinAdministrator($account_type);
 	}
 }
 
 
 
-public function loggedinSupervisor(){
+public function loggedinSupervisor($account_type){
 	$condition = $this->users->user_login_supervisor();
 		$data['error'] = 'abcd';
 		// print_r("condition = " . $condition. "   ");
@@ -236,6 +234,7 @@ public function loggedinSupervisor(){
 				// print_r($session_data);
 			// Add user data in session
 				$this->session->set_userdata('id_number', $session_data);
+				$this->session->set_userdata('account_type', $account_type);
 				// $account_type = $this->users->getAccountType(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
 				// $existId = $this->users->checkExistRecords(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
 				// $newId = $this->session->userdata['id_number'];
@@ -244,12 +243,12 @@ public function loggedinSupervisor(){
 			
 					
 	}else{
-		header("location: loginsupervisor?error=Username or password incorrect");
+		header("location: index?error=Username or password incorrect");
 	}	
 
 }
 
-public function loggedinAdministrator(){
+public function loggedinAdministrator($account_type){
 	$condition = $this->users->user_login_administrator();
 		$data['error'] = '';
 		// print_r("condition = " . $condition. "   ");
@@ -264,6 +263,7 @@ public function loggedinAdministrator(){
 				// print_r($session_data);
 			// Add user data in session
 				$this->session->set_userdata('id_number', $session_data);
+				$this->session->set_userdata('account_type', $account_type);
 				// $account_type = $this->users->getAccountType(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
 				// $existId = $this->users->checkExistRecords(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
 				// $newId = $this->session->userdata['id_number'];
@@ -284,7 +284,7 @@ public function loggedinAdministrator(){
 
 					
 	}else{
-		header("location: loginadmin?error=Username or password incorrect");
+		header("location: index?error=Username or password incorrect");
 	}	
 }
 
@@ -347,7 +347,7 @@ public function logout(){
 	}
 	
 	public function dashboard(){
-
+		
 		if(!isset($this->session->userdata['id_number'])){
           header("location: index");
      	}else{
@@ -419,9 +419,8 @@ public function logout(){
      	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $id_number);
      	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $id_number);
      	$ojtRecords = $this->users->dashboardDataRecords(isset($id_number) ? $id_number : '');
-
      	if(!empty($ojtRecords)){
-     		$data['total'] = $ojtRecords[0]['total_hours'];
+     	$data['total'] = $ojtRecords[0]['total_hours'];
 		$data['rendered'] = $ojtRecords[0]['rendered_hours'];
 		$data['all_evaluations'] = $ojtRecords[0]['total_evaluations'];
 		$data['current_evaluations'] = $ojtRecords[0]['current_evaluations'];
@@ -433,6 +432,7 @@ public function logout(){
      	$data['id_number'] = $id_number;
 
      	$data['user_data'] = $this->users->dashboardData($id_number);
+
 
      	$this->load->view('dashboard', $data);
 	}
@@ -454,6 +454,8 @@ public function logout(){
 	public function addWatchlist(){
 		$this->users->addWatch();
 	}
+
+
 
 
 	public function addComment(){
@@ -527,15 +529,29 @@ public function logout(){
 
     public function addReport(){
     	$this->users->addReport();
+    		header("location: dashboard");
+
+    		
     }
+    
+
     public function getLastLog(){
     	$this->users->getLastLog();
     }
+      public function getMaxComment(){
+
+    	$this->users->getMaxComment();
+    }
+
    	public function saveCSV(){
    		$this->users->importCSV();
    	}
 
    	public function addStudent(){
    		$this->users->addStud();
+   	}
+
+   	public function deleteComment(){
+   		$this->users->deleteComment();
    	}
 }

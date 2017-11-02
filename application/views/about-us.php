@@ -23,7 +23,7 @@
          background-color: #F4F4F4;
     }
     .top{
-        background-color: #915B51;
+        background-color: #b5292d;
         height: 50px;
        
 
@@ -124,52 +124,26 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-4">
-                        <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 175px;"></div>
+                        <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 150px;"></div>
                     </div>
-                    <div class="col-lg-7">
+                    <div class="col-lg-5"></div>
+                    <div class="col-lg-3">
                         <div class="header-links">
-                            <h5> <a href="index">Home</a></h5>
-                            <h5><a href="about" class="current-link">About us</a></h5>
-                            <h5><a href="#" data-toggle="modal" data-target="#squarespaceModal">Watch list</a></h5>
+                            <h5> <a href="#" class="current-link">Home</a></h5>
+                              <?php echo (isset($error) ? $error : '');?>
+                            <h5><a href="<?php echo base_url()?>main/about">About us</a></h5>
+                            <h5><a href="#" data-toggle="modal" data-target="#watchlistModal">Watchlist</a></h5>
                         </div>
                     </div>
-                    <div class="col-lg-1">
-                        <!-- <div class="signin">
-                            <nav>
-                                <ul>
-                                    <li id="login">
-                                        <a id="login-trigger" href="#">
-        Log in ▼
-      </a>
-                                        <div id="login-content">
-                                            <form action="loggedin" method="POST">
-                                                <fieldset id="inputs">
-                                                    <label style="float: left;">ID Number</label>
-
-                                                    <input id="username" type="text" name="username" placeholder="ID Number" required>
-                                                    <label style="float: left;">Password</label>
-                                                    <input id="password" type="password" name="password" placeholder="Password" required>
-                                                </fieldset>
-                                                <fieldset id="actions">
-                                                    <button type="submit" id="submit">Login&nbsp;<i class="fa fa-sign-in"></i></button>
-                                                    <a href="#" class="forgot-password">Forgot password?</a>
-                                                </fieldset>
-
-                                            </form>
-                                        </div>
-                                    </li>
-                                 
-                                </ul>
-                            </nav>
-                        </div> -->
-                          <a class="btn btn-primary login-btn" href="<?php echo base_url()?>main/loginojt" class="btn btn-primary">Login</a>
-                    </div>
+                   <!--  <div class="col-lg-1">
+                        <a class="btn btn-primary login-btn" href="<?php echo base_url()?>main/loginojt" class="btn btn-primary">Login</a>
+                    </div> -->
                 </div>
             </div>
         </div>
         <div class="content">
               <div class="top">
-                <h1 style="margin-left: 30px; color: white;"><i class="fa fa-pencil" aria-hidden="true"></i>Mission and Vision</h1>
+                <h1 style="margin-left: 30px; color: white;"><i class="fa fa-pencil" aria-hidden="true"></i> Mission and Vision</h1>
               </div>
               <div class="container">
                  <div class="mission">
