@@ -555,6 +555,7 @@
 
              echo json_encode($lastlog);
 
+
          }  
         
 
@@ -566,6 +567,7 @@
             echo $maxId;
 
          }
+
 
 
          //import csv

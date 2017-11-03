@@ -29,21 +29,20 @@
         
         .well {
             background-color: #FFD700;
-            border-color: #FFD700;
             border-radius: 15px;
         }
         
-        .panel {
-            border-color: #A55D35;
+        .panel-default{
+          
             margin-top: 40px;
-            border-radius: 15px;
+          
         }
         
         .panel-heading {
-            border-color: #A55D35;
-            background-color: #FFD700;
-            height: 50px;
-            border-radius: 15px 15px 0 0;
+           
+            background: none !important;
+            background-color: #CA2E32 !important;
+            color: #FFFFFF !important;
         }
         
         ol {
@@ -60,33 +59,25 @@
             width: 50px;
             
         }
-        
-        .btn {
-            border-radius: 0;
+      
+        .save{
+        color: #FFFFFF;
+        background:#FFB900;   
         }
-        
-        .btn-success {
-            color: #57B257;
-            background: #FFF !important;
-            text-shadow: none !important;
+        .save:hover{
+        transition: 0.4s;
+        color: #FFFFFF;
+        background-color: #f5b301 !important;
         }
-        
-        .btn-success:hover,.btn-success:focus {
-            background: #57B257 !important;
-            color: #FFF;
-            transition: 0.4s;
+        .cancel{
+        color:#FFFFFF;
+        background: #800000 !important;   
         }
-        
-        .btn-danger {
-            color: #D54D49;
-            background: #FFF;
-            text-shadow: none !important;
+        .cancel:hover{
+        color:#FFFFFF;
+        background-color:#760404;
+        transition: 0.4s;
         }
-        
-        .btn-danger:hover, .btn-danger:focus {
-            transition: 0.4s;
-        }
-        
       
         a:hover{
             text-decoration: none;
@@ -164,11 +155,9 @@
 
                     <div class="topper">
                         <div class="col-lg-4">
-                            <div class="panel ">
+                            <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <p style="color: #A55D35; text-align: center;">
-                                        <label style="margin:0; padding: 0;">Rating</label>
-                                    </p>
+                                        <h3 style="text-align: center;">Rating</h3>
                                 </div>
                                 <div class="panel-body">
                                     <ul class="list-unstyled">
@@ -325,7 +314,7 @@
                                             </fieldset>
                                          </div>
 
-                                         <?php echo '<pre>'; var_dump($_POST); echo '</pre>';    ?>
+                                         <?php //echo '<pre>'; var_dump($_POST); echo '</pre>';    ?>
 
                                     </div>
                                    
@@ -344,13 +333,13 @@
                               
                                     <textarea tabindex="15" name="remarks" id="remark" class="form-control"></textarea>
                                     <div class="allow">
-                                         <input type="checkbox" id="allow-view" name="allow_view" value="true"><label for="allow-view" style="color: black; font-size: 14px;">Allow OJT to view evaluation</label>
+                                         <input type="checkbox" id="allow-view" name="allow_view" value="true"><label for="allow-view" style="color: black; font-size: 14px;"> Allow OJT to view evaluation</label>
 
                                     </div>
                                    
                                     <p style="text-align: center; padding-top: 30px;">
-                                        <button type="submit" class="btn btn-success">Submit</button>
-                                        <button type="button" class="btn btn-danger">Cancel</button>
+                                        <button type="submit" class="btn save">Submit</button>
+                                        <button type="button" class="btn cancel">Cancel</button>
                                     </p>
                                 </form>
 

@@ -22,6 +22,9 @@
     <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <style type="text/css">
+    body{
+        overflow: hidden;
+    }
     .btn-circle.btn-lg {
         width: 40px;
         height: 40px;
@@ -36,6 +39,7 @@
         padding: 5px;
        height: 70px;
        border-bottom: 3px solid #791b1e;
+       background-color: #ffba00;
     }
     .btn-bug{
         background-color: #d96c6f;
@@ -87,6 +91,10 @@
         color: #FFFFFF;
         background-color: #f5b301;
         
+    }
+    .btn-loginas:visited{
+        color: #FFFFFF;
+        background-color: #f5b301;
     }
     .forget{
         margin-top: 15px;
@@ -162,6 +170,7 @@
     .modal-header-color:{
         background-color: #f44336;
     }
+
     
     </style>
     <title></title>
@@ -169,16 +178,6 @@
 </head>
 
 <body>
- <script>
-    AOS.init({
-      offset: 100,
-      duration: 900,
-      easing: 'ease-in-out-cubic',
-      delay: 50,
-
-    });
-
-  </script>
     <div class="page-wrap">
         <div class="header">
             <div class="container-fluid">
@@ -195,9 +194,6 @@
                             <h5><a href="#" data-toggle="modal" data-target="#watchlistModal">Watchlist</a></h5>
                         </div>
                     </div>
-                   <!--  <div class="col-lg-1">
-                        <a class="btn btn-primary login-btn" href="<?php echo base_url()?>main/loginojt" class="btn btn-primary">Login</a>
-                    </div> -->
                 </div>
             </div>
         </div>

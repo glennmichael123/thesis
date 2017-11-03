@@ -29,7 +29,11 @@ class Main extends CI_Controller {
        	
 
     }
-  
+  	public function student_info(){
+  		$this->load->view('student_info');
+  		
+  		
+  	}
      public function page1(){
     	$this->load->view('page1');
     }

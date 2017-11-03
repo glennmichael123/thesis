@@ -151,8 +151,8 @@
                         <h2 class="fs-title">Almost Done!</h2>
                         <h2 class="fs-title">Just one more step and you are done.</h2>
                         <p style="text-align: center;">An email verification link has been to your email address. Please verify your email to complete the registration.</p>
-                        <a class="topage1" href="page2">Previous</a>
-                        <a class="topage2" href="dashboard">Continue to Dashboard</a>
+                        <a class="topage3" href="page2">Previous</a>
+                        <a class="topage4" href="dashboard">Continue to Dashboard</a>
                     </fieldset>
                      </div>
                     </div>

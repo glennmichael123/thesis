@@ -50,12 +50,24 @@
 
 
         }
+        input:focus{
+            outline: none;
+        }
         .list{
             margin-top: 38px;
             text-align: center;
             color: #000000;
         }
         ol,ul,h3,h1{
+            color: #000000;
+        }
+        .lists{
+            padding: 2px;
+        }
+        .lis{
+            margin-top: 32px;
+            padding: 6px;
+            text-align: center;
             color: #000000;
         }
     </style>
@@ -68,6 +80,8 @@
     <div class="page-wrap">
         <div class="content">
             <div class="container">
+              <div class="col-lg-2"></div>
+               <div class="col-lg-8">
                 <header>
                     <h1>ON-THE-JOB TRAINING (OJT)</h1>
                     <h3>PERFORMANCE EVALUATION REPORT</h3>
@@ -132,25 +146,25 @@
                     <div class="col-lg-6">
                         <h3 style="text-align: center;">JOB FACTORS</h3>
                         <ol>
-                            <li>Quality of Work<p>(Thoroughness,accuracy,neatness and effectiveness)</p></li>
-                            <li>Quality of Work<p>(Able to complete work in allotted time)</p></li>
-                            <li>Dependability,reliability and resoucefulness<p>(Ability to work w/ minimum amount of break supervision)</p></li>
-                            <li>Attendance<p>(Regularity and Punctuality in office attendance and report observation of break periods)</p></li>
-                            <li>Cooperation<p>(Works well with everyone)</p></li>
-                            <li>Judgement<p>(Sound decisions: Ability to identify and evaluate pertinent factors)</p></li>
-                            <li>Personality<p>(Personal grooming and pleasant disposition)</p></li>
+                            <li class="lists">Quality of Work<p>(Thoroughness,accuracy,neatness and effectiveness)</p></li>
+                            <li class="lists">Quality of Work<p>(Able to complete work in allotted time)</p></li>
+                            <li class="lists">Dependability,reliability and resoucefulness<p>(Ability to work w/ minimum amount of break supervision)</p></li>
+                            <li class="lists">Attendance<p>(Regularity and Punctuality in office attendance and report observation of break periods)</p></li>
+                            <li class="lists">Cooperation<p>(Works well with everyone)</p></li>
+                            <li class="lists">Judgement<p>(Sound decisions: Ability to identify and evaluate pertinent factors)</p></li>
+                            <li class="lists">Personality<p>(Personal grooming and pleasant disposition)</p></li>
                         </ol>
                     </div>
                     <div class="col-lg-3">
                         <h3 style="text-align: center;">RATING</h3>
                         <ul style="list-style: none;">
-                            <li class="list">20%</li>
-                            <li class="list">20%</li>
-                            <li class="list">15%</li>
-                            <li class="list">15%</li>
-                            <li class="list">10%</li>
-                            <li class="list">10%</li>
-                            <li class="list">10%</li>
+                            <li class="lis">20%</li>
+                            <li class="lis">20%</li>
+                            <li class="lis">15%</li>
+                            <li class="lis">15%</li>
+                            <li class="lis">10%</li>
+                            <li class="lis">10%</li>
+                            <li class="lis">10%</li>
                         </ul>
                     </div>
                     <div class="col-lg-3">
@@ -173,7 +187,8 @@
                 
                     <p style="margin-top: 10px; text-align: center;"><button class="btn btn-primary">Submit</button>
                     <button class="btn btn-danger">Cancel</button></p>
-                
+             </div>
+            <div class="col-lg-2"></div>  
             </div>
          </div>
     </div>

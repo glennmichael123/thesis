@@ -93,7 +93,7 @@
             font-family: 'Rajdhani', sans-serif;
             
         }
-        .topage2{
+        .topage4{
             position: relative;
             top: 10px;
             font-size: 20px;
@@ -103,13 +103,13 @@
             background: #800000;
             float: right;
        }
-       .topage2:hover{
+       .topage4:hover{
         text-decoration: none;
         color:#FFFFFF;
         background-color:#760404;
         float: right;
        }
-       .topage1{
+       .topage3{
             position: relative;
             top: 10px;
             font-size: 20px;
@@ -119,7 +119,7 @@
             background: #FFBA00;
             float: left;
        }
-       .topage1:hover{
+       .topage3:hover{
         text-decoration: none;
         color: #FFFFFF;
         background-color: #f5b301;
@@ -224,8 +224,8 @@
                                 <input type="radio" id="more_onehundred" value="More than 100" name="employee_numbers"><label for="more_onehundred">More than 100</label>
                             </div>
                          </div>
-                            <a class="topage1" href="page1">Previous</a>
-                            <a class="topage2" href="page3">Next</a>
+                            <a class="topage3" href="page1">Previous</a>
+                            <a class="topage4" href="page3">Next</a>
                      </div>
                     </div>
                     <div class="col-lg-1"></div>

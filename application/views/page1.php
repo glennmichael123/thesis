@@ -59,9 +59,20 @@
             height: 40px;
             margin-top: 5px;
         }
+         input[type=checkbox],input[type=radio]{
+            height: 20px;
+            width: 20px;
+            margin-top: 10px;
+        }
         .fs-title{
             text-align: center;
             font-weight: bold;
+        }
+           .fs-subtitle {
+            font-weight: normal;
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 20px;
         }
         /*button[type="button"] {
             text-align: center;
@@ -109,6 +120,51 @@
        .address{
         display: none;
        }
+       label {
+            cursor: pointer;
+            padding: 5px;
+            font-family: 'Rajdhani', sans-serif;
+            
+        }
+        .topage4{
+            position: relative;
+            top: 10px;
+            font-size: 20px;
+            border-radius: 5px;
+            padding: 5px 20px 5px 20px;
+            color:#FFFFFF;
+            background: #800000;
+            float: right;
+       }
+       .topage4:hover{
+        text-decoration: none;
+        color:#FFFFFF;
+        background-color:#760404;
+        float: right;
+       }
+       .topage3{
+            position: relative;
+            top: 10px;
+            font-size: 20px;
+            border-radius: 5px;
+            padding: 5px 20px 5px 20px;
+            color:#FFFFFF;
+            background: #FFBA00;
+            float: left;
+       }
+       .topage3:hover{
+        text-decoration: none;
+        color: #FFFFFF;
+        background-color: #f5b301;
+        float: left;
+       }
+       .page2{
+        display: none;
+       }
+       .page3{
+        display: none;
+       }
+
 
     </style>
 
@@ -117,12 +173,12 @@
 </head>
 
 <body>
+    <header>
+        <h2 class="fs-title">Before you continue, please complete this form first</h2>         
+    </header>
+<section class="page1">
     <div class="page-wrap">
         <div class="content">
-            <header>
-                <h2 class="fs-title">Before you continue, please complete this form first</h2>
-                
-            </header>
             <div class="container">
                 <div class="row">
                     <div class="col-lg-1"></div>
@@ -259,7 +315,7 @@
                                 <input type="radio" name="same-address" id="same-present">
                                 <label for="same-present">Same as your present address</label>
                             </div>  
-                            <div class="col-lg-5">
+                            <div class="col-lg-4">
                                 <input type="radio" name="same-address" id="same-permanent">
                                 <label for="same-permanent">Same as your permanent address</label>
                             </div>
@@ -311,7 +367,7 @@
                                 <input type="radio" id="permanents_address" value="address" name="address" class="address"><label for="permanents_address" class="address"  style="margin-left: 20px;">Same as Permanent Address</label>
                             </div>
                          </div>
-                            <a class="topage2" href="page2">Next</a>
+                            <a class="topage2 first-next" href="#">Next</a>
                      </div>
                     </div>
                     <div class="col-lg-1"></div>
@@ -320,7 +376,126 @@
         </div> 
              
     </div>
+</section>
+<section class="page2">
+    <div class="page-wrap">
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-10">
+                    <div class="body">
+                    <h2 class="fs-title">Company Information<i class="fa fa-info-circle"></i></h2>
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <input type="text" placeholder="Company name" id="company_name" name="company_name">
+                          </div>
+                        </div>
+                         <div class="row">
+                          <div class="col-lg-12">
+                           <input type="text" name="company_address" placeholder="Company address" id="company_address">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6">
+                            <input type="text" name="company_telephone" placeholder="Telephone number" id="company_telephone">
+                          </div>
+                          <div class="col-lg-6">
+                             <input type="text" name="company_fax" placeholder="Fax number" id="company_fax">
+                          </div>
+                        </div>
 
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <input type="text" placeholder="Product lines" id="product_lines" name="product_lines">
+                          </div>
+                        </div>
+                        <h2 class="fs-title">Company Classification <i class="fa fa-list-alt" aria-hidden="true"></i></h2>
+                        <div class="row">
+                          <div class="col-lg-2">
+                            <input id="assembly" value="assembly" type="checkbox"><label for="assembly">Assembly</label>
+                         </div> 
+                         <div class="col-lg-2">
+                            <input type="checkbox" value="manufacturing" id="manufacturing"><label for="manufacturing">Manufacturing</label>
+                         </div> 
+                         <div class="col-lg-2">
+                            <input type="checkbox" value="maintenance" id="maintenance"><label for="maintenance">Maintenance</label>
+                         </div>
+                         <div class="col-lg-3">
+                            <input type="checkbox" value="marketing" id="marketing"><label for="marketing">Sales/Marketing</label>
+                         </div>
+                         <div class="col-lg-3">
+                             <input type="checkbox" value="service" id="service"><label for="service">Service/Utility</label>
+                         </div>
+                         
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-4">
+                            
+                              <input type="checkbox" value="research" id="research"><label for="research">Research and Development</label>
+                            
+                          </div>
+                          <div class="col-lg-2">
+                            <input type="checkbox" value="itrelated" id="itrelated"><label for="itrelated">IT Related</label>
+                          </div>
+                          <div class="col-lg-5">
+                               <input type="radio" class="other-company" id="other"><label for="other">Others</label>
+                               <input type="text" id="other_classification" name="other_classification" style="height: 15px; width: 250px; display: none;" placeholder="Please specify">
+                          </div>
+                       
+                        </div>
+
+                         <h2 class="fs-title">Total number of employees <i class="fa fa-list-ol" aria-hidden="true"></i></h2>
+
+                         <div class="row">
+                            <div class="col-lg-3 col-lg-offset-1">
+                              <input type="radio" id="less_fifty" value="Less than 50" name="employee_numbers"><label for="less_fifty">Less than 50</label>
+             
+                            </div>
+                            <div class="col-lg-3 col-lg-offset-1">
+                               <input type="radio" id="fifty_onehundred" value="From 50 to 100" name="employee_numbers"><label for="fifty_onehundred">From 50 to 100</label>
+             
+                            </div>
+                            <div class="col-lg-3 col-lg-offset-1">
+                                <input type="radio" id="more_onehundred" value="More than 100" name="employee_numbers"><label for="more_onehundred">More than 100</label>
+                            </div>
+                            <a class="topage3 first-previous" href="#">Previous</a>
+                            <a class="topage4 second-next" href="#">Next</a>
+                         </div>
+                           
+                     </div>
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+            </div>
+        </div> 
+             
+    </div>
+</section>
+<section class="page3">
+    <div class="page-wrap">
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-10">
+                    <div class="body">
+                    <fieldset>
+                        <h2 class="fs-title">Almost Done!</h2>
+                        <h2 class="fs-title">Just one more step and you are done.</h2>
+                        <p style="text-align: center;">An email verification link has been to your email address. Please verify your email to complete the registration.</p>
+                        <a class="topage3 second-previous" href="#">Previous</a>
+                        <a class="topage4 third-next" href="dashboard">Continue to Dashboard</a>
+                    </fieldset>
+                     </div>
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+            </div>
+        </div> 
+             
+    </div>
+</section>
 </body>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -328,6 +503,23 @@
             $('.address').css('display','inline');
         })
     })
+
+    $(".first-next").click(function(){
+        $(".page1").hide();
+        $(".page2").show();
+    });
+    $(".first-previous").click(function(){
+        $(".page1").show();
+        $(".page2").hide();
+    });
+    $(".second-next").click(function(){
+        $(".page2").hide();
+        $(".page3").show();
+    });
+    $(".second-previous").click(function(){
+        $(".page3").hide();
+        $(".page2").show();
+    });
 </script>
 
 </html>

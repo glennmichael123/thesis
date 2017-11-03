@@ -85,12 +85,7 @@
             
     }
 
-.nav{
-    float: right;
-  
 
-
-}
 .nav a{
      color: #915B51;
 }
@@ -283,7 +278,30 @@ li.notification-title{
         border-radius: 5px;
        
 }
+.capitalize {
+    text-transform: capitalize;
+}
 
+.dashTable{
+  color: black;
+  font-size: 13px;
+}
+
+.pagination > li.active > a{
+    background-color:#f44336 !important;
+    border:2px solid #d32f2f !important;
+ }
+
+.pagination > li > a:hover{
+  background-color:#ffc107;
+}
+
+.dataTables_wrapper > div > div > div{
+  font-size: 14px !important;
+}
+.nav-tabs{
+  background-color: #F4F4F4;
+}
 
         
     </style>
@@ -760,13 +778,19 @@ li.notification-title{
     <div class="modal-content modalContent">
         <div class="modal-header modalHeader">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <button type="button" class="btn btn-default" style="float:right; margin-right:40px" id="import"><span aria-hidden="true">Import CSV</span><span class="sr-only"></span></button>
-            <button type="button" class="btn btn-default" style="float:right; margin-right:10px" id="stud"><span aria-hidden="true">+Student</span><span class="sr-only"></span></button>
+            <!-- <button type="button" class="btn btn-default" style="float:right; margin-right:40px" id="import"><span aria-hidden="true">Import CSV</span><span class="sr-only"></span></button>
+            <button type="button" class="btn btn-default" style="float:right; margin-right:10px" id="stud"><span aria-hidden="true">+Student</span><span class="sr-only"></span></button> -->
             <h3 class="modal-title" id="lineModalLabel" style="color:white;">Add student</h3>
         </div>
         <div class="modal-body">
               <!-- Input student individually -->
-              <div class="form-group addIndiv" style="display: inline;">
+              <ul class="nav nav-tabs" style="margin-bottom: 15px;">
+                <li class="active" role="presentation"><a href="" role="tab" data-toggle="tab" id="addStuds" style="background-color:#ffba00
+; border: 1px solid #ffeab2; color: #FFFFFF;">+Students</a></li>
+                <li role="presentation"><a href="" role="tab" data-toggle="tab" id="addcsv" style="background-color:#871F21
+; border: 1px solid #ffeab2; color: #FFFFFF;">Import CSV</a></li>
+              </ul>
+              <div class="tab-pane active addIndiv" style="display: inline;" id="addStudent" role="tabpanel">
 
                     <label>Username</label>
                     <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studID" name="studID">
@@ -780,7 +804,7 @@ li.notification-title{
                 </div>
 
                 <!-- Import CSV -->
-                <div class="form-group importCSV" style="display:none;text-align:center">
+                <div class="tab-pane importCSV" id="addCSV" style="display:none;text-align:center" role="tabpanel">
                     <form action="saveCSV" method="POST" enctype="multipart/form-data">
                         <input class="form-group" type="file" name="importCSV" accept=".csv" style="margin-left: 188px; margin-top:20px" onchange="previewFile()">
                         <button class="btn btn-success button-loading" type="submit" id="saveImport" name="saveImport" data-loading-text="Saving..." style="margin-top:10px;width: 90px; margin-right: 5px;" disabled="">Save</button>
@@ -1122,6 +1146,16 @@ li.notification-title{
           
           });
        });
+</script>
+<script type="text/javascript">
+  $("#addcsv").click(function(){
+      $("#addCSV").show();
+      $(".addIndiv").hide();
+  });
+  $("#addStuds").click(function(){
+      $(".addIndiv").show();
+      $("#addCSV").hide();
+  });
 </script>
 
 </html>

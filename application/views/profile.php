@@ -204,9 +204,8 @@
 
 
         .jumbotron{
-            
-            background-color: #800000;
-            padding: 20px 20px !important;
+            background-color: #CA2E32;
+            padding: 10px 10px !important;
             color: #FFFFFF;
             font-size: 1.5em;
             border-radius: 0px !important;
@@ -230,21 +229,20 @@
         .profile-image>img.img-circle{
             width: 150px;
             height: 150px;
-            border: 3px solid #800000;
+            border: 3px solid #b5292d;
         }
         .label-default{
-        background-color:#800000;
+        background-color:#b5292d;
         padding: 5px 10px 5px 10px;
         border-radius: 30px;
         font-size: 1em;
 
         }
         legend{
-            background-color: #800000;
+            background-color: #b5292d;
             margin-bottom: 0px;
             width: auto; 
-            border: 1px solid #915B51;
-            border-radius: 0px; 
+            border-radius: 5px; 
             padding: 5px 5px 5px 10px; 
             color:  #EED090;
             font-size: 20px;
@@ -375,8 +373,37 @@
             width: 50px;
             
         }
-        #third-fieldset{
+       .btn-browse{
+            background-color: #ffba00;
+        }
+        .panel-heading{
+            background: none !important;
+            background-color: #CA2E32 !important;
+            color: #FFFFFF !important;
+        }
+        a{
+            font-size: 15px;
+        }
+        .btn-save{
+        color: #FFFFFF;
+        background:#FFB900;
         
+        }
+        .btn-save:hover{
+        transition: 0.4s;
+        color: #FFFFFF;
+        background-color: #f5b301 !important;
+
+        }
+        .btn-cancel{
+        color:#FFFFFF;
+        background: #800000 !important;
+        
+        }
+        .btn-cancel:hover{
+        color:#FFFFFF;
+        background-color:#760404;
+        transition: 0.4s;
         }
     </style>
 
@@ -388,8 +415,8 @@
           <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
       </div>
        --> 
-       <div class="header">
-            <!-- <div class="container-fluid">
+       <!-- <div class="header">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-4 col-sm-4">
                         <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
@@ -461,15 +488,14 @@
                     <?php endif;?>
                     </div>
 
-                </div> -->
+                </div>
 
-            </div>
+            </div> -->
         </div>
        <div class="content">
-
             <div class="container">
                 <div class="jumbotron">
-                    <label style="color: #FFFFFF;"><span class="fa fa-user" aria-hidden="true"></span> Student Information</label>
+                    <label style="color: #FFFFFF;"><span class="fa fa-user" aria-hidden="true" style="color: #FFFFFF;"></span> Student Information</label>
                 </div>
                 <div class="row">
                     <div class="col-lg-3">
@@ -495,17 +521,39 @@
                                     </div>
                                     <div class="change-photo" style="margin-top: 10px">
                                         <!-- browse -->
-                                        <button class="btn btn-default click-photo" id="btn-browse"><i class="fa fa-picture-o" aria-hidden="true"></i></button>
-                                        <button class="btn btn-default"><i class="fa fa-camera" aria-hidden="true"></i></button>
+                                        <button class="btn btn-default click-photo btn-lg" id="btn-browse"><i class="fa fa-picture-o" aria-hidden="true" ></i></button>
+                                        <button class="btn btn-default btn-lg"><i class="fa fa-camera" aria-hidden="true"></i></button>
                                     </div>
                                    
                                 <form action="saveImage" method="POST" enctype="multipart/form-data">
                                     <input class="browse-photo" type="file" accept="image/*" onchange="previewFile()" name="files" style="display: none;">
                                       <div class="saveCancel" style="margin-top: 10px; display: none;">
+<<<<<<< Updated upstream
                                         <button type="submit" class="btn btn-default" style="width:75px" id="saveBrowse" name="saveBrowse">Save</button>
                                         <button type="button" class="btn btn-default" id="cancelBrowse">Cancel</button>
+=======
+                                        <button type="submit" class="btn btn-save btn-md" style="width:75px" id="saveBrowse" name="saveBrowse">Save</button>
+                                        <button type="button" class="btn btn-cancel btn-md" id="cancelBrowse">Cancel</button>
+>>>>>>> Stashed changes
                                     </div>
                                 </form> 
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 style="text-align: center;">Evaluation</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <h5>Midterm Evaluation</h5>
+                                        <h5>Final Evaluation</h5>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <a href="evaluate/123" target="_new">View <i class="fa fa-external-link" aria-hidden="true"></i></a>
+                                        <a href="finalevaluation/123" target="_new">View <i class="fa fa-external-link" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -664,7 +712,7 @@
                                <button class="btn btn-danger btss" id="cancelss" style="display: none;" type="button">Cancel</button>
                         </p>
                     </fieldset>
-                    <div class="row">
+                  <!--   <div class="row">
                         <div class="col-lg-3"></div>
                              <div class="col-lg-6">
                                 <form class="form-group">
@@ -676,10 +724,9 @@
                                 </form>
                              </div>
                         <div class="col-lg-3"></div>
-
                     </div>
                     <fieldset id="third-fieldset">
-                         <legend><i class="fa fa-users"></i> My Evaluation</legend>
+                         <legend><i class="fa fa-users"></i> My Midterm Evaluation</legend>
                          <label>WORK ATTITUDE(<div class="badge">40</div> points)</label>
                                 <ol>
                                     
@@ -829,21 +876,15 @@
                                 <label for="remark" style="margin:0; padding: 0;" class="pointy">REMARKS</label>
                               
                                     <textarea tabindex="15" name="remarks" id="remark" class="form-control"></textarea>
-                                         </div>
+                            </div>
 
-                    </fieldset>
-
-                    </div>
-
-                    </div>
-
-                </div>
+                
 
             </div>  
 
-        </div>
+        </div> -->
 
-    </div>
+
 
 
     

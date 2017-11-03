@@ -353,13 +353,13 @@ xpopup
             margin-top: 20px;
         }
         
-        .fa-bell-o {
+        .fa-bell {
             cursor: pointer;
-            color: #915B51;
+            color: #7a5230;
         }
         
         .fa-bell:hover {
-            color: #A55D35;
+            color: #7a5230;
         }
         
         
@@ -405,7 +405,8 @@ xpopup
         }
 
         .badge {
-            background: #A55D35;
+            background: #ca2e32;
+            z-index: 1;
         }
         
         .as-all-read {
@@ -477,7 +478,7 @@ xpopup
             border-radius: 20px;
         }
         .logs-title {
-            margin-bottom: 20px;
+            margin-top: 10px;
         }
         
         .btn {
@@ -520,8 +521,6 @@ xpopup
             position: relative;
             left: 70px;
         }
-
-
         #progressEvaluations {
             margin: 20px;
             width: 150px;
@@ -638,6 +637,23 @@ xpopup
       font-size: 20px;
       background-color: #CA2E32 !important;
       background-image: none !important;
+      padding: 10px 10px !important;
+    }
+    .notification-bell{
+      margin-top: -5px;
+    }
+    .dropdown-image{
+      margin-top: -5px;
+    }
+     .badge {
+            background: #ca2e32;
+            z-index: 1;
+        }
+   .btn-bug{
+        background-color: #d96c6f;
+    }
+    .btn-bug:hover{
+        color: #cf4246;
     }
     </style>
     <title>OJT Automate</title>
@@ -667,11 +683,13 @@ xpopup
                         <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
                     </div>
                     <div class="col-lg-6 ">
+                      <section class="notification-bell">
                         <?php if(isset($id_number)):?>
                         <?php else:?>
                         <ul class="nav navbar-nav">
                             <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" id="dropdown-notification" data-toggle="dropdown"><i class="pull-right fa fa-bell-o fa-2x" style="width: 40px; height: 40px; margin-top: 0px;"></i> </a>
+                            <span class="badge" style="position: absolute; left: 50px; top: 8px;">2</span>
+                            <a href="#" class="dropdown-toggle" id="dropdown-notification" data-toggle="dropdown"><i class="pull-right  fa fa-bell fa-2x" style="width: 40px; height: 40px; margin-top: 0px;"></i></a>
                                 
                                 <ul class="dropdown-menu" id="show-notifications" style="position: relative; margin-top:20px; top: -22px; left: -63px; width: 340px;">
                                 
@@ -686,13 +704,11 @@ xpopup
                             </li>
                         </ul>
                     <?php endif;?>
+                    </section>
                     </div>
-                     <?php if(isset($id_number)):?>
-                     <?php else:?>
-                          <span style="position: absolute; top: 20px; right: 120px;">Hi, <?php echo $user_data[0]['first_name']?></span>
-                     <?php endif;?>
-                  
+                    <h4 style="position: absolute; top: 20px; right: 120px;">Hi, <?php echo $user_data[0]['first_name'  ]?></h4>
                     <div class="col-lg-2">
+                      <section class="dropdown-image">
                         <?php if(isset($id_number)):?>
                                <ul class="nav navbar-nav">
                                 
@@ -739,6 +755,7 @@ xpopup
                             </li>
                         </ul>
                     <?php endif;?>
+                      </section>
                     </div>
 
                 </div>
@@ -934,7 +951,7 @@ xpopup
                         <div class="panel-body">
                           <div class="row">
                             <div class="col-lg-8">
-                             <h4>Glenn Michael Torregossa</h4>
+                             <h5>Glenn Michael Torregossa</h5>
                             </div>
                             <div class="col-lg-4">
                               <a href=""><h5 style="text-align: center;">View Profile</h5></a>
@@ -948,9 +965,11 @@ xpopup
                     <?php else:?>
                     <div class="logs-students">
                         <div class="well">
+                          <div class="panel-heading">
                             <div class="logs-title">
                                 <span>Create a log <i class="fa fa-paper-plane-o" aria-hidden="true"></i></span>
                             </div>
+                          </div>  
                             <form class="logs-display" action="addLogs" method="post">
                                 <div class="row logs-upper">
                                     <div class="col-lg-6">
@@ -983,10 +1002,10 @@ xpopup
                                     <textarea name="log_activity" rows="4" id="log_activity" placeholder="Write your log here" class="form-control" required></textarea>
                                 </div>
                                 <div class="form-group logs-lower">
-                                    <button type="submit" id="submit_log" class="btn btn-primary" value="Submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i>Post</button>
-                                    <button type="button" class="btn btn-success" id="load_last_log"><i class="fa fa-history" aria-hidden="true"></i>Load last log</button>
-                                    <button type="reset" class="btn btn-default"><i class="fa fa-eraser" aria-hidden="true"></i>Clear</button>
-                                    <button type="button" class="btn btn-danger cancel-btn" style="float: right;" class="btn btn-danger"><i class="fa fa-ban" aria-hidden="true"></i>Cancel</button>
+                                    <button type="submit" id="submit_log" class="btn btn-primary btn-lg" value="Submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Post</button>
+                                    <button type="button" class="btn btn-success btn-lg" id="load_last_log"><i class="fa fa-history" aria-hidden="true"></i> Load last log</button>
+                                    <button type="reset" class="btn btn-default btn-lg"><i class="fa fa-eraser" aria-hidden="true"></i>Clear</button>
+                                    <button type="button" class="btn btn-danger cancel-btn btn-lg" style="float: right;" class="btn btn-danger"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
                                 </div>
 
                             </form>
