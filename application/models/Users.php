@@ -126,6 +126,7 @@
 
 
 
+
         public function supervisorGetTrainee($company_name,$username){
           $company_name2 = $company_name[0]['company_name'];
         
@@ -630,6 +631,68 @@
             $this->db->where('id',$comment_id);
             $this->db->delete('comments');
          }
+             public function midterm_eval($username){
+                $value = 0;
+                 
+                    if($_POST['allow_view']=true){  
+                   $value = 1;
 
+                    }
+                    $supervisor = $_POST['supervisor_id'];
+                    $a1 =$_POST['enthusiasm'];
+                    $a2 =$_POST['cooperation'];
+                    $a3 =$_POST['adaptability'];
+                    $a4 =$_POST['industriousness'];
+                    $a5 =$_POST['responsibility'];
+                    $a6 =$_POST['attentiveness'];
+                    $a7 =$_POST['grooming'];
+                    $a8 =$_POST['attendance'];
+                    $a9 =$_POST['quality'];
+                    $a10 =$_POST['quantity'];
+                    $a11 =$_POST['dependability'];
+                    $a12 =$_POST['comprehension'];
+                    $a13 =$_POST['safety'];
+                    $a14 =$_POST['waste'];
+                    $remarks = $_POST['remarks'];
+                    $total = $a1+$a2+$a3+$a4+$a5+$a6+$a7+$a8+(($a9+$a10+$a11+$a12+$a13+$a14)*2);    
+                           
+                    $this->db->query("INSERT INTO midterm_evaluation(username,supervisor_username,enthusiasm,cooperation,adaptability,industriousness,responsibility,attentiveness,grooming,
+                        attendance,quality,quantity,dependability,comprehension,
+                        safety,waste,remarks,allow_value,total) VALUES('$username','$supervisor',$a1,$a2,$a3,$a4,$a5,$a6,$a7,$a8,$a9,$a10,$a11,$a12,$a13,$a14,'$remarks',$value,$total)"); 
+
+                    if($this->db->affected_rows()>0){
+                        return true;
+
+
+                    }
+                    else
+                        return false;
+
+         }
+
+       public function checkMidtermEvaluation($username){
+            
+            $query = $this->db->query("SELECT username from midterm_evaluation where supervisor_username ='$username'");
+            
+            return $query->result_array();
+         }
+         public function countTrainees($username){
+            $query = $this->db->query("SELECT count(id_number) as num_trainee from ojt_records where supervisor_id = '$username'");
+
+             return $query->row();
+         }
+         public function evaluatedTrainees($username){
+            $query = $this->db->query("SELECT count(id) as num_id from midterm_evaluation where supervisor_username = '$username'");
+            return $query->row();
+         }
+
+
+        public function getNotVerified($username){
+             return $this->db->query("SELECT count(verified) as not_verified from logs where supervisor_id='$username' AND verified=0")->row();
+
+
+        }
+
+         // public function
 }
 ?>

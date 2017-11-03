@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 30, 2017 at 12:11 PM
+-- Generation Time: Nov 02, 2017 at 01:30 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -42,7 +42,31 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`id`, `name`, `id_number`, `password`, `email`) VALUES
 (1, 'James Bond', '007', '123456', 'bondjames1212@gmail.com'),
-(4, 'Glenn Michael Torregosa', '14-2649-276', '123456', 'gtorregosa@gmail.com');
+(2, 'Glenn Michael Torregosa', '14-2649-276', '123456', 'gtorregosa@gmail.com'),
+(3, 'Madison Ivy', '6969', '123456', 'madisonIvy@gmail.com'),
+(4, 'Laxus Dreyar', '005', '123456', 'laxus.dreyar@gmail.com'),
+(9, 'Maria Ozawa', '1010', '123456', 'maria.ozawa@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `announcements`
+--
+
+CREATE TABLE `announcements` (
+  `id` int(11) NOT NULL,
+  `content` text NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `announcements`
+--
+
+INSERT INTO `announcements` (`id`, `content`, `username`, `status`) VALUES
+(1, 'Meeting tomorrow', '14-2649-276', 0),
+(2, 'Meeting tomorrow at 9', '14-2649-276', 0);
 
 -- --------------------------------------------------------
 
@@ -63,12 +87,7 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `log_id`, `content`, `comment_time`, `supervisor_id`) VALUES
-(1, 13, 'very good', '2017-09-25 11:30:52', '14-111'),
-(2, 13, 'very nice', '2017-09-25 11:30:52', '14-111'),
-(3, 17, 'very good', '2017-09-25 11:30:52', '14-111'),
-(4, 14, 'aaaa', '2017-09-25 13:10:48', '14-111'),
-(5, 14, 'bbb', '2017-09-25 13:10:58', '14-111'),
-(6, 21, 'very goodaaa', '2017-09-30 01:16:40', '14-111');
+(4, 22, 'sugoi\n', '2017-11-02 02:27:59', '14-111');
 
 -- --------------------------------------------------------
 
@@ -120,7 +139,17 @@ INSERT INTO `email` (`id`, `id_number`, `email_address`, `hash`, `status`) VALUE
 (2, '14-2649-276', 'gtorregosa@gmail.com', '8f8e3cac19bc69526d164a93e679685a', 0),
 (3, '14-2649-276', 'bondjames1212@gmail.com', '2ba649a11e9d026d642bdbb36277c5d8', 0),
 (4, '14-2649-276', 'gtorregosa@gmail.com', '8f8e3cac19bc69526d164a93e679685a', 0),
-(5, '14-2649-276', 'gtorregosa@gmail.com', '8f8e3cac19bc69526d164a93e679685a', 0);
+(5, '14-2649-276', 'gtorregosa@gmail.com', '8f8e3cac19bc69526d164a93e679685a', 0),
+(6, '14-2649-276', 'bondjames1212@gmail.com', '2ba649a11e9d026d642bdbb36277c5d8', 0),
+(7, '14-2649-276', 'madisonIvy@gmail.com', '5962636683d3c7576548cc41c196ddee', 0),
+(8, '14-2649-276', 'mouse.bosston@gmail.com', '1192f4a403ffc2aa710d2db77c32636e', 0),
+(9, '14-2649-276', '123456', 'e10adc3949ba59abbe56e057f20f883e', 0),
+(10, '14-2649-276', 'maria.ozawa@gmail.com', '2d368ac59dacd2ab27d48750d2dd13b7', 0),
+(11, '14-2649-276', 'madisonIvy@gmail.com', '5962636683d3c7576548cc41c196ddee', 0),
+(12, '14-2649-276', 'madisonIvy@gmail.com', '5962636683d3c7576548cc41c196ddee', 0),
+(13, '14-2649-276', 'maria.ozawa@gmail.com', '2d368ac59dacd2ab27d48750d2dd13b7', 0),
+(14, '14-2649-276', 'bondjames1212@gmail.coms', '950c27e622a5779d8fbbfdb17eb4acaa', 0),
+(15, '14-2649-276', 'barry.allen@gmail.com', '7e563b7f4fd391e97f6fcf42ec669988', 0);
 
 -- --------------------------------------------------------
 
@@ -194,12 +223,16 @@ CREATE TABLE `logs` (
 --
 
 INSERT INTO `logs` (`id`, `id_number`, `date`, `time_in`, `time_out`, `division`, `department`, `designation`, `log_content`, `hours_rendered`, `verified`, `supervisor_id`) VALUES
-(13, '14-2649-276', '2017-09-25', '23:59:00', '12:55:00', 'aa', 'bb', 'cc', 'aa', 8, 1, '14-111'),
-(14, '14-2649-276', '2017-09-25', '08:00:00', '17:00:00', 'bb', 'bb', 'bb', 'bb', 8, 1, '14-111'),
-(17, '14-2649-276', '2017-09-25', '08:00:00', '17:00:00', 'cc', 'cc', 'cc', 'cc', 8, 1, '14-111'),
-(18, '14-2649-276', '2017-09-25', '08:00:00', '17:00:00', 'dd', 'dd', 'dd', 'dd', 8, 1, '14-111'),
+(13, '14-2649-276', '2017-09-25', '23:59:00', '12:55:00', 'aa', 'aa', 'cc', 'aab', 8, 1, '14-111'),
+(18, '14-2649-276', '2017-09-25', '08:00:00', '17:00:00', 'dd', 'dd', 'dd', 'aaahh', 8, 1, '14-111'),
 (20, '1234', '2017-09-25', '17:00:00', '20:00:00', 'y', 'y', 'y', 'y', 8, 1, '14-111'),
-(21, '14-2649-276', '2017-09-30', '08:00:00', '17:00:00', 'post', 'post', 'post', 'post', 5, 1, '14-111');
+(21, '14-2649-276', '2017-09-30', '08:00:00', '17:00:00', 'post', 'post', 'post', 'post', 5, 1, '14-111'),
+(22, '14-2649-276', '2017-10-22', '08:00:00', '17:00:00', 'lala', 'lala', 'lala', 'lala', 8, 1, '14-111'),
+(24, '14-2649-276', '2017-10-22', '08:00:00', '17:00:00', 'lala2', 'lala2', 'lala2', 'lala2', 8, 0, '14-111'),
+(25, '14-2649-276', '2017-10-22', '08:00:00', '17:00:00', 's', 's', 's', 'asasas', 8, 0, '14-111'),
+(26, '123', '2017-10-22', '08:00:00', '17:00:00', 'a', 'a', 'a', 'a', 8, 0, ''),
+(28, '14-2649-276', '2017-10-22', '08:00:00', '17:00:00', 's', 's', 's', 'asasassasss22222', 8, 0, ''),
+(29, '14-2649-276', '2017-10-22', '08:00:00', '17:00:00', 's', 's', 's', 'asasassasss222', 8, 0, '');
 
 -- --------------------------------------------------------
 
@@ -224,8 +257,8 @@ CREATE TABLE `ojt_records` (
 --
 
 INSERT INTO `ojt_records` (`id`, `id_number`, `total_hours`, `rendered_hours`, `total_evaluations`, `current_evaluations`, `logs`, `logs_verified`, `supervisor_id`) VALUES
-(1, '14-2649-276', 200, 37, 2, 1, 5, 5, '14-111'),
-(2, '123', 200, 0, 2, 0, 0, 0, '14-111'),
+(1, '14-2649-276', 200, 29, 2, 1, 8, 4, '14-111'),
+(2, '123', 200, 0, 2, 0, 1, 0, '14-111'),
 (3, '1234', 200, 8, 2, 0, 1, 1, '14-111');
 
 -- --------------------------------------------------------
@@ -237,6 +270,7 @@ INSERT INTO `ojt_records` (`id`, `id_number`, `total_hours`, `rendered_hours`, `
 CREATE TABLE `personal_details` (
   `id` int(11) NOT NULL,
   `id_number` varchar(255) NOT NULL,
+  `image_id` varchar(256) NOT NULL DEFAULT '<i class="fa fa-user-circle fa-5x" style="font-size: 150px;" aria-hidden="true"></i>',
   `first_name` text NOT NULL,
   `middle_initial` text NOT NULL,
   `last_name` text NOT NULL,
@@ -261,8 +295,9 @@ CREATE TABLE `personal_details` (
 -- Dumping data for table `personal_details`
 --
 
-INSERT INTO `personal_details` (`id`, `id_number`, `first_name`, `middle_initial`, `last_name`, `college`, `course`, `year`, `present_address`, `permanent_address`, `contact_number`, `email_address`, `date_of_birth`, `age`, `marital_status`, `blood_type`, `weight`, `height`, `religion`, `citizenship`) VALUES
-(1, '14-2649-276', 'Glenn', 'P. ', 'Torregosa', 'CCS', 'course', 1, 'cebu', 'cebu', 92122, 'gtorregosa@gmail.com', '2015-12-31', 20, 'Single', 'Type B', 20, 20, 'Catholic', 'Filipino');
+INSERT INTO `personal_details` (`id`, `id_number`, `image_id`, `first_name`, `middle_initial`, `last_name`, `college`, `course`, `year`, `present_address`, `permanent_address`, `contact_number`, `email_address`, `date_of_birth`, `age`, `marital_status`, `blood_type`, `weight`, `height`, `religion`, `citizenship`) VALUES
+(1, '14-2649-276', 'assets/uploads/14-2649-276.jpg', 'Glenn', 'P. ', 'Torregosa', 'CCS', 'course', 1, 'cebu', 'cebu', 92122, 'gtorregosa@gmail.com', '2015-12-31', 20, 'Single', 'Type B', 20, 20, 'Catholic', 'Filipino'),
+(2, '123', '<img src=http://[::1]/thesis/assets/uploads/123.JPG class=\"img-circle\">', 'Peter', 'I.', 'Into', 'CCS', 'BSIT', 4, 'Secret', 'secret sad', 1123123123, 'bodnjames1212@gmail.com', '2017-10-02', 19, 'its complicated', 'secret', 50, 170, 'you are my religion ;)', 'senior');
 
 -- --------------------------------------------------------
 
@@ -272,6 +307,8 @@ INSERT INTO `personal_details` (`id`, `id_number`, `first_name`, `middle_initial
 
 CREATE TABLE `supervisor` (
   `id` int(11) NOT NULL,
+  `image_id` varchar(256) NOT NULL DEFAULT '<i class="fa fa-user-circle pull-right" style="font-size: 40px; margin-top: -5px;" aria-hidden="true"></i>',
+  `imageDisplayToChange` varchar(256) NOT NULL DEFAULT '<i class="fa fa-user-circle fa-5x" style="font-size: 150px;" aria-hidden="true"></i>',
   `name` text NOT NULL,
   `company_name` text NOT NULL,
   `designation` text NOT NULL,
@@ -284,11 +321,14 @@ CREATE TABLE `supervisor` (
 -- Dumping data for table `supervisor`
 --
 
-INSERT INTO `supervisor` (`id`, `name`, `company_name`, `designation`, `id_number`, `password`, `email`) VALUES
-(1, 'Yehye', 'nettrac', 'president', '14-111', '123456', 'email@email.com'),
-(2, 'Jack Sparrow', 'nettrac', 'Manager', '1043', '123456', 'jack.sparrow@gmail.com'),
-(3, 'Peter Andrew', 'Innosoft', 'Technical Support', '14-1893-273', '123456', 'bondjames1212@gmail.com'),
-(4, 'Glenn Michaels', 'nettrac', 'Web Developer', '14-2649-276', '123456', 'gtorregosa@gmail.com');
+INSERT INTO `supervisor` (`id`, `image_id`, `imageDisplayToChange`, `name`, `company_name`, `designation`, `id_number`, `password`, `email`) VALUES
+(1, 'assets/uploads/14-111.jpg', 'assets/uploads/14-111.jpg', 'Yehye', 'nettrac', 'president', '14-111', '123456', 'email@email.com'),
+(2, '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', '<i class=\"fa fa-user-circle fa-5x\" style=\"font-size: 150px;\" aria-hidden=\"true\"></i>', 'Jack Sparrow', 'nettrac', 'Manager', '1043', '123456', 'jack.sparrow@gmail.com'),
+(3, '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', '<i class=\"fa fa-user-circle fa-5x\" style=\"font-size: 150px;\" aria-hidden=\"true\"></i>', 'Peter Andrew', 'Innosoft', 'Technical Support', '14-1893-273', '123456', 'bondjames1212@gmail.com'),
+(4, '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', '<i class=\"fa fa-user-circle fa-5x\" style=\"font-size: 150px;\" aria-hidden=\"true\"></i>', 'Glenn Michaels', 'nettrac', 'Web Developer', '14-2649-276', '123456', 'gtorregosa@gmail.com'),
+(5, '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', '<i class=\"fa fa-user-circle fa-5x\" style=\"font-size: 150px;\" aria-hidden=\"true\"></i>', 'Razer Mantis', 'nettrac', 'Speed', '009', '123456', 'bondjames1212@gmail.com'),
+(6, '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', '<i class=\"fa fa-user-circle fa-5x\" style=\"font-size: 150px;\" aria-hidden=\"true\"></i>', 'Mouse Bosston', 'nettrac', 'Technical Manager', '003', '123456', 'mouse.bosston@gmail.com'),
+(7, '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', '<i class=\"fa fa-user-circle fa-5x\" style=\"font-size: 150px;\" aria-hidden=\"true\"></i>', 'Barry Allen', 'Star Labs', 'The Flash', '6767', '123456', 'barry.allen@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -299,6 +339,7 @@ INSERT INTO `supervisor` (`id`, `name`, `company_name`, `designation`, `id_numbe
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `id_number` varchar(255) NOT NULL,
+  `user_image` varchar(256) NOT NULL DEFAULT '<i class="fa fa-user-circle pull-right" style="font-size: 40px; margin-top: -5px;" aria-hidden="true"></i>',
   `first_name` text NOT NULL,
   `middle_initial` text NOT NULL,
   `last_name` text NOT NULL,
@@ -310,12 +351,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `id_number`, `first_name`, `middle_initial`, `last_name`, `account_type`, `password`) VALUES
-(1, '14-2649-276', 'Glenn Michael', 'P.', 'Torregosa', 0, '123456'),
-(2, '14-111', 'admin', 'admin', 'admin', 1, '123456'),
-(3, '111', 'adminsuper', 'adminsuper', 'adminsuper', 2, '123456'),
-(4, '123', 'Peter', 'I.', 'Into', 0, '123456'),
-(5, '1234', 'renato', 'maoy', 'manalili', 0, '123456');
+INSERT INTO `users` (`id`, `id_number`, `user_image`, `first_name`, `middle_initial`, `last_name`, `account_type`, `password`) VALUES
+(1, '14-2649-276', 'assets/uploads/14-2649-276.jpg', 'Glenn Michael', 'P.', 'Torregosa', 0, '123'),
+(4, '123', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'Peter', 'I.', 'Into', 0, '123456'),
+(5, '1234', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'renato', 'maoy', 'manalili', 0, '123456');
 
 -- --------------------------------------------------------
 
@@ -334,10 +373,10 @@ CREATE TABLE `watchlist` (
 --
 
 INSERT INTO `watchlist` (`id`, `company_name`, `company_id`) VALUES
-(1, 'nettrac', NULL),
-(2, 'innosoft', NULL),
-(3, 'nettrac', NULL),
-(4, 'Innosoft Heh', NULL);
+(1, 'innosoft', NULL),
+(3, 'iTech-Rar', NULL),
+(5, 'Real Steel Inc.', NULL),
+(6, 'Grimoire Heart ', NULL);
 
 --
 -- Indexes for dumped tables
@@ -347,6 +386,12 @@ INSERT INTO `watchlist` (`id`, `company_name`, `company_id`) VALUES
 -- Indexes for table `admin`
 --
 ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `announcements`
+--
+ALTER TABLE `announcements`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -423,12 +468,17 @@ ALTER TABLE `watchlist`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT for table `announcements`
+--
+ALTER TABLE `announcements`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `company_information`
 --
@@ -438,7 +488,7 @@ ALTER TABLE `company_information`
 -- AUTO_INCREMENT for table `email`
 --
 ALTER TABLE `email`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `emergency_details`
 --
@@ -453,7 +503,7 @@ ALTER TABLE `family_details`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT for table `ojt_records`
 --
@@ -463,12 +513,12 @@ ALTER TABLE `ojt_records`
 -- AUTO_INCREMENT for table `personal_details`
 --
 ALTER TABLE `personal_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `supervisor`
 --
 ALTER TABLE `supervisor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `users`
 --
@@ -478,7 +528,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `watchlist`
 --
 ALTER TABLE `watchlist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;COMMIT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -6,7 +6,7 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -212,45 +212,45 @@
                                         </div>
 
                                     <div class="col-lg-6">
-                                        <form method="post">
+                                        <form method="post" id="formy"  name="mid_ev">
                                          
                                          <fieldset style="float: right;">
-                                             <input tabindex="1" maxlength="1" type="text" name="enthusiasm" class="score">
-                                            <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Enthusiasm / Eagerness to Learn" data-content="Confident to learn new tasks / assignments." tabindex="0" data-trigger="focus">
+                                             <input tabindex="1" maxlength="1" type="text" name="enthusiasm"  onkeyup="scoreTotal()" id="enthusiasm" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+                                            <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Enthusiasm / Eagerness to Learn" data-content="Confident to learn new tasks / assignments." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a>
                                              <br>
-                                             <input tabindex="2"  maxlength="1" type="text" name="cooperation" class="score">  
-                                             <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Cooperation and Willingness" data-content="Readiness to accept and carry out instructions and assignments; works well with others; shows support and concerns for co-workers." tabindex="0" data-trigger="focus">
+                                             <input tabindex="2"  maxlength="1" type="text" name="cooperation" onkeyup="scoreTotal()" id="cooperation" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>  
+                                             <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Cooperation and Willingness" data-content="Readiness to accept and carry out instructions and assignments; works well with others; shows support and concerns for co-workers." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a><br>
-                                             <input tabindex="3" maxlength="1" type="text" name="adaptability" class="score">
-                                                   <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Adaptability and Sociability" data-content="Ability to adjust to a new environment and be at ease with others; ability to deal with people of different levels/ positions; amiable and friendly with others and knows how to respect authority." tabindex="0" data-trigger="focus">
+                                             <input tabindex="3" maxlength="1" type="text" name="adaptability" onkeyup="scoreTotal()" id="adaptability" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+                                                   <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Adaptability and Sociability" data-content="Ability to adjust to a new environment and be at ease with others; ability to deal with people of different levels/ positions; amiable and friendly with others and knows how to respect authority." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a>
                                              </i><br>
-                                             <input tabindex="4" maxlength="1" type="text" name="industriousness" class="score"> 
-                                             <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Industriousness and Initiative" data-content="Constant worker / keeps himself busy with initiative; does not take unauthorized breaks; initiates action when the situation calls for it." tabindex="0" data-trigger="focus">
+                                             <input tabindex="4" maxlength="1" type="text" name="industriousness" onkeyup="scoreTotal()" id="industriousness" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required> 
+                                             <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Industriousness and Initiative" data-content="Constant worker / keeps himself busy with initiative; does not take unauthorized breaks; initiates action when the situation calls for it." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a>
                                              <br>
-                                             <input tabindex="5" maxlength="1" type="text" name="responsibility" class="score">
+                                             <input tabindex="5" maxlength="1" type="text" name="responsibility" onkeyup="scoreTotal()" id="responsibility" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
 
-                                               <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Sense of Responsibility" data-content="Applies sound judgement / decision making." tabindex="0" data-trigger="focus">
+                                               <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Sense of Responsibility" data-content="Applies sound judgement / decision making." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a><br>
-                                             <input tabindex="6"  maxlength="1" type="text" name="attentiveness" class="score">
-                                              <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Attentiveness / Attention" data-content="Focuses on his/her work / gives full attention to what he/she is doing; ability to handle unexpected problems; carry-out instructions / assignments at once." tabindex="0" data-trigger="focus">
+                                             <input tabindex="6"  maxlength="1" type="text" name="attentiveness" class="score" onkeyup="scoreTotal()" id="attentiveness" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+                                              <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Attentiveness / Attention" data-content="Focuses on his/her work / gives full attention to what he/she is doing; ability to handle unexpected problems; carry-out instructions / assignments at once." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a><br>
-                                             <input tabindex="7" maxlength="1" type="text" name="grooming" class="score">
-                                             <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Personal Grooming" data-content="Maintains proper way of dressing marked by proper conduct, tidiness, and well-grooming; lively and well-spirited during at work and at rest." tabindex="0" data-trigger="focus">
+                                             <input tabindex="7" maxlength="1" type="text" name="grooming" onkeyup="scoreTotal()" id="grooming" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+                                             <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Personal Grooming" data-content="Maintains proper way of dressing marked by proper conduct, tidiness, and well-grooming; lively and well-spirited during at work and at rest." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a>
                                              
                                              <br>
-                                             <input tabindex="8" maxlength="1" type="text" name="attendance" class="score">                           
-                                                <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Attendance" data-content="Reports to work regurlarly and on time and uses time wisely and productively." tabindex="0" data-trigger="focus">
+                                             <input tabindex="8" maxlength="1" type="text" name="attendance" onkeyup="scoreTotal()" id="attendance" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>                           
+                                                <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Attendance" data-content="Reports to work regurlarly and on time and uses time wisely and productively." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a><br>
                                         </fieldset>
@@ -281,41 +281,38 @@
                                          </div>
                                          <div class="col-lg-6">
                                             <fieldset style="float: right;">
-                                                <input tabindex="9" maxlength="1" type="text" name="quality" class="score">
-                                                    <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Quality of Work" data-content="Thoroughness, accuracy, neatness and effectiveness of output, meets required standards and even exceeds expected results." tabindex="0" data-trigger="focus">
+                                                <input tabindex="9" maxlength="1" type="text" name="quality" onkeyup="scoreTotal()" id="quality" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+                                                    <a role="button" class="clicky" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Quality of Work" data-content="Thoroughness, accuracy, neatness and effectiveness of output, meets required standards and even exceeds expected results." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a>
                                                 <br>
-                                                <input tabindex="10" maxlength="1" type="text" name="quantity" class="score">
-                                                      <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Quantity of Work" data-content="Able to complete work within the alloted time, finishes work on schedule and maximizes use of tme." tabindex="0" data-trigger="focus">
+                                                <input tabindex="10" maxlength="1" type="text" name="quantity" onkeyup="scoreTotal()" id="quantity" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+                                                      <a role="button" class="clicky" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Quantity of Work" data-content="Able to complete work within the alloted time, finishes work on schedule and maximizes use of tme." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a>
                                                 <br>
-                                                <input tabindex="11" maxlength="1" type="text" name="dependability" class="score">
-                                                      <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Dependability" data-content="Ability to work with minimum supervision, does not need constant follow-up." tabindex="0" data-trigger="focus">
+                                                <input tabindex="11" maxlength="1" type="text" name="dependability" onkeyup="scoreTotal()" id="dependability" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+                                                      <a role="button" class="clicky" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Dependability" data-content="Ability to work with minimum supervision, does not need constant follow-up." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a>
                                                 <br>
-                                                <input tabindex="12" maxlength="1" type="text" name="comprehension" class="score">
-                                                      <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Comprehension" data-content="Understand instructions at once with almost no clarification." tabindex="0" data-trigger="focus">
+                                                <input tabindex="12" maxlength="1" type="text" name="comprehension" onkeyup="scoreTotal()" id="comprehension" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+                                                      <a role="button" class="clicky" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Comprehension" data-content="Understand instructions at once with almost no clarification." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a>
                                                 <br>
-                                                <input tabindex="13" maxlength="1" type="text" name="safety" class="score">
-                                                  <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Safety Consciousness" data-content="Carefully takes precaution and observe visible hazards; follow safety rules and reads instructions prior to working." tabindex="0" data-trigger="focus">
+                                                <input tabindex="13" maxlength="1" type="text" name="safety" onkeyup="scoreTotal()" id="safety" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+                                                  <a role="button" class="clicky" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Safety Consciousness" data-content="Carefully takes precaution and observe visible hazards; follow safety rules and reads instructions prior to working." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a>
                                                 <br>
-                                                <input tabindex="14" maxlength="1" type="text" name="waste" class="score">
-                                                     <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Waste Consciousness" data-content="Shows concerns of company facilities; handles tools and equipment carefully; keeps equipment, tools, materials and work area clean and well-kept; proper use and disposal of materials." tabindex="0" data-trigger="focus">
+                                                <input tabindex="14" maxlength="1" type="text" name="waste" onkeyup="scoreTotal()" id="waste" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+                                                     <a role="button" class="clicky" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Waste Consciousness" data-content="Shows concerns of company facilities; handles tools and equipment carefully; keeps equipment, tools, materials and work area clean and well-kept; proper use and disposal of materials." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a>
                                                 <br>
                                             </fieldset>
                                          </div>
-
-                                         <?php //echo '<pre>'; var_dump($_POST); echo '</pre>';    ?>
-
                                     </div>
                                    
                                 </ol>
@@ -325,7 +322,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <fieldset style="float: right;">
-                                            <input type="text" name="" class="score" style="margin-right: 25px; margin-top: 20px;" readonly> 
+                                            <input type="text" name="total" class="score" id="total" style="margin-right: 25px; margin-top: 20px;" readonly> 
                                          </fieldset>
                                     </div>
                                 </div>
@@ -338,8 +335,11 @@
                                     </div>
                                    
                                     <p style="text-align: center; padding-top: 30px;">
-                                        <button type="submit" class="btn save">Submit</button>
-                                        <button type="button" class="btn cancel">Cancel</button>
+
+                                        <input type="hidden" name="supervisor_id" value="<?php echo $this->session->userdata('id_number'); ?>">
+                                        <button type="submit" class="btn btn-success" id="btn_submit" name="midterm_eval">Submit</button>
+                                        <button type="button" class="btn btn-danger">Cancel</button>
+
                                     </p>
                                 </form>
 
@@ -358,15 +358,33 @@
        
 </body>
 
+
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('#login-trigger').click(function() {
-            $(this).next('#login-content').slideToggle();
-            $(this).toggleClass('active');
-            if ($(this).hasClass('active')) $(this).find('span').html('&#x25B2;')
-            else $(this).find('span').html('&#x25BC;')
-        })
-    });
+    function scoreTotal(){
+ var i1 = Number(document.getElementById('enthusiasm').value);
+ var i2 = Number(document.getElementById('cooperation').value);
+ var i3 = Number(document.getElementById('adaptability').value);
+ var i4 = Number(document.getElementById('industriousness').value);
+ var i5 = Number(document.getElementById('responsibility').value);
+ var i6 = Number(document.getElementById('attentiveness').value);
+ var i7 = Number(document.getElementById('grooming').value);
+ var i8 = Number(document.getElementById('attendance').value);
+ var i9 = Number(document.getElementById('quality').value);
+ var i10 = Number(document.getElementById('quantity').value);
+ var i11= Number(document.getElementById('dependability').value);
+ var i12 = Number(document.getElementById('comprehension').value);
+ var i13= Number(document.getElementById('safety').value);
+ var i14= Number(document.getElementById('waste').value);
+
+  
+ document.getElementById('total').value = i1+i2+i3+i4+i5+i6+i7+i8+((i9+i10+i11+i12+i13+i14)*2);
+
+
+    }
+ 
+   
+
+    
 </script>
 <script type="text/javascript">
     $('input').change(function(){
@@ -376,8 +394,29 @@
             $(this).val('');
         }
     });
-       $(function () {
-  $('[data-toggle="popover"]').popover()
-})
+
 </script>
+<script type="text/javascript">
+  $('#btn_submit').click(function(){ 
+        var data = $('#formy').serialize();
+        //alert(data);
+        $.ajax({
+            url:"<?php echo base_url()?>main/insert_mid_eval/<?php echo $stud_username;?>",
+            type:"POST",
+            data:data,
+            success:function(data){
+                console.log(data);
+            }
+        });
+
+        swal({
+                    title: "Evaluation Submitted",
+                    icon:"success",
+                }).then(function(){
+                   window.location.href = "<?php echo base_url()?>main/supervisorDashboard";
+                });return false;
+  
+  });
+</script>
+
 </html>

@@ -132,11 +132,14 @@ class Main extends CI_Controller {
 	{
 		$this->users->hello();
 	}
-	public function evaluate(){
+	public function evaluate($username){
 		if(!isset($this->session->userdata['id_number'])){
           header("location: index");
          
-      	} $this->load->view('evaluate');
+      	} 
+		$data['stud_username'] = $username;
+
+      	$this->load->view('evaluate',$data);
 		/*else{
      		$account_type = $this->users->getAccountType(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number']: '');
      		if($account_type[0]['account_type'] == 0){
@@ -157,14 +160,17 @@ class Main extends CI_Controller {
           header("location: index");
      	}else{
      		$data['comments'] = $this->users->getComments();
+     				$data['evaluated']=$this->users->checkMidtermEvaluation($this->session->userdata('id_number'));
      		$company_name = $this->users->getCompanySupervisor($this->session->userdata['id_number']);
      		$data['supervisorAddOjt'] = $this->users->supervisorGetTrainee($company_name,$this->session->userdata['id_number']);
      		$data['ojtRecords'] = $this->users->getOjtRecordsForSupervisor($this->session->userdata['id_number']);
-
+     		$data['num_trainees'] = $this->users->countTrainees($this->session->userdata('id_number'));
      		$data['traineesLog'] = $this->users->getOjtLogs($this->session->userdata['id_number']);
      		$data['supImage'] = $this->users->supervisorImage($this->session->userdata['id_number']); 
+     		$data['eval_trainees'] = $this->users->evaluatedTrainees($this->session->userdata('id_number'));
+     		$data['not_verified'] = $this->users->getNotVerified($this->session->userdata('id_number'));
      		$this->load->view('supervisor-dashboard', $data);
-			
+				
 				
 			
 		}
@@ -558,4 +564,22 @@ public function logout(){
    	public function deleteComment(){
    		$this->users->deleteComment();
    	}
+   	  public function insert_mid_eval($username){ 	
+   	  	//print_r($_POST);exit;
+    	if($this->users->midterm_eval($username)){
+    		//redirect(base_url('main/supervisorDashboard'));
+    		//echo "success";
+    		 // $stud_name = $this->db->query("SELECT * from users INNER JOIN midterm_evaluation on users.id_number = midterm_evaluation.username where midterm_evaluation.username = '$username'")->row();
+
+    		 // echo $stud_name->first_name;
+    		$Status = '<div class="alert alert-success">You have evaluated '.$username.'</div>';
+    		//$Status = "You have evaluated ".$username;
+    		$this->session->set_flashdata("Status",$Status);
+
+    	}
+    	else{
+    		echo 'failed';
+    	}
+
+    }
 }

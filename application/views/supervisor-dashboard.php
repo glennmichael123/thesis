@@ -379,6 +379,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
+                        <?php echo $this->session->flashdata('Status'); ?>
                         <div class="jumbotron">Dashboard
                             <button class="btn btn-trainee" style="float: right;" data-target="#addtraineeModal" data-toggle="modal">+Trainee</button>
                         </div>
@@ -395,43 +396,66 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <h4 style="text-align: center; margin-bottom: 10px;">Trainees Completed</h4>
+                                    <!-- if --><?php if(empty($eval_trainees->num_id) && empty($num_trainees->num_trainee)):?>
+                                    <!-- no studs -->
+                                    <span class="skill"><?php echo "No Trainees Yet";?></span>  
+                                    <!-- else -->
+                                <?php else:?>
                                     <div class="progress skill-bar">
 
-                                        <div class="progress-bar progress-bar-first" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-                                            <span class="skill">3/5</span>
+                                        <div class="progress-bar progress-bar-first" role="progressbar" aria-valuenow="<?php echo  ($eval_trainees->num_id/$num_trainees->num_trainee )*100;?>" aria-valuemin="0" aria-valuemax="100">
+                                            <span class="skill"><?php echo $eval_trainees->num_id .'/'. $num_trainees->num_trainee;?></span>  
                                         </div>
                                     </div>
+                                    <!-- endif -->
+                                <?php endif;?>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-lg-12">
                                     <h4 style="text-align: center; margin-bottom: 10px;">Evaluations</h4>
+                                    <!-- if --><?php if(empty($eval_trainees->num_id) && empty($num_trainees->num_trainee)):?>
+                                    <!-- no stud -->
+                                     <span class="skill"><?php echo "No Evaluations Yet";?></span>  
+                                    <!-- else -->
+                                     <?php else:?>
                                     <div class="progress skill-bar">
 
-                                        <div class="progress-bar progress-bar-second" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                            <span class="skill">2/10</span>
+                                        <div class="progress-bar progress-bar-second" role="progressbar" aria-valuenow="<?php echo  ($eval_trainees->num_id/($num_trainees->num_trainee*2))*100;?>" aria-valuemin="0" aria-valuemax="100">
+                                            <span class="skill"><?php echo $eval_trainees->num_id .'/'. $num_trainees->num_trainee*2;?></span>
                                         </div>
                                     </div>
+                                    <!-- endif -->
+                                         <?php endif;?>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-lg-12">
                                     <h4 style="text-align: center; margin-bottom: 10px;">Pending logs</h4>
+                                    <?php if(empty($eval_trainees->num_id) && empty($num_trainees->num_trainee)):?>
+                                    <!-- if -->
+                                    <span class="skill"><?php echo "No Logs Added";?></span>  
+                                    <!-- else -->
+                                    <?php else:?>
                                     <div class="progress skill-bar">
 
                                         <div class="progress-bar progress-bar-third" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                                            <span class="skill">10</span>
+                                            <span class="skill"><?php echo $not_verified->not_verified;?></span>
                                         </div>
                                     </div>
+                                    <!-- endif -->
+                                     <?php endif;?>
                                 </div>
                             </div>
                         </div>
 
                         <div class="well">
                                 <h4 style="text-align: center; color: #000;">Trainees</h4>
-
+                                <?php if(empty($ojtRecords)):?>
+                                    <span class="skill"><?php echo "No Trainees Yet";?></span>
+                                     <?php else:?>
                                 <table style="width: 100%;">
                                     <thead>
                                         <tr>
@@ -444,14 +468,19 @@
                                             <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
                                             <?php if($student['rendered_hours'] < 50):?>
                                                 <td><a href="#" class="evaluate-btn" disabled>Evaluate</a></td>
+
                                             <?php else:?>
+                                                <?php if(in_array($student['id_number'], array_column($evaluated, 'username'))):?>
+                                                 <td><i class="fa fa-check" aria-hidden="true"></i></td>           
+                                                <?php else:?>
                                             <td><a href="<?php echo base_url()?>main/evaluate/<?php echo $student['id_number']?>" class="btn btn-default evaluate-btn">Evaluate</a></td>
+                                        <?php endif;?>
                                             <?php endif;?>
                                         </tr>
                                     <?php endforeach;?>
                                     </tbody>
                                 </table>
-
+                                     <?php endif;?>
                         </div>
                     </div>
 
@@ -916,6 +945,8 @@
             }
         });
     });
+</script>
+
 </script>
 
 </html>
