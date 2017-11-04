@@ -25,9 +25,6 @@ class Main extends CI_Controller {
         $this->load->helper('url');
         $this->load->model('users');
         $this->load->library('session');
-   
-       	
-
     }
   
      public function page1(){
@@ -537,5 +534,13 @@ public function logout(){
 
    	public function addStudent(){
    		$this->users->addStud();
+   	}
+
+   	public function deleteStudent(){
+   		
+   		foreach ($_POST['usernames'] as $username){
+   			$this->users->delStud($username);
+   		}
+   		return redirect(base_url('main/admindashboard'));
    	}
 }

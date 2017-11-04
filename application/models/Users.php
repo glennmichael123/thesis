@@ -5,6 +5,10 @@
         {
                 $this->load->database();
                 $this->load->library('session');
+
+                 // added by peter gwapo ah sku
+                $this->load->helper('form');
+
                 parent::__construct();      
         }
 
@@ -164,7 +168,7 @@
         // }
 
          public function getStudentList(){
-            $query = $this->db->query("SELECT * FROM personal_details INNER JOIN ojt_records ON personal_details.id_number = ojt_records.id_number");
+            $query = $this->db->query("SELECT * FROM users INNER JOIN personal_details ON users.id_number = personal_details.id_number INNER JOIN ojt_records ON personal_details.id_number = ojt_records.id_number WHERE status!='DELETED'");
             return $query->result_array();
          }
 
@@ -588,5 +592,11 @@
                 return $this->db->query("INSERT INTO users (id_number,first_name,middle_initial,last_name,password) VALUES('".$username."','".$first."','".$mid."','".$last."','".$password."')");
             }
          }
+
+        //delete student
+         public function delStud($username){
+            $this->db->query("UPDATE users SET status='DELETED' WHERE id_number='".$username."'");
+         }
+
 }
 ?>

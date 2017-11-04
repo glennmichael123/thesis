@@ -291,7 +291,7 @@
                                     <li><a href="#">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                     <li class="divider"></li>
 
-                                    <li><a href="#" data-toggle="modal" data-target="#changeImage">Change profile image<i class="fa fa-picture-o pull-right" aria-hidden="true"></i></a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#changeImage">Change photo<i class="fa fa-picture-o pull-right" aria-hidden="true"></i></a></li>
                                     <li class="divider"></li>
 
                                     <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
@@ -578,7 +578,7 @@
             <div class="modal-content" style="border-radius: 12px">
                 <div class="modal-header" style="background-color: #d32f2f;border-radius: 10px 10px 0 0">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    <h3 class="modal-title" id="lineModalLabel" style="color:white">Change image</h3>
+                    <h3 class="modal-title" id="lineModalLabel" style="color:white">Change photo</h3>
                 </div>
                 <div class="modal-body">
                     <!-- content goes here -->

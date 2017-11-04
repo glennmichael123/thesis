@@ -461,107 +461,77 @@ li.notification-title{
            <div class="container">
                 <div class="well dashboard-search">
                     <div class="row">
+                        <!-- <div class="col-lg-4" >
+                          <input type="search" placeholder="Search trainee" id="search_students" name="search_students" class="form-control"> <i class="fa fa-search"></i>
+                        </div> -->
                         <div class="col-lg-4">
-                          <input type="search" placeholder="Search trainee" id="search_students" name="search_students" class="form-control">  <i class="fa fa-search"></i>
-                        </div>
-                        <div class="col-lg-3">
-                            <select class="form-control">
-                                <option selected disabled>Course</option>
+                            <select class="form-control" id="course_option">
+                                <option value="courseDefault" selected disabled>Course</option>
                                 <option>All</option>
                                 <option>BSIT</option>
                                 <option>BSCS</option>
                             </select>
                         </div>
+                        <div>
+                            <div class="col-lg-4">
+                             <select class="form-control" id="eval_option">
+                                <option value="evalDefault" selected disabled>Evaluations</option>
+                                <option>All</option>
+                                <option>0</option>
+                                <option>1</option>
+                                <option>2</option>
+                            </select>
+                        </div>
                         <div class="col-lg-3">
-                             <select class="form-control">
-                                <option selected disabled>Status</option>
+                             <select class="form-control" id="status_option">
+                                <option value="statDefault" selected disabled>Status</option>
                                 <option>All</option>
                                 <option>On Going</option>
                                 <option>Completed</option>
                             </select>
                         </div>
-                        <div>
-                            <div class="col-lg-2">
-                             <select class="form-control">
-                                <option selected disabled>Evaluations</option>
-                                <option>None</option>
-                                <option>1</option>
-                                <option>2</option>
-                            </select>
+                        <div class="col-lg-1">
+                             <button class="btn btn-default" id="disp"><i class="fa fa-refresh" aria-hidden="true" style="color:#7f715a"></i></button>
                         </div>
+                        
                         </div>
 
                     </div>
                     <div class="well dashboard-list">
-                      <table id="adminDataTable" class="table table-striped table-bordered" cellspacing="0" width="100%" style="font-size: 13px;">
-                              <thead>
-                                  <tr style="background-color: #f44336; color:white;">
-                                      <th>Name</th>
-                                      <th>Course</th>
-                                      <th>Evaluations</th>
-                                      <!-- <th>Profile</th>
-                                      <th>Dashboard</th> -->
-                                      <th>Actions</th>
-                                      <th>Status</th>
-                                  </tr>
-                              </thead>
-                             <!--  <tfoot>
-                                  <tr>
-                                      <th>Name</th>
-                                      <th>Course</th>
-                                      <th>Evaluations</th>
-                                      <th>Profile</th>
-                                      <th>Dashboard</th>
-                                      <th>Status</th>
-                                  </tr>
-                              </tfoot> -->
-                              <tbody>
-                                <?php foreach($student_list as $student):?>
-                                    <tr class="dashTable">
-                                        <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
-                                        <td><?php echo $student['course']?></td>
-                                        <td><?php echo $student['current_evaluations']?></td>
-                                        <td style="text-align: center"><a class="btn btn-success view-student-options" href="dashboard?id=<?php echo 2;?>" style="width: 90px">Profile</a> <a class="btn btn-warning view-student-options" href="studentDashboard/<?php echo $student['id_number']?>">Dashboard</a></td>
-                                        <td style="color:#f44336;">On going</td>
-                                    </tr>
-                                <?php endforeach;?>
-                            </tbody>
-                        </table>
-                       <!--  <div class="row">
-                            <div class="col-lg-4"> <h4 style="padding-bottom: 20px;margin-left: 20px">Name</h4></div>
-                            <div class="col-lg-1"> <h4 style="padding-bottom: 20px;">Course</h4></div>
-                            <div class="col-lg-1"> <h4 style="padding-bottom: 20px;">Evaluations</h4></div>
-                            <div class="col-lg-2"> <h4 style="padding-bottom: 20px;">Profile</h4></div>
-                            <div class="col-lg-2"> <h4 style="padding-bottom: 20px;">Dashboard</h4></div>
-                            <div class="col-lg-2"> <h4 style="padding-bottom: 20px;">Status</h4></div>
-                             
-                        </div> -->
-                            
-                        <?php foreach($student_list as $student):?>
-                        <div class="student-list" style="padding: 10px 10px 10px 10px; margin-bottom: 0px;">
-                            <!-- <div class="row">
-                                <div class="col-lg-2 nameList" style="color: black; font-size: 13px;" value="<?php echo $student['first_name'] . " " . $student['last_name']?>">
-                                    <?php echo $student['first_name'] . " " . $student['last_name']?>
-                                </div>
-                                <div class="col-lg-2 view-student-options">
-                                   <?php echo $student['course']?>
-                                </div>
-                                <div class="col-lg-2 view-student-options">
-                                   Evaluations
-                                </div>
-                                <div class="col-lg-2 view-student-options">
-                                    <a class="view-student-options" href="dashboard?id=<?php echo 2;?>">Profile</a>
-                                </div>
-                                <div class="col-lg-2 view-student-options">
-                                    <a class="view-student-options" href="studentDashboard/<?php echo $student['id_number']?>" style="margin-left: 10px">Dashboard</a>
-                                </div>
-                                <div class="col-lg-2 view-student-options">
-                                    Status
-                                </div>
-                            </div> -->
-                        </div>
-                    <?php endforeach;?>
-                    </div>
+                      
+                      <!-- <form action="deleteStudent" method="POST" name="formDel"> -->
+                            <table id="adminDataTable" class="table table-striped table-bordered" cellspacing="0" width="100%" style="font-size: 13px;">
+                                    <thead>
+                                        <tr style="background-color: #f44336; color:white;">
+                                            <th style="text-align: center;width: 45px"><input type="checkbox" id="checkall"></th>
+                                            <th>Name</th>
+                                            <th>Course</th>
+                                            <th>Evaluations</th>
+                                            <th>Actions</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                      <?php foreach($student_list as $student):?>
+                                          <tr class="dashTable">
+                                              <td style="text-align: center;width: 45px"><input type="checkbox" class="checkitem" value="<?php echo $student['id_number']?>" name="usernames[]"></td>
+                                              <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
+                                              <td><?php echo $student['course']?></td>
+                                              <td><?php echo $student['current_evaluations']?></td>
+                                              <td style="text-align: center"><a class="btn btn-success view-student-options" href="dashboard?id=<?php echo 2;?>" style="width: 90px">Profile</a> <a class="btn btn-warning view-student-options" href="studentDashboard/<?php echo $student['id_number']?>">Dashboard</a></td>
+                                              <?php if ($student['rendered_hours'] >= $student['total_hours'] && $student['current_evaluations'] == 2):?>
+                                                  <td style="color:green;">Completed</td>
+                                                <?php else :?>
+                                                  <td style="color:#f44336;">On going</td>
+                                              <?php endif;?>
+                                          </tr>
+                                      <?php endforeach;?>
+                                  </tbody>
+                              </table>
+                              <div><button type="button" class="btn btn-warning" id="btnDelete"><span class="glyphicon glyphicon-trash"></span> Delete Selected Item(s)</button> </div>
+                        <!-- </form> -->
+                    </div><!-- end of well -->
                 </div>
            </div>
         </div>
@@ -789,26 +759,162 @@ li.notification-title{
 
 </body>
 <!-- FILTER RESULTS -->
-<!-- <script>
-  $(document).ready(function(){
-    $("#search_students").on("keyup", function() {
-      var value = $(this).val().toLowerCase();
-      $("#filterResults div").filter(function(){
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+<script type="text/javascript">
+   $(document).ready(function(){
+      var table = $('#adminDataTable').DataTable({
+        "bProcessing": true,
+        "order": [[1, 'asc']],
+        "columns": [{"targets": 0, "orderable": false },null,null,null,null,null],
+        //ajax:"data.json"
       });
-    });
+
+      $('select').change(function(){
+        var course = $('#course_option').val();
+        var eval = $('#eval_option').val();
+        var stat = $('#status_option').val();
+        if(course == null || course == "All"){
+          course ="";
+        }
+        if(eval == null || eval == "All"){
+          eval ="";
+        }
+        if(stat == null || stat == "All"){
+          stat ="";
+        }
+        var search = course+" "+eval+" "+stat;
+        table.search(search).draw();
+      });
+
+      $('#checkall').change(function(){
+          $('.checkitem').prop("checked",$(this).prop("checked"));
+      });
+
+      /*Refresh button*/
+      $('#disp').click(function(){
+          $('#course_option').val("courseDefault");
+          $('#eval_option').val("evalDefault");
+          $('#status_option').val("statDefault");
+          var search = "";
+          table.search(search).draw();
+      });
+
+      $('#btnDelete').click(function(e){ 
+        var checks = document.getElementsByName("usernames[]");
+        var dataUsername = $("input[type='checkbox']:checked").serialize().replace(/%5B%5D/g, '[]');
+        var confirm = null;
+        for (var i=0; i < checks.length; i++) {
+          if(checks[i].checked == true){
+            confirm = "yes";break;
+          }
+        }
+        if(confirm == "yes"){
+            swal({
+              title: "Are you sure?",
+              icon: "warning",
+              buttons: true,
+              buttons: ["No", "Yes"],
+              dangerMode: true,
+            })
+            .then((willDelete) => {
+              if (willDelete) {
+                $.ajax({
+                  url: "deleteStudent",
+                  type: "POST",
+                  data:dataUsername,
+                  success: function(data){
+                    //console.log(data);return false;
+                    //table.ajax.reload();
+                    location.reload(true);
+                  }
+                });
+              }
+              else{
+                e.preventDefault();
+              }
+            });
+        }
+      });
+  });
+</script>
+<!-- ajaxdelete -->
+<!-- <script type="text/javascript">
+  $('#btnDelete').click(function(e){ 
+    var checks = document.getElementsByName("usernames[]");
+    var dataUsername = $("input[type='checkbox']:checked").serialize().replace(/%5B%5D/g, '[]');
+    var confirm = null;
+    for (var i=0; i < checks.length; i++) {
+      if(checks[i].checked == true){
+        confirm = "yes";break;
+      }
+    }
+    if(confirm == "yes"){
+        swal({
+          title: "Are you sure?",
+          icon: "warning",
+          buttons: true,
+          buttons: ["No", "Yes"],
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            $.ajax({
+              url: "deleteStudent",
+              type: "POST",
+              data:dataUsername,
+              success: function(data){
+                //console.log(data);return false;
+                //location.reload();
+              }
+            });
+          }
+          else{
+            e.preventDefault();
+          }
+        });
+    }
   });
 </script> -->
 
+<!-- DELETE FROM ADMIN DASHBOARD -->
+<!-- <script type="text/javascript">
+  $('#btnDelete').click(function(){ 
+    var checks = document.getElementsByName("usernames[]");
+    var confirm = null;
+    for (var i=0; i < checks.length; i++) {
+      if(checks[i].checked == true){
+        confirm = "yes";break;
+      }
+    }
+    if(confirm == "yes"){
+        swal({
+          title: "Are you sure?",
+          icon: "warning",
+          buttons: true,
+          buttons: ["No", "Yes"],
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            document.formDel.submit();
+          }
+          else{
+            e.preventDefault();
+          }
+        });
+    }
+  });
+</script> -->
+
+<!-- Refresh button -->
 <script type="text/javascript">
-  $(document).ready(function() {
-    $('#adminDataTable').DataTable({
-      "processing": true,
-    });
-} );
+ /* $('#disp').click(function(){
+          $('#course_option').val("courseDefault");
+          $('#eval_option').val("evalDefault");
+          $('#status_option').val("statDefault");
+      });*/
 </script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   String.prototype.capitalize = function() {
     return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
   };
@@ -818,7 +924,7 @@ li.notification-title{
        $(".student-list").hide();
        $(".student-list:contains("+text_filter+")").css('display','block ');
   });
-</script>
+</script> -->
 
 <!-- ADD STUDENT -->
 <script type="text/javascript">
@@ -850,10 +956,10 @@ li.notification-title{
   };
 
   $('#addStud').click(function(){
-    var id = $('#studID').val();
-    var first = $('#studFirst').val().capitalize();
-    var mid = $('#studMid').val().capitalize();
-    var last = $('#studLast').val().capitalize();
+    var id = $('#studID').val().trim(); // to be removed
+    var first = $('#studFirst').val().capitalize().trim();
+    var mid = $('#studMid').val().capitalize().trim();
+    var last = $('#studLast').val().capitalize().trim();
 
     if(id == "" || first == "" || mid == "" || last == ""){
         alert("Please fill all fields");return false;
@@ -920,19 +1026,20 @@ li.notification-title{
   };
 
   $('#addSup').click(function(e){
-      var n = $('.new-company').html();
-        var name = $('#supName').val().capitalize();
+        var n = $('.new-company').html();
+        var name = $('#supName').val().capitalize().trim();
         if(n == 'New'){
           var compName = $('#dropCompany').val();
         }else{
-          var compName = $('#new_company').val();
+          var compName = $('#new_company').val().trim();
         }
-        var desig = $('#supDesig').val().capitalize();
-        var id = $('#supID').val();
-        var pass = $('#supPass').val();
-        var email = $('#supEmail').val();
+        var desig = $('#supDesig').val().capitalize().trim();
+        var id = $('#supID').val().trim();
+        var pass = $('#supPass').val().trim();
+        var email = $('#supEmail').val().trim();
+        //alert(desig);return false;
 
-        if(name == null || compName == null || desig == null || id == null || pass == null || email == null){
+        if(name.length == 0 || compName == null || desig.length == 0 || id.length == 0 || pass.length == 0 || email.length == 0){
           alert("Please fill all fields");return false;
         }else{
           $.ajax({
@@ -975,11 +1082,7 @@ li.notification-title{
               }
             },
           });
-
-          
         }
-
-
   });
 </script>
 
@@ -1006,7 +1109,7 @@ li.notification-title{
         if(n == 'New'){
           var compName = $('#addWatch').val();
         }else{
-          var compName = $('#new_company_watchlist').val();
+          var compName = $('#new_company_watchlist').val().trim();
         }
         if(compName == null || compName.length==0){
           alert("Please select or enter a company");
@@ -1051,10 +1154,10 @@ li.notification-title{
   };
       $(document).ready(function(){
           $("#adminAdd").click(function(){
-            var adminName = $('#adminName').val().capitalize();
-            var idNum = $('#adminID').val();
-            var pass = $('#adminPass').val();
-            var email = $('#adminEmail').val();
+            var adminName = $('#adminName').val().capitalize().trim();
+            var idNum = $('#adminID').val().trim();
+            var pass = $('#adminPass').val().trim();
+            var email = $('#adminEmail').val().trim();
 
             if(adminName.length == 0 || idNum.length == 0 || pass.length == 0 || email.length == 0){
              alert("Please fill all fields");    
@@ -1102,7 +1205,6 @@ li.notification-title{
                   },
               });
             }
-          
           });
        });
 </script>
