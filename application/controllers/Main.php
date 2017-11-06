@@ -20,14 +20,17 @@ class Main extends CI_Controller {
 	 */
 	
  function __construct() {
+ 	 header("Pragma-directive: no-cache");
+    header("Cache-directive: no-cache");
+    header("Cache-control: no-cache");
+    header("Pragma: no-cache");
+    header("Expires: 0");
  
         parent::__construct();
+        date_default_timezone_set("Asia/Manila");
         $this->load->helper('url');
         $this->load->model('users');
         $this->load->library('session');
-   
-       	
-
     }
   	public function student_info(){
   		$this->load->view('student_info');
@@ -47,8 +50,9 @@ class Main extends CI_Controller {
     	$this->load->view('incorrectpassword');
     }
     
-    public function getLogId(){
-    	print_r($_POST);
+   
+    public function insertAnnouncement(){
+    	$this->users->insertAnnouncement();
     }
 
     public function loginojt(){
@@ -61,6 +65,18 @@ class Main extends CI_Controller {
     	
     }
 
+
+    public function getAnnouncement(){
+    	$this->users->getAnnouncementsForStudents();
+    }
+
+    public function updateAnnouncemment(){
+    	$this->users->updateAnnouncemment($this->session->userdata['id_number']);
+    }
+
+    public function updateAnnouncemmentToUnread(){
+    	$this->users->updateAnnouncemmentToUnread($this->session->userdata['id_number']);
+    }
     public function loginsupervisor(){
     	$this->load->view('loginsupervisor');
     }
@@ -157,10 +173,16 @@ class Main extends CI_Controller {
 	public function supervisorDashboard(){
 
 		if(!isset($this->session->userdata['id_number'])){
-          header("location: index");
+          redirect('index');
      	}else{
      		$data['comments'] = $this->users->getComments();
-     				$data['evaluated']=$this->users->checkMidtermEvaluation($this->session->userdata('id_number'));
+     		$data['evaluated']=$this->users->checkMidtermEvaluation($this->session->userdata('id_number'));
+     		if($this->session->userdata['account_type'] == 'student'){
+     			redirect('dashboard');
+     		}else if($this->session->userdata['account_type'] == 'admin'){
+     			redirect('admindashboard');
+     		}else{
+     			$data['comments'] = $this->users->getComments();
      		$company_name = $this->users->getCompanySupervisor($this->session->userdata['id_number']);
      		$data['supervisorAddOjt'] = $this->users->supervisorGetTrainee($company_name,$this->session->userdata['id_number']);
      		$data['ojtRecords'] = $this->users->getOjtRecordsForSupervisor($this->session->userdata['id_number']);
@@ -170,8 +192,8 @@ class Main extends CI_Controller {
      		$data['eval_trainees'] = $this->users->evaluatedTrainees($this->session->userdata('id_number'));
      		$data['not_verified'] = $this->users->getNotVerified($this->session->userdata('id_number'));
      		$this->load->view('supervisor-dashboard', $data);
-				
-				
+     		}
+     		
 			
 		}
 	}
@@ -249,7 +271,7 @@ public function loggedinSupervisor($account_type){
 				// $existId = $this->users->checkExistRecords(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
 				// $newId = $this->session->userdata['id_number'];
 				// $newRecord = Array('id_number' => $newId, 'total_hours' => 200, 'total_evaluations'=> 2);
-				header("location: supervisorDashboard");
+				redirect('supervisordashboard');
 			
 					
 	}else{
@@ -288,7 +310,7 @@ public function loggedinAdministrator($account_type){
 				//  }elseif ($account_type[0]['account_type'] == 2) {
 				//  	header("location: adminDashboard");
 				//  }
-				header("location: adminDashboard");	
+				redirect('admindashboard');
 			
 				
 
@@ -356,68 +378,67 @@ public function logout(){
 		$this->users->deleteLog();
 	}
 	
+	
+
 	public function dashboard(){
 		
 		if(!isset($this->session->userdata['id_number'])){
           header("location: index");
      	}else{
 
-     	$data['comments'] = $this->users->getComments();
-     	$totalLogsCount = $this->users->getNumberLogs(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
-     	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
-     	
+     	if($this->session->userdata['account_type'] == 'supervisor'){
+     		redirect('supervisordashboard');
+     	}else if($this->session->userdata['account_type'] == 'admin'){
+     		redirect('admindashboard');
+     	}else{
 
-     	$renderedCount = $this->users->getSumRendered(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
+     	
+     	$data['comments'] = $this->users->getComments();
+     	$totalLogsCount = $this->users->getNumberLogs($this->session->userdata['id_number']);
+     	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($this->session->userdata['id_number']);
+     	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($this->session->userdata['id_number']);
+
+
+     	$renderedCount = $this->users->getSumRendered($this->session->userdata['id_number']);
 
 
      	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $this->session->userdata['id_number']);
      	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $this->session->userdata['id_number']);
      	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $this->session->userdata['id_number']);
+     	$ojtRecords = $this->users->dashboardDataRecords($this->session->userdata['id_number']);
 
-     	$ojtRecords = $this->users->dashboardDataRecords(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
-     	if(!empty($ojtRecords)){
-     		$data['total'] = $ojtRecords[0]['total_hours'];
+     		if(!empty($ojtRecords)){
+			     		$data['total'] = $ojtRecords[0]['total_hours'];
 
-		$data['rendered'] = $ojtRecords[0]['rendered_hours'];
-		$data['all_evaluations'] = $ojtRecords[0]['total_evaluations'];
-		$data['current_evaluations'] = $ojtRecords[0]['current_evaluations'];
-		$data['verified'] = $ojtRecords[0]['logs_verified'];
-		$data['totalLogs'] = $ojtRecords[0]['logs'];
-		$data['logs_list'] = $this->users->getLogs(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
-		
-		$account_type = $this->users->getAccountType(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
-     		if($account_type[0]['account_type'] == 0){
-			     	$ojtRecords = $this->users->dashboardDataRecords(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
-
-					$data['total'] = $ojtRecords[0]['total_hours'];
-					$data['rendered'] = $ojtRecords[0]['rendered_hours'];
-					$data['all_evaluations'] = $ojtRecords[0]['total_evaluations'];
-					$data['current_evaluations'] = $ojtRecords[0]['current_evaluations'];
-					$data['verified'] = $ojtRecords[0]['logs_verified'];
-					$data['totalLogs'] = $ojtRecords[0]['logs'];
-					$data['logs_list'] = $this->users->getLogs(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
-					
-
-					 $data['user_data'] = $this->users->dashboardData($this->session->userdata['id_number']);
-
-		
-     	}
-		 $data['user_data'] = $this->users->dashboardData($this->session->userdata['id_number']);
-		 $data['image_header'] = $this->users->displayImageToHeader($this->session->userdata['id_number']);
-					// $this->users->getUserData($this->session->userdata['id_number']);
-					$this->load->view('dashboard', $data);
-			}
+						$data['rendered'] = $ojtRecords[0]['rendered_hours'];
+						$data['announcements'] = $this->users->getAnnouncements($this->session->userdata['id_number']);
+						// echo time_elapsed_string($data['announcements'][0]['date_posted']);
+						
+						$data['all_evaluations'] = $ojtRecords[0]['total_evaluations'];
+						$data['current_evaluations'] = $ojtRecords[0]['current_evaluations'];
+						$data['verified'] = $ojtRecords[0]['logs_verified'];
+						$data['totalLogs'] = $ojtRecords[0]['logs'];
+						$data['logs_list'] = $this->users->getLogs($this->session->userdata['id_number']);
+						
+						$data['user_data'] = $this->users->dashboardData($this->session->userdata['id_number']);
+						$data['image_header'] = $this->users->displayImageToHeader($this->session->userdata['id_number']);
+								// $this->users->getUserData($this->session->userdata['id_number']);
+							$this->load->view('dashboard', $data);
+					}
 			/*else if($account_type[0]['account_type'] == 1){
 					header("location: supervisorDashboard");
 			}
 			elseif ($account_type[0]['account_type'] == 2) {
 					header("location: admindashboard");
 			}*/
+			}
      	}
 
 
 	
 	}
+
+
 
 	public function studentDashboard($id_number){
 		$data['comments'] = $this->users->getComments();
@@ -463,6 +484,14 @@ public function logout(){
 
 	public function addWatchlist(){
 		$this->users->addWatch();
+	}
+
+	public function getAnnouncementsInterval(){
+		$this->users->getAnnouncements($this->session->userdata['id_number']);
+	}
+
+	public function updateAnnouncemmentToUnreadAll(){
+		$this->users->updateAnnouncemmentToUnreadAll();
 	}
 
 
@@ -571,8 +600,11 @@ public function logout(){
     		//echo "success";
     		 // $stud_name = $this->db->query("SELECT * from users INNER JOIN midterm_evaluation on users.id_number = midterm_evaluation.username where midterm_evaluation.username = '$username'")->row();
 
+    				$Status = '<div class="alert alert-success alert-dismissible" role="alert">
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					   You have evaluated  <strong>'.$username.' </strong> </div>';
     		 // echo $stud_name->first_name;
-    		$Status = '<div class="alert alert-success">You have evaluated '.$username.'</div>';
+    	//	$Status = '<div class="alert alert-success" role="alert">You have evaluated '.$username.' </div>';
     		//$Status = "You have evaluated ".$username;
     		$this->session->set_flashdata("Status",$Status);
 
@@ -582,4 +614,12 @@ public function logout(){
     	}
 
     }
+   	public function deleteStudent(){
+   		
+   		foreach ($_POST['usernames'] as $username){
+   			$this->users->delStud($username);
+   		}
+   		return redirect(base_url('main/admindashboard'));
+   	}
+
 }

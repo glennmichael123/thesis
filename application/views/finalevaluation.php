@@ -51,12 +51,8 @@
 
         }
         input:focus{
-<<<<<<< Updated upstream
             outline: none;
-=======
-            outline:none;
-        }
->>>>>>> Stashed changes
+}
         }
         .list{
             margin-top: 38px;
@@ -66,7 +62,7 @@
         ol,ul,h3,h1{
             color: #000000;
         }
-<<<<<<< Updated upstream
+
         .lists{
             padding: 2px;
         }
@@ -76,11 +72,10 @@
             text-align: center;
             color: #000000;
         }
-=======
         li{
-  margin: 50px 0;
-}
->>>>>>> Stashed changes
+            margin: 50px 0;
+        }
+
     </style>
 
     <title></title>
@@ -92,13 +87,9 @@
         <div class="content">
             <form method="post" id="formy2"  name="fin_ev">
             <div class="container">
-<<<<<<< Updated upstream
-              <div class="col-lg-2"></div>
-               <div class="col-lg-8">
-=======
-                <div class="col-lg-2"></div>
+                 <div class="col-lg-2"></div>
                 <div class="col-lg-8">
->>>>>>> Stashed changes
+
                 <header>
                     <h1>ON-THE-JOB TRAINING (OJT)</h1>
                     <h3>PERFORMANCE EVALUATION REPORT</h3>
@@ -205,13 +196,8 @@
                 
                     <p style="margin-top: 10px; text-align: center;"><button class="btn btn-primary">Submit</button>
                     <button class="btn btn-danger">Cancel</button></p>
-<<<<<<< Updated upstream
              </div>
             <div class="col-lg-2"></div>  
-=======
-                </div>
-                <div class="col-lg-2"></div>
->>>>>>> Stashed changes
             </div>
         </form>
          </div>

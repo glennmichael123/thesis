@@ -14,6 +14,7 @@
 
     <script src="<?php echo base_url()?>assets/js/progressbar/dist/progressbar.js"></script>
     <script src="<?php echo base_url()?>assets/js/progressbar/dist/progressbar.min.js"></script>
+    <script src="<?php echo base_url()?>assets/js/jquery.simple-popup.min.js"></script>
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -22,15 +23,12 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>assets/css/jquery.simple-popup.min.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>assets/css/jquery.simple-popup.settings.css" rel="stylesheet">
     <style type="text/css">
 
 
 
-/* -------------------------------- 
-
-Modules - reusable parts of our design
-
--------------------------------- */
 .img-replace {
   /* replace text with an image */
   display: inline-block;
@@ -91,16 +89,6 @@ header h1 {
   font-size: 1.25rem;
 }
 
-
-@media only screen and (min-width: 1170px) {
-  
-}
-
-/* -------------------------------- 
-
-xpopup 
-
--------------------------------- */
 .cd-popup {
   position: fixed;
   z-index: 999;
@@ -380,24 +368,41 @@ xpopup
             resize: none;
         }
 
+
+
+        
+
           .notifs {
             padding-left: 10px;
             padding-top: 10px;
             height: 60px;
          }
 
-        .fa-check:hover {
+        .fa-circle:hover {
+            cursor: pointer;
+            color: #DABD95;
+        }
+        .fa-circle-o:hover {
             cursor: pointer;
             color: #DABD95;
         }
         
-
+        .fa-circle-o {
+          position: absolute;
+          right: 0;
+          color: #915B51;
+          margin-top: -49px;
+          padding-right: 10px;
+      }
        
-        .fa-check {
-            color: #915B51;
-            padding-right: 10px; 
-        }
-        
+        .fa-circle {
+          position: absolute;
+          /* top: 0; */
+          margin-top: -49px;
+          right: 0;
+          color: #915B51;
+          padding-right: 10px;
+      }
           .notification-title {
             padding-top: 10px;
             padding-left: 10px;
@@ -411,6 +416,9 @@ xpopup
         
         .as-all-read {
           padding-right: 10px;
+        }
+        .as-all-read:hover{
+         text-decoration: underline;
         }
         
         .circular-square {
@@ -541,11 +549,18 @@ xpopup
         #show-notifications{
             padding-top: 0;
             padding-bottom: 0;
+
         }
+
+
         .dropdown-menu .divider{
             margin:0;
         }
         li.view-notification:hover{
+            background-color: #F6F6F7;
+        } 
+
+        li.view-notification-read:hover{
             background-color: #F6F6F7;
         } 
         li.view-notification{
@@ -600,7 +615,10 @@ xpopup
         border-radius: 25px;
 
     }
-    
+  
+    textarea:focus{
+      outline: none !important;
+    }    
     .save-edit button{
         border-radius: 20px;
         font-size: 12px;
@@ -642,6 +660,9 @@ xpopup
     .notification-bell{
       margin-top: -5px;
     }
+
+
+
     .dropdown-image{
       margin-top: -5px;
     }
@@ -656,12 +677,20 @@ xpopup
         color: #cf4246;
     }
     </style>
-    <title>OJT Automate</title>
+    <title>OJT Automate <?php echo empty($numberAnnouncements->numberUnread) ? '' : '('.$numberAnnouncements->numberUnread.')';?></title>
 
 </head>
 
 <body onload="init()">
-   
+
+      
+            <div id="popup1" style="display: none;">
+                <h4 style="padding-left: 10px">Larmie Feliscuzo</h4>
+                <p class="date_posted" style="margin-left: 10px;"><?php echo date('F d Y');?></p>
+                <pre class="content-announcement" style="font-size: 15px;"></pre>
+            </div>
+        
+     
 
 <div class="cd-popup" role="alert">
     <div class="cd-popup-container" style="background-color: #EED090;color: #A55D35">
@@ -683,23 +712,137 @@ xpopup
                         <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
                     </div>
                     <div class="col-lg-6 ">
-                      <section class="notification-bell">
+                      <section id="notification-bell">
                         <?php if(isset($id_number)):?>
                         <?php else:?>
+                          <?php if(empty($numberAnnouncements->numberUnread)):?>
+                          <?php else:?>
+                          <div id="countUnread">
+                              <span class="badge" style="position: absolute;right: 34px;top: 8px;">
+                                  <?php echo $numberAnnouncements->numberUnread;?></span>
+                                </div>
+                          <?php endif;?>
                         <ul class="nav navbar-nav">
                             <li class="dropdown">
-                            <span class="badge" style="position: absolute; left: 50px; top: 8px;">2</span>
+                            
                             <a href="#" class="dropdown-toggle" id="dropdown-notification" data-toggle="dropdown"><i class="pull-right  fa fa-bell fa-2x" style="width: 40px; height: 40px; margin-top: 0px;"></i></a>
                                 
-                                <ul class="dropdown-menu" id="show-notifications" style="position: relative; margin-top:20px; top: -22px; left: -63px; width: 340px;">
-                                
+                                <ul class="dropdown-menu" id="show-notifications" style="position: relative; margin-top:20px; top: -22px; left: -63px; width: 340px; max-height: 400px; overflow: auto;">
+                                      <div id="notification-body">
                                          <li><div class="notification-title">Notifications <a href="#" class="as-all-read pull-right">Mark all as read</a></div></li>
                                          <li class="divider"></li>
-                                <?php for($i=1; $i<=3; $i++):?>
-                                         <a href="#" class="view-notif"><li class="view-notification"><div class="notifs">Lfeliz posted announcement <i class="fa fa-check pull-right" title="Mark as read"></i></div></li></a>
-                                         <li class="divider"></li>
-                                <?php endfor;?>    
 
+                                         <?php if(empty($announcements)):?>
+                                          <li><div class="notifs" style="text-align: center; padding-left: 0; height: 150px;">No notifications yet</div></li>
+                                        <?php else:?>
+                                          <?php foreach($announcements as $announcement):?>
+                                            <?php if($announcement['status'] == 1):?>
+                                                 <li class="divider"></li>
+                                              <a href="#" data-announcement-id="<?php echo $announcement['id']?>" class="view-notif"><li class="view-notification-read"><div class="notifs">Lfeliz posted an announcement <br><span style="font-size: 12px;"><?php
+
+
+
+                                                    $timestamp = strtotime($announcement['date_posted']);
+                                                    $datetime = explode(" ",$announcement['date_posted']); 
+                                                    
+                                                    $date = date('F d, Y', $timestamp);
+                                                    // $time = date('Gi.s', $timestamp);
+                                                    //echo $date . " at " . date('h:ia', $timestamp);
+
+
+
+
+
+                                                         
+                                                          $now = new DateTime;
+                                                          $ago = new DateTime($announcement['date_posted']);
+                                            
+                                                          $diff = $now->diff($ago);
+                                                          $full = false;
+                                                          $diff->w = floor($diff->d / 7);
+                                                          $diff->d -= $diff->w * 7;
+
+                                                          $string = array(
+                                                              'y' => 'year',
+                                                              'm' => 'month',
+                                                              'w' => 'week',
+                                                              'd' => 'day',
+                                                              'h' => 'hour',
+                                                              'i' => 'minute',
+                                                              's' => 'second',
+                                                          );
+                                                          foreach ($string as $k => &$v) {
+                                                              if ($diff->$k) {
+                                                                  $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+                                                              } else {
+                                                                  unset($string[$k]);
+                                                              }
+                                                          }
+
+                                                          if (!$full) $string = array_slice($string, 0, 1);
+                                                          echo $string ? implode(', ', $string) . ' ago' : 'just now';
+                                              
+
+
+                                              ?></span></div></li></a><i class="fa fa-circle-o pull-right unread-notif" title="Mark as unread" data-announcement-id="<?php echo $announcement['id']?>"></i>
+                                               
+                                           
+                                        
+                                            <?php else:?>
+                                           <li class="divider"></li>
+                                          <a href="#" data-announcement-id="<?php echo $announcement['id']?>" class="view-notif"><li class="view-notification"><div class="notifs">Lfeliz posted an announcement<br><span style="font-size: 12px;"><?php
+
+                                                    
+                                                    // $time = date('Gi.s', $timestamp);
+                                                    //echo $date . " at " . date('h:ia', $timestamp);
+                                          //echo $announcement['date_posted'];exit;
+                                                      // $datetime = strtotime($announcement['date_posted']);
+
+
+
+
+                                                          $now = new DateTime;
+                                                          $ago = new DateTime($announcement['date_posted']);
+                                            
+                                                          $diff = $now->diff($ago);
+                                                          $full = false;
+                                                          $diff->w = floor($diff->d / 7);
+                                                          $diff->d -= $diff->w * 7;
+
+                                                          $string = array(
+                                                              'y' => 'year',
+                                                              'm' => 'month',
+                                                              'w' => 'week',
+                                                              'd' => 'day',
+                                                              'h' => 'hour',
+                                                              'i' => 'minute',
+                                                              's' => 'second',
+                                                          );
+                                                          foreach ($string as $k => &$v) {
+                                                              if ($diff->$k) {
+                                                                  $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+                                                              } else {
+                                                                  unset($string[$k]);
+                                                              }
+                                                          }
+
+                                                          if (!$full) $string = array_slice($string, 0, 1);
+                                                          echo $string ? implode(', ', $string) . ' ago' : 'just now';
+
+
+
+                                              ?></span></div></li></a><i class="fa fa-circle pull-right read-notif" data-announcement-id="<?php echo $announcement['id']?>" title="Mark as read" ></i>
+
+                                         
+                                        
+                                        
+                                       <?php endif;?>
+                                       <?php endforeach;?>
+                                         <?php endif;?>
+                                       
+                                         
+                                  
+                                       </div>
                                    </ul>
                             </li>
                         </ul>
@@ -964,15 +1107,16 @@ xpopup
                     <?php if(isset($id_number)): ?>
                     <?php else:?>
                     <div class="logs-students">
-                        <div class="well">
+                        
                           <div class="panel-heading">
                             <div class="logs-title">
                                 <span>Create a log <i class="fa fa-paper-plane-o" aria-hidden="true"></i></span>
                             </div>
                           </div>  
+                          <div class="well" style="padding: 0;">
                             <form class="logs-display" action="addLogs" method="post">
                                 <div class="row logs-upper">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6" style="padding-left: 30px;">
 
                                         <div class="form-group">
                                             <label>Date</label>
@@ -986,7 +1130,7 @@ xpopup
                                         </div>
 
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6" style="padding-right: 30px;">
                                         <div class="form-group">
                                             <label>Time In</label>
                                             <input type="time" class="form-control" name="time_in" id="time_in" required>
@@ -998,8 +1142,8 @@ xpopup
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <textarea name="log_activity" rows="4" id="log_activity" placeholder="Write your log here" class="form-control" required></textarea>
+                                <div class="form-group" style="padding-right: 15px; padding-left: 15px; padding-top: 15px;">
+                                    <textarea name="log_activity" rows="3" id="log_activity" placeholder="Write your log here" class="form-control" required></textarea>
                                 </div>
                                 <div class="form-group logs-lower">
                                     <button type="submit" id="submit_log" class="btn btn-primary btn-lg" value="Submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Post</button>
@@ -1085,7 +1229,7 @@ xpopup
                                                   
                                                 </div>
                                                    
-                                                 <textarea class="list-logs activity_listed" name="log_lists_activity" id="log_lists_activity" placeholder="Write your log here" readonly><?php echo $log['log_content']?></textarea>
+                                                 <textarea spellcheck="false" class="list-logs activity_listed" name="log_lists_activity" id="log_lists_activity" placeholder="Write your log here" readonly><?php echo $log['log_content']?></textarea>
                                             </div>
                                         </div>
                                         
@@ -1207,7 +1351,17 @@ xpopup
 
         </div>
 </body>
+   <script type="text/javascript">
+             $(document).ready(function() {
 
+
+                $("#notification-body").on("click",'.view-notif', function(e) {
+                   e.preventDefault();
+                    $(this).simplePopup({ type: "html", htmlSelector: "#popup1" });
+                });
+            });
+        
+        </script>
 <script type="text/javascript">
     $("#dropdown-notification").click(function() {
        $("#show-notifications").toggle();
@@ -1397,8 +1551,8 @@ xpopup
         var right = $(this).closest('.row').find('.show-more-right');
         var left = $(this).closest('.row').find('.show-more-left');
         var show_less = $(this).closest('.row').find('.show-less-info');
-        right.slideDown();
-        left.slideDown();
+        right.show();
+        left.show();
         $(this).hide();
 
         show_less.show();
@@ -1409,13 +1563,52 @@ xpopup
         var right = $(this).closest('.row').find('.show-more-right');
         var left = $(this).closest('.row').find('.show-more-left');
 
-        right.slideUp();
-        left.slideUp();
+        right.hide();
+        left.hide();
         $(this).hide();
 
         $('.show-more-info').show();
        
     });
+</script>
+
+<script type="text/javascript">
+  $(document).on('click','.view-notif',function(e){
+    //e.preventDefault();
+
+    var announcement_id = $(this).data('announcement-id');
+
+    $.ajax({
+      url: '<?php echo base_url('main/getAnnouncement')?>',
+      method: 'POST',
+      data:{
+        'announcement_id': announcement_id,
+      },
+      success:function(data){
+        var announce = JSON.parse(data);
+        $('.content-announcement').html(announce.content);
+        //var full_date = announce.date_posted;
+       var date = new Date(announce.date_posted), y = date.getFullYear(), m = date.getMonth(), d = date.getDate();
+       var actual_date = new Date(y, m, d).toString().split(' ').slice(0,3).join(' ');
+        $('.date_posted').html(actual_date);
+      }
+    });
+
+    var currentNotif = $(this).closest('.wrap-notif').find('.view-notification');
+
+    $.ajax({
+      url: '<?php echo base_url('main/updateAnnouncemment')?>',
+      method: 'POST',
+      data:{
+        'announcement_id': announcement_id,
+      },
+      success: function(data){
+         $('#notification-body').load(location.href + " #notification-body");
+         $('#countUnread').load(location.href + " #countUnread");
+      }
+    });
+    //alert(announcement_id);
+  });
 </script>
 
 <script type="text/javascript">
@@ -1502,6 +1695,83 @@ xpopup
             });
       });
   });
+</script>
+<script type="text/javascript">
+
+
+  $(document).ready(function(){
+
+        setInterval(function(){ 
+          //$('title').load(location.href + " title")
+          
+          $('#notification-body').load(location.href + " #notification-body");
+          $('#countUnread').load(location.href + " #countUnread");
+          
+     }, 5000);    
+
+      
+
+
+    
+    
+      $(document).on('click', '.read-notif',function(){
+      var announcement_id = $(this).data('announcement-id');
+      $.ajax({
+       url:'<?php echo base_url('main/updateAnnouncemment')?>',
+       method: 'POST',
+       data:{
+          'announcement_id': announcement_id,
+       },
+
+       success:function(){
+          // /currentNotif.css("background-color",'#FFF');
+          $('#notification-body').load(location.href + " #notification-body");
+          $('#countUnread').load(location.href + " #countUnread");
+          
+       }
+
+    });
+  });
+
+
+  $(document).on('click','.unread-notif',function(){
+    var announcement_id = $(this).data('announcement-id');
+    $.ajax({
+       url:'<?php echo base_url('main/updateAnnouncemmentToUnread')?>',
+       method: 'POST',
+       data:{
+          'announcement_id': announcement_id,
+       },
+
+       success:function(){
+          //currentNotif.css("background-color",'#EDF2FA');
+          $('#notification-body').load(location.href + " #notification-body");
+       }
+
+    });
+  });
+
+   $(document).on('click','.as-all-read',function(e){
+    e.preventDefault();
+    var announcement_id = $(this).data('announcement-id');
+    $.ajax({
+       url:'<?php echo base_url('main/updateAnnouncemmentToUnreadAll')?>',
+       method: 'POST',
+       data:{
+          'username': '<?php echo $this->session->userdata['id_number']?>',
+       },
+
+       success:function(){
+          //currentNotif.css("background-color",'#EDF2FA');
+          $('#notification-body').load(location.href + " #notification-body");
+       }
+
+    });
+  });
+
+  });
+
+
 </script>
 </html>
 

@@ -528,13 +528,8 @@
                                 <form action="saveImage" method="POST" enctype="multipart/form-data">
                                     <input class="browse-photo" type="file" accept="image/*" onchange="previewFile()" name="files" style="display: none;">
                                       <div class="saveCancel" style="margin-top: 10px; display: none;">
-<<<<<<< Updated upstream
-                                        <button type="submit" class="btn btn-default" style="width:75px" id="saveBrowse" name="saveBrowse">Save</button>
-                                        <button type="button" class="btn btn-default" id="cancelBrowse">Cancel</button>
-=======
                                         <button type="submit" class="btn btn-save btn-md" style="width:75px" id="saveBrowse" name="saveBrowse">Save</button>
                                         <button type="button" class="btn btn-cancel btn-md" id="cancelBrowse">Cancel</button>
->>>>>>> Stashed changes
                                     </div>
                                 </form> 
                             </div>

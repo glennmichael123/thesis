@@ -24,7 +24,7 @@
 
      <!-- Sweet Alert -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="bower_components/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <!-- <script src="bower_components/sweetalert2/dist/sweetalert2.all.min.js"></script> -->
     <style type="text/css">
         body {
             background-color: #F4F4F4;
@@ -178,7 +178,9 @@
         .progress {
             height: 35px;
         }
-        
+        textarea:focus{
+            outline: none;
+        }
         .progress .skill {
             font: normal 12px "Open Sans Web";
             line-height: 35px;
@@ -318,7 +320,17 @@
         }
         .skill{
             font-size: 1.5em !important;
-}
+        }
+
+          .alert{
+            margin-top: 20px;
+            padding: 10px 30px 10px 10px;
+            /* padding-top: 5px; */
+            /* padding: 12px; */
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 0px;
+        }
 
     
     </style>
@@ -358,7 +370,7 @@
                                     <li><a href="#">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                     <li class="divider"></li>
 
-                                    <li><a href="#" data-toggle="modal" data-target="#changeImage">Change profile image<i class="fa fa-picture-o pull-right" aria-hidden="true"></i></a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#changeImage">Change photo<i class="fa fa-picture-o pull-right" aria-hidden="true"></i></a></li>
                                     <li class="divider"></li>
 
                                     <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
@@ -508,14 +520,16 @@
                        
                              <div class="col-lg-12" >
                                 <div class="well" style="background: #fff; padding-bottom: 0; padding-top: 10px">
-                                    <span class="user-name"><a href="studentDashboard/<?php echo $log['id_number'];?>"><i class="fa fa-user-circle"></i><?php echo $log['first_name'] . " " .$log['last_name']?></span></a>
+                                    <span class="user-name"><a href="studentdashboard/<?php echo $log['id_number'];?>"><i class="fa fa-user-circle"></i><?php echo $log['first_name'] . " " .$log['last_name']?></span></a>
                                   
                                     <hr style="margin-top: 0; margin-bottom: 0">
 
                                     <form method="post">
                                         <div class="row">
                                             <div class="logs-lists">
-                                                <div class="col-lg-6">
+                                                    <span style="position: absolute; font-size: 12px; top:32px; right: 38px; z-index: 999; padding-top: 10px; text-decoration: underline; cursor: pointer;" class="show-more">Show more</span>
+                                                    <span style="position: absolute; font-size: 12px; top:32px; right: 38px; z-index: 999; padding-top: 10px; text-decoration: underline; cursor: pointer; display: none;" class="show-less">Show less</span>
+                                                <div class="col-lg-6 left-side" style="display: none;">
 
                                                     <div class="form-group">
                                                         <label>Date</label>
@@ -529,7 +543,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-6 right-side" style="display: none;">
                                                     <div class="form-group">
                                                         <label>Time In</label>
                                                         <input type="time" class="list-logs" name="log_lists_time_in" value="<?php echo $log['time_in']?>" id="log_lists_time_in" readonly>
@@ -543,13 +557,12 @@
                                             </div>
                                         </div>
                                         
-                                            <label style="font-size: 11px;">Activity</label>
+                                            <label style="font-size: 11px;">Activity</label> 
                                             <textarea class="list-logs" name="log_lists_activity" id="log_lists_activity" placeholder="Write your log here" readonly><?php echo $log['log_content']?></textarea>
-
                                             <?php if($log['verified']):?>
-                                                     <span style="color:green; font-size: 11px; position: absolute; top: 280px; left: 700px;"> Verified  <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i></span>
-                                                 <?php else:?>
-                                                     <span class="pending-log" style="color:black; font-size: 11px; position: absolute; top: 280px; left: 700px;"> Pending  <i style="color: green;" class="fa fa-circle-thin" aria-hidden="true"></i></span>
+                                            <span style="color:green; font-size: 11px; position: absolute; left: 690px; margin-top: -20px; "> Verified  <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i></span>
+                                            <?php else:?>
+                                                 <span class="pending-log" style="color:black; font-size: 11px; position: absolute; margin-top: -20px; left: 690px;"> Pending  <i style="color: green;" class="fa fa-circle-thin" aria-hidden="true"></i></span>
                                                  <?php endif;?>
 
 
@@ -621,7 +634,7 @@
                                        <div class="comment-section" style="display: none;"> 
                                             <div class="col-lg-12">
                                                 <hr style="margin-top: 0; margin-bottom: 5px;">
-                                                <textarea style="height:35px; resize: none;" class="form-control comment-content" data-log-id="<?php echo $log['id']?>" placeholder="Write your comment"></textarea>
+                                                <textarea style="resize: none;" class="form-control comment-content" data-log-id="<?php echo $log['id']?>" placeholder="Write your comment"></textarea>
                                                 <!-- <button type="button" style="float: right; margin-top: 5px; margin-bottom: 5px; padding: 2px 5px 2px 5px;" class="btn btn-primary submit-comment" data-log-id="<?php echo $log['id']?>">Post</button> -->
                                             </div>
                                         </div>
@@ -697,7 +710,7 @@
             <div class="modal-content" style="border-radius: 12px">
                 <div class="modal-header" style="background-color: #d32f2f;border-radius: 10px 10px 0 0">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    <h3 class="modal-title" id="lineModalLabel" style="color:white">Change image</h3>
+                    <h3 class="modal-title" id="lineModalLabel" style="color:white">Change photo</h3>
                 </div>
                 <div class="modal-body">
                     <!-- content goes here -->
@@ -749,6 +762,17 @@
 
 
 </body>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+      $('textarea').each(function () {
+          this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden; resize:none;');
+        }).on('input', function () {
+          this.style.height = 'auto';
+          this.style.height = (this.scrollHeight) + 'px';
+        });
+    });
+</script>
 
 <script type="text/javascript">
   
@@ -836,9 +860,23 @@
 </script>
 
 <script type="text/javascript">
+    $(document).ready(function(){
+      $('.comment-content').each(function () {
+          this.setAttribute('style', 'height:' + '40px;' + 'px;overflow-y:hidden; resize:none;');
+        }).on('input', function () {
+          this.style.height = 'auto';
+          this.style.height = (this.scrollHeight) + 'px';
+        });
+    });
+</script>
 
-    $('.comment-content').bind('keyup', function(e){
-        if ( e.keyCode === 13 ) { // 13 is enter key
+
+<script type="text/javascript">
+
+    $('.comment-content').bind('keydown', function(e){
+        
+        if ( e.keyCode == 13 && !e.shiftKey ) { // 13 is enter key
+                e.preventDefault();
 
                 var log_id = $(this).data('log-id');
                 var comment = $(this).val();
@@ -847,8 +885,10 @@
                 var commentToAppend = $(this).closest("form").find(".display-comments");
 
 
-            
-            $.ajax({
+            if(!$.trim($(this).val())){
+                
+            }else{
+                   $.ajax({
                 url: '<?php echo base_url()?>' + 'main/addComment',
                 method: 'POST',
                 data:{
@@ -857,9 +897,11 @@
                     'supervisor_id': '<?php echo $this->session->userdata['id_number'];?>',
                 },
                 success: function(data){
-                   location.reload(true);
+                    location.reload(true);
                 },
             });
+            }
+         
         
 
          }
@@ -867,33 +909,59 @@
 
 
 
-    $('.submit-comment').click(function(){
-        var log_id = $(this).data('log-id');
-        var comment = $(this).closest("form").find(".comment-content").val();
-        var commentSection = $(this).closest('.comment-section');
-        var student_username = $(this).data('student-username');
-        var commentToAppend = $(this).closest("form").find(".display-comments");
+    // $('.submit-comment').click(function(){
+    //     var log_id = $(this).data('log-id');
+    //     var comment = $(this).closest("form").find(".comment-content").val();
+    //     var commentSection = $(this).closest('.comment-section');
+    //     var student_username = $(this).data('student-username');
+    //     var commentToAppend = $(this).closest("form").find(".display-comments");
 
-            
-            $.ajax({
-                url: '<?php echo base_url()?>' + 'main/addComment',
-                method: 'POST',
-                data:{
-                    'log_id': log_id,
-                    'comment': comment,
-                    'supervisor_id': '<?php echo $this->session->userdata['id_number'];?>',
-                },
-                success: function(data){
-                   location.reload(true);
-                },
-            });
+
+    //         $.ajax({
+    //             url: '<?php echo base_url()?>' + 'main/addComment',
+    //             method: 'POST',
+    //             data:{
+    //                 'log_id': log_id,
+    //                 'comment': comment,
+    //                 'supervisor_id': '<?php echo $this->session->userdata['id_number'];?>',
+    //             },
+    //             success: function(data){
+    //                location.reload(true);
+    //             },
+    //         });
         
         
         
         
+    // });
+
+
+</script>
+<script type="text/javascript">
+    $('.show-more').click(function(){
+        var right = $(this).closest('form').find('.right-side');
+        var left = $(this).closest('form').find('.left-side');
+        var less_button = $(this).closest('form').find('.show-less');
+
+        left.show();
+        
+        less_button.show();
+        right.show();
+        $(this).hide();
     });
 
 
+      $('.show-less').click(function(){
+        var right = $(this).closest('form').find('.right-side');
+        var left = $(this).closest('form').find('.left-side');
+        var more_button = $(this).closest('form').find('.show-more');
+
+        left.hide();
+        more_button.show();
+        right.hide();
+
+        $(this).hide();
+    });
 </script>
 
 <script type="text/javascript">

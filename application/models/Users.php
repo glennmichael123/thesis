@@ -5,6 +5,10 @@
         {
                 $this->load->database();
                 $this->load->library('session');
+
+                 // added by peter gwapo ah sku
+                $this->load->helper('form');
+
                 parent::__construct();      
         }
 
@@ -51,6 +55,38 @@
                 }
         }
 
+        public function updateAnnouncemment($username){
+            $announcement_id = $_POST['announcement_id'];
+            $this->db->query("UPDATE announcements SET status = 1, date_posted = date_posted WHERE id = $announcement_id AND username = '$username'");
+        }
+
+        public function getNumberUnreadAnnouncements($username){
+            $query = $this->db->query("SELECT count(status) as numberUnread FROM announcements WHERE username = '$username' AND status = 0")->row();
+
+            return $query;
+        }
+
+        public function updateAnnouncemmentToUnreadAll(){
+            $username = $_POST['username'];
+            $this->db->query("UPDATE announcements SET status = 1, date_posted = date_posted WHERE username = '$username'");
+        }
+        public function updateAnnouncemmentToUnread($username){
+            $announcement_id = $_POST['announcement_id'];
+            $this->db->query("UPDATE announcements SET status = 0, date_posted = date_posted WHERE id = $announcement_id AND username = '$username'");
+        }
+
+        public function getAnnouncements($username){
+            $query = $this->db->query("SELECT * FROM announcements WHERE username = '$username' ORDER BY id DESC");
+
+            return $query->result_array();
+        }
+        public function getAnnouncementsForStudents(){
+            $announcement_id = $_POST['announcement_id'];
+            $query = $this->db->query("SELECT * FROM announcements WHERE id = '$announcement_id'")->row();
+            
+            echo json_encode($query);
+        }
+
         public function user_login(){
                 $username = $_POST['username']; //need to be dynamic
                 $password = $_POST['password']; //need to be dynamic
@@ -80,6 +116,26 @@
                     return false;
                 }
         }
+
+        public function insertAnnouncement(){
+            $usernames = $this->db->query("SELECT id_number FROM users")->result_array();
+
+            $announcement = $this->input->post('announcement');
+            $insert_announce = mysqli_real_escape_string($this->get_mysqli(),$announcement);
+            foreach ($usernames as $username)    {
+                $stud_username = $username['id_number'];
+
+                $this->db->query("INSERT INTO announcements(content, username) VALUES ('$insert_announce', '$stud_username')");
+            
+            }
+            
+
+        }
+
+      public  function get_mysqli() { 
+                $db = (array)get_instance()->db;
+                return mysqli_connect('localhost', $db['username'], $db['password'], $db['database']);
+            }
 
         public function readUserAdmin($data){
             $username = $data['username'];
@@ -167,7 +223,7 @@
         // }
 
          public function getStudentList(){
-            $query = $this->db->query("SELECT * FROM personal_details INNER JOIN ojt_records ON personal_details.id_number = ojt_records.id_number");
+            $query = $this->db->query("SELECT * FROM users INNER JOIN personal_details ON users.id_number = personal_details.id_number INNER JOIN ojt_records ON personal_details.id_number = ojt_records.id_number WHERE status!='DELETED'");
             return $query->result_array();
          }
 
@@ -488,11 +544,11 @@
                 $ext = pathinfo($path, PATHINFO_EXTENSION);
                 $fileTmpName = $file['tmp_name'];
                 $fileError = $file['error'];
-
+                $randString = $this->generateRandomString();
                 if($fileError === 0){
                     $newFileName = $id.".".$ext;
                     $fileDestination = FCPATH."assets\uploads\\";
-                    $full_path = 'assets/uploads/'.$newFileName;
+                    $full_path = 'assets/uploads/'.$newFileName . '?dummy='.$randString;
                     // $img_tag = '<img src='.$full_path.' class="img-circle">';
                     /*$img_tag_toHeader = '<img src='.$full_path.' class="pull-right circular-square user-image" style="width: 40px; height: 40px; margin-top: -5px;">';
 */
@@ -508,6 +564,16 @@
             }
          }
 
+         public function generateRandomString($length = 10) {
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $charactersLength = strlen($characters);
+            $randomString = '';
+            for ($i = 0; $i < $length; $i++) {
+                $randomString .= $characters[rand(0, $charactersLength - 1)];
+            }
+            return $randomString;
+        }
+
          public function supervisorImage($id){
             return $this->db->query("SELECT * FROM supervisor WHERE id_number = '$id'")->result_array();
          }
@@ -517,6 +583,7 @@
                 $id = $this->session->userdata['id_number'];
                 $file = $_FILES['supFiles'];
                 $path = $_FILES['supFiles']['name'];
+                $randString = $this->generateRandomString();
                 $ext = pathinfo($path, PATHINFO_EXTENSION);
                 $fileTmpName = $file['tmp_name'];
                 $fileError = $file['error'];
@@ -524,12 +591,12 @@
                 if($fileError === 0){
                     $newFileName = $id.".".$ext;
                     $fileDestination = FCPATH."assets\uploads\\";
-                    $full_path ='assets/uploads/'.$newFileName;
+                    $full_path ='assets/uploads/'.$newFileName. '?dummy='.$randString;
                     /*$img_tag = '<img src='.$full_path.' class="img-circle" id="image-modal">';
                     $img_tag_toHeader = '<img src='.$full_path.' class="pull-right circular-square user-image" style="width: 40px; height: 40px; margin-top: -5px;">';*/
 
                     if (move_uploaded_file($_FILES['supFiles']['tmp_name'], $fileDestination. $newFileName)) {
-                           echo '<script>window.location.href="supervisorDashboard"</script>';
+                           echo '<script>window.location.href="supervisordashboard"</script>';
                     $this->db->query("UPDATE supervisor SET imageDisplayToChange = '$full_path' WHERE id_number = '$id'");   
                     return $this->db->query("UPDATE supervisor SET image_id = '$full_path' WHERE id_number = '$id'");
                     }
@@ -693,6 +760,13 @@
 
         }
 
-         // public function
+    
+
+    
+         public function delStud($username){
+            $this->db->query("UPDATE users SET status='DELETED' WHERE id_number= '$username'");
+         }
+
+
 }
 ?>

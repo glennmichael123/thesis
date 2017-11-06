@@ -216,11 +216,13 @@
                                          
                                          <fieldset style="float: right;">
                                              <input tabindex="1" maxlength="1" type="text" name="enthusiasm"  onkeyup="scoreTotal()" id="enthusiasm" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+
                                             <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Enthusiasm / Eagerness to Learn" data-content="Confident to learn new tasks / assignments." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a>
                                              <br>
                                              <input tabindex="2"  maxlength="1" type="text" name="cooperation" onkeyup="scoreTotal()" id="cooperation" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>  
+
                                              <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Cooperation and Willingness" data-content="Readiness to accept and carry out instructions and assignments; works well with others; shows support and concerns for co-workers." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a><br>
@@ -338,7 +340,7 @@
 
                                         <input type="hidden" name="supervisor_id" value="<?php echo $this->session->userdata('id_number'); ?>">
                                         <button type="submit" class="btn btn-success" id="btn_submit" name="midterm_eval">Submit</button>
-                                        <button type="button" class="btn btn-danger">Cancel</button>
+                                        <a href="<?php echo base_url('supervisordashboard');?>" class="btn btn-danger">Cancel</a>
 
                                     </p>
                                 </form>

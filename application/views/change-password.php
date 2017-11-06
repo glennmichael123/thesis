@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -133,9 +134,9 @@
                                 <?php if($this->session->userdata['account_type'] == 'student'):?>
                                 <a href="dashboard" id="cancel" class="btn cancel" style="float: right;width: 115px">Cancel</a>
                             <?php elseif($this->session->userdata['account_type'] == 'supervisor'):?>
-                                 <a href="supervisorDashboard" id="cancel" class="btn cancel" style="float: right;width: 115px">Cancel</a>
+                                 <a href="supervisordashboard" id="cancel" class="btn cancel" style="float: right;width: 115px">Cancel</a>
                             <?php elseif($this->session->userdata['account_type'] == 'admin'):?>
-                                 <a href="adminDashboard" id="cancel" class="btn cancel" style="float: right;width: 115px">Cancel</a>
+                                 <a href="admindashboard" id="cancel" class="btn cancel" style="float: right;width: 115px">Cancel</a>
                              <?php endif;?>
                             </div>
                         </form>

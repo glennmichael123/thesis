@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 02, 2017 at 01:30 PM
+-- Generation Time: Nov 06, 2017 at 02:20 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -55,18 +55,32 @@ INSERT INTO `admin` (`id`, `name`, `id_number`, `password`, `email`) VALUES
 
 CREATE TABLE `announcements` (
   `id` int(11) NOT NULL,
-  `content` text NOT NULL,
+  `content` text CHARACTER SET utf8 NOT NULL,
   `username` varchar(255) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '0'
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `date_posted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `announcements`
 --
 
-INSERT INTO `announcements` (`id`, `content`, `username`, `status`) VALUES
-(1, 'Meeting tomorrow', '14-2649-276', 0),
-(2, 'Meeting tomorrow at 9', '14-2649-276', 0);
+INSERT INTO `announcements` (`id`, `content`, `username`, `status`, `date_posted`) VALUES
+(1, 'the place feels good\n', '14-2649-276', 1, '2017-11-05 09:24:26'),
+(2, 'the place feels good\n', '123', 1, '2017-11-05 09:22:51'),
+(3, 'the place feels good\n', '1234', 0, '2017-11-05 09:22:51'),
+(4, 'Deadline for OJT Requirements: November 11, 2017\n1. NLO Slip\n2. Final Evaluation in a sealed envelope from the company represenatative\n3. Answered Final Google Form (see post below - make sure you copied your Digital Portfolio Link from the address bar)\n4. Confirmation Letter\n5. Waiver\n6. Digital Portfolio\n7. Logbook\n8. Final Admission Slip\n9. Certificate of Completion (with indicated no. of hours rendered)\nPlace the documents in a clear long envelope.\nNOTE: If you can\'t pass it on/before November 11, 2017, you will get INC.', '14-2649-276', 1, '2017-11-05 09:30:16'),
+(5, 'Deadline for OJT Requirements: November 11, 2017\n1. NLO Slip\n2. Final Evaluation in a sealed envelope from the company represenatative\n3. Answered Final Google Form (see post below - make sure you copied your Digital Portfolio Link from the address bar)\n4. Confirmation Letter\n5. Waiver\n6. Digital Portfolio\n7. Logbook\n8. Final Admission Slip\n9. Certificate of Completion (with indicated no. of hours rendered)\nPlace the documents in a clear long envelope.\nNOTE: If you can\'t pass it on/before November 11, 2017, you will get INC.', '123', 1, '2017-11-05 09:30:16'),
+(6, 'Deadline for OJT Requirements: November 11, 2017\n1. NLO Slip\n2. Final Evaluation in a sealed envelope from the company represenatative\n3. Answered Final Google Form (see post below - make sure you copied your Digital Portfolio Link from the address bar)\n4. Confirmation Letter\n5. Waiver\n6. Digital Portfolio\n7. Logbook\n8. Final Admission Slip\n9. Certificate of Completion (with indicated no. of hours rendered)\nPlace the documents in a clear long envelope.\nNOTE: If you can\'t pass it on/before November 11, 2017, you will get INC.', '1234', 0, '2017-11-05 09:30:17'),
+(7, 'welcome comradee', '14-2649-276', 1, '2017-11-05 10:18:43'),
+(8, 'welcome comradee', '123', 0, '2017-11-05 10:18:43'),
+(9, 'welcome comradee', '1234', 0, '2017-11-05 10:18:43'),
+(10, 'To all students enrolled this semester\nMidterm Requirements:\n1. If you have rendered at least 50 hours, ask your direct supervisor to evaluate you using the last page of your OJT logbook and pass the photocopy at the CCS Office\n2. Fill-in the form below\nMidterm Form\ndocs.google.com', '14-2649-276', 1, '2017-11-05 10:29:55'),
+(11, 'To all students enrolled this semester\nMidterm Requirements:\n1. If you have rendered at least 50 hours, ask your direct supervisor to evaluate you using the last page of your OJT logbook and pass the photocopy at the CCS Office\n2. Fill-in the form below\nMidterm Form\ndocs.google.com', '123', 0, '2017-11-05 10:29:55'),
+(12, 'To all students enrolled this semester\nMidterm Requirements:\n1. If you have rendered at least 50 hours, ask your direct supervisor to evaluate you using the last page of your OJT logbook and pass the photocopy at the CCS Office\n2. Fill-in the form below\nMidterm Form\ndocs.google.com', '1234', 0, '2017-11-05 10:29:55'),
+(13, 'Latest entries:\nBaraquil\nPerez\nMonteclaro\nSala\nAbarquez\nCabili\nOnanad\nWong\nRemonde\nAbaya\nYakit\nPabas\nTecson\nCantero\nPilonggo\nAdlawan\nCañada\nPepito\nCansancio\nMartus\nCabarrubias', '14-2649-276', 1, '2017-11-05 10:32:52'),
+(14, 'Latest entries:\nBaraquil\nPerez\nMonteclaro\nSala\nAbarquez\nCabili\nOnanad\nWong\nRemonde\nAbaya\nYakit\nPabas\nTecson\nCantero\nPilonggo\nAdlawan\nCañada\nPepito\nCansancio\nMartus\nCabarrubias', '123', 0, '2017-11-05 10:32:52'),
+(15, 'Latest entries:\nBaraquil\nPerez\nMonteclaro\nSala\nAbarquez\nCabili\nOnanad\nWong\nRemonde\nAbaya\nYakit\nPabas\nTecson\nCantero\nPilonggo\nAdlawan\nCañada\nPepito\nCansancio\nMartus\nCabarrubias', '1234', 0, '2017-11-05 10:32:52');
 
 -- --------------------------------------------------------
 
@@ -87,7 +101,9 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `log_id`, `content`, `comment_time`, `supervisor_id`) VALUES
-(4, 22, 'sugoi\n', '2017-11-02 02:27:59', '14-111');
+(4, 22, 'sugoi\n', '2017-11-02 02:27:59', '14-111'),
+(5, 28, 'wa man moy hands oy\n', '2017-11-03 08:12:23', '009'),
+(12, 35, 'hahaha', '2017-11-05 12:36:34', '14-111');
 
 -- --------------------------------------------------------
 
@@ -114,7 +130,8 @@ CREATE TABLE `company_information` (
 --
 
 INSERT INTO `company_information` (`id`, `id_number`, `company_name`, `supervisor_id`, `company_address`, `contact_number`, `fax_number`, `product_lines`, `company_classification`, `number_of_employees`, `watchlisted`) VALUES
-(1, '14-2649-276', 'nettrac', '14-111', 'lagtang', 9211, 0, 'software', 'assembly,manufacturing,maintenance,,,research,,', 'From 50 to 100', 0);
+(1, '14-2649-276', 'nettrac', '14-111', 'lagtang', 9211, 0, 'software', 'assembly,manufacturing,maintenance,,,research,,', 'From 50 to 100', 0),
+(2, '123', 'innosoft', '009', 'lagtang', 9211, 0, 'software', 'assembly,manufacturing,maintenance,,,research,,', 'From 50 to 100', 0);
 
 -- --------------------------------------------------------
 
@@ -228,11 +245,50 @@ INSERT INTO `logs` (`id`, `id_number`, `date`, `time_in`, `time_out`, `division`
 (20, '1234', '2017-09-25', '17:00:00', '20:00:00', 'y', 'y', 'y', 'y', 8, 1, '14-111'),
 (21, '14-2649-276', '2017-09-30', '08:00:00', '17:00:00', 'post', 'post', 'post', 'post', 5, 1, '14-111'),
 (22, '14-2649-276', '2017-10-22', '08:00:00', '17:00:00', 'lala', 'lala', 'lala', 'lala', 8, 1, '14-111'),
-(24, '14-2649-276', '2017-10-22', '08:00:00', '17:00:00', 'lala2', 'lala2', 'lala2', 'lala2', 8, 0, '14-111'),
-(25, '14-2649-276', '2017-10-22', '08:00:00', '17:00:00', 's', 's', 's', 'asasas', 8, 0, '14-111'),
-(26, '123', '2017-10-22', '08:00:00', '17:00:00', 'a', 'a', 'a', 'a', 8, 0, ''),
-(28, '14-2649-276', '2017-10-22', '08:00:00', '17:00:00', 's', 's', 's', 'asasassasss22222', 8, 0, ''),
-(29, '14-2649-276', '2017-10-22', '08:00:00', '17:00:00', 's', 's', 's', 'asasassasss222', 8, 0, '');
+(24, '14-2649-276', '2017-10-22', '08:00:00', '17:00:00', 'lala2', 'lala2', 'lala2', 'lala2', 8, 1, '14-111'),
+(25, '14-2649-276', '2017-10-22', '08:00:00', '17:00:00', 's', 's', 's', 'asasas', 8, 1, '14-111'),
+(26, '123', '2017-10-22', '08:00:00', '17:00:00', 'a', 'a', 'a', 'a', 8, 1, '14-111'),
+(28, '14-2649-276', '2017-10-22', '08:00:00', '17:00:00', 's', 's', 's', 'asasassasss22222', 8, 1, '009'),
+(29, '14-2649-276', '2017-10-22', '08:00:00', '17:00:00', 's', 's', 's', 'asasassasss222', 8, 1, '14-111'),
+(31, '123', '2017-11-02', '12:59:00', '12:59:00', 'a', 'a', 'a', 'lagum ko kaayo', 1, 0, '14-111'),
+(32, '14-2649-276', '2017-11-03', '12:59:00', '12:59:00', 'AA', 'AA', 'AA', 'HAHAHAHAHAHAHAHAH BOBO KA BA?\n', 1, 1, '14-111'),
+(35, '14-2649-276', '2017-11-05', '12:59:00', '12:59:00', 'AA', 'AA', 'AA', 'To all students enrolled this semester\nMidterm Requirements:\n1. If you have rendered at least 50 hours, ask your direct supervisor to evaluate you using the last page of your OJT logbook and pass the photocopy at the CCS Office\n2. Fill-in the form below\nMidterm Form\ndocs.google.com', 1, 0, '14-111');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `midterm_evaluation`
+--
+
+CREATE TABLE `midterm_evaluation` (
+  `id` int(11) NOT NULL,
+  `username` text NOT NULL,
+  `supervisor_username` varchar(255) NOT NULL,
+  `enthusiasm` int(11) NOT NULL,
+  `cooperation` int(11) NOT NULL,
+  `adaptability` int(11) NOT NULL,
+  `industriousness` int(11) NOT NULL,
+  `responsibility` int(11) NOT NULL,
+  `attentiveness` int(11) NOT NULL,
+  `grooming` int(11) NOT NULL,
+  `attendance` int(11) NOT NULL,
+  `quality` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `dependability` int(11) NOT NULL,
+  `comprehension` int(11) NOT NULL,
+  `safety` int(11) NOT NULL,
+  `waste` int(11) NOT NULL,
+  `remarks` text NOT NULL,
+  `allow_value` int(11) NOT NULL,
+  `total` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `midterm_evaluation`
+--
+
+INSERT INTO `midterm_evaluation` (`id`, `username`, `supervisor_username`, `enthusiasm`, `cooperation`, `adaptability`, `industriousness`, `responsibility`, `attentiveness`, `grooming`, `attendance`, `quality`, `quantity`, `dependability`, `comprehension`, `safety`, `waste`, `remarks`, `allow_value`, `total`) VALUES
+(10, '14-2649-276', '14-111', 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, '444', 1, 100);
 
 -- --------------------------------------------------------
 
@@ -257,8 +313,8 @@ CREATE TABLE `ojt_records` (
 --
 
 INSERT INTO `ojt_records` (`id`, `id_number`, `total_hours`, `rendered_hours`, `total_evaluations`, `current_evaluations`, `logs`, `logs_verified`, `supervisor_id`) VALUES
-(1, '14-2649-276', 200, 29, 2, 1, 8, 4, '14-111'),
-(2, '123', 200, 0, 2, 0, 1, 0, '14-111'),
+(1, '14-2649-276', 200, 62, 2, 1, 10, 9, '14-111'),
+(2, '123', 200, 8, 2, 0, 2, 1, '14-111'),
 (3, '1234', 200, 8, 2, 0, 1, 1, '14-111');
 
 -- --------------------------------------------------------
@@ -288,16 +344,19 @@ CREATE TABLE `personal_details` (
   `weight` int(11) NOT NULL,
   `height` int(11) NOT NULL,
   `religion` text NOT NULL,
-  `citizenship` text NOT NULL
+  `citizenship` text NOT NULL,
+  `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `personal_details`
 --
 
-INSERT INTO `personal_details` (`id`, `id_number`, `image_id`, `first_name`, `middle_initial`, `last_name`, `college`, `course`, `year`, `present_address`, `permanent_address`, `contact_number`, `email_address`, `date_of_birth`, `age`, `marital_status`, `blood_type`, `weight`, `height`, `religion`, `citizenship`) VALUES
-(1, '14-2649-276', 'assets/uploads/14-2649-276.jpg', 'Glenn', 'P. ', 'Torregosa', 'CCS', 'course', 1, 'cebu', 'cebu', 92122, 'gtorregosa@gmail.com', '2015-12-31', 20, 'Single', 'Type B', 20, 20, 'Catholic', 'Filipino'),
-(2, '123', '<img src=http://[::1]/thesis/assets/uploads/123.JPG class=\"img-circle\">', 'Peter', 'I.', 'Into', 'CCS', 'BSIT', 4, 'Secret', 'secret sad', 1123123123, 'bodnjames1212@gmail.com', '2017-10-02', 19, 'its complicated', 'secret', 50, 170, 'you are my religion ;)', 'senior');
+INSERT INTO `personal_details` (`id`, `id_number`, `image_id`, `first_name`, `middle_initial`, `last_name`, `college`, `course`, `year`, `present_address`, `permanent_address`, `contact_number`, `email_address`, `date_of_birth`, `age`, `marital_status`, `blood_type`, `weight`, `height`, `religion`, `citizenship`, `status`) VALUES
+(1, '14-2649-276', 'assets/uploads/14-2649-276.jpg?dummy=hZ6BFPMIX9', 'Glenn', 'P. ', 'Torregosa', 'CCS', 'BSIT', 4, 'cebu', 'cebu', 92122, 'gtorregosa@gmail.com', '2015-12-31', 20, 'Single', 'Type B', 20, 20, 'Catholic', 'Filipino', ''),
+(2, '123', 'assets/uploads/123.jpg', 'Peter', 'I.', 'Into', 'CCS', 'BSIT', 4, 'Secret', 'secret sad', 1123123123, 'bodnjames1212@gmail.com', '2017-10-02', 19, 'its complicated', 'secret', 50, 170, 'you are my religion ;)', 'senior', ''),
+(3, '1234', '<i class=\"fa fa-user-circle fa-5x\" style=\"font-size: 150px;\" aria-hidden=\"true\"></i>', 'Renato', 'A.', 'Manalili', 'CCS', 'BSIT', 4, '50 steps away from CIT', '50 steps away from CIT', 907897862, 'natoy@gmail.com', '2017-10-26', 20, 'In a relationship <3', 'ABCD+-', 50, 170, 'is life <3', 'senior', ''),
+(4, 'brian.repuesto', '<i class=\"fa fa-user-circle fa-5x\" style=\"font-size: 150px;\" aria-hidden=\"true\"></i>', 'Brian', 'P.', 'Repuesto', 'CCS', 'BSCS', 4, 'City of Waks', 'City of Waks', 922617262, 'brian@gmail.com', '2017-02-07', 27, 'its complicated', 'QWERTY+-', 120, 170, 'Ambot lang jud', 'Senior', '');
 
 -- --------------------------------------------------------
 
@@ -322,7 +381,7 @@ CREATE TABLE `supervisor` (
 --
 
 INSERT INTO `supervisor` (`id`, `image_id`, `imageDisplayToChange`, `name`, `company_name`, `designation`, `id_number`, `password`, `email`) VALUES
-(1, 'assets/uploads/14-111.jpg', 'assets/uploads/14-111.jpg', 'Yehye', 'nettrac', 'president', '14-111', '123456', 'email@email.com'),
+(1, 'assets/uploads/14-111.jpg?dummy=ah1RxVVP33', 'assets/uploads/14-111.jpg?dummy=ah1RxVVP33', 'Yehye', 'nettrac', 'president', '14-111', '123456', 'email@email.com'),
 (2, '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', '<i class=\"fa fa-user-circle fa-5x\" style=\"font-size: 150px;\" aria-hidden=\"true\"></i>', 'Jack Sparrow', 'nettrac', 'Manager', '1043', '123456', 'jack.sparrow@gmail.com'),
 (3, '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', '<i class=\"fa fa-user-circle fa-5x\" style=\"font-size: 150px;\" aria-hidden=\"true\"></i>', 'Peter Andrew', 'Innosoft', 'Technical Support', '14-1893-273', '123456', 'bondjames1212@gmail.com'),
 (4, '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', '<i class=\"fa fa-user-circle fa-5x\" style=\"font-size: 150px;\" aria-hidden=\"true\"></i>', 'Glenn Michaels', 'nettrac', 'Web Developer', '14-2649-276', '123456', 'gtorregosa@gmail.com'),
@@ -352,8 +411,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `id_number`, `user_image`, `first_name`, `middle_initial`, `last_name`, `account_type`, `password`) VALUES
-(1, '14-2649-276', 'assets/uploads/14-2649-276.jpg', 'Glenn Michael', 'P.', 'Torregosa', 0, '123'),
-(4, '123', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'Peter', 'I.', 'Into', 0, '123456'),
+(1, '14-2649-276', 'assets/uploads/14-2649-276.jpg?dummy=hZ6BFPMIX9', 'Glenn Michael', 'P.', 'Torregosa', 0, '123456'),
+(4, '123', 'assets/uploads/123.jpg', 'Peter', 'I.', 'Into', 0, '123456'),
 (5, '1234', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'renato', 'maoy', 'manalili', 0, '123456');
 
 -- --------------------------------------------------------
@@ -431,6 +490,12 @@ ALTER TABLE `logs`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `midterm_evaluation`
+--
+ALTER TABLE `midterm_evaluation`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `ojt_records`
 --
 ALTER TABLE `ojt_records`
@@ -473,17 +538,17 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `announcements`
 --
 ALTER TABLE `announcements`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `company_information`
 --
 ALTER TABLE `company_information`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `email`
 --
@@ -503,7 +568,12 @@ ALTER TABLE `family_details`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+--
+-- AUTO_INCREMENT for table `midterm_evaluation`
+--
+ALTER TABLE `midterm_evaluation`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `ojt_records`
 --
@@ -513,7 +583,7 @@ ALTER TABLE `ojt_records`
 -- AUTO_INCREMENT for table `personal_details`
 --
 ALTER TABLE `personal_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `supervisor`
 --
