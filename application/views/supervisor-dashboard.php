@@ -13,7 +13,10 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script src="<?php echo base_url()?>assets/js/progressbar/dist/progressbar.js"></script>
     <script src="<?php echo base_url()?>assets/js/progressbar/dist/progressbar.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -177,6 +180,7 @@
         
         .progress {
             height: 35px;
+
         }
         textarea:focus{
             outline: none;
@@ -287,17 +291,15 @@
         font-size: .65em;
         }
         .progress-bar-first{
-            background: #CA2E32;
+            background: #e13438;
         }
         .progress-bar-second{
-            background: #800000;
+            background: #ca2e32;
         }
         .progress-bar-third{
-            background: #FFC019;
+            background: #ffba00;
         }
-        .skill{
-            font-size: 1.5em !important;
-        }
+       
         .btn-trainee{
         background-color: #FFC019;
         color: #FFFFFF;
@@ -310,7 +312,7 @@
         transition: 0.4s;
         }
         .progress-bar-first{
-            background: #CA2E32;
+            background: #b4292c;
         }
         .progress-bar-second{
             background: #800000;
@@ -318,11 +320,13 @@
         .progress-bar-third{
             background: #FFC019;
         }
-        .skill{
-            font-size: 1.5em !important;
-        }
+        .skills{
+            font-size: 1.25em !important;
+            margin-top: 8px;
 
-          .alert{
+
+        }
+        .alert{
             margin-top: 20px;
             padding: 10px 30px 10px 10px;
             /* padding-top: 5px; */
@@ -330,6 +334,13 @@
             margin-bottom: 20px;
             border: 1px solid transparent;
             border-radius: 0px;
+        }
+        .panel-heading{
+            color: #FFFFFF !important;
+            font-size: 20px;
+            background-color: #CA2E32 !important;
+            background-image: none !important;
+            padding: 10px 10px !important;
         }
 
     
@@ -403,39 +414,43 @@
                 <div class="row">
 
                     <div class="col-lg-4">
-                        <div class="well">
-
+                        
+                    <div class="panel panel-default">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <h4 style="text-align: center; margin-bottom: 10px;">Trainees Completed</h4>
+                                  <div class="panel-heading">
+                                    <h3 style="text-align: center; margin-top: 10px;">Progress</h3>
+                                  </div>
+                                    <h4 style="text-align: center; margin-top: 10px;">Trainees Completed</h4>
+                                  
+                                  <div class="panel-body">  
                                     <!-- if --><?php if(empty($eval_trainees->num_id) && empty($num_trainees->num_trainee)):?>
                                     <!-- no studs -->
-                                    <span class="skill"><?php echo "No Trainees Yet";?></span>  
+                                    <h3 style="text-align: center;"><?php echo "No Trainees Yet";?></h3>  
                                     <!-- else -->
                                 <?php else:?>
                                     <div class="progress skill-bar">
 
                                         <div class="progress-bar progress-bar-first" role="progressbar" aria-valuenow="<?php echo  ($eval_trainees->num_id/$num_trainees->num_trainee )*100;?>" aria-valuemin="0" aria-valuemax="100">
-                                            <span class="skill"><?php echo $eval_trainees->num_id .'/'. $num_trainees->num_trainee;?></span>  
+                                            <p class="skills"><?php echo $eval_trainees->num_id .'/'. $num_trainees->num_trainee;?></p>  
                                         </div>
                                     </div>
                                     <!-- endif -->
                                 <?php endif;?>
-                                </div>
-                            </div>
+                                
+                            
 
                             <div class="row">
                                 <div class="col-lg-12">
                                     <h4 style="text-align: center; margin-bottom: 10px;">Evaluations</h4>
                                     <!-- if --><?php if(empty($eval_trainees->num_id) && empty($num_trainees->num_trainee)):?>
                                     <!-- no stud -->
-                                     <span class="skill"><?php echo "No Evaluations Yet";?></span>  
+                                     <h3 style="text-align: center;"><?php echo "No Evaluations Yet";?></h3>  
                                     <!-- else -->
                                      <?php else:?>
                                     <div class="progress skill-bar">
-
                                         <div class="progress-bar progress-bar-second" role="progressbar" aria-valuenow="<?php echo  ($eval_trainees->num_id/($num_trainees->num_trainee*2))*100;?>" aria-valuemin="0" aria-valuemax="100">
-                                            <span class="skill"><?php echo $eval_trainees->num_id .'/'. $num_trainees->num_trainee*2;?></span>
+                                            <p class="skills"><?php echo $eval_trainees->num_id .'/'. $num_trainees->num_trainee*2;?></p>
                                         </div>
                                     </div>
                                     <!-- endif -->
@@ -448,23 +463,28 @@
                                     <h4 style="text-align: center; margin-bottom: 10px;">Pending logs</h4>
                                     <?php if(empty($eval_trainees->num_id) && empty($num_trainees->num_trainee)):?>
                                     <!-- if -->
-                                    <span class="skill"><?php echo "No Logs Added";?></span>  
+                                    <h3 style="text-align: center;"><?php echo "No Logs Added";?></h3>  
                                     <!-- else -->
                                     <?php else:?>
                                     <div class="progress skill-bar">
-
                                         <div class="progress-bar progress-bar-third" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                                            <span class="skill"><?php echo $not_verified->not_verified;?></span>
+                                            <p class="skills"><?php echo $not_verified->not_verified;?></p>
                                         </div>
                                     </div>
                                     <!-- endif -->
                                      <?php endif;?>
                                 </div>
                             </div>
+                            </div>
+                            </div>
+                            </div>
                         </div>
 
-                        <div class="well">
-                                <h4 style="text-align: center; color: #000;">Trainees</h4>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 style="text-align: center; color: #FFFFFF;">Trainees</h3>
+                            </div>      
+                            <div class="panel-body">
                                 <?php if(empty($ojtRecords)):?>
                                     <span class="skill"><?php echo "No Trainees Yet";?></span>
                                      <?php else:?>
@@ -493,7 +513,9 @@
                                     </tbody>
                                 </table>
                                      <?php endif;?>
-                        </div>
+                           
+                            </div>
+                        </div>    
                     </div>
 
                     <div class="col-lg-8">
@@ -1014,7 +1036,11 @@
         });
     });
 </script>
-
+<script type="text/javascript">
+    $( function(){
+    $( "#tabs" ).tabs();
+  });
+</script>
 </script>
 
 </html>

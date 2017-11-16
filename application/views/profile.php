@@ -13,7 +13,10 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
  
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -29,14 +32,14 @@
         }
         
 
-       /*  .header {
+        .header {
             position: fixed;
             right: 0;
             left: 0;
             z-index: 99;
 
             height: 60px;
-        }*/
+        }
         
         .mission {
             height: 200px;
@@ -69,9 +72,7 @@
             margin: 0;
         }
         
-        .nav {
-            float: right;
-        }
+       
         
         .nav a {
             color: #915B51;
@@ -141,7 +142,7 @@
         }
         
         
-      /*  
+       
         li > .notifications {
             padding-left: 20px;
             color: #915B51;
@@ -153,7 +154,7 @@
        
         
       
-        */
+    
 
           .notifs {
             padding-left: 10px;
@@ -195,35 +196,18 @@
         }
         
         .content {
-            padding-top: 30px;
+            padding-top: 100px;
             padding-bottom: 30px;
             background: #E9EBEE;
             color: #000000 !important;
         }
-        
-
-
-        .jumbotron{
-            background-color: #CA2E32;
-            padding: 10px 10px !important;
-            color: #FFFFFF;
-            font-size: 1.5em;
-            border-radius: 0px !important;
-
-
-        }
-        .well{
-            background: #FFFFFF;
-            border-radius: 0px;
-
-        }
         .profile-container{
             margin: 0 auto;
             text-align: center;
+            background-color: #FFFFFF;
 
         }
         .profile-image{
-
             padding: 20px;
         }
         .profile-image>img.img-circle{
@@ -248,6 +232,7 @@
             font-size: 20px;
             font-family: 'Oswald', sans-serif;
             color: #FFFFFF;
+            text-align: center;
 
         }
         fieldset{
@@ -278,6 +263,10 @@
         }
         #second-fieldset{
             margin-top: 10px;
+
+        }
+        #third-fieldset{
+            display: none;
         }
         .labels{
             font-size: 15px;
@@ -405,17 +394,64 @@
         background-color:#760404;
         transition: 0.4s;
         }
+        .profile-menu{
+            margin-top: 10px;
+        }
+        .profile-menu ul li {
+            border-bottom: 1px solid #f0f4f7;
+            text-align: left;
+        }
+        .profile-menu ul li a {
+             color: #93a3b5;
+             font-size: 14px;
+             font-weight: 400;
+        }
+        .profile-menu ul li a i {
+            margin-right: 8px;
+            font-size: 14px;
+        }
+
+        .profile-menu ul li a:hover {
+            background-color: #fef80a;
+            color: #5b9bd1;
+        }
+
+        .profile-menu ul li.active {
+            border-bottom: none;
+        }
+
+        .profile-menu ul li.active a {
+            color: #ca2e32;
+            background-color: #fef80a;
+            border-left: 3px solid #ffba00;
+            margin-left: -2px;
+        }
+        .home{
+            border-top: 1px solid #f0f4f7;
+        }
+        #fourth-fieldset,#fifth-fieldset{
+            display: none;
+        }
+        #tabs{
+            display:none;
+        }
+        .ui-widget-header {
+         border: none;
+         background: #FFFFFF;
+         color: #333333;
+         font-weight: bold;
+        }
+
     </style>
 
     <title></title>
 </head>
 <body>
     <div class="page-wrap">
-      <!-- <div class="header">
+      <div class="header">
           <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
       </div>
-       --> 
-       <!-- <div class="header">
+       <div class="header">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-4 col-sm-4">
@@ -424,7 +460,7 @@
                     <div class="col-lg-7 col-sm-7">
                         <?php if(isset($id_number)):?>
                         <?php else:?>
-                        <ul class="nav navbar-nav">
+                        <ul class="nav navbar-nav" style="float: right !important;">
                             <li class="dropdown">
                             <a href="#" class="dropdown-toggle" id="dropdown-notification" data-toggle="dropdown"><i class="pull-right fa fa-bell-o fa-2x" style="width: 40px; height: 40px; margin-top: 0px;"></i> </a>
                                 
@@ -490,20 +526,15 @@
 
                 </div>
 
-            </div> -->
+            </div> 
+        </div>
         </div>
        <div class="content">
             <div class="container">
-                <div class="jumbotron">
-                    <label style="color: #FFFFFF;"><span class="fa fa-user" aria-hidden="true" style="color: #FFFFFF;"></span> Student Information</label>
-                </div>
                 <div class="row">
                     <div class="col-lg-3">
-                        <div class="well">
                             <div class="profile-container">
-                                
                                     <div class="profile-image">
-                                        
                                         <?php if($personalDetails[0]['image_id'] == '<i class="fa fa-user-circle fa-5x" style="font-size: 150px;" aria-hidden="true"></i>'):?>
                                             <?php echo $personalDetails[0]['image_id'];?>
                                              <img class="img-circle" src="" style="display: none;">
@@ -521,8 +552,8 @@
                                     </div>
                                     <div class="change-photo" style="margin-top: 10px">
                                         <!-- browse -->
-                                        <button class="btn btn-default click-photo btn-lg" id="btn-browse"><i class="fa fa-picture-o" aria-hidden="true" ></i></button>
-                                        <button class="btn btn-default btn-lg"><i class="fa fa-camera" aria-hidden="true"></i></button>
+                                        <button class="btn btn-default click-photo btn-md" id="btn-browse"><i class="fa fa-picture-o" aria-hidden="true" ></i></button>
+                                        <button class="btn btn-default btn-md"><i class="fa fa-camera" aria-hidden="true"></i></button>
                                     </div>
                                    
                                 <form action="saveImage" method="POST" enctype="multipart/form-data">
@@ -532,9 +563,17 @@
                                         <button type="button" class="btn btn-cancel btn-md" id="cancelBrowse">Cancel</button>
                                     </div>
                                 </form> 
+                           
+                            <div class="profile-menu">
+                                <ul class="nav">
+                                    <li class="home"><a href="dashboard"><i class="fa fa-home" aria-hidden="true"></i>Dashboard</a></li>
+                                    <li class="active" id="nav1"><a href="#" ><i class="fa fa-user" aria-hidden="true"></i>Personal Information</a></li>
+                                    <li id="nav2"><a href="#"><i class="fa fa-building" aria-hidden="true"></i>Company Information</a></li>
+                                    <li id="nav3"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i>Evaluation</a></li>
+                                </ul>
                             </div>
-                        </div>
-                        <div class="panel panel-default">
+                      </div>
+                        <!-- <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 style="text-align: center;">Evaluation</h3>
                             </div>
@@ -550,10 +589,11 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
-                    <div class="col-lg-9">
-                    <fieldset>
+
+                    <div class="col-lg-8">
+                    <fieldset id="first-fieldset">
                     <legend><i class="fa fa-user"></i>Personal Information</legend>
                          <div id="edit">
                              <button id="btn-edit"><span class="fa fa-pencil-square-o" aria-hidden="true"></span></button>
@@ -632,7 +672,7 @@
                            </p>
                         
                     </fieldset>
-                     <fieldset id="second-fieldset">
+                     <fieldset id="third-fieldset">
                     <legend><i class="fa fa-building-o"> </i>Company Information</legend>
                          <div id="edit">
                              <button id="btn-edit2"><span class="fa fa-pencil-square-o" aria-hidden="true"></span></button>
@@ -707,24 +747,15 @@
                                <button class="btn btn-danger btss" id="cancelss" style="display: none;" type="button">Cancel</button>
                         </p>
                     </fieldset>
-                  <!--   <div class="row">
-                        <div class="col-lg-3"></div>
-                             <div class="col-lg-6">
-                                <form class="form-group">
-                                     <select type="button" class="btn btn-loginas btn-block" name="login-options" id="select_evaluation">
-                                         <span class="caret"></span>
-                                         <option value="midtermevaluation" id="eval" selected="">Midterm Evaluation</option>
-                                         <option value="finalevaluation" id="eval">Final Evaluation</option>
-                                     </select>
-                                </form>
-                             </div>
-                        <div class="col-lg-3"></div>
-                    </div>
-                    <fieldset id="third-fieldset">
-                         <legend><i class="fa fa-users"></i> My Midterm Evaluation</legend>
+                    <div id="tabs">
+                        <ul>
+                            <li id="tab1"><a href="#fourth-fieldset">Midterm</a></li>
+                            <li id="tab2"><a href="#fifth-fieldset">Final</a></li>
+                        </ul>
+                    <fieldset id="fourth-fieldset">
+                            <h1 style="text-align: center;">My Midterm Evaluation</h1>
                          <label>WORK ATTITUDE(<div class="badge">40</div> points)</label>
                                 <ol>
-                                    
                                     <div class="row">
                                         <div class="col-lg-6">
                                             
@@ -871,13 +902,182 @@
                                 <label for="remark" style="margin:0; padding: 0;" class="pointy">REMARKS</label>
                               
                                     <textarea tabindex="15" name="remarks" id="remark" class="form-control"></textarea>
+
                             </div>
+
+                            </div>
+                        <div id="fifth-fieldset">
+                        <div class="col-lg-3">
+                            
+                        </div>
+
+                        <div class="col-lg-9">
+                            <div class="well" style="background-image:none; background-color: #FFFFFF; border: 1px solid #C0C0C0; width: 88.5% !important;">
+                            <h1 style="text-align: center;">My Final Evaluation</h1>
+                                <label>WORK ATTITUDE(<div class="badge">40</div> points)</label>
+                                <ol>
+                                    
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            
+                                                <li>Enthusiasm / Eagerness to Learn</li>
+                                                
+                                            
+                                          
+                                                <li>Cooperation and Willingness</li>
+                                           
+                                            
+                                           
+                                                <li>Adaptability and Sociability</li>
+                                            
+                                           
+                                          
+                                                <li>Industriousness and Initiative</li>
+                                          
+                                           
+                                           
+                                                <li>Sense of Responsibility</li>
+                                           
+                                            
+                                                <li>Attentiveness / Attention</li>
+                                        
+                                            
+                                                <li>Personal Grooming</li>
+                                          
+                                                <li>Attendance</li>
+                                            
+                                        </div>
+
+                                    <div class="col-lg-6">
+                                        <form method="post" id="formy"  name="mid_ev">
+                                         
+                                         <fieldset style="float: right;">
+                                             <input tabindex="1" maxlength="1" type="text" name="enthusiasm"  onkeyup="scoreTotal()" id="enthusiasm" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+
+                                            <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Enthusiasm / Eagerness to Learn" data-content="Confident to learn new tasks / assignments." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
+                                             <br>
+                                             <input tabindex="2"  maxlength="1" type="text" name="cooperation" onkeyup="scoreTotal()" id="cooperation" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>  
+
+                                             <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Cooperation and Willingness" data-content="Readiness to accept and carry out instructions and assignments; works well with others; shows support and concerns for co-workers." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a><br>
+                                             <input tabindex="3" maxlength="1" type="text" name="adaptability" onkeyup="scoreTotal()" id="adaptability" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+                                                   <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Adaptability and Sociability" data-content="Ability to adjust to a new environment and be at ease with others; ability to deal with people of different levels/ positions; amiable and friendly with others and knows how to respect authority." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
+                                             </i><br>
+                                             <input tabindex="4" maxlength="1" type="text" name="industriousness" onkeyup="scoreTotal()" id="industriousness" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required> 
+                                             <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Industriousness and Initiative" data-content="Constant worker / keeps himself busy with initiative; does not take unauthorized breaks; initiates action when the situation calls for it." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
+                                             <br>
+                                             <input tabindex="5" maxlength="1" type="text" name="responsibility" onkeyup="scoreTotal()" id="responsibility" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+
+                                               <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Sense of Responsibility" data-content="Applies sound judgement / decision making." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a><br>
+                                             <input tabindex="6"  maxlength="1" type="text" name="attentiveness" class="score" onkeyup="scoreTotal()" id="attentiveness" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+                                              <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Attentiveness / Attention" data-content="Focuses on his/her work / gives full attention to what he/she is doing; ability to handle unexpected problems; carry-out instructions / assignments at once." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a><br>
+                                             <input tabindex="7" maxlength="1" type="text" name="grooming" onkeyup="scoreTotal()" id="grooming" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+                                             <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Personal Grooming" data-content="Maintains proper way of dressing marked by proper conduct, tidiness, and well-grooming; lively and well-spirited during at work and at rest." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
+                                             
+                                             <br>
+                                             <input tabindex="8" maxlength="1" type="text" name="attendance" onkeyup="scoreTotal()" id="attendance" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>                           
+                                                <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Attendance" data-content="Reports to work regurlarly and on time and uses time wisely and productively." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a><br>
+                                        </fieldset>
+                                    </div>
+                                 
+                                    </div>
+                                   
+                                       
+                                    
+                                </ol>
+                                <label>WORK PERFORMANCE (30 x 2 =
+                                    <div class="badge">60</div> points)</label>
+
+                                <ol>
+                                    
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                                <li>Quality of Work</li>
+                                               
+                                                <li>Quantity of Work</li>
+                                             
+                                                <li>Dependability</li>
+                                              
+                                                <li>Comprehension</li>
+                                                <li>Safety Consciousness</li>
+                                               
+                                                <li>Waste Consciousness</li>
+                                         </div>
+                                         <div class="col-lg-6">
+                                            <fieldset style="float: right;">
+                                                <input tabindex="9" maxlength="1" type="text" name="quality" onkeyup="scoreTotal()" id="quality" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+                                                    <a role="button" class="clicky" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Quality of Work" data-content="Thoroughness, accuracy, neatness and effectiveness of output, meets required standards and even exceeds expected results." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
+                                                <br>
+                                                <input tabindex="10" maxlength="1" type="text" name="quantity" onkeyup="scoreTotal()" id="quantity" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+                                                      <a role="button" class="clicky" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Quantity of Work" data-content="Able to complete work within the alloted time, finishes work on schedule and maximizes use of tme." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
+                                                <br>
+                                                <input tabindex="11" maxlength="1" type="text" name="dependability" onkeyup="scoreTotal()" id="dependability" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+                                                      <a role="button" class="clicky" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Dependability" data-content="Ability to work with minimum supervision, does not need constant follow-up." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
+                                                <br>
+                                                <input tabindex="12" maxlength="1" type="text" name="comprehension" onkeyup="scoreTotal()" id="comprehension" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+                                                      <a role="button" class="clicky" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Comprehension" data-content="Understand instructions at once with almost no clarification." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
+                                                <br>
+                                                <input tabindex="13" maxlength="1" type="text" name="safety" onkeyup="scoreTotal()" id="safety" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+                                                  <a role="button" class="clicky" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Safety Consciousness" data-content="Carefully takes precaution and observe visible hazards; follow safety rules and reads instructions prior to working." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
+                                                <br>
+                                                <input tabindex="14" maxlength="1" type="text" name="waste" onkeyup="scoreTotal()" id="waste" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+                                                     <a role="button" class="clicky" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Waste Consciousness" data-content="Shows concerns of company facilities; handles tools and equipment carefully; keeps equipment, tools, materials and work area clean and well-kept; proper use and disposal of materials." tabindex="0" data-trigger="focus">
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </a>
+                                                <br>
+                                            </fieldset>
+                                         </div>
+                                    </div>
+                                   
+                                </ol>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                     <label class="pointy">OVERALL TOTAL</label>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <fieldset style="float: right;">
+                                            <input type="text" name="total" class="score" id="total" style="margin-right: 25px; margin-top: 20px;" readonly> 
+                                         </fieldset>
+                                    </div>
+                                </div>
+                                <label for="remark" style="margin:0; padding: 0;" class="pointy">REMARKS</label>
+                              
+                                    <textarea tabindex="15" name="remarks" id="remark" class="form-control"></textarea>
+                                   
+                                </form>
+                            </div>
+                        </div>
 
                 
 
             </div>  
 
-        </div> -->
+        </div> 
 
 
 
@@ -976,14 +1176,47 @@
 })
 </script>
 <script type="text/javascript">
-    $("#select_evaluation").change(function(){
-        var evaltype=$(this).val();
-        if(evaltype=='finalevaluation'){
-            $('#third-fieldset').hide();
-        }
-        else{
-            $('#third-fieldset').show();
-        }
-    })
+    $("#nav1").click(function(){
+        $("#first-fieldset").show();
+        $("#second-fieldset").show();
+        $("#third-fieldset").hide();
+        $("#fifth-fieldset").hide();
+        $("#fourth-fieldset").hide();
+        $("#nav1").addClass("active");
+        $("#nav2").removeClass("active");
+        $("#tabs").hide();
+    });
+    $("#nav2").click(function(){
+        $("#first-fieldset").hide();
+        $("#second-fieldset").hide();
+        $("#fourth-fieldset").hide();
+        $("#fifth-fieldset").hide();
+        $("#third-fieldset").show();
+        $("#nav2").addClass("active");
+        $("#nav1").removeClass("active");
+        $("#nav3").removeClass("active")
+        $("#tabs").hide();
+    });
+</script>
+<script type="text/javascript">
+    $("#nav3").click(function(){
+        $("#tabs").tabs().show();
+        $("#first-fieldset").hide();
+        $("#second-fieldset").hide();
+        $("#third-fieldset").hide();
+        $("#fourth-fieldset").show();
+        $("#fifth-fieldset").hide();
+        $("#nav3").addClass("active");
+        $("#nav1").removeClass("active");
+        $("#nav2").removeClass("active");
+    });
+</script>
+<script type="text/javascript">
+    $("#tab1").click(function(){
+        $("#fifth-fieldset").hide();
+    });
+    $("#tab2").click(function(){
+        $("#fifth-fieldset").show();
+    });
 </script>
 </html>

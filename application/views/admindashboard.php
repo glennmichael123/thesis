@@ -281,6 +281,9 @@ li.notification-title{
         border-radius: 5px;
        
 }
+.btn-admin:focus{
+  color: #FFFFFF;
+}
 .capitalize {
     text-transform: capitalize;
 }
@@ -304,6 +307,28 @@ li.notification-title{
 }
 .nav-tabs{
   background-color: #F4F4F4;
+}
+a#addStuds:focus{
+  box-shadow: 0px 0px 10px 5px  #871F21;
+}
+a#addcsv:focus{
+  box-shadow: 0px 0px 10px 5px  #871F21;
+}
+.btn-success{
+  background:#FFBA00 !important;
+  border: 1px solid transparent; 
+}
+.btn-success:hover{
+  background:#e5ac16 !important;
+  border: 1px solid transparent; 
+}
+.btn-danger{
+  background:#871F21 !important;
+  border: 1px solid transparent;
+}
+.btn-danger:hover{
+  background:#5e1517 !important;
+  border: 1px solid transparent;
 }
 
         
@@ -330,7 +355,7 @@ li.notification-title{
 
                           <ul class="nav navbar-nav">
                             <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown"><img src="<?php echo base_url();?>/assets/images/snow.jpg" class="pull-right circular-square" style="width: 40px; height: 40px; margin-top: -5px;"> </a>
+                              <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown"><img src="<?php echo base_url();?>/assets/images/snow.jpg" class="pull-right circular-square" style="width: 40px; height: 40px; margin-top: -10px;"> </a>
                               <ul class="dropdown-menu" id="show-logout">
                                 <li><a href="#">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                 <li class="divider"></li>
@@ -1288,10 +1313,12 @@ li.notification-title{
   $("#addcsv").click(function(){
       $("#addCSV").show();
       $(".addIndiv").hide();
+      $(".modal-footer").hide();
   });
   $("#addStuds").click(function(){
       $(".addIndiv").show();
       $("#addCSV").hide();
+      $(".modal-footer").show();
   });
 </script>
 

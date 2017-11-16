@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -676,6 +675,44 @@ header h1 {
     .btn-bug:hover{
         color: #cf4246;
     }
+    .btn-danger{
+      background:#871F21 !important;
+      border: 1px solid transparent;
+      border-radius: 0px !important;
+    }
+    .btn-danger:hover{
+      background:#5e1517 !important;
+      border: 1px solid transparent;
+    }
+    .btn-primary{
+      border-radius: 0px !important;
+      background:#FFBA00 !important;
+      border: 1px solid transparent;
+    }
+    .btn-primary:hover{
+      background:#e5ac16 !important;
+      border: 1px solid transparent;
+    }
+    .btn-success{
+      border-radius: 0px !important;
+      background:#357fff !important;
+      border: 1px solid transparent;
+    }
+    .btn-success:hover{
+      border-radius: 0px !important;
+      background:#2f72e5 !important;
+      border: 1px solid transparent;
+    }
+    .btn-default{
+      border-radius: 0px !important;
+      background:#e0e0e0 !important;
+      border: 1px solid transparent;
+    }
+    .btn-default:hover{
+      background:#c9c9c9 !important;
+      border: 1px solid transparent;
+    }
+
     </style>
     <title>OJT Automate <?php echo empty($numberAnnouncements->numberUnread) ? '' : '('.$numberAnnouncements->numberUnread.')';?></title>
 
@@ -849,7 +886,7 @@ header h1 {
                     <?php endif;?>
                     </section>
                     </div>
-                    <h4 style="position: absolute; top: 20px; right: 120px;">Hi, <?php echo $user_data[0]['first_name'  ]?></h4>
+                    <h4 style="position: absolute; top: 23px; right: 150px;">Hi, <?php echo $user_data[0]['first_name'  ]?></h4>
                     <div class="col-lg-2">
                       <section class="dropdown-image">
                         <?php if(isset($id_number)):?>
@@ -1146,10 +1183,10 @@ header h1 {
                                     <textarea name="log_activity" rows="3" id="log_activity" placeholder="Write your log here" class="form-control" required></textarea>
                                 </div>
                                 <div class="form-group logs-lower">
-                                    <button type="submit" id="submit_log" class="btn btn-primary btn-lg" value="Submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Post</button>
-                                    <button type="button" class="btn btn-success btn-lg" id="load_last_log"><i class="fa fa-history" aria-hidden="true"></i> Load last log</button>
-                                    <button type="reset" class="btn btn-default btn-lg"><i class="fa fa-eraser" aria-hidden="true"></i>Clear</button>
-                                    <button type="button" class="btn btn-danger cancel-btn btn-lg" style="float: right;" class="btn btn-danger"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
+                                    <button type="submit" id="submit_log" class="btn btn-primary btn-md" value="Submit" style="float: left; margin-left: 15px;"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Post</button>
+                                    <button type="button" class="btn btn-success btn-md" id="load_last_log" style="margin-left: 5px;"><i class="fa fa-history" aria-hidden="true"></i> Load last log</button>
+                                    <button type="reset" class="btn btn-default btn-md"><i class="fa fa-eraser" aria-hidden="true"></i>Clear</button>
+                                    <button type="button" class="btn btn-danger cancel-btn btn-md" style="float: right; margin-right: 15px;" class="btn btn-danger"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
                                 </div>
 
                             </form>

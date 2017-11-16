@@ -332,7 +332,7 @@
                               
                                     <textarea tabindex="15" name="remarks" id="remark" class="form-control"></textarea>
                                     <div class="allow">
-                                         <input type="checkbox" id="allow-view" name="allow_view" value="true"><label for="allow-view" style="color: black; font-size: 14px;"> Allow OJT to view evaluation</label>
+                                         <input type="checkbox" id="allow-view" name="allow_view" value="true" checked=""><label for="allow-view" style="color: black; font-size: 14px;"> Allow OJT to view evaluation</label>
 
                                     </div>
                                    
@@ -419,6 +419,9 @@
                 });return false;
   
   });
+   $(function () {
+  $('[data-toggle="popover"]').popover()
+});
 </script>
 
 </html>
