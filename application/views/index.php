@@ -23,7 +23,9 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <style type="text/css">
     body{
-        overflow: hidden;
+        overflow: auto;
+        background-image: url('<?php echo base_url()?>assets/images/backgrounds.jpg');
+        
     }
     .btn-circle.btn-lg {
         width: 40px;
@@ -55,6 +57,9 @@
         color: #FFFFFF;
         background-color: #f5b301;
 
+    }
+    .btn-submit:focus{
+        color: #FFFFFF;
     }
     
     .feedback{position: fixed;}
@@ -117,15 +122,10 @@
 
 
     }
-    .content{
-        height: 480px;
-        background-image: url('<?php echo base_url()?>assets/images/backgrounds.jpg');
-        height: 650px;
-
-    }
-   
+  
     .login{
-        margin-top: 120px;
+        position: absolute;
+        top: 150px;
     }
     a{
         color: #000000;
@@ -160,6 +160,8 @@
     }
     .header-links{
         position: relative;
+        bottom: 15px;        
+
     }
     .footer{
        background-color: #a12428;
@@ -188,10 +190,7 @@
                     <div class="col-lg-5"></div>
                     <div class="col-lg-3">
                         <div class="header-links">
-                            <h5> <a href="#" class="current-link">Home</a></h5>
-                              <?php echo (isset($error) ? $error : '');?>
-                            <h5><a href="<?php echo base_url()?>main/about">About us</a></h5>
-                            <h5><a href="#" data-toggle="modal" data-target="#watchlistModal">Watchlist</a></h5>
+                            <h4><a href="#" data-toggle="modal" data-target="#watchlistModal">Watchlist</a></h4>
                         </div>
                     </div>
                 </div>
