@@ -68,3 +68,5 @@ $route['viewevaluation/(:any)']  = 'main/evaluate/$1';
 $route['supervisordashboard']  = 'main/supervisorDashboard';
 $route['admindashboard']  = 'main/adminDashboard';
 $route['studentdashboard/(:any)']  = 'main/studentDashboard/$1';
+//$route['reg_forms']  = 'main/reg_forms';
+

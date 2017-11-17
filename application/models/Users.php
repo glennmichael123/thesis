@@ -193,7 +193,7 @@
 
        
         public function getCompanyNames(){
-            $query = $this->db->query("SELECT company_name FROM company_information");
+            $query = $this->db->query("SELECT DISTINCT company_name FROM supervisor ORDER BY company_name ASC");
 
            return $query->result_array();
          }
@@ -618,12 +618,9 @@
 
             $latestId = $this->db->query("SELECT MAX(id) AS latest_id FROM logs WHERE id_number = '$username'")->row();
             $maxId = $latestId->latest_id;
-
-             $lastlog = $this->db->query("SELECT * FROM logs WHERE id = $maxId")->row();
+            $lastlog = $this->db->query("SELECT * FROM logs WHERE id = $maxId")->row();
 
              echo json_encode($lastlog);
-
-
          }  
         
 
@@ -698,75 +695,160 @@
             $this->db->where('id',$comment_id);
             $this->db->delete('comments');
          }
-             public function midterm_eval($username){
-                $value = 0;
-                 
-                    if($_POST['allow_view']=true){  
-                   $value = 1;
+         
+         public function midterm_eval($username){
+            $value = 0;
+             
+                if($_POST['allow_view']=true){  
+               $value = 1;
 
-                    }
-                    $supervisor = $_POST['supervisor_id'];
-                    $a1 =$_POST['enthusiasm'];
-                    $a2 =$_POST['cooperation'];
-                    $a3 =$_POST['adaptability'];
-                    $a4 =$_POST['industriousness'];
-                    $a5 =$_POST['responsibility'];
-                    $a6 =$_POST['attentiveness'];
-                    $a7 =$_POST['grooming'];
-                    $a8 =$_POST['attendance'];
-                    $a9 =$_POST['quality'];
-                    $a10 =$_POST['quantity'];
-                    $a11 =$_POST['dependability'];
-                    $a12 =$_POST['comprehension'];
-                    $a13 =$_POST['safety'];
-                    $a14 =$_POST['waste'];
-                    $remarks = $_POST['remarks'];
-                    $total = $a1+$a2+$a3+$a4+$a5+$a6+$a7+$a8+(($a9+$a10+$a11+$a12+$a13+$a14)*2);    
-                           
-                    $this->db->query("INSERT INTO midterm_evaluation(username,supervisor_username,enthusiasm,cooperation,adaptability,industriousness,responsibility,attentiveness,grooming,
-                        attendance,quality,quantity,dependability,comprehension,
-                        safety,waste,remarks,allow_value,total) VALUES('$username','$supervisor',$a1,$a2,$a3,$a4,$a5,$a6,$a7,$a8,$a9,$a10,$a11,$a12,$a13,$a14,'$remarks',$value,$total)"); 
+                }
+                $supervisor = $_POST['supervisor_id'];
+                $a1 =$_POST['enthusiasm'];
+                $a2 =$_POST['cooperation'];
+                $a3 =$_POST['adaptability'];
+                $a4 =$_POST['industriousness'];
+                $a5 =$_POST['responsibility'];
+                $a6 =$_POST['attentiveness'];
+                $a7 =$_POST['grooming'];
+                $a8 =$_POST['attendance'];
+                $a9 =$_POST['quality'];
+                $a10 =$_POST['quantity'];
+                $a11 =$_POST['dependability'];
+                $a12 =$_POST['comprehension'];
+                $a13 =$_POST['safety'];
+                $a14 =$_POST['waste'];
+                $remarks = $_POST['remarks'];
+                $total = $a1+$a2+$a3+$a4+$a5+$a6+$a7+$a8+(($a9+$a10+$a11+$a12+$a13+$a14)*2);    
+                       
+                $this->db->query("INSERT INTO midterm_evaluation(username,supervisor_username,enthusiasm,cooperation,adaptability,industriousness,responsibility,attentiveness,grooming,
+                    attendance,quality,quantity,dependability,comprehension,
+                    safety,waste,remarks,allow_value,total) VALUES('$username','$supervisor',$a1,$a2,$a3,$a4,$a5,$a6,$a7,$a8,$a9,$a10,$a11,$a12,$a13,$a14,'$remarks',$value,$total)"); 
 
-                    if($this->db->affected_rows()>0){
-                        return true;
+                if($this->db->affected_rows()>0){
+                    return true;
 
 
-                    }
-                    else
-                        return false;
+                }
+                else
+                    return false;
 
          }
 
-       public function checkMidtermEvaluation($username){
-            
-            $query = $this->db->query("SELECT username from midterm_evaluation where supervisor_username ='$username'");
-            
-            return $query->result_array();
-         }
-         public function countTrainees($username){
-            $query = $this->db->query("SELECT count(id_number) as num_trainee from ojt_records where supervisor_id = '$username'");
+     public function checkMidtermEvaluation($username){
+        $query = $this->db->query("SELECT username from midterm_evaluation where supervisor_username ='$username'");
+        return $query->result_array();
+      }
+     public function countTrainees($username){
+        $query = $this->db->query("SELECT count(id_number) as num_trainee from ojt_records where supervisor_id = '$username'");
 
-             return $query->row();
-         }
-         public function evaluatedTrainees($username){
-            $query = $this->db->query("SELECT count(id) as num_id from midterm_evaluation where supervisor_username = '$username'");
-            return $query->row();
-         }
+         return $query->row();
+     }
 
+     public function evaluatedTrainees($username){
+        $query = $this->db->query("SELECT count(id) as num_id from midterm_evaluation where supervisor_username = '$username'");
+        return $query->row();
+     }
 
-        public function getNotVerified($username){
-             return $this->db->query("SELECT count(verified) as not_verified from logs where supervisor_id='$username' AND verified=0")->row();
+      public function getNotVerified($username){
+           return $this->db->query("SELECT count(verified) as not_verified from logs where supervisor_id='$username' AND verified=0")->row();
+      }
+      
+       public function delStud($username){
+          $this->db->query("UPDATE users SET status='DELETED' WHERE id_number= '$username'");
+       }
 
+      public function load_initial_data($username){
+          $query = $this->db->query("SELECT * FROM personal_details WHERE id_number = '123'");
+          return $query->result_array();
+      }
 
+      public function checkEmail(){
+          $email = $_POST['email'];
+          
+          $result = $this->db->query("SELECT * FROM personal_details WHERE email_address = '".$email."'");
+          if($this->db->affected_rows() > 0){
+              echo "invalid";exit;
+          }
+      }
+
+      public function insertReg(){
+        $username = "test.username";
+
+        // users table
+        $fname = $_POST['first_name'];
+        $mname = $_POST['middle_initial'];
+        $lname = $_POST['last_name'];
+
+        // personal details table
+        $college = $_POST['college'];
+        $course = $_POST['course'];
+        if($_POST['year']=="1st Year"){
+          $year = 1;
         }
+        if(($_POST['year']=="2nd Year")){
+          $year = 2;
+        }
+        if(($_POST['year']=="3rd Year")){
+          $year = 3;
+        }
+        if(($_POST['year']=="4th Year")){
+          $year = 4;
+        }
+        if(($_POST['year']=="5th Year")){
+          $year = 5;
+        }
+        $present_add = $_POST['present_address'];
+        $permanent_add = $_POST['permanent_address'];
+        $contact_num = $_POST['number'];
+        $email = $_POST['email'];
+        //$birth = date('F d Y',strtotime($_POST['date_of_birth']));
+        $birth = date('Y-m-d',strtotime($_POST['date_of_birth'])); 
+        //echo $birth;exit;
+        $age = $_POST['age'];
+        $civil_stat = $_POST['civil_status'];
+        $bloodtype = $_POST['blood_type'];
+        $weight = $_POST['weight'];
+        $height = $_POST['height'];
+        $religion = $_POST['religion'];
+        $citizenship = $_POST['citizenship'];
 
-    
+        //family details table
+        $father = $_POST['fathers_name'];
+        $father_occu = $_POST['fathers_occupation'];
+        $mother = $_POST['mothers_name'];
+        $mother_occu = $_POST['mothers_occupation'];
+        $parents_add = $_POST['parents_address'];
+        $parents_contact = $_POST['tel_no'];
 
-    
-         public function delStud($username){
-            $this->db->query("UPDATE users SET status='DELETED' WHERE id_number= '$username'");
-         }
+        //emergency details table
+        $name = $_POST['guardian_name'];
+        $relationship = $_POST['relationship_emergency'];
+        $emergency_contact = $_POST['tel_no_emergency'];
+        $emergency_add = $_POST['emergency_address']; 
 
+        //company information table
+        $comp_name = $_POST['company_name'];
+        $comp_add = $_POST['company_address'];
+        $comp_contact = $_POST['company_telephone'];
+        $fax_number = $_POST['company_fax'];
+        $product_lines = $_POST['product_lines'];
+        $employees = $_POST['employee_numbers'];
 
+        $this->db->query("INSERT INTO personal_details(id_number,college,course,year,present_address,permanent_address,contact_number,email_address,date_of_birth,age,marital_status,blood_type,weight,height,religion,citizenship) VALUES('".$username."','".$college."','".$course."',$year,'".$present_add."','".$permanent_add."',$contact_num,'".$email."','".$birth."',$age,'".$civil_stat."','".$bloodtype."',$weight,$height,'".$religion."','".$citizenship."')");
+
+        $this->db->query("INSERT INTO family_details(id_number,fathers_name,fathers_occupation,mothers_name,mothers_occupation,parents_address,contact_number) VALUES('".$username."','".$father."','".$father_occu."','".$mother."','".$mother_occu."','".$parents_add."',$parents_contact)");
+
+        $this->db->query("INSERT INTO emergency_details(id_number,name,relationship,contact_number,address) VALUES('".$username."','".$name."','".$relationship."',$emergency_contact,'".$emergency_add."')");
+
+        $this->db->query("INSERT INTO company_information(id_number,company_name,company_address,contact_number,fax_number,product_lines,number_of_employees) VALUES('".$username."','".$comp_name."','".$comp_add."',$comp_contact,$fax_number,'".$product_lines."','".$employees."')");
+      }
+
+      public function insertClassification($username){
+        $classification = $_POST['classification'];
+        $this->db->query("UPDATE company_information SET company_classification='".$classification."'
+        WHERE id_number = '$username'");
+        echo "success";
+      }
 }
 ?>

@@ -20,7 +20,7 @@ class Main extends CI_Controller {
 	 */
 	
  function __construct() {
- 	 header("Pragma-directive: no-cache");
+ 	header("Pragma-directive: no-cache");
     header("Cache-directive: no-cache");
     header("Cache-control: no-cache");
     header("Pragma: no-cache");
@@ -38,7 +38,8 @@ class Main extends CI_Controller {
   		
   	}
      public function page1(){
-    	$this->load->view('page1');
+     	$data['initial_data'] = $this->users->load_initial_data($this->session->userdata('123'));
+     	$this->load->view('page1', $data);
     }
      public function page2(){
     	$this->load->view('page2');
@@ -345,32 +346,26 @@ public function logout(){
 	}
 
 	public function saveCompanyData(){
-		// print_r($_POST);
-
 		$this->users->insertCompanyData();
 	}
 
 
+	public function adminDashboard(){
+	// $newdata['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
+	   $data['student_list'] = $this->users->getStudentList();
 
-		public function adminDashboard(){
-		// $newdata['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
-		   $data['student_list'] = $this->users->getStudentList();
+	if(!isset($this->session->userdata['id_number'])){
+	  header("location: index");
+		}else{
 
-		if(!isset($this->session->userdata['id_number'])){
-          header("location: index");
-     	}else{
+			
+			 	// $data['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
+			 	$data['company_list'] = $this->users->getCompanyNames();
+			 	$data['company_watch_list'] = $this->users->getCompanyWatchlist();
+				$this->load->view('admindashboard', $data);
 
-     		
-				 	// $data['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
-				 	$data['company_list'] = $this->users->getCompanyNames();
-				 	$data['company_watch_list'] = $this->users->getCompanyWatchlist();
-					$this->load->view('admindashboard', $data);
-
-			}
-     }
-		
-
-	
+		}
+    }
 
 
 	public function deleteLog(){
@@ -620,6 +615,17 @@ public function logout(){
    			$this->users->delStud($username);
    		}
    		return redirect(base_url('main/admindashboard'));
+   	}
+
+   	public function emailCheck(){
+   		$this->users->checkEmail();
+   	}
+
+   	public function insertRegistration(){
+   		$this->users->insertReg();
+   	}
+   	public function insertCompanyClassification(){
+   		$this->users->insertClassification('test.username');
    	}
 
 }

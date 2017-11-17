@@ -187,12 +187,12 @@
           padding-right: 10px;
         }
         
-        .circular-square {
+        /*.circular-square {
             border-top-left-radius: 50% 50%;
             border-top-right-radius: 50% 50%;
             border-bottom-right-radius: 50% 50%;
             border-bottom-left-radius: 50% 50%;
-        }
+        }*/
         
         .content {
             padding-top: 30px;
@@ -223,23 +223,21 @@
 
         }
         .profile-image{
-
             padding: 20px;
         }
         .profile-image>img.img-circle{
             width: 150px;
             height: 150px;
-            border: 3px solid #b5292d;
+            border: 1px solid #C0C0C0;
         }
         .label-default{
-        background-color:#b5292d;
-        padding: 5px 10px 5px 10px;
-        border-radius: 30px;
-        font-size: 1em;
-
+            background-color:#b5292d;
+            padding: 5px 10px 5px 10px;
+            border-radius: 10px;
+            font-size: 1em;
         }
         legend{
-            background-color: #b5292d;
+            background-color:#ef5350;
             margin-bottom: 0px;
             width: auto; 
             border-radius: 5px; 
@@ -378,7 +376,7 @@
         }
         .panel-heading{
             background: none !important;
-            background-color: #CA2E32 !important;
+            background-color: #ef5350 !important;
             color: #FFFFFF !important;
         }
         a{

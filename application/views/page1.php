@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -16,11 +17,20 @@
     
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=ABeeZee' rel='stylesheet'>
     <link rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
    
+    <!-- Datepicker -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/swal.js"></script>
+
+
     <style type="text/css">
         *{
             font-family: 'Oswald', sans-serif;
@@ -40,11 +50,11 @@
             margin: 5% 0%;
 
         }
-        input{
+       /* input{
             width: 100%;
             height: 40px;
             font-color: #000000 !important;
-        }
+        }*/
         input[type=text],
         input[type=date],
         input[type=email],
@@ -60,13 +70,14 @@
             margin-top: 5px;
         }
          input[type=checkbox],input[type=radio]{
-            height: 20px;
-            width: 20px;
-            margin-top: 10px;
+            height: 15px;
+            width: 15px;
+            vertical-align: top;
         }
         .fs-title{
+            font-family: 'ABeeZee';
             text-align: center;
-            font-weight: bold;
+            color: #58656f;
         }
            .fs-subtitle {
             font-weight: normal;
@@ -102,7 +113,7 @@
         }
 
 
-       .topage2{
+       /*.topage2{
             position: relative;
             top: 10px;
             font-size: 20px;
@@ -111,13 +122,36 @@
             color:#FFFFFF;
             background: #FFBA00;
             text-decoration: none;
+
        }
        .topage2:hover{
         text-decoration: none;
         color: #FFFFFF;
         background-color: #f5b301;
+       }*/
+       .firstnext{
+        position: relative;
+        top: 10px;
+        font-family: sans-serif;
+        background-color: #fdd835;
+        color:white;
+        padding: 10px 20px 10px 20px;
+        font-size: 17px;
+        border-radius: 3px;
+        float: right;
+        
        }
+
+       .firstnext:hover{
+        text-decoration: none;
+        color: #FFFFFF;
+        background-color: #f5b301;
+       }
+
        .address{
+        display: none;
+       }
+       .parent_address{
         display: none;
        }
        label {
@@ -129,33 +163,33 @@
         .topage4{
             position: relative;
             top: 10px;
-            font-size: 20px;
+            font-size: 17px;
             border-radius: 5px;
             padding: 5px 20px 5px 20px;
             color:#FFFFFF;
-            background: #800000;
+            background: #FFBA00;
             float: right;
        }
        .topage4:hover{
         text-decoration: none;
         color:#FFFFFF;
-        background-color:#760404;
+        background-color:#f5b301;
         float: right;
        }
        .topage3{
             position: relative;
             top: 10px;
-            font-size: 20px;
-            border-radius: 5px;
-            padding: 5px 20px 5px 20px;
-            color:#FFFFFF;
-            background: #FFBA00;
+            font-size: 17px;
+            color:white;
+            padding: 10px 20px 10px 20px;
+            border-radius: 3px;
+            background: #ef5350;
             float: left;
        }
        .topage3:hover{
         text-decoration: none;
         color: #FFFFFF;
-        background-color: #f5b301;
+        background-color: #d32f2f;
         float: left;
        }
        .page2{
@@ -164,7 +198,6 @@
        .page3{
         display: none;
        }
-
 
     </style>
 
@@ -176,6 +209,7 @@
     <header>
         <h2 class="fs-title">Before you continue, please complete this form first</h2>         
     </header>
+<form id="reg_form">
 <section class="page1">
     <div class="page-wrap">
         <div class="content">
@@ -184,21 +218,22 @@
                     <div class="col-lg-1"></div>
                     <div class="col-lg-10" style="position: relative;">
                     <div class="body">
-                    <h2 class="fs-title">Personal Details <i class="fa fa-user" aria-hidden="true"></i></h2>
+                    <h2 class="fs-title">Personal Data <i class="fa fa-user" aria-hidden="true"></i></h2>
+
                         <div class="row">
                             <div class="col-lg-5">
-                                <input type="text" name="first_name" id="first_name" placeholder="First name" required>
+                                <input type="text" name="first_name" id="first_name" placeholder="First Name" value="<?php echo $initial_data[0]['first_name'] ?>" required>
                             </div>
                             <div class="col-lg-2">
-                                <input type="text" name="middle_initial" id="middle_initial" placeholder="M.I" required>
+                                <input type="text" name="middle_initial" id="middle_initial" placeholder="M.I" value="<?php echo $initial_data[0]['middle_initial'] ?>" required>
                             </div>
                             <div class="col-lg-5">
-                                <input type="text" name="last_name" id="last_name" placeholder="Last name" required>
+                                <input type="text" name="last_name" id="last_name" placeholder="Last name" value="<?php echo $initial_data[0]['last_name'] ?>" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <select id="college" name="college">
+                                <select id="college" name="college" required>
                                     <option selected disabled>Select college</option>
                                     <option value="CCS">College of Computer Studies</option>
                                     <option value="CEA">College of Engineering and Architecture</option>
@@ -211,11 +246,25 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6"> 
-                                <input type="text" name="course" id="course" placeholder="Course">
+                                <input type="text" name="course" id="course" placeholder="Course" value="<?php echo $initial_data[0]['course'] ?>">
                             </div>
                             <div class="col-lg-6">
                                 <select name="year" id="year" required>
-                                    <option selected disabled>Year</option>
+                                    <?php if ($initial_data[0]['year']==1) {
+                                         echo '<option value="1st Year" selected hidden>1st Year</option>';
+                                    } ?>
+                                    <?php if ($initial_data[0]['year']==2) {
+                                         echo '<option value="1st Year" selected hidden>2nd Year</option>';
+                                    } ?>
+                                    <?php if ($initial_data[0]['year']==3) {
+                                         echo '<option value="1st Year" selected hidden>3rd Year</option>';
+                                    } ?>
+                                    <?php if ($initial_data[0]['year']==4) {
+                                         echo '<option value="1st Year" selected hidden>4th Year</option>';
+                                    } ?>
+                                    <?php if ($initial_data[0]['year']==5) {
+                                         echo '<option value="1st Year" selected hidden>5th Year</option>';
+                                    } ?><!-- <option selected disabled>Year</option> -->
                                     <option value="1st Year">1st Year</option>
                                     <option value="2nd Year">2nd Year</option>
                                     <option value="3rd Year">3rd Year</option>
@@ -236,7 +285,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" name="number" placeholder="Phone or landline" id="number" required>
+                                <input type="text" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="number" placeholder="Phone or landline" id="number" required>
                             </div>
                             <div class="col-lg-6">
                                 <input type="email" name="email" placeholder="Email address" id="email">
@@ -244,10 +293,10 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="date" placeholder="Date of birth" name="date_of_birth" id="date_of_birth" required>
+                                <input type="text" placeholder="Date of birth" name="date_of_birth" id="date_of_birth" required>
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" name="age" placeholder="Age" id="age">
+                                <input type="text" maxlength="2" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="age" placeholder="Age" id="age" required>
                             </div>
                         </div>
                         <div class="row">
@@ -256,6 +305,9 @@
                                     <option selected disabled>Status</option>
                                     <option value="Single">Single</option>
                                     <option value="Married">Married</option>
+                                    <option value="Divorced">Divorced</option>
+                                    <option value="Separated">Separated</option>
+                                    <option value="Widowed">Widowed</option>
 
                                 </select>
 
@@ -263,89 +315,86 @@
                             <div class="col-lg-6">
                                 <select id="blood_type" name="blood_type" required>
                                     <option selected disabled>Blood type</option>
-                                    <option value="Type A">Type A</option>
-                                    <option value="Type B">Type B</option>
-                                    <option value="Type AB">Type AB</option>
-                                    <option value="Type O">Type O</option>
-
+                                    <option value="O-">O-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="A+">A+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="AB+">AB+</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" name="weight" placeholder="Weight in kg" id="weight">
+                                <input type="text" name="weight" placeholder="Weight in kg" id="weight" required>
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" name="height" placeholder="Height in cm" id="height">
+                                <input type="text" name="height" placeholder="Height in cm" id="height" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" name="religion" placeholder="Religion" id="religion">
+                                <input type="text" name="religion" placeholder="Religion" id="religion" required>
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" name="citizenship" placeholder="Citizenship" id="citizenship">
+                                <input type="text" name="citizenship" placeholder="Citizenship" id="citizenship" required>
                             </div>
                         </div>
                         <h2 class="fs-title">Family Data <i class="fa fa-users" aria-hidden="true"></i></h2>
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" name="fathers_name" placeholder="Father's name" id="fathers_name">
+                                <input type="text" name="fathers_name" placeholder="Father's name" id="fathers_name" required>
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" name="fathers_occupation" placeholder="Father's occupation" id="fathers_occupation">
+                                <input type="text" name="fathers_occupation" placeholder="Father's occupation" id="fathers_occupation" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" name="mothers_name" placeholder="Mother's name" id="mothers_name">
+                                <input type="text" name="mothers_name" placeholder="Mother's name" id="mothers_name" required>
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" name="mothers_occupation" placeholder="Mother's occupation" id="mothers_occupation">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <input type="text" name="parents_address" placeholder="Parent's Address" id="parents_address">
-                            </div>
-                        </div>
-                        <div class="row choose-same-address" style="display: none;">
-                            <div class="col-lg-4">
-                                <input type="radio" name="same-address" id="same-present">
-                                <label for="same-present">Same as your present address</label>
-                            </div>  
-                            <div class="col-lg-4">
-                                <input type="radio" name="same-address" id="same-permanent">
-                                <label for="same-permanent">Same as your permanent address</label>
+                                <input type="text" name="mothers_occupation" placeholder="Mother's occupation" id="mothers_occupation" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <input type="text" name="tel_no" placeholder="Landline or mobile" id="tel_no">
+                                <input type="text" name="parents_address" placeholder="Parent's Address" id="parents_address" required>
                             </div>
                         </div>
-                        <h2 class="fs-title">In case of emergency please contact <i class="fa fa-ambulance" aria-hidden="true"></i></h2>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <input type="text" name="guardian_name" placeholder="Full name" id="guardian_name" >
-                            </div>
-                            <div class="col-lg-6">
-                                <select id="relationship_emergency" name="relationship_emergency" required>
-                                    <option selected disabled>Relationship</option>
-                                    <option value="Guardian">Guardian</option>
-                                    <option value="Father">Father</option>
-                                    <option value="Mother">Mother</option>
 
-                                </select>
+                        <div class="row">
+                            <div class="col-lg-3">
+                              <input type="radio" id="parent_rad_1" class="parent_address" value="address" name="address"><label for="parent_rad_1" class="parent_address" style="margin-left: 3px;">Same as my Present Address</label>
+                            </div>
+                            <div class="col-lg-4">
+                                <input type="radio" id="parent_rad_2" value="address" name="address" class="parent_address"><label for="parent_rad_2" class="parent_address" style="margin-left: 3px;">Same as my Permanent Address</label>
+                            </div>
+                         </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <input type="text" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="tel_no" placeholder="Landline or mobile" id="tel_no" required>
+                            </div>
+                        </div>
+                        <h2 class="fs-title">In case of emergency, please contact <i class="fa fa-ambulance" aria-hidden="true"></i></h2>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <input type="text" name="guardian_name" placeholder="Full name" id="guardian_name" required>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" name="relationship_emergency" placeholder="Relationship" id="relationship_emergency" required>
                             </div>
                         </div>
                         <div class="row">
                           <div class="col-lg-12">
-                            <input type="text" name="tel_no_emergency" placeholder="Telephone number" id="tel_no_emergency">
+                            <input type="text" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="tel_no_emergency" placeholder="Landline or mobile" id="tel_no_emergency" required>
                             </div>
                             <div class="col-lg-12" style="margin-top: 10px;">
-                              <input type="text" name="emergency_address" placeholder="Address" id="emergency_address">
+                              <input type="text" name="emergency_address" placeholder="Address" id="emergency_address" required>
                           </div>
                         </div>
                          <!-- <div class="row">
@@ -357,17 +406,18 @@
                             </div>  
                          </div> -->
                          <div class="row">
-                            <div class="col-lg-3 col-lg-offset-1">
-                              <input type="radio" id="presents_address" class="address" value="address" name="address"><label for="presents_address" class="address"  style="margin-left: 30px;">Same as Present Address</label>
+                            <div class="col-lg-3">
+                              <input type="radio" id="emergency_rad_1" class="address" value="address" name="address"><label for="emergency_rad_1" class="address" style="margin-left: 3px;">Same as my Present Address</label>
              
                             </div>
-                            <div class="col-lg-3 col-lg-offset-1">
+                            <div class="col-lg-4">
+                                <input type="radio" id="emergency_rad_2" value="address" name="address" class="address"><label for="emergency_rad_2" class="address" style="margin-left: 3px;">Same as my Permanent Address</label>
                             </div>
-                            <div class="col-lg-3 col-lg-offset-1">
-                                <input type="radio" id="permanents_address" value="address" name="address" class="address"><label for="permanents_address" class="address"  style="margin-left: 20px;">Same as Permanent Address</label>
-                            </div>
+                        <div style="float: right;margin-top: 20px">
+                            <!-- <a class="topage2 first-next" href="#" id="firstNext">Next</a> -->
+                            <a class="firstnext first-next" href="#" id="firstNext" style="margin-right:15px">NEXT</a>
+                        </div>
                          </div>
-                            <a class="topage2 first-next" href="#">Next</a>
                      </div>
                     </div>
                     <div class="col-lg-1"></div>
@@ -385,23 +435,23 @@
                     <div class="col-lg-1"></div>
                     <div class="col-lg-10">
                     <div class="body">
-                    <h2 class="fs-title">Company Information<i class="fa fa-info-circle"></i></h2>
+                    <h2 class="fs-title">Company Information <i class="fa fa-list-alt" aria-hidden="true"></i></h2>
                         <div class="row">
                           <div class="col-lg-12">
-                            <input type="text" placeholder="Company name" id="company_name" name="company_name">
+                            <input type="text" placeholder="Company name" id="company_name" name="company_name" required>
                           </div>
                         </div>
                          <div class="row">
                           <div class="col-lg-12">
-                           <input type="text" name="company_address" placeholder="Company address" id="company_address">
+                           <input type="text" name="company_address" placeholder="Company address" id="company_address" required>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-lg-6">
-                            <input type="text" name="company_telephone" placeholder="Telephone number" id="company_telephone">
+                            <input type="text" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="company_telephone" placeholder="Landline or mobile" id="company_telephone" required>
                           </div>
                           <div class="col-lg-6">
-                             <input type="text" name="company_fax" placeholder="Fax number" id="company_fax">
+                             <input type="text" name="company_fax" placeholder="Fax number" id="company_fax" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                           </div>
                         </div>
 
@@ -410,8 +460,18 @@
                             <input type="text" placeholder="Product lines" id="product_lines" name="product_lines">
                           </div>
                         </div>
-                        <h2 class="fs-title">Company Classification <i class="fa fa-list-alt" aria-hidden="true"></i></h2>
-                        <div class="row">
+                        
+                        <div class="container-fluid" style="margin: 10px 0 10px 0">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h3 class="fs-title" style="text-align: left">Company Classification</h3>
+                                </div>
+                                <div class="col-md-6">
+                                    <h3 class="fs-title">Total number of employees</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="row">
                           <div class="col-lg-2">
                             <input id="assembly" value="assembly" type="checkbox"><label for="assembly">Assembly</label>
                          </div> 
@@ -440,7 +500,7 @@
                           </div>
                           <div class="col-lg-5">
                                <input type="radio" class="other-company" id="other"><label for="other">Others</label>
-                               <input type="text" id="other_classification" name="other_classification" style="height: 15px; width: 250px; display: none;" placeholder="Please specify">
+                               <input type="text" id="other_classification" name="other_classification" style="height: 23px; width: 250px; display: none;" placeholder="Please specify">
                           </div>
                        
                         </div>
@@ -461,7 +521,68 @@
                             </div>
                             <a class="topage3 first-previous" href="#">Previous</a>
                             <a class="topage4 second-next" href="#">Next</a>
-                         </div>
+                         </div> -->
+
+                         <div class="container-fluid">
+                            <div class="row" style="margin-bottom: 10px;">
+                                <div class="col-md-7">
+                                    <div class="col-md-4">
+                                        <div>
+                                            <input id="assembly" value="Assembly" type="checkbox"><label for="assembly">Assembly</label>
+                                        </div>
+                                        <div>    
+                                            <input type="checkbox" value="Manufacturing" id="manufacturing"><label for="manufacturing">Manufacturing</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" value="Maintenance" id="maintenance"><label for="maintenance">Maintenance</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" value="Sales/Marketing" id="marketing"><label for="marketing">Sales/Marketing</label>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div>
+                                            <input type="checkbox" value="Service/Utility" id="service"><label for="service">Service/Utility</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" value="Research and Development" id="research"><label for="research">Research and Development</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" value="IT Related" id="itrelated"><label for="itrelated">IT Related</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio" class="other-company" id="other"><label for="other">Others</label>
+                                        </div>
+                                        <div>
+                                            <input type="text" id="other_classification" name="other_classification" style="height: 23px; width: 250px; display: none;" placeholder="Please specify">
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="col-md-2"></div> -->
+                                    
+                                    
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="row">
+                                        <div>
+                                          <input type="radio" id="less_fifty" value="Less than 50" name="employee_numbers"><label for="less_fifty">Less than 50</label>
+                                        </div>
+                                        <div>
+                                           <input type="radio" id="fifty_onehundred" value="From 50 to 100" name="employee_numbers"><label for="fifty_onehundred">From 50 to 100</label>
+                         
+                                        </div>
+                                        <div >
+                                            <input type="radio" id="more_onehundred" value="More than 100" name="employee_numbers"><label for="more_onehundred">More than 100</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <a class="topage3 first-previous" href="#">PREVIOUS</a>
+                                <a class="firstnext" href="#" id="submit">SUBMIT</a>
+                            </div>
+                        </div>
                            
                      </div>
                     </div>
@@ -472,6 +593,9 @@
              
     </div>
 </section>
+
+</form>
+
 <section class="page3">
     <div class="page-wrap">
         <div class="content">
@@ -481,11 +605,16 @@
                     <div class="col-lg-10">
                     <div class="body">
                     <fieldset>
-                        <h2 class="fs-title">Almost Done!</h2>
-                        <h2 class="fs-title">Just one more step and you are done.</h2>
-                        <p style="text-align: center;">An email verification link has been to your email address. Please verify your email to complete the registration.</p>
-                        <a class="topage3 second-previous" href="#">Previous</a>
-                        <a class="topage4 third-next" href="dashboard">Continue to Dashboard</a>
+                        <div style="margin-top: 50px" class="fs-title">
+                            <h1>Almost Done!</h1>
+                            <h4 style="margin-top: 50px">Just one more step and you are done.</h4>
+                            <h5>An email verification link has been sent to your email address. Please verify your email to complete the registration.</h5>
+                        </div>
+                        <div style="margin-top: 70px">
+                            <a class="topage3 second-previous" href="#">PREVIOUS</a>
+                            <!-- <a class="firstnext third-next" href="dashboard">SUBMIT</a>  -->
+                        </div>
+                        
                     </fieldset>
                      </div>
                     </div>
@@ -497,29 +626,253 @@
     </div>
 </section>
 </body>
+
+<!-- <script type="text/javascript">
+    $('#firstNext').click(function(){
+        $('#first_form :input:visible[required="required"]').each(function()
+        {
+            if(!this.validity.valid)
+            {
+                $(this).focus();
+                return false;
+            }
+            else{
+                $(".page1").hide();
+                $(".page2").show();
+            }
+        });
+    })
+</script> -->
+
+<!-- RADIO BUTTONS -->
+<script type="text/javascript">
+    $('#parent_rad_1').click(function(){
+        var present = $('#present_address').val();
+        $('#parents_address').val(present);
+    });
+    $('#parent_rad_2').click(function(){
+        var permanent = $('#permanent_address').val();
+        $('#parents_address').val(permanent);
+    });
+    $('#emergency_rad_1').click(function(){
+        var present = $('#present_address').val();
+        $('#emergency_address').val(present);
+    });
+    $('#emergency_rad_2').click(function(){
+        var permanent = $('#permanent_address').val();
+        $('#emergency_address').val(permanent);
+    });
+    $('#other').click(function(){
+        $('#other_classification').css("display","inline-block");
+    });
+
+</script>
+<!-- VALIDATE EMAIL -->
+<script type="text/javascript">
+    function validateEmail(email) {
+      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    }
+    $('#firstNext').click(function(){ 
+        validate fields
+        var fail = false;
+        var fail_log = '';
+        $( '.page1' ).find( 'select, textarea, input' ).each(function(){
+            if( ! $( this ).prop( 'required' )){
+
+            } else {
+                if ( ! $( this ).val() ) {
+                    fail = true;
+                    name = $( this ).attr( 'style', 'border: 1px solid red' );
+                    fail_log += name + " is required \n";
+                }else{
+                    name = $( this ).attr( 'style', 'border: 1px solid #ccc' );
+                }
+
+            }
+        });
+
+        //submit if fail never got set to true
+        if ( ! fail ) {
+            //process form here.
+            var email = $("#email").val();
+
+            if(email!=""){
+                if (validateEmail(email)) {
+                    $.ajax({
+                        url:"emailCheck",
+                        type: "POST",
+                        data:{
+                            'email':email,
+                        },
+                        success:function(data){
+                            if(data == "invalid"){
+                                alert("Email already exist");return false;
+                            }else{
+                                $("#email").css("border","1px solid #ccc");
+                                $(".page1").hide();
+                                $(".page2").show(); 
+                            }
+                        }
+                    });
+                } else{
+                    $("#email").css("border","1px solid red");
+                }
+            }
+        } else{
+            
+        }
+    });
+</script>
+
+
+<!-- FOR DATE INPUT FIELD -->
+<script>
+    $( function() {
+        $('#date_of_birth').datepicker();
+        $('#date_of_birth').focus(function(){
+            $('#date_of_birth').datepicker("setDate","01/01/1998");
+            // $('#date_of_birth').val("");
+        });
+           
+    });
+</script>
+
+
+<!-- FOR HEIGHT AND WEIGHT INPUT FIELD -->
+<script type="text/javascript">
+    $('#height').keypress(function(event) {
+        var code = (event.keyCode ? event.keyCode : event.which);
+        if (!(
+                (code >= 48 && code <= 57) //numbers
+                || (code == 46) //period
+            )
+            || (code == 46 && $(this).val().indexOf('.') != -1)
+           )
+            event.preventDefault();
+    });
+    $('#weight').keypress(function(event) {
+        var code = (event.keyCode ? event.keyCode : event.which);
+        if (!(
+                (code >= 48 && code <= 57) //numbers
+                || (code == 46) //period
+            )
+            || (code == 46 && $(this).val().indexOf('.') != -1)
+           )
+            event.preventDefault();
+    });
+</script>
+
 <script type="text/javascript">
     $(document).ready(function(){
         $('#emergency_address').focus(function(){
             $('.address').css('display','inline');
+        });
+
+        $('#parents_address').focus(function(){
+            $('.parent_address').css('display','inline');
         })
     })
 
-    $(".first-next").click(function(){
-        $(".page1").hide();
-        $(".page2").show();
-    });
     $(".first-previous").click(function(){
         $(".page1").show();
         $(".page2").hide();
     });
-    $(".second-next").click(function(){
-        $(".page2").hide();
-        $(".page3").show();
+
+    // Get checked values
+    var classification="";
+    $('input[type="checkbox"]').click(function(){
+        if($(this).is(":checked")==true){
+            classification+=$(this).val()+",";
+        }
+    });
+
+    $("#submit").click(function(){
+        var fail = false;
+        var fail_log = '';
+        $( '.page2' ).find( 'select, textarea, input' ).each(function(){
+            if( ! $( this ).prop( 'required' )){
+
+            } else {
+                if ( ! $( this ).val() ) {
+                    fail = true;
+                    name = $( this ).attr( 'style', 'border: 1px solid red' );
+                    fail_log += name + " is required \n";
+                }else{
+                    name = $( this ).attr( 'style', 'border: 1px solid #ccc' );
+                }
+
+            }
+        });
+
+        //submit if fail never got set to true
+        if ( ! fail ) {
+            var reg_info = $('#reg_form').serialize();
+            //var username = '<?php //echo $this->session->userdata['id_number']?>';
+            var username = "123";
+            var email = $('#email').val();
+            if($('#other_classification').val()!=""){
+                classification += $('#other_classification').val();
+            }
+             swal({
+              title: "Warning",
+              text: "You are about to submit this form. Please make sure that the email you provided is an active one :)",
+              icon: "warning",
+              buttons: true,
+              buttons: ["Cancel", "Okay"],
+              dangerMode: true,
+            })
+            .then((yes) => {
+              if (yes) {
+                $.ajax({
+                    url: "insertRegistration",
+                    type: "POST",
+                    data: reg_info,
+                    success: function(data){
+                        // if(data=="success"){
+                        //     $(".page2").hide();
+                        //     $(".page3").show();
+                        // }
+                    }
+                });
+                $.ajax({
+                    url: "saveEmail",
+                    type: "POST",
+                    data:{
+                      'email': email,
+                    },
+                    success:function(){
+                    }
+                });
+                $.ajax({
+                    url: "insertCompanyClassification",
+                    type: "POST",
+                    data: {
+                        'classification': classification,
+                    },
+                    success: function(data){
+                        if(data=="success"){
+                            $(".page2").hide();
+                            $(".page3").show();
+                            var classification="";
+                        }
+                    }
+                });
+              }
+            });
+        } else {
+
+        }
     });
     $(".second-previous").click(function(){
         $(".page3").hide();
         $(".page2").show();
     });
+
+    function deFocus(element) {
+        element.setAttribute('readonly','readonly');
+        return false;
+    }
 </script>
 
 </html>

@@ -41,12 +41,10 @@
              background-color: #F4F4F4;
         }
         .jumbotron{
-            background-color: #871F21;
+            background-color: #f44336;
             padding: 10px;
             color: white;
             font-size: 1.5em;
-           
-        
             margin-top: 20px;
             width: 100%;
             
@@ -268,10 +266,11 @@ li.notification-title{
 }
 
 .btn-admin{
-  background-color: #ca2e32;
+  background-color: #e53935;
+  padding: 10px 12px 10px 12px;
         color: #FFFFFF;
         transition: 0.4s;
-        border-radius: 5px;
+        border-radius: 3px;
         
 }
 .btn-admin:hover{
@@ -356,9 +355,8 @@ li.notification-title{
           <div class="container">
             <div class="jumbotron">
               <div class="row">
-              
-                    <div class="col-lg-4">
-                        Admin Dashboard
+                    <div class="col-lg-4" style="font-size: 25px">
+                        DASHBOARD
                     </div>
                     <div class="col-lg-8">
                         <section style="display: inline-block; float: right;">
@@ -368,10 +366,10 @@ li.notification-title{
                             <button class="btn btn-admin" data-target="#addSupervisorModal" data-toggle="modal">+Supervisor</button>
                             <button class="btn btn-admin" data-target="#addStudent" data-toggle="modal">+Student</button>
                          </section>
-                     </div>
                     </div>
                 </div>
-             </div>
+            </div>
+          </div>
          
            <div class="container">
            <div class="well dashboard-graphs">

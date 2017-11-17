@@ -363,7 +363,7 @@
                                     <?php if ($supImage[0]['image_id'] == '<i class="fa fa-user-circle pull-right" style="font-size: 40px; margin-top: -5px;" aria-hidden="true"></i>'):?>
                                     <?php echo $supImage[0]['image_id'];?>
                                     <?php else:?> 
-                                        <img src="<?php echo base_url().$supImage[0]['image_id'];?>" class="pull-right circular-square user-image" style="width: 40px; height: 40px; margin-top: -5px;">
+                                        <img src="<?php echo base_url().$supImage[0]['image_id'];?>" class="pull-right circular-square user-image" style="width: 40px; height: 40px; margin-top: -5px;border: 2px solid white">
                                     <?php endif ?>
 
                                 <ul class="dropdown-menu" id="show-logout">
