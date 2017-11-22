@@ -185,15 +185,17 @@
 
         public function supervisorGetTrainee($company_name,$username){
           $company_name2 = $company_name[0]['company_name'];
+
         
-            $query = $this->db->query("SELECT users.id_number, users.first_name, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.company_name = '$company_name2' AND supervisor_id = '$username'");
+        
+            $query = $this->db->query("SELECT users.id_number, users.first_name, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.company_name LIKE '%$company_name2%'");
            return $query->result_array();
        }
 
 
        
         public function getCompanyNames(){
-            $query = $this->db->query("SELECT DISTINCT company_name FROM supervisor ORDER BY company_name ASC");
+            $query = $this->db->query("SELECT DISTINCT company_name FROM company_information ORDER BY company_name ASC");
 
            return $query->result_array();
          }
@@ -414,8 +416,23 @@
             return $query->result_array();
         }
 
-        public function updatePassword($id){
-            $old_pass = $this->db->query("SELECT password FROM users WHERE id_number = '$id'")->row();
+        public function updatePassword($id,$account_type){
+
+            if($account_type == 'admin'){
+                 $old_pass = $this->db->query("SELECT password FROM admin WHERE id_number = '$id'")->row();
+             
+              $new_pass = $_POST['newpass'];
+              $confirm = $_POST['confirm_newpass'];
+              $old = $_POST['old_password'];
+              if($old!=$old_pass->password){
+                 echo '<script>alert("Old passwords did not match");  window.location.href = "changepassword"</script>';
+              }else{
+                 $this->db->query("UPDATE admin SET password = '$new_pass' WHERE id_number = '$id'");
+                 echo '<script>alert("Password successfully changed"); window.location.href = "dashboard";</script> ';
+
+              }
+            }else if($account_type == 'student'){
+                 $old_pass = $this->db->query("SELECT password FROM users WHERE id_number = '$id'")->row();
            
             $new_pass = $_POST['newpass'];
             $confirm = $_POST['confirm_newpass'];
@@ -428,6 +445,22 @@
 
             }
           
+            }else if($account_type == 'supervisor'){
+                 $old_pass = $this->db->query("SELECT password FROM supervisor WHERE id_number = '$id'")->row();
+           
+            $new_pass = $_POST['newpass'];
+            $confirm = $_POST['confirm_newpass'];
+            $old = $_POST['old_password'];
+            if($old!=$old_pass->password){
+               echo '<script>alert("Old passwords did not match");  window.location.href = "changepassword"</script>';
+            }else{
+               $this->db->query("UPDATE supervisor SET password = '$new_pass' WHERE id_number = '$id'");
+               echo '<script>alert("Password successfully changed"); window.location.href = "dashboard";</script> ';
+
+            }
+            }
+
+           
         }
 
         public function insertComment(){
@@ -440,8 +473,10 @@
          public function updateTraineeSupID(){
             $supervisor_id = $_POST['supervisor_id'];
             $student_id = $_POST['studentID'];
-            
-           return $this->db->query("UPDATE company_information SET supervisor_id = '$supervisor_id' WHERE id_number='$student_id'");
+           
+           $this->db->query("UPDATE company_information SET supervisor_id = '$supervisor_id' WHERE id_number='$student_id'");
+           $this->db->query("UPDATE logs SET supervisor_id = '$supervisor_id' WHERE id_number='$student_id'");
+           $this->db->query("UPDATE ojt_records SET supervisor_id = '$supervisor_id' WHERE id_number='$student_id'");
          
          }
 
@@ -503,7 +538,7 @@
             //check duplicate id
             $result = $this->db->query("SELECT * FROM supervisor WHERE id_number = '".$supervisorID."'");
             if($this->db->affected_rows() > 0){
-                echo "id_exist";exit;
+                echo "id_exist";
             }
             
             //check duplicate email
@@ -670,13 +705,13 @@
             $last = $_POST['lname'];
             $password = '123456';
 
-            $username = strtolower($first.".".$last);
+            $username = strtolower(str_replace(' ', '',$first).".".str_replace(' ', '',$last));
             $result = $this->db->query("SELECT * FROM users WHERE id_number = '".$username."'");
             if($this->db->affected_rows() > 0){
-                echo "user_exist";exit;
+                echo "user_exist";
             }
             else{
-                return $this->db->query("INSERT INTO users (id_number,first_name,middle_initial,last_name,password) VALUES('".$username."','".$first."','".$mid."','".$last."','".$password."')");
+               $this->db->query("INSERT INTO users (id_number,first_name,middle_initial,last_name,password) VALUES('".$username."','".$first."','".$mid."','".$last."','".$password."')");
             }
          }
          public function getTrainess(){
@@ -759,7 +794,7 @@
        }
 
       public function load_initial_data($username){
-          $query = $this->db->query("SELECT * FROM personal_details WHERE id_number = '123'");
+          $query = $this->db->query("SELECT * FROM users WHERE id_number = '$username'");
           return $query->result_array();
       }
 
@@ -772,8 +807,7 @@
           }
       }
 
-      public function insertReg(){
-        $username = "test.username";
+      public function insertReg($username){
 
         // users table
         $fname = $_POST['first_name'];
@@ -834,21 +868,58 @@
         $fax_number = $_POST['company_fax'];
         $product_lines = $_POST['product_lines'];
         $employees = $_POST['employee_numbers'];
+        $classif = $_POST['classification'];
+       
 
-        $this->db->query("INSERT INTO personal_details(id_number,college,course,year,present_address,permanent_address,contact_number,email_address,date_of_birth,age,marital_status,blood_type,weight,height,religion,citizenship) VALUES('".$username."','".$college."','".$course."',$year,'".$present_add."','".$permanent_add."',$contact_num,'".$email."','".$birth."',$age,'".$civil_stat."','".$bloodtype."',$weight,$height,'".$religion."','".$citizenship."')");
+        $this->db->query("INSERT INTO personal_details(id_number,first_name, middle_initial, last_name, college,course,year,present_address,permanent_address,contact_number,email_address,date_of_birth,age,marital_status,blood_type,weight,height,religion,citizenship) VALUES('".$username."','".$fname."','".$mname."','".$lname."','".$college."','".$course."',$year,'".$present_add."','".$permanent_add."',$contact_num,'".$email."','".$birth."',$age,'".$civil_stat."','".$bloodtype."',$weight,$height,'".$religion."','".$citizenship."')");
 
         $this->db->query("INSERT INTO family_details(id_number,fathers_name,fathers_occupation,mothers_name,mothers_occupation,parents_address,contact_number) VALUES('".$username."','".$father."','".$father_occu."','".$mother."','".$mother_occu."','".$parents_add."',$parents_contact)");
 
         $this->db->query("INSERT INTO emergency_details(id_number,name,relationship,contact_number,address) VALUES('".$username."','".$name."','".$relationship."',$emergency_contact,'".$emergency_add."')");
 
-        $this->db->query("INSERT INTO company_information(id_number,company_name,company_address,contact_number,fax_number,product_lines,number_of_employees) VALUES('".$username."','".$comp_name."','".$comp_add."',$comp_contact,$fax_number,'".$product_lines."','".$employees."')");
+        $this->db->query("INSERT INTO company_information(id_number,company_name,company_address,contact_number,fax_number,product_lines,company_classification,number_of_employees) VALUES('".$username."','".$comp_name."','".$comp_add."',$comp_contact,$fax_number,'".$product_lines."','".$classif."','".$employees."')");
       }
 
-      public function insertClassification($username){
-        $classification = $_POST['classification'];
-        $this->db->query("UPDATE company_information SET company_classification='".$classification."'
-        WHERE id_number = '$username'");
-        echo "success";
+
+      public function checkExistPersonal($username){
+       
+          $this->db->query("SELECT * FROM personal_details WHERE id_number = '$username'");
+
+          if($this->db->affected_rows()>0){
+            return true;
+          }else{
+              return false;
+          }
+
+      }
+
+      public function getFamilyDetails($username){
+
+          $query = $this->db->query("SELECT * FROM family_details WHERE id_number = '".$username."'");
+
+          return $query->row(); 
+      } 
+
+      public function getCompanyInformation($username){
+
+          $query = $this->db->query("SELECT * FROM company_information WHERE id_number = '".$username."'");
+
+          return $query->row(); 
+      }
+      public function getWorkmates($username,$company_name){
+
+
+          $query = $this->db->query("SELECT users.id_number, users.first_name, users.middle_initial, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_name LIKE '%$company_name%' AND company_information.id_number != '$username'");
+          
+
+          return $query->result_array(); 
+      }
+
+      public function truncateAllTables(){
+
+          $query = $this->db->query("show tables")->result_array();
+
+          print_r($query[4]['Tables_in_thesisdatabase']);
       }
 }
 ?>

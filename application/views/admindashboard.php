@@ -22,7 +22,7 @@
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
 
     <!-- Sweet Alert -->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="<?php echo base_url()?>assets/js/swal.js"></script>
     <!-- <script src="bower_components/sweetalert2/dist/sweetalert2.all.min.js"></script> -->
 
     <!-- Data table -->
@@ -559,7 +559,10 @@ a#addcsv:focus{
 
                     </div>
                     <div class="well dashboard-list">
-                      
+
+                      <?php if(empty($student_list)):?>
+                          No students yet.
+                      <?php else:?>
                       <!-- <form action="deleteStudent" method="POST" name="formDel"> -->
                             <table id="adminDataTable" class="table table-striped table-bordered" cellspacing="0" width="100%" style="font-size: 13px;">
                                     <thead>
@@ -568,7 +571,6 @@ a#addcsv:focus{
                                             <th>Name</th>
                                             <th>Course</th>
                                             <th>Evaluations</th>
-                                            <th>Actions</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
@@ -577,10 +579,10 @@ a#addcsv:focus{
                                       <?php foreach($student_list as $student):?>
                                           <tr class="dashTable">
                                               <td style="text-align: center;width: 45px"><input type="checkbox" class="checkitem" value="<?php echo $student['id_number']?>" name="usernames[]"></td>
-                                              <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
+                                              <td><a href="studentinfo/<?php echo $student['id_number']?>"><?php echo $student['first_name'] . " " . $student['last_name']?></a></td>
                                               <td><?php echo $student['course']?></td>
                                               <td><?php echo $student['current_evaluations']?></td>
-                                              <td style="text-align: center"><a class="btn btn-success view-student-options" href="dashboard?id=<?php echo 2;?>" style="width: 90px">Profile</a> <a class="btn btn-warning view-student-options" href="studentDashboard/<?php echo $student['id_number']?>">Dashboard</a></td>
+                                              
                                               <?php if ($student['rendered_hours'] >= $student['total_hours'] && $student['current_evaluations'] == 2):?>
                                                   <td style="color:green;">Completed</td>
                                                 <?php else :?>
@@ -591,6 +593,7 @@ a#addcsv:focus{
                                   </tbody>
                               </table>
                               <div><button type="button" class="btn btn-warning" id="btnDelete"><span class="glyphicon glyphicon-trash"></span> Delete Selected Item(s)</button> </div>
+                            <?php endif;?>
                         <!-- </form> -->
                     </div><!-- end of well -->
                 </div>
@@ -831,7 +834,7 @@ a#addcsv:focus{
       var table = $('#adminDataTable').DataTable({
         "bProcessing": true,
         "order": [[1, 'asc']],
-        "columns": [{"targets": 0, "orderable": false },null,null,null,null,null],
+        "columns": [{"targets": 0, "orderable": false },null,null,null,null],
         //ajax:"data.json"
       });
 
@@ -1050,7 +1053,7 @@ a#addcsv:focus{
                 text: "Student added successfully",
                 icon: "success",
               }).then(function () {
-                location.reload();
+                console.log(data);
               });
             }
         },

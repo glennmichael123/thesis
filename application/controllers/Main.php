@@ -32,13 +32,15 @@ class Main extends CI_Controller {
         $this->load->model('users');
         $this->load->library('session');
     }
-  	public function student_info(){
-  		$this->load->view('student_info');
-  		
-  		
-  	}
-     public function page1(){
-     	$data['initial_data'] = $this->users->load_initial_data($this->session->userdata('123'));
+
+
+
+
+
+
+  
+     public function ojtform(){
+     	$data['initial_data'] = $this->users->load_initial_data($this->session->userdata('id_number'));
      	$this->load->view('page1', $data);
     }
      public function page2(){
@@ -109,9 +111,13 @@ class Main extends CI_Controller {
 		if(!isset($this->session->userdata['id_number'])){
           header("location: index");
      	}else{
+     		$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($this->session->userdata['id_number']);
+     		$data['announcements'] = $this->users->getAnnouncements($this->session->userdata['id_number']);
      		$data['image_header'] = $this->users->displayImageToHeader($this->session->userdata['id_number']);
      		$data['user_data'] = $this->users->dashboardData($this->session->userdata['id_number']);
      		$data['personalDetails'] = $this->users->getProfile($this->session->userdata['id_number']);
+     		$data['familydetails'] = $this->users->getFamilyDetails($this->session->userdata['id_number']);
+     		$data['companyInformation'] = $this->users->getCompanyInformation($this->session->userdata['id_number']);
      		$this->load->view('profile',$data);
      	}
 		
@@ -130,7 +136,7 @@ class Main extends CI_Controller {
 	}
 
 	public function savePassword(){
-		$this->users->updatePassword($this->session->userdata['id_number']);
+		$this->users->updatePassword($this->session->userdata['id_number'], $this->session->userdata('account_type'));
 	}
 
 	public function signup()
@@ -236,7 +242,15 @@ class Main extends CI_Controller {
 				if(!$existId && $account_type[0]['account_type'] == 0){
 					$this->users->insertNewRecordOjt($newRecord);
 				}
-				redirect('dashboard');
+
+				$existPersonalDetails = $this->users->checkExistPersonal($this->session->userdata['id_number']);
+				
+				if(!$existPersonalDetails){
+					redirect('ojtform');
+				}else{
+					redirect('dashboard');
+				}
+				
 			
 	}else{
 		header("location: index?error=Username or password incorrect");
@@ -249,6 +263,48 @@ class Main extends CI_Controller {
 		$this->loggedinAdministrator($account_type);
 	}
 }
+
+	public function studentInfo($username){
+  		if(!isset($this->session->userdata['id_number'])){
+          redirect('index');
+     	}else{
+  		$data['comments'] = $this->users->getComments();
+     	$totalLogsCount = $this->users->getNumberLogs($username);
+     	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($username);
+     	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($username);
+
+
+     	$renderedCount = $this->users->getSumRendered($username);
+
+     	$data['personalDetails'] = $this->users->getProfile($username);
+     	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $username);
+     	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $username);
+     	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $username);
+     	$ojtRecords = $this->users->dashboardDataRecords($username);
+
+     		if(!empty($ojtRecords)){
+			     		$data['total'] = $ojtRecords[0]['total_hours'];
+
+						$data['rendered'] = $ojtRecords[0]['rendered_hours'];
+						$data['announcements'] = $this->users->getAnnouncements($username);
+						// echo time_elapsed_string($data['announcements'][0]['date_posted']);
+						
+						$data['all_evaluations'] = $ojtRecords[0]['total_evaluations'];
+						$data['current_evaluations'] = $ojtRecords[0]['current_evaluations'];
+						$data['verified'] = $ojtRecords[0]['logs_verified'];
+						$data['totalLogs'] = $ojtRecords[0]['logs'];
+						$data['logs_list'] = $this->users->getLogs($username);
+						
+						$data['user_data'] = $this->users->dashboardData($username);
+						$data['image_header'] = $this->users->displayImageToHeader($username);
+					}
+  		$this->load->view('student_info',$data);
+
+
+  	}
+  		
+  		
+  	}
 
 
 
@@ -329,14 +385,9 @@ public function addLogs(){
       header("location: dashboard");
 }
 
-public function helloworld(){
-	echo 'hello world';
-}
-
-
 public function logout(){
 	session_destroy();
-	header("location: index");
+	redirect('index');
 }
 
 	public function saveEmergencyData(){
@@ -358,11 +409,17 @@ public function logout(){
 	  header("location: index");
 		}else{
 
-			
+			if($this->session->userdata['account_type'] == 'supervisor'){
+     		redirect('supervisordashboard');
+     		}else if($this->session->userdata['account_type'] == 'student'){
+     		redirect('dashboard');
+     		}else{
+
 			 	// $data['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
 			 	$data['company_list'] = $this->users->getCompanyNames();
 			 	$data['company_watch_list'] = $this->users->getCompanyWatchlist();
 				$this->load->view('admindashboard', $data);
+			}	
 
 		}
     }
@@ -386,9 +443,16 @@ public function logout(){
      	}else if($this->session->userdata['account_type'] == 'admin'){
      		redirect('admindashboard');
      	}else{
+     		$existPersonalDetails = $this->users->checkExistPersonal($this->session->userdata['id_number']);
+     	if(!$existPersonalDetails){
+     		redirect('ojtform');
+     	}else{
+
 
      	
      	$data['comments'] = $this->users->getComments();
+     	$companyName = $this->users->getCompanyInformation($this->session->userdata['id_number']);
+     	$data['workmates'] = $this->users->getWorkmates($this->session->userdata['id_number'], $companyName->company_name);
      	$totalLogsCount = $this->users->getNumberLogs($this->session->userdata['id_number']);
      	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($this->session->userdata['id_number']);
      	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($this->session->userdata['id_number']);
@@ -428,6 +492,7 @@ public function logout(){
 			}*/
 			}
      	}
+     }
 
 
 	
@@ -436,6 +501,11 @@ public function logout(){
 
 
 	public function studentDashboard($id_number){
+
+		$companyName = $this->users->getCompanyInformation($id_number);
+     	$data['workmates'] = $this->users->getWorkmates($id_number, $companyName->company_name);
+
+
 		$data['comments'] = $this->users->getComments();
 		$totalLogsCount = $this->users->getNumberLogs(isset($id_number) ? $id_number : '');
      	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified(isset($id_number) ? $id_number : '');
@@ -622,10 +692,14 @@ public function logout(){
    	}
 
    	public function insertRegistration(){
-   		$this->users->insertReg();
+   		$this->users->insertReg($this->session->userdata('id_number'));
    	}
-   	public function insertCompanyClassification(){
-   		$this->users->insertClassification('test.username');
+
+   	public function truncate(){
+   		$this->users->truncateAllTables();
    	}
+
+
+
 
 }

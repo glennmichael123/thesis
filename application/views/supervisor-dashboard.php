@@ -1,4 +1,5 @@
-<?php //echo $this->session->userdata['account_type']; ?>
+<?php echo $this->session->userdata['account_type']; ?>
+<?php echo $this->session->userdata['id_number']; ?>
 <!DOCTYPE html>
 <html>
 

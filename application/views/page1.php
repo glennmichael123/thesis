@@ -25,7 +25,7 @@
    
     <!-- Datepicker -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
+
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="<?php echo base_url() ?>assets/js/swal.js"></script>
@@ -246,7 +246,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6"> 
-                                <input type="text" name="course" id="course" placeholder="Course" value="<?php echo $initial_data[0]['course'] ?>">
+                                <input type="text" name="course" id="course" placeholder="Course" value="<?php //echo $initial_data[0]['course'] ?>">
                             </div>
                             <div class="col-lg-6">
                                 <select name="year" id="year" required>
@@ -526,7 +526,7 @@
                          <div class="container-fluid">
                             <div class="row" style="margin-bottom: 10px;">
                                 <div class="col-md-7">
-                                    <div class="col-md-4">
+                                    <div class="col-md-4">  
                                         <div>
                                             <input id="assembly" value="Assembly" type="checkbox"><label for="assembly">Assembly</label>
                                         </div>
@@ -674,7 +674,7 @@
       return re.test(email);
     }
     $('#firstNext').click(function(){ 
-        validate fields
+        // validate fields
         var fail = false;
         var fail_log = '';
         $( '.page1' ).find( 'select, textarea, input' ).each(function(){
@@ -700,7 +700,7 @@
             if(email!=""){
                 if (validateEmail(email)) {
                     $.ajax({
-                        url:"emailCheck",
+                        url:"emailcheck",
                         type: "POST",
                         data:{
                             'email':email,
@@ -780,14 +780,19 @@
     });
 
     // Get checked values
-    var classification="";
+    var classification=[];
     $('input[type="checkbox"]').click(function(){
         if($(this).is(":checked")==true){
-            classification+=$(this).val()+",";
+            classification.push($(this).val());
+        }else{
+             classification.pop($(this).val());
         }
     });
 
+
+
     $("#submit").click(function(){
+          
         var fail = false;
         var fail_log = '';
         $( '.page2' ).find( 'select, textarea, input' ).each(function(){
@@ -812,7 +817,7 @@
             var username = "123";
             var email = $('#email').val();
             if($('#other_classification').val()!=""){
-                classification += $('#other_classification').val();
+                classification.push($('#other_classification').val());
             }
              swal({
               title: "Warning",
@@ -827,7 +832,7 @@
                 $.ajax({
                     url: "insertRegistration",
                     type: "POST",
-                    data: reg_info,
+                    data: reg_info + "&classification="+classification,
                     success: function(data){
                         // if(data=="success"){
                         //     $(".page2").hide();
@@ -842,22 +847,23 @@
                       'email': email,
                     },
                     success:function(){
+                         $(".page2").hide();
+                         $(".page3").show();
                     }
                 });
-                $.ajax({
-                    url: "insertCompanyClassification",
-                    type: "POST",
-                    data: {
-                        'classification': classification,
-                    },
-                    success: function(data){
-                        if(data=="success"){
-                            $(".page2").hide();
-                            $(".page3").show();
-                            var classification="";
-                        }
-                    }
-                });
+                // $.ajax({
+                //     url: "insertCompanyClassification",
+                //     type: "POST",
+                //     data: {
+                //         'classification': classification,
+                //     },
+                //     success: function(data){
+                //         if(data=="success"){
+                //            
+                //             var classification="";
+                //         }
+                //     }
+                // });
               }
             });
         } else {

@@ -5,24 +5,34 @@
     <link rel="icon" href="favicon.ico">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    
+    
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-
+  
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
- 
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
-    <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
 
+
+    <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
+        <link href="<?php echo base_url();?>assets/css/jquery.simple-popup.min.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>assets/css/jquery.simple-popup.settings.css" rel="stylesheet">
+      <script src="<?php echo base_url()?>assets/js/jquery.simple-popup.min.js"></script>
     <style type="text/css">
         *{
             font-family: 'Roboto', sans-serif;
@@ -31,13 +41,11 @@
             background-color: #F4F4F4;
         }
         
-
         .header {
             position: fixed;
             right: 0;
             left: 0;
             z-index: 99;
-
             height: 60px;
         }
         
@@ -73,10 +81,115 @@
         }
         
        
+         .notification {
+            float: right;
+            margin-top: 20px;
+        }
+
+
+        
+        .fa-bell {
+            cursor: pointer;
+            color: #7a5230;
+        }
+        
+        .fa-bell:hover {
+            color: #7a5230;
+        }
+
+
+.pulse-button {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border: none;
+  box-shadow: 0 0 0 0 rgba(232, 76, 61, 0.7);
+  border-radius: 50%;
+  background-color: #e84c3d;
+  color: white;
+  background-size:cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  -webkit-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+  -moz-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+  -ms-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+  animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+.pulse-button:hover 
+{
+  -webkit-animation: none;-moz-animation: none;-ms-animation: none;animation: none;
+}
+
+@-webkit-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+@-moz-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+@-ms-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+@keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+
+
+         .notifs {
+            padding-left: 10px;
+            padding-top: 10px;
+            height: 60px;
+         }
+        .fa-circle:hover {
+            cursor: pointer;
+            color: #DABD95;
+        }
+        .fa-circle-o:hover {
+            cursor: pointer;
+            color: #DABD95;
+        }
+        
+        .fa-circle-o {
+          position: absolute;
+          right: 0;
+          color: #915B51;
+          margin-top: -49px;
+          padding-right: 10px;
+      }
+       
+        .fa-circle {
+          position: absolute;
+          /* top: 0; */
+          margin-top: -49px;
+          right: 0;
+          color: #915B51;
+          padding-right: 10px;
+      }
+          .notification-title {
+            padding-top: 10px;
+            padding-left: 10px;
+            padding-bottom: 10px;
+        }
+        .badge {
+            background: #ca2e32;
+            z-index: 1;
+        }
+        
+        .as-all-read {
+          padding-right: 10px;
+        }
+        .as-all-read:hover{
+         text-decoration: underline;
+        }
+          li.view-notification:hover{
+            background-color: #F6F6F7;
+        } 
+        li.view-notification-read:hover{
+            background-color: #F6F6F7;
+        } 
+        li.view-notification{
+            background-color: #EDF2FA;
+        }
+        .clickBorder{
+            border: 2px solid #A55D35;
+            transition: 0.1s linear;
+        }
         
         .nav a {
             color: #915B51;
         }
+
         
         .nav>li>a:hover,
         .nav>li>a:focus,
@@ -155,19 +268,16 @@
         
       
     
-
           .notifs {
             padding-left: 10px;
             padding-top: 10px;
             height: 60px;
          }
-
         .fa-check:hover {
             cursor: pointer;
             color: #DABD95;
         }
         
-
        
         .fa-check {
             color: #915B51;
@@ -179,7 +289,6 @@
             padding-left: 10px;
             padding-bottom: 10px;
         }
-
         .badge {
             background: #A55D35;
         }
@@ -188,12 +297,12 @@
           padding-right: 10px;
         }
         
-        /*.circular-square {
+        .circular-square {
             border-top-left-radius: 50% 50%;
             border-top-right-radius: 50% 50%;
             border-bottom-right-radius: 50% 50%;
             border-bottom-left-radius: 50% 50%;
-        }*/
+        }
         
         .content {
             padding-top: 100px;
@@ -205,7 +314,6 @@
             margin: 0 auto;
             text-align: center;
             background-color: #FFFFFF;
-
         }
         .profile-image{
             padding: 20px;
@@ -213,16 +321,16 @@
         .profile-image>img.img-circle{
             width: 150px;
             height: 150px;
-            border: 1px solid #C0C0C0;
+            border: 3px solid #b5292d;
         }
         .label-default{
-            background-color:#b5292d;
-            padding: 5px 10px 5px 10px;
-            border-radius: 10px;
-            font-size: 1em;
+        background-color:#b5292d;
+        padding: 5px 10px 5px 10px;
+        border-radius: 30px;
+        font-size: 1em;
         }
         legend{
-            background-color:#ef5350;
+            background-color: #b5292d;
             margin-bottom: 0px;
             width: auto; 
             border-radius: 5px; 
@@ -232,7 +340,6 @@
             font-family: 'Oswald', sans-serif;
             color: #FFFFFF;
             text-align: center;
-
         }
         fieldset{
         border: 1px solid #C0C0C0 !important;
@@ -262,7 +369,6 @@
         }
         #second-fieldset{
             margin-top: 10px;
-
         }
         #third-fieldset{
             display: none;
@@ -282,7 +388,6 @@
             width: 100%;
             background:none !important;
             box-shadow: none !important;
-
         }
         .family-info{
             font-size: 13px;
@@ -309,7 +414,6 @@
             background-color: none;
             color: none;
         }
-
         .showBorder{
             border: 1px solid #e5e6e8 !important;
             background: #F4F4F4 !important;
@@ -318,7 +422,6 @@
             text-align: center;
             color:  #915B51;
             font-family: 'Oswald', sans-serif;
-
         }
         .btn-loginas{
             margin-top: 10px;
@@ -355,6 +458,12 @@
             height: 100px;
             width: 250px;
         }
+         ul a:hover{
+            text-decoration: none;
+        }
+        .dropdown-menu .divider{
+            margin:0;
+        }
         
         .score {
             height: 25px;
@@ -366,7 +475,7 @@
         }
         .panel-heading{
             background: none !important;
-            background-color: #ef5350 !important;
+            background-color: #CA2E32 !important;
             color: #FFFFFF !important;
         }
         a{
@@ -381,7 +490,6 @@
         transition: 0.4s;
         color: #FFFFFF;
         background-color: #f5b301 !important;
-
         }
         .btn-cancel{
         color:#FFFFFF;
@@ -409,16 +517,13 @@
             margin-right: 8px;
             font-size: 14px;
         }
-
         .profile-menu ul li a:hover {
             background-color: #fef80a;
             color: #5b9bd1;
         }
-
         .profile-menu ul li.active {
             border-bottom: none;
         }
-
         .profile-menu ul li.active a {
             color: #ca2e32;
             background-color: #fef80a;
@@ -441,11 +546,20 @@
          font-weight: bold;
         }
 
+    
     </style>
 
     <title></title>
 </head>
 <body>
+
+     <div id="popup1" style="display: none;">
+                <h4 style="padding-left: 10px">Larmie Feliscuzo</h4>
+                <p class="date_posted" style="margin-left: 10px;"><?php echo date('F d Y');?></p>
+                <pre class="content-announcement" style="font-size: 15px;"></pre>
+            </div>
+
+
     <div class="page-wrap">
       <div class="header">
           <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
@@ -459,22 +573,122 @@
                     <div class="col-lg-7 col-sm-7">
                         <?php if(isset($id_number)):?>
                         <?php else:?>
-                        <ul class="nav navbar-nav" style="float: right !important;">
+                            <section id="notification-bell">
+                        <?php if(isset($id_number)):?>
+                        <?php else:?>
+                          <?php if(empty($numberAnnouncements->numberUnread)):?>
+                            <div id="countUnread">
+                               </div>
+                          <?php else:?>
+                          <div id="countUnread">
+                              <span class="badge" style="position: absolute;right: 34px;top: 8px;">
+                                  <?php echo $numberAnnouncements->numberUnread;?></span>
+                                </div>
+                          <?php endif;?>
+                        <ul class="nav navbar-nav" style="float: right;">
                             <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" id="dropdown-notification" data-toggle="dropdown"><i class="pull-right fa fa-bell-o fa-2x" style="width: 40px; height: 40px; margin-top: 0px;"></i> </a>
+                            
+                            <a href="#" class="dropdown-toggle" id="dropdown-notification" data-toggle="dropdown"><i class="pull-right  fa fa-bell fa-2x" style="width: 40px; height: 40px; margin-top: 0px;"></i></a>
                                 
-                                <ul class="dropdown-menu" id="show-notifications" style="position: relative; margin-top:20px; top: -22px; left: -63px; width: 340px;">
-                                
+                                <ul class="dropdown-menu" id="show-notifications" style="position: relative; margin-top:20px; top: -22px; left: -63px; width: 340px; max-height: 400px; overflow: auto;">
+                                      <div id="notification-body">
                                          <li><div class="notification-title">Notifications <a href="#" class="as-all-read pull-right">Mark all as read</a></div></li>
-                                         <li class="divider"></li>
-                                <?php for($i=1; $i<=3; $i++):?>
-                                         <a href="#" class="view-notif"><li class="view-notification"><div class="notifs">Lfeliz posted announcement <i class="fa fa-check pull-right" title="Mark as read"></i></div></li></a>
-                                         <li class="divider"></li>
-                                <?php endfor;?>    
+                                     
 
+                                         <?php if(empty($announcements)):?>
+                                          <li><div class="notifs" style="text-align: center; padding-left: 0; height: 150px;">No notifications yet</div></li>
+                                        <?php else:?>
+                                          <?php foreach($announcements as $announcement):?>
+                                            <?php if($announcement['status'] == 1):?>
+                                                 <li class="divider"></li>
+                                              <a href="#" data-announcement-id="<?php echo $announcement['id']?>" class="view-notif"><li class="view-notification-read"><div class="notifs">Lfeliz posted an announcement <br><span style="font-size: 12px;"><?php
+                                                    $timestamp = strtotime($announcement['date_posted']);
+                                                    $datetime = explode(" ",$announcement['date_posted']); 
+                                                    
+                                                    $date = date('F d, Y', $timestamp);
+                                                    // $time = date('Gi.s', $timestamp);
+                                                    //echo $date . " at " . date('h:ia', $timestamp);
+                                                         
+                                                          $now = new DateTime;
+                                                          $ago = new DateTime($announcement['date_posted']);
+                                            
+                                                          $diff = $now->diff($ago);
+                                                          $full = false;
+                                                          $diff->w = floor($diff->d / 7);
+                                                          $diff->d -= $diff->w * 7;
+                                                          $string = array(
+                                                              'y' => 'year',
+                                                              'm' => 'month',
+                                                              'w' => 'week',
+                                                              'd' => 'day',
+                                                              'h' => 'hour',
+                                                              'i' => 'minute',
+                                                              's' => 'second',
+                                                          );
+                                                          foreach ($string as $k => &$v) {
+                                                              if ($diff->$k) {
+                                                                  $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+                                                              } else {
+                                                                  unset($string[$k]);
+                                                              }
+                                                          }
+                                                          if (!$full) $string = array_slice($string, 0, 1);
+                                                          echo $string ? implode(', ', $string) . ' ago' : 'just now';
+                                              
+                                              ?></span></div></li></a><i class="fa fa-circle-o pull-right unread-notif" title="Mark as unread" data-announcement-id="<?php echo $announcement['id']?>"></i>
+                                               
+                                           
+                                        
+                                            <?php else:?>
+                                           <li class="divider"></li>
+                                          <a href="#" data-announcement-id="<?php echo $announcement['id']?>" class="view-notif"><li class="view-notification"><div class="notifs">Lfeliz posted an announcement<br><span style="font-size: 12px;"><?php
+                                                    
+                                                    // $time = date('Gi.s', $timestamp);
+                                                    //echo $date . " at " . date('h:ia', $timestamp);
+                                          //echo $announcement['date_posted'];exit;
+                                                      // $datetime = strtotime($announcement['date_posted']);
+                                                          $now = new DateTime;
+                                                          $ago = new DateTime($announcement['date_posted']);
+                                            
+                                                          $diff = $now->diff($ago);
+                                                          $full = false;
+                                                          $diff->w = floor($diff->d / 7);
+                                                          $diff->d -= $diff->w * 7;
+                                                          $string = array(
+                                                              'y' => 'year',
+                                                              'm' => 'month',
+                                                              'w' => 'week',
+                                                              'd' => 'day',
+                                                              'h' => 'hour',
+                                                              'i' => 'minute',
+                                                              's' => 'second',
+                                                          );
+                                                          foreach ($string as $k => &$v) {
+                                                              if ($diff->$k) {
+                                                                  $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+                                                              } else {
+                                                                  unset($string[$k]);
+                                                              }
+                                                          }
+                                                          if (!$full) $string = array_slice($string, 0, 1);
+                                                          echo $string ? implode(', ', $string) . ' ago' : 'just now';
+                                              ?></span></div></li></a><i class="fa fa-circle pull-right read-notif" data-announcement-id="<?php echo $announcement['id']?>" title="Mark as read" ></i>
+
+                                         
+                                        
+                                        
+                                       <?php endif;?>
+                                       <?php endforeach;?>
+                                         <?php endif;?>
+                                       
+                                         
+                                  
+                                       </div>
                                    </ul>
                             </li>
                         </ul>
+                    <?php endif;?>
+                    </section>
                     <?php endif;?>
                     </div>
                     <div class="col-lg-1 col-sm-1">
@@ -508,7 +722,7 @@
                              </a>
                                 
                                 <ul class="dropdown-menu" id="show-logout">
-                                    <li><a href="profile"><?php echo $user_data[0]['first_name'] . " " .$user_data[0]['last_name'];?><i class="fa fa-user pull-right"></i></a></li>
+                                    <li><a href="profile">Profile<i class="fa fa-user pull-right"></i></a></li>
                                     <li class="divider"></li>
                                     <li><a href="dashboard">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                     <li class="divider"></li>
@@ -533,12 +747,13 @@
                 <div class="row">
                     <div class="col-lg-3">
                             <div class="profile-container">
+                                <a href="#" class="show-profilepic-options" style="float: right;"><i class="fa fa-pencil"></i></a>
                                     <div class="profile-image">
                                         <?php if($personalDetails[0]['image_id'] == '<i class="fa fa-user-circle fa-5x" style="font-size: 150px;" aria-hidden="true"></i>'):?>
                                             <?php echo $personalDetails[0]['image_id'];?>
-                                             <img class="img-circle" src="" style="display: none;">
+                                             <img class="img-circle" id="img_preview" src="" style="display: none;">
                                         <?php else:?>
-                                            <img src="<?php echo base_url().$personalDetails[0]['image_id']?>" class="img-circle">
+                                            <img id="img_preview" src="<?php echo base_url().$personalDetails[0]['image_id']?>" class="img-circle">
                                             
                                         <?php endif; ?>
                                        
@@ -549,17 +764,19 @@
                                         <div class="label label-default"><?php echo $personalDetails[0]['first_name']." ".$personalDetails[0]['middle_initial']." ".$personalDetails[0]['last_name'];?>
                                     </div>
                                     </div>
-                                    <div class="change-photo" style="margin-top: 10px">
+                                    <div class="change-photo" style="margin-top: 10px; display: none;">
                                         <!-- browse -->
-                                        <button class="btn btn-default click-photo btn-md" id="btn-browse"><i class="fa fa-picture-o" aria-hidden="true" ></i></button>
-                                        <button class="btn btn-default btn-md"><i class="fa fa-camera" aria-hidden="true"></i></button>
+                                        <button class="btn pulse-button click-photo btn-md" id="btn-browse"><i class="fa fa-picture-o" aria-hidden="true" ></i></button>
+                                        <button class="btn pulse-button btn-md"><i class="fa fa-camera" aria-hidden="true"></i></button>
                                     </div>
                                    
                                 <form action="saveImage" method="POST" enctype="multipart/form-data">
                                     <input class="browse-photo" type="file" accept="image/*" onchange="previewFile()" name="files" style="display: none;">
-                                      <div class="saveCancel" style="margin-top: 10px; display: none;">
-                                        <button type="submit" class="btn btn-save btn-md" style="width:75px" id="saveBrowse" name="saveBrowse">Save</button>
-                                        <button type="button" class="btn btn-cancel btn-md" id="cancelBrowse">Cancel</button>
+
+
+                                      <div class="saveCancel" style="margin-top: 15px; display: none;">
+                                        <button type="submit" class="btn btn-save waves-effect waves-light" id="saveBrowse" name="saveBrowse">Save</button>
+                                        <button type="button" class="btn btn-cancel btn-md waves-effect waves-light" id="cancelBrowse">Cancel</button>
                                     </div>
                                 </form> 
                            
@@ -600,38 +817,38 @@
                         <div class="row" id="pos">
                             <div class="col-lg-6">
                                 <label class="labels">Course:</label>
-                                  <input type="text" name="" value=" BSIT" readonly class="personal-info form-control" readonly="true">
+                                  <input type="text" name="" value="<?php echo $personalDetails[0]['course']?>" readonly class="personal-info form-control" readonly="true">
                                   <label class="labels">College:</label>
-                                <input type="text" name="" value=" College of Computer Studies" readonly class="personal-info form-control">
+                                <input type="text" name="" value="<?php echo $personalDetails[0]['college']?>" readonly class="personal-info form-control">
                                 <label class="labels">Present Address:</label>
-                                <input type="text" name="" value=" 4th Year" readonly class="personal-info form-control">
+                                <input type="text" name="" value="<?php echo $personalDetails[0]['present_address']?>" readonly class="personal-info form-control">
                                 <label class="labels">Permanent Address:</label>
-                                <input type="text" name="" value=" 4th Year" readonly class="personal-info form-control"><br>
+                                <input type="text" name="" value="<?php echo $personalDetails[0]['permanent_address']?>" readonly class="personal-info form-control"><br>
                                 <label class="labels">Phone or Landline:</label>
-                                  <input type="text" name="" value=" BSIT" readonly class="personal-info form-control"><br>
+                                  <input type="text" name="" value="<?php echo $personalDetails[0]['contact_number']?>" readonly class="personal-info form-control"><br>
                                     <label class="labels">Date of Birth:</label>
-                                  <input type="text" name="" value=" BSIT" readonly class="personal-info form-control"><br>
+                                  <input type="text" name="" value="<?php echo $personalDetails[0]['date_of_birth'] ?>" readonly class="personal-info form-control"><br>
                                   <label class="labels">Status:</label>
-                                  <input type="text" name="" value=" BSIT" readonly class="personal-info form-control"><br>
+                                  <input type="text" name=""0 value="<?php echo $personalDetails[0]['marital_status']  ?>" readonly class="personal-info form-control"><br>
                                   <label class="labels">Weight:</label>
-                                  <input type="text" name="" value=" BSIT" readonly class="personal-info form-control"><br>
+                                  <input type="text" name="" value="<?php echo $personalDetails[0]['weight'] ?>" readonly class="personal-info form-control"><br>
                                   <label class="labels">Religion:</label>
-                                  <input type="text" name="" value=" BSIT" readonly class="personal-info form-control"><br>
+                                  <input type="text" name="" value="<?php echo $personalDetails[0]['religion'] ?>" readonly class="personal-info form-control"><br>
 
                             </div>
                             <div class="col-lg-6">
                                 <label class="labels">Year:</label>
-                               <input type="text" name="" value=" 4th Year" readonly class="personal-info form-control"><br>
+                               <input type="text" name="" value="<?php echo $personalDetails[0]['year']?>" readonly class="personal-info form-control"><br>
                                <label class="labels">Email Address:</label>
-                               <input type="text" name="" value=" 4th Year" readonly class="personal-info form-control"><br>
+                               <input type="text" name="" value="<?php echo $personalDetails[0]['email_address'] ?>" readonly class="personal-info form-control"><br>
                                <label class="labels">Age:</label>
-                               <input type="text" name="" value=" 4th Year" readonly class="personal-info form-control"><br>
+                               <input type="text" name="" value="<?php echo $personalDetails[0]['age'] ?>" readonly class="personal-info form-control"><br>
                                <label class="labels">Blood Type:</label>
-                               <input type="text" name="" value=" 4th Year" readonly class="personal-info form-control"><br>
+                               <input type="text" name="" value="<?php echo $personalDetails[0]['blood_type'] ?>" readonly class="personal-info form-control"><br>
                                <label class="labels">Height in Cm:</label>
-                               <input type="text" name="" value=" 4th Year" readonly class="personal-info form-control"><br>
+                               <input type="text" name="" value="<?php echo $personalDetails[0]['height'] ?>" readonly class="personal-info form-control"><br>
                                <label class="labels">Citizenship:</label>
-                               <input type="text" name="" value=" 4th Year" readonly class="personal-info form-control"><br>
+                               <input type="text" name="" value="<?php echo $personalDetails[0]['citizenship'] ?>" readonly class="personal-info form-control"><br>
                             </div>
                             </div>
                              <p style="text-align: center; margin-top: 10px;">
@@ -648,19 +865,19 @@
                         <div class="row" id="pos">
                             <div class="col-lg-6">
                                 <label class="labels">Father's Name:</label>
-                                  <input type="text" name="" value=" BSIT" readonly class="family-info form-control">
+                                  <input type="text" name="" value="<?php echo $familydetails->fathers_name; ?>" readonly class="family-info form-control">
                                   <label class="labels">Mother's Name:</label>
-                                  <input type="text" name="" value=" BSIT" readonly class="family-info form-control">
+                                  <input type="text" name="" value="<?php echo $familydetails->mothers_name; ?>" readonly class="family-info form-control">
                                   <label class="labels">Parent's Address:</label>
-                                <input type="text" name="" value=" 4th Year" readonly class="family-info form-control">
+                                <input type="text" name="" value="<?php echo $familydetails->parents_address; ?>" readonly class="family-info form-control">
                                  <label class="labels">Landline or Mobile:</label>
-                                <input type="text" name="" value=" 4th Year" readonly class="family-info form-control">
+                                <input type="text" name="" value="<?php echo $familydetails->contact_number; ?>" readonly class="family-info form-control">
                             </div>
                             <div class="col-lg-6">
                                <label class="labels">Father's Occupation:</label>
-                               <input type="text" name="" value=" 4th Year" readonly class="family-info form-control">
+                               <input type="text" name="" value="<?php echo $familydetails->fathers_occupation; ?>" readonly class="family-info form-control">
                                 <label class="labels">Mother's Occupation:</label>
-                               <input type="text" name="" value=" 4th Year" readonly class="family-info form-control">
+                               <input type="text" name="" value="<?php echo $familydetails->mothers_occupation; ?>" readonly class="family-info form-control">
                             </div>
                         </div>
                         <p style="text-align: center; margin-top: 10px;">
@@ -679,50 +896,51 @@
                         <div class="row" id="pos">
                             <div class="col-lg-6">
                                 <label class="labels">Company Name:</label>
-                                  <input type="text" name="" value=" BSIT" readonly class="company-info form-control">
+                                  <input type="text" name="" value="<?php echo $companyInformation->company_name; ?>" readonly class="company-info form-control">
                                   <label class="labels">Company Address:</label>
-                                  <input type="text" name="" value=" BSIT" readonly class="company-info form-control">
+                                  <input type="text" name="" value="<?php echo $companyInformation->company_address; ?>" readonly class="company-info form-control">
                                   <label class="labels">Telephone Number:</label>
-                                <input type="text" name="" value=" 4th Year" readonly class="company-info form-control">
+                                <input type="text" name="" value="<?php echo $companyInformation->contact_number; ?>" readonly class="company-info form-control">
                                 
                             </div>
                             <div class="col-lg-6">
                              <label class="labels">Product Lines:</label>
-                                <input type="text" name="" value=" 4th Year" readonly class="company-info form-control">
+                                <input type="text" name="" value="<?php echo $companyInformation->product_lines; ?>" readonly class="company-info form-control">
                                <label class="labels">Fax Number:</label>
-                               <input type="text" name="" value=" 4th Year" readonly class="company-info form-control">
+                               <input type="text" name="" value="<?php echo $companyInformation->fax_number; ?>" readonly class="company-info form-control">
                             </div>
                         </div>
+                   
                         <div class="row">
                             <h2 style="margin-bottom: 30px">Company Classification <i class="fa fa-list-alt" aria-hidden="true"></i></h2>
                              <div class="col-lg-2">
-                            <input id="assembly" value="assembly" type="checkbox"><label class="labels" for="assembly">Assembly</label>
+                            <input id="assembly" value="assembly" type="checkbox" ><label class="labels" for="assembly">Assembly</label>
                          </div> 
                          <div class="col-lg-2">
-                            <input type="checkbox" value="manufacturing" id="manufacturing"><label class="labels"for="manufacturing">Manufacturing</label>
+                            <input type="checkbox" value="manufacturing" id="manufacturing"><label class="labels" for="manufacturing">Manufacturing</label>
                          </div> 
                          <div class="col-lg-2">
-                            <input type="checkbox" value="maintenance" id="maintenance"><label class="labels"for="maintenance">Maintenance</label>
+                            <input type="checkbox" value="maintenance" id="maintenance"><label class="labels" for="maintenance">Maintenance</label>
                          </div>
                          <div class="col-lg-3">
-                            <input type="checkbox" value="marketing" id="marketing"><label class="labels"for="marketing">Sales/Marketing</label>
+                            <input type="checkbox" value="marketing" id="marketing"><label class="labels" for="marketing">Sales/Marketing</label>
                          </div>
                          <div class="col-lg-3">
-                             <input type="checkbox" value="service" id="service"><label class="labels"for="service">Service/Utility</label>
+                             <input type="checkbox" value="service" id="service"><label class="labels" for="service">Service/Utility</label>
                          </div>
                          
                         </div>
                         <div class="row">
                           <div class="col-lg-4">
                             
-                              <input type="checkbox" value="research" id="research"><label class="labels"for="research">Research and Development</label>
+                              <input type="checkbox" value="research" id="research"><label class="labels" for="research">Research and Development</label>
                             
                           </div>
                           <div class="col-lg-2">
-                            <input type="checkbox" value="itrelated" id="itrelated"><label class="labels"for="itrelated">IT Related</label>
+                            <input type="checkbox" value="itrelated" id="itrelated"><label class="labels" for="itrelated">IT Related</label>
                           </div>
                           <div class="col-lg-5">
-                               <input type="radio" class="other-company" id="other"><label class="labels"for="other">Others</label>
+                               <input type="radio" class="other-company" id="other"><label class="labels" for="other">Others</label>
                                <input type="text" id="other_classification" name="other_classification" style="height: 15px; width: 250px; display: none;" placeholder="Please specify">
                           </div>
                        
@@ -730,7 +948,7 @@
                         <div class="row">
                             <h2 class="fs-title" style="margin: 30px 30px">Total number of employees <i class="fa fa-list-ol" aria-hidden="true"></i></h2>
                             <div class="col-lg-3 col-lg-offset-1">
-                              <input type="radio" id="less_fifty" value="Less than 50" name="employee_numbers"><label class="labels"for="less_fifty">Less than 50</label>
+                              <input type="radio" id="less_fifty" value="Less than 50" name="employee_numbers"><label class="labels" for="less_fifty">Less than 50</label>
              
                             </div>
                             <div class="col-lg-3 col-lg-offset-1">
@@ -1092,16 +1310,16 @@
 <script type="text/javascript">
     $("#cancelBrowse").click(function(){
         $(".saveCancel").css("display","none");
-        location.reload();
+        
+    });
+
+     $(".show-profilepic-options").click(function(e){
+        e.preventDefault();
+        $(".change-photo").slideToggle();
+   
     });
 </script>
 
-<script type="text/javascript">
-    $("span").hover(function() {
-        $(this).css("background", "none");
-        $(this).css("color", "#000");
-    });
-</script>
 <script type="text/javascript">
     $("#btn-edit").click(function(){
         $(".personal-info").addClass("showBorder");
@@ -1138,13 +1356,130 @@
     });
 </script>
 
+ <script type="text/javascript">
+             $(document).ready(function() {
+                $("#notification-body").on("click",'.view-notif', function(e) {
+                   e.preventDefault();
+                    $(this).simplePopup({ type: "html", htmlSelector: "#popup1" });
+                });
+            });
+        
+        </script>
+
+        <script type="text/javascript">
+    $("#dropdown-notification").click(function() {
+       $("#show-notifications").toggle();
+       $("#show-logout").hide();
+        $('.user-image').removeClass('clickBorder');
+    });
+    $("#dropdown-logout").click(function() {
+       $("#show-logout").toggle();
+       $('.user-image').toggleClass('clickBorder');
+       $("#show-notifications").hide();
+    });
+</script>
+
+<script type="text/javascript">
+  $(document).on('click','.view-notif',function(e){
+    //e.preventDefault();
+    var announcement_id = $(this).data('announcement-id');
+    $.ajax({
+      url: '<?php echo base_url('main/getAnnouncement')?>',
+      method: 'POST',
+      data:{
+        'announcement_id': announcement_id,
+      },
+      success:function(data){
+        var announce = JSON.parse(data);
+        $('.content-announcement').html(announce.content);
+        //var full_date = announce.date_posted;
+       var date = new Date(announce.date_posted), y = date.getFullYear(), m = date.getMonth(), d = date.getDate();
+       var actual_date = new Date(y, m, d).toString().split(' ').slice(0,3).join(' ');
+        $('.date_posted').html(actual_date);
+      }
+    });
+    var currentNotif = $(this).closest('.wrap-notif').find('.view-notification');
+    $.ajax({
+      url: '<?php echo base_url('main/updateAnnouncemment')?>',
+      method: 'POST',
+      data:{
+        'announcement_id': announcement_id,
+      },
+      success: function(data){
+         $('#notification-body').load(location.href + " #notification-body");
+         $('#countUnread').load(location.href + " #countUnread");
+      }
+    });
+    //alert(announcement_id);
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+        setInterval(function(){ 
+          //$('title').load(location.href + " title")
+          
+          $('#notification-body').load(location.href + " #notification-body");
+          $('#countUnread').load(location.href + " #countUnread");
+          
+     }, 5000);    
+      
+    
+    
+      $(document).on('click', '.read-notif',function(){
+      var announcement_id = $(this).data('announcement-id');
+      $.ajax({
+       url:'<?php echo base_url('main/updateAnnouncemment')?>',
+       method: 'POST',
+       data:{
+          'announcement_id': announcement_id,
+       },
+       success:function(){
+          // /currentNotif.css("background-color",'#FFF');
+          $('#notification-body').load(location.href + " #notification-body");
+          $('#countUnread').load(location.href + " #countUnread");
+          
+       }
+    });
+  });
+  $(document).on('click','.unread-notif',function(){
+    var announcement_id = $(this).data('announcement-id');
+    $.ajax({
+       url:'<?php echo base_url('main/updateAnnouncemmentToUnread')?>',
+       method: 'POST',
+       data:{
+          'announcement_id': announcement_id,
+       },
+       success:function(){
+          //currentNotif.css("background-color",'#EDF2FA');
+          $('#notification-body').load(location.href + " #notification-body");
+       }
+    });
+  });
+   $(document).on('click','.as-all-read',function(e){
+    e.preventDefault();
+    var announcement_id = $(this).data('announcement-id');
+    $.ajax({
+       url:'<?php echo base_url('main/updateAnnouncemmentToUnreadAll')?>',
+       method: 'POST',
+       data:{
+          'username': '<?php echo $this->session->userdata['id_number']?>',
+       },
+       success:function(){
+          //currentNotif.css("background-color",'#EDF2FA');
+          $('#notification-body').load(location.href + " #notification-body");
+       }
+    });
+  });
+  });
+</script>
+
 <script type="text/javascript">
     $("#cancels").click(function(){
         $(".family-info").removeClass("showBorder");
         $(".family-info").prop("readonly",true);
         $(".bts").css("display","none");
     });
-
     $('.click-photo').click(function(){
         $('.browse-photo').trigger('click');
     });
@@ -1154,28 +1489,28 @@
 <script type="text/javascript">
   
     function previewFile() {
-     var preview = document.querySelector('img');
+     var preview = document.querySelector('#img_preview');
      var file    = document.querySelector('input[type=file]').files[0];
      var reader  = new FileReader();
-
      reader.addEventListener("load", function () {
        preview.src = reader.result;
-       $('img').show();
-       $('.fa-user-circle').hide();
-       $(".saveCancel").css("display","inline-block");
+       $('#img_preview').show();
+       $('.fa-user-circle:last').hide();
+       $(".saveCancel").css("display","block");
     }, false);
-
     if (file) {
      reader.readAsDataURL(file);
      alert(reader.readAsDataURL(file));
     }
 }
-  $(function () {
-  $('[data-toggle="popover"]').popover()
-})
+
+$(function () {
+  $('[data-toggle="popover"]').popover();
+});
 </script>
 <script type="text/javascript">
-    $("#nav1").click(function(){
+    $("#nav1").click(function(e){
+        e.preventDefault();
         $("#first-fieldset").show();
         $("#second-fieldset").show();
         $("#third-fieldset").hide();
@@ -1183,9 +1518,11 @@
         $("#fourth-fieldset").hide();
         $("#nav1").addClass("active");
         $("#nav2").removeClass("active");
+         $("#nav3").removeClass("active");
         $("#tabs").hide();
     });
-    $("#nav2").click(function(){
+    $("#nav2").click(function(e){
+         e.preventDefault();
         $("#first-fieldset").hide();
         $("#second-fieldset").hide();
         $("#fourth-fieldset").hide();
@@ -1198,7 +1535,8 @@
     });
 </script>
 <script type="text/javascript">
-    $("#nav3").click(function(){
+    $("#nav3").click(function(e){
+         e.preventDefault();
         $("#tabs").tabs().show();
         $("#first-fieldset").hide();
         $("#second-fieldset").hide();

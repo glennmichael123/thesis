@@ -6,7 +6,7 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+  <!--   <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/materialize.css"> -->
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -19,15 +19,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   <script src="<?php echo base_url() ?>assets/js/swal.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/jquery.simple-popup.min.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/jquery.simple-popup.settings.css" rel="stylesheet">
     <style type="text/css">
-
-
-
 .img-replace {
   /* replace text with an image */
   display: inline-block;
@@ -36,11 +33,8 @@
   color: transparent;
   white-space: nowrap;
 }
-
 /* -------------------------------- 
-
 xnugget info 
-
 -------------------------------- */
 .cd-nugget-info {
   text-align: center;
@@ -72,11 +66,8 @@ xnugget info
 .cd-nugget-info .cd-nugget-info-arrow {
   fill: #5e6e8d;
 }
-
 /* -------------------------------- 
-
 Main components 
-
 -------------------------------- */
    .header{
         padding: 5px;
@@ -87,7 +78,6 @@ header h1 {
   font-size: 20px;
   font-size: 1.25rem;
 }
-
 .cd-popup {
   position: fixed;
   z-index: 999;
@@ -109,7 +99,6 @@ header h1 {
   -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
   transition: opacity 0.3s 0s, visibility 0s 0s;
 }
-
 .cd-popup-container {
   position: relative;
   width: 90%;
@@ -196,7 +185,6 @@ header h1 {
 .show-more-right input[type=text]{
   font-size: 12px;
 }
-
 .show-more-left input[type=time]{
   font-size: 12px;
 }
@@ -243,7 +231,6 @@ header h1 {
             right: 0;
             left: 0;
             z-index: 99;
-
             height: 60px;
         }
         
@@ -366,17 +353,12 @@ header h1 {
         textarea{
             resize: none;
         }
-
-
-
         
-
           .notifs {
             padding-left: 10px;
             padding-top: 10px;
             height: 60px;
          }
-
         .fa-circle:hover {
             cursor: pointer;
             color: #DABD95;
@@ -407,7 +389,6 @@ header h1 {
             padding-left: 10px;
             padding-bottom: 10px;
         }
-
         .badge {
             background: #ca2e32;
             z-index: 1;
@@ -506,7 +487,6 @@ header h1 {
             width: 95%;
             font-size: 15px;
             margin-left:20px;
-
             border: none;
             background-color: #fff;
             resize: none;
@@ -548,63 +528,26 @@ header h1 {
         #show-notifications{
             padding-top: 0;
             padding-bottom: 0;
-
         }
-
-
         .dropdown-menu .divider{
             margin:0;
         }
         li.view-notification:hover{
             background-color: #F6F6F7;
         } 
-
         li.view-notification-read:hover{
             background-color: #F6F6F7;
         } 
         li.view-notification{
             background-color: #EDF2FA;
         }
-
         .clickBorder{
             border: 2px solid #A55D35;
             transition: 0.1s linear;
         }
 
-        .animateHeader{
-            height: 45px;
-            transition: 0.3s;
-        }
+     
 
-        .toNormal{
-            height: 60px;
-            transition: 0.3s;
-        }
-
-        .toTopImage{
-            margin-top: -14px !important;
-            transition: 0.3s !important;
-        }
-        .toNormalImage{
-            margin-top: -5px !important;
-            transition: 0.3s !important;
-        }
-        .toTopBell{
-            margin-top: -9px !important;
-            transition: 0.3s !important;
-        }
-        .toNormalBell{
-            margin-top: 0px !important;
-            transition: 0.3s !important;
-        }
-        .toTopLogo{
-            margin-top: 5px !important;
-            transition: 0.3s !important;
-        }
-        .toNormalLogo{
-            margin-top: 0px !important;
-            transition: 0.3s !important;
-        }
         .btn-circle.btn-lg {
         width: 40px;
         height: 40px;
@@ -612,7 +555,6 @@ header h1 {
         font-size: 12px;
         line-height: 1.33;
         border-radius: 25px;
-
     }
   
     textarea:focus{
@@ -635,7 +577,6 @@ header h1 {
     .btn-submit:hover{
         color: #FFFFFF;
         background-color: #f5b301;
-
     }
     .feedback{position: fixed;}
     .feedback textarea{height: 150px; }
@@ -659,9 +600,6 @@ header h1 {
     .notification-bell{
       margin-top: -5px;
     }
-
-
-
     .dropdown-image{
       margin-top: -5px;
     }
@@ -675,6 +613,7 @@ header h1 {
     .btn-bug:hover{
         color: #cf4246;
     }
+
     .btn-danger{
       background:#871F21 !important;
       border: 1px solid transparent;
@@ -753,6 +692,8 @@ header h1 {
                         <?php if(isset($id_number)):?>
                         <?php else:?>
                           <?php if(empty($numberAnnouncements->numberUnread)):?>
+                            <div id="countUnread">
+                               </div>
                           <?php else:?>
                           <div id="countUnread">
                               <span class="badge" style="position: absolute;right: 34px;top: 8px;">
@@ -764,7 +705,7 @@ header h1 {
                             
                             <a href="#" class="dropdown-toggle" id="dropdown-notification" data-toggle="dropdown"><i class="pull-right  fa fa-bell fa-2x" style="width: 40px; height: 40px; margin-top: 0px;"></i></a>
                                 
-                                <ul class="dropdown-menu" id="show-notifications" style="position: relative; margin-top:20px; top: -22px; left: -63px; width: 340px; max-height: 400px; overflow: auto;">
+                                <ul class="dropdown-menu" id="show-notifications" style="position: relative; margin-top:20px;top: -32px; left: -76px; width: 340px; max-height: 400px; overflow: auto;">
                                       <div id="notification-body">
                                          <li><div class="notification-title">Notifications <a href="#" class="as-all-read pull-right">Mark all as read</a></div></li>
                                          <li class="divider"></li>
@@ -776,20 +717,12 @@ header h1 {
                                             <?php if($announcement['status'] == 1):?>
                                                  <li class="divider"></li>
                                               <a href="#" data-announcement-id="<?php echo $announcement['id']?>" class="view-notif"><li class="view-notification-read"><div class="notifs">Lfeliz posted an announcement <br><span style="font-size: 12px;"><?php
-
-
-
                                                     $timestamp = strtotime($announcement['date_posted']);
                                                     $datetime = explode(" ",$announcement['date_posted']); 
                                                     
                                                     $date = date('F d, Y', $timestamp);
                                                     // $time = date('Gi.s', $timestamp);
                                                     //echo $date . " at " . date('h:ia', $timestamp);
-
-
-
-
-
                                                          
                                                           $now = new DateTime;
                                                           $ago = new DateTime($announcement['date_posted']);
@@ -798,7 +731,6 @@ header h1 {
                                                           $full = false;
                                                           $diff->w = floor($diff->d / 7);
                                                           $diff->d -= $diff->w * 7;
-
                                                           $string = array(
                                                               'y' => 'year',
                                                               'm' => 'month',
@@ -815,12 +747,9 @@ header h1 {
                                                                   unset($string[$k]);
                                                               }
                                                           }
-
                                                           if (!$full) $string = array_slice($string, 0, 1);
                                                           echo $string ? implode(', ', $string) . ' ago' : 'just now';
                                               
-
-
                                               ?></span></div></li></a><i class="fa fa-circle-o pull-right unread-notif" title="Mark as unread" data-announcement-id="<?php echo $announcement['id']?>"></i>
                                                
                                            
@@ -828,16 +757,11 @@ header h1 {
                                             <?php else:?>
                                            <li class="divider"></li>
                                           <a href="#" data-announcement-id="<?php echo $announcement['id']?>" class="view-notif"><li class="view-notification"><div class="notifs">Lfeliz posted an announcement<br><span style="font-size: 12px;"><?php
-
                                                     
                                                     // $time = date('Gi.s', $timestamp);
                                                     //echo $date . " at " . date('h:ia', $timestamp);
                                           //echo $announcement['date_posted'];exit;
                                                       // $datetime = strtotime($announcement['date_posted']);
-
-
-
-
                                                           $now = new DateTime;
                                                           $ago = new DateTime($announcement['date_posted']);
                                             
@@ -845,7 +769,6 @@ header h1 {
                                                           $full = false;
                                                           $diff->w = floor($diff->d / 7);
                                                           $diff->d -= $diff->w * 7;
-
                                                           $string = array(
                                                               'y' => 'year',
                                                               'm' => 'month',
@@ -862,12 +785,8 @@ header h1 {
                                                                   unset($string[$k]);
                                                               }
                                                           }
-
                                                           if (!$full) $string = array_slice($string, 0, 1);
                                                           echo $string ? implode(', ', $string) . ' ago' : 'just now';
-
-
-
                                               ?></span></div></li></a><i class="fa fa-circle pull-right read-notif" data-announcement-id="<?php echo $announcement['id']?>" title="Mark as read" ></i>
 
                                          
@@ -886,7 +805,10 @@ header h1 {
                     <?php endif;?>
                     </section>
                     </div>
-                    <h4 style="position: absolute; top: 23px; right: 150px;">Hi, <?php echo $user_data[0]['first_name'  ]?></h4>
+                    <?php if(isset($id_number)):?>
+                    <?php else:?>
+                    <h4 style="position: absolute; top: 23px; right: 120px;">Hi, <?php echo $user_data[0]['first_name']?></h4>
+                  <?php endif;?>
                     <div class="col-lg-2">
                       <section class="dropdown-image">
                         <?php if(isset($id_number)):?>
@@ -971,7 +893,6 @@ header h1 {
                             
                                     // progressbar.js@1.0.0 version is used
                                     // Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
-
                                     var bar = new ProgressBar.Circle(hoursProgress, {
                                         color: '#A55D35',
                                         trailColor: '#eee',
@@ -995,7 +916,6 @@ header h1 {
                                             circle.path.setAttribute('stroke', state.color);
                                         }
                                     });
-
                                     bar.animate(<?php echo $rendered/$total?>); // Number from 0.0 to 1.0
                                 });
                             </script>
@@ -1014,7 +934,6 @@ header h1 {
                                 $(document).ready(function() {
                                     // progressbar.js@1.0.0 version is used
                                     // Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
-
                                     var bar = new ProgressBar.SemiCircle(progressEvaluations, {
                                         strokeWidth: 6,
                                         easing: 'easeInOut',
@@ -1039,9 +958,7 @@ header h1 {
                                         trailWidth: 1,
                                         svgStyle: null
                                     });
-
                                     bar.animate(<?php echo $current_evaluations/$all_evaluations?>); // Number from 0.0 to 1.0
-
                                 });
                             </script>
 
@@ -1061,7 +978,7 @@ header h1 {
                                         easing: 'easeInOut',
                                         duration: 1400,
                                         text: {
-                                            value: 'You have not posted logs yet',
+                                            value: '0/0',
                                         },
                                         from: {
                                             color: '#EECD86',
@@ -1080,8 +997,7 @@ header h1 {
                                         trailWidth: 1,
                                         svgStyle: null
                                     });
-
-                                    bar.animate(<?php echo 1/1?>); // Number from 0.0 to 1.0
+                                    bar.animate(<?php echo 0/1?>); // Number from 0.0 to 1.0
                                 });
                             </script>
                             <?php else:?>
@@ -1111,7 +1027,6 @@ header h1 {
                                         trailWidth: 1,
                                         svgStyle: null
                                     }); 
-
                                     bar.animate(<?php echo $verified/$totalLogs?>); // Number from 0.0 to 1.0
                                 });
                             </script>
@@ -1129,14 +1044,18 @@ header h1 {
                     <div class="panel panel-default">
                         <div class="panel-heading" style="text-align: center;">OJT Workmates</div>
                         <div class="panel-body">
+                          <?php foreach($workmates as $workmate):?>
                           <div class="row">
-                            <div class="col-lg-8">
-                             <h5>Glenn Michael Torregossa</h5>
+                            <div class="col-lg-7">
+                              
+                              <h5><?php echo $workmate['first_name'] . " " . $workmate['middle_initial'] . " " . $workmate['last_name'] ?></h5>
+                            
                             </div>
-                            <div class="col-lg-4">
-                              <a href=""><h5 style="text-align: center;">View Profile</h5></a>
-                            </div>
+                              <div class="col-lg-4">
+                               <a href="studentdashboard/<?php echo $workmate['id_number']?>" style="font-size: 12px;"> View dashboard</a>
+                              </div>
                           </div>
+                          <?php endforeach;?>
                         </div>
                     </div>
                 </div>
@@ -1186,7 +1105,7 @@ header h1 {
                                     <button type="submit" id="submit_log" class="btn btn-primary btn-md" value="Submit" style="float: left; margin-left: 15px;"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Post</button>
                                     <button type="button" class="btn btn-success btn-md" id="load_last_log" style="margin-left: 5px;"><i class="fa fa-history" aria-hidden="true"></i> Load last log</button>
                                     <button type="reset" class="btn btn-default btn-md"><i class="fa fa-eraser" aria-hidden="true"></i>Clear</button>
-                                    <button type="button" class="btn btn-danger cancel-btn btn-md" style="float: right; margin-right: 15px;" class="btn btn-danger"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
+                                    <button type="button" class="btn btn-danger cancel-btn btn-md" style="float: right; margin-right: 15px;" class="btn btn-danger"></i> Cancel</button>
                                 </div>
 
                             </form>
@@ -1278,27 +1197,36 @@ header h1 {
                                         <div class="row">
                                             <div class="col-lg-12">
                                                     <hr style="margin-bottom: 0; margin-top: 0;">
+                                                    <?php if (empty($log['supervisor_id'])):?>
+                                                        <span style="font-size: 11px; float: right; margin-top: 15px;"> Unsupervised  <i class="fa fa-user-times" aria-hidden="true"></i></span>
+
+                                                    <?php else:?>
+
                                                     <?php if($log['verified']):?>
                                                         <span style="color:green; font-size: 11px; float: right; margin-top: 15px;"> Verified  <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     <?php else:?>
                                                      <span style="font-size: 11px; float: right; margin-top: 15px;"> Pending  <i class="fa fa-circle-thin" aria-hidden="true"></i></span>
                                                     <?php endif;?>
+                                                  <?php endif;?>
                                                     <?php if(in_array($log['id'], array_column($comments, 'log_id'))):?>  
                                                          <label>Comments</label>
-                                                         <?php endif;?>
 
-
-                                                    <?php foreach ($comments as $comment):?>
+                                                          <?php foreach ($comments as $comment):?>
                                                     <?php if(in_array($log['id'], $comment)):?>
 
                                                         <!-- <div class="well" style="box-shadow: none; border: none; background: #f7f7f7; padding: 10px; margin-bottom: 10px;"> -->
                                                          <div class="comments-list" style="font-size: 12px; margin-bottom: 10px;">
+
                                                               <b>Supervisor</b> <?php echo $comment['content'];?>
                                                           </div>
                                                         
                                                     <?php endif;?>
                                               
                                                     <?php endforeach;?>
+                                                    <?php endif;?>
+
+
+                                                   
 
                                                    <?php if(!in_array($log['id'], array_column($comments, 'log_id'))):?>  
                                                         
@@ -1390,8 +1318,6 @@ header h1 {
 </body>
    <script type="text/javascript">
              $(document).ready(function() {
-
-
                 $("#notification-body").on("click",'.view-notif', function(e) {
                    e.preventDefault();
                     $(this).simplePopup({ type: "html", htmlSelector: "#popup1" });
@@ -1405,7 +1331,6 @@ header h1 {
        $("#show-logout").hide();
         $('.user-image').removeClass('clickBorder');
     });
-
     $("#dropdown-logout").click(function() {
        $("#show-logout").toggle();
        $('.user-image').toggleClass('clickBorder');
@@ -1415,11 +1340,9 @@ header h1 {
 
 <script type="text/javascript">
     $("#log_activity").click(function() {
-
         $('.logs-upper').slideDown();
         $('.logs-lower').slideDown();
     });
-
     $(".cancel-btn").click(function() {
         $('.logs-upper').slideUp();
         $('.logs-lower').slideUp();
@@ -1448,10 +1371,8 @@ header h1 {
       
       
     });
-
     $('.confirm-delete-log').click(function(){
         var log_id = $('#display-log-id').html();
-
         $.ajax({
             method: 'POST',
             url: 'deleteLog',
@@ -1463,7 +1384,6 @@ header h1 {
             }
         });
     });
-
     $('.edit-log').click(function(e) {
         e.preventDefault();
         var input = $(this).closest(".row").find(".list-logs");
@@ -1472,7 +1392,6 @@ header h1 {
         input.prop('readonly', false);
         input.css('border', '1px solid #CCCCCC');
         input.css('background', '#F4F4F4');
-
     });
 </script>
 
@@ -1499,7 +1418,6 @@ header h1 {
          var hours_rendered = $(this).closest(".row").find(".hours_listed").val();
          var input = $(this).closest(".row").find(".list-logs");
          var buttons = $(this).closest(".row").find(".save-edit");
-
          
       
         $.ajax({
@@ -1515,7 +1433,6 @@ header h1 {
                 'designation':designation,
                 'log_activity':log_activity,
                 'hours_rendered': hours_rendered,
-
             },
             success: function(data){
                    input.prop('readonly', true);
@@ -1527,34 +1444,6 @@ header h1 {
         });
     });
 </script>
-<!-- <script type="text/javascript">
-    $(document).ready(function(){
-         $(window).scroll(function(){
-        var aTop = $('.header').height();
-    if($(this).scrollTop()>aTop){
-         $('.fa-bell-o').removeClass('toNormalBell');
-         $('.circular-square').removeClass('toNormalImage');
-        $('.header').removeClass('toNormal');
-        $('.header').addClass('animateHeader');
-        $('.circular-square').addClass('toTopImage');
-        $('.fa-bell-o').addClass('toTopBell');
-        $('.logo').addClass('toTopImage');
-         $('.logo').removeClass('toNormalLogo');
-        // instead of alert you can use to show your ad
-        // something like $('#footAd').slideup();
-    }else{
-        $('.logo').removeClass('toTopImage');
-        $('.logo').addClass('toNormalLogo');
-         $('.header').removeClass('animateHeader');
-         $('.header').addClass('toNormal');
-          $('.circular-square').removeClass('toTopImage');
-          $('.circular-square').addClass('toNormalImage');
-         $('.fa-bell-o').removeClass('toTopBell');
-         $('.fa-bell-o').addClass('toNormalBell');
-    }
-  });
-    });
-</script> -->
 <script type="text/javascript">
     jQuery(document).ready(function($){
     //open popup
@@ -1591,19 +1480,15 @@ header h1 {
         right.show();
         left.show();
         $(this).hide();
-
         show_less.show();
        
     });
-
     $('.show-less-info').click(function(){
         var right = $(this).closest('.row').find('.show-more-right');
         var left = $(this).closest('.row').find('.show-more-left');
-
         right.hide();
         left.hide();
         $(this).hide();
-
         $('.show-more-info').show();
        
     });
@@ -1612,9 +1497,7 @@ header h1 {
 <script type="text/javascript">
   $(document).on('click','.view-notif',function(e){
     //e.preventDefault();
-
     var announcement_id = $(this).data('announcement-id');
-
     $.ajax({
       url: '<?php echo base_url('main/getAnnouncement')?>',
       method: 'POST',
@@ -1630,9 +1513,7 @@ header h1 {
         $('.date_posted').html(actual_date);
       }
     });
-
     var currentNotif = $(this).closest('.wrap-notif').find('.view-notification');
-
     $.ajax({
       url: '<?php echo base_url('main/updateAnnouncemment')?>',
       method: 'POST',
@@ -1650,13 +1531,11 @@ header h1 {
 
 <script type="text/javascript">
     $('#load_last_log').click(function(){
-
         $.ajax({
             url: '<?php echo base_url()?>main/getLastLog',
             method: 'POST',
             data:{
                 'username': '<?php echo $this->session->userdata['id_number']?>',
-
             },
             success: function(data){
                 var logdata = JSON.parse(data);
@@ -1701,13 +1580,11 @@ header h1 {
             observe(text, 'paste',   delayedResize);
             observe(text, 'drop',    delayedResize);
             observe(text, 'keydown', delayedResize);
-
             text.focus();
             text.select();
             resize();
         }
   
-
 </script>
 <?php endif;?>
 
@@ -1734,10 +1611,7 @@ header h1 {
   });
 </script>
 <script type="text/javascript">
-
-
   $(document).ready(function(){
-
         setInterval(function(){ 
           //$('title').load(location.href + " title")
           
@@ -1745,10 +1619,7 @@ header h1 {
           $('#countUnread').load(location.href + " #countUnread");
           
      }, 5000);    
-
       
-
-
     
     
       $(document).on('click', '.read-notif',function(){
@@ -1759,18 +1630,14 @@ header h1 {
        data:{
           'announcement_id': announcement_id,
        },
-
        success:function(){
           // /currentNotif.css("background-color",'#FFF');
           $('#notification-body').load(location.href + " #notification-body");
           $('#countUnread').load(location.href + " #countUnread");
           
        }
-
     });
   });
-
-
   $(document).on('click','.unread-notif',function(){
     var announcement_id = $(this).data('announcement-id');
     $.ajax({
@@ -1779,15 +1646,12 @@ header h1 {
        data:{
           'announcement_id': announcement_id,
        },
-
        success:function(){
           //currentNotif.css("background-color",'#EDF2FA');
           $('#notification-body').load(location.href + " #notification-body");
        }
-
     });
   });
-
    $(document).on('click','.as-all-read',function(e){
     e.preventDefault();
     var announcement_id = $(this).data('announcement-id');
@@ -1797,18 +1661,12 @@ header h1 {
        data:{
           'username': '<?php echo $this->session->userdata['id_number']?>',
        },
-
        success:function(){
           //currentNotif.css("background-color",'#EDF2FA');
           $('#notification-body').load(location.href + " #notification-body");
        }
-
     });
   });
-
   });
-
-
 </script>
 </html>
-

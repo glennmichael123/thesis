@@ -67,6 +67,16 @@ $route['getannouncements']  = 'main/getAnnouncementsInterval';
 $route['viewevaluation/(:any)']  = 'main/evaluate/$1';
 $route['supervisordashboard']  = 'main/supervisorDashboard';
 $route['admindashboard']  = 'main/adminDashboard';
+$route['ojtform']  = 'main/ojtform';
+$route['truncate']  = 'main/truncate';
+$route['adminAddSupervisor']  = 'main/adminAddSupervisor';
+$route['addTrainee']  = 'main/addTrainee';
+$route['addWatchlist']  = 'main/addWatchlist';
+$route['emailcheck']  = 'main/emailCheck';
+$route['addStudent']  = 'main/addStudent';
+$route['insertCompanyClassification']  = 'main/insertCompanyClassification';
+$route['saveEmail']  = 'main/saveEmail';
+$route['insertRegistration']  = 'main/insertRegistration';
 $route['studentdashboard/(:any)']  = 'main/studentDashboard/$1';
-//$route['reg_forms']  = 'main/reg_forms';
+$route['studentinfo/(:any)']  = 'main/studentInfo/$1';
 
