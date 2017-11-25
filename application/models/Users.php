@@ -239,6 +239,7 @@
             $designation = $_POST['designation'];
             $log_content = $_POST['log_activity'];
             $hours_rendered = $_POST['hours_rendered'];
+            $supervisor_id = empty($_POST['supervisor_id']) ? '' : $_POST['supervisor_id'];
 
             $data = Array(
             'id_number' => $id_number,
@@ -249,7 +250,8 @@
             'department' => $department,
             'designation' => $designation,
             'log_content' => $log_content,
-            'hours_rendered' => $hours_rendered
+            'hours_rendered' => $hours_rendered,
+            'supervisor_id' => $supervisor_id
             );
             return $this->db->insert('logs',$data);
 
@@ -286,7 +288,7 @@
 
          public function getOjtRecordsForSupervisor($username){
              
-            $result = $this->db->query("SELECT ojt_records.id_number, ojt_records.rendered_hours, users.first_name, users.last_name FROM ojt_records INNER JOIN users ON users.id_number = ojt_records.id_number WHERE supervisor_id = '$username'");         
+            $result = $this->db->query("SELECT ojt_records.id_number, ojt_records.ojtone_rendered, users.first_name, users.last_name FROM ojt_records INNER JOIN users ON users.id_number = ojt_records.id_number WHERE supervisor_id = '$username'");         
             return $result->result_array();
          }
 
@@ -368,6 +370,13 @@
 
         }
 
+        public function getMidtermEvaluations($username){
+
+          $query =  $this->db->query("SELECT * FROM midterm_evaluation WHERE username = '$username'");
+
+          return $query->row();
+        }
+
         public function getSumRendered($data){
             $id = $data;
 
@@ -383,7 +392,7 @@
         }
 
         public function updateRenderedHours($hours, $id){
-            return $this->db->query("UPDATE ojt_records SET rendered_hours = $hours WHERE id_number = '$id'");
+            return $this->db->query("UPDATE ojt_records SET ojtone_rendered = $hours WHERE id_number = '$id'");
         }
 
         public function getNumberLogsVerified($data){
@@ -398,7 +407,7 @@
         }
 
         public function getOjtLogs($id){
-            $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.first_name, users.last_name FROM logs INNER JOIN users ON users.id_number = logs.id_number WHERE logs.supervisor_id = '$id' ORDER BY verified ASC");
+            $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.first_name, users.last_name FROM logs INNER JOIN users ON users.id_number = logs.id_number WHERE logs.supervisor_id = '$id'");
             return $query->result_array();
         }
 
@@ -478,6 +487,12 @@
            $this->db->query("UPDATE logs SET supervisor_id = '$supervisor_id' WHERE id_number='$student_id'");
            $this->db->query("UPDATE ojt_records SET supervisor_id = '$supervisor_id' WHERE id_number='$student_id'");
          
+         }
+         public function getSupervisorIdForStudent($username){
+
+            $query = $this->db->query("SELECT supervisor_id FROM ojt_records WHERE id_number = '$username'");
+
+            return $query->row();
          }
 
          public function addAdmin(){
@@ -917,9 +932,12 @@
 
       public function truncateAllTables(){
 
-          $query = $this->db->query("show tables")->result_array();
+          $tables = $this->db->query("show tables")->result_array();
 
-          print_r($query[4]['Tables_in_thesisdatabase']);
+         foreach ($tables as $table) {
+            $tb = $table['Tables_in_thesisdatabase'];
+            $this->db->query("TRUNCATE $tb");
+         }
       }
 }
 ?>

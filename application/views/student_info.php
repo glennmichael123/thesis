@@ -244,7 +244,7 @@
                             <div class="row">
                     <div class="col-lg-4">
 
-                        <div class="dashboard-title hours">
+                       <div class="dashboard-title hours">
                             <span>Number of hours rendered</span>
                             <div id="hoursProgress">
 
@@ -255,23 +255,22 @@
                             
                                     // progressbar.js@1.0.0 version is used
                                     // Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
-
                                     var bar = new ProgressBar.Circle(hoursProgress, {
-                                        color: '#53b1e0',
+                                        color: '#A55D35',
                                         trailColor: '#eee',
                                         trailWidth: 1,
                                         duration: 1400,
-                                        easing: 'bounce',
+                                        easing: 'easeInOut',
                                         strokeWidth: 6,
                                         text: {
                                             value: <?php echo $rendered?> + "/" + <?php echo $total?> + " " + 'hours',
                                         },
                                         from: {
-                                            color: '#9ebdef',
+                                            color: '#EECD86',
                                             a: 0
                                         },
                                         to: {
-                                            color: '#65f771',
+                                            color: '#B95835',
                                             a: 1
                                         },
                                         // Set default step function for all animate calls
@@ -279,7 +278,6 @@
                                             circle.path.setAttribute('stroke', state.color);
                                         }
                                     });
-
                                     bar.animate(<?php echo $rendered/$total?>); // Number from 0.0 to 1.0
                                 });
                             </script>
@@ -298,34 +296,31 @@
                                 $(document).ready(function() {
                                     // progressbar.js@1.0.0 version is used
                                     // Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
-
                                     var bar = new ProgressBar.SemiCircle(progressEvaluations, {
                                         strokeWidth: 6,
-                                        easing: 'bounce',
+                                        easing: 'easeInOut',
                                         duration: 1400,
                                         text: {
                                             value: <?php echo $current_evaluations?> + "/" + <?php echo $all_evaluations?> + " " + 'evaluations',
                                         },
                                         from: {
-                                            color: '#9ebdef',
+                                            color: '#EECD86',
                                             a: 0
                                         },
                                         to: {
-                                            color: '#65f771',
+                                            color: '#B95835',
                                             a: 1
                                         },
                                         // Set default step function for all animate calls
                                         step: function(state, circle) {
                                             circle.path.setAttribute('stroke', state.color);
                                         },
-                                        color: '#53b1e0',
+                                        color: '#A55D35',
                                         trailColor: '#eee',
                                         trailWidth: 1,
                                         svgStyle: null
                                     });
-
                                     bar.animate(<?php echo $current_evaluations/$all_evaluations?>); // Number from 0.0 to 1.0
-
                                 });
                             </script>
 
@@ -333,7 +328,7 @@
                     </div>
 
                     <div class="col-lg-4">
-                        <div class="dashboard-title logs">
+                         <div class="dashboard-title logs">
                             <span>Verified Logs</span>
                             <div id="verifiedLogs">
                             </div>
@@ -342,30 +337,29 @@
                                 $(document).ready(function() {
                                     var bar = new ProgressBar.Circle(verifiedLogs, {
                                         strokeWidth: 6,
-                                        easing: 'bounce',
+                                        easing: 'easeInOut',
                                         duration: 1400,
                                         text: {
-                                            value: 'You have not posted logs yet',
+                                            value: '0/0',
                                         },
                                         from: {
-                                            color: '#9ebdef',
+                                            color: '#EECD86',
                                             a: 0
                                         },
                                         to: {
-                                            color: '#65f771',
+                                            color: '#B95835',
                                             a: 1
                                         },
                                         // Set default step function for all animate calls
                                         step: function(state, circle) {
                                             circle.path.setAttribute('stroke', state.color);
                                         },
-                                        color: '#53b1e0',
+                                        color: '#A55D35',
                                         trailColor: '#eee',
                                         trailWidth: 1,
                                         svgStyle: null
                                     });
-
-                                    bar.animate(<?php echo 1/1?>); // Number from 0.0 to 1.0
+                                    bar.animate(<?php echo 0/1?>); // Number from 0.0 to 1.0
                                 });
                             </script>
                             <?php else:?>
@@ -373,29 +367,28 @@
                                 $(document).ready(function() {
                                     var bar = new ProgressBar.Circle(verifiedLogs, {
                                         strokeWidth: 6,
-                                        easing: 'bounce',
+                                        easing: 'easeInOut',
                                         duration: 1400,
                                         text: {
                                             value: <?php echo $verified?> + "/" + <?php echo $totalLogs;?> + " " + 'logs',
                                         },
                                         from: {
-                                            color: '#9ebdef',
+                                            color: '#EECD86',
                                             a: 0
                                         },
                                         to: {
-                                            color: '#65f771',
+                                            color: '#B95835',
                                             a: 1
                                         },
                                         // Set default step function for all animate calls
                                         step: function(state, circle) {
                                             circle.path.setAttribute('stroke', state.color);
                                         },
-                                        color: '#53b1e0',
+                                        color: '#A55D35',
                                         trailColor: '#eee',
                                         trailWidth: 1,
                                         svgStyle: null
                                     }); 
-
                                     bar.animate(<?php echo $verified/$totalLogs?>); // Number from 0.0 to 1.0
                                 });
                             </script>

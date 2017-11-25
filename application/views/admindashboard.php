@@ -583,10 +583,10 @@ a#addcsv:focus{
                                               <td><?php echo $student['course']?></td>
                                               <td><?php echo $student['current_evaluations']?></td>
                                               
-                                              <?php if ($student['rendered_hours'] >= $student['total_hours'] && $student['current_evaluations'] == 2):?>
-                                                  <td style="color:green;">Completed</td>
+                                              <?php if ($student['ojtone_rendered'] >= $student['ojtone_required'] && $student['current_evaluations'] == 2):?>
+                                                  <td style="color:green;">Ojt 1 Completed</td>
                                                 <?php else :?>
-                                                  <td style="color:#f44336;">On going</td>
+                                                  <td style="color:#f44336;">Ojt 1 On going</td>
                                               <?php endif;?>
                                           </tr>
                                       <?php endforeach;?>
@@ -1053,7 +1053,7 @@ a#addcsv:focus{
                 text: "Student added successfully",
                 icon: "success",
               }).then(function () {
-                console.log(data);
+               location.reload();
               });
             }
         },

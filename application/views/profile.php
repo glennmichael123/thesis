@@ -590,7 +590,7 @@
                             
                             <a href="#" class="dropdown-toggle" id="dropdown-notification" data-toggle="dropdown"><i class="pull-right  fa fa-bell fa-2x" style="width: 40px; height: 40px; margin-top: 0px;"></i></a>
                                 
-                                <ul class="dropdown-menu" id="show-notifications" style="position: relative; margin-top:20px; top: -22px; left: -63px; width: 340px; max-height: 400px; overflow: auto;">
+                                <ul class="dropdown-menu" id="show-notifications" style="position: relative; padding-bottom: 0px; margin-top:20px; top: -30px; left: -75px; width: 340px; max-height: 400px; overflow: auto;">
                                       <div id="notification-body">
                                          <li><div class="notification-title">Notifications <a href="#" class="as-all-read pull-right">Mark all as read</a></div></li>
                                      
@@ -910,34 +910,37 @@
                                <input type="text" name="" value="<?php echo $companyInformation->fax_number; ?>" readonly class="company-info form-control">
                             </div>
                         </div>
+                        <?php 
+                                $array_company = explode(',', $companyInformation->company_classification);
+                         ?>
                    
                         <div class="row">
                             <h2 style="margin-bottom: 30px">Company Classification <i class="fa fa-list-alt" aria-hidden="true"></i></h2>
                              <div class="col-lg-2">
-                            <input id="assembly" value="assembly" type="checkbox" ><label class="labels" for="assembly">Assembly</label>
+                            <input id="assembly" <?php echo(in_array('Assembly', $array_company)) ? 'checked' : '' ?> disabled value="assembly" type="checkbox" ><label class="labels" for="assembly" ">Assembly</label>
                          </div> 
                          <div class="col-lg-2">
-                            <input type="checkbox" value="manufacturing" id="manufacturing"><label class="labels" for="manufacturing">Manufacturing</label>
+                            <input type="checkbox" <?php echo(in_array('Manufacturing', $array_company)) ? 'checked' : '' ?> disabled value="manufacturing" id="manufacturing"><label class="labels" for="manufacturing">Manufacturing</label>
                          </div> 
                          <div class="col-lg-2">
-                            <input type="checkbox" value="maintenance" id="maintenance"><label class="labels" for="maintenance">Maintenance</label>
+                            <input type="checkbox" <?php echo(in_array('Maintenance', $array_company)) ? 'checked' : '' ?> disabled value="maintenance" id="maintenance"><label class="labels" for="maintenance">Maintenance</label>
                          </div>
                          <div class="col-lg-3">
-                            <input type="checkbox" value="marketing" id="marketing"><label class="labels" for="marketing">Sales/Marketing</label>
+                            <input type="checkbox" <?php echo(in_array('Sales/Marketing', $array_company)) ? 'checked' : '' ?> disabled value="marketing" id="marketing"><label class="labels" for="marketing">Sales/Marketing</label>
                          </div>
                          <div class="col-lg-3">
-                             <input type="checkbox" value="service" id="service"><label class="labels" for="service">Service/Utility</label>
+                             <input type="checkbox" <?php echo(in_array('Service/Utility', $array_company)) ? 'checked' : '' ?> disabled value="service" id="service"><label class="labels" for="service">Service/Utility</label>
                          </div>
                          
                         </div>
                         <div class="row">
                           <div class="col-lg-4">
                             
-                              <input type="checkbox" value="research" id="research"><label class="labels" for="research">Research and Development</label>
+                              <input type="checkbox" <?php echo(in_array('Research and Development', $array_company)) ? 'checked' : '' ?> disabled value="research" id="research"><label class="labels" for="research">Research and Development</label>
                             
                           </div>
                           <div class="col-lg-2">
-                            <input type="checkbox" value="itrelated" id="itrelated"><label class="labels" for="itrelated">IT Related</label>
+                            <input type="checkbox" <?php echo(in_array('IT Related', $array_company)) ? 'checked' : '' ?> disabled value="itrelated" id="itrelated"><label class="labels" for="itrelated">IT Related</label>
                           </div>
                           <div class="col-lg-5">
                                <input type="radio" class="other-company" id="other"><label class="labels" for="other">Others</label>
@@ -948,15 +951,15 @@
                         <div class="row">
                             <h2 class="fs-title" style="margin: 30px 30px">Total number of employees <i class="fa fa-list-ol" aria-hidden="true"></i></h2>
                             <div class="col-lg-3 col-lg-offset-1">
-                              <input type="radio" id="less_fifty" value="Less than 50" name="employee_numbers"><label class="labels" for="less_fifty">Less than 50</label>
+                              <input type="radio" <?php echo ($companyInformation->number_of_employees == 'Less than 50') ? 'checked' : '' ?> id="less_fifty" value="Less than 50" disabled name="employee_numbers"><label class="labels" for="less_fifty">Less than 50</label>
              
                             </div>
                             <div class="col-lg-3 col-lg-offset-1">
-                               <input type="radio" id="fifty_onehundred" value="From 50 to 100" name="employee_numbers"><label class="labels"for="fifty_onehundred">From 50 to 100</label>
+                               <input type="radio" <?php echo ($companyInformation->number_of_employees == 'From 50 to 100') ? 'checked' : '' ?> id="fifty_onehundred" value="From 50 to 100" disabled name="employee_numbers"><label class="labels"for="fifty_onehundred">From 50 to 100</label>
              
                             </div>
                             <div class="col-lg-3 col-lg-offset-1">
-                                <input type="radio" id="more_onehundred" value="More than 100" name="employee_numbers"><label class="labels"for="more_onehundred">More than 100</label>
+                                <input type="radio" id="more_onehundred" <?php echo ($companyInformation->number_of_employees == 'More than 100') ? 'checked' : '' ?> value="More than 100" disabled name="employee_numbers"><label class="labels"for="more_onehundred">More than 100</label>
                             </div>
                         </div>
                         <p style="text-align: center; margin-top: 10px;">
@@ -971,6 +974,14 @@
                         </ul>
                     <fieldset id="fourth-fieldset">
                             <h1 style="text-align: center;">My Midterm Evaluation</h1>
+
+                            <?php if(empty($midterm_evaluation->username)):?>
+                                <h4 style="color: #000; text-align: center; margin-top: 50px;">You have not been evaluated yet</h4>
+                            <?php else:?>
+                            <?php if($midterm_evaluation->allow_view == 0):?>
+                                <h4 style="color: #000; text-align: center; margin-top: 50px;">Your supervisor did not allow you to view your evaluation.</h4>
+                            <?php else:?>
+
                          <label>WORK ATTITUDE(<div class="badge">40</div> points)</label>
                                 <ol>
                                     <div class="row">
@@ -1008,41 +1019,41 @@
                                         <form method="post">
                                          
                                          <fieldset style="float: right;">
-                                             <input tabindex="1" maxlength="1" type="text" name="enthusiasm" class="score">
+                                             <input tabindex="1" maxlength="1" value="<?php echo $midterm_evaluation->enthusiasm; ?>" type="text" name="enthusiasm" class="score" readonly>
                                             <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Enthusiasm / Eagerness to Learn" data-content="Confident to learn new tasks / assignments." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a>
                                              <br>
-                                             <input tabindex="2"  maxlength="1" type="text" name="cooperation" class="score">  
+                                             <input tabindex="2" value="<?php echo $midterm_evaluation->cooperation; ?>" maxlength="1" type="text" name="cooperation" class="score" readonly>  
                                              <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Cooperation and Willingness" data-content="Readiness to accept and carry out instructions and assignments; works well with others; shows support and concerns for co-workers." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a><br>
-                                             <input tabindex="3" maxlength="1" type="text" name="adaptability" class="score">
+                                             <input tabindex="3" maxlength="1" value="<?php echo $midterm_evaluation->cooperation; ?>" type="text" name="adaptability" class="score" readonly>
                                                    <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Adaptability and Sociability" data-content="Ability to adjust to a new environment and be at ease with others; ability to deal with people of different levels/ positions; amiable and friendly with others and knows how to respect authority." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a>
                                              </i><br>
-                                             <input tabindex="4" maxlength="1" type="text" name="industriousness" class="score"> 
+                                             <input tabindex="4" value="<?php echo $midterm_evaluation->industriousness; ?>" readonly maxlength="1" type="text" name="industriousness" class="score"> 
                                              <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Industriousness and Initiative" data-content="Constant worker / keeps himself busy with initiative; does not take unauthorized breaks; initiates action when the situation calls for it." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a>
                                              <br>
-                                             <input tabindex="5" maxlength="1" type="text" name="responsibility" class="score">
+                                             <input tabindex="5" value="<?php echo $midterm_evaluation->responsibility; ?>"  readonly maxlength="1" type="text" name="responsibility" class="score">
 
                                                <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Sense of Responsibility" data-content="Applies sound judgement / decision making." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a><br>
-                                             <input tabindex="6"  maxlength="1" type="text" name="attentiveness" class="score">
+                                             <input tabindex="6" value="<?php echo $midterm_evaluation->attentiveness; ?>" readonly  maxlength="1" type="text" name="attentiveness" class="score">
                                               <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Attentiveness / Attention" data-content="Focuses on his/her work / gives full attention to what he/she is doing; ability to handle unexpected problems; carry-out instructions / assignments at once." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a><br>
-                                             <input tabindex="7" maxlength="1" type="text" name="grooming" class="score">
+                                             <input tabindex="7" value="<?php echo $midterm_evaluation->grooming; ?>" readonly maxlength="1" type="text" name="grooming" class="score">
                                              <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Personal Grooming" data-content="Maintains proper way of dressing marked by proper conduct, tidiness, and well-grooming; lively and well-spirited during at work and at rest." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a>
                                              
                                              <br>
-                                             <input tabindex="8" maxlength="1" type="text" name="attendance" class="score">                           
+                                             <input tabindex="8" value="<?php echo $midterm_evaluation->attendance; ?>" readonly maxlength="1" type="text" name="attendance" class="score">                           
                                                 <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Attendance" data-content="Reports to work regurlarly and on time and uses time wisely and productively." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a><br>
@@ -1074,32 +1085,32 @@
                                          </div>
                                          <div class="col-lg-6">
                                             <fieldset style="float: right;">
-                                                <input tabindex="9" maxlength="1" type="text" name="quality" class="score">
+                                                <input tabindex="9" value="<?php echo $midterm_evaluation->quality; ?>" readonly maxlength="1" type="text" name="quality" class="score">
                                                     <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Quality of Work" data-content="Thoroughness, accuracy, neatness and effectiveness of output, meets required standards and even exceeds expected results." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a>
                                                 <br>
-                                                <input tabindex="10" maxlength="1" type="text" name="quantity" class="score">
+                                                <input tabindex="10" value="<?php echo $midterm_evaluation->quantity; ?>" readonly maxlength="1" type="text" name="quantity" class="score">
                                                       <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Quantity of Work" data-content="Able to complete work within the alloted time, finishes work on schedule and maximizes use of tme." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a>
                                                 <br>
-                                                <input tabindex="11" maxlength="1" type="text" name="dependability" class="score">
+                                                <input tabindex="11" value="<?php echo $midterm_evaluation->dependability; ?>" readonly maxlength="1" type="text" name="dependability" class="score">
                                                       <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Dependability" data-content="Ability to work with minimum supervision, does not need constant follow-up." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a>
                                                 <br>
-                                                <input tabindex="12" maxlength="1" type="text" name="comprehension" class="score">
+                                                <input tabindex="12" value="<?php echo $midterm_evaluation->comprehension; ?>" readonly maxlength="1" type="text" name="comprehension" class="score">
                                                       <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Comprehension" data-content="Understand instructions at once with almost no clarification." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a>
                                                 <br>
-                                                <input tabindex="13" maxlength="1" type="text" name="safety" class="score">
+                                                <input tabindex="13" value="<?php echo $midterm_evaluation->safety; ?>" readonly maxlength="1" type="text" name="safety" class="score">
                                                   <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Safety Consciousness" data-content="Carefully takes precaution and observe visible hazards; follow safety rules and reads instructions prior to working." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a>
                                                 <br>
-                                                <input tabindex="14" maxlength="1" type="text" name="waste" class="score">
+                                                <input tabindex="14" maxlength="1" value="<?php echo $midterm_evaluation->waste; ?>" readonly type="text" name="waste" class="score">
                                                      <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Waste Consciousness" data-content="Shows concerns of company facilities; handles tools and equipment carefully; keeps equipment, tools, materials and work area clean and well-kept; proper use and disposal of materials." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a>
@@ -1112,17 +1123,19 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <fieldset style="float: right;">
-                                            <input type="text" name="" class="score" style="margin-right: 25px; margin-top: 20px;" readonly> 
+                                            <input type="text" name="" value="<?php echo $midterm_evaluation->total; ?>" class="score" style="margin-right: 25px; margin-top: 20px;" readonly> 
                                          </fieldset>
                                     </div>
                                 </div>
                                 <label for="remark" style="margin:0; padding: 0;" class="pointy">REMARKS</label>
                               
                                     <textarea tabindex="15" name="remarks" id="remark" class="form-control"></textarea>
-
+                                <?php endif;?>
+                                    <?php endif;?>
                             </div>
 
                             </div>
+                             
                         <div id="fifth-fieldset">
                         <div class="col-lg-3">
                             

@@ -1,5 +1,4 @@
-<?php echo $this->session->userdata['account_type']; ?>
-<?php echo $this->session->userdata['id_number']; ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -499,8 +498,13 @@
                                         <?php foreach($ojtRecords as $student):?>
                                         <tr style="font-size: 15px; color: #000;">
                                             <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
-                                            <?php if($student['rendered_hours'] < 50):?>
-                                                <td><a href="#" class="evaluate-btn" disabled>Evaluate</a></td>
+                                            <?php if($student['ojtone_rendered'] < 50):?>
+                                                <td><a href="#" class="evaluate-btn" disabled style="color: gray;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
+                                                <script type="text/javascript">
+                                                    $('.evaluate-btn').click(function(e){
+                                                        e.preventDefault();
+                                                    });
+                                                </script>
 
                                             <?php else:?>
                                                 <?php if(in_array($student['id_number'], array_column($evaluated, 'username'))):?>
@@ -524,6 +528,9 @@
                             <div class="col-lg-5">
                                 <select class="form-control">
                                     <option selected disabled>Select a trainee</option>
+                                    <?php foreach ($ojtRecords as $trainee): ?>
+                                         <option value="<?php echo $trainee['id_number'] ?>"><?php echo $trainee['first_name'] . " " . $trainee['last_name']?></option>
+                                    <?php endforeach; ?>
                                 </select>
 
                             </div>

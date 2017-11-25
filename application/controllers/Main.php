@@ -20,12 +20,11 @@ class Main extends CI_Controller {
 	 */
 	
  function __construct() {
- 	header("Pragma-directive: no-cache");
-    header("Cache-directive: no-cache");
-    header("Cache-control: no-cache");
-    header("Pragma: no-cache");
-    header("Expires: 0");
- 
+	 	header("Pragma-directive: no-cache");
+	    header("Cache-directive: no-cache");
+	    header("Cache-control: no-cache");
+	    header("Pragma: no-cache");
+	    header("Expires: 0");
         parent::__construct();
         date_default_timezone_set("Asia/Manila");
         $this->load->helper('url');
@@ -115,6 +114,8 @@ class Main extends CI_Controller {
      		$data['announcements'] = $this->users->getAnnouncements($this->session->userdata['id_number']);
      		$data['image_header'] = $this->users->displayImageToHeader($this->session->userdata['id_number']);
      		$data['user_data'] = $this->users->dashboardData($this->session->userdata['id_number']);
+     		$data['midterm_evaluation'] = $this->users->getMidtermEvaluations($this->session->userdata['id_number']);
+
      		$data['personalDetails'] = $this->users->getProfile($this->session->userdata['id_number']);
      		$data['familydetails'] = $this->users->getFamilyDetails($this->session->userdata['id_number']);
      		$data['companyInformation'] = $this->users->getCompanyInformation($this->session->userdata['id_number']);
@@ -189,7 +190,7 @@ class Main extends CI_Controller {
      		}else if($this->session->userdata['account_type'] == 'admin'){
      			redirect('admindashboard');
      		}else{
-     			$data['comments'] = $this->users->getComments();
+     		$data['comments'] = $this->users->getComments();
      		$company_name = $this->users->getCompanySupervisor($this->session->userdata['id_number']);
      		$data['supervisorAddOjt'] = $this->users->supervisorGetTrainee($company_name,$this->session->userdata['id_number']);
      		$data['ojtRecords'] = $this->users->getOjtRecordsForSupervisor($this->session->userdata['id_number']);
@@ -283,9 +284,9 @@ class Main extends CI_Controller {
      	$ojtRecords = $this->users->dashboardDataRecords($username);
 
      		if(!empty($ojtRecords)){
-			     		$data['total'] = $ojtRecords[0]['total_hours'];
+			     		$data['total'] = $ojtRecords[0]['ojtone_required'];
 
-						$data['rendered'] = $ojtRecords[0]['rendered_hours'];
+						$data['rendered'] = $ojtRecords[0]['ojtone_rendered'];
 						$data['announcements'] = $this->users->getAnnouncements($username);
 						// echo time_elapsed_string($data['announcements'][0]['date_posted']);
 						
@@ -456,8 +457,7 @@ public function logout(){
      	$totalLogsCount = $this->users->getNumberLogs($this->session->userdata['id_number']);
      	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($this->session->userdata['id_number']);
      	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($this->session->userdata['id_number']);
-
-
+     	$data['supervisor_id'] = $this->users->getSupervisorIdForStudent($this->session->userdata['id_number']);
      	$renderedCount = $this->users->getSumRendered($this->session->userdata['id_number']);
 
 
@@ -467,9 +467,9 @@ public function logout(){
      	$ojtRecords = $this->users->dashboardDataRecords($this->session->userdata['id_number']);
 
      		if(!empty($ojtRecords)){
-			     		$data['total'] = $ojtRecords[0]['total_hours'];
+			     		$data['total'] = $ojtRecords[0]['ojtone_required'];
 
-						$data['rendered'] = $ojtRecords[0]['rendered_hours'];
+						$data['rendered'] = $ojtRecords[0]['ojtone_rendered'];
 						$data['announcements'] = $this->users->getAnnouncements($this->session->userdata['id_number']);
 						// echo time_elapsed_string($data['announcements'][0]['date_posted']);
 						
@@ -516,8 +516,8 @@ public function logout(){
      	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $id_number);
      	$ojtRecords = $this->users->dashboardDataRecords(isset($id_number) ? $id_number : '');
      	if(!empty($ojtRecords)){
-     	$data['total'] = $ojtRecords[0]['total_hours'];
-		$data['rendered'] = $ojtRecords[0]['rendered_hours'];
+     	$data['total'] = $ojtRecords[0]['ojtone_required'];
+		$data['rendered'] = $ojtRecords[0]['ojtone_rendered'];
 		$data['all_evaluations'] = $ojtRecords[0]['total_evaluations'];
 		$data['current_evaluations'] = $ojtRecords[0]['current_evaluations'];
 		$data['verified'] = $ojtRecords[0]['logs_verified'];

@@ -815,9 +815,9 @@ header h1 {
                                <ul class="nav navbar-nav">
                                 
                             <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown"><i class="fa fa-user-circle fa-2x"></i><?php //echo $supImage[0]['image_id']?></a>
+                              <a href="#" class="dropdown-toggle" style="margin-top: -10px;" id="dropdown-logout" data-toggle="dropdown"><i class="fa fa-user-circle fa-3x"></i><?php //echo $supImage[0]['image_id']?></a>
                     
-                              <ul class="dropdown-menu" style="margin-top: -6px; margin-left: -222px;" id="show-logout">
+                              <ul class="dropdown-menu" style="margin-top: -4px; margin-left: -217px;" id="show-logout">
                                 <li><a href="<?php echo base_url()?>main/supervisorDashboard">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                 <li class="divider"></li>
         
@@ -1044,6 +1044,16 @@ header h1 {
                     <div class="panel panel-default">
                         <div class="panel-heading" style="text-align: center;">OJT Workmates</div>
                         <div class="panel-body">
+                          <?php if(empty($workmates)): ?>
+                            <?php if(isset($id_number)): ?>
+                                <h3>This student has no OJT workmates.</h3>
+                            
+                            <?php else: ?>
+                            <h3>You have no OJT workmates.</h3>
+                          <?php endif;   ?>
+                          
+                          <?php else: ?>
+                         
                           <?php foreach($workmates as $workmate):?>
                           <div class="row">
                             <div class="col-lg-7">
@@ -1056,6 +1066,7 @@ header h1 {
                               </div>
                           </div>
                           <?php endforeach;?>
+                           <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -1083,6 +1094,7 @@ header h1 {
                                             <input type="text" class="form-control" name="department" id="department">
                                             <label>Designation</label>
                                             <input type="text" class="form-control" name="designation" id="designation">
+                                            <input type="hidden" name="supervisor_id" value="<?php echo $supervisor_id->supervisor_id; ?>">
                                         </div>
 
                                     </div>
@@ -1107,6 +1119,7 @@ header h1 {
                                     <button type="reset" class="btn btn-default btn-md"><i class="fa fa-eraser" aria-hidden="true"></i>Clear</button>
                                     <button type="button" class="btn btn-danger cancel-btn btn-md" style="float: right; margin-right: 15px;" class="btn btn-danger"></i> Cancel</button>
                                 </div>
+
 
                             </form>
                         </div>
