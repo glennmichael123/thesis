@@ -188,7 +188,7 @@
 
         
         
-            $query = $this->db->query("SELECT users.id_number, users.first_name, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.company_name LIKE '%$company_name2%'");
+            $query = $this->db->query("SELECT users.id_number, users.first_name, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.company_name LIKE '%$company_name2%' AND supervisor_id = '' ");
            return $query->result_array();
        }
 
@@ -253,6 +253,7 @@
             'hours_rendered' => $hours_rendered,
             'supervisor_id' => $supervisor_id
             );
+
             return $this->db->insert('logs',$data);
 
 
@@ -773,12 +774,13 @@
                        
                 $this->db->query("INSERT INTO midterm_evaluation(username,supervisor_username,enthusiasm,cooperation,adaptability,industriousness,responsibility,attentiveness,grooming,
                     attendance,quality,quantity,dependability,comprehension,
-                    safety,waste,remarks,allow_value,total) VALUES('$username','$supervisor',$a1,$a2,$a3,$a4,$a5,$a6,$a7,$a8,$a9,$a10,$a11,$a12,$a13,$a14,'$remarks',$value,$total)"); 
+                    safety,waste,remarks,allow_view,total) VALUES('$username','$supervisor',$a1,$a2,$a3,$a4,$a5,$a6,$a7,$a8,$a9,$a10,$a11,$a12,$a13,$a14,'$remarks',$value,$total)"); 
+
+               
 
                 if($this->db->affected_rows()>0){
+                     $this->db->query("UPDATE ojt_records SET ojtone_current_evaluations = 1 WHERE id_number = '$username'");
                     return true;
-
-
                 }
                 else
                     return false;
@@ -938,6 +940,76 @@
             $tb = $table['Tables_in_thesisdatabase'];
             $this->db->query("TRUNCATE $tb");
          }
+      }
+
+      public function editProfilePersonal($username){
+
+          $data = Array('college'=> $_POST['profile_college'], 
+                        'course' => $_POST['profile_course'],
+                        'year' => $_POST['profile_year'],
+                        'present_address' => $_POST['profile_present_address'],
+                        'permanent_address' => $_POST['profile_permanent_address'],
+                        'contact_number' => $_POST['profile_contact_number'],
+                        'email_address' => $_POST['profile_email'],
+                        'date_of_birth' => $_POST['profile_birth'],
+                        'age' => $_POST['profile_age'],
+                        'marital_status' => $_POST['profile_age'],
+                        'blood_type' => $_POST['profile_blood'],
+                        'weight' => $_POST['profile_weight'],
+                        'height' => $_POST['profile_height'],
+                        'religion' => $_POST['profile_religion'],
+                        'citizenship' => $_POST['profile_citizenship']);
+
+          $this->db->where('id_number', $username);
+          $this->db->update('personal_details', $data);
+
+      }
+
+      public function editProfileFamily($username){
+         
+
+          $data = Array('fathers_name' => $_POST['profile-father-name'],
+                        'fathers_occupation' => $_POST['profile-father-occupation'],
+                        'mothers_name' => $_POST['profile-mother-name'],
+                        'mothers_occupation' => $_POST['profile-mother-occupation'],
+                        'parents_address' => $_POST['profile-parent-address'],
+                        'contact_number' => $_POST['profile-contact-number']
+                      );
+           $this->db->where('id_number', $username);
+          $this->db->update('family_details', $data);
+      }
+
+      public function editProfileCompany($username){
+
+        $data = Array('company_name' => $_POST['profile_company_name'],
+                      'company_address' => $_POST['profile_company_address'],
+                      'contact_number' => $_POST['profile_telephone_number'],
+                      'fax_number' => $_POST['profile_fax_number'],
+                      'product_lines' => $_POST['profile_product_lines'],
+                      'company_classification' => $_POST['classification'],
+                      'number_of_employees' => $_POST['employee_numbers']
+                    );
+
+          $this->db->where('id_number', $username);
+          $this->db->update('company_information', $data);
+      }
+
+      public function checkEmailVerified($username){
+
+          $query = $this->db->query("SELECT * FROM email WHERE id_number = '$username'");
+          return $query->row();
+      }
+
+      public function editComment(){  
+        $comment_id = $_POST['comment_id'];
+        $supervisor_id = $_POST['supervisor_id'];
+        $comment = $_POST['comment_content'];
+
+        $data = array('content' => $comment);
+        
+          $this->db->where('id',$comment_id);
+          // $this->db->where('supervisor_id', $supervisor_id);
+          $this->db->update('comments', $data);
       }
 }
 ?>

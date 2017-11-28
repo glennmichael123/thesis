@@ -239,12 +239,7 @@
                                               <input type="password" name="password" class="form-control" placeholder="Password">
                                               <div class="forget">
                                                 <div>
-                                                 <p style="font-size: 14px; text-align: center; color: red; font-weight: bold;">
-                                                 <?php if(isset($_GET['error'])){
-                                                    echo 'Username or Password Incorrect';
-                                                 }
-
-                                                 ?></p>
+                                              <?php echo $this->session->flashdata('Status'); ?>
                                                      <h6><a href="incorrectpassword">Forgot Password?</a></h6>         
                                                        <div class="btn-group" style="float: right;">
                                                       <select type="button" class="btn btn-loginas" name="login-options">

@@ -239,7 +239,7 @@ class Main extends CI_Controller {
 				
 				$existId = $this->users->checkExistRecords($this->session->userdata['id_number']);
 				$newId = $this->session->userdata['id_number'];
-				$newRecord = Array('id_number' => $newId, 'total_hours' => 200, 'total_evaluations'=> 2);
+				$newRecord = Array('id_number' => $newId, 'ojtone_required' => 200, 'total_evaluations'=> 2);
 				if(!$existId && $account_type[0]['account_type'] == 0){
 					$this->users->insertNewRecordOjt($newRecord);
 				}
@@ -254,7 +254,9 @@ class Main extends CI_Controller {
 				
 			
 	}else{
-		header("location: index?error=Username or password incorrect");
+		$Status = '<p style="font-size: 14px; text-align: center; color: red; font-weight: bold;">Username or password incorrect</p>';
+		$this->session->set_flashdata("Status",$Status);
+		redirect('index');
 	}	
 	}else if($logintype == 'supervisor'){
 		$account_type = 'supervisor';
@@ -291,7 +293,7 @@ class Main extends CI_Controller {
 						// echo time_elapsed_string($data['announcements'][0]['date_posted']);
 						
 						$data['all_evaluations'] = $ojtRecords[0]['total_evaluations'];
-						$data['current_evaluations'] = $ojtRecords[0]['current_evaluations'];
+						$data['current_evaluations'] = $ojtRecords[0]['ojtone_current_evaluations'];
 						$data['verified'] = $ojtRecords[0]['logs_verified'];
 						$data['totalLogs'] = $ojtRecords[0]['logs'];
 						$data['logs_list'] = $this->users->getLogs($username);
@@ -299,7 +301,7 @@ class Main extends CI_Controller {
 						$data['user_data'] = $this->users->dashboardData($username);
 						$data['image_header'] = $this->users->displayImageToHeader($username);
 					}
-  		$this->load->view('student_info',$data);
+  				$this->load->view('student_info',$data);
 
 
   	}
@@ -333,7 +335,9 @@ public function loggedinSupervisor($account_type){
 			
 					
 	}else{
-		header("location: index?error=Username or password incorrect");
+		$Status = '<p style="font-size: 14px; text-align: center; color: red; font-weight: bold;">Username or password incorrect</p>';
+		$this->session->set_flashdata("Status",$Status);
+		redirect('index');
 	}	
 
 }
@@ -374,7 +378,9 @@ public function loggedinAdministrator($account_type){
 
 					
 	}else{
-		header("location: index?error=Username or password incorrect");
+		$Status = '<p style="font-size: 14px; text-align: center; color: red; font-weight: bold;">Username or password incorrect</p>';
+		$this->session->set_flashdata("Status",$Status);
+		redirect('index');
 	}	
 }
 
@@ -458,6 +464,7 @@ public function logout(){
      	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($this->session->userdata['id_number']);
      	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($this->session->userdata['id_number']);
      	$data['supervisor_id'] = $this->users->getSupervisorIdForStudent($this->session->userdata['id_number']);
+     	$data['checkEmail'] = $this->users->checkEmailVerified($this->session->userdata['id_number']);
      	$renderedCount = $this->users->getSumRendered($this->session->userdata['id_number']);
 
 
@@ -474,7 +481,7 @@ public function logout(){
 						// echo time_elapsed_string($data['announcements'][0]['date_posted']);
 						
 						$data['all_evaluations'] = $ojtRecords[0]['total_evaluations'];
-						$data['current_evaluations'] = $ojtRecords[0]['current_evaluations'];
+						$data['current_evaluations'] = $ojtRecords[0]['ojtone_current_evaluations'];
 						$data['verified'] = $ojtRecords[0]['logs_verified'];
 						$data['totalLogs'] = $ojtRecords[0]['logs'];
 						$data['logs_list'] = $this->users->getLogs($this->session->userdata['id_number']);
@@ -519,7 +526,7 @@ public function logout(){
      	$data['total'] = $ojtRecords[0]['ojtone_required'];
 		$data['rendered'] = $ojtRecords[0]['ojtone_rendered'];
 		$data['all_evaluations'] = $ojtRecords[0]['total_evaluations'];
-		$data['current_evaluations'] = $ojtRecords[0]['current_evaluations'];
+		$data['current_evaluations'] = $ojtRecords[0]['ojtone_current_evaluations'];
 		$data['verified'] = $ojtRecords[0]['logs_verified'];
 		$data['totalLogs'] = $ojtRecords[0]['logs'];
 		$data['logs_list'] = $this->users->getLogs(isset($id_number) ? $id_number : '');
@@ -693,6 +700,22 @@ public function logout(){
 
    	public function insertRegistration(){
    		$this->users->insertReg($this->session->userdata('id_number'));
+   	}
+	public function editProfilePersonal(){	
+   		$this->users->editProfilePersonal($this->session->userdata('id_number'));
+   		
+   	}
+   	public function editProfileFamily(){	
+   		$this->users->editProfileFamily($this->session->userdata('id_number'));
+
+   	}
+
+   	public function editProfileCompany(){
+   		$this->users->editProfileCompany($this->session->userdata('id_number'));
+   	}
+
+   	public function editComment(){
+   		$this->users->editComment();
    	}
 
    	public function truncate(){

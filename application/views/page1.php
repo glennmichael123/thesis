@@ -608,11 +608,15 @@
                         <div style="margin-top: 50px" class="fs-title">
                             <h1>Almost Done!</h1>
                             <h4 style="margin-top: 50px">Just one more step and you are done.</h4>
-                            <h5>An email verification link has been sent to your email address. Please verify your email to complete the registration.</h5>
+                            <h5>An email verification link has been sent to your email address. Please verify your email so that you can activate your account.</h5>
                         </div>
                         <div style="margin-top: 70px">
                             <a class="topage3 second-previous" href="#">PREVIOUS</a>
                             <!-- <a class="firstnext third-next" href="dashboard">SUBMIT</a>  -->
+                        </div>
+
+                        <div>
+                            <a href="<?php echo base_url('dashboard') ?>" style="float: right;">Continue to dashboard</a>
                         </div>
                         
                     </fieldset>
@@ -847,10 +851,11 @@
                       'email': email,
                     },
                     success:function(){
-                         $(".page2").hide();
-                         $(".page3").show();
+                         
                     }
                 });
+                $(".page2").hide();
+                 $(".page3").show();
                 // $.ajax({
                 //     url: "insertCompanyClassification",
                 //     type: "POST",

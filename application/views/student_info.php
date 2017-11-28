@@ -16,10 +16,6 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
- 
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
     <script src="<?php echo base_url()?>assets/js/progressbar/dist/progressbar.js"></script>
     <script src="<?php echo base_url()?>assets/js/progressbar/dist/progressbar.min.js"></script>
@@ -249,6 +245,43 @@
                             <div id="hoursProgress">
 
                             </div>
+                           <?php if($rendered == 0 && $total == 0): ?>
+                              <script type="text/javascript">
+                                $(document).ready(function() {
+                                    
+                            
+                                    // progressbar.js@1.0.0 version is used
+                                    // Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
+                                    var bar = new ProgressBar.Circle(hoursProgress, {
+                                        color: '#A55D35',
+                                         text: {
+                                            value: '0/0',
+                                        },
+                                        trailColor: '#eee',
+                                        trailWidth: 1,
+                                        duration: 1400,
+                                        easing: 'easeInOut',
+                                        strokeWidth: 6,
+                                        text: {
+                                            value: <?php echo $rendered?> + "/" + <?php echo $total?> + " " + 'hours',
+                                        },
+                                        from: {
+                                            color: '#EECD86',
+                                            a: 0
+                                        },
+                                        to: {
+                                            color: '#B95835',
+                                            a: 1
+                                        },
+                                        // Set default step function for all animate calls
+                                        step: function(state, circle) {
+                                            circle.path.setAttribute('stroke', state.color);
+                                        }
+                                    });
+                                    bar.animate(<?php echo 0/1?>); // Number from 0.0 to 1.0
+                                });
+                            </script>
+                            <?php else: ?>
                             <script type="text/javascript">
                                 $(document).ready(function() {
                                     
@@ -281,6 +314,7 @@
                                     bar.animate(<?php echo $rendered/$total?>); // Number from 0.0 to 1.0
                                 });
                             </script>
+                          <?php endif; ?>
                         </div>
 
                     </div>

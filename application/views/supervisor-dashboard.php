@@ -343,6 +343,14 @@
             padding: 10px 10px !important;
         }
 
+        #comment-textarea{
+            /*border: none;*/
+            display: none;
+            resize: none;
+            overflow: hidden;
+            width: 60%;
+        }
+
     
     </style>
 
@@ -544,7 +552,7 @@
                             
                         </div>
 
-               
+                <?php $i=0; ?>
                     <?php foreach($traineesLog as $log):?>
                         <div class="row row-logs"  style="color:#000;">
                        
@@ -588,7 +596,7 @@
                                         </div>
                                         
                                             <label style="font-size: 11px;">Activity</label> 
-                                            <textarea class="list-logs" name="log_lists_activity" id="log_lists_activity" placeholder="Write your log here" readonly><?php echo $log['log_content']?></textarea>
+                                            <textarea class="list-logs log-activity" name="log_lists_activity" id="log_lists_activity" placeholder="Write your log here" readonly><?php echo $log['log_content']?></textarea>
                                             <?php if($log['verified']):?>
                                             <span style="color:green; font-size: 11px; position: absolute; left: 690px; margin-top: -20px; "> Verified  <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i></span>
                                             <?php else:?>
@@ -622,24 +630,27 @@
                                 
 
                                 
-                                     
+                                     <div class="wrap-comments" id="wrap-comment-section<?php echo $i;?>">
                                      <div class="row display-comments">
                                         
                                             <div class="col-lg-12"> 
 
-                                                    
+                                                <div id="display_comments"> 
                                                     <?php foreach ($comments as $comment):?>
                                                     <?php if(in_array($log['id'], $comment)):?>
                                                         <!-- <div class="well" style="box-shadow: none; border: none; background: #f7f7f7; padding: 10px; margin-bottom: 10px;"> -->
                                                          <div class="comments-list" style="font-size: 12px; margin-bottom: 10px;">
-                                                              <b>Supervisor</b> <?php echo $comment['content'];?>
+                                                              <b style="float: left; margin-right: 5px;"> Supervisor </b> <span class="actual-comment"><?php echo $comment['content'];?> </span>
+
+                                                              <textarea data-supervisor-id="<?php echo $this->session->userdata['id_number'] ?>" 
+                                                            data-comment-id="<?php echo $comment['id'] ?>" id="comment-textarea" autofocus class="to-edit-comment" name=""><?php echo $comment['content'];?></textarea> <span class="guide-comment" style="font-size:10px; display: none;">Press esc to cancel</span>
                                                                     <div class="dropdown" style="float: right; width:20px;">
                                                                             <a href="#" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                                                 <i style="color: #000000; font-size: 15px;" class="fa fa-caret-down"></i>
                                                                             </a>
 
                                                                             <ul class="dropdown-menu" style="width: 180px; padding-bottom: 0px; padding-top: 0px; font-size: 11px; margin-left: -149px; margin-top: 4px;" aria-labelledby="dropdownMenu2">
-                                                                                <li><a href="#" class="edit-log" style="color: #000000;">Edit <i class="fa fa-pencil" aria-hidden="true"></i></a></li>
+                                                                                <li><a href="#"  class="edit-comment" style="color: #000000;">Edit <i class="fa fa-pencil" aria-hidden="true"></i></a></li>
                                                                                 <li role="separator" class="divider" style="margin: 0;"> </li>
                                                                                 <li><a href="#" class="delete-comment cd-popup-trigger" data-comment-id="<?php echo $comment['id']?>" style="color: #000000;">Delete <i class="fa fa-trash"></i></a></li>
                                                                             </ul>
@@ -649,6 +660,7 @@
                                                         
                                                     <?php endif;?>
                                                       <?php endforeach;?>
+                                                      </div>    
                                             </div>
                                          
                                      </div>
@@ -670,7 +682,7 @@
                                         </div>
                                         
                                      </div>
-                                    
+                                        </div>
                                     </form>
                                    
                                 </div>
@@ -682,7 +694,7 @@
                             </div>
 
 
-
+                            <?php $i++; ?>
                         <?php endforeach;?>
                       
 
@@ -792,29 +804,17 @@
 
 
 </body>
-
-<script type="text/javascript">
-    $(document).ready(function(){
-      $('textarea').each(function () {
-          this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden; resize:none;');
-        }).on('input', function () {
-          this.style.height = 'auto';
-          this.style.height = (this.scrollHeight) + 'px';
-        });
-    });
-</script>
-
 <script type="text/javascript">
   
     function previewFile() {
      var preview = document.querySelector('#image-modal');
      var file    = document.querySelector('input[type=file]').files[0];
      var reader  = new FileReader();
-
+     var closestImageCircle = $('#btn-browse').closest('.profile-image').find('.fa-user-circle');
      reader.addEventListener("load", function () {
        preview.src = reader.result;
        $('#image-modal').show();
-       $('.fa-user-circle').hide();
+       closestImageCircle.hide();
        $(".saveCancel").css("display","inline-block");
     }, false);
 
@@ -898,12 +898,30 @@
           this.style.height = (this.scrollHeight) + 'px';
         });
     });
+
+    $(document).ready(function(){
+      $('.to-edit-comment').each(function () {
+          this.setAttribute('style', 'height:' + '25px;' + 'px;overflow-y:hidden; resize:none;');
+        }).on('input', function () {
+          this.style.height = 'auto';
+          this.style.height = (this.scrollHeight) + 'px';
+        });
+    });
+
+    $(document).ready(function(){
+      $('.log-activity').each(function () {
+          this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+        }).on('input', function () {
+          this.style.height = 'auto';
+          this.style.height = (this.scrollHeight) + 'px';
+        });
+    });
 </script>
 
 
 <script type="text/javascript">
 
-    $('.comment-content').bind('keydown', function(e){
+    $('body').on('keydown','.comment-content', function(e){
         
         if ( e.keyCode == 13 && !e.shiftKey ) { // 13 is enter key
                 e.preventDefault();
@@ -913,6 +931,9 @@
                 var commentSection = $(this).closest('.comment-section');
                 var student_username = $(this).data('student-username');
                 var commentToAppend = $(this).closest("form").find(".display-comments");
+                var toReload = $(this).closest('.wrap-comments').attr('id');
+
+
 
 
             if(!$.trim($(this).val())){
@@ -927,7 +948,7 @@
                     'supervisor_id': '<?php echo $this->session->userdata['id_number'];?>',
                 },
                 success: function(data){
-                    location.reload(true);
+                   $('#'+toReload).load(location.href + ' ' + '#'+toReload);
                 },
             });
             }
@@ -936,34 +957,6 @@
 
          }
     });
-
-
-
-    // $('.submit-comment').click(function(){
-    //     var log_id = $(this).data('log-id');
-    //     var comment = $(this).closest("form").find(".comment-content").val();
-    //     var commentSection = $(this).closest('.comment-section');
-    //     var student_username = $(this).data('student-username');
-    //     var commentToAppend = $(this).closest("form").find(".display-comments");
-
-
-    //         $.ajax({
-    //             url: '<?php echo base_url()?>' + 'main/addComment',
-    //             method: 'POST',
-    //             data:{
-    //                 'log_id': log_id,
-    //                 'comment': comment,
-    //                 'supervisor_id': '<?php echo $this->session->userdata['id_number'];?>',
-    //             },
-    //             success: function(data){
-    //                location.reload(true);
-    //             },
-    //         });
-        
-        
-        
-        
-    // });
 
 
 </script>
@@ -1028,7 +1021,7 @@
        });
 </script>
 <script type="text/javascript">
-    $('.delete-comment').click(function(e){
+    $('body').on('click','.delete-comment',function(e){
         e.preventDefault();
         var comment_id = $(this).data('comment-id');
         var comment_row = $(this).closest('.comments-list');
@@ -1046,9 +1039,74 @@
 </script>
 <script type="text/javascript">
     $( function(){
-    $( "#tabs" ).tabs();
+        $( "#tabs" ).tabs();
   });
+
+    $('body').on('click','.edit-comment', function(e){
+        e.preventDefault();
+
+      
+
+
+
+        var commentToHide = $(this).closest('.comments-list').find('.actual-comment');
+        var commentToEditShow = $(this).closest('.comments-list').find('.to-edit-comment');
+        var caretToHide = $(this).closest('.comments-list').find('.fa-caret-down');
+        var commentGuideline = $(this).closest('.comments-list').find('.guide-comment');
+        var autoFocus = $(this).closest('.comments-list').find('.to-edit-comment');
+        commentToHide.hide();
+        caretToHide.hide();
+        commentToEditShow.show();
+        commentGuideline.show();
+        autoFocus.prop('autofocus',true);
+
+        
+
+    });
+
+    $('body').on('keydown','.to-edit-comment',function(e){
+
+        if(e.keyCode == 27){
+            var commentToHide = $(this).closest('.comments-list').find('.actual-comment');
+            var commentToEditShow = $(this).closest('.comments-list').find('.to-edit-comment');
+            var caretToHide = $(this).closest('.comments-list').find('.fa-caret-down');
+              var commentGuideline = $(this).closest('.comments-list').find('.guide-comment');
+            commentToHide.show();
+            caretToHide.show();
+            commentGuideline.hide();
+            commentToEditShow.hide();
+        }
+
+     if(e.keyCode == 13 && !e.shiftKey ){
+        e.preventDefault();
+        var comment_id = $(this).data('comment-id');
+        var commentContent = $(this).val();
+        var toReload = $(this).closest('.wrap-comments').attr('id');
+        var supervisor_id = $(this).data('supervisor-id');
+         if(!$.trim($(this).val())){
+                
+        }else{
+
+            $.ajax({
+                url: 'editComment',
+                method: 'POST',
+                data: {
+                    'comment_id': comment_id,
+                    'comment_content': commentContent,
+                    'supervisor_id': supervisor_id,
+                },
+                success: function(data){
+                    
+                      $('#'+toReload).load(location.href + ' ' + '#'+toReload);
+
+                }
+            });
+        }
+
+            
+     }
+    });
 </script>
-</script>
+
 
 </html>

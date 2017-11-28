@@ -407,7 +407,7 @@
             type:"POST",
             data:data,
             success:function(data){
-                console.log(data);
+               // console.log(data);
             }
         });
 

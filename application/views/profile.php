@@ -253,7 +253,7 @@
         .fa-bell:hover {
             color: #A55D35;
         }
-        
+
         
        
         li > .notifications {
@@ -570,7 +570,7 @@
                     <div class="col-lg-4 col-sm-4">
                         <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
                     </div>
-                    <div class="col-lg-7 col-sm-7">
+                    <div class="col-lg-6 col-sm-7">
                         <?php if(isset($id_number)):?>
                         <?php else:?>
                             <section id="notification-bell">
@@ -593,7 +593,7 @@
                                 <ul class="dropdown-menu" id="show-notifications" style="position: relative; padding-bottom: 0px; margin-top:20px; top: -30px; left: -75px; width: 340px; max-height: 400px; overflow: auto;">
                                       <div id="notification-body">
                                          <li><div class="notification-title">Notifications <a href="#" class="as-all-read pull-right">Mark all as read</a></div></li>
-                                     
+                                         <li class="divider"></li>
 
                                          <?php if(empty($announcements)):?>
                                           <li><div class="notifs" style="text-align: center; padding-left: 0; height: 150px;">No notifications yet</div></li>
@@ -690,6 +690,9 @@
                     <?php endif;?>
                     </section>
                     <?php endif;?>
+                    </div>
+                    <div class="col-lg-1">
+                        <div style="margin-top: 20px;  font-size: 15px;">Hi, <?php echo  $personalDetails[0]['first_name'] ?></div>
                     </div>
                     <div class="col-lg-1 col-sm-1">
                         <?php if(isset($id_number)):?>
@@ -812,47 +815,49 @@
                     <fieldset id="first-fieldset">
                     <legend><i class="fa fa-user"></i>Personal Information</legend>
                          <div id="edit">
-                             <button id="btn-edit"><span class="fa fa-pencil-square-o" aria-hidden="true"></span></button>
+                             <button id="btn-edit" class="btn-edit-personal"><span class="fa fa-pencil-square-o" aria-hidden="true"></span></button>
                          </div>
                         <div class="row" id="pos">
+                            <form id="personal-details-user">
                             <div class="col-lg-6">
                                 <label class="labels">Course:</label>
-                                  <input type="text" name="" value="<?php echo $personalDetails[0]['course']?>" readonly class="personal-info form-control" readonly="true">
+                                  <input type="text" name="profile_course" value="<?php echo $personalDetails[0]['course']?>" readonly class="personal-info form-control" readonly="true">
                                   <label class="labels">College:</label>
-                                <input type="text" name="" value="<?php echo $personalDetails[0]['college']?>" readonly class="personal-info form-control">
+                                <input type="text" name="profile_college" value="<?php echo $personalDetails[0]['college']?>" readonly class="personal-info form-control">
                                 <label class="labels">Present Address:</label>
-                                <input type="text" name="" value="<?php echo $personalDetails[0]['present_address']?>" readonly class="personal-info form-control">
+                                <input type="text" name="profile_present_address" value="<?php echo $personalDetails[0]['present_address']?>" readonly class="personal-info form-control">
                                 <label class="labels">Permanent Address:</label>
-                                <input type="text" name="" value="<?php echo $personalDetails[0]['permanent_address']?>" readonly class="personal-info form-control"><br>
+                                <input type="text" name="profile_permanent_address" value="<?php echo $personalDetails[0]['permanent_address']?>" readonly class="personal-info form-control"><br>
                                 <label class="labels">Phone or Landline:</label>
-                                  <input type="text" name="" value="<?php echo $personalDetails[0]['contact_number']?>" readonly class="personal-info form-control"><br>
+                                  <input type="text" name="profile_contact_number" value="<?php echo $personalDetails[0]['contact_number']?>" readonly class="personal-info form-control"><br>
                                     <label class="labels">Date of Birth:</label>
-                                  <input type="text" name="" value="<?php echo $personalDetails[0]['date_of_birth'] ?>" readonly class="personal-info form-control"><br>
+                                  <input type="text" name="profile_birth" value="<?php echo $personalDetails[0]['date_of_birth'] ?>" readonly class="personal-info form-control"><br>
                                   <label class="labels">Status:</label>
-                                  <input type="text" name=""0 value="<?php echo $personalDetails[0]['marital_status']  ?>" readonly class="personal-info form-control"><br>
+                                  <input type="text" name="profile_marital" value="<?php echo $personalDetails[0]['marital_status']  ?>" readonly class="personal-info form-control"><br>
                                   <label class="labels">Weight:</label>
-                                  <input type="text" name="" value="<?php echo $personalDetails[0]['weight'] ?>" readonly class="personal-info form-control"><br>
+                                  <input type="text" name="profile_weight" value="<?php echo $personalDetails[0]['weight'] ?>" readonly class="personal-info form-control"><br>
                                   <label class="labels">Religion:</label>
-                                  <input type="text" name="" value="<?php echo $personalDetails[0]['religion'] ?>" readonly class="personal-info form-control"><br>
+                                  <input type="text" name="profile_religion" value="<?php echo $personalDetails[0]['religion'] ?>" readonly class="personal-info form-control"><br>
 
                             </div>
                             <div class="col-lg-6">
                                 <label class="labels">Year:</label>
-                               <input type="text" name="" value="<?php echo $personalDetails[0]['year']?>" readonly class="personal-info form-control"><br>
+                               <input type="text" name="profile_year" value="<?php echo $personalDetails[0]['year']?>" readonly class="personal-info form-control"><br>
                                <label class="labels">Email Address:</label>
-                               <input type="text" name="" value="<?php echo $personalDetails[0]['email_address'] ?>" readonly class="personal-info form-control"><br>
+                               <input type="text" name="profile_email" value="<?php echo $personalDetails[0]['email_address'] ?>" readonly class="personal-info form-control"><br>
                                <label class="labels">Age:</label>
-                               <input type="text" name="" value="<?php echo $personalDetails[0]['age'] ?>" readonly class="personal-info form-control"><br>
+                               <input type="text" name="profile_age" value="<?php echo $personalDetails[0]['age'] ?>" readonly class="personal-info form-control"><br>
                                <label class="labels">Blood Type:</label>
-                               <input type="text" name="" value="<?php echo $personalDetails[0]['blood_type'] ?>" readonly class="personal-info form-control"><br>
+                               <input type="text" name="profile_blood" value="<?php echo $personalDetails[0]['blood_type'] ?>" readonly class="personal-info form-control"><br>
                                <label class="labels">Height in Cm:</label>
-                               <input type="text" name="" value="<?php echo $personalDetails[0]['height'] ?>" readonly class="personal-info form-control"><br>
+                               <input type="text" name="profile_height" value="<?php echo $personalDetails[0]['height'] ?>" readonly class="personal-info form-control"><br>
                                <label class="labels">Citizenship:</label>
-                               <input type="text" name="" value="<?php echo $personalDetails[0]['citizenship'] ?>" readonly class="personal-info form-control"><br>
+                               <input type="text" name="profile_citizenship" value="<?php echo $personalDetails[0]['citizenship'] ?>" readonly class="personal-info form-control"><br>
                             </div>
+                            </form>
                             </div>
                              <p style="text-align: center; margin-top: 10px;">
-                               <button class="btn btn-primary bt" style="display: none" type="submit">Save Changes</button>
+                               <button class="btn btn-primary bt" id="save-personal-details" style="display: none" type="submit">Save Changes</button>
                                <button class="btn btn-danger bt" id="cancel" style="display: none;" type="button">Cancel</button>
                            </p>
                             
@@ -863,27 +868,29 @@
                              <button id="btn-edit1"><span class="fa fa-pencil-square-o" aria-hidden="true"></span></button>
                          </div>
                         <div class="row" id="pos">
-                            <div class="col-lg-6">
-                                <label class="labels">Father's Name:</label>
-                                  <input type="text" name="" value="<?php echo $familydetails->fathers_name; ?>" readonly class="family-info form-control">
-                                  <label class="labels">Mother's Name:</label>
-                                  <input type="text" name="" value="<?php echo $familydetails->mothers_name; ?>" readonly class="family-info form-control">
-                                  <label class="labels">Parent's Address:</label>
-                                <input type="text" name="" value="<?php echo $familydetails->parents_address; ?>" readonly class="family-info form-control">
-                                 <label class="labels">Landline or Mobile:</label>
-                                <input type="text" name="" value="<?php echo $familydetails->contact_number; ?>" readonly class="family-info form-control">
-                            </div>
-                            <div class="col-lg-6">
-                               <label class="labels">Father's Occupation:</label>
-                               <input type="text" name="" value="<?php echo $familydetails->fathers_occupation; ?>" readonly class="family-info form-control">
-                                <label class="labels">Mother's Occupation:</label>
-                               <input type="text" name="" value="<?php echo $familydetails->mothers_occupation; ?>" readonly class="family-info form-control">
-                            </div>
+                            <form id="family-details-user">
+                                <div class="col-lg-6">
+                                    <label class="labels">Father's Name:</label>
+                                      <input type="text" name="profile-father-name" value="<?php echo $familydetails->fathers_name; ?>" readonly class="family-info form-control">
+                                      <label class="labels">Mother's Name:</label>
+                                      <input type="text" name="profile-mother-name" value="<?php echo $familydetails->mothers_name; ?>" readonly class="family-info form-control">
+                                      <label class="labels">Parent's Address:</label>
+                                    <input type="text" name="profile-parent-address" value="<?php echo $familydetails->parents_address; ?>" readonly class="family-info form-control">
+                                     <label class="labels">Landline or Mobile:</label>
+                                    <input type="text" name="profile-contact-number" value="<?php echo $familydetails->contact_number; ?>" readonly class="family-info form-control">
+                                </div>
+                                <div class="col-lg-6">
+                                   <label class="labels">Father's Occupation:</label>
+                                   <input type="text" name="profile-father-occupation" value="<?php echo $familydetails->fathers_occupation; ?>" readonly class="family-info form-control">
+                                    <label class="labels">Mother's Occupation:</label>
+                                   <input type="text" name="profile-mother-occupation" value="<?php echo $familydetails->mothers_occupation; ?>" readonly class="family-info form-control">
+                                </div>
+                            </form>
                         </div>
                         <p style="text-align: center; margin-top: 10px;">
-                               <button class="btn btn-primary bts" style="display: none" type="submit">Save Changes</button>
+                               <button class="btn btn-primary bts" id="save-family-details" style="display: none" type="submit">Save Changes</button>
 
-                               <button class="btn btn-danger bts" id="cancels"style="display: none;" type="button">Cancel</button>
+                               <button class="btn btn-danger bts" id="cancels" style="display: none;" type="button">Cancel</button>
 
                            </p>
                         
@@ -895,19 +902,20 @@
                          </div>
                         <div class="row" id="pos">
                             <div class="col-lg-6">
+                                <form id="company-information-user">
                                 <label class="labels">Company Name:</label>
-                                  <input type="text" name="" value="<?php echo $companyInformation->company_name; ?>" readonly class="company-info form-control">
+                                  <input type="text" name="profile_company_name" value="<?php echo $companyInformation->company_name; ?>" readonly class="company-info form-control">
                                   <label class="labels">Company Address:</label>
-                                  <input type="text" name="" value="<?php echo $companyInformation->company_address; ?>" readonly class="company-info form-control">
+                                  <input type="text" name="profile_company_address" value="<?php echo $companyInformation->company_address; ?>" readonly class="company-info form-control">
                                   <label class="labels">Telephone Number:</label>
-                                <input type="text" name="" value="<?php echo $companyInformation->contact_number; ?>" readonly class="company-info form-control">
+                                <input type="text" name="profile_telephone_number" value="<?php echo $companyInformation->contact_number; ?>" readonly class="company-info form-control">
                                 
                             </div>
                             <div class="col-lg-6">
                              <label class="labels">Product Lines:</label>
-                                <input type="text" name="" value="<?php echo $companyInformation->product_lines; ?>" readonly class="company-info form-control">
+                                <input type="text" name="profile_product_lines" value="<?php echo $companyInformation->product_lines; ?>" readonly class="company-info form-control">
                                <label class="labels">Fax Number:</label>
-                               <input type="text" name="" value="<?php echo $companyInformation->fax_number; ?>" readonly class="company-info form-control">
+                               <input type="text" name="profile_fax_number" value="<?php echo $companyInformation->fax_number; ?>" readonly class="company-info form-control">
                             </div>
                         </div>
                         <?php 
@@ -917,34 +925,35 @@
                         <div class="row">
                             <h2 style="margin-bottom: 30px">Company Classification <i class="fa fa-list-alt" aria-hidden="true"></i></h2>
                              <div class="col-lg-2">
-                            <input id="assembly" <?php echo(in_array('Assembly', $array_company)) ? 'checked' : '' ?> disabled value="assembly" type="checkbox" ><label class="labels" for="assembly" ">Assembly</label>
+
+                            <input id="assembly" <?php echo(in_array('Assembly', $array_company)) ? 'checked' : '' ?> disabled value="Assembly" type="checkbox" ><label class="labels" for="assembly" ">Assembly</label>
                          </div> 
                          <div class="col-lg-2">
-                            <input type="checkbox" <?php echo(in_array('Manufacturing', $array_company)) ? 'checked' : '' ?> disabled value="manufacturing" id="manufacturing"><label class="labels" for="manufacturing">Manufacturing</label>
+                            <input type="checkbox" <?php echo(in_array('Manufacturing', $array_company)) ? 'checked' : '' ?> disabled value="Manufacturing" id="manufacturing"><label class="labels" for="Manufacturing">Manufacturing</label>
                          </div> 
                          <div class="col-lg-2">
-                            <input type="checkbox" <?php echo(in_array('Maintenance', $array_company)) ? 'checked' : '' ?> disabled value="maintenance" id="maintenance"><label class="labels" for="maintenance">Maintenance</label>
+                            <input type="checkbox" <?php echo(in_array('Maintenance', $array_company)) ? 'checked' : '' ?> disabled value="Maintenance" id="maintenance"><label class="labels" for="maintenance">Maintenance</label>
                          </div>
                          <div class="col-lg-3">
-                            <input type="checkbox" <?php echo(in_array('Sales/Marketing', $array_company)) ? 'checked' : '' ?> disabled value="marketing" id="marketing"><label class="labels" for="marketing">Sales/Marketing</label>
+                            <input type="checkbox" <?php echo(in_array('Sales/Marketing', $array_company)) ? 'checked' : '' ?> disabled value="Sales/Marketing" id="marketing"><label class="labels" for="marketing">Sales/Marketing</label>
                          </div>
                          <div class="col-lg-3">
-                             <input type="checkbox" <?php echo(in_array('Service/Utility', $array_company)) ? 'checked' : '' ?> disabled value="service" id="service"><label class="labels" for="service">Service/Utility</label>
+                             <input type="checkbox" <?php echo(in_array('Service/Utility', $array_company)) ? 'checked' : '' ?> disabled value="Service/Utility" id="service"><label class="labels" for="service">Service/Utility</label>
                          </div>
                          
                         </div>
                         <div class="row">
                           <div class="col-lg-4">
                             
-                              <input type="checkbox" <?php echo(in_array('Research and Development', $array_company)) ? 'checked' : '' ?> disabled value="research" id="research"><label class="labels" for="research">Research and Development</label>
+                              <input type="checkbox" <?php echo(in_array('Research and Development', $array_company)) ? 'checked' : '' ?> disabled value="Research and Development" id="research"><label class="labels" for="research">Research and Development</label>
                             
                           </div>
                           <div class="col-lg-2">
-                            <input type="checkbox" <?php echo(in_array('IT Related', $array_company)) ? 'checked' : '' ?> disabled value="itrelated" id="itrelated"><label class="labels" for="itrelated">IT Related</label>
+                            <input type="checkbox" <?php echo(in_array('IT Related', $array_company)) ? 'checked' : '' ?> disabled value="IT Related" id="itrelated"><label class="labels" for="itrelated">IT Related</label>
                           </div>
                           <div class="col-lg-5">
-                               <input type="radio" class="other-company" id="other"><label class="labels" for="other">Others</label>
-                               <input type="text" id="other_classification" name="other_classification" style="height: 15px; width: 250px; display: none;" placeholder="Please specify">
+                               <input type="radio" class="other-company" disabled id="other"><label class="labels" for="other">Others</label>
+                               <input type="text" id="other_classification" name="other_classification" style="height: 30px; width: 250px; display: none;" placeholder="Please specify">
                           </div>
                        
                         </div>
@@ -963,9 +972,10 @@
                             </div>
                         </div>
                         <p style="text-align: center; margin-top: 10px;">
-                               <button class="btn btn-primary btss" style="display: none" type="submit">Save Changes</button>
+                               <button class="btn btn-primary btss" style="display: none" id="save-company-information" type="submit">Save Changes</button>
                                <button class="btn btn-danger btss" id="cancelss" style="display: none;" type="button">Cancel</button>
                         </p>
+                        </form>
                     </fieldset>
                     <div id="tabs">
                         <ul>
@@ -1028,7 +1038,7 @@
                                              <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Cooperation and Willingness" data-content="Readiness to accept and carry out instructions and assignments; works well with others; shows support and concerns for co-workers." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a><br>
-                                             <input tabindex="3" maxlength="1" value="<?php echo $midterm_evaluation->cooperation; ?>" type="text" name="adaptability" class="score" readonly>
+                                             <input tabindex="3" maxlength="1" value="<?php echo $midterm_evaluation->adaptability; ?>" type="text" name="adaptability" class="score" readonly>
                                                    <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-placement="top" title="Adaptability and Sociability" data-content="Ability to adjust to a new environment and be at ease with others; ability to deal with people of different levels/ positions; amiable and friendly with others and knows how to respect authority." tabindex="0" data-trigger="focus">
                                                         <i class="fa fa-question-circle"></i>
                                                     </a>
@@ -1129,7 +1139,7 @@
                                 </div>
                                 <label for="remark" style="margin:0; padding: 0;" class="pointy">REMARKS</label>
                               
-                                    <textarea tabindex="15" name="remarks" id="remark" class="form-control"></textarea>
+                                    <textarea tabindex="15" name="remarks" id="remark" class="form-control" readonly style="resize: none;"><?php echo $midterm_evaluation->remarks ?></textarea>
                                 <?php endif;?>
                                     <?php endif;?>
                             </div>
@@ -1334,10 +1344,23 @@
 </script>
 
 <script type="text/javascript">
-    $("#btn-edit").click(function(){
+    $(".btn-edit-personal").click(function(){
         $(".personal-info").addClass("showBorder");
         $(".personal-info").prop("readonly",false);
         $(".bt").css("display","inline-block");
+    });
+
+    $('#save-personal-details').click(function(){
+       var data = $('#personal-details-user').serialize();
+        
+        $.ajax({
+            url: 'editProfilePersonal',
+            method: 'POST',
+            data:data,
+            success: function(data){
+                location.reload();
+            }
+        })
     });
 </script>
 <script type="text/javascript">
@@ -1352,12 +1375,30 @@
          $(".family-info").addClass("showBorder");
          $(".family-info").prop("readonly",false);
          $(".bts").css("display","inline-block"); 
+
+
+    });
+
+    $('#save-family-details').click(function(){
+
+        var data = $('#family-details-user').serialize();
+
+        $.ajax({
+            url: 'editProfileFamily',
+            method: 'POST',
+            data: data,
+            success: function(data){
+                location.reload();
+            }
+        })
     });
 </script>
 <script type="text/javascript">
     $("#btn-edit2").click(function(){
          $(".company-info").addClass("showBorder");
          $(".company-info").prop("readonly",false);
+         $('input[type=checkbox]').prop('disabled',false);
+         $('input[type=radio]').prop('disabled',false);
          $(".btss").css("display","inline-block"); 
     });
 </script>
@@ -1365,8 +1406,47 @@
     $("#cancelss").click(function(){
         $(".company-info").removeClass("showBorder");
         $(".company-info").prop("readonly",true);
+         $('input[type=checkbox]').prop('disabled',true);
+         $('input[type=radio]').prop('disabled',true);
         $(".btss").css("display","none");
+
     });
+
+    $('#other').click(function(){
+        $('#other_classification').toggle();
+    })
+
+        $('#save-company-information').click(function(e){
+
+            e.preventDefault();
+            var data = $('#company-information-user').serialize();
+            
+             // Get checked values
+         var classification=[];
+        $('input[type="checkbox"]').each(function(){
+             if($(this).is(":checked")==true){
+                classification.push($(this).val());
+            }
+        });
+        var other_classification = $('#other_classification').val();
+        if(!$.trim(other_classification)){
+
+        }else{
+            classification.push(other_classification);
+        }
+
+
+        $.ajax({
+            url: 'editProfileCompany',
+            method: 'POST',
+            data: data + "&classification="+classification,
+            success: function(data){
+               location.reload();
+            }
+        });
+
+
+        });
 </script>
 
  <script type="text/javascript">
