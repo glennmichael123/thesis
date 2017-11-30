@@ -350,6 +350,7 @@
             overflow: hidden;
             width: 60%;
         }
+
         .evaluate-btn{
             background-color: #871F21;
             color: #FFFFFF !important;
@@ -358,6 +359,7 @@
             background-color:#791b1d;
             color: #FFFFFF !important;
         }
+
 
     
     </style>
@@ -550,8 +552,43 @@
                                      <?php endif;?>
                                      <!-- FOR FINAL EVALUATION -->
                                       <li id="final-tab">
-                                        asdas
+                                      <table style="width: 100%;">
+                                 
+                                    <tbody>
+                                      
+                                        <?php foreach($ojtRecords as $student):?>
+                                        <tr style="font-size: 15px; color: #000;">
+                                            <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
+                                            <?php if($student['ojttwo_rendered'] < 50):?>
+                                                <td><a href="#" class="evaluate-btn" disabled style="color: gray;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
+                                                <script type="text/javascript">
+                                                    $('.evaluate-btn').click(function(e){
+                                                        e.preventDefault();
+                                                    });
+                                                </script>
+
+                                            <?php else:?>
+                                              
+                                                
+                                                <?php if(in_array($student['id_number'], array_column($evaluated2, 'username'))):?>
+                                                 <td><i class="fa fa-check" aria-hidden="true"></i></td>           
+                                                <?php else:?>
+                                            <td><a href="<?php echo base_url()?>main/final_evaluation/<?php echo $student['id_number']?>" class="btn evaluate-btn">Evaluate</a></td>
+                                                
+                                        <?php endif;?>
+
+                                       
+                                                
+                                            <?php endif;?>
+
+                                        </tr>
+                                    <?php endforeach;?>
+
+                                    </tbody>
                                     </li>
+                                   
+                                               
+                                </table>
                                 </div> 
                             </div>
                         </div>    
@@ -1133,10 +1170,12 @@
      }
     });
 </script>
+
 <script type="text/javascript">
       $( function() {
     $( "#tabs" ).tabs();
   } );
 </script>
+
 
 </html>

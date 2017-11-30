@@ -193,6 +193,7 @@ class Main extends CI_Controller {
      	}else{
      		$data['comments'] = $this->users->getComments();
      		$data['evaluated']=$this->users->checkMidtermEvaluation($this->session->userdata('id_number'));
+     		$data['evaluated2']=$this->users->checkFinalEvaluation($this->session->userdata('id_number'));
      		if($this->session->userdata['account_type'] == 'student'){
      			redirect('dashboard');
      		}else if($this->session->userdata['account_type'] == 'admin'){
@@ -711,7 +712,13 @@ public function logout(){
 
     	}
     	else{
-    		echo 'failed';
+    	$Status = '<div class="alert alert-success alert-dismissible" role="alert">
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					   You have evaluated  <strong>'.$username.' </strong> </div>';
+    		 // echo $stud_name->first_name;
+    	//	$Status = '<div class="alert alert-success" role="alert">You have evaluated '.$username.' </div>';
+    		//$Status = "You have evaluated ".$username;
+    		$this->session->set_flashdata("Status",$Status);
     	}
 
     }

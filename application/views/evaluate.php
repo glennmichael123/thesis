@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<!-- <?php echo $stud_username;?> -->
+<?php echo $stud_username; ?>
 <head>
     <link rel="icon" href="favicon.ico">
     <!-- Latest compiled and minified CSS -->

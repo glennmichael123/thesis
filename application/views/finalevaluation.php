@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<!-- <?php echo $stud_username ?> -->
+
 <head>
     <link rel="icon" href="favicon.ico">
     <!-- Latest compiled and minified CSS -->
@@ -14,6 +14,7 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <style type="text/css">
         body{
@@ -113,7 +114,7 @@
                     <div class="col-lg-3" style="margin-top: 20px">
                         <div class="blocking">
                             <label class="labels">Age:</label>
-                            <input type="text" name="fage" id="fage"><br>
+                            <input type="text" name="fage" id="fage" onkeypress='return event.charCode >= 48 && event.charCode <= 57'><br>
                             <label class="labels">Major:</label>
                             <input type="text" name="fmajor" id="fmajor"><br>
                         </div>
@@ -176,13 +177,13 @@
                     <div class="col-lg-3">
                         <h3 style="text-align: center;">GIVEN RATE</h3>
                         <ul style="list-style: none;">
-                            <li class="list"><input type="text" name="fquality" id="fquality"></li>
-                            <li class="list"><input type="text" name="fquality2" id="fquality2"></li>
-                            <li class="list"><input type="text" name="fdependability" id="fdependability"></li>
-                            <li class="list"><input type="text" name="fattendance" id="fattendance"></li>
-                            <li class="list"><input type="text" name="fcooperation" id="fcooperation"></li>
-                            <li class="list"><input type="text" name="fjudgement" id="fjudgement"></li>
-                            <li class="list"><input type="text" name="fpersonality" id="fpersonality"></li>
+                            <li class="list"><input type="text" name="fquality" id="fquality" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="1"></li>
+                            <li class="list"><input type="text" name="fquality2" id="fquality2" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="1"></li>
+                            <li class="list"><input type="text" name="fdependability" id="fdependability" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="1"></li>
+                            <li class="list"><input type="text" name="fattendance" id="fattendance" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="1"></li>
+                            <li class="list"><input type="text" name="fcooperation" id="fcooperation" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></li>
+                            <li class="list"><input type="text" name="fjudgement" id="fjudgement" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="1"></li>
+                            <li class="list"><input type="text" name="fpersonality" id="fpersonality" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="1"></li>
                         </ul>
                     </div>
                 </div>
@@ -190,9 +191,10 @@
                     <label>RECOMMENDATION:</label>
                 </div>
               
-                
-                    <p style="margin-top: 10px; text-align: center;"><button type="submit" class="btn btn-primary" id="btn_submit" >Submit</button>
+                    <textarea class="form-control" style="margin-top: 10px;" name="recommend"></textarea>
+                    <p style="margin-top: 10px; text-align: center;"><button type="submit" class="btn btn-primary" id="btn_submit2" >Submit</button>
                     <button class="btn btn-danger">Cancel</button></p>
+                    <input type="hidden" name="supervisor_id" value="<?php echo $this->session->userdata('id_number'); ?>">
              </div>
             <div class="col-lg-2"></div>  
             </div>
@@ -200,19 +202,20 @@
          </div>
     </div>
 
+<!-- 
 <script src="js/jquery-2.1.4.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script src="js/script.js"></script>
+<script src="js/script.js"></script> -->
 <script type="text/javascript">
-  $('#btn_submit').click(function(){ 
+  $('#btn_submit2').click(function(){ 
         var data = $('#formy2').serialize();
-       
+        //alert(data);
         $.ajax({
             url:"<?php echo base_url()?>main/insert_final_eval/<?php echo $stud_username;?>",
             type:"POST",
             data:data,
             success:function(data){
-                console.log(data);
+               // console.log(data);
             }
         });
 
@@ -228,6 +231,7 @@
   $('[data-toggle="popover"]').popover()
 });
 </script>
+
 
 </body>
 

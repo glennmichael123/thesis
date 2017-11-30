@@ -289,7 +289,7 @@
 
          public function getOjtRecordsForSupervisor($username){
              
-            $result = $this->db->query("SELECT ojt_records.id_number, ojt_records.ojtone_rendered, users.first_name, users.last_name FROM ojt_records INNER JOIN users ON users.id_number = ojt_records.id_number WHERE supervisor_id = '$username'");         
+            $result = $this->db->query("SELECT ojt_records.id_number, ojt_records.ojtone_rendered,ojt_records.ojttwo_rendered, users.first_name, users.last_name FROM ojt_records INNER JOIN users ON users.id_number = ojt_records.id_number WHERE supervisor_id = '$username'");         
             return $result->result_array();
          }
 
@@ -790,6 +790,11 @@
         $query = $this->db->query("SELECT username from midterm_evaluation where supervisor_username ='$username'");
         return $query->result_array();
       }
+      public function checkFinalEvaluation($username){
+        $query = $this->db->query("SELECT username from final_evaluation where supervisor_username ='$username'");
+        return $query->result_array();
+      }
+
      public function countTrainees($username){
         $query = $this->db->query("SELECT count(id_number) as num_trainee from ojt_records where supervisor_id = '$username'");
 
@@ -942,11 +947,13 @@
       }
 
       public function final_eval($username){
+         $supervisor = $_POST['supervisor_id'];
           $fname = $_POST['fname'];
           $fcourse = $_POST['fcourse'];
           $fage = $_POST['fage'];
           $fschool = $_POST['fschool'];
           $fcity = $_POST['fcity'];
+          $fsex = $_POST['fsex'];
           $fpermanent = $_POST['fpermanent'];
           $frequired = $_POST['frequired'];
           $fmajor = $_POST['fmajor'];
@@ -963,22 +970,23 @@
           $fcooperation = $_POST['fcooperation'];
           $fjudgement = $_POST['fjudgement'];
           $fpersonality = $_POST['fpersonality'];
+          $recommend = $_POST['recommend'];
 
 
             // $this->db->query("INSERT INTO final_evaluation(id_number,name,age,sex,course,major,school,city,permanent,required,company,division,field,dates_from,dates_to,total_hours,quality,quality2,dependability,attendance,cooperation,judgement,personality) VALUES('$username','$fname',$fage,'$fsex','$fcourse','$fmajor','$fschool','$fcity','$fpermanent','$frequired','$fcompany','$fdivision','$ffield','$dates','$fdatesto',$ftotal,$fquality,$fquaility2,$fdependability,$fattendance,$fcooperation,$fjudgement,$fpersonality)");
-          $this->db->query("INSERT INTO final_evaluation(username,name,age,sex,course,major,school,city,permanent,
+          $this->db->query("INSERT INTO final_evaluation(username,supervisor_username,name,age,sex,course,major,school,city,permanent,
                     required,company,division,field,dates_from,
-                    dates_to,total_hours,quality,quality2,dependability,attendance,cooperation,judgement,personality) VALUES('$username','$fname',$fage,'$fsex','$fcourse','$fmajor','$fschool','$fcity','$fpermanent','$frequired','$fcompany','$fdivision','$ffield','$dates','$fdatesto',$ftotal,$fquality,$fquaility2,$fdependability,$fattendance,$fcooperation,$fjudgement,$fpersonality)"); 
+                    dates_to,total_hours,quality,quality2,dependability,attendance,cooperation,judgement,personality,recommend) VALUES('$username','$supervisor','$fname',$fage,'$fsex','$fcourse','$fmajor','$fschool','$fcity','$fpermanent','$frequired','$fcompany','$fdivision','$ffield','$fdates','$fdatesto','$ftotal',$fquality,$fquality2,$fdependability,$fattendance,$fcooperation,$fjudgement,$fpersonality,'$recommend')"); 
 
 
                   if($this->db->affected_rows()>0){
+                    $this->db->query("UPDATE ojt_records SET ojttwo_current_evaluations = 1 WHERE id_number = '$username'");
                     return true;
 
-
-                }
+                      }
                 else
                     return false;
-
+                }
       public function editProfilePersonal($username){
 
           $data = Array('college'=> $_POST['profile_college'], 
