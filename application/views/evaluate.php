@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-
+<!-- <?php echo $stud_username;?> -->
 <head>
     <link rel="icon" href="favicon.ico">
     <!-- Latest compiled and minified CSS -->
@@ -123,6 +123,7 @@
 <body>
 
     <!-- line modal -->
+    
     <div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

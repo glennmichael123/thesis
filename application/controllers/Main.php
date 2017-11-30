@@ -177,7 +177,15 @@ class Main extends CI_Controller {
 			}
 		}*/
 	}
+	public function final_evaluation($username){
+		if(!isset($this->session->userdata['id_number'])){
+			header("location: index");
 
+		}
+		$data['stud_username'] = $username;
+
+		$this->load->view('finalevaluation',$data);
+	}
 	public function supervisorDashboard(){
 
 		if(!isset($this->session->userdata['id_number'])){
@@ -661,6 +669,27 @@ public function logout(){
    	  public function insert_mid_eval($username){ 	
    	  	//print_r($_POST);exit;
     	if($this->users->midterm_eval($username)){
+    		//redirect(base_url('main/supervisorDashboard'));
+    		//echo "success";
+    		 // $stud_name = $this->db->query("SELECT * from users INNER JOIN midterm_evaluation on users.id_number = midterm_evaluation.username where midterm_evaluation.username = '$username'")->row();
+
+    				$Status = '<div class="alert alert-success alert-dismissible" role="alert">
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					   You have evaluated  <strong>'.$username.' </strong> </div>';
+    		 // echo $stud_name->first_name;
+    	//	$Status = '<div class="alert alert-success" role="alert">You have evaluated '.$username.' </div>';
+    		//$Status = "You have evaluated ".$username;
+    		$this->session->set_flashdata("Status",$Status);
+
+    	}
+    	else{
+    		echo 'failed';
+    	}
+
+    }
+    public function insert_final_eval($username){ 	
+   	  	//print_r($_POST);exit;
+    	if($this->users->final_eval($username)){
     		//redirect(base_url('main/supervisorDashboard'));
     		//echo "success";
     		 // $stud_name = $this->db->query("SELECT * from users INNER JOIN midterm_evaluation on users.id_number = midterm_evaluation.username where midterm_evaluation.username = '$username'")->row();

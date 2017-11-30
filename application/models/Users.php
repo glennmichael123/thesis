@@ -748,7 +748,6 @@
          
          public function midterm_eval($username){
             $value = 0;
-             
                 if($_POST['allow_view']=true){  
                $value = 1;
 
@@ -918,8 +917,8 @@
       public function getCompanyInformation($username){
 
           $query = $this->db->query("SELECT * FROM company_information WHERE id_number = '".$username."'");
+            return $query->row();
 
-          return $query->row(); 
       }
       public function getWorkmates($username,$company_name){
 
@@ -939,5 +938,44 @@
             $this->db->query("TRUNCATE $tb");
          }
       }
+      public function final_eval($username){
+          $fname = $_POST['fname'];
+          $fcourse = $_POST['fcourse'];
+          $fage = $_POST['fage'];
+          $fschool = $_POST['fschool'];
+          $fcity = $_POST['fcity'];
+          $fpermanent = $_POST['fpermanent'];
+          $frequired = $_POST['frequired'];
+          $fmajor = $_POST['fmajor'];
+          $fcompany = $_POST['fcompany'];
+          $fdivision = $_POST['fdivision'];
+          $ffield = $_POST['ffield'];
+          $fdates = $_POST['fdates'];
+          $ftotal =$_POST['ftotal'];
+          $fdatesto = $_POST['fdatesto'];
+          $fquality =$_POST['fquality'];
+          $fquality2 = $_POST['fquality2'];
+          $fdependability = $_POST['fdependability'];
+          $fattendance = $_POST['fattendance'];
+          $fcooperation = $_POST['fcooperation'];
+          $fjudgement = $_POST['fjudgement'];
+          $fpersonality = $_POST['fpersonality'];
+
+
+            // $this->db->query("INSERT INTO final_evaluation(id_number,name,age,sex,course,major,school,city,permanent,required,company,division,field,dates_from,dates_to,total_hours,quality,quality2,dependability,attendance,cooperation,judgement,personality) VALUES('$username','$fname',$fage,'$fsex','$fcourse','$fmajor','$fschool','$fcity','$fpermanent','$frequired','$fcompany','$fdivision','$ffield','$dates','$fdatesto',$ftotal,$fquality,$fquaility2,$fdependability,$fattendance,$fcooperation,$fjudgement,$fpersonality)");
+          $this->db->query("INSERT INTO final_evaluation(username,name,age,sex,course,major,school,city,permanent,
+                    required,company,division,field,dates_from,
+                    dates_to,total_hours,quality,quality2,dependability,attendance,cooperation,judgement,personality) VALUES('$username','$fname',$fage,'$fsex','$fcourse','$fmajor','$fschool','$fcity','$fpermanent','$frequired','$fcompany','$fdivision','$ffield','$dates','$fdatesto',$ftotal,$fquality,$fquaility2,$fdependability,$fattendance,$fcooperation,$fjudgement,$fpersonality)"); 
+
+
+                  if($this->db->affected_rows()>0){
+                    return true;
+
+
+                }
+                else
+                    return false;
+      }
 }
 ?>
+  

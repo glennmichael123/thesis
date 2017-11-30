@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
-
+<!-- <?php echo $stud_username ?> -->
 <head>
     <link rel="icon" href="favicon.ico">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+     <script src="<?php echo base_url() ?>assets/js/swal.js"></script>
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -101,29 +101,29 @@
                 <div class="row">
                     <div class="col-lg-6" style="margin-top: 20px;">
                         <label class="labels">Name:</label>
-                        <input type="text" name=""><br>
+                        <input type="text" name="fname" id="fname"><br>
                         <label class="labels">Course:</label> 
-                        <input type="text" name=""><br>
+                        <input type="text" name="fcourse" id="fcourse"><br>
                         <label class="labels">School:</label>
-                        <input type="text" name=""><br>
+                        <input type="text" name="fschool" id="fschool"><br>
                         <label class="labels">City Address:</label>
-                        <input type="text" name=""><br>
+                        <input type="text" name="fcity" id="fcity"><br>
                         <label class="labels">Permanent Address:</label>
-                        <input type="text" name="">
+                        <input type="text" name="fpermanent" id="fpermanent">
                         <label class="labels">No. of Training Required:</label>
-                        <input type="text" name="">
+                        <input type="text" name="frequired" id="frequired">
                     </div>
                     <div class="col-lg-3" style="margin-top: 20px">
                         <div class="blocking">
                             <label class="labels">Age:</label>
-                            <input type="text" name=""><br>
+                            <input type="text" name="fage" id="fage"><br>
                             <label class="labels">Major:</label>
-                            <input type="text" name=""><br>
+                            <input type="text" name="fmajor" id="fmajor"><br>
                         </div>
                     </div>
                     <div class="col-lg-3" style="margin-top: 20px">
                         <label class="labels">Sex:</label>
-                        <input type="text" name="">
+                        <input type="text" name="fsex" id="fsex">
                     </div>
                 </div>
                 <div class="partlist">
@@ -132,23 +132,23 @@
                 <div class="row">
                     <div class=col-lg-12 style="margin-top: 20px;">
                         <label class="labels">Name of the Company:</label>
-                        <input type="text" name="">
+                        <input type="text" name="fcompany" id="fcompany">
                         <label class="labels">Division Assigned:</label>
-                        <input type="text" name="">
+                        <input type="text" name="fdivision" id="fdivision">
                         <label class="labels">Field of Training:</label>
-                        <input type="text" name="">
+                        <input type="text" name="ffield" id="ffield">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-8">
                         <label class="labels">Inclusive Dates of Training: From:</label>
-                        <input type="text" name="">
+                        <input type="text" name="fdates" id="fdates">
                         <label class="labels">Total Number of Hours Rendered:</label>
-                        <input type="text" name="">
+                        <input type="text" name="ftotal" id="ftotal">
                     </div>
                     <div class="col-lg-4">
                         <label class="labels">To:</label>
-                        <input type="text" name="">
+                        <input type="text" name="fdatesto" id="fdatesto">
                     </div>
                 </div>
                 <div class="row" style="padding: 10px">
@@ -179,22 +179,22 @@
                     <div class="col-lg-3">
                         <h3 style="text-align: center;">GIVEN RATE</h3>
                         <ul style="list-style: none;">
-                            <li class="list"><input type="text" name=""></li>
-                            <li class="list"><input type="text" name=""></li>
-                            <li class="list"><input type="text" name=""></li>
-                            <li class="list"><input type="text" name=""></li>
-                            <li class="list"><input type="text" name=""></li>
-                            <li class="list"><input type="text" name=""></li>
-                            <li class="list"><input type="text" name=""></li>
+                            <li class="list"><input type="text" name="fquality" id="fquality"></li>
+                            <li class="list"><input type="text" name="fquality2" id="fquality2"></li>
+                            <li class="list"><input type="text" name="fdependability" id="fdependability"></li>
+                            <li class="list"><input type="text" name="fattendance" id="fattendance"></li>
+                            <li class="list"><input type="text" name="fcooperation" id="fcooperation"></li>
+                            <li class="list"><input type="text" name="fjudgement" id="fjudgement"></li>
+                            <li class="list"><input type="text" name="fpersonality" id="fpersonality"></li>
                         </ul>
                     </div>
                 </div>
                 <div class="partlist">
                     <label>RECOMMENDATION:</label>
                 </div>
-                <textarea class="form-control" style="margin-top: 10px;"></textarea>
+              
                 
-                    <p style="margin-top: 10px; text-align: center;"><button class="btn btn-primary">Submit</button>
+                    <p style="margin-top: 10px; text-align: center;"><button type="submit" class="btn btn-primary" id="btn_submit" >Submit</button>
                     <button class="btn btn-danger">Cancel</button></p>
              </div>
             <div class="col-lg-2"></div>  
@@ -205,6 +205,31 @@
 <script src="js/jquery-2.1.4.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/script.js"></script>
+<script type="text/javascript">
+  $('#btn_submit').click(function(){ 
+        var data = $('#formy2').serialize();
+       
+        $.ajax({
+            url:"<?php echo base_url()?>main/insert_final_eval/<?php echo $stud_username;?>",
+            type:"POST",
+            data:data,
+            success:function(data){
+                console.log(data);
+            }
+        });
+
+        swal({
+                    title: "Evaluation Submitted",
+                    icon:"success",
+                }).then(function(){
+                   window.location.href = "<?php echo base_url()?>main/supervisorDashboard";
+                });return false;
+  
+  });
+   $(function () {
+  $('[data-toggle="popover"]').popover()
+});
+</script>
 </body>
 
 </script>
