@@ -866,19 +866,25 @@ header h1 {
         </div>
     </div>
     <div class="content">
+      <?php if(isset($id_number)): ?>
+    <?php else: ?>
+      <?php if($checkEmail->status): ?>
+      <?php else: ?>
     <div class="container" style="margin-top: 40px;">
-        <div class="well">
+        <div class="well" style="margin-bottom: 0;">
             <div class="row">
                 <div class="col-lg-12">
-                    <span style="font-size: 15px;"><i class="fa fa-exclamation-circle" aria-hidden="true" style="color: red"></i> You must complete the ojt form first before you can post any logs</span>
+                    <span style="font-size: 15px;"><i class="fa fa-exclamation-circle" aria-hidden="true" style="color: red"></i>You must verify your email before you can post any logs</span>
                 </div>
             </div>
         </div>
     </div>
+  <?php endif; ?>
+<?php endif; ?>
         <div class="container">
             <div class="row">
             </div>
-            <div class="dashboard-info-student well">
+            <div class="dashboard-info-student well" <?php  if(isset($id_number)): ?> style="margin-top: 40px;" <?php else: ?><?php  if($checkEmail->status): ?> style="margin-top: 40px;" <?php  else: ?> style="margin-top: 20px;" <?php  endif;?> <?php endif; ?>">
                 <div class="row">
                     <div class="col-lg-4">
 
@@ -887,6 +893,43 @@ header h1 {
                             <div id="hoursProgress">
 
                             </div>
+                            <?php if($rendered == 0 && $total == 0): ?>
+                              <script type="text/javascript">
+                                $(document).ready(function() {
+                                    
+                            
+                                    // progressbar.js@1.0.0 version is used
+                                    // Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
+                                    var bar = new ProgressBar.Circle(hoursProgress, {
+                                        color: '#A55D35',
+                                         text: {
+                                            value: '0/0',
+                                        },
+                                        trailColor: '#eee',
+                                        trailWidth: 1,
+                                        duration: 1400,
+                                        easing: 'easeInOut',
+                                        strokeWidth: 6,
+                                        text: {
+                                            value: <?php echo $rendered?> + "/" + <?php echo $total?> + " " + 'hours',
+                                        },
+                                        from: {
+                                            color: '#EECD86',
+                                            a: 0
+                                        },
+                                        to: {
+                                            color: '#B95835',
+                                            a: 1
+                                        },
+                                        // Set default step function for all animate calls
+                                        step: function(state, circle) {
+                                            circle.path.setAttribute('stroke', state.color);
+                                        }
+                                    });
+                                    bar.animate(<?php echo 0/1?>); // Number from 0.0 to 1.0
+                                });
+                            </script>
+                            <?php else: ?>
                             <script type="text/javascript">
                                 $(document).ready(function() {
                                     
@@ -919,6 +962,7 @@ header h1 {
                                     bar.animate(<?php echo $rendered/$total?>); // Number from 0.0 to 1.0
                                 });
                             </script>
+                          <?php endif; ?>
                         </div>
 
                     </div>
@@ -1046,10 +1090,10 @@ header h1 {
                         <div class="panel-body">
                           <?php if(empty($workmates)): ?>
                             <?php if(isset($id_number)): ?>
-                                <h3>This student has no OJT workmates.</h3>
+                                <h4>This student has no OJT workmates.</h4>
                             
                             <?php else: ?>
-                            <h3>You have no OJT workmates.</h3>
+                            <h4 style="text-align: center;">You have no OJT workmates.</h4>
                           <?php endif;   ?>
                           
                           <?php else: ?>
@@ -1106,6 +1150,7 @@ header h1 {
                                             <input type="time" class="form-control" name="time_out" id="time_out" required>
                                             <label>Hours Rendered</label>
                                             <input type="text" class="form-control" name="hours_rendered" id="hours_rendered" required>
+
                                             <input type="hidden" name="id_number" value="<?php echo $this->session->userdata['id_number']?>">
                                         </div>
                                     </div>
@@ -1113,12 +1158,16 @@ header h1 {
                                 <div class="form-group" style="padding-right: 15px; padding-left: 15px; padding-top: 15px;">
                                     <textarea name="log_activity" rows="3" id="log_activity" placeholder="Write your log here" class="form-control" required></textarea>
                                 </div>
+                                <?php if($checkEmail->status): ?>
                                 <div class="form-group logs-lower">
-                                    <button type="submit" id="submit_log" class="btn btn-primary btn-md" value="Submit" style="float: left; margin-left: 15px;"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Post</button>
-                                    <button type="button" class="btn btn-success btn-md" id="load_last_log" style="margin-left: 5px;"><i class="fa fa-history" aria-hidden="true"></i> Load last log</button>
+                                    <button type="submit" id="submit_log"  class="btn btn-primary btn-md" value="Submit" style="float: left; margin-left: 15px;"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Post</button>
+                                    <button type="button" <?php echo (empty($logs_list)) ? 'disabled' : '' ?> class="btn btn-success btn-md" id="load_last_log" style="margin-left: 5px;"><i class="fa fa-history" aria-hidden="true"></i> Load last log</button>
                                     <button type="reset" class="btn btn-default btn-md"><i class="fa fa-eraser" aria-hidden="true"></i>Clear</button>
                                     <button type="button" class="btn btn-danger cancel-btn btn-md" style="float: right; margin-right: 15px;" class="btn btn-danger"></i> Cancel</button>
                                 </div>
+                              <?php else: ?>
+                              <?php endif; ?>
+
 
 
                             </form>
@@ -1146,7 +1195,7 @@ header h1 {
                                             <i style="color: #000000; font-size: 15px;" class="fa fa-angle-down"></i>
                                         </a>
 
-                                        <ul class="dropdown-menu" style="width: 233px;" aria-labelledby="dropdownMenu2">
+                                        <ul class="dropdown-menu" style="width: 233px;margin-top: 2px;margin-left: -202px;" aria-labelledby="dropdownMenu2">
                                             <li><a href="#" class="edit-log" style="color: #000000;">Edit <i class="fa fa-pencil" aria-hidden="true"></i></a></li>
                                             <li role="separator" class="divider"> </li>
                                             <li><a href="#" class="delete-log cd-popup-trigger" data-log-id="<?php echo $log['id']?>" style="color: #000000;">Delete <i class="fa fa-trash"></i></a></li>
@@ -1349,6 +1398,12 @@ header h1 {
        $('.user-image').toggleClass('clickBorder');
        $("#show-notifications").hide();
     });
+
+    // $('#time_out').blur(function(){ 
+    //      var diff = ( new Date("1970-1-1 " + $('#time_out').val()) - new Date("1970-1-1 " + $('#time_in').val()) ) / 1000 / 60 / 60;
+
+    //      alert(diff);
+    // })
 </script>
 
 <script type="text/javascript">

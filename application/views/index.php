@@ -86,20 +86,20 @@
         
     }
     .btn-loginas{
-        font-size: 15px;
-        color: #FFFFFF;
-        background-color: #FFBA00;
+        font-size: 13px;
+        color: #000000;
+        background-color: #FFF;
         
 
     }
     .btn-loginas:hover{
-        color: #FFFFFF;
-        background-color: #f5b301;
+        color: #000000;
+        background-color: #FFFFFF;
         
     }
     .btn-loginas:visited{
-        color: #FFFFFF;
-        background-color: #f5b301;
+        color: #000000;
+        background-color: #FFFFFF;
     }
     .forget{
         margin-top: 15px;
@@ -239,12 +239,7 @@
                                               <input type="password" name="password" class="form-control" placeholder="Password">
                                               <div class="forget">
                                                 <div>
-                                                 <p style="font-size: 14px; text-align: center; color: red; font-weight: bold;">
-                                                 <?php if(isset($_GET['error'])){
-                                                    echo 'Username or Password Incorrect';
-                                                 }
-
-                                                 ?></p>
+                                              <?php echo $this->session->flashdata('Status'); ?>
                                                      <h6><a href="incorrectpassword">Forgot Password?</a></h6>         
                                                        <div class="btn-group" style="float: right;">
                                                       <select type="button" class="btn btn-loginas" name="login-options">

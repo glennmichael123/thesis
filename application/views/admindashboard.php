@@ -581,9 +581,9 @@ a#addcsv:focus{
                                               <td style="text-align: center;width: 45px"><input type="checkbox" class="checkitem" value="<?php echo $student['id_number']?>" name="usernames[]"></td>
                                               <td><a href="studentinfo/<?php echo $student['id_number']?>"><?php echo $student['first_name'] . " " . $student['last_name']?></a></td>
                                               <td><?php echo $student['course']?></td>
-                                              <td><?php echo $student['current_evaluations']?></td>
+                                              <td><?php echo $student['ojtone_current_evaluations']?></td>
                                               
-                                              <?php if ($student['ojtone_rendered'] >= $student['ojtone_required'] && $student['current_evaluations'] == 2):?>
+                                              <?php if ($student['ojtone_rendered'] >= $student['ojtone_required'] && $student['ojtone_current_evaluations'] == 2):?>
                                                   <td style="color:green;">Ojt 1 Completed</td>
                                                 <?php else :?>
                                                   <td style="color:#f44336;">Ojt 1 On going</td>
