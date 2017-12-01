@@ -545,26 +545,25 @@
                                     <?php endforeach;?>
 
                                     </tbody>
+                                           </table>
                                     </li>
                                    
                                                
-                                </table>
+                         
                                      <?php endif;?>
                                      <!-- FOR FINAL EVALUATION -->
                                       <li id="final-tab">
-                                      <table style="width: 100%;">
+                                            <table style="width: 100%;">
                                  
                                     <tbody>
                                       
                                         <?php foreach($ojtRecords as $student):?>
                                         <tr style="font-size: 15px; color: #000;">
                                             <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
-                                            <?php if($student['ojttwo_rendered'] < 50):?>
+                                            <?php if($student['ojtone_rendered'] < $student['ojtone_required']):?>
                                                 <td><a href="#" class="evaluate-btn" disabled style="color: gray;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
                                                 <script type="text/javascript">
-                                                    $('.evaluate-btn').click(function(e){
-                                                        e.preventDefault();
-                                                    });
+                                                   
                                                 </script>
 
                                             <?php else:?>
@@ -585,10 +584,11 @@
                                     <?php endforeach;?>
 
                                     </tbody>
+                                           </table>
                                     </li>
                                    
                                                
-                                </table>
+                           
                                 </div> 
                             </div>
                         </div>    

@@ -99,7 +99,7 @@
                 <div class="row">
                     <div class="col-lg-6" style="margin-top: 20px;">
                         <label class="labels">Name:</label>
-                        <input type="text" name="fname" id="fname"><br>
+                        <input type="text" name="fname" id="fname" required><br>
                         <label class="labels">Course:</label> 
                         <input type="text" name="fcourse" id="fcourse"><br>
                         <label class="labels">School:</label>
@@ -141,8 +141,8 @@
                     <div class="col-lg-8">
                         <label class="labels">Inclusive Dates of Training: From:</label>
                         <input type="text" name="fdates" id="fdates">
-                        <label class="labels">Total Number of Hours Rendered:</label>
-                        <input type="text" name="ftotal" id="ftotal">
+                        <label class="labels" >Total Number of Hours Rendered:</label>
+                        <input type="text" name="ftotal" id="ftotal" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                     </div>
                     <div class="col-lg-4">
                         <label class="labels">To:</label>
