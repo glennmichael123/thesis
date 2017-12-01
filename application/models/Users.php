@@ -225,7 +225,32 @@
         // }
 
          public function getStudentList(){
-            $query = $this->db->query("SELECT * FROM users INNER JOIN personal_details ON users.id_number = personal_details.id_number INNER JOIN ojt_records ON personal_details.id_number = ojt_records.id_number WHERE status!='DELETED'");
+          $course = empty($_POST['course_option']) ? '' : $_POST['course_option'];
+          $sy = empty($_POST['sy_option']) ? '' : $_POST['sy_option'];
+          $eval = empty($_POST['eval_option']) ? '' : $_POST['eval_option'];
+          $stat = empty($_POST['status_option']) ? '' : $_POST['status_option'];
+
+          if($sy == 'all'){
+            $sy = '';
+          }
+
+          if($eval == 'all'){
+            $eval = '';
+          }
+
+          if($course == 'all'){
+            $course = '';
+          }
+
+          if($stat == 'On Going'){
+            $stat = 1;
+          } elseif($stat == 'Completed'){
+            $stat = 2;
+          }
+
+          $query = $this->db->query("SELECT * FROM users INNER JOIN personal_details ON users.id_number = personal_details.id_number INNER JOIN ojt_records ON personal_details.id_number = ojt_records.id_number WHERE status!='DELETED' AND users.course LIKE '%$course%' AND school_year LIKE '%$sy%' AND ojtone_current_evaluations LIKE '%$eval%'");
+
+            // $query = $this->db->query("SELECT * FROM users INNER JOIN personal_details ON users.id_number = personal_details.id_number INNER JOIN ojt_records ON personal_details.id_number = ojt_records.id_number WHERE status!='DELETED' AND users.course LIKE '$course' AND current_evaluatios LIKE '$eval' AND school_year LIKE '$sy'");
             return $query->result_array();
          }
 
@@ -438,7 +463,7 @@
                  echo '<script>alert("Old passwords did not match");  window.location.href = "changepassword"</script>';
               }else{
                  $this->db->query("UPDATE admin SET password = '$new_pass' WHERE id_number = '$id'");
-                 echo '<script>alert("Password successfully changed"); window.location.href = "dashboard";</script> ';
+                 echo '<script>alert("Password successfully changed"); window.location.href = "admindashboard";</script> ';
 
               }
             }else if($account_type == 'student'){
@@ -689,7 +714,7 @@
          //import csv
          public function importCSV(){
             $filename=$_FILES["importCSV"]["tmp_name"];      
- 
+            $duplicate_names="";
  
              if($_FILES["importCSV"]["size"] > 0)
              {
@@ -697,28 +722,58 @@
                 fgets($file);
                 while (($getData = fgetcsv($file, 10000, ",")) !== FALSE)
                  {
-                    $username = strtolower($getData[1].".".$getData[3]);
-                    $this->db->query("INSERT INTO users (id_number,first_name,middle_initial,last_name,password) 
-                        values ('$username','".$getData[1]."','".$getData[2]."','".$getData[3]."','123456')");
+                    // $username = strtolower($getData[1].".".$getData[3]);
+                    $username = strtolower(str_replace(' ', '',$getData[0]).".".str_replace(' ', '',$getData[2]));
+                    $sy=str_replace(' ','',$getData[5]);
+                    
+                    $result = $this->db->query("SELECT * FROM users WHERE id_number = '".$username."'");
+                    if($this->db->affected_rows() > 0){
+                      //echo "user_exist";exit;
+                      $duplicate_names.=$getData[0]." ".$getData[2].",";
+                    } else{
+                      if($getData[6]!=""){
+                         $total_hours = $getData[6]+$getData[7];
+                      }else{
+                        $total_hours = $getData[6];
+                      }
+                      $this->db->query("INSERT INTO users (id_number,first_name,middle_initial,last_name,course,year,school_year,password) 
+                        values ('$username','".$getData[0]."','".$getData[1]."','".$getData[2]."','".$getData[3]."','".$getData[4]."','$sy','123456')");
+                      $this->db->query("INSERT INTO ojt_records(id_number,total_hours,ojtone_required,ojttwo_required) VALUES('$username',$total_hours,'".$getData[6]."','".$getData[7]."')");
+                    }
+                    
                  }
                  fclose($file);
-                 echo "success";exit;
+                 echo "<script type=\"text/javascript\">
+                            alert(\"Successfull\");
+                      </script>";
+                  echo "<script>window.location.replace('admindashboard');</script>";
              }
              else{
                 echo "<script type=\"text/javascript\">
                             alert(\"Invalid File:Please Upload CSV File.\");
                             window.location = \"adminDashboard\"
-                        </script>";exit;
+                      </script>";exit;
+             }
+
+             if($duplicate_names!=""){
+              echo "<script type=\"text/javascript\">
+                      alert('Duplicate entry:'+' '+$duplicate_names);
+                    </script>";
              }
          }
 
 
          //add student
          public function addStud(){
-            $id = $_POST['id'];
             $first = $_POST['fname'];
-            $mid = $_POST['mname'];
+            $mid = $_POST['mname'].".";
             $last = $_POST['lname'];
+            $course = $_POST['course'];
+            $year = $_POST['year'];
+            $ojt1_required = $_POST['ojt1_required'];
+            $ojt2_required = $_POST['ojt2_required'];
+            $sy = $_POST['sy_1']."-".$_POST['sy_2'];
+            $total_hours = $ojt1_required+$ojt2_required;
             $password = '123456';
 
             $username = strtolower(str_replace(' ', '',$first).".".str_replace(' ', '',$last));
@@ -727,7 +782,8 @@
                 echo "user_exist";
             }
             else{
-               $this->db->query("INSERT INTO users (id_number,first_name,middle_initial,last_name,password) VALUES('".$username."','".$first."','".$mid."','".$last."','".$password."')");
+               $this->db->query("INSERT INTO users (id_number,first_name,middle_initial,last_name,course,year,school_year,password) VALUES('".$username."','".$first."','".$mid."','".$last."','".$course."',$year,'".$sy."','".$password."')");
+               $this->db->query("INSERT INTO ojt_records(id_number,total_hours,ojtone_required,ojttwo_required) VALUES('".$username."',$total_hours,$ojt1_required,$ojt2_required)");
             }
          }
          public function getTrainess(){
@@ -1011,5 +1067,17 @@
           // $this->db->where('supervisor_id', $supervisor_id);
           $this->db->update('comments', $data);
       }
+      
+      public function schoolYear(){
+        $query = $this->db->query("SELECT DISTINCT school_year FROM users ORDER BY school_year");
+        return $query->result_array();
+      }
+
+      public function courses(){
+        $query = $this->db->query("SELECT DISTINCT course FROM users ORDER BY course");
+        return $query->result_array();
+      }
+
+
 }
 ?>

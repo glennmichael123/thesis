@@ -69,6 +69,7 @@
         
         .header {
             height: 60px;
+            background-color: #ffba00;
         }
         
         .mission {
