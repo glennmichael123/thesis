@@ -350,6 +350,14 @@
             overflow: hidden;
             width: 60%;
         }
+        .evaluate-btn{
+            background-color: #871F21;
+            color: #FFFFFF !important;
+        }
+        .evaluate-btn:hover{
+            background-color:#791b1d;
+            color: #FFFFFF !important;
+        }
 
     
     </style>
@@ -496,13 +504,16 @@
                                 <?php if(empty($ojtRecords)):?>
                                     <span class="skill"><?php echo "No Trainees Yet";?></span>
                                      <?php else:?>
+                                <div id="tabs">
+                                                <ul>
+                                                    <li><a href="#midterm-tab">Midterm</a></li>
+                                                    <li><a href="#final-tab">Final</a></li>
+                                                </ul>
+                                                <li id="midterm-tab">
                                 <table style="width: 100%;">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
+                                 
                                     <tbody>
+                                      
                                         <?php foreach($ojtRecords as $student):?>
                                         <tr style="font-size: 15px; color: #000;">
                                             <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
@@ -515,18 +526,33 @@
                                                 </script>
 
                                             <?php else:?>
+                                              
+                                                
                                                 <?php if(in_array($student['id_number'], array_column($evaluated, 'username'))):?>
                                                  <td><i class="fa fa-check" aria-hidden="true"></i></td>           
                                                 <?php else:?>
-                                            <td><a href="<?php echo base_url()?>main/evaluate/<?php echo $student['id_number']?>" class="btn btn-default evaluate-btn">Evaluate</a></td>
+                                            <td><a href="<?php echo base_url()?>main/evaluate/<?php echo $student['id_number']?>" class="btn evaluate-btn">Evaluate</a></td>
+                                                
                                         <?php endif;?>
+
+                                       
+                                                
                                             <?php endif;?>
+
                                         </tr>
                                     <?php endforeach;?>
+
                                     </tbody>
+                                    </li>
+                                   
+                                               
                                 </table>
                                      <?php endif;?>
-                           
+                                     <!-- FOR FINAL EVALUATION -->
+                                      <li id="final-tab">
+                                        asdas
+                                    </li>
+                                </div> 
                             </div>
                         </div>    
                     </div>
@@ -1107,6 +1133,10 @@
      }
     });
 </script>
-
+<script type="text/javascript">
+      $( function() {
+    $( "#tabs" ).tabs();
+  } );
+</script>
 
 </html>

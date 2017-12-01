@@ -86,20 +86,20 @@
         
     }
     .btn-loginas{
-        font-size: 15px;
-        color: #FFFFFF;
-        background-color: #FFBA00;
+        font-size: 13px;
+        color: #000000;
+        background-color: #FFF;
         
 
     }
     .btn-loginas:hover{
-        color: #FFFFFF;
-        background-color: #f5b301;
+        color: #000000;
+        background-color: #FFFFFF;
         
     }
     .btn-loginas:visited{
-        color: #FFFFFF;
-        background-color: #f5b301;
+        color: #000000;
+        background-color: #FFFFFF;
     }
     .forget{
         margin-top: 15px;

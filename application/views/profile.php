@@ -509,8 +509,8 @@
             text-align: left;
         }
         .profile-menu ul li a {
-             color: #93a3b5;
-             font-size: 14px;
+             color: #808286;
+             font-size: 15px;
              font-weight: 400;
         }
         .profile-menu ul li a i {
@@ -518,20 +518,20 @@
             font-size: 14px;
         }
         .profile-menu ul li a:hover {
-            background-color: #fef80a;
+            background-color: #f9eaea;
             color: #5b9bd1;
         }
         .profile-menu ul li.active {
             border-bottom: none;
         }
         .profile-menu ul li.active a {
-            color: #ca2e32;
-            background-color: #fef80a;
-            border-left: 3px solid #ffba00;
+            color: #FFFFFF;
+            background-color: #ca2e32;
+            border-left: 5px solid #ffba00;
             margin-left: -2px;
         }
         .home{
-            border-top: 1px solid #f0f4f7;
+            border-top: 1px solid #a5a8ac;
         }
         #fourth-fieldset,#fifth-fieldset{
             display: none;
@@ -750,7 +750,7 @@
                 <div class="row">
                     <div class="col-lg-3">
                             <div class="profile-container">
-                                <a href="#" class="show-profilepic-options" style="float: right;"><i class="fa fa-pencil"></i></a>
+                                <a href="#" class="show-profilepic-options" style="float: right; padding-right: 10px; padding-top: 10px;"><i class="fa fa-pencil"></i></a>
                                     <div class="profile-image">
                                         <?php if($personalDetails[0]['image_id'] == '<i class="fa fa-user-circle fa-5x" style="font-size: 150px;" aria-hidden="true"></i>'):?>
                                             <?php echo $personalDetails[0]['image_id'];?>
@@ -896,7 +896,7 @@
                         
                     </fieldset>
                      <fieldset id="third-fieldset">
-                    <legend><i class="fa fa-building-o"> </i>Company Information</legend>
+                    <legend><i class="fa fa-building-o"></i> Company Information</legend>
                          <div id="edit">
                              <button id="btn-edit2"><span class="fa fa-pencil-square-o" aria-hidden="true"></span></button>
                          </div>
