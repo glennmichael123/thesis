@@ -51,6 +51,7 @@
         }
 
       .header{
+        background-color: #ffba00;
         padding: 5px;
        height: 60px;
        border-bottom: 3px solid #791b1e;
@@ -246,7 +247,9 @@ li.notification-title{
 .capitalize {
     text-transform: capitalize;
 }
-
+.uppercase{
+    text-transform: uppercase;
+}
 .dashTable{
   color: black;
   font-size: 13px;
@@ -313,7 +316,11 @@ a#addStuds:focus{
 a#addcsv:focus{
   box-shadow: 0px 0px 10px 5px  #871F21;
 }
-.btn-success{
+
+tr:hover{
+  background-color: #faf2cc;
+}
+/*.btn-success{
   background:#FFBA00 !important;
   border: 1px solid transparent; 
 }
@@ -328,7 +335,7 @@ a#addcsv:focus{
 .btn-danger:hover{
   background:#5e1517 !important;
   border: 1px solid transparent;
-}
+}*/
 
         
     </style>
@@ -400,7 +407,7 @@ a#addcsv:focus{
            <div class="well dashboard-graphs">
                 <div class="row">
                    
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                          
                            <canvas id="chartOJTStatus" width="400" height="200"></canvas>
                            <script>
@@ -411,8 +418,8 @@ a#addcsv:focus{
                                     data: {
                                         labels: ["On Going", "Complete"],
                                         datasets: [{
-                                            label: 'Complete vs On Going',
-                                            data: [<?php echo 100?>, <?php echo 20?>],
+                                            label: 'Student Status',
+                                            data: [ <?php echo $completed_students['not_completed']?>, <?php echo $completed_students['completed']?>],
                                             backgroundColor: [
                                                 'rgba(255, 99, 132, 0.2)',
                                                 'rgba(54, 162, 235, 0.2)',
@@ -439,8 +446,8 @@ a#addcsv:focus{
                                 </script>
                         </div>
                        
-                    <?php $course = array('"IT"','"CS"')?>
-                    <div class="col-lg-4">
+
+                    <div class="col-lg-6">
                          <canvas id="chartCourses" width="400" height="200"></canvas>
                              <script>
                                var ctx = document.getElementById("chartCourses").getContext('2d');
@@ -448,26 +455,38 @@ a#addcsv:focus{
                                  label: 'Courses',
                                   type: 'pie',
                                   data: {
-                                    labels: [<?php echo implode($course, ',')?>],
+                                    labels: [<?php echo implode($courses_for_graph, ',')?>],
                                     datasets: [{
                                       backgroundColor: [
-                                        "rgba(255, 165, 0, 0.2)",
-                                        "rgba(54, 162, 235, 0.2)",
+                                         'rgba(255, 99, 132, 0.2)',
+                                          'rgba(54, 162, 235, 0.2)',
+                                          'rgba(255, 206, 86, 0.2)',
+                                          'rgba(75, 192, 192, 0.2)',
+                                          'rgba(153, 102, 255, 0.2)',
+                                          'rgba(255, 159, 64, 0.2)'
                                          
                                       ],
                                       hoverBackgroundColor: [
-                                         "rgba(255, 159, 64, 0.5)",
-                                         "rgba(54, 162, 235, 0.5)",
+                                         'rgba(255, 99, 132, 0.5)',
+                                          'rgba(54, 162, 235, 0.5)',
+                                          'rgba(255, 206, 86, 0.5)',
+                                          'rgba(75, 192, 192, 0.5)',
+                                          'rgba(153, 102, 255, 0.5)',
+                                          'rgba(255, 159, 64, 0.5)'
                                       ],
 
                                       borderColor: [
-                                         'rgba(255, 159, 64, 1)',
-                                         'rgba(54, 162, 235, 1)',
+                                          'rgba(255,99,132,1)',
+                                          'rgba(54, 162, 235, 1)',
+                                          'rgba(255, 206, 86, 1)',
+                                          'rgba(75, 192, 192, 1)',
+                                          'rgba(153, 102, 255, 1)',
+                                          'rgba(255, 159, 64, 1)'
 
                                                
                                          ],
                                          borderWidth: 1,
-                                      data: [<?php echo 200?>,<?php echo 50?>]
+                                       data: [<?php echo implode($courses_count, ',') ?>]
                                     }]
                                   },
                                   options: {
@@ -477,42 +496,7 @@ a#addcsv:focus{
                                 </script>
                       </div>
 
-                      <div class="col-lg-4">
-                            <canvas id="chart" width="400" height="200"></canvas>
-                             <script>
-                               var ctx = document.getElementById("chart").getContext('2d');
-                                var myChart = new Chart(ctx, {
-                                 label: 'Courses',
-                                  type: 'doughnut',
-                                  data: {
-                                    labels: ['Present', 'Absent'],
-                                    datasets: [{
-                                      backgroundColor: [                                       
-                                        "rgba(38, 239, 105,0.5)",
-                                         "rgba(255, 99, 132, 0.2)",      
-                                      ],
-                                      hoverBackgroundColor: [
-                                         
-                                         "rgba(38, 239, 105,0.8)",
-                                         "rgba(255, 99, 132, 0.5)",
-                                      ],
-
-                                      borderColor: [
-                                         'rgba(38, 239, 105, 1)',
-                                         'rgba(255, 99, 132, 1)',
-
-                                               
-                                         ],
-                                         borderWidth: 1,
-                                      data: [100,20]
-                                    }]
-                                  },
-                                  options: {
-                                        cutoutPercentage: 50,
-                                  },
-                                });
-                                </script>
-                      </div>
+          
                     
             
                     </div>
@@ -525,32 +509,45 @@ a#addcsv:focus{
                         <!-- <div class="col-lg-4" >
                           <input type="search" placeholder="Search trainee" id="search_students" name="search_students" class="form-control"> <i class="fa fa-search"></i>
                         </div> -->
-                        <div class="col-lg-4">
-                            <select class="form-control" id="course_option">
-                                <option value="courseDefault" selected disabled>Course</option>
-                                <option>All</option>
-                                <option>BSIT</option>
-                                <option>BSCS</option>
-                            </select>
-                        </div>
-                        <div>
-                            <div class="col-lg-4">
-                             <select class="form-control" id="eval_option">
-                                <option value="evalDefault" selected disabled>Evaluations</option>
-                                <option>All</option>
-                                <option>0</option>
-                                <option>1</option>
-                                <option>2</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-3">
-                             <select class="form-control" id="status_option">
-                                <option value="statDefault" selected disabled>Status</option>
-                                <option>All</option>
-                                <option>On Going</option>
-                                <option>Completed</option>
-                            </select>
-                        </div>
+                      <form action="admindashboard" method="POST" id="filterForm">
+                            <div class="col-lg-3">
+                                <select class="form-control" id="course_option" name="course_option">
+                                    <option value="courseDefault" selected disabled>Course</option>
+                                    <option value="all" <?php echo ($crs == 'all') ? 'selected' : '' ?>>All</option>
+                                    <?php foreach ($courses as $course):?>
+                                      <option <?php echo ($crs == $course['course']) ? 'selected' : '' ?>><?php echo $course['course'];?></option>
+                                    <?php endforeach?>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <select class="form-control" id="sy_option" name="sy_option">
+                                    <option value="syDefault" selected disabled>School Year</option>
+                                    <option value="all" <?php echo ($sy == 'all') ? 'selected' : '' ?>>All</option>
+                                    <?php foreach ($school_year as $sy2):?>
+                                      <option <?php echo ($sy == $sy2['school_year']) ? 'selected' : '' ?>><?php echo $sy2['school_year'];?></option>
+                                    <?php endforeach?>
+                                </select>
+                                <!-- <input type="text" class="form-control" id="sy_option"> -->
+                            </div>
+                            <div>
+                                <div class="col-lg-3">
+                                 <select class="form-control" id="eval_option" name="eval_option">
+                                    <option value="evalDefault" selected disabled>Evaluations</option>
+                                    <option value="all" <?php echo ($evC == 'all') ? 'selected' : '' ?>>All</option>
+                                    <option <?php echo ($evC == '0') ? 'selected' : '' ?>>0</option>
+                                    <option <?php echo ($evC == '1') ? 'selected' : '' ?>>1</option>
+                                    <option <?php echo ($evC == '2') ? 'selected' : '' ?>>2</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3">
+                                 <select class="form-control" id="status_option" name="status_option">
+                                    <option value="statDefault" selected disabled>Status</option>
+                                    <option>All</option>
+                                    <option>On Going</option>
+                                    <option>Completed</option>
+                                </select>
+                            </div>
+                        </form>
                         <div class="col-lg-1">
                              <button class="btn btn-default" id="disp"><i class="fa fa-refresh" aria-hidden="true" style="color:#7f715a"></i></button>
                         </div>
@@ -564,12 +561,13 @@ a#addcsv:focus{
                           No students yet.
                       <?php else:?>
                       <!-- <form action="deleteStudent" method="POST" name="formDel"> -->
-                            <table id="adminDataTable" class="table table-striped table-bordered" cellspacing="0" width="100%" style="font-size: 13px;">
+                            <table id="adminDataTable" class="table table-bordered" cellspacing="0" width="100%" style="font-size: 13px;">
                                     <thead>
                                         <tr style="background-color: #f44336; color:white;">
                                             <th style="text-align: center;width: 45px"><input type="checkbox" id="checkall"></th>
                                             <th>Name</th>
-                                            <th>Course</th>
+                                            <th>Course & Year</th>
+                                            <th>School Year</th>
                                             <th>Evaluations</th>
                                             <th>Status</th>
                                         </tr>
@@ -580,13 +578,26 @@ a#addcsv:focus{
                                           <tr class="dashTable">
                                               <td style="text-align: center;width: 45px"><input type="checkbox" class="checkitem" value="<?php echo $student['id_number']?>" name="usernames[]"></td>
                                               <td><a href="studentinfo/<?php echo $student['id_number']?>"><?php echo $student['first_name'] . " " . $student['last_name']?></a></td>
-                                              <td><?php echo $student['course']?></td>
-                                              <td><?php echo $student['ojtone_current_evaluations']?></td>
-                                              
+                                              <td><?php echo $student['course']." - ".$student['year']?></td>
+                                              <td><?php echo $student['school_year']?></td>
+                                              <td>
+                                                <?php if ($student['ojtone_current_evaluations'] == 1 || $student['ojtone_current_evaluations'] == 2 || $student['ojttwo_current_evaluations'] == 1 || $student['ojttwo_current_evaluations'] == 2): ?>
+                                                  <a href="google.com">Midterm</a>
+                                                <?php else:?>
+                                                  <a style="color:gray">Midterm</a>
+                                                <?php endif;?>  
+
+                                                <?php if ($student['ojtone_current_evaluations'] == 2 || $student['ojttwo_current_evaluations'] == 2): ?>
+                                                    | <a href="youtube.com"> Final</a> 
+                                                <?php else: ?>
+                                                    | <a style="color: gray">Final</a> 
+                                                <?php endif; ?>
+
+                                              </td>   
                                               <?php if ($student['ojtone_rendered'] >= $student['ojtone_required'] && $student['ojtone_current_evaluations'] == 2):?>
-                                                  <td style="color:green;">Ojt 1 Completed</td>
+                                                  <td style="color:green;">OJT-1 Completed</td>
                                                 <?php else :?>
-                                                  <td style="color:#f44336;">Ojt 1 On going</td>
+                                                  <td style="color:#f44336;">OJT-1 On going</td>
                                               <?php endif;?>
                                           </tr>
                                       <?php endforeach;?>
@@ -784,22 +795,63 @@ a#addcsv:focus{
         <div class="modal-body">
               <!-- Input student individually -->
               <ul class="nav nav-tabs" style="margin-bottom: 15px;">
-                <li class="active" role="presentation"><a href="" role="tab" data-toggle="tab" id="addStuds" style="background-color:#ffba00
-; border: 1px solid #ffeab2; color: #FFFFFF;">+Students</a></li>
-                <li role="presentation"><a href="" role="tab" data-toggle="tab" id="addcsv" style="background-color:#871F21
-; border: 1px solid #ffeab2; color: #FFFFFF;">Import CSV</a></li>
+                <li class="active" role="presentation"><a href="" role="tab" data-toggle="tab" id="addStuds" style="background-color:#ffba00;border: 1px solid #ffeab2; color: #FFFFFF;">+Students</a></li>
+                <li role="presentation"><a href="" role="tab" data-toggle="tab" id="addcsv" style="background-color:#871F21;border: 1px solid #ffeab2; color: #FFFFFF;">Import CSV</a></li>
               </ul>
               <div class="tab-pane active addIndiv" style="display: inline;" id="addStudent" role="tabpanel">
 
-                    <label>Username</label>
-                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studID" name="studID">
+                    <!-- <label>Username</label>
+                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studID" name="studID"> -->
                     <label>First Name</label>
                     <input type="text" class="form-control capitalize" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studFirst" name="studFirst">
-                    <label>Middle Name</label>
-                    <input type="text" class="form-control capitalize" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studMid" name="studMid">
+                    <label>Middle Initial</label>
+                    <input type="text" class="form-control capitalize" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studMid" name="studMid" maxlength="1">
                     <label>Last Name</label>
                     <input type="text" class="form-control capitalize" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studLast" name="studLast">
+                    <label>Course <small style="color:gray; font-size: 9px">(Acronym e.g. BSIT)</small></label>
+                    <input type="text" class="form-control uppercase" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studCourse" name="studCourse">
+                    <label>Year</label>
+                    <!-- <input type="text" class="form-control capitalize" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studYear" name="studYear" onkeypress='return event.charCode >= 48 && event.charCode <= 57'> -->
+                    <select id="studYear" name="studYear" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </select>
+                    <div class="row">
+                        <div class="col-lg-6">
+                          <label>Required Hours</label>
+                          <div class="form-inline">
+                            <div class="row">
+                              <div class="col-lg-5" style="padding-right: 0"> 
+                                <label style="font-size: 10px;">OJT 1</label>
+                                <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 90%" id="studojt1" name="studojt1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                              </div>
+                              <div class="col-lg-5" style="padding-left: 3px">
+                                <label style="font-size: 10px;">OJT 2</label>                    
+                                <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 90%" id="studojt2" name="studojt2" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <label>School Year</label>
+                          <div class="form-inline">
+                            <div class="row">
+                              <div class="col-lg-5" style="padding-right: 0"> 
+                                <label style="font-size: 10px;color: white">Since</label>
+                                <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 90%" id="sy_1" name="sy_1" maxlength="4" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
 
+                              </div>
+                              <div class="col-lg-5" style="padding-left: 3px">
+                                <label style="font-size: 10px;color: white">Year</label>                    
+                                <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 90%" id="sy_2" name="sy_2" maxlength="4" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Import CSV -->
@@ -828,32 +880,83 @@ a#addcsv:focus{
 </div>
 
 </body>
+
 <!-- FILTER RESULTS -->
 <script type="text/javascript">
    $(document).ready(function(){
       var table = $('#adminDataTable').DataTable({
         "bProcessing": true,
         "order": [[1, 'asc']],
-        "columns": [{"targets": 0, "orderable": false },null,null,null,null],
+        "columns": [{"targets": 0, "orderable": false },null,null,null,null,null],
         //ajax:"data.json"
       });
 
-      $('select').change(function(){
-        var course = $('#course_option').val();
-        var eval = $('#eval_option').val();
-        var stat = $('#status_option').val();
-        if(course == null || course == "All"){
-          course ="";
-        }
-        if(eval == null || eval == "All"){
-          eval ="";
-        }
-        if(stat == null || stat == "All"){
-          stat ="";
-        }
-        var search = course+" "+eval+" "+stat;
-        table.search(search).draw();
+      // $('body').on('change','#course_option',function(){
+      //     //$('#filterForm').submit();
+      //     var filters = $('#filterForm').serialize();
+      //     $.ajax({
+      //         url: "filterStudent",
+      //         type: "POST",
+      //         data: filters,
+      //         success: function(data){
+
+      //           $('#adminDataTable').load(location.href + " #adminDataTable");
+      //         }
+      //     });
+      // });
+
+      $('#course_option').change(function(){
+          $('#filterForm').submit();
       });
+      $('#eval_option').change(function(){
+          $('#filterForm').submit();
+      });
+      $('#sy_option').change(function(){
+          $('#filterForm').submit();
+      });
+      $('#status_option').change(function(){
+          //$('#filterForm').submit();
+          var stat = $('#status_option').val();
+          if(stat == null || stat == "All"){
+            stat ="";
+          }
+          //var search = stat+" "+sy;
+          table.search(stat).draw();
+      });
+
+      // $('select').change(function(){
+      //   var course = $('#course_option').val();
+      //   var eval = $('#eval_option').val();
+      //   var stat = $('#status_option').val();
+      //   var sy = $('#sy_option').val();
+      //   if(course == null || course == "All"){
+      //     course ="";
+      //   }
+      //   if(eval == null || eval == "All"){
+      //     eval ="";
+      //   }
+      //   if(stat == null || stat == "All"){
+      //     stat ="";
+      //   }
+      //   if(sy == null || sy == "All"){
+      //     sy ="";
+      //   }
+      //   // $.ajax({
+      //   //   url: "adminDashboard",
+      //   //   type: "POST",
+      //   //   data:{
+      //   //     'course': course,
+      //   //     'eval': eval,
+      //   //     'stat': stat,
+      //   //     'sy': sy,
+      //   //   },
+      //   //   success:function(){
+      //   //     location.reload();
+      //   //   }
+      //   // });
+      //   var search = course+" "+eval+" "+stat+" "+sy;
+      //   table.search(search).draw();
+      // });
 
       $('#checkall').change(function(){
           $('.checkitem').prop("checked",$(this).prop("checked"));
@@ -864,6 +967,7 @@ a#addcsv:focus{
           $('#course_option').val("courseDefault");
           $('#eval_option').val("evalDefault");
           $('#status_option').val("statDefault");
+          $('#sy_option').val("syDefault");
           var search = "";
           table.search(search).draw();
       });
@@ -975,15 +1079,6 @@ a#addcsv:focus{
   });
 </script> -->
 
-<!-- Refresh button -->
-<script type="text/javascript">
- /* $('#disp').click(function(){
-          $('#course_option').val("courseDefault");
-          $('#eval_option').val("evalDefault");
-          $('#status_option').val("statDefault");
-      });*/
-</script>
-
 <!-- <script type="text/javascript">
   String.prototype.capitalize = function() {
     return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
@@ -995,6 +1090,24 @@ a#addcsv:focus{
        $(".student-list:contains("+text_filter+")").css('display','block ');
   });
 </script> -->
+<script type="text/javascript">
+    $('#sy_1').blur(function(){
+        var curr_year = parseInt($('#sy_1').val());
+        var i = parseInt("1");
+        if($('#sy_1').val().length==4){
+          $('#sy_2').val(curr_year+i);
+        }
+    });
+  
+    $('#sy_2').blur(function(){
+        var curr_year = parseInt($('#sy_2').val());
+        var i = parseInt("1");
+        if($('#sy_2').val().length==4){
+          $('#sy_1').val(curr_year-i);
+        }
+    });
+  
+</script>
 
 <!-- ADD STUDENT -->
 <script type="text/javascript">
@@ -1026,22 +1139,32 @@ a#addcsv:focus{
   };
 
   $('#addStud').click(function(){
-    var id = $('#studID').val().trim(); // to be removed
+    //var id = $('#studID').val().trim(); // to be removed
     var first = $('#studFirst').val().capitalize().trim();
-    var mid = $('#studMid').val().capitalize().trim();
+    var mid = $('#studMid').val().capitalize();
     var last = $('#studLast').val().capitalize().trim();
-
-    if(id == "" || first == "" || mid == "" || last == ""){
+    var course = $('#studCourse').val().toUpperCase().trim();
+    var year = $('#studYear').val();
+    var ojt1_required = $('#studojt1').val();
+    var ojt2_required = $('#studojt2').val();
+    var sy_1 = $('#sy_1').val();
+    var sy_2= $('#sy_2').val();
+    if(first == "" || mid == "" || last == "" || course=="" || ojt1_required=="" || sy_1=="" || sy_2==""){
         alert("Please fill all fields");return false;
     }else{
       $.ajax({
         url: "addStudent",
         type: "POST",
         data: {
-          'id': id,
           'fname': first,
           'mname': mid,
           'lname': last, 
+          'course': course,
+          'year': year,
+          'ojt1_required': ojt1_required,
+          'ojt2_required': ojt2_required,
+          'sy_1': sy_1,
+          'sy_2': sy_2,
         },  
         success:function(data){
             if(data == "user_exist"){
@@ -1053,7 +1176,8 @@ a#addcsv:focus{
                 text: "Student added successfully",
                 icon: "success",
               }).then(function () {
-               location.reload();
+                //console.log(data);
+                location.reload();
               });
             }
         },
@@ -1322,5 +1446,4 @@ a#addcsv:focus{
       $(".modal-footer").show();
   });
 </script>
-
 </html>

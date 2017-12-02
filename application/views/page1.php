@@ -246,7 +246,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6"> 
-                                <input type="text" name="course" id="course" placeholder="Course" value="<?php //echo $initial_data[0]['course'] ?>">
+                                <input type="text" name="course" id="course" placeholder="Course" value="<?php echo $initial_data[0]['course'] ?>">
                             </div>
                             <div class="col-lg-6">
                                 <select name="year" id="year" required>

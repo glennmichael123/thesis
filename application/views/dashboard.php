@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 
@@ -70,9 +72,10 @@ xnugget info
 Main components 
 -------------------------------- */
    .header{
-        padding: 5px;
-       height: 60px;
-       border-bottom: 3px solid #791b1e;
+      padding: 5px;
+      height: 60px;
+      border-bottom: 3px solid #791b1e;
+      background-color: #ffba00;
     }
 header h1 {
   font-size: 20px;
@@ -265,9 +268,7 @@ header h1 {
             margin: 0;
         }
         
-        .nav {
-            float: right;
-        }
+       
         
         .nav a {
             color: #915B51;
@@ -509,11 +510,11 @@ header h1 {
             left: 70px;
         }
         #progressEvaluations {
-            margin: 20px;
+           margin: 20px;
             width: 150px;
-            height: 70px;
-            margin-left: 105px;
-            text-align: center;
+            height: 150px;
+            position: relative;
+            left: 80px;
         }
         
         #verifiedLogs {
@@ -683,11 +684,10 @@ header h1 {
     <div class="page-wrap">
         <div class="header">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
-                    </div>
-                    <div class="col-lg-6 ">
+              <div class="col-lg-9">
+                  <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
+              </div>
+              <div class="col-lg-1">
                       <section id="notification-bell">
                         <?php if(isset($id_number)):?>
                         <?php else:?>
@@ -804,20 +804,29 @@ header h1 {
                         </ul>
                     <?php endif;?>
                     </section>
-                    </div>
-                    <?php if(isset($id_number)):?>
-                    <?php else:?>
-                    <h4 style="position: absolute; top: 23px; right: 120px;">Hi, <?php echo $user_data[0]['first_name']?></h4>
-                  <?php endif;?>
-                    <div class="col-lg-2">
-                      <section class="dropdown-image">
+              </div>
+              <div class="col-lg-1">
+                 <?php if(isset($id_number)):?>
+                 <?php else: ?>
+                   <h5 style="position: relative; top: 15px;">Hi, <?php echo $user_data[0]['first_name']?></h5>
+                 <?php endif; ?>
+              </div>
+              <div class="col-lg-1">
+                  <section class="dropdown-image">
                         <?php if(isset($id_number)):?>
                                <ul class="nav navbar-nav">
                                 
                             <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" style="margin-top: -10px;" id="dropdown-logout" data-toggle="dropdown"><i class="fa fa-user-circle fa-3x"></i><?php //echo $supImage[0]['image_id']?></a>
-                    
-                              <ul class="dropdown-menu" style="margin-top: -4px; margin-left: -217px;" id="show-logout">
+                              <a href="#" class="dropdown-toggle" style="margin-top: -10px;" id="dropdown-logout" data-toggle="dropdown">
+
+                                <?php if($supervisor_image->image_id == '<i class="fa fa-user-circle pull-right" style="font-size: 40px; margin-top: -5px;" aria-hidden="true"></i>'): ?></a>
+                                <i class="fa fa-user-circle fa-3x"></i>
+                              <?php else: ?>
+
+                              <a href="#" class="dropdown-toggle" style="margin-top: -10px;" id="dropdown-logout" data-toggle="dropdown"> 
+                                <img src="<?php echo base_url().$supervisor_image->image_id;?>" class="pull-right circular-square user-image" style="width: 40px;height: 40px;margin-top: -16px;"></a>
+                            <?php endif; ?>
+                              <ul class="dropdown-menu" style="margin-top: 11px;margin-left: -200px;" id="show-logout">
                                 <li><a href="<?php echo base_url()?>main/supervisorDashboard">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                 <li class="divider"></li>
         
@@ -858,12 +867,10 @@ header h1 {
                         </ul>
                     <?php endif;?>
                       </section>
-                    </div>
-
-                </div>
-
+              </div>
             </div>
         </div>
+       
     </div>
     <div class="content">
       <?php if(isset($id_number)): ?>
@@ -978,7 +985,7 @@ header h1 {
                                 $(document).ready(function() {
                                     // progressbar.js@1.0.0 version is used
                                     // Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
-                                    var bar = new ProgressBar.SemiCircle(progressEvaluations, {
+                                    var bar = new ProgressBar.Circle(progressEvaluations, {
                                         strokeWidth: 6,
                                         easing: 'easeInOut',
                                         duration: 1400,

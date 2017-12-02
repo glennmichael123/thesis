@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -23,10 +22,10 @@
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
-
+    <script src="<?php echo base_url();?>assets/js/swal.js"></script>
+     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
      <!-- Sweet Alert -->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  
     <!-- <script src="bower_components/sweetalert2/dist/sweetalert2.all.min.js"></script> -->
     <style type="text/css">
         body {
@@ -88,8 +87,6 @@
             font-size: 3em;
             color: #800000;
         }
-
-
         .comment-section .col-lg-12{
             padding-bottom: 5px;
         }
@@ -180,7 +177,6 @@
         
         .progress {
             height: 35px;
-
         }
         textarea:focus{
             outline: none;
@@ -192,19 +188,15 @@
             text-transform: uppercase;
             font-family: Roboto, sans-serif;
             color: #fff;
-
         }
         
         .progress-bar {
             text-align: center;
             transition-duration: 3s;
-
         }
-
         .logs-list-ojt{
             margin-top: 20px;
         }
-
            .logs-title {
             margin-bottom: 20px;
         }
@@ -212,7 +204,6 @@
         .btn {
             border-radius: 0;
         }
-
          .logs-lists label {
             font-size: 11px;
         }
@@ -251,11 +242,8 @@
         }
          .evaluator-option:hover{
             color: #000;
-
         }
-
         .profile-image{
-
             padding: 20px;
         }
         .profile-image>img.img-circle{
@@ -263,7 +251,6 @@
             height: 150px;
             border: 1px solid #C0C0C0;
         }
-
         .label-default{
         background-color: white;
         font-family: Arial, Helvetica, sans-serif;
@@ -272,11 +259,9 @@
         font-size: 1.3em;
         color:#606060;
         }
-
         .comment-btn:focus{
             color: #000;
         }
-
         .btn-trainee{
         background-color: #FFC019;
         color: #FFFFFF;
@@ -323,8 +308,6 @@
         .skills{
             font-size: 1.25em !important;
             margin-top: 8px;
-
-
         }
         .alert{
             margin-top: 20px;
@@ -342,7 +325,6 @@
             background-image: none !important;
             padding: 10px 10px !important;
         }
-
         #comment-textarea{
             /*border: none;*/
             display: none;
@@ -359,7 +341,6 @@
             background-color:#791b1d;
             color: #FFFFFF !important;
         }
-
 
     
     </style>
@@ -442,15 +423,15 @@
                                     <h4 style="text-align: center; margin-top: 10px;">Trainees Completed</h4>
                                   
                                   <div class="panel-body">  
-                                    <!-- if --><?php if(empty($eval_trainees->num_id) && empty($num_trainees->num_trainee)):?>
+                                    <!-- if --><?php if(empty($ojtStatus['completed']) && empty($ojtStatus['not_completed'])):?>
                                     <!-- no studs -->
                                     <h3 style="text-align: center;"><?php echo "No Trainees Yet";?></h3>  
                                     <!-- else -->
                                 <?php else:?>
                                     <div class="progress skill-bar">
 
-                                        <div class="progress-bar progress-bar-first" role="progressbar" aria-valuenow="<?php echo  ($eval_trainees->num_id/$num_trainees->num_trainee )*100;?>" aria-valuemin="0" aria-valuemax="100">
-                                            <p class="skills"><?php echo $eval_trainees->num_id .'/'. $num_trainees->num_trainee;?></p>  
+                                        <div class="progress-bar progress-bar-first" role="progressbar" aria-valuenow="<?php echo ($ojtStatus['completed'] / $ojtStatus['not_completed'])*100 ?>" aria-valuemin="0" aria-valuemax="100">
+                                            <p class="skills"><?php echo $ojtStatus['completed'] .'/'. $ojtStatus['not_completed'];?></p>  
                                         </div>
                                     </div>
                                     <!-- endif -->
@@ -461,14 +442,14 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <h4 style="text-align: center; margin-bottom: 10px;">Evaluations</h4>
-                                    <!-- if --><?php if(empty($eval_trainees->num_id) && empty($num_trainees->num_trainee)):?>
+                                    <!-- if --><?php if(empty($evaluationsOjt['total_eval']) && empty($evaluationsOjt['current_eval'])):?>
                                     <!-- no stud -->
                                      <h3 style="text-align: center;"><?php echo "No Evaluations Yet";?></h3>  
                                     <!-- else -->
                                      <?php else:?>
                                     <div class="progress skill-bar">
-                                        <div class="progress-bar progress-bar-second" role="progressbar" aria-valuenow="<?php echo  ($eval_trainees->num_id/($num_trainees->num_trainee*2))*100;?>" aria-valuemin="0" aria-valuemax="100">
-                                            <p class="skills"><?php echo $eval_trainees->num_id .'/'. $num_trainees->num_trainee*2;?></p>
+                                        <div class="progress-bar progress-bar-second" role="progressbar" aria-valuenow="<?php echo ($evaluationsOjt['current_eval'] / $evaluationsOjt['total_eval']) * 100;?>" aria-valuemin="0" aria-valuemax="100">
+                                            <p class="skills"><?php echo $evaluationsOjt['current_eval'] . '/' . $evaluationsOjt['total_eval'];?></p>
                                         </div>
                                     </div>
                                     <!-- endif -->
@@ -479,7 +460,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <h4 style="text-align: center; margin-bottom: 10px;">Pending logs</h4>
-                                    <?php if(empty($eval_trainees->num_id) && empty($num_trainees->num_trainee)):?>
+                                    <?php if(empty($not_verified)):?>
                                     <!-- if -->
                                     <h3 style="text-align: center;"><?php echo "No Logs Added";?></h3>  
                                     <!-- else -->
@@ -511,16 +492,18 @@
                                                     <li><a href="#midterm-tab">Midterm</a></li>
                                                     <li><a href="#final-tab">Final</a></li>
                                                 </ul>
-                                                <li id="midterm-tab">
-                                <table style="width: 100%;">
+
+                                <li id="midterm-tab">
+                                    <table style="width: 100%;">
                                  
                                     <tbody>
-                                      
+                                        
+
                                         <?php foreach($ojtRecords as $student):?>
                                         <tr style="font-size: 15px; color: #000;">
                                             <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
                                             <?php if($student['ojtone_rendered'] < 50):?>
-                                                <td><a href="#" class="evaluate-btn" disabled style="color: gray;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
+                                                <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
                                                 <script type="text/javascript">
                                                     $('.evaluate-btn').click(function(e){
                                                         e.preventDefault();
@@ -545,23 +528,28 @@
                                     <?php endforeach;?>
 
                                     </tbody>
-                                           </table>
-                                    </li>
+
+                                    
                                    
                                                
-                         
-                                     <?php endif;?>
+                                </table>
+                            </li>
+                                    
+
                                      <!-- FOR FINAL EVALUATION -->
                                       <li id="final-tab">
                                             <table style="width: 100%;">
                                  
+
                                     <tbody>
                                       
                                         <?php foreach($ojtRecords as $student):?>
                                         <tr style="font-size: 15px; color: #000;">
                                             <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
                                             <?php if($student['ojtone_rendered'] < $student['ojtone_required']):?>
-                                                <td><a href="#" class="evaluate-btn" disabled style="color: gray;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
+
+                                                <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
+
                                                 <script type="text/javascript">
                                                    
                                                 </script>
@@ -584,17 +572,24 @@
                                     <?php endforeach;?>
 
                                     </tbody>
-                                           </table>
-                                    </li>
+
+                                    
                                    
                                                
-                           
-                                </div> 
+                                </table>
+                                    </li>
+                                </div>
+                                 <?php endif;?> 
+
                             </div>
+
                         </div>    
                     </div>
 
                     <div class="col-lg-8">
+                        <?php if(empty($traineesLog)): ?>
+
+                        <?php else: ?>
                         <div class="row" style="margin-bottom: 20px;">
                             <div class="col-lg-5">
                                 <select class="form-control">
@@ -621,7 +616,21 @@
                        
                              <div class="col-lg-12" >
                                 <div class="well" style="background: #fff; padding-bottom: 0; padding-top: 10px">
-                                    <span class="user-name"><a href="studentdashboard/<?php echo $log['id_number'];?>"><i class="fa fa-user-circle"></i><?php echo $log['first_name'] . " " .$log['last_name']?></span></a>
+                                    <span class="user-name"><a href="studentdashboard/<?php echo $log['id_number'];?>">
+
+
+
+                                        <?php if($log['user_image'] == '<i class="fa fa-user-circle pull-right" style="font-size: 40px; margin-top: -5px;" aria-hidden="true"></i>'):?>
+
+                                            <i class="fa fa-user-circle"></i>
+                                        <?php else: ?>
+                                            <img src="<?php echo base_url().$log['user_image']?>" style="width: 25px; height: 25px; border-radius: 100%;" >
+                                        <?php endif; ?>
+                                        <?php echo $log['first_name'] . " " .$log['last_name']?>
+
+
+
+                                    </span></a>
                                   
                                     <hr style="margin-top: 0; margin-bottom: 0">
 
@@ -763,7 +772,7 @@
 
                   
                     </div>
-
+                <?php endif; ?>
                 </div>
             </div>
 
@@ -880,7 +889,6 @@
        closestImageCircle.hide();
        $(".saveCancel").css("display","inline-block");
     }, false);
-
     if (file) {
      reader.readAsDataURL(file);
      alert(reader.readAsDataURL(file));
@@ -896,7 +904,6 @@
             }
         )
     });
-
     //trigger browse photo
     $('.click-photo').click(function(){
         $('.browse-photo').trigger('click');
@@ -914,11 +921,9 @@
     $('.comment-btn').click(function(e){
         e.preventDefault();
         var commentSection = $(this).closest("form").find(".comment-section");
-
         commentSection.toggle();
       
     });
-
      $("#dropdown-logout").click(function() {
        $("#show-logout").toggle();
     });
@@ -927,25 +932,20 @@
 <script type="text/javascript">
     $('.verify-btn').click(function(e){
         e.preventDefault();
-
         var log_id = $(this).data('log-id');
         var pending = $(this).closest('form').find('.pending-log');
                  
-
-
         $.ajax({
             url: '<?php echo base_url()?>' + 'main/verifyLog',
             method: 'POST',
             data:{
                 'log_id' : log_id,
-
             },
             success: function(data){
                
                  pending.html('<span style="color: green;">Verified</span> <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i>');
             }
         });
-
          $(this).css("color", "#318ACE");
          $(this).html('<i class="fa fa-check" aria-hidden="true"></i> Verified');
               
@@ -961,7 +961,6 @@
           this.style.height = (this.scrollHeight) + 'px';
         });
     });
-
     $(document).ready(function(){
       $('.to-edit-comment').each(function () {
           this.setAttribute('style', 'height:' + '25px;' + 'px;overflow-y:hidden; resize:none;');
@@ -970,7 +969,6 @@
           this.style.height = (this.scrollHeight) + 'px';
         });
     });
-
     $(document).ready(function(){
       $('.log-activity').each(function () {
           this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
@@ -983,22 +981,16 @@
 
 
 <script type="text/javascript">
-
     $('body').on('keydown','.comment-content', function(e){
         
         if ( e.keyCode == 13 && !e.shiftKey ) { // 13 is enter key
                 e.preventDefault();
-
                 var log_id = $(this).data('log-id');
                 var comment = $(this).val();
                 var commentSection = $(this).closest('.comment-section');
                 var student_username = $(this).data('student-username');
                 var commentToAppend = $(this).closest("form").find(".display-comments");
                 var toReload = $(this).closest('.wrap-comments').attr('id');
-
-
-
-
             if(!$.trim($(this).val())){
                 
             }else{
@@ -1017,45 +1009,35 @@
             }
          
         
-
          }
     });
-
-
 </script>
 <script type="text/javascript">
     $('.show-more').click(function(){
         var right = $(this).closest('form').find('.right-side');
         var left = $(this).closest('form').find('.left-side');
         var less_button = $(this).closest('form').find('.show-less');
-
         left.show();
         
         less_button.show();
         right.show();
         $(this).hide();
     });
-
-
       $('.show-less').click(function(){
         var right = $(this).closest('form').find('.right-side');
         var left = $(this).closest('form').find('.left-side');
         var more_button = $(this).closest('form').find('.show-more');
-
         left.hide();
         more_button.show();
         right.hide();
-
         $(this).hide();
     });
 </script>
 
 <script type="text/javascript">
-
       $(document).ready(function(){
           $("#addTrainee").click(function () {
             var studId = $('#names').val();
-
             if(studId == null){
              //alert("Select a trainee");
              swal('Oops...', 'Select a trainee', 'error');    
@@ -1066,15 +1048,14 @@
                 data : { 
                     'studentID': studId,
                     'supervisor_id': '<?php echo $this->session->userdata['id_number']?>',
-
                    },
                 success:function(data){
                     swal({
-                    	title: "Success!",
-                    	text: "Trainee added successfully",
-                    	icon: "success",
+                        title: "Success!",
+                        text: "Trainee added successfully",
+                        icon: "success",
                     }).then(function(){
-                    	location.reload();
+                        location.reload();
                     });
                   },
               });  
@@ -1104,14 +1085,9 @@
     $( function(){
         $( "#tabs" ).tabs();
   });
-
     $('body').on('click','.edit-comment', function(e){
         e.preventDefault();
-
       
-
-
-
         var commentToHide = $(this).closest('.comments-list').find('.actual-comment');
         var commentToEditShow = $(this).closest('.comments-list').find('.to-edit-comment');
         var caretToHide = $(this).closest('.comments-list').find('.fa-caret-down');
@@ -1122,13 +1098,9 @@
         commentToEditShow.show();
         commentGuideline.show();
         autoFocus.prop('autofocus',true);
-
         
-
     });
-
     $('body').on('keydown','.to-edit-comment',function(e){
-
         if(e.keyCode == 27){
             var commentToHide = $(this).closest('.comments-list').find('.actual-comment');
             var commentToEditShow = $(this).closest('.comments-list').find('.to-edit-comment');
@@ -1139,7 +1111,6 @@
             commentGuideline.hide();
             commentToEditShow.hide();
         }
-
      if(e.keyCode == 13 && !e.shiftKey ){
         e.preventDefault();
         var comment_id = $(this).data('comment-id');
@@ -1149,7 +1120,6 @@
          if(!$.trim($(this).val())){
                 
         }else{
-
             $.ajax({
                 url: 'editComment',
                 method: 'POST',
@@ -1161,11 +1131,9 @@
                 success: function(data){
                     
                       $('#'+toReload).load(location.href + ' ' + '#'+toReload);
-
                 }
             });
         }
-
             
      }
     });

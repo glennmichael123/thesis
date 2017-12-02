@@ -19,6 +19,8 @@
     
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
+
+    <script src="<?php echo base_url()?>assets/js/swal.js"></script>
     <style type="text/css">
      body{
          background-color: #F4F4F4;

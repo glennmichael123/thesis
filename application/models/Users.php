@@ -12,9 +12,6 @@
                 parent::__construct();      
         }
 
-        public function hello(){
-        	echo'<pre>'; print_r($_POST); echo '</pre>';
-        }
 
         public function saveEmail($hash){
                 $username = $this->session->userdata['id_number'];
@@ -225,7 +222,32 @@
         // }
 
          public function getStudentList(){
-            $query = $this->db->query("SELECT * FROM users INNER JOIN personal_details ON users.id_number = personal_details.id_number INNER JOIN ojt_records ON personal_details.id_number = ojt_records.id_number WHERE status!='DELETED'");
+          $course = empty($_POST['course_option']) ? '' : $_POST['course_option'];
+          $sy = empty($_POST['sy_option']) ? '' : $_POST['sy_option'];
+          $eval = empty($_POST['eval_option']) ? '' : $_POST['eval_option'];
+          $stat = empty($_POST['status_option']) ? '' : $_POST['status_option'];
+
+          if($sy == 'all'){
+            $sy = '';
+          }
+
+          if($eval == 'all'){
+            $eval = '';
+          }
+
+          if($course == 'all'){
+            $course = '';
+          }
+
+          if($stat == 'On Going'){
+            $stat = 1;
+          } elseif($stat == 'Completed'){
+            $stat = 2;
+          }
+
+          $query = $this->db->query("SELECT * FROM users INNER JOIN personal_details ON users.id_number = personal_details.id_number INNER JOIN ojt_records ON personal_details.id_number = ojt_records.id_number WHERE status!='DELETED' AND users.course LIKE '%$course%' AND school_year LIKE '%$sy%' AND ojtone_current_evaluations LIKE '%$eval%'");
+
+            // $query = $this->db->query("SELECT * FROM users INNER JOIN personal_details ON users.id_number = personal_details.id_number INNER JOIN ojt_records ON personal_details.id_number = ojt_records.id_number WHERE status!='DELETED' AND users.course LIKE '$course' AND current_evaluatios LIKE '$eval' AND school_year LIKE '$sy'");
             return $query->result_array();
          }
 
@@ -288,8 +310,9 @@
          }   
 
          public function getOjtRecordsForSupervisor($username){
-             
+           
             $result = $this->db->query("SELECT ojt_records.id_number, ojt_records.ojtone_required,ojt_records.ojtone_rendered,ojt_records.ojttwo_rendered, users.first_name, users.last_name FROM ojt_records INNER JOIN users ON users.id_number = ojt_records.id_number WHERE supervisor_id = '$username'");         
+
             return $result->result_array();
          }
 
@@ -309,7 +332,7 @@
          }
 
 
-        public function insertCompanyData(){
+/*        public function insertCompanyData(){
                 $result = $this->db->query("SELECT id_number FROM company_information WHERE id_number ='14-2649-276'")->result_array();
                // print_r($result);
                $id_number = $_POST['id_number'];
@@ -340,7 +363,7 @@
 
                 }       
         }
-
+*/
 
 
         // public getUserData($data){
@@ -357,6 +380,8 @@
             return $result->result_array();
         }
 
+
+        /*//to be removed later
         public function checkExistRecords($data){
             $id = $data;
             $query = $this->db->query("SELECT * FROM ojt_records WHERE id_number = '$id'");
@@ -369,7 +394,7 @@
                     return false;
                 }
 
-        }
+        }*/
 
         public function getMidtermEvaluations($username){
 
@@ -408,7 +433,7 @@
         }
 
         public function getOjtLogs($id){
-            $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.first_name, users.last_name FROM logs INNER JOIN users ON users.id_number = logs.id_number WHERE logs.supervisor_id = '$id'");
+            $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.user_image, users.first_name, users.last_name FROM logs INNER JOIN users ON users.id_number = logs.id_number WHERE logs.supervisor_id = '$id'");
             return $query->result_array();
         }
 
@@ -438,7 +463,7 @@
                  echo '<script>alert("Old passwords did not match");  window.location.href = "changepassword"</script>';
               }else{
                  $this->db->query("UPDATE admin SET password = '$new_pass' WHERE id_number = '$id'");
-                 echo '<script>alert("Password successfully changed"); window.location.href = "dashboard";</script> ';
+                 echo '<script>alert("Password successfully changed"); window.location.href = "admindashboard";</script> ';
 
               }
             }else if($account_type == 'student'){
@@ -675,21 +700,21 @@
          }  
         
 
-         public function getMaxComment(){
+         /*public function getMaxComment(){
             $username = $_POST['username'];
 
             $latestId = $this->db->query("SELECT MAX(id) AS latest_id FROM comments WHERE supervisor_id = '$username'")->row();
             $maxId = $latestId->latest_id;
             echo $maxId;
 
-         }
+         }*/
 
 
 
          //import csv
          public function importCSV(){
             $filename=$_FILES["importCSV"]["tmp_name"];      
- 
+            $duplicate_names="";
  
              if($_FILES["importCSV"]["size"] > 0)
              {
@@ -697,37 +722,68 @@
                 fgets($file);
                 while (($getData = fgetcsv($file, 10000, ",")) !== FALSE)
                  {
-                    $username = strtolower($getData[1].".".$getData[3]);
-                    $this->db->query("INSERT INTO users (id_number,first_name,middle_initial,last_name,password) 
-                        values ('$username','".$getData[1]."','".$getData[2]."','".$getData[3]."','123456')");
+                    // $username = strtolower($getData[1].".".$getData[3]);
+                    $username = strtolower(str_replace(' ', '',$getData[0]).".".str_replace(' ', '',$getData[2]));
+                    $sy=str_replace(' ','',$getData[5]);
+                    
+                    $result = $this->db->query("SELECT * FROM users WHERE id_number = '".$username."'");
+                    if($this->db->affected_rows() > 0){
+                      //echo "user_exist";exit;
+                      $duplicate_names.=$getData[0]." ".$getData[2].",";
+                    } else{
+                      if($getData[6]!=""){
+                         $total_hours = $getData[6]+$getData[7];
+                      }else{
+                        $total_hours = $getData[6];
+                      }
+                      $this->db->query("INSERT INTO users (id_number,first_name,middle_initial,last_name,course,year,school_year,password) 
+                        values ('$username','".$getData[0]."','".$getData[1]."','".$getData[2]."','".$getData[3]."','".$getData[4]."','$sy','123456')");
+                      $this->db->query("INSERT INTO ojt_records(id_number,total_hours,ojtone_required,ojttwo_required) VALUES('$username',$total_hours,'".$getData[6]."','".$getData[7]."')");
+                    }
+                    
                  }
                  fclose($file);
-                 echo "success";exit;
+                 echo "<script type=\"text/javascript\">
+                            alert(\"Successfull\");
+                      </script>";
+                  echo "<script>window.location.replace('admindashboard');</script>";
              }
              else{
                 echo "<script type=\"text/javascript\">
                             alert(\"Invalid File:Please Upload CSV File.\");
                             window.location = \"adminDashboard\"
-                        </script>";exit;
+                      </script>";exit;
+             }
+
+             if($duplicate_names!=""){
+              echo "<script type=\"text/javascript\">
+                      alert('Duplicate entry:'+' '+$duplicate_names);
+                    </script>";
              }
          }
 
 
          //add student
          public function addStud(){
-            $id = $_POST['id'];
             $first = $_POST['fname'];
-            $mid = $_POST['mname'];
+            $mid = $_POST['mname'].".";
             $last = $_POST['lname'];
+            $course = $_POST['course'];
+            $year = $_POST['year'];
+            $ojt1_required = $_POST['ojt1_required'];
+            $ojt2_required = $_POST['ojt2_required'];
+            $sy = $_POST['sy_1']."-".$_POST['sy_2'];
+            $total_hours = $ojt1_required+$ojt2_required;
             $password = '123456';
-
+            $evaluations = 2;
             $username = strtolower(str_replace(' ', '',$first).".".str_replace(' ', '',$last));
             $result = $this->db->query("SELECT * FROM users WHERE id_number = '".$username."'");
             if($this->db->affected_rows() > 0){
                 echo "user_exist";
             }
             else{
-               $this->db->query("INSERT INTO users (id_number,first_name,middle_initial,last_name,password) VALUES('".$username."','".$first."','".$mid."','".$last."','".$password."')");
+               $this->db->query("INSERT INTO users (id_number,first_name,middle_initial,last_name,course,year,school_year,password) VALUES('".$username."','".$first."','".$mid."','".$last."','".$course."',$year,'".$sy."','".$password."')");
+               $this->db->query("INSERT INTO ojt_records(id_number,total_hours,ojtone_required,ojttwo_required,total_evaluations) VALUES('".$username."',$total_hours,$ojt1_required,$ojt2_required, $evaluations)");
             }
          }
          public function getTrainess(){
@@ -790,6 +846,7 @@
         $query = $this->db->query("SELECT username from midterm_evaluation where supervisor_username ='$username'");
         return $query->result_array();
       }
+
       public function checkFinalEvaluation($username){
         $query = $this->db->query("SELECT username from final_evaluation where supervisor_username ='$username'");
         return $query->result_array();
@@ -801,11 +858,9 @@
          return $query->row();
      }
 
-     public function evaluatedTrainees($username){
-        $query = $this->db->query("SELECT count(id) as num_id from midterm_evaluation where supervisor_username = '$username'");
-        return $query->row();
-     }
 
+
+   
       public function getNotVerified($username){
            return $this->db->query("SELECT count(verified) as not_verified from logs where supervisor_id='$username' AND verified=0")->row();
       }
@@ -1057,6 +1112,112 @@
           // $this->db->where('supervisor_id', $supervisor_id);
           $this->db->update('comments', $data);
 
+      }
+      
+      public function schoolYear(){
+        $query = $this->db->query("SELECT DISTINCT school_year FROM users ORDER BY school_year");
+        return $query->result_array();
+      }
+
+      public function courses(){
+        $query = $this->db->query("SELECT DISTINCT course FROM users ORDER BY course");
+        return $query->result_array();
+      }
+
+
+
+
+      public function getStudentStatus(){
+
+          $query = $this->db->query("SELECT ojtone_rendered, ojtone_required, ojtone_current_evaluations, total_evaluations FROM ojt_records");
+          $array_status = array('completed'=>0, 'not_completed'=>0);
+          if(!empty($query->result_array())){
+
+              foreach ($query->result_array() as $student_status) {
+                
+                  if($student_status['ojtone_rendered'] >= 200 && $student_status['ojtone_current_evaluations'] == $student_status['total_evaluations']){
+                      
+                      $array_status['completed']++;
+
+                  }else{
+                      $array_status['not_completed']++;
+                  }
+              }
+          }
+
+          return $array_status;
+      }
+
+      public function getOjtStatusForSupervisor($username){
+            $query = $this->db->query("SELECT ojtone_rendered, ojtone_required, ojtone_current_evaluations, total_evaluations FROM ojt_records WHERE supervisor_id = '$username'");
+          $array_status = array('completed'=>0, 'not_completed'=>0);
+          if(!empty($query->result_array())){
+
+              foreach ($query->result_array() as $student_status) {
+                
+                  if($student_status['ojtone_rendered'] >= 200 && $student_status['ojtone_current_evaluations'] == $student_status['total_evaluations']){
+                      
+                      $array_status['completed']++;
+
+                  }else{
+                      $array_status['not_completed']++;
+                  }
+              }
+          }
+
+          return $array_status;
+      }
+
+      
+      public function getCoursesList(){
+
+        $query = $this->db->query("SELECT DISTINCT course FROM users")->result_array();
+        $courses_list = [];
+        foreach ($query as $courses) {
+            $c = $courses['course'];
+            $courses_list[] = '"'.$c.'"';
+        }
+
+        return $courses_list; 
+      }
+
+      public function getCoursesCount(){
+
+        $query = $this->db->query("SELECT DISTINCT course FROM users ORDER BY course DESC")->result_array();
+        $courses_count = [];
+        foreach ($query as $courses) {
+            $c = $courses['course'];
+            
+            $total_students = $this->db->query("SELECT count(id_number) as total_students FROM users  WHERE course = '$c' ORDER BY course ASC")->row();
+
+            $courses_count[] = $total_students->total_students;
+        }
+
+          return $courses_count;
+      }
+
+      public function countEvaluationsForSupervisor($username){
+           $query = $this->db->query("SELECT ojtone_current_evaluations as current_eval, total_evaluations as total_eval FROM ojt_records WHERE supervisor_id = '$username'")->result_array();
+           $array_eval = array('current_eval'=>0, 'total_eval' => 0);
+         foreach ($query as $evaluations) {
+              $t = $evaluations['total_eval'];
+              $c = $evaluations['current_eval'];
+
+              $array_eval['current_eval'] += $c;
+              $array_eval['total_eval'] += $t;
+
+         }
+
+         return $array_eval;
+
+
+      }
+
+      public function getSupervisorImageForStud($username){
+          $query= $this->db->query("SELECT image_id FROM supervisor WHERE id_number = '$username' ")->row();
+
+          return $query;
+>>>>>>> d0806660eb3181bed2a721520a59bd429e33a65a
       }
 }
 ?>

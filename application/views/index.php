@@ -190,7 +190,7 @@
                     <div class="col-lg-5"></div>
                     <div class="col-lg-3">
                         <div class="header-links">
-                            <h4><a href="#" data-toggle="modal" data-target="#watchlistModal">Watchlist</a></h4>
+                            <h4><a href="#" data-toggle="modal" data-target="#watchlistModal" style="font-family:copperplate_gothic_boldRg">WATCH LIST</a></h4>
                         </div>
                     </div>
                 </div>
@@ -240,6 +240,7 @@
                                               <div class="forget">
                                                 <div>
                                               <?php echo $this->session->flashdata('Status'); ?>
+                                              
                                                      <h6><a href="incorrectpassword">Forgot Password?</a></h6>         
                                                        <div class="btn-group" style="float: right;">
                                                       <select type="button" class="btn btn-loginas" name="login-options">
