@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-<?php echo $stud_username; ?>
 <head>
     <link rel="icon" href="favicon.ico">
     <!-- Latest compiled and minified CSS -->
@@ -408,16 +407,16 @@
             type:"POST",
             data:data,
             success:function(data){
-               // console.log(data);
-            }
-        });
-
-        swal({
+                 swal({
                     title: "Evaluation Submitted",
                     icon:"success",
                 }).then(function(){
                    window.location.href = "<?php echo base_url()?>main/supervisorDashboard";
                 });return false;
+            }
+        });
+
+      
   
   });
    $(function () {

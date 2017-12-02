@@ -431,7 +431,7 @@
         }
 
         public function getOjtLogs($id){
-            $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.first_name, users.last_name FROM logs INNER JOIN users ON users.id_number = logs.id_number WHERE logs.supervisor_id = '$id'");
+            $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.user_image, users.first_name, users.last_name FROM logs INNER JOIN users ON users.id_number = logs.id_number WHERE logs.supervisor_id = '$id'");
             return $query->result_array();
         }
 
@@ -1210,6 +1210,12 @@
          return $array_eval;
 
 
+      }
+
+      public function getSupervisorImageForStud($username){
+          $query= $this->db->query("SELECT image_id FROM supervisor WHERE id_number = '$username' ")->row();
+
+          return $query;
       }
 }
 ?>

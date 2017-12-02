@@ -806,7 +806,10 @@ header h1 {
                     </section>
               </div>
               <div class="col-lg-1">
+                 <?php if(isset($id_number)):?>
+                 <?php else: ?>
                    <h5 style="position: relative; top: 15px;">Hi, <?php echo $user_data[0]['first_name']?></h5>
+                 <?php endif; ?>
               </div>
               <div class="col-lg-1">
                   <section class="dropdown-image">
@@ -814,9 +817,16 @@ header h1 {
                                <ul class="nav navbar-nav">
                                 
                             <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" style="margin-top: -10px;" id="dropdown-logout" data-toggle="dropdown"><i class="fa fa-user-circle fa-3x"></i><?php //echo $supImage[0]['image_id']?></a>
-                    
-                              <ul class="dropdown-menu" style="margin-top: -4px; margin-left: -217px;" id="show-logout">
+                              <a href="#" class="dropdown-toggle" style="margin-top: -10px;" id="dropdown-logout" data-toggle="dropdown">
+
+                                <?php if($supervisor_image->image_id == '<i class="fa fa-user-circle pull-right" style="font-size: 40px; margin-top: -5px;" aria-hidden="true"></i>'): ?></a>
+                                <i class="fa fa-user-circle fa-3x"></i>
+                              <?php else: ?>
+
+                              <a href="#" class="dropdown-toggle" style="margin-top: -10px;" id="dropdown-logout" data-toggle="dropdown"> 
+                                <img src="<?php echo base_url().$supervisor_image->image_id;?>" class="pull-right circular-square user-image" style="width: 40px;height: 40px;margin-top: -16px;"></a>
+                            <?php endif; ?>
+                              <ul class="dropdown-menu" style="margin-top: 11px;margin-left: -200px;" id="show-logout">
                                 <li><a href="<?php echo base_url()?>main/supervisorDashboard">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                 <li class="divider"></li>
         

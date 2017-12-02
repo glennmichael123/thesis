@@ -459,7 +459,7 @@
                                    
                             </div>
                         </div>    
-                        <div class="well" style="color: #000; padding-top: 0;">
+                        <div class="well" style="color: #000; padding-top: 0; overflow: hidden;">
                         <div class="row">
                              <div class="col-lg-12" style="text-align: center;">
                                 <h4>Personal Information</h4>

@@ -177,13 +177,13 @@
                     <div class="col-lg-3">
                         <h3 style="text-align: center;">GIVEN RATE</h3>
                         <ul style="list-style: none;">
-                            <li class="list"><input type="text" name="fquality" id="fquality" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="1"></li>
-                            <li class="list"><input type="text" name="fquality2" id="fquality2" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="1"></li>
-                            <li class="list"><input type="text" name="fdependability" id="fdependability" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="1"></li>
-                            <li class="list"><input type="text" name="fattendance" id="fattendance" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="1"></li>
+                            <li class="list"><input type="text" name="fquality" id="fquality" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2"></li>
+                            <li class="list"><input type="text" name="fquality2" id="fquality2" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2"></li>
+                            <li class="list"><input type="text" name="fdependability" id="fdependability" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2"></li>
+                            <li class="list"><input type="text" name="fattendance" id="fattendance" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2"></li>
                             <li class="list"><input type="text" name="fcooperation" id="fcooperation" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></li>
-                            <li class="list"><input type="text" name="fjudgement" id="fjudgement" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="1"></li>
-                            <li class="list"><input type="text" name="fpersonality" id="fpersonality" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="1"></li>
+                            <li class="list"><input type="text" name="fjudgement" id="fjudgement" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2"></li>
+                            <li class="list"><input type="text" name="fpersonality" id="fpersonality" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2"></li>
                         </ul>
                     </div>
                 </div>

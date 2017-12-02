@@ -22,10 +22,10 @@
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
-
+    <script src="<?php echo base_url();?>assets/js/swal.js"></script>
+     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
      <!-- Sweet Alert -->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  
     <!-- <script src="bower_components/sweetalert2/dist/sweetalert2.all.min.js"></script> -->
     <style type="text/css">
         body {
@@ -421,15 +421,15 @@
                                     <h4 style="text-align: center; margin-top: 10px;">Trainees Completed</h4>
                                   
                                   <div class="panel-body">  
-                                    <!-- if --><?php if(empty($eval_trainees->num_id) && empty($num_trainees->num_trainee)):?>
+                                    <!-- if --><?php if(empty($ojtStatus['completed']) && empty($ojtStatus['not_completed'])):?>
                                     <!-- no studs -->
                                     <h3 style="text-align: center;"><?php echo "No Trainees Yet";?></h3>  
                                     <!-- else -->
                                 <?php else:?>
                                     <div class="progress skill-bar">
 
-                                        <div class="progress-bar progress-bar-first" role="progressbar" aria-valuenow="<?php echo  ($eval_trainees->num_id/$num_trainees->num_trainee )*100;?>" aria-valuemin="0" aria-valuemax="100">
-                                            <p class="skills"><?php echo $eval_trainees->num_id .'/'. $num_trainees->num_trainee;?></p>  
+                                        <div class="progress-bar progress-bar-first" role="progressbar" aria-valuenow="<?php echo ($ojtStatus['completed'] / $ojtStatus['not_completed'])*100 ?>" aria-valuemin="0" aria-valuemax="100">
+                                            <p class="skills"><?php echo $ojtStatus['completed'] .'/'. $ojtStatus['not_completed'];?></p>  
                                         </div>
                                     </div>
                                     <!-- endif -->
@@ -440,14 +440,14 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <h4 style="text-align: center; margin-bottom: 10px;">Evaluations</h4>
-                                    <!-- if --><?php if(empty($eval_trainees->num_id) && empty($num_trainees->num_trainee)):?>
+                                    <!-- if --><?php if(empty($evaluationsOjt['total_eval']) && empty($evaluationsOjt['current_eval'])):?>
                                     <!-- no stud -->
                                      <h3 style="text-align: center;"><?php echo "No Evaluations Yet";?></h3>  
                                     <!-- else -->
                                      <?php else:?>
                                     <div class="progress skill-bar">
-                                        <div class="progress-bar progress-bar-second" role="progressbar" aria-valuenow="<?php echo  ($eval_trainees->num_id/($num_trainees->num_trainee*2))*100;?>" aria-valuemin="0" aria-valuemax="100">
-                                            <p class="skills"><?php echo $eval_trainees->num_id .'/'. $num_trainees->num_trainee*2;?></p>
+                                        <div class="progress-bar progress-bar-second" role="progressbar" aria-valuenow="<?php echo ($evaluationsOjt['current_eval'] / $evaluationsOjt['total_eval']) * 100;?>" aria-valuemin="0" aria-valuemax="100">
+                                            <p class="skills"><?php echo $evaluationsOjt['current_eval'] . '/' . $evaluationsOjt['total_eval'];?></p>
                                         </div>
                                     </div>
                                     <!-- endif -->
@@ -458,7 +458,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <h4 style="text-align: center; margin-bottom: 10px;">Pending logs</h4>
-                                    <?php if(empty($eval_trainees->num_id) && empty($num_trainees->num_trainee)):?>
+                                    <?php if(empty($not_verified)):?>
                                     <!-- if -->
                                     <h3 style="text-align: center;"><?php echo "No Logs Added";?></h3>  
                                     <!-- else -->
@@ -575,7 +575,9 @@
                     </div>
 
                     <div class="col-lg-8">
-                        
+                        <?php if(empty($traineesLog)): ?>
+
+                        <?php else: ?>
                         <div class="row" style="margin-bottom: 20px;">
                             <div class="col-lg-5">
                                 <select class="form-control">
@@ -602,7 +604,21 @@
                        
                              <div class="col-lg-12" >
                                 <div class="well" style="background: #fff; padding-bottom: 0; padding-top: 10px">
-                                    <span class="user-name"><a href="studentdashboard/<?php echo $log['id_number'];?>"><i class="fa fa-user-circle"></i><?php echo $log['first_name'] . " " .$log['last_name']?></span></a>
+                                    <span class="user-name"><a href="studentdashboard/<?php echo $log['id_number'];?>">
+
+
+
+                                        <?php if($log['user_image'] == '<i class="fa fa-user-circle pull-right" style="font-size: 40px; margin-top: -5px;" aria-hidden="true"></i>'):?>
+
+                                            <i class="fa fa-user-circle"></i>
+                                        <?php else: ?>
+                                            <img src="<?php echo base_url().$log['user_image']?>" style="width: 25px; height: 25px; border-radius: 100%;" >
+                                        <?php endif; ?>
+                                        <?php echo $log['first_name'] . " " .$log['last_name']?>
+
+
+
+                                    </span></a>
                                   
                                     <hr style="margin-top: 0; margin-bottom: 0">
 
@@ -744,7 +760,7 @@
 
                   
                     </div>
-
+                <?php endif; ?>
                 </div>
             </div>
 

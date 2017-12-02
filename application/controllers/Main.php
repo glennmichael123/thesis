@@ -196,7 +196,7 @@ class Main extends CI_Controller {
      		$data['ojtStatus'] = $this->users->getOjtStatusForSupervisor($this->session->userdata['id_number']);
      		$data['traineesLog'] = $this->users->getOjtLogs($this->session->userdata['id_number']);
      		$data['supImage'] = $this->users->supervisorImage($this->session->userdata['id_number']); 
-     		$data['evalutionsOjt'] = $this->users->countEvaluationsForSupervisor($this->session->userdata['id_number']);
+     		$data['evaluationsOjt'] = $this->users->countEvaluationsForSupervisor($this->session->userdata['id_number']);
      		$data['not_verified'] = $this->users->getNotVerified($this->session->userdata('id_number'));
      		$this->load->view('supervisor-dashboard', $data);
      		}
@@ -467,6 +467,7 @@ public function logout(){
      	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($this->session->userdata['id_number']);
      	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($this->session->userdata['id_number']);
      	$data['supervisor_id'] = $this->users->getSupervisorIdForStudent($this->session->userdata['id_number']);
+     
      	$data['checkEmail'] = $this->users->checkEmailVerified($this->session->userdata['id_number']);
      	$renderedCount = $this->users->getSumRendered($this->session->userdata['id_number']);
 
@@ -515,7 +516,7 @@ public function logout(){
 		$companyName = $this->users->getCompanyInformation($id_number);
      	$data['workmates'] = $this->users->getWorkmates($id_number, $companyName->company_name);
 
-
+     	$data['supervisor_image'] = $this->users->getSupervisorImageForStud($this->session->userdata['id_number']);
 		$data['comments'] = $this->users->getComments();
 		$totalLogsCount = $this->users->getNumberLogs(isset($id_number) ? $id_number : '');
      	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified(isset($id_number) ? $id_number : '');
