@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -500,11 +501,7 @@
                                             <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
                                             <?php if($student['ojtone_rendered'] < 50):?>
                                                 <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
-                                                <script type="text/javascript">
-                                                    $('.evaluate-btn').click(function(e){
-                                                        e.preventDefault();
-                                                    });
-                                                </script>
+                                              
 
                                             <?php else:?>
                                               
@@ -540,9 +537,7 @@
                                             <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
                                             <?php if($student['ojtone_rendered'] < $student['ojtone_required']):?>
                                                 <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
-                                                <script type="text/javascript">
-                                                   
-                                                </script>
+                                                
 
                                             <?php else:?>
                                               

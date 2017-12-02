@@ -431,7 +431,7 @@
         }
 
         public function getOjtLogs($id){
-            $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.user_image, users.first_name, users.last_name FROM logs INNER JOIN users ON users.id_number = logs.id_number WHERE logs.supervisor_id = '$id'");
+            $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.first_name, users.last_name, users.user_image FROM logs INNER JOIN users ON users.id_number = logs.id_number WHERE logs.supervisor_id = '$id'");
             return $query->result_array();
         }
 
@@ -523,6 +523,7 @@
             $adminName = $_POST['adName'];
             $adminID = $_POST['adID'];
             $adminPass = $_POST['adPass'];
+            $adminCollege = $_POST['adCollege'];
             $adminEmail = $_POST['adEmail'];
             
             //check duplicate name
@@ -543,7 +544,7 @@
                echo "email_exist"; exit;
             }
             else{
-                return $this->db->query("INSERT INTO admin (name, id_number, password, email) VALUES('$adminName', '$adminID', '$adminPass', '$adminEmail')");
+                return $this->db->query("INSERT INTO admin (name, id_number, password, college, email) VALUES('$adminName', '$adminID', '$adminPass', '$adminCollege', '$adminEmail')");
              }
          }
          public function addWatch(){
@@ -803,7 +804,7 @@
          
          public function midterm_eval($username){
             $value = 0;
-                if($_POST['allow_view']=true){  
+                if($_POST['allow_view']==true){  
                $value = 1;
 
                 }

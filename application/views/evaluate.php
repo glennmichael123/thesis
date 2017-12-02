@@ -152,7 +152,7 @@
         <div class="content">
             <div class="container">
                 <div class="row">
-
+ <form method="post" id="formy"  name="mid_ev">
                     <div class="topper">
                         <div class="col-lg-4">
                             <div class="panel panel-default">
@@ -212,7 +212,7 @@
                                         </div>
 
                                     <div class="col-lg-6">
-                                        <form method="post" id="formy"  name="mid_ev">
+                                       
                                          
                                          <fieldset style="float: right;">
                                              <input tabindex="1" maxlength="1" type="text" name="enthusiasm"  onkeyup="scoreTotal()" id="enthusiasm" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
@@ -335,16 +335,15 @@
                                          <input type="checkbox" id="allow-view" name="allow_view" value="true" checked=""><label for="allow-view" style="color: black; font-size: 14px;"> Allow OJT to view evaluation</label>
 
                                     </div>
-                                   
+                                  
                                     <p style="text-align: center; padding-top: 30px;">
 
                                         <input type="hidden" name="supervisor_id" value="<?php echo $this->session->userdata('id_number'); ?>">
-                                        <button type="submit" class="btn btn-success" id="btn_submit" name="midterm_eval">Submit</button>
+                                        <button type="button" class="btn btn-success" id="btn_submit" name="midterm_eval">Submit</button>
                                         <a href="<?php echo base_url('supervisordashboard');?>" class="btn btn-danger">Cancel</a>
 
                                     </p>
-                                </form>
-
+                                 
                             </div>
                         </div>
               
@@ -354,7 +353,8 @@
 
         </div>
 
-      
+      </form>
+
 
     
        
@@ -389,6 +389,9 @@
     
 </script>
 <script type="text/javascript">
+ $(function () {
+  $('[data-toggle="popover"]').popover();
+});
     $('input').change(function(){
         var rating = $(this).val();
         if(rating > 5 || rating < 1){
@@ -400,28 +403,75 @@
 </script>
 <script type="text/javascript">
   $('#btn_submit').click(function(){ 
-        var data = $('#formy').serialize();
-        //alert(data);
-        $.ajax({
+    var data = $('#formy').serialize();
+     var fail = false;
+     var fail_log = '';
+     $( '#formy' ).find( 'input[type=text]' ).each(function(){
+            if( ! $( this ).prop( 'required' )){
+
+            } else {
+                if ( ! $( this ).val() ) {
+                    fail = true;
+                    name = $( this ).attr( 'style', 'border: 1px solid red' );
+                    fail_log += name + " is required ";
+                }else{
+                    name = $( this ).attr( 'style', 'border: 1px solid #ccc' );
+                }
+
+            }
+        });
+     if(!fail){
+            // alert("true");
+            // return false;
+              $.ajax({
             url:"<?php echo base_url()?>main/insert_mid_eval/<?php echo $stud_username;?>",
             type:"POST",
             data:data,
             success:function(data){
-                 swal({
+              swal({
+
                     title: "Evaluation Submitted",
                     icon:"success",
                 }).then(function(){
                    window.location.href = "<?php echo base_url()?>main/supervisorDashboard";
                 });return false;
+
             }
         });
 
       
+
+
+     }
+     else{
+           
+            return false;
+
+     }
+ });
+//     
+//         var data = $('#formy').serialize();
+//         //alert(data);
+//         $.ajax({
+//             url:"<?php echo base_url()?>main/insert_mid_eval/<?php echo $stud_username;?>",
+//             type:"POST",
+//             data:data,
+//             success:function(data){
+//                // console.log(data);
+//             }
+//         });
+
+//         swal({
+//                     title: "Evaluation Submitted",
+//                     icon:"success",
+//                 }).then(function(){
+//                    window.location.href = "<?php echo base_url()?>main/supervisorDashboard";
+//                 });return false;
+
   
-  });
-   $(function () {
-  $('[data-toggle="popover"]').popover()
-});
+//   });
+// 
+
 </script>
 
 </html>

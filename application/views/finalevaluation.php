@@ -42,7 +42,7 @@
             border-right: none;
             border-left: none;
             border-top:none;
-            border-bottom: solid;
+            border-bottom: 1px solid #000;
             border-bottom-color: #000000;
             background-color: #F4F4F4;
 
@@ -73,7 +73,7 @@
         li{
             margin: 50px 0;
         }
-
+      
     </style>
 
     <title></title>
@@ -81,8 +81,11 @@
 </head>
 
 <body>
+    
     <div class="page-wrap">
+       
         <div class="content">
+
             <form method="post" id="formy2"  name="fin_ev">
             <div class="container">
                  <div class="col-lg-2"></div>
@@ -98,30 +101,30 @@
 
                 <div class="row">
                     <div class="col-lg-6" style="margin-top: 20px;">
-                        <label class="labels">Name:</label>
+                        <label class="labels" >Name:</label>
                         <input type="text" name="fname" id="fname" required><br>
                         <label class="labels">Course:</label> 
-                        <input type="text" name="fcourse" id="fcourse"><br>
+                        <input type="text" name="fcourse" id="fcourse" required><br>
                         <label class="labels">School:</label>
-                        <input type="text" name="fschool" id="fschool"><br>
+                        <input type="text" name="fschool" id="fschool" required><br>
                         <label class="labels">City Address:</label>
-                        <input type="text" name="fcity" id="fcity"><br>
+                        <input type="text" name="fcity" id="fcity" required><br>
                         <label class="labels">Permanent Address:</label>
-                        <input type="text" name="fpermanent" id="fpermanent">
+                        <input type="text" name="fpermanent" id="fpermanent" required>
                         <label class="labels">No. of Training Required:</label>
-                        <input type="text" name="frequired" id="frequired">
+                        <input type="text" name="frequired" id="frequired" required>
                     </div>
                     <div class="col-lg-3" style="margin-top: 20px">
                         <div class="blocking">
                             <label class="labels">Age:</label>
-                            <input type="text" name="fage" id="fage" onkeypress='return event.charCode >= 48 && event.charCode <= 57'><br>
+                            <input type="text" name="fage" id="fage" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required><br>
                             <label class="labels">Major:</label>
-                            <input type="text" name="fmajor" id="fmajor"><br>
+                            <input type="text" name="fmajor" id="fmajor" required><br>
                         </div>
                     </div>
                     <div class="col-lg-3" style="margin-top: 20px">
                         <label class="labels">Sex:</label>
-                        <input type="text" name="fsex" id="fsex">
+                        <input type="text" name="fsex" id="fsex" required>
                     </div>
                 </div>
                 <div class="partlist">
@@ -130,23 +133,23 @@
                 <div class="row">
                     <div class=col-lg-12 style="margin-top: 20px;">
                         <label class="labels">Name of the Company:</label>
-                        <input type="text" name="fcompany" id="fcompany">
+                        <input type="text" name="fcompany" id="fcompany" required>
                         <label class="labels">Division Assigned:</label>
-                        <input type="text" name="fdivision" id="fdivision">
+                        <input type="text" name="fdivision" id="fdivision" required>
                         <label class="labels">Field of Training:</label>
-                        <input type="text" name="ffield" id="ffield">
+                        <input type="text" name="ffield" id="ffield" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-8">
                         <label class="labels">Inclusive Dates of Training: From:</label>
-                        <input type="text" name="fdates" id="fdates">
+                        <input type="text" name="fdates" id="fdates" required>
                         <label class="labels" >Total Number of Hours Rendered:</label>
-                        <input type="text" name="ftotal" id="ftotal" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                        <input type="text" name="ftotal" id="ftotal" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
                     </div>
                     <div class="col-lg-4">
                         <label class="labels">To:</label>
-                        <input type="text" name="fdatesto" id="fdatesto">
+                        <input type="text" name="fdatesto" id="fdatesto" required>
                     </div>
                 </div>
                 <div class="row" style="padding: 10px">
@@ -177,13 +180,14 @@
                     <div class="col-lg-3">
                         <h3 style="text-align: center;">GIVEN RATE</h3>
                         <ul style="list-style: none;">
-                            <li class="list"><input type="text" name="fquality" id="fquality" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2"></li>
-                            <li class="list"><input type="text" name="fquality2" id="fquality2" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2"></li>
-                            <li class="list"><input type="text" name="fdependability" id="fdependability" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2"></li>
-                            <li class="list"><input type="text" name="fattendance" id="fattendance" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2"></li>
-                            <li class="list"><input type="text" name="fcooperation" id="fcooperation" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></li>
-                            <li class="list"><input type="text" name="fjudgement" id="fjudgement" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2"></li>
-                            <li class="list"><input type="text" name="fpersonality" id="fpersonality" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2"></li>
+
+                            <li class="list"><input type="text" name="fquality" id="fquality" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2" required></li>
+                            <li class="list"><input type="text" name="fquality2" id="fquality2" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2" required></li>
+                            <li class="list"><input type="text" name="fdependability" id="fdependability" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2" required></li>
+                            <li class="list"><input type="text" name="fattendance" id="fattendance" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2" required></li>
+                            <li class="list"><input type="text" name="fcooperation" id="fcooperation" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required></li>
+                            <li class="list"><input type="text" name="fjudgement" id="fjudgement" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2" required></li>
+                            <li class="list"><input type="text" name="fpersonality" id="fpersonality" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2" required></li>
                         </ul>
                     </div>
                 </div>
@@ -199,8 +203,10 @@
             <div class="col-lg-2"></div>  
             </div>
         </form>
-         </div>
+ 
+
     </div>
+
 
 <!-- 
 <script src="js/jquery-2.1.4.min.js"></script>
@@ -208,9 +214,25 @@
 <script src="js/script.js"></script> -->
 <script type="text/javascript">
   $('#btn_submit2').click(function(){ 
-        var data = $('#formy2').serialize();
-        //alert(data);
-        $.ajax({
+    var data = $('#formy2').serialize();
+     var fail = false;
+     var fail_log = '';
+     $( '#formy2' ).find( 'input[type=text]' ).each(function(){
+            if( ! $( this ).prop( 'required' )){
+
+            } else {
+                if ( ! $( this ).val() ) {
+                    fail = true;
+                    name = $( this ).attr( 'style', 'border: 1px solid red' );
+                    fail_log += name + " is required ";
+                }else{
+                    name = $( this ).attr( 'style', 'border: 1px solid #ccc' );
+                }
+
+            }
+        });
+     if(!fail){
+          $.ajax({
             url:"<?php echo base_url()?>main/insert_final_eval/<?php echo $stud_username;?>",
             type:"POST",
             data:data,
@@ -218,13 +240,23 @@
                // console.log(data);
             }
         });
-
-        swal({
+               swal({
                     title: "Evaluation Submitted",
                     icon:"success",
                 }).then(function(){
                    window.location.href = "<?php echo base_url()?>main/supervisorDashboard";
                 });return false;
+     }
+     else{
+
+        return false;
+     }
+
+       
+        //alert(data);
+      
+
+   
   
   });
    $(function () {

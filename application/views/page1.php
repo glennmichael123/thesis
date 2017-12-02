@@ -240,7 +240,7 @@
                                     <option value="CON">College of Nursing</option>
                                     <option value="COE">College of Education</option>
                                     <option value="CMBA">College of Management, Business and Accoutancy</option>
-                                    <option value="CAS">College of Art and Sciences</option>
+                                    <option value="CAS">College of Arts and Sciences</option>
                                 </select>
                             </div>
                         </div>
@@ -611,7 +611,7 @@
                             <h5>An email verification link has been sent to your email address. Please verify your email so that you can activate your account.</h5>
                         </div>
                         <div style="margin-top: 70px">
-                            <a class="topage3 second-previous" href="#">PREVIOUS</a>
+                            <a class="topage3 second-previous" href="#" hidden="">PREVIOUS</a>
                             <!-- <a class="firstnext third-next" href="dashboard">SUBMIT</a>  -->
                         </div>
 
@@ -671,6 +671,7 @@
     });
 
 </script>
+
 <!-- VALIDATE EMAIL -->
 <script type="text/javascript">
     function validateEmail(email) {
@@ -731,15 +732,14 @@
 
 
 <!-- FOR DATE INPUT FIELD -->
-<script>
-    $( function() {
-        $('#date_of_birth').datepicker();
-        $('#date_of_birth').focus(function(){
-            $('#date_of_birth').datepicker("setDate","01/01/1998");
-            // $('#date_of_birth').val("");
-        });
-           
+<script type="text/javascript">
+   $( function() {
+    $( "#date_of_birth" ).datepicker({
+      changeMonth: true,
+      changeYear: true,
+      yearRange: '1980:2050',
     });
+  } );
 </script>
 
 
@@ -851,7 +851,7 @@
                       'email': email,
                     },
                     success:function(){
-                         
+                         alert('email sent');
                     }
                 });
                 $(".page2").hide();
