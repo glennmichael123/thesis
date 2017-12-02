@@ -67,7 +67,6 @@ class Main extends CI_Controller {
     	
     }
 
-
     public function getAnnouncement(){
     	$this->users->getAnnouncementsForStudents();
     }
@@ -425,6 +424,12 @@ public function logout(){
 			 	// $data['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
 			 	$data['company_list'] = $this->users->getCompanyNames();
 			 	$data['company_watch_list'] = $this->users->getCompanyWatchlist();
+			 	$data['course_option'] = empty($_POST['course_option']) ? '' : $_POST['course_option'];
+			 	$data['sy'] = empty($_POST['sy_option']) ? '' : $_POST['sy_option'];
+			 	$data['school_year'] = $this->users->schoolYear();
+			 	$data['crs'] = empty($_POST['course_option']) ? '' : $_POST['course_option'];
+			 	$data['courses'] = $this->users->courses();
+			 	$data['evC'] = empty($_POST['eval_option']) ? '' : $_POST['eval_option'];
 				$this->load->view('admindashboard', $data);
 			}	
 
@@ -686,6 +691,7 @@ public function logout(){
     	}
 
     }
+
    	public function deleteStudent(){
    		
    		foreach ($_POST['usernames'] as $username){
@@ -722,7 +728,9 @@ public function logout(){
    		$this->users->truncateAllTables();
    	}
 
-
+   	public function filterStudent(){
+   		$data['student_list'] = $this->users->getStudentList();
+   	}
 
 
 }

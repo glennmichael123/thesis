@@ -47,6 +47,7 @@
             left: 0;
             z-index: 99;
             height: 60px;
+            background-color: #ffba00;
         }
         
         .mission {

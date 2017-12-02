@@ -70,9 +70,10 @@ xnugget info
 Main components 
 -------------------------------- */
    .header{
-        padding: 5px;
-       height: 60px;
-       border-bottom: 3px solid #791b1e;
+      padding: 5px;
+      height: 60px;
+      border-bottom: 3px solid #791b1e;
+      background-color: #ffba00;
     }
 header h1 {
   font-size: 20px;

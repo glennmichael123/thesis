@@ -214,7 +214,7 @@
                             <li class="dropdown">
                               <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown"><img src="<?php echo base_url();?>/assets/images/snow.jpg" class="pull-right circular-square" style="width: 40px; height: 40px; margin-top: -14px;"> </a>
                               <ul class="dropdown-menu" id="show-logout">
-                                <li><a href="#">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
+                                <li><a href="<?php echo base_url('admindashboard')?>">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                 <li class="divider"></li>
         
                                 <li><a href="<?php echo base_url()?>changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
@@ -495,7 +495,7 @@
                                      <label style="font-size: 13px;">Phone or Landline</label>
                                  </div>
                                   <div class="col-lg-6">
-                                     <span style="font-size: 13px;">09xx</span>
+                                     <span style="font-size: 13px;"><?php echo $personalDetails[0]['contact_number'] ?></span>
                                  </div>
                              </div>
 
@@ -521,7 +521,7 @@
                                      <label style="font-size: 13px;">Date of Birth</label>
                                  </div>
                                   <div class="col-lg-6">
-                                     <span style="font-size: 13px;"><?php echo $personalDetails[0]['date_of_birth'] ?></span>
+                                     <span style="font-size: 13px;"><?php echo date('F d, Y',strtotime($personalDetails[0]['date_of_birth']))?></span>
                                  </div>
                              </div>
 
@@ -539,7 +539,7 @@
                                      <label style="font-size: 13px;">Status</label>
                                  </div>
                                   <div class="col-lg-6">
-                                     <span style="font-size: 13px;"><?php echo $personalDetails[0]['status']?></span>
+                                     <span style="font-size: 13px;"><?php echo $personalDetails[0]['marital_status']?></span>
                                  </div>
                              </div>
 
