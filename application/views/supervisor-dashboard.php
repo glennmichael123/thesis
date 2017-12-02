@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -69,7 +68,6 @@
         
         .header {
             height: 60px;
-            background-color: #ffba00;
         }
         
         .mission {
@@ -89,8 +87,6 @@
             font-size: 3em;
             color: #800000;
         }
-
-
         .comment-section .col-lg-12{
             padding-bottom: 5px;
         }
@@ -181,7 +177,6 @@
         
         .progress {
             height: 35px;
-
         }
         textarea:focus{
             outline: none;
@@ -193,19 +188,15 @@
             text-transform: uppercase;
             font-family: Roboto, sans-serif;
             color: #fff;
-
         }
         
         .progress-bar {
             text-align: center;
             transition-duration: 3s;
-
         }
-
         .logs-list-ojt{
             margin-top: 20px;
         }
-
            .logs-title {
             margin-bottom: 20px;
         }
@@ -213,7 +204,6 @@
         .btn {
             border-radius: 0;
         }
-
          .logs-lists label {
             font-size: 11px;
         }
@@ -252,11 +242,8 @@
         }
          .evaluator-option:hover{
             color: #000;
-
         }
-
         .profile-image{
-
             padding: 20px;
         }
         .profile-image>img.img-circle{
@@ -264,7 +251,6 @@
             height: 150px;
             border: 1px solid #C0C0C0;
         }
-
         .label-default{
         background-color: white;
         font-family: Arial, Helvetica, sans-serif;
@@ -273,11 +259,9 @@
         font-size: 1.3em;
         color:#606060;
         }
-
         .comment-btn:focus{
             color: #000;
         }
-
         .btn-trainee{
         background-color: #FFC019;
         color: #FFFFFF;
@@ -324,8 +308,6 @@
         .skills{
             font-size: 1.25em !important;
             margin-top: 8px;
-
-
         }
         .alert{
             margin-top: 20px;
@@ -343,7 +325,6 @@
             background-image: none !important;
             padding: 10px 10px !important;
         }
-
         #comment-textarea{
             /*border: none;*/
             display: none;
@@ -359,7 +340,6 @@
             background-color:#791b1d;
             color: #FFFFFF !important;
         }
-
     
     </style>
 
@@ -510,16 +490,16 @@
                                                     <li><a href="#midterm-tab">Midterm</a></li>
                                                     <li><a href="#final-tab">Final</a></li>
                                                 </ul>
-                                                <li id="midterm-tab">
-                                <table style="width: 100%;">
+                                <li id="midterm-tab">
+                                    <table style="width: 100%;">
                                  
                                     <tbody>
-                                      
+                                        
                                         <?php foreach($ojtRecords as $student):?>
                                         <tr style="font-size: 15px; color: #000;">
                                             <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
                                             <?php if($student['ojtone_rendered'] < 50):?>
-                                                <td><a href="#" class="evaluate-btn" disabled style="color: gray;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
+                                                <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
                                                 <script type="text/javascript">
                                                     $('.evaluate-btn').click(function(e){
                                                         e.preventDefault();
@@ -539,26 +519,63 @@
                                        
                                                 
                                             <?php endif;?>
+                                        </tr>
+                                    <?php endforeach;?>
+                                    </tbody>
+                                    
+                                   
+                                               
+                                </table>
+                            </li>
+                                    
+                                     <!-- FOR FINAL EVALUATION -->
+                                      <li id="final-tab">
+                                            <table style="width: 100%;">
+                                 
+                                  
+                                    <tbody>
+                                      
+                                        <?php foreach($ojtRecords as $student):?>
+                                        <tr style="font-size: 15px; color: #000;">
+                                            <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
+                                            <?php if($student['ojtone_rendered'] < $student['ojtone_required']):?>
+                                                <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
+                                                <script type="text/javascript">
+                                                   
+                                                </script>
+
+                                            <?php else:?>
+                                              
+                                                
+                                                <?php if(in_array($student['id_number'], array_column($evaluated2, 'username'))):?>
+                                                 <td><i class="fa fa-check" aria-hidden="true"></i></td>           
+                                                <?php else:?>
+                                            <td><a href="<?php echo base_url()?>main/final_evaluation/<?php echo $student['id_number']?>" class="btn evaluate-btn">Evaluate</a></td>
+                                                
+                                        <?php endif;?>
+
+                                       
+                                                
+                                            <?php endif;?>
 
                                         </tr>
                                     <?php endforeach;?>
 
                                     </tbody>
-                                    </li>
+                                    
                                    
                                                
                                 </table>
-                                     <?php endif;?>
-                                     <!-- FOR FINAL EVALUATION -->
-                                      <li id="final-tab">
-                                        asdas
                                     </li>
-                                </div> 
+                                </div>
+                                 <?php endif;?> 
                             </div>
+
                         </div>    
                     </div>
 
                     <div class="col-lg-8">
+                        
                         <div class="row" style="margin-bottom: 20px;">
                             <div class="col-lg-5">
                                 <select class="form-control">
@@ -844,7 +861,6 @@
        closestImageCircle.hide();
        $(".saveCancel").css("display","inline-block");
     }, false);
-
     if (file) {
      reader.readAsDataURL(file);
      alert(reader.readAsDataURL(file));
@@ -860,7 +876,6 @@
             }
         )
     });
-
     //trigger browse photo
     $('.click-photo').click(function(){
         $('.browse-photo').trigger('click');
@@ -878,11 +893,9 @@
     $('.comment-btn').click(function(e){
         e.preventDefault();
         var commentSection = $(this).closest("form").find(".comment-section");
-
         commentSection.toggle();
       
     });
-
      $("#dropdown-logout").click(function() {
        $("#show-logout").toggle();
     });
@@ -891,25 +904,20 @@
 <script type="text/javascript">
     $('.verify-btn').click(function(e){
         e.preventDefault();
-
         var log_id = $(this).data('log-id');
         var pending = $(this).closest('form').find('.pending-log');
                  
-
-
         $.ajax({
             url: '<?php echo base_url()?>' + 'main/verifyLog',
             method: 'POST',
             data:{
                 'log_id' : log_id,
-
             },
             success: function(data){
                
                  pending.html('<span style="color: green;">Verified</span> <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i>');
             }
         });
-
          $(this).css("color", "#318ACE");
          $(this).html('<i class="fa fa-check" aria-hidden="true"></i> Verified');
               
@@ -925,7 +933,6 @@
           this.style.height = (this.scrollHeight) + 'px';
         });
     });
-
     $(document).ready(function(){
       $('.to-edit-comment').each(function () {
           this.setAttribute('style', 'height:' + '25px;' + 'px;overflow-y:hidden; resize:none;');
@@ -934,7 +941,6 @@
           this.style.height = (this.scrollHeight) + 'px';
         });
     });
-
     $(document).ready(function(){
       $('.log-activity').each(function () {
           this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
@@ -947,22 +953,16 @@
 
 
 <script type="text/javascript">
-
     $('body').on('keydown','.comment-content', function(e){
         
         if ( e.keyCode == 13 && !e.shiftKey ) { // 13 is enter key
                 e.preventDefault();
-
                 var log_id = $(this).data('log-id');
                 var comment = $(this).val();
                 var commentSection = $(this).closest('.comment-section');
                 var student_username = $(this).data('student-username');
                 var commentToAppend = $(this).closest("form").find(".display-comments");
                 var toReload = $(this).closest('.wrap-comments').attr('id');
-
-
-
-
             if(!$.trim($(this).val())){
                 
             }else{
@@ -981,45 +981,35 @@
             }
          
         
-
          }
     });
-
-
 </script>
 <script type="text/javascript">
     $('.show-more').click(function(){
         var right = $(this).closest('form').find('.right-side');
         var left = $(this).closest('form').find('.left-side');
         var less_button = $(this).closest('form').find('.show-less');
-
         left.show();
         
         less_button.show();
         right.show();
         $(this).hide();
     });
-
-
       $('.show-less').click(function(){
         var right = $(this).closest('form').find('.right-side');
         var left = $(this).closest('form').find('.left-side');
         var more_button = $(this).closest('form').find('.show-more');
-
         left.hide();
         more_button.show();
         right.hide();
-
         $(this).hide();
     });
 </script>
 
 <script type="text/javascript">
-
       $(document).ready(function(){
           $("#addTrainee").click(function () {
             var studId = $('#names').val();
-
             if(studId == null){
              //alert("Select a trainee");
              swal('Oops...', 'Select a trainee', 'error');    
@@ -1030,15 +1020,14 @@
                 data : { 
                     'studentID': studId,
                     'supervisor_id': '<?php echo $this->session->userdata['id_number']?>',
-
                    },
                 success:function(data){
                     swal({
-                    	title: "Success!",
-                    	text: "Trainee added successfully",
-                    	icon: "success",
+                        title: "Success!",
+                        text: "Trainee added successfully",
+                        icon: "success",
                     }).then(function(){
-                    	location.reload();
+                        location.reload();
                     });
                   },
               });  
@@ -1068,14 +1057,9 @@
     $( function(){
         $( "#tabs" ).tabs();
   });
-
     $('body').on('click','.edit-comment', function(e){
         e.preventDefault();
-
       
-
-
-
         var commentToHide = $(this).closest('.comments-list').find('.actual-comment');
         var commentToEditShow = $(this).closest('.comments-list').find('.to-edit-comment');
         var caretToHide = $(this).closest('.comments-list').find('.fa-caret-down');
@@ -1086,13 +1070,9 @@
         commentToEditShow.show();
         commentGuideline.show();
         autoFocus.prop('autofocus',true);
-
         
-
     });
-
     $('body').on('keydown','.to-edit-comment',function(e){
-
         if(e.keyCode == 27){
             var commentToHide = $(this).closest('.comments-list').find('.actual-comment');
             var commentToEditShow = $(this).closest('.comments-list').find('.to-edit-comment');
@@ -1103,7 +1083,6 @@
             commentGuideline.hide();
             commentToEditShow.hide();
         }
-
      if(e.keyCode == 13 && !e.shiftKey ){
         e.preventDefault();
         var comment_id = $(this).data('comment-id');
@@ -1113,7 +1092,6 @@
          if(!$.trim($(this).val())){
                 
         }else{
-
             $.ajax({
                 url: 'editComment',
                 method: 'POST',
@@ -1125,11 +1103,9 @@
                 success: function(data){
                     
                       $('#'+toReload).load(location.href + ' ' + '#'+toReload);
-
                 }
             });
         }
-
             
      }
     });

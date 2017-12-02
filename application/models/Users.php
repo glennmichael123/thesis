@@ -12,9 +12,6 @@
                 parent::__construct();      
         }
 
-        public function hello(){
-        	echo'<pre>'; print_r($_POST); echo '</pre>';
-        }
 
         public function saveEmail($hash){
                 $username = $this->session->userdata['id_number'];
@@ -313,8 +310,7 @@
          }   
 
          public function getOjtRecordsForSupervisor($username){
-             
-            $result = $this->db->query("SELECT ojt_records.id_number, ojt_records.ojtone_rendered, users.first_name, users.last_name FROM ojt_records INNER JOIN users ON users.id_number = ojt_records.id_number WHERE supervisor_id = '$username'");         
+            $result = $this->db->query("SELECT ojt_records.id_number, ojt_records.ojtone_required, ojt_records.ojtone_rendered,ojt_records.ojttwo_rendered, users.first_name, users.last_name FROM ojt_records INNER JOIN users ON users.id_number = ojt_records.id_number WHERE supervisor_id = '$username'");         
             return $result->result_array();
          }
 
@@ -334,7 +330,7 @@
          }
 
 
-        public function insertCompanyData(){
+/*        public function insertCompanyData(){
                 $result = $this->db->query("SELECT id_number FROM company_information WHERE id_number ='14-2649-276'")->result_array();
                // print_r($result);
                $id_number = $_POST['id_number'];
@@ -365,7 +361,7 @@
 
                 }       
         }
-
+*/
 
 
         // public getUserData($data){
@@ -382,6 +378,8 @@
             return $result->result_array();
         }
 
+
+        /*//to be removed later
         public function checkExistRecords($data){
             $id = $data;
             $query = $this->db->query("SELECT * FROM ojt_records WHERE id_number = '$id'");
@@ -394,7 +392,7 @@
                     return false;
                 }
 
-        }
+        }*/
 
         public function getMidtermEvaluations($username){
 
@@ -700,14 +698,14 @@
          }  
         
 
-         public function getMaxComment(){
+         /*public function getMaxComment(){
             $username = $_POST['username'];
 
             $latestId = $this->db->query("SELECT MAX(id) AS latest_id FROM comments WHERE supervisor_id = '$username'")->row();
             $maxId = $latestId->latest_id;
             echo $maxId;
 
-         }
+         }*/
 
 
 
@@ -775,7 +773,7 @@
             $sy = $_POST['sy_1']."-".$_POST['sy_2'];
             $total_hours = $ojt1_required+$ojt2_required;
             $password = '123456';
-
+            $evaluations = 2;
             $username = strtolower(str_replace(' ', '',$first).".".str_replace(' ', '',$last));
             $result = $this->db->query("SELECT * FROM users WHERE id_number = '".$username."'");
             if($this->db->affected_rows() > 0){
@@ -783,7 +781,7 @@
             }
             else{
                $this->db->query("INSERT INTO users (id_number,first_name,middle_initial,last_name,course,year,school_year,password) VALUES('".$username."','".$first."','".$mid."','".$last."','".$course."',$year,'".$sy."','".$password."')");
-               $this->db->query("INSERT INTO ojt_records(id_number,total_hours,ojtone_required,ojttwo_required) VALUES('".$username."',$total_hours,$ojt1_required,$ojt2_required)");
+               $this->db->query("INSERT INTO ojt_records(id_number,total_hours,ojtone_required,ojttwo_required,total_evaluations) VALUES('".$username."',$total_hours,$ojt1_required,$ojt2_required, $evaluations)");
             }
          }
          public function getTrainess(){
@@ -805,7 +803,6 @@
          
          public function midterm_eval($username){
             $value = 0;
-             
                 if($_POST['allow_view']=true){  
                $value = 1;
 
@@ -847,17 +844,22 @@
         $query = $this->db->query("SELECT username from midterm_evaluation where supervisor_username ='$username'");
         return $query->result_array();
       }
+
+
+      public function checkFinalEvaluation($username){
+        $query = $this->db->query("SELECT username from final_evaluation where supervisor_username ='$username'");
+        return $query->result_array();
+      }
+
      public function countTrainees($username){
         $query = $this->db->query("SELECT count(id_number) as num_trainee from ojt_records where supervisor_id = '$username'");
 
          return $query->row();
      }
 
-     public function evaluatedTrainees($username){
-        $query = $this->db->query("SELECT count(id) as num_id from midterm_evaluation where supervisor_username = '$username'");
-        return $query->row();
-     }
 
+
+   
       public function getNotVerified($username){
            return $this->db->query("SELECT count(verified) as not_verified from logs where supervisor_id='$username' AND verified=0")->row();
       }
@@ -976,8 +978,8 @@
       public function getCompanyInformation($username){
 
           $query = $this->db->query("SELECT * FROM company_information WHERE id_number = '".$username."'");
+            return $query->row();
 
-          return $query->row(); 
       }
       public function getWorkmates($username,$company_name){
 
@@ -998,6 +1000,48 @@
          }
       }
 
+      public function final_eval($username){
+         $supervisor = $_POST['supervisor_id'];
+          $fname = $_POST['fname'];
+          $fcourse = $_POST['fcourse'];
+          $fage = $_POST['fage'];
+          $fschool = $_POST['fschool'];
+          $fcity = $_POST['fcity'];
+          $fsex = $_POST['fsex'];
+          $fpermanent = $_POST['fpermanent'];
+          $frequired = $_POST['frequired'];
+          $fmajor = $_POST['fmajor'];
+          $fcompany = $_POST['fcompany'];
+          $fdivision = $_POST['fdivision'];
+          $ffield = $_POST['ffield'];
+          $fdates = $_POST['fdates'];
+          $ftotal =$_POST['ftotal'];
+          $fdatesto = $_POST['fdatesto'];
+          $fquality =$_POST['fquality'];
+          $fquality2 = $_POST['fquality2'];
+          $fdependability = $_POST['fdependability'];
+          $fattendance = $_POST['fattendance'];
+          $fcooperation = $_POST['fcooperation'];
+          $fjudgement = $_POST['fjudgement'];
+          $fpersonality = $_POST['fpersonality'];
+          $recommend = $_POST['recommend'];
+           $total = (($fquality*.20) + ($fquality2*.20) + ($fdependability*.15) + ($fattendance*.15) + ($fcooperation*.10) + ($fjudgement*.10) + ($fpersonality*.10))*20;
+          // $total = ($fquality + $fquality2 + $fdependability+ $fattendance+ $fcooperation+ $fjudgement + $fpersonality);
+
+            // $this->db->query("INSERT INTO final_evaluation(id_number,name,age,sex,course,major,school,city,permanent,required,company,division,field,dates_from,dates_to,total_hours,quality,quality2,dependability,attendance,cooperation,judgement,personality) VALUES('$username','$fname',$fage,'$fsex','$fcourse','$fmajor','$fschool','$fcity','$fpermanent','$frequired','$fcompany','$fdivision','$ffield','$dates','$fdatesto',$ftotal,$fquality,$fquaility2,$fdependability,$fattendance,$fcooperation,$fjudgement,$fpersonality)");
+          $this->db->query("INSERT INTO final_evaluation(username,supervisor_username,name,age,sex,course,major,school,city,permanent,
+                    required,company,division,field,dates_from,
+                    dates_to,total_hours,quality,quality2,dependability,attendance,cooperation,judgement,personality,recommend,total) VALUES('$username','$supervisor','$fname',$fage,'$fsex','$fcourse','$fmajor','$fschool','$fcity','$fpermanent','$frequired','$fcompany','$fdivision','$ffield','$fdates','$fdatesto','$ftotal',$fquality,$fquality2,$fdependability,$fattendance,$fcooperation,$fjudgement,$fpersonality,'$recommend',$total)"); 
+
+
+                  if($this->db->affected_rows()>0){
+                    $this->db->query("UPDATE ojt_records SET ojttwo_current_evaluations = 1 WHERE id_number = '$username'");
+                    return true;
+
+                      }
+                else
+                    return false;
+                }
       public function editProfilePersonal($username){
 
           $data = Array('college'=> $_POST['profile_college'], 
@@ -1066,6 +1110,7 @@
           $this->db->where('id',$comment_id);
           // $this->db->where('supervisor_id', $supervisor_id);
           $this->db->update('comments', $data);
+
       }
       
       public function schoolYear(){
@@ -1079,5 +1124,93 @@
       }
 
 
+
+
+      public function getStudentStatus(){
+
+          $query = $this->db->query("SELECT ojtone_rendered, ojtone_required, ojtone_current_evaluations, total_evaluations FROM ojt_records");
+          $array_status = array('completed'=>0, 'not_completed'=>0);
+          if(!empty($query->result_array())){
+
+              foreach ($query->result_array() as $student_status) {
+                
+                  if($student_status['ojtone_rendered'] >= 200 && $student_status['ojtone_current_evaluations'] == $student_status['total_evaluations']){
+                      
+                      $array_status['completed']++;
+
+                  }else{
+                      $array_status['not_completed']++;
+                  }
+              }
+          }
+
+          return $array_status;
+      }
+
+      public function getOjtStatusForSupervisor($username){
+            $query = $this->db->query("SELECT ojtone_rendered, ojtone_required, ojtone_current_evaluations, total_evaluations FROM ojt_records WHERE supervisor_id = '$username'");
+          $array_status = array('completed'=>0, 'not_completed'=>0);
+          if(!empty($query->result_array())){
+
+              foreach ($query->result_array() as $student_status) {
+                
+                  if($student_status['ojtone_rendered'] >= 200 && $student_status['ojtone_current_evaluations'] == $student_status['total_evaluations']){
+                      
+                      $array_status['completed']++;
+
+                  }else{
+                      $array_status['not_completed']++;
+                  }
+              }
+          }
+
+          return $array_status;
+      }
+
+      
+      public function getCoursesList(){
+
+        $query = $this->db->query("SELECT DISTINCT course FROM users")->result_array();
+        $courses_list = [];
+        foreach ($query as $courses) {
+            $c = $courses['course'];
+            $courses_list[] = '"'.$c.'"';
+        }
+
+        return $courses_list; 
+      }
+
+      public function getCoursesCount(){
+
+        $query = $this->db->query("SELECT DISTINCT course FROM users ORDER BY course DESC")->result_array();
+        $courses_count = [];
+        foreach ($query as $courses) {
+            $c = $courses['course'];
+            
+            $total_students = $this->db->query("SELECT count(id_number) as total_students FROM users  WHERE course = '$c' ORDER BY course ASC")->row();
+
+            $courses_count[] = $total_students->total_students;
+        }
+
+          return $courses_count;
+      }
+
+      public function countEvaluationsForSupervisor($username){
+           $query = $this->db->query("SELECT ojtone_current_evaluations as current_eval, total_evaluations as total_eval FROM ojt_records WHERE supervisor_id = '$username'")->result_array();
+           $array_eval = array('current_eval'=>0, 'total_eval' => 0);
+         foreach ($query as $evaluations) {
+              $t = $evaluations['total_eval'];
+              $c = $evaluations['current_eval'];
+
+              $array_eval['current_eval'] += $c;
+              $array_eval['total_eval'] += $t;
+
+         }
+
+         return $array_eval;
+
+
+      }
 }
 ?>
+  

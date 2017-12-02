@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 
@@ -266,9 +268,7 @@ header h1 {
             margin: 0;
         }
         
-        .nav {
-            float: right;
-        }
+       
         
         .nav a {
             color: #915B51;
@@ -510,11 +510,11 @@ header h1 {
             left: 70px;
         }
         #progressEvaluations {
-            margin: 20px;
+           margin: 20px;
             width: 150px;
-            height: 70px;
-            margin-left: 105px;
-            text-align: center;
+            height: 150px;
+            position: relative;
+            left: 80px;
         }
         
         #verifiedLogs {
@@ -684,11 +684,10 @@ header h1 {
     <div class="page-wrap">
         <div class="header">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
-                    </div>
-                    <div class="col-lg-6 ">
+              <div class="col-lg-9">
+                  <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
+              </div>
+              <div class="col-lg-1">
                       <section id="notification-bell">
                         <?php if(isset($id_number)):?>
                         <?php else:?>
@@ -805,13 +804,12 @@ header h1 {
                         </ul>
                     <?php endif;?>
                     </section>
-                    </div>
-                    <?php if(isset($id_number)):?>
-                    <?php else:?>
-                    <h4 style="position: absolute; top: 23px; right: 120px;">Hi, <?php echo $user_data[0]['first_name']?></h4>
-                  <?php endif;?>
-                    <div class="col-lg-2">
-                      <section class="dropdown-image">
+              </div>
+              <div class="col-lg-1">
+                   <h5 style="position: relative; top: 15px;">Hi, <?php echo $user_data[0]['first_name']?></h5>
+              </div>
+              <div class="col-lg-1">
+                  <section class="dropdown-image">
                         <?php if(isset($id_number)):?>
                                <ul class="nav navbar-nav">
                                 
@@ -859,12 +857,10 @@ header h1 {
                         </ul>
                     <?php endif;?>
                       </section>
-                    </div>
-
-                </div>
-
+              </div>
             </div>
         </div>
+       
     </div>
     <div class="content">
       <?php if(isset($id_number)): ?>
@@ -979,7 +975,7 @@ header h1 {
                                 $(document).ready(function() {
                                     // progressbar.js@1.0.0 version is used
                                     // Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
-                                    var bar = new ProgressBar.SemiCircle(progressEvaluations, {
+                                    var bar = new ProgressBar.Circle(progressEvaluations, {
                                         strokeWidth: 6,
                                         easing: 'easeInOut',
                                         duration: 1400,

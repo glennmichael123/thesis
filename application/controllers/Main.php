@@ -20,11 +20,6 @@ class Main extends CI_Controller {
 	 */
 	
  function __construct() {
-	 	header("Pragma-directive: no-cache");
-	    header("Cache-directive: no-cache");
-	    header("Cache-control: no-cache");
-	    header("Pragma: no-cache");
-	    header("Expires: 0");
         parent::__construct();
         date_default_timezone_set("Asia/Manila");
         $this->load->helper('url');
@@ -32,12 +27,6 @@ class Main extends CI_Controller {
         $this->load->library('session');
     }
 
-
-
-
-
-
-  
      public function ojtform(){
      	$data['initial_data'] = $this->users->load_initial_data($this->session->userdata('id_number'));
      	$this->load->view('page1', $data);
@@ -91,9 +80,10 @@ class Main extends CI_Controller {
 
 	public function index()
 	{
-		// print_r($this->session->userdata['id_number']);exit;
-     if(isset($this->session->userdata['id_number'])){
-     	header("location: dashboard");
+		
+	 session_destroy();
+     if( isset($this->session->userdata['id_number']) ){
+     	redirect(base_url('dashboard'));
      }else{
      	$data['watch_list'] = $this->users->getWatchlists();
      	$this->load->view('index',$data);
@@ -107,7 +97,7 @@ class Main extends CI_Controller {
 	public function profile()
 	{
 		if(!isset($this->session->userdata['id_number'])){
-          header("location: index");
+          redirect(base_url('index'));
      	}else{
      		$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($this->session->userdata['id_number']);
      		$data['announcements'] = $this->users->getAnnouncements($this->session->userdata['id_number']);
@@ -176,7 +166,15 @@ class Main extends CI_Controller {
 			}
 		}*/
 	}
+	public function final_evaluation($username){
+		if(!isset($this->session->userdata['id_number'])){
+			header("location: index");
 
+		}
+		$data['stud_username'] = $username;
+
+		$this->load->view('finalevaluation',$data);
+	}
 	public function supervisorDashboard(){
 
 		if(!isset($this->session->userdata['id_number'])){
@@ -184,19 +182,21 @@ class Main extends CI_Controller {
      	}else{
      		$data['comments'] = $this->users->getComments();
      		$data['evaluated']=$this->users->checkMidtermEvaluation($this->session->userdata('id_number'));
+     		$data['evaluated2']=$this->users->checkFinalEvaluation($this->session->userdata('id_number'));
      		if($this->session->userdata['account_type'] == 'student'){
      			redirect('dashboard');
      		}else if($this->session->userdata['account_type'] == 'admin'){
      			redirect('admindashboard');
      		}else{
      		$data['comments'] = $this->users->getComments();
+
      		$company_name = $this->users->getCompanySupervisor($this->session->userdata['id_number']);
      		$data['supervisorAddOjt'] = $this->users->supervisorGetTrainee($company_name,$this->session->userdata['id_number']);
      		$data['ojtRecords'] = $this->users->getOjtRecordsForSupervisor($this->session->userdata['id_number']);
-     		$data['num_trainees'] = $this->users->countTrainees($this->session->userdata('id_number'));
+     		$data['ojtStatus'] = $this->users->getOjtStatusForSupervisor($this->session->userdata['id_number']);
      		$data['traineesLog'] = $this->users->getOjtLogs($this->session->userdata['id_number']);
      		$data['supImage'] = $this->users->supervisorImage($this->session->userdata['id_number']); 
-     		$data['eval_trainees'] = $this->users->evaluatedTrainees($this->session->userdata('id_number'));
+     		$data['evalutionsOjt'] = $this->users->countEvaluationsForSupervisor($this->session->userdata['id_number']);
      		$data['not_verified'] = $this->users->getNotVerified($this->session->userdata('id_number'));
      		$this->load->view('supervisor-dashboard', $data);
      		}
@@ -235,13 +235,7 @@ class Main extends CI_Controller {
 			// Add user data in session
 				$this->session->set_userdata('id_number', $session_data);
 				$this->session->set_userdata('account_type', $account_type);
-				
-				$existId = $this->users->checkExistRecords($this->session->userdata['id_number']);
-				$newId = $this->session->userdata['id_number'];
-				$newRecord = Array('id_number' => $newId, 'ojtone_required' => 200, 'total_evaluations'=> 2);
-				if(!$existId && $account_type[0]['account_type'] == 0){
-					$this->users->insertNewRecordOjt($newRecord);
-				}
+			
 
 				$existPersonalDetails = $this->users->checkExistPersonal($this->session->userdata['id_number']);
 				
@@ -283,7 +277,7 @@ class Main extends CI_Controller {
      	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $username);
      	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $username);
      	$ojtRecords = $this->users->dashboardDataRecords($username);
-
+     	$data['checkEmail'] = $this->users->checkEmailVerified($username);
      		if(!empty($ojtRecords)){
 			     		$data['total'] = $ojtRecords[0]['ojtone_required'];
 
@@ -402,12 +396,13 @@ public function logout(){
 		$this->users->insertEmergencyData();
 	}
 
-	public function saveCompanyData(){
+	/*public function saveCompanyData(){
 		$this->users->insertCompanyData();
 	}
-
+*/
 
 	public function adminDashboard(){
+
 	// $newdata['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
 	   $data['student_list'] = $this->users->getStudentList();
 
@@ -420,9 +415,12 @@ public function logout(){
      		}else if($this->session->userdata['account_type'] == 'student'){
      		redirect('dashboard');
      		}else{
-
+     			$data['courses_for_graph'] = $this->users->getCoursesList();
+     			$data['courses_count'] = $this->users->getCoursesCount();
+     	
 			 	// $data['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
 			 	$data['company_list'] = $this->users->getCompanyNames();
+			 	$data['completed_students'] = $this->users->getStudentStatus();
 			 	$data['company_watch_list'] = $this->users->getCompanyWatchlist();
 			 	$data['course_option'] = empty($_POST['course_option']) ? '' : $_POST['course_option'];
 			 	$data['sy'] = empty($_POST['sy_option']) ? '' : $_POST['sy_option'];
@@ -447,7 +445,7 @@ public function logout(){
 	public function dashboard(){
 		
 		if(!isset($this->session->userdata['id_number'])){
-          header("location: index");
+          redirect(base_url('index'));
      	}else{
 
      	if($this->session->userdata['account_type'] == 'supervisor'){
@@ -654,10 +652,10 @@ public function logout(){
     public function getLastLog(){
     	$this->users->getLastLog();
     }
-      public function getMaxComment(){
+    /*  public function getMaxComment(){
 
     	$this->users->getMaxComment();
-    }
+    }*/
 
    	public function saveCSV(){
    		$this->users->importCSV();
@@ -691,7 +689,35 @@ public function logout(){
     	}
 
     }
+    public function insert_final_eval($username){ 	
+   	  	//print_r($_POST);exit;
+    	if($this->users->final_eval($username)){
+    		//redirect(base_url('main/supervisorDashboard'));
+    		//echo "success";
+    		 // $stud_name = $this->db->query("SELECT * from users INNER JOIN midterm_evaluation on users.id_number = midterm_evaluation.username where midterm_evaluation.username = '$username'")->row();
 
+    				$Status = '<div class="alert alert-success alert-dismissible" role="alert">
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					   You have evaluated  <strong>'.$username.' </strong> </div>';
+    		 // echo $stud_name->first_name;
+    	//	$Status = '<div class="alert alert-success" role="alert">You have evaluated '.$username.' </div>';
+    		//$Status = "You have evaluated ".$username;
+    		$this->session->set_flashdata("Status",$Status);
+
+    	}
+    	else{
+    	$Status = '<div class="alert alert-success alert-dismissible" role="alert">
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					   You have evaluated  <strong>'.$username.' </strong> </div>';
+    		 // echo $stud_name->first_name;
+    	//	$Status = '<div class="alert alert-success" role="alert">You have evaluated '.$username.' </div>';
+    		//$Status = "You have evaluated ".$username;
+    		$this->session->set_flashdata("Status",$Status);
+    	}
+
+    }
+
+    
    	public function deleteStudent(){
    		
    		foreach ($_POST['usernames'] as $username){

@@ -116,12 +116,12 @@
             position: relative;
             left: 70px;
         }
-        #progressEvaluations {
-            margin: 20px;
+         #progressEvaluations {
+           margin: 20px;
             width: 150px;
-            height: 70px;
-            margin-left: 105px;
-            text-align: center;
+            height: 150px;
+            position: relative;
+            left: 80px;
         }
         
         #verifiedLogs {
@@ -212,7 +212,7 @@
 
                           <ul class="nav navbar-nav">
                             <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown"><img src="<?php echo base_url();?>/assets/images/snow.jpg" class="pull-right circular-square" style="width: 40px; height: 40px; margin-top: -14px;"> </a>
+                              <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown"><img src="<?php echo base_url();?>/assets/images/snow.jpg" class="pull-right circular-square" style="width: 40px; height: 40px; margin-top: -11px;"> </a>
                               <ul class="dropdown-menu" id="show-logout">
                                 <li><a href="<?php echo base_url('admindashboard')?>">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                 <li class="divider"></li>
@@ -330,7 +330,7 @@
                                 $(document).ready(function() {
                                     // progressbar.js@1.0.0 version is used
                                     // Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
-                                    var bar = new ProgressBar.SemiCircle(progressEvaluations, {
+                                    var bar = new ProgressBar.Circle(progressEvaluations, {
                                         strokeWidth: 6,
                                         easing: 'easeInOut',
                                         duration: 1400,

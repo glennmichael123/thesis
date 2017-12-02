@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -406,7 +407,7 @@ tr:hover{
            <div class="well dashboard-graphs">
                 <div class="row">
                    
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                          
                            <canvas id="chartOJTStatus" width="400" height="200"></canvas>
                            <script>
@@ -417,8 +418,8 @@ tr:hover{
                                     data: {
                                         labels: ["On Going", "Complete"],
                                         datasets: [{
-                                            label: 'Complete vs On Going',
-                                            data: [<?php echo 100?>, <?php echo 20?>],
+                                            label: 'Student Status',
+                                            data: [ <?php echo $completed_students['not_completed']?>, <?php echo $completed_students['completed']?>],
                                             backgroundColor: [
                                                 'rgba(255, 99, 132, 0.2)',
                                                 'rgba(54, 162, 235, 0.2)',
@@ -445,8 +446,8 @@ tr:hover{
                                 </script>
                         </div>
                        
-                    <?php $course = array('"IT"','"CS"')?>
-                    <div class="col-lg-4">
+
+                    <div class="col-lg-6">
                          <canvas id="chartCourses" width="400" height="200"></canvas>
                              <script>
                                var ctx = document.getElementById("chartCourses").getContext('2d');
@@ -454,26 +455,38 @@ tr:hover{
                                  label: 'Courses',
                                   type: 'pie',
                                   data: {
-                                    labels: [<?php echo implode($course, ',')?>],
+                                    labels: [<?php echo implode($courses_for_graph, ',')?>],
                                     datasets: [{
                                       backgroundColor: [
-                                        "rgba(255, 165, 0, 0.2)",
-                                        "rgba(54, 162, 235, 0.2)",
+                                         'rgba(255, 99, 132, 0.2)',
+                                          'rgba(54, 162, 235, 0.2)',
+                                          'rgba(255, 206, 86, 0.2)',
+                                          'rgba(75, 192, 192, 0.2)',
+                                          'rgba(153, 102, 255, 0.2)',
+                                          'rgba(255, 159, 64, 0.2)'
                                          
                                       ],
                                       hoverBackgroundColor: [
-                                         "rgba(255, 159, 64, 0.5)",
-                                         "rgba(54, 162, 235, 0.5)",
+                                         'rgba(255, 99, 132, 0.5)',
+                                          'rgba(54, 162, 235, 0.5)',
+                                          'rgba(255, 206, 86, 0.5)',
+                                          'rgba(75, 192, 192, 0.5)',
+                                          'rgba(153, 102, 255, 0.5)',
+                                          'rgba(255, 159, 64, 0.5)'
                                       ],
 
                                       borderColor: [
-                                         'rgba(255, 159, 64, 1)',
-                                         'rgba(54, 162, 235, 1)',
+                                          'rgba(255,99,132,1)',
+                                          'rgba(54, 162, 235, 1)',
+                                          'rgba(255, 206, 86, 1)',
+                                          'rgba(75, 192, 192, 1)',
+                                          'rgba(153, 102, 255, 1)',
+                                          'rgba(255, 159, 64, 1)'
 
                                                
                                          ],
                                          borderWidth: 1,
-                                      data: [<?php echo 200?>,<?php echo 50?>]
+                                       data: [<?php echo implode($courses_count, ',') ?>]
                                     }]
                                   },
                                   options: {
@@ -483,42 +496,7 @@ tr:hover{
                                 </script>
                       </div>
 
-                      <div class="col-lg-4">
-                            <canvas id="chart" width="400" height="200"></canvas>
-                             <script>
-                               var ctx = document.getElementById("chart").getContext('2d');
-                                var myChart = new Chart(ctx, {
-                                 label: 'Courses',
-                                  type: 'doughnut',
-                                  data: {
-                                    labels: ['Present', 'Absent'],
-                                    datasets: [{
-                                      backgroundColor: [                                       
-                                        "rgba(38, 239, 105,0.5)",
-                                         "rgba(255, 99, 132, 0.2)",      
-                                      ],
-                                      hoverBackgroundColor: [
-                                         
-                                         "rgba(38, 239, 105,0.8)",
-                                         "rgba(255, 99, 132, 0.5)",
-                                      ],
-
-                                      borderColor: [
-                                         'rgba(38, 239, 105, 1)',
-                                         'rgba(255, 99, 132, 1)',
-
-                                               
-                                         ],
-                                         borderWidth: 1,
-                                      data: [100,20]
-                                    }]
-                                  },
-                                  options: {
-                                        cutoutPercentage: 50,
-                                  },
-                                });
-                                </script>
-                      </div>
+          
                     
             
                     </div>

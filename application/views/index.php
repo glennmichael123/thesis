@@ -240,6 +240,7 @@
                                               <div class="forget">
                                                 <div>
                                               <?php echo $this->session->flashdata('Status'); ?>
+                                              
                                                      <h6><a href="incorrectpassword">Forgot Password?</a></h6>         
                                                        <div class="btn-group" style="float: right;">
                                                       <select type="button" class="btn btn-loginas" name="login-options">
