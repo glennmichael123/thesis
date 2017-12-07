@@ -696,7 +696,7 @@ header h1 {
                                </div>
                           <?php else:?>
                           <div id="countUnread">
-                              <span class="badge" style="position: absolute;right: 34px;top: 8px;">
+                              <span class="badge" style="position: absolute;right: 23px;top: 10px;">
                                   <?php echo $numberAnnouncements->numberUnread;?></span>
                                 </div>
                           <?php endif;?>
@@ -817,16 +817,13 @@ header h1 {
                                <ul class="nav navbar-nav">
                                 
                             <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" style="margin-top: -10px;" id="dropdown-logout" data-toggle="dropdown">
+                            
 
-                                <?php if($supervisor_image->image_id == '<i class="fa fa-user-circle pull-right" style="font-size: 40px; margin-top: -5px;" aria-hidden="true"></i>'): ?></a>
-                                <i class="fa fa-user-circle fa-3x"></i>
-                              <?php else: ?>
+                                <?php if($supervisor_image->image_id == '<i class="fa fa-user-circle pull-right" style="font-size: 40px; margin-top: -5px;" aria-hidden="true"></i>'): ?>
+                                  <a href="#" class="dropdown-toggle" style="margin-top: -10px;" id="dropdown-logout" data-toggle="dropdown">  <i class="fa fa-user-circle fa-3x"></i>
 
-                              <a href="#" class="dropdown-toggle" style="margin-top: -10px;" id="dropdown-logout" data-toggle="dropdown"> 
-                                <img src="<?php echo base_url().$supervisor_image->image_id;?>" class="pull-right circular-square user-image" style="width: 40px;height: 40px;margin-top: -16px;"></a>
-                            <?php endif; ?>
-                              <ul class="dropdown-menu" style="margin-top: 11px;margin-left: -200px;" id="show-logout">
+                                    </a>
+                                     <ul class="dropdown-menu" style="margin-top: -5px;margin-left: -218px;" id="show-logout">
                                 <li><a href="<?php echo base_url()?>main/supervisorDashboard">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                 <li class="divider"></li>
         
@@ -835,6 +832,22 @@ header h1 {
                     
                                 <li><a href="<?php echo base_url()?>main/logout">Log Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
                               </ul>
+                              <?php else: ?>
+
+                              <a href="#" class="dropdown-toggle" style="margin-top: -10px;" id="dropdown-logout" data-toggle="dropdown"> 
+                                <img src="<?php echo base_url().$supervisor_image->image_id;?>" class="pull-right circular-square user-image" style="width: 40px;height: 40px;margin-top: -16px;"></a>
+                                
+                                 <ul class="dropdown-menu" style="margin-top: 11px;margin-left: -200px;" id="show-logout">
+                                <li><a href="<?php echo base_url()?>main/supervisorDashboard">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
+                                <li class="divider"></li>
+        
+                                <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                                <li class="divider"></li>
+                    
+                                <li><a href="<?php echo base_url()?>main/logout">Log Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+                              </ul>
+                            <?php endif; ?>
+                             
                             </li>
                           </ul>
                         <?php else:?>
@@ -1092,6 +1105,8 @@ header h1 {
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
+                  <?php if(isset($id_number)): ?>
+                  <?php else: ?>
                     <div class="panel panel-default">
                         <div class="panel-heading" style="text-align: center;">OJT Workmates</div>
                         <div class="panel-body">
@@ -1120,6 +1135,7 @@ header h1 {
                            <?php endif; ?>
                         </div>
                     </div>
+                  <?php endif; ?>
                 </div>
                 <div class="col-lg-8">
                     <?php if(isset($id_number)): ?>
@@ -1156,7 +1172,7 @@ header h1 {
                                             <label>Time Out</label>
                                             <input type="time" class="form-control" name="time_out" id="time_out" required>
                                             <label>Hours Rendered</label>
-                                            <input type="text" class="form-control" name="hours_rendered" id="hours_rendered" required>
+                                            <input type="text" class="form-control" name="hours_rendered" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="hours_rendered" required>
 
                                             <input type="hidden" name="id_number" value="<?php echo $this->session->userdata['id_number']?>">
                                         </div>
@@ -1281,7 +1297,7 @@ header h1 {
                                                          <label>Comments</label>
 
                                                           <?php foreach ($comments as $comment):?>
-                                                    <?php if(in_array($log['id'], $comment)):?>
+                                                    <?php if($log['id'] == $comment['log_id']):?>
 
                                                         <!-- <div class="well" style="box-shadow: none; border: none; background: #f7f7f7; padding: 10px; margin-bottom: 10px;"> -->
                                                          <div class="comments-list" style="font-size: 12px; margin-bottom: 10px;">
@@ -1322,68 +1338,7 @@ header h1 {
 
     </div>
     </div>
-    <div class="footer">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-6">
-                <div class="feedback left">
-              <?php if(isset($id_number)):?>
-              <?php else: ?>
-
-      <div class="tooltips">
-          <div class="btn-group dropup">
-            <button type="button" class="btn btn-bug dropdown-toggle btn-circle btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-bug fa-2x" style="color: #FFFFFF;"title="Report Bug"></i>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-right dropdown-menu-form">
-              <li> 
-                <div class="report">
-                  <h3 class="text-center" style="color: #000000;">Report a Bug or Suggestion</h3>
-                  <form class="doo" method="POST" action="<?php echo base_url()?>main/addReport">
-
-                    <div class="col-sm-12">
-                      <textarea name="comment" id="reports"class="form-control" placeholder="Please tell us any bugs or issues you've found, provide as much detail as possible." required></textarea>
-                      
-                     </div>
-                     <div class="col-sm-12 clearfix">
-                      <button class="btn btn-submit btn-block" id="btn-report" name="btn-report"style="margin-top: 5px;" >Submit Report</button >
-                     </div>
-                 </form>
-                </div>
-                <div class="loading text-center hideme">
-                  <h2>Please wait...</h2>
-                  <h2><i class="fa fa-refresh fa-spin"></i></h2>
-                </div>
-                <div class="reported text-center hideme">
-                  <h2>Thank you!</h2>
-                  <p>Your submission has been received, we will review it shortly.</p>
-                   <div class="col-sm-12 clearfix">
-                      <button class="btn btn-success btn-block do-close">Close</button>
-                   </div>
-                </div>
-                <div class="failed text-center hideme">
-                  <h2>Oh no!</h2>
-                  <p>It looks like your submission was not sent.<br><br><a href="mailto:">Try contacting us by the old method.</a></p>
-                   <div class="col-sm-12 clearfix">
-                      <button class="btn btn-danger btn-block do-close">Close</button>
-                   </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-      </div>
-    <?php endif;?>
-    </div>
-                    </div>
-                    <div class="col-lg-6">
-                        
-                            <p class="copyright" style="float: right;">&copy;Copyright OJT Automate 2017 | All rights reserved</p>
-                        
-                    </div>
-                </div>
-            </div>
-
-        </div>
+  
 </body>
    <script type="text/javascript">
              $(document).ready(function() {
@@ -1479,7 +1434,7 @@ header h1 {
         input.prop('readonly', true);
         input.css('border', 'none');
         input.css('background', 'none');
-        currentform.trigger('reset');
+        // currentform.trigger('reset');
     });
     $('.save-edit-log').click(function(){
          var log_id = $(this).data('log-id');
@@ -1690,8 +1645,8 @@ header h1 {
         setInterval(function(){ 
           //$('title').load(location.href + " title")
           
-          $('#notification-body').load(location.href + " #notification-body");
-          $('#countUnread').load(location.href + " #countUnread");
+          // $('#notification-body').load(location.href + " #notification-body");
+          // $('#countUnread').load(location.href + " #countUnread");
           
      }, 5000);    
       

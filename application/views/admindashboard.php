@@ -582,7 +582,7 @@ tr:hover{
                                               <td><?php echo $student['school_year']?></td>
                                               <td>
                                                 <?php if ($student['ojtone_current_evaluations'] == 1 || $student['ojtone_current_evaluations'] == 2 || $student['ojttwo_current_evaluations'] == 1 || $student['ojttwo_current_evaluations'] == 2): ?>
-                                                  <a href="google.com">Midterm</a>
+                                                  <a href="<?php base_url() ?>viewmidterm/<?php echo $student['id_number']; ?>">Midterm</a>
                                                 <?php else:?>
                                                   <a style="color:gray">Midterm</a>
                                                 <?php endif;?>  

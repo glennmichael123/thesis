@@ -40,6 +40,10 @@ class Main extends CI_Controller {
     public function incorrectpassword(){
     	$this->load->view('incorrectpassword');
     }
+     public function viewMidterm($username){
+     	$data['evaluation'] = $this->users->getEvaluationViewForAdmin($username);
+    	$this->load->view('viewmidterm',$data);
+    }
     
    
     public function insertAnnouncement(){

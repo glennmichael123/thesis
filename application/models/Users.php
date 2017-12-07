@@ -1222,6 +1222,12 @@
 
           return $query;
       }
+
+      public function getEvaluationViewForAdmin($username){
+          $query= $this->db->query("SELECT * FROM midterm_evaluation WHERE username = '$username' ")->row();
+
+          return $query;
+      }
 }
 ?>
   
