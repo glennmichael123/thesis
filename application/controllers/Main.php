@@ -513,6 +513,62 @@ public function logout(){
 	
 	}
 
+	public function workmate($username){
+		if(!isset($this->session->userdata['id_number'])){
+          redirect(base_url('index'));
+     	}else{
+
+     	
+     	$data['comments'] = $this->users->getComments();
+     	$companyName = $this->users->getCompanyInformation($username);
+     	$data['workmates'] = $this->users->getWorkmates($username, $companyName->company_name);
+     	$totalLogsCount = $this->users->getNumberLogs($username);
+     	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($username);
+     	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($username);
+     	$data['supervisor_id'] = $this->users->getSupervisorIdForStudent($username);
+     
+     	$data['checkEmail'] = $this->users->checkEmailVerified($username);
+     	$renderedCount = $this->users->getSumRendered($username);
+
+
+     	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $username);
+     	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $username);
+     	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $username);
+     	$ojtRecords = $this->users->dashboardDataRecords($username);
+
+     		if(!empty($ojtRecords)){
+			     		$data['total'] = $ojtRecords[0]['ojtone_required'];
+
+						$data['rendered'] = $ojtRecords[0]['ojtone_rendered'];
+						$data['announcements'] = $this->users->getAnnouncements($username);
+						// echo time_elapsed_string($data['announcements'][0]['date_posted']);
+						
+						$data['all_evaluations'] = $ojtRecords[0]['total_evaluations'];
+						$data['current_evaluations'] = $ojtRecords[0]['ojtone_current_evaluations'];
+						$data['verified'] = $ojtRecords[0]['logs_verified'];
+						$data['totalLogs'] = $ojtRecords[0]['logs'];
+						$data['logs_list'] = $this->users->getLogs($username);
+
+						$data['userLoggedIn'] = $this->users->currentLoggedInOjt($this->session->userdata('id_number'));
+						
+						$data['user_data'] = $this->users->dashboardData($username);
+						$data['image_header'] = $this->users->displayImageToHeader($this->session->userdata('id_number'));
+								// $this->users->getUserData($this->session->userdata['id_number']);
+							$this->load->view('workmate', $data);
+					}
+			/*else if($account_type[0]['account_type'] == 1){
+					header("location: supervisorDashboard");
+			}
+			elseif ($account_type[0]['account_type'] == 2) {
+					header("location: admindashboard");
+			}*/
+			}
+     	}
+
+
+
+	
+
 
 
 	public function studentDashboard($id_number){

@@ -1227,6 +1227,12 @@
           $query= $this->db->query("SELECT * FROM midterm_evaluation WHERE username = '$username' ")->row();
 
           return $query;
+      }  
+
+       public function currentLoggedInOjt($username){
+          $query= $this->db->query("SELECT * FROM users WHERE id_number = '$username' ")->row();
+
+          return $query;
       }
 }
 ?>

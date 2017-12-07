@@ -85,6 +85,7 @@ $route['saveEmail']  = 'main/saveEmail';
 $route['insertRegistration']  = 'main/insertRegistration';
 $route['studentdashboard/(:any)']  = 'main/studentDashboard/$1';
 $route['viewmidterm/(:any)']  = 'main/viewMidterm/$1';
+$route['workmate/(:any)']  = 'main/workmate/$1';
 $route['studentinfo/(:any)']  = 'main/studentInfo/$1';
 
 

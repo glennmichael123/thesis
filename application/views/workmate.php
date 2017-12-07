@@ -808,49 +808,12 @@ header h1 {
               <div class="col-lg-1">
                  <?php if(isset($id_number)):?>
                  <?php else: ?>
-                   <h5 style="position: relative; top: 15px;">Hi, <?php echo $user_data[0]['first_name']?></h5>
+                   <h5 style="position: relative; top: 15px;">Hi, <?php echo $userLoggedIn->first_name?></h5>
                  <?php endif; ?>
               </div>
               <div class="col-lg-1">
                   <section class="dropdown-image">
-                        <?php if(isset($id_number)):?>
-                               <ul class="nav navbar-nav">
-                                
-                            <li class="dropdown">
-                            
-
-                                <?php if($supervisor_image->image_id == '<i class="fa fa-user-circle pull-right" style="font-size: 40px; margin-top: -5px;" aria-hidden="true"></i>'): ?>
-                                  <a href="#" class="dropdown-toggle" style="margin-top: -10px;" id="dropdown-logout" data-toggle="dropdown">  <i class="fa fa-user-circle fa-3x"></i>
-
-                                    </a>
-                                     <ul class="dropdown-menu" style="margin-top: -5px;margin-left: -218px;" id="show-logout">
-                                <li><a href="<?php echo base_url()?>main/supervisorDashboard">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
-                                <li class="divider"></li>
-        
-                                <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
-                                <li class="divider"></li>
-                    
-                                <li><a href="<?php echo base_url()?>main/logout">Log Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
-                              </ul>
-                              <?php else: ?>
-
-                              <a href="#" class="dropdown-toggle" style="margin-top: -10px;" id="dropdown-logout" data-toggle="dropdown"> 
-                                <img src="<?php echo base_url().$supervisor_image->image_id;?>" class="pull-right circular-square user-image" style="width: 40px;height: 40px;margin-top: -16px;"></a>
-
-                                 <ul class="dropdown-menu" style="margin-top: 11px;margin-left: -200px;" id="show-logout">
-                                <li><a href="<?php echo base_url()?>main/supervisorDashboard">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
-                                <li class="divider"></li>
-        
-                                <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
-                                <li class="divider"></li>
-                    
-                                <li><a href="<?php echo base_url()?>main/logout">Log Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
-                              </ul>
-                            <?php endif; ?>
-                             
-                            </li>
-                          </ul>
-                        <?php else:?>
+                      
                         <ul class="nav navbar-nav">
                             
                             <li class="dropdown">
@@ -866,19 +829,19 @@ header h1 {
                              </a>
                                 
                                 <ul class="dropdown-menu" id="show-logout">
-                                    <li><a href="profile">Profile<i class="fa fa-user pull-right"></i></a></li>
+                                    <li><a href="<?php echo base_url('profile') ?>">Profile<i class="fa fa-user pull-right"></i></a></li>
                                     <li class="divider"></li>
-                                    <li><a href="dashboard">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
-                                    <li class="divider"></li>
-
-                                    <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                                    <li><a href="<?php echo base_url('dashboard') ?>">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                     <li class="divider"></li>
 
-                                    <li><a href="logout">Log Out <i class="fa fa-sign-out pull-right"></i></a></li>
+                                    <li><a href="<?php echo base_url('changepassword') ?>">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                                    <li class="divider"></li>
+
+                                    <li><a href="<?php echo base_url('logout') ?>">Log Out <i class="fa fa-sign-out pull-right"></i></a></li>
                                 </ul>
                             </li>
                         </ul>
-                    <?php endif;?>
+                  
                       </section>
               </div>
             </div>
@@ -886,25 +849,11 @@ header h1 {
        
     </div>
     <div class="content">
-      <?php if(isset($id_number)): ?>
-    <?php else: ?>
-      <?php if($checkEmail->status): ?>
-      <?php else: ?>
-    <div class="container" style="margin-top: 40px;">
-        <div class="well" style="margin-bottom: 0;">
-            <div class="row">
-                <div class="col-lg-12">
-                    <span style="font-size: 15px;"><i class="fa fa-exclamation-circle" aria-hidden="true" style="color: red"></i>You must verify your email before you can post any logs</span>
-                </div>
-            </div>
-        </div>
-    </div>
-  <?php endif; ?>
-<?php endif; ?>
+      
         <div class="container">
             <div class="row">
             </div>
-            <div class="dashboard-info-student well" <?php  if(isset($id_number)): ?> style="margin-top: 40px;" <?php else: ?><?php  if($checkEmail->status): ?> style="margin-top: 40px;" <?php  else: ?> style="margin-top: 20px;" <?php  endif;?> <?php endif; ?>">
+            <div class="dashboard-info-student well" style="margin-top: 40px;">
                 <div class="row">
                     <div class="col-lg-4">
 
@@ -1138,71 +1087,12 @@ header h1 {
                   <?php endif; ?>
                 </div>
                 <div class="col-lg-8">
-                    <?php if(isset($id_number)): ?>
-                    <?php else:?>
-                    <div class="logs-students">
-                        
-                          <div class="panel-heading">
-                            <div class="logs-title">
-                                <span>Create a log <i class="fa fa-paper-plane-o" aria-hidden="true"></i></span>
-                            </div>
-                          </div>  
-                          <div class="well" style="padding: 0;">
-                            <form class="logs-display" action="addLogs" method="post">
-                                <div class="row logs-upper">
-                                    <div class="col-lg-6" style="padding-left: 30px;">
-
-                                        <div class="form-group">
-                                            <label>Date</label>
-                                            <input type="date" class="form-control" value="<?php echo date('Y-m-d')?>" name="log_date" id="log_date">
-                                            <label>Division</label>
-                                            <input type="text" class="form-control" name="division" id="division">
-                                            <label>Deparment/Area</label>
-                                            <input type="text" class="form-control" name="department" id="department">
-                                            <label>Designation</label>
-                                            <input type="text" class="form-control" name="designation" id="designation">
-                                            <input type="hidden" name="supervisor_id" value="<?php echo $supervisor_id->supervisor_id; ?>">
-                                        </div>
-
-                                    </div>
-                                    <div class="col-lg-6" style="padding-right: 30px;">
-                                        <div class="form-group">
-                                            <label>Time In</label>
-                                            <input type="time" class="form-control" name="time_in" id="time_in" required>
-                                            <label>Time Out</label>
-                                            <input type="time" class="form-control" name="time_out" id="time_out" required>
-                                            <label>Hours Rendered</label>
-                                            <input type="text" class="form-control" name="hours_rendered" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="hours_rendered" required>
-
-                                            <input type="hidden" name="id_number" value="<?php echo $this->session->userdata['id_number']?>">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group" style="padding-right: 15px; padding-left: 15px; padding-top: 15px;">
-                                    <textarea name="log_activity" rows="3" id="log_activity" placeholder="Write your log here" class="form-control" required></textarea>
-                                </div>
-                                <?php if($checkEmail->status): ?>
-                                <div class="form-group logs-lower">
-                                    <button type="submit" id="submit_log"  class="btn btn-primary btn-md" value="Submit" style="float: left; margin-left: 15px;"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Post</button>
-                                    <button type="button" <?php echo (empty($logs_list)) ? 'disabled' : '' ?> class="btn btn-success btn-md" id="load_last_log" style="margin-left: 5px;"><i class="fa fa-history" aria-hidden="true"></i> Load last log</button>
-                                    <button type="reset" class="btn btn-default btn-md"><i class="fa fa-eraser" aria-hidden="true"></i>Clear</button>
-                                    <button type="button" class="btn btn-danger cancel-btn btn-md" style="float: right; margin-right: 15px;" class="btn btn-danger"></i> Cancel</button>
-                                </div>
-                              <?php else: ?>
-                              <?php endif; ?>
-
-
-
-                            </form>
-                        </div>
-                    </div>
-                <?php endif;?>
+            
                     <?php if(empty($logs_list)):?>
-                        <?php if(isset($id_number)):?>
-                         <?php echo 'This student has not posted a log yet';?>
-                     <?php else:?>
+                       
+           
                           <?php echo 'You have not posted a log yet';?>   
-                    <?php endif;?>
+                 
                 <?php else:?>
 
                     <?php foreach($logs_list as $log):?>
