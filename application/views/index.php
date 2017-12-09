@@ -46,7 +46,7 @@
 <div class="header">
    <div class="container" style="width: 100%;">
        <div class="col s12">
-           sdds
+           Qwe qwe qwe
        </div>
    </div>
 </div>
@@ -77,8 +77,8 @@
       <div class="card-action right-align">
         <div class="col s6">
              <select name="login-options" id="loginas">
-                 <option selected disabled>Login as</option>
-                 <option value="ojt">OJT</option>
+                 <!-- <option selected disabled>Login as</option> -->
+                 <option value="ojt" selected>OJT</option>
                  <option value="supervisor">Supervisor</option>
                  <option value="administrator">Administrator</option>
              </select>

@@ -333,6 +333,7 @@
             overflow: hidden;
             width: 60%;
         }
+
         .evaluate-btn{
             background-color: #871F21;
             color: #FFFFFF !important;
@@ -341,6 +342,7 @@
             background-color:#791b1d;
             color: #FFFFFF !important;
         }
+
     
     </style>
 
@@ -491,11 +493,13 @@
                                                     <li><a href="#midterm-tab">Midterm</a></li>
                                                     <li><a href="#final-tab">Final</a></li>
                                                 </ul>
+
                                 <li id="midterm-tab">
                                     <table style="width: 100%;">
                                  
                                     <tbody>
                                         
+
                                         <?php foreach($ojtRecords as $student):?>
                                         <tr style="font-size: 15px; color: #000;">
                                             <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
@@ -516,28 +520,33 @@
                                        
                                                 
                                             <?php endif;?>
+
                                         </tr>
                                     <?php endforeach;?>
+
                                     </tbody>
+
                                     
                                    
                                                
                                 </table>
                             </li>
                                     
+
                                      <!-- FOR FINAL EVALUATION -->
                                       <li id="final-tab">
                                             <table style="width: 100%;">
                                  
-                                  
+
                                     <tbody>
                                       
                                         <?php foreach($ojtRecords as $student):?>
                                         <tr style="font-size: 15px; color: #000;">
                                             <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
                                             <?php if($student['ojtone_rendered'] < $student['ojtone_required']):?>
+
                                                 <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
-                                                
+
 
                                             <?php else:?>
                                               
@@ -545,7 +554,7 @@
                                                 <?php if(in_array($student['id_number'], array_column($evaluated2, 'username'))):?>
                                                  <td><i class="fa fa-check" aria-hidden="true"></i></td>           
                                                 <?php else:?>
-                                            <td><a href="<?php echo base_url()?>main/final_evaluation/<?php echo $student['id_number']?>" class="btn evaluate-btn">Evaluate</a></td>
+                                            <td><a href="<?php echo base_url()?>main/finalevaluation/<?php echo $student['id_number']?>" class="btn evaluate-btn">Evaluate</a></td>
                                                 
                                         <?php endif;?>
 
@@ -557,6 +566,7 @@
                                     <?php endforeach;?>
 
                                     </tbody>
+
                                     
                                    
                                                
@@ -564,6 +574,7 @@
                                     </li>
                                 </div>
                                  <?php endif;?> 
+
                             </div>
 
                         </div>    
@@ -1121,10 +1132,12 @@
      }
     });
 </script>
+
 <script type="text/javascript">
       $( function() {
     $( "#tabs" ).tabs();
   } );
 </script>
+
 
 </html>

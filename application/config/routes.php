@@ -70,6 +70,7 @@ $route['admindashboard']  = 'main/adminDashboard';
 $route['ojtform']  = 'main/ojtform';
 $route['truncate']  = 'main/truncate';
 $route['adminAddSupervisor']  = 'main/adminAddSupervisor';
+$route['adminAddAdmin']  = 'main/adminAddAdmin';
 $route['addTrainee']  = 'main/addTrainee';
 $route['saveCSV']  = 'main/saveCSV';
 $route['addWatchlist']  = 'main/addWatchlist';
@@ -87,5 +88,7 @@ $route['studentdashboard/(:any)']  = 'main/studentDashboard/$1';
 $route['viewmidterm/(:any)']  = 'main/viewMidterm/$1';
 $route['workmate/(:any)']  = 'main/workmate/$1';
 $route['studentinfo/(:any)']  = 'main/studentInfo/$1';
+$route['deleteStudent']  = 'main/deleteStudent';
+
 
 

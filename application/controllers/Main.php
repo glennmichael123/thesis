@@ -78,8 +78,9 @@ class Main extends CI_Controller {
     public function loginadmin(){
     	$this->load->view('loginadministrator');
     }
-    public function finalevaluation(){
-    	$this->load->view('finalevaluation');
+    public function finalevaluation($username){
+    	$data['initial_data'] = $this->users->loadFinalEval($username);
+    	$this->load->view('finalevaluation',$data);
     }
 
 	public function index()
@@ -125,7 +126,6 @@ class Main extends CI_Controller {
 
 	public function changepassword()
 	{
-
 		$this->load->view('change-password');
 	}
 
@@ -174,8 +174,10 @@ class Main extends CI_Controller {
 		if(!isset($this->session->userdata['id_number'])){
 			header("location: index");
 
+
 		}
 		$data['stud_username'] = $username;
+
 
 		$this->load->view('finalevaluation',$data);
 	}
@@ -579,6 +581,7 @@ public function logout(){
      	$data['supervisor_image'] = $this->users->getSupervisorImageForStud($this->session->userdata['id_number']);
 		$data['comments'] = $this->users->getComments();
 		$totalLogsCount = $this->users->getNumberLogs(isset($id_number) ? $id_number : '');
+		$data['image_header'] = $this->users->displayImageToHeader($id_number	);
      	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified(isset($id_number) ? $id_number : '');
      	$renderedCount = $this->users->getSumRendered(isset($id_number) ? $id_number : '');
      	$data['supImage'] = $this->users->supervisorImage($this->session->userdata['id_number']);
@@ -611,6 +614,7 @@ public function logout(){
 	}
 
 	public function adminAddAdmin(){
+		//print_r($_POST);exit;
 		$this->users->addAdmin();
 	}
 
@@ -780,7 +784,6 @@ public function logout(){
 
     }
 
-    
    	public function deleteStudent(){
    		
    		foreach ($_POST['usernames'] as $username){
@@ -820,6 +823,4 @@ public function logout(){
    	public function filterStudent(){
    		$data['student_list'] = $this->users->getStudentList();
    	}
-
-
 }

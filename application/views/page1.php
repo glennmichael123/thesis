@@ -337,12 +337,23 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" name="religion" placeholder="Religion" id="religion" required>
+                                <!-- <input type="text" name="sex" placeholder="Sex" id="sex" required> -->
+                                <select name="sex" id="sex" required>
+                                    <option selected hidden>Sex</option>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                </select>
                             </div>
                             <div class="col-lg-6">
                                 <input type="text" name="citizenship" placeholder="Citizenship" id="citizenship" required>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <input type="text" name="religion" placeholder="Religion" id="religion" required>
+                            </div>  
+                        </div>
+
                         <h2 class="fs-title">Family Data <i class="fa fa-users" aria-hidden="true"></i></h2>
                         <div class="row">
                             <div class="col-lg-6">
@@ -608,7 +619,7 @@
                         <div style="margin-top: 50px" class="fs-title">
                             <h1>Almost Done!</h1>
                             <h4 style="margin-top: 50px">Just one more step and you are done.</h4>
-                            <h5>An email verification link has been sent to your email address. Please verify your email so that you can activate your account.</h5>
+                            <h5>An email verification link has been sent to your email address. Please verify your email to activate your account.</h5>
                         </div>
                         <div style="margin-top: 70px">
                             <a class="topage3 second-previous" href="#" hidden="">PREVIOUS</a>
@@ -828,7 +839,7 @@
               text: "You are about to submit this form. Please make sure that the email you provided is an active one :)",
               icon: "warning",
               buttons: true,
-              buttons: ["Cancel", "Okay"],
+              buttons: ["CANCEL", "PROCEED"],
               dangerMode: true,
             })
             .then((yes) => {
