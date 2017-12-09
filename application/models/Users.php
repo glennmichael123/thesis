@@ -431,7 +431,7 @@
         }
 
         public function getOjtLogs($id){
-            $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.user_image, users.first_name, users.last_name FROM logs INNER JOIN users ON users.id_number = logs.id_number WHERE logs.supervisor_id = '$id'");
+            $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.first_name, users.last_name, users.user_image FROM logs INNER JOIN users ON users.id_number = logs.id_number WHERE logs.supervisor_id = '$id'");
             return $query->result_array();
         }
 
@@ -523,6 +523,7 @@
             $adminName = $_POST['adName'];
             $adminID = $_POST['adID'];
             $adminPass = $_POST['adPass'];
+            $adminCollege = $_POST['adCollege'];
             $adminEmail = $_POST['adEmail'];
             
             //check duplicate name
@@ -543,7 +544,7 @@
                echo "email_exist"; exit;
             }
             else{
-                return $this->db->query("INSERT INTO admin (name, id_number, password, email) VALUES('$adminName', '$adminID', '$adminPass', '$adminEmail')");
+                return $this->db->query("INSERT INTO admin (name, id_number, password, college, email) VALUES('$adminName', '$adminID', '$adminPass', '$adminCollege', '$adminEmail')");
              }
          }
          public function addWatch(){
@@ -724,10 +725,11 @@
                     $username = strtolower(str_replace(' ', '',$getData[0]).".".str_replace(' ', '',$getData[2]));
                     $sy=str_replace(' ','',$getData[5]);
                     
-                    $result = $this->db->query("SELECT * FROM users WHERE id_number = '".$username."'");
-                    if($this->db->affected_rows() > 0){
-                      //echo "user_exist";exit;
-                      $duplicate_names.=$getData[0]." ".$getData[2].",";
+                    $result = $this->db->query("SELECT id_number FROM users WHERE id_number = '".$username."'")->result_array();
+                    if(in_array($username, array_column($result, 'id_number'))){
+                      $key = array_search($username, array_column($result, 'id_number'));
+                      $existStuds[] = $result[$key];
+                     
                     } else{
                       if($getData[6]!=""){
                          $total_hours = $getData[6]+$getData[7];
@@ -741,6 +743,9 @@
                     
                  }
                  fclose($file);
+                 if(!empty($existStuds)){
+                    echo '<script>alert("Students:'.implode(',' , array_column($existStuds, 'id_number')).' already exists, not added to the database")</script>';
+                 }
                  echo "<script type=\"text/javascript\">
                             alert(\"Successfull\");
                       </script>";
@@ -803,7 +808,7 @@
          
          public function midterm_eval($username){
             $value = 0;
-                if($_POST['allow_view']=true){  
+                if($_POST['allow_view']==true){  
                $value = 1;
 
                 }
@@ -1214,6 +1219,18 @@
 
       public function getSupervisorImageForStud($username){
           $query= $this->db->query("SELECT image_id FROM supervisor WHERE id_number = '$username' ")->row();
+
+          return $query;
+      }
+
+      public function getEvaluationViewForAdmin($username){
+          $query= $this->db->query("SELECT * FROM midterm_evaluation WHERE username = '$username' ")->row();
+
+          return $query;
+      }  
+
+       public function currentLoggedInOjt($username){
+          $query= $this->db->query("SELECT * FROM users WHERE id_number = '$username' ")->row();
 
           return $query;
       }

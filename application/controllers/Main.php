@@ -40,6 +40,10 @@ class Main extends CI_Controller {
     public function incorrectpassword(){
     	$this->load->view('incorrectpassword');
     }
+     public function viewMidterm($username){
+     	$data['evaluation'] = $this->users->getEvaluationViewForAdmin($username);
+    	$this->load->view('viewmidterm',$data);
+    }
     
    
     public function insertAnnouncement(){
@@ -509,6 +513,62 @@ public function logout(){
 	
 	}
 
+	public function workmate($username){
+		if(!isset($this->session->userdata['id_number'])){
+          redirect(base_url('index'));
+     	}else{
+
+     	
+     	$data['comments'] = $this->users->getComments();
+     	$companyName = $this->users->getCompanyInformation($username);
+     	$data['workmates'] = $this->users->getWorkmates($username, $companyName->company_name);
+     	$totalLogsCount = $this->users->getNumberLogs($username);
+     	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($username);
+     	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($username);
+     	$data['supervisor_id'] = $this->users->getSupervisorIdForStudent($username);
+     
+     	$data['checkEmail'] = $this->users->checkEmailVerified($username);
+     	$renderedCount = $this->users->getSumRendered($username);
+
+
+     	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $username);
+     	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $username);
+     	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $username);
+     	$ojtRecords = $this->users->dashboardDataRecords($username);
+
+     		if(!empty($ojtRecords)){
+			     		$data['total'] = $ojtRecords[0]['ojtone_required'];
+
+						$data['rendered'] = $ojtRecords[0]['ojtone_rendered'];
+						$data['announcements'] = $this->users->getAnnouncements($username);
+						// echo time_elapsed_string($data['announcements'][0]['date_posted']);
+						
+						$data['all_evaluations'] = $ojtRecords[0]['total_evaluations'];
+						$data['current_evaluations'] = $ojtRecords[0]['ojtone_current_evaluations'];
+						$data['verified'] = $ojtRecords[0]['logs_verified'];
+						$data['totalLogs'] = $ojtRecords[0]['logs'];
+						$data['logs_list'] = $this->users->getLogs($username);
+
+						$data['userLoggedIn'] = $this->users->currentLoggedInOjt($this->session->userdata('id_number'));
+						
+						$data['user_data'] = $this->users->dashboardData($username);
+						$data['image_header'] = $this->users->displayImageToHeader($this->session->userdata('id_number'));
+								// $this->users->getUserData($this->session->userdata['id_number']);
+							$this->load->view('workmate', $data);
+					}
+			/*else if($account_type[0]['account_type'] == 1){
+					header("location: supervisorDashboard");
+			}
+			elseif ($account_type[0]['account_type'] == 2) {
+					header("location: admindashboard");
+			}*/
+			}
+     	}
+
+
+
+	
+
 
 
 	public function studentDashboard($id_number){
@@ -670,15 +730,17 @@ public function logout(){
    		$this->users->deleteComment();
    	}
    	  public function insert_mid_eval($username){ 	
+
    	  	//print_r($_POST);exit;
     	if($this->users->midterm_eval($username)){
+    		$name = $this->db->query("SELECT first_name,last_name from users where id_number = '$username'")->row();
     		//redirect(base_url('main/supervisorDashboard'));
     		//echo "success";
     		 // $stud_name = $this->db->query("SELECT * from users INNER JOIN midterm_evaluation on users.id_number = midterm_evaluation.username where midterm_evaluation.username = '$username'")->row();
 
     				$Status = '<div class="alert alert-success alert-dismissible" role="alert">
 					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					   You have evaluated  <strong>'.$username.' </strong> </div>';
+					   You have evaluated  <strong>'.$name->first_name." ".$name->last_name.' </strong> </div>';
     		 // echo $stud_name->first_name;
     	//	$Status = '<div class="alert alert-success" role="alert">You have evaluated '.$username.' </div>';
     		//$Status = "You have evaluated ".$username;

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -371,7 +372,7 @@
                                     <?php if ($supImage[0]['image_id'] == '<i class="fa fa-user-circle pull-right" style="font-size: 40px; margin-top: -5px;" aria-hidden="true"></i>'):?>
                                     <?php echo $supImage[0]['image_id'];?>
                                     <?php else:?> 
-                                        <img src="<?php echo base_url().$supImage[0]['image_id'];?>" class="pull-right circular-square user-image" style="width: 40px; height: 40px; margin-top: -5px;border: 2px solid white">
+                                        <img src="<?php echo base_url().$supImage[0]['image_id'];?>" class="pull-right circular-square user-image" style="width: 40px; height: 40px; margin-top: -5px;">
                                     <?php endif ?>
 
                                 <ul class="dropdown-menu" id="show-logout">
@@ -500,11 +501,7 @@
                                             <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
                                             <?php if($student['ojtone_rendered'] < 50):?>
                                                 <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
-                                                <script type="text/javascript">
-                                                    $('.evaluate-btn').click(function(e){
-                                                        e.preventDefault();
-                                                    });
-                                                </script>
+                                              
 
                                             <?php else:?>
                                               
@@ -540,9 +537,7 @@
                                             <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
                                             <?php if($student['ojtone_rendered'] < $student['ojtone_required']):?>
                                                 <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
-                                                <script type="text/javascript">
-                                                   
-                                                </script>
+                                                
 
                                             <?php else:?>
                                               
@@ -697,7 +692,7 @@
 
                                                 <div id="display_comments"> 
                                                     <?php foreach ($comments as $comment):?>
-                                                    <?php if(in_array($log['id'], $comment)):?>
+                                                    <?php if($log['id'] == $comment['log_id']):?>
                                                         <!-- <div class="well" style="box-shadow: none; border: none; background: #f7f7f7; padding: 10px; margin-bottom: 10px;"> -->
                                                          <div class="comments-list" style="font-size: 12px; margin-bottom: 10px;">
                                                               <b style="float: left; margin-right: 5px;"> Supervisor </b> <span class="actual-comment"><?php echo $comment['content'];?> </span>
