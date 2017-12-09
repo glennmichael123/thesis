@@ -582,7 +582,7 @@ tr:hover{
                                               <td><?php echo $student['school_year']?></td>
                                               <td>
                                                 <?php if ($student['ojtone_current_evaluations'] == 1 || $student['ojtone_current_evaluations'] == 2 || $student['ojttwo_current_evaluations'] == 1 || $student['ojttwo_current_evaluations'] == 2): ?>
-                                                  <a href="google.com">Midterm</a>
+                                                  <a href="<?php base_url() ?>viewmidterm/<?php echo $student['id_number']; ?>">Midterm</a>
                                                 <?php else:?>
                                                   <a style="color:gray">Midterm</a>
                                                 <?php endif;?>  
@@ -709,6 +709,16 @@ tr:hover{
                     <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="adminID" name="adminID">
                     <label>Password</label>
                     <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="adminPass" name="adminPass">
+                    <label>College</label>
+                    <select class="form-control" style="border-radius:5px;margin-bottom:10px" id="adminCollege" name="adminCollege">
+                        <option selected disabled>Select college</option>
+                        <option value="CCS">College of Computer Studies</option>
+                        <option value="CEA">College of Engineering and Architecture</option>
+                        <option value="CON">College of Nursing</option>
+                        <option value="CMBA">College of Management, Business and Accoutancy</option>
+                        <option value="COE">College of Education</option>
+                        <option value="CAS">College of Arts and Sciences</option>       
+                    </select>
                     <label>Email</label>
                     <input type="Email" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="adminEmail" name="adminEmail">
                     
@@ -963,7 +973,7 @@ tr:hover{
       });
 
       /*Refresh button*/
-      $('#disp').click(function(){
+      $('#disp').click(function(e){
           $('#course_option').val("courseDefault");
           $('#eval_option').val("evalDefault");
           $('#status_option').val("statDefault");
@@ -1378,59 +1388,71 @@ tr:hover{
   String.prototype.capitalize = function() {
     return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
   };
+
+  function validateEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
+
       $(document).ready(function(){
           $("#adminAdd").click(function(){
             var adminName = $('#adminName').val().capitalize().trim();
             var idNum = $('#adminID').val().trim();
             var pass = $('#adminPass').val().trim();
+            var college = $('#adminCollege').val();
             var email = $('#adminEmail').val().trim();
 
-            if(adminName.length == 0 || idNum.length == 0 || pass.length == 0 || email.length == 0){
+            if(adminName.length == 0 || idNum.length == 0 || pass.length == 0 || college == null || email.length == 0){
              alert("Please fill all fields");    
             }
             else{
-                $.ajax({  
-                url : "adminAddAdmin",// your username checker url
-                type : "POST",
-                data : { 
-                    'adName': adminName,
-                    'adID': idNum,
-                    'adPass': pass,
-                    'adEmail': email,
-                   },
-                success:function(data){
-                    if(data=="name_exist"){
-                      swal('Oops...','Name already exist!','error');return false;
-                    }
-                    else if(data=="id_exist"){
-                      swal('Oops...','Username already exist!','error');return false;
-                    }
-                    else if(data=="email_exist"){
-                      swal('Oops...','Email already exist!','error');return false;
-                    }
-                    else{
-                     swal({
-                        title: "Success!",
-                        text: "Admin added successfully",
-                        icon: "success",
-                      }).then(function(){
-                        location.reload();
-                      });
-                        
-                        $.ajax({
-                          url: "saveEmail",
-                          type: "POST",
-                          data:{
-                            'email': email,
-                          },
-                          success:function(data){
-                            alert("Email verification sent");
-                          }
+               if (validateEmail(email)){
+                  $.ajax({  
+                  url : "adminAddAdmin",// your username checker url
+                  type : "POST",
+                  data : { 
+                      'adName': adminName,
+                      'adID': idNum,
+                      'adPass': pass,
+                      'adCollege': college,
+                      'adEmail': email,
+                     },
+                  success:function(data){
+                      if(data=="name_exist"){
+                        swal('Oops...','Name already exist!','error');return false;
+                      }
+                      else if(data=="id_exist"){
+                        swal('Oops...','Username already exist!','error');return false;
+                      }
+                      else if(data=="email_exist"){
+                        swal('Oops...','Email already exist!','error');return false;
+                      }
+                      else{
+                       swal({
+                          title: "Success!",
+                          text: "Admin added successfully",
+                          icon: "success",
+                        }).then(function(){
+                          location.reload();
                         });
-                    }
-                  },
-              });
-            }
+                          
+                          $.ajax({
+                            url: "saveEmail",
+                            type: "POST",
+                            data:{
+                              'email': email,
+                            },
+                            success:function(data){
+                              alert("Email verification sent");
+                            }
+                          });
+                      }
+                    },
+                });
+              }else{
+                swal('Oops...', 'Invalid email', 'error');
+              }
+            }//end else
           });
        });
 </script>
