@@ -388,7 +388,7 @@ public function editLog(){
 }
 public function addLogs(){
 	$this->users->insertLogs();
-      header("location: dashboard");
+      // header("location: dashboard");
 }
 
 public function logout(){
@@ -646,10 +646,11 @@ public function logout(){
 	}
 
 
-	public function sendEmail($hash,$email){
+	public function sendEmail(){
 		
 
-		
+		$email = 'gtorregosa@gmail.com';
+		$hash = md5($email);
 		$config = Array(
 		'protocol' => 'smtp',
 		        'smtp_host' => 'ssl://smtp.googlemail.com',
@@ -763,9 +764,14 @@ public function logout(){
     		//echo "success";
     		 // $stud_name = $this->db->query("SELECT * from users INNER JOIN midterm_evaluation on users.id_number = midterm_evaluation.username where midterm_evaluation.username = '$username'")->row();
 
+    		   		$name = $this->db->query("SELECT first_name,last_name from users where id_number = '$username'")->row();
+    		//redirect(base_url('main/supervisorDashboard'));
+    		//echo "success";
+    		 // $stud_name = $this->db->query("SELECT * from users INNER JOIN midterm_evaluation on users.id_number = midterm_evaluation.username where midterm_evaluation.username = '$username'")->row();
+
     				$Status = '<div class="alert alert-success alert-dismissible" role="alert">
 					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					   You have evaluated  <strong>'.$username.' </strong> </div>';
+					   You have evaluated  <strong>'.$name->first_name." ".$name->last_name.' </strong> </div>';
     		 // echo $stud_name->first_name;
     	//	$Status = '<div class="alert alert-success" role="alert">You have evaluated '.$username.' </div>';
     		//$Status = "You have evaluated ".$username;

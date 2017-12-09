@@ -112,10 +112,6 @@
   background-size:cover;
   background-repeat: no-repeat;
   cursor: pointer;
-  -webkit-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
-  -moz-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
-  -ms-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
-  animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
 }
 .pulse-button:hover 
 {

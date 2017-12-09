@@ -74,6 +74,7 @@
       .red-border{
       	border-bottom: 1px solid red !important;
       }
+
       a.tooltipped{
         text-decoration: none;
       }
@@ -320,7 +321,6 @@
                 <div class="collapsible-body" style="padding: 10px;">
                   <textarea name="recommend" class="materialize-textarea" placeholder="Write your recommendation here..."></textarea>
 
-
                 </div>
               </li>
              </ul>
@@ -368,7 +368,7 @@
         });
      if(!fail){
           $.ajax({
-            url:"<?php echo base_url()?>main/insert_final_eval/1221",
+            url:"<?php echo base_url()?>main/insert_final_eval/<?php echo $stud_username ?>",
             type:"POST",
             data:data,
             success:function(data){
@@ -388,6 +388,58 @@
      }
   });
 </script>
+<script type="text/javascript">
 
+    $('#fquality').change(function(){
+        var rating = $(this).val();
+        if(rating > 20 || rating < 1){
+           
+            $(this).val('');
+        }
+    });
+      $('#fquality2').change(function(){
+        var rating = $(this).val();
+        if(rating > 20 || rating < 1){
+           
+            $(this).val('');
+        }
+    });
+        $('#fdependability').change(function(){
+        var rating = $(this).val();
+        if(rating > 15 || rating < 1){
+           
+            $(this).val('');
+        }
+    });
+          $('#fattendance').change(function(){
+        var rating = $(this).val();
+        if(rating > 15 || rating < 1){
+           
+            $(this).val('');
+        }
+    });
+            $('#fcooperation').change(function(){
+        var rating = $(this).val();
+        if(rating > 10 || rating < 1){
+           
+            $(this).val('');
+        }
+    });
+              $('#fjudgement').change(function(){
+        var rating = $(this).val();
+        if(rating > 10 || rating < 1){
+           
+            $(this).val('');
+        }
+    });
+                $('#fpersonality').change(function(){
+        var rating = $(this).val();
+        if(rating > 10 || rating < 1){
+           
+            $(this).val('');
+        }
+    });
+
+</script>
     
   </html>

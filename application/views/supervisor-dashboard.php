@@ -547,7 +547,6 @@
 
                                                 <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
 
-
                                             <?php else:?>
                                               
                                                 

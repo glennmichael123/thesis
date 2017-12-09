@@ -1148,19 +1148,19 @@ header h1 {
                             </div>
                           </div>  
                           <div class="well" style="padding: 0;">
-                            <form class="logs-display" action="addLogs" method="post">
+                            <form class="logs-display" id="addLogs">
                                 <div class="row logs-upper">
                                     <div class="col-lg-6" style="padding-left: 30px;">
 
                                         <div class="form-group">
                                             <label>Date</label>
-                                            <input type="date" class="form-control" value="<?php echo date('Y-m-d')?>" name="log_date" id="log_date">
+                                            <input type="date" class="form-control" required value="<?php echo date('Y-m-d')?>" name="log_date" id="log_date">
                                             <label>Division</label>
-                                            <input type="text" class="form-control" name="division" id="division">
+                                            <input type="text" class="form-control" required name="division" id="division">
                                             <label>Deparment/Area</label>
-                                            <input type="text" class="form-control" name="department" id="department">
+                                            <input type="text" class="form-control" required name="department" id="department">
                                             <label>Designation</label>
-                                            <input type="text" class="form-control" name="designation" id="designation">
+                                            <input type="text" class="form-control" required name="designation" id="designation">
                                             <input type="hidden" name="supervisor_id" value="<?php echo $supervisor_id->supervisor_id; ?>">
                                         </div>
 
@@ -1240,7 +1240,7 @@ header h1 {
 
                                                     <div class="form-group show-more-right" style="display: none;">
                                                         <label>Date</label>
-                                                        <input type="text" class="list-logs date_listed" name="log_list_date" id="log_list_date" value="<?php echo $log['date']?>" readonly>
+                                                        <input type="text" class="list-logs date_listed" name="log_list_date" id="log_list_date" value="<?php echo date('F d Y',strtotime($log['date']))?>" readonly>
                                                         <label>Division</label>
                                                         <input type="text" class="list-logs division_listed" name="log_list_division" id="log_list_division" value="<?php echo $log['division']?>" readonly>
                                                         <label>Deparment/Area</label>
@@ -1641,12 +1641,56 @@ header h1 {
   });
 </script>
 <script type="text/javascript">
+  $('#submit_log').click(function(e){
+    e.preventDefault();
+    var date = $('#log_date').val();
+    var date_now = '<?php echo date('Y-m-d') ?>';
+    var data = $('#addLogs').serialize();
+    var fail = false;
+     var fail_log = '';
+    $( '#addLogs' ).find( 'input[type=text], input[type=date], input[type=time], textarea' ).each(function(){
+            if( ! $( this ).prop( 'required' )){
+
+            } else {
+                if ( ! $( this ).val() ) {
+                    fail = true;
+                    name = $( this ).attr( 'style', 'border: 1px solid red' );
+                    fail_log += name + " is required ";
+                }else{
+                    name = $( this ).attr( 'style', 'border: 1px solid #ccc' );
+                }
+
+            }
+        });
+  if(!fail){
+    if(date > date_now){ 
+      swal('Oops...','You are not from the future.','error');return false;
+    }else{
+      $.ajax({
+        url:'addLogs',
+        method: 'POST',
+        data:data,
+        success: function(data){
+          if($.trim(data) == 'dateexist'){
+            swal('Oops...','You already posted a log on this date','error');return false;
+          }else{
+            location.reload();
+          }
+          
+        }
+      });
+    }
+  }else{
+    return false;
+  }
+    
+  });
   $(document).ready(function(){
         setInterval(function(){ 
-          //$('title').load(location.href + " title")
+          $('title').load(location.href + " title")
           
-          // $('#notification-body').load(location.href + " #notification-body");
-          // $('#countUnread').load(location.href + " #countUnread");
+          $('#notification-body').load(location.href + " #notification-body");
+          $('#countUnread').load(location.href + " #countUnread");
           
      }, 5000);    
       

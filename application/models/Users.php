@@ -276,7 +276,14 @@
             'supervisor_id' => $supervisor_id
             );
 
-            return $this->db->insert('logs',$data);
+            $existDate = $this->db->query("SELECT * FROM logs WHERE date = '$date' ")->result();
+
+            if(!empty($existDate)){
+              echo 'dateexist';
+            }else{
+               $this->db->insert('logs',$data);
+            }
+          
 
 
         }
@@ -1032,7 +1039,7 @@
           $fjudgement = $_POST['fjudgement'];
           $fpersonality = $_POST['fpersonality'];
           $recommend = $_POST['recommend'];
-           $total = (($fquality*.20) + ($fquality2*.20) + ($fdependability*.15) + ($fattendance*.15) + ($fcooperation*.10) + ($fjudgement*.10) + ($fpersonality*.10))*20;
+           $total = $fquality + $fquality2 + $fdependability + $fattendance+ $fcooperation + $fjudgement+ $fpersonality;
           // $total = ($fquality + $fquality2 + $fdependability+ $fattendance+ $fcooperation+ $fjudgement + $fpersonality);
 
             // $this->db->query("INSERT INTO final_evaluation(id_number,name,age,sex,course,major,school,city,permanent,required,company,division,field,dates_from,dates_to,total_hours,quality,quality2,dependability,attendance,cooperation,judgement,personality) VALUES('$username','$fname',$fage,'$fsex','$fcourse','$fmajor','$fschool','$fcity','$fpermanent','$frequired','$fcompany','$fdivision','$ffield','$dates','$fdatesto',$ftotal,$fquality,$fquaility2,$fdependability,$fattendance,$fcooperation,$fjudgement,$fpersonality)");
