@@ -548,6 +548,7 @@
                                                 <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
 
 
+
                                                 <script type="text/javascript">
                                                    
                                                 </script>
@@ -559,7 +560,7 @@
                                                 <?php if(in_array($student['id_number'], array_column($evaluated2, 'username'))):?>
                                                  <td><i class="fa fa-check" aria-hidden="true"></i></td>           
                                                 <?php else:?>
-                                            <td><a href="<?php echo base_url()?>main/final_evaluation/<?php echo $student['id_number']?>" class="btn evaluate-btn">Evaluate</a></td>
+                                            <td><a href="<?php echo base_url()?>main/finalevaluation/<?php echo $student['id_number']?>" class="btn evaluate-btn">Evaluate</a></td>
                                                 
                                         <?php endif;?>
 

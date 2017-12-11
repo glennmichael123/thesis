@@ -133,7 +133,7 @@
 
                             </div>
                             <div class="form-group">
-                                <button type="submit" id="save-changes" class="btn save">Save changes</button>
+                                <button type="button" id="save-changes" class="btn save">Save changes</button>
                                 <?php if($this->session->userdata['account_type'] == 'student'):?>
                                 <a href="dashboard" id="cancel" class="btn cancel" style="float: right;width: 115px">Cancel</a>
                             <?php elseif($this->session->userdata['account_type'] == 'supervisor'):?>
@@ -160,8 +160,9 @@
    $("#save-changes").click(function(){
     var pass1=$("#newpass").val();
     var pass2=$("#confirm_newpass").val();
+    var oldpass=$("#old_password").val();
 
-    if(pass1!=pass2){
+    if(pass1!=pass2 || pass1=="" || pass2==""){
         $("#newpass").css("border","1px solid red");
         $("#confirm_newpass").css("border","1px solid red");
         $(".error").html("Passwords do not match!");
@@ -169,9 +170,38 @@
         $("#confirm_newpass").val('');
         $('.error').html('Passwords do not match');
         return false;
+    }else{
+        $.ajax({
+            url: "savePassword",
+            type: "POST",
+            data:{
+                'newpass': pass1,
+                'confirm_newpass': pass2,
+                'old_password': oldpass,
+            },
+            success:function(data){
+                var type = data;
+                if($.trim(data) == "old_not_match_student"){
+                    swal('Oops..', 'Old password did not match', 'error');return false;
+                }else if($.trim(data) == "old_not_match_supervisor"){
+                    swal('Oops..', 'Old password did not match', 'error');return false;
+                }else if($.trim(data) == "old_not_match_admin"){
+                    swal('Oops..', 'Old password did not match', 'error');return false;
+                }else{
+                    swal({
+                        title: "Success",
+                        text: "Password changed",
+                        icon: "success",
+                    }).then(function(){
+                       window.location.replace("dashboard");
+                    });
+                }
+            },
+
+        });
     }
 
-   })
+   });
 </script>
 
 </html>

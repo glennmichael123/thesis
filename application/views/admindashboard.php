@@ -29,7 +29,7 @@
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
     
     <script src="//code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.JavaScript"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
 
     <!-- <script type="text/javascript" src="jquery.dataTables.js"></script>
@@ -669,7 +669,6 @@ tr:hover{
 
                         <?php foreach($company_watch_list as $companywatch):?>  
                                <option value="<?php echo $companywatch['company_name']?>"><?php echo $companywatch['company_name']?></option>
-                         
                         <?php endforeach;?> 
                     </select>
                 </div>
@@ -765,7 +764,7 @@ tr:hover{
                                   
                     </select>
                     <label>Designation</label>
-                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supDesig" name="supDesig">
+                    <input type="text" class="form-control capitalize" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supDesig" name="supDesig">
                     <label>Username</label>
                     <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supID" name="supID">
                     <label>Password</label>
@@ -1177,7 +1176,7 @@ tr:hover{
           'sy_2': sy_2,
         },  
         success:function(data){
-            if(data == "user_exist"){
+            if($.trim(data) == "user_exist"){
               swal('Oops...','Student already exist!','error');
             }
             else{
@@ -1258,16 +1257,16 @@ tr:hover{
               'supEmail':email,
             },
             success:function(data){
-              if(data == "name_exist"){
+              if($.trim(data) == "name_exist"){
                   swal('Oops...','Name already exist!','error');return false;
-              }else if(data == "id_exist"){
+              }else if($.trim(data) == "id_exist"){
                   swal('Oops...','Username already exist!','error');return false;
-              }else if(data == "email_exist"){
+              }else if($.trim(data) == "email_exist"){
                   swal('Oops...','Email already exist!','error');return false;
               }else{
                 swal({
                     title: "Success!",
-                    text: "Supervisor added successfully",
+                    text: "Supervisor added successfully | Email verification sent",
                     icon: "success",
                   }).then(function () {
                     location.reload();
@@ -1280,7 +1279,7 @@ tr:hover{
                       'email': email,
                     },
                     success:function(data){
-                      alert("Email verification sent");
+                      //alert("Email verification sent");
                     }
                   });
               }
@@ -1358,7 +1357,7 @@ tr:hover{
             },
             success:function(data){
 
-              if(data == "fail"){
+              if($.trim(data) == "email_exist" == "fail"){
                 alert("That company is already in the watch list");
               }else{  
                 swal({
@@ -1416,21 +1415,21 @@ tr:hover{
                       'adPass': pass,
                       'adCollege': college,
                       'adEmail': email,
-                     },
+                    },
                   success:function(data){
-                      if(data=="name_exist"){
+                      if($.trim(data)=="name_exist"){
                         swal('Oops...','Name already exist!','error');return false;
                       }
-                      else if(data=="id_exist"){
+                      else if($.trim(data)=="id_exist"){
                         swal('Oops...','Username already exist!','error');return false;
                       }
-                      else if(data=="email_exist"){
+                      else if($.trim(data)=="email_exist"){
                         swal('Oops...','Email already exist!','error');return false;
                       }
                       else{
                        swal({
                           title: "Success!",
-                          text: "Admin added successfully",
+                          text: "Admin added successfully | Email verification sent",
                           icon: "success",
                         }).then(function(){
                           location.reload();
@@ -1443,7 +1442,7 @@ tr:hover{
                               'email': email,
                             },
                             success:function(data){
-                              alert("Email verification sent");
+                              //alert("Email verification sent");
                             }
                           });
                       }

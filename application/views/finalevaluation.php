@@ -30,6 +30,7 @@
         font-size: 2.5em;
         font-weight: bold;
         text-align: center;
+        color: white;
       }
       h3.heading{
         text-align: center;
@@ -37,6 +38,7 @@
         text-transform: uppercase;
         margin-top: -15px;
         font-size: 1.5em;
+        color: white;
       }
       header{
         background-color: #ca2e32;
@@ -72,6 +74,7 @@
       .red-border{
       	border-bottom: 1px solid red !important;
       }
+
       a.tooltipped{
         text-decoration: none;
       }
@@ -94,19 +97,19 @@
               <div class="col l6">
                 <div class="input-field first-field">
                   <label for="#name">Name</label>
-                  <input type="text" name="fname" id="fname" required class="validate">
+                  <input type="text" name="fname" id="fname" required class="validate" value="<?php echo $initial_data[0]['first_name'].'  '.$initial_data[0]['middle_initial'].'  '.$initial_data[0]['last_name']; ?>">
                 </div>
               </div>
               <div class="col l3">
                 <div class="input-field first-field"">
                   <label for="#age">Age</label>
-                  <input type="text" name="fage" id="fage" required onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="validate">
+                  <input type="text" name="fage" id="fage" required onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="validate" value="<?php echo $initial_data[0]['age']; ?>">
                 </div>
               </div>
               <div class="col l3">
                 <div class="input-field first-field"">
                   <label for="#sex">Sex</label>
-                  <input type="text" name="fsex" id="fsex" required class="validate">
+                  <input type="text" name="fsex" id="fsex" required class="validate" value="Shemale :'>">
                 </div>
               </div>
              </div>
@@ -114,7 +117,7 @@
                <div class="col l6">
                 <div class="input-field">
                   <label for="#course">Course</label>
-                  <input type="text" name="fcourse" id="fcourse" required class="validate">
+                  <input type="text" name="fcourse" id="fcourse" required class="validate" value="<?php echo $initial_data[0]['course']; ?>">
                 </div>
               </div>
               <div class="col l3">
@@ -128,7 +131,7 @@
                <div class="col l6">
                 <div class="input-field">
                   <label for="#school">School</label>
-                  <input type="text" name="fschool" id="fschool" required class="validate">
+                  <input type="text" name="fschool" id="fschool" required class="validate" value="Cebu Institute of Technology-University">
                 </div>
               </div>
              </div>
@@ -136,7 +139,7 @@
                <div class="col l6">
                 <div class="input-field">
                   <label for="#caddress">City Address</label>
-                  <input type="text" name="fcity" id="fcity" required class="validate">
+                  <input type="text" name="fcity" id="fcity" required class="validate" value="<?php echo $initial_data[0]['present_address']; ?>">
                 </div>
               </div>
              </div>
@@ -144,7 +147,7 @@
                <div class="col l6">
                 <div class="input-field">
                   <label for="#paddress">Permanent Address</label>
-                  <input type="text" name="fpermanent" required id="fpermanent" class="validate">
+                  <input type="text" name="fpermanent" required id="fpermanent" class="validate" value="<?php echo $initial_data[0]['permanent_address']; ?>">
                 </div>
               </div>
              </div>
@@ -152,7 +155,7 @@
                <div class="col l3">
                 <div class="input-field">
                   <label for="#training">No. of Training Required</label>
-                  <input type="text" name="frequired" required id="frequired" class="validate">
+                  <input type="text" name="frequired" required id="frequired" class="validate" value="<?php echo $initial_data[0]['ojtone_required'];?>">
                 </div>
               </div>
              </div>
@@ -161,7 +164,7 @@
               <div class="col l12">
                 <div class="input-field first-field">
                   <label for="#company">Name of the Company</label>
-                  <input type="text" name="fcompany" id="fcompany" class="validate">
+                  <input type="text" name="fcompany" id="fcompany" class="validate" value="<?php echo $initial_data[0]['company_name']; ?>">
                 </div>
               </div>
              </div>
@@ -318,13 +321,12 @@
                 <div class="collapsible-body" style="padding: 10px;">
                   <textarea name="recommend" class="materialize-textarea" placeholder="Write your recommendation here..."></textarea>
 
-
                 </div>
               </li>
              </ul>
              <p style="text-align: center;">
              <button type="submit" id="btn_submit2" class="btn btn-primary">Submit</button>
-             <button type="cancel" class="btn btn-danger">Cancel</button>
+             <button type="button" class="btn btn-danger" id="btnCancel">Cancel</button>
              </p>
               <input type="hidden" name="supervisor_id" value="<?php echo $this->session->userdata('id_number'); ?>">
             </form>
@@ -340,6 +342,9 @@
       </body>
 
 <script type="text/javascript">
+  $('#btnCancel').click(function(){
+       window.location.href = "<?php echo base_url()?>main/supervisorDashboard";
+  });
   $('#btn_submit2').click(function(e){ 
   	e.preventDefault();
   	// alert('heyyo');return false;
@@ -381,11 +386,6 @@
      	alert('Please fill all fields');
         return false;
      }
-       
-        //alert(data);
-      
-   
-  
   });
 </script>
 <script type="text/javascript">
