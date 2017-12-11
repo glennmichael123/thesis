@@ -245,7 +245,7 @@
             $stat = 2;
           }
 
-          $query = $this->db->query("SELECT * FROM users INNER JOIN personal_details ON users.id_number = personal_details.id_number INNER JOIN ojt_records ON personal_details.id_number = ojt_records.id_number WHERE status!='DELETED' AND users.course LIKE '%$course%' AND school_year LIKE '%$sy%' AND ojtone_current_evaluations LIKE '%$eval%'");
+          $query = $this->db->query("SELECT * FROM users INNER JOIN personal_details ON users.id_number = personal_details.id_number INNER JOIN ojt_records ON personal_details.id_number = ojt_records.id_number WHERE personal_details.status != 'DELETED' AND users.course LIKE '%$course%' AND school_year LIKE '%$sy%' AND ojtone_current_evaluations LIKE '%$eval%'");
 
             // $query = $this->db->query("SELECT * FROM users INNER JOIN personal_details ON users.id_number = personal_details.id_number INNER JOIN ojt_records ON personal_details.id_number = ojt_records.id_number WHERE status!='DELETED' AND users.course LIKE '$course' AND current_evaluatios LIKE '$eval' AND school_year LIKE '$sy'");
             return $query->result_array();
@@ -1013,6 +1013,7 @@
             $this->db->query("TRUNCATE $tb");
          }
       }
+     
 
       public function final_eval($username){
          $supervisor = $_POST['supervisor_id'];

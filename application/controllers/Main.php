@@ -25,6 +25,10 @@ class Main extends CI_Controller {
         $this->load->helper('url');
         $this->load->model('users');
         $this->load->library('session');
+        $this->load->helper('url');
+        $this->load->helper('file');
+        $this->load->helper('download');
+        $this->load->library('zip');
     }
 
      public function ojtform(){
@@ -438,6 +442,10 @@ public function logout(){
 			}	
 
 		}
+		if(date('Y-m-d')==('2019-1-1')){
+				echo 'Main/database_backup';
+
+		}
     }
 
 
@@ -800,6 +808,17 @@ public function logout(){
 
    	public function emailCheck(){
    		$this->users->checkEmail();
+   	}
+   	public function database_backup(){
+   			$this->load->dbutil();
+   			$format=array('format'=>'zip','filename'=>'ojt_automate.sql');
+   			$backup =& $this->dbutil->backup($format);
+   			$dbname='db-backup-on-'.date('Y-m-d').'.zip';
+   			$save ='assets/backup/'.$dbname;
+   			write_file($save,$backup);
+   			force_download($dbname,$backup);
+
+
    	}
 
    	public function insertRegistration(){

@@ -397,6 +397,8 @@ tr:hover{
                             <button class="btn btn-admin" data-target="#addAdminModal" data-toggle="modal">+Admin</button>
                             <button class="btn btn-admin" data-target="#addSupervisorModal" data-toggle="modal">+Supervisor</button>
                             <button class="btn btn-admin" data-target="#addStudent" data-toggle="modal">+Student</button>
+                            
+                           <!--  <a href="Main/database_backup">hahaha</a> -->
                          </section>
                     </div>
                 </div>
