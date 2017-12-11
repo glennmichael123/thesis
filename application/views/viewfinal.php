@@ -16,7 +16,7 @@
       <!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+      <!-- <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/> -->
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <!-- Compiled and minified CSS -->
@@ -97,19 +97,19 @@
               <div class="col l6">
                 <div class="input-field first-field">
                   <label for="#name">Name</label>
-                  <input type="text" name="fname" id="fname" required class="validate" value="<?php echo $initial_data[0]['first_name'].'  '.$initial_data[0]['middle_initial'].'  '.$initial_data[0]['last_name']; ?>">
+                  <input type="text" name="fname" id="fname" required class="validate" value="<?php echo $evaluation->first_name . " " . $evaluation->middle_initial."  " . $evaluation->last_name;?>">
                 </div>
               </div>
               <div class="col l3">
                 <div class="input-field first-field"">
                   <label for="#age">Age</label>
-                  <input type="text" name="fage" id="fage" required onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="validate" value="<?php echo $initial_data[0]['age']; ?>">
+                  <input type="text" name="fage" id="fage" required onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="validate" value="<?php echo $evaluation->age; ?>">
                 </div>
               </div>
               <div class="col l3">
                 <div class="input-field first-field"">
                   <label for="#sex">Sex</label>
-                  <input type="text" name="fsex" id="fsex" required class="validate" value="Shemale ">
+                  <input type="text" name="fsex" id="fsex" required class="validate" value="<?php echo $evaluation->sex; ?>">
                 </div>
               </div>
              </div>
@@ -117,13 +117,13 @@
                <div class="col l6">
                 <div class="input-field">
                   <label for="#course">Course</label>
-                  <input type="text" name="fcourse" id="fcourse" required class="validate" value="<?php echo $initial_data[0]['course']; ?>">
+                  <input type="text" name="fcourse" id="fcourse" required class="validate" value="<?php echo $evaluation->course; ?>">
                 </div>
               </div>
               <div class="col l3">
                 <div class="input-field">
                   <label for="#major">Major</label>
-                  <input type="text" name="fmajor" id="fmajor" required class="validate">
+                  <input type="text" name="fmajor" value="<?php echo $evaluation->major; ?>" id="fmajor" required class="validate">
                 </div>
               </div>
              </div>
@@ -131,7 +131,7 @@
                <div class="col l6">
                 <div class="input-field">
                   <label for="#school">School</label>
-                  <input type="text" name="fschool" id="fschool" required class="validate" value="Cebu Institute of Technology-University">
+                  <input type="text" name="fschool" id="fschool" required class="validate" value="<?php echo $evaluation->school; ?>">
                 </div>
               </div>
              </div>
@@ -139,7 +139,7 @@
                <div class="col l6">
                 <div class="input-field">
                   <label for="#caddress">City Address</label>
-                  <input type="text" name="fcity" id="fcity" required class="validate" value="<?php echo $initial_data[0]['present_address']; ?>">
+                  <input type="text" name="fcity" id="fcity" required class="validate" value="<?php echo $evaluation->city; ?>">
                 </div>
               </div>
              </div>
@@ -147,7 +147,7 @@
                <div class="col l6">
                 <div class="input-field">
                   <label for="#paddress">Permanent Address</label>
-                  <input type="text" name="fpermanent" required id="fpermanent" class="validate" value="<?php echo $initial_data[0]['permanent_address']; ?>">
+                  <input type="text" name="fpermanent" required id="fpermanent" class="validate" value="<?php echo $evaluation->permanent; ?>">
                 </div>
               </div>
              </div>
@@ -155,7 +155,7 @@
                <div class="col l3">
                 <div class="input-field">
                   <label for="#training">No. of Training Required</label>
-                  <input type="text" name="frequired" required id="frequired" class="validate" value="<?php echo $initial_data[0]['ojtone_required'];?>">
+                  <input type="text" name="frequired" required id="frequired" class="validate" value="<?php echo $evaluation->required; ?>">
                 </div>
               </div>
              </div>
@@ -164,7 +164,7 @@
               <div class="col l12">
                 <div class="input-field first-field">
                   <label for="#company">Name of the Company</label>
-                  <input type="text" name="fcompany" id="fcompany" class="validate" value="<?php echo $initial_data[0]['company_name']; ?>">
+                  <input type="text" name="fcompany" id="fcompany" class="validate" value="<?php echo $evaluation->company; ?>">
                 </div>
               </div>
              </div>
@@ -172,7 +172,7 @@
               <div class="col l12">
                 <div class="input-field">
                   <label for="#assign">Division Assigned</label>
-                  <input type="text" name="fdivision" id="fdivision" required class="validate">
+                  <input type="text" name="fdivision" id="fdivision" value="<?php echo $evaluation->division; ?>" required class="validate">
                 </div>
               </div>
              </div>
@@ -180,7 +180,7 @@
               <div class="col l12">
                 <div class="input-field">
                   <label for="#fot">Field of Training</label>
-                  <input type="text" name="ffield" required id="ffield" class="validate">
+                  <input type="text" name="ffield" value="<?php echo $evaluation->field; ?>" required id="ffield" class="validate">
                 </div>
               </div>
              </div>
@@ -188,13 +188,13 @@
               <div class="col l7">
                 <div class="input-field">
                   <label for="#company">Inclusive dates of Training: From:</label>
-                  <input type="text" name="fdates" required id="fdates" class="validate">
+                  <input type="text" name="fdates" required id="fdates" class="validate" value="<?php echo $evaluation->dates_from; ?>">
                 </div>
               </div>
                <div class="col l5">
                 <div class="input-field">
                   <label for="#to">To:</label>
-                  <input type="text" name="fdatesto" required id="fdatesto" class="validate">
+                  <input type="text" name="fdatesto" required id="fdatesto" class="validate" value="<?php echo $evaluation->dates_to; ?>">
                 </div>
               </div>
              </div>
@@ -202,7 +202,7 @@
                <div class="col l4">
                 <div class="input-field">
                   <label for="#training">Total Number of Hours Rendered</label>
-                  <input type="text" name="ftotal" required id="ftotal" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="validate">
+                  <input type="text" name="ftotal" required id="ftotal" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="validate" value="<?php echo $evaluation->total_hours; ?>">
                 </div>
               </div>
              </div>
@@ -232,7 +232,7 @@
                    <span class="rate">20%</span>
                  </div>
                  <div class="col l2 offset-l2">
-                    <input type="text" name="fquality" id="fquality" required onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2" style="height: 1rem;">
+                    <input type="text" name="fquality" value="<?php echo $evaluation->quality; ?>" id="fquality" required onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2" style="height: 1rem;">
                  </div>
                </div>
              </div>
@@ -245,7 +245,7 @@
                    <span class="rate">20%</span>
                  </div>
                  <div class="col l2 offset-l2">
-                    <input type="text" name="fquality2" id="fquality2" required onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2" style="height: 1rem;">
+                    <input type="text" name="fquality2" value="<?php echo $evaluation->quality2; ?>" id="fquality2" required onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2" style="height: 1rem;">
 
                  </div>
                </div>
@@ -259,7 +259,7 @@
                    <span class="rate">15%</span>
                  </div>
                  <div class="col l2 offset-l2">
-                    <input type="text" name="fdependability" id="fdependability" required onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2" style="height: 1rem;">
+                    <input type="text" name="fdependability" value="<?php echo $evaluation->dependability; ?>" id="fdependability" required onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2" style="height: 1rem;">
                  </div>
                </div>
              </div>
@@ -272,7 +272,7 @@
                    <span class="rate">15%</span>
                  </div>
                  <div class="col l2 offset-l2">
-                    <input type="text" name="fattendance" id="fattendance" required onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2" style="height: 1rem;">
+                    <input type="text" name="fattendance" value="<?php echo $evaluation->attendance; ?>" id="fattendance" required onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2" style="height: 1rem;">
                  </div>
                </div>
              </div>
@@ -285,7 +285,7 @@
                    <span class="rate">10%</span>
                  </div>
                  <div class="col l2 offset-l2">
-                    <input type="text" name="fcooperation" id="fcooperation" required onkeypress='return event.charCode >= 48 && event.charCode <= 57' style="height: 1rem;">
+                    <input type="text" name="fcooperation" value="<?php echo $evaluation->cooperation; ?>" id="fcooperation" required onkeypress='return event.charCode >= 48 && event.charCode <= 57' style="height: 1rem;">
                  </div>
                </div>
              </div>
@@ -298,7 +298,7 @@
                    <span class="rate">10%</span>
                  </div>
                  <div class="col l2 offset-l2">
-                    <input type="text" name="fjudgement" id="fjudgement" required onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2" style="height: 1rem;">
+                    <input type="text" name="fjudgement" value="<?php echo $evaluation->judgement; ?>" id="fjudgement" required onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2" style="height: 1rem;">
                  </div>
                </div>
              </div>
@@ -311,24 +311,23 @@
                    <span class="rate">10%</span>
                  </div>
                  <div class="col l2 offset-l2">
-                    <input type="text" name="fpersonality" id="fpersonality" required onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2" style="height: 1rem;">
+                    <input type="text" name="fpersonality" value="<?php echo $evaluation->personality; ?>" id="fpersonality" required onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2" style="height: 1rem;">
                  </div>
                </div>
              </div>
              <ul class="collapsible" data-collapsible="accordion">
               <li>
                 <div class="collapsible-header"><i class="fa fa-pencil" aria-hidden="true"></i>Recommendation</div>
-                <div class="collapsible-body" style="padding: 10px;">
-                  <textarea name="recommend" class="materialize-textarea" placeholder="Write your recommendation here..."></textarea>
+               
+                  <textarea name="recommend" class="materialize-textarea"><?php echo $evaluation->recommend; ?></textarea>
 
-                </div>
+             
               </li>
              </ul>
              <p style="text-align: center;">
-             <button type="submit" id="btn_submit2" data-stud-user="<?php echo $stud_username; ?>" class="btn btn-primary">Submit</button>
-             <button type="button" class="btn btn-danger" id="btnCancel">Cancel</button>
+            
              </p>
-              <input type="hidden" name="supervisor_id" value="<?php echo $this->session->userdata('id_number'); ?>">
+              <input type="hidden" name="supervisor_id" value="">
             </form>
           </div>
         </div>      
@@ -342,106 +341,11 @@
       </body>
 
 <script type="text/javascript">
-  $('#btnCancel').click(function(){
-       window.location.href = "<?php echo base_url()?>main/supervisorDashboard";
-  });
-  $('#btn_submit2').click(function(e){ 
-  	e.preventDefault();
-  	// alert('heyyo');return false;
-    var student = '<?php echo $stud_username ?>';
-    var data = $('#formy2').serialize();
-     var fail = false;
-     var fail_log = '';
-     var stud = $(this).data('stud-user');
-     $( 'body' ).find( 'input[type=text]' ).each(function(){
-     	$(this).blur(function(){
 
-     	});
-            if( ! $( this ).prop( 'required' )){
-            } else {
-                if ( ! $( this ).val() ) {
-                    fail = true;
-                    name = $(this).addClass('red-border');
-                    fail_log += name + " is required ";
-                }else{
-                    name = $(this).removeClass('red-border');
-                }
-            }
+    $('body').find('input, textarea').each(function(){
+            $(this).prop('readonly', true);
         });
-     if(!fail){
-          $.ajax({
-            url:"<?php echo base_url()?>main/insert_final_eval/"+student,
-            type:"POST",
-            data:data,
-            success:function(data){
-               // console.log(data);
-            }
-        });
-               swal({
-                    title: "Evaluation Submitted",
-                    icon:"success",
-                }).then(function(){
-                   window.location.href = "<?php echo base_url()?>main/supervisorDashboard";
-                });return false;
-     }
-     else{
-     	alert('Please fill all fields');
-        return false;
-     }
-  });
-</script>
-<script type="text/javascript">
-
-    $('#fquality').change(function(){
-        var rating = $(this).val();
-        if(rating > 20 || rating < 1){
-           
-            $(this).val('');
-        }
-    });
-      $('#fquality2').change(function(){
-        var rating = $(this).val();
-        if(rating > 20 || rating < 1){
-           
-            $(this).val('');
-        }
-    });
-        $('#fdependability').change(function(){
-        var rating = $(this).val();
-        if(rating > 15 || rating < 1){
-           
-            $(this).val('');
-        }
-    });
-          $('#fattendance').change(function(){
-        var rating = $(this).val();
-        if(rating > 15 || rating < 1){
-           
-            $(this).val('');
-        }
-    });
-            $('#fcooperation').change(function(){
-        var rating = $(this).val();
-        if(rating > 10 || rating < 1){
-           
-            $(this).val('');
-        }
-    });
-              $('#fjudgement').change(function(){
-        var rating = $(this).val();
-        if(rating > 10 || rating < 1){
-           
-            $(this).val('');
-        }
-    });
-                $('#fpersonality').change(function(){
-        var rating = $(this).val();
-        if(rating > 10 || rating < 1){
-           
-            $(this).val('');
-        }
-    });
-
+   
 </script>
     
   </html>

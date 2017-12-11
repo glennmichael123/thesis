@@ -83,7 +83,8 @@
                  <option value="administrator">Administrator</option>
              </select>
           </div>
-        <input type="submit" class="btn amber lighten-1 waves-effect waves-light " value="Login">
+          <button type="submit" class="btn amber lighten-1 waves-effect waves-light ">Login</button>
+        <!-- <input type="submit" class="btn amber lighten-1 waves-effect waves-light " value="Login"> -->
         
       </div>
     </form>

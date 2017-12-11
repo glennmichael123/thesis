@@ -824,10 +824,10 @@ header h1 {
 
                                     </a>
                                      <ul class="dropdown-menu" style="margin-top: -5px;margin-left: -218px;" id="show-logout">
-                                <li><a href="<?php echo base_url()?>main/supervisorDashboard">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
+                                <li><a href="<?php echo base_url('supervisordashboard')?>">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                 <li class="divider"></li>
         
-                                <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                                <li><a href="<?php echo base_url('changepassword') ?>">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
                                 <li class="divider"></li>
                     
                                 <li><a href="<?php echo base_url()?>main/logout">Log Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
@@ -835,13 +835,13 @@ header h1 {
                               <?php else: ?>
 
                               <a href="#" class="dropdown-toggle" style="margin-top: -10px;" id="dropdown-logout" data-toggle="dropdown"> 
-                                <img src="<?php echo base_url().$supervisor_image->image_id;?>" class="pull-right circular-square user-image" style="width: 40px;height: 40px;margin-top: -16px;"></a>
+                                <img src="<?php echo base_url().$supervisor_image->image_id;?>" class="pull-right circular-square user-image" style="width: 40px;height: 40px;margin-top: 5px;"></a>
 
                                  <ul class="dropdown-menu" style="margin-top: 11px;margin-left: -200px;" id="show-logout">
                                 <li><a href="<?php echo base_url()?>main/supervisorDashboard">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                 <li class="divider"></li>
         
-                                <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                                <li><a href="<?php echo base_url('changepassword') ?>">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
                                 <li class="divider"></li>
                     
                                 <li><a href="<?php echo base_url()?>main/logout">Log Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
@@ -866,15 +866,15 @@ header h1 {
                              </a>
                                 
                                 <ul class="dropdown-menu" id="show-logout">
-                                    <li><a href="profile">Profile<i class="fa fa-user pull-right"></i></a></li>
+                                    <li><a href="<?php echo base_url('profile') ?>">Profile<i class="fa fa-user pull-right"></i></a></li>
                                     <li class="divider"></li>
-                                    <li><a href="dashboard">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
-                                    <li class="divider"></li>
-
-                                    <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                                    <li><a href="<?php echo base_url('dashboard') ?>">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                     <li class="divider"></li>
 
-                                    <li><a href="logout">Log Out <i class="fa fa-sign-out pull-right"></i></a></li>
+                                    <li><a href="<?php echo base_url('changepassword') ?>">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                                    <li class="divider"></li>
+
+                                    <li><a href="<?php echo base_url('logout') ?>">Log Out <i class="fa fa-sign-out pull-right"></i></a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -979,7 +979,11 @@ header h1 {
                                             circle.path.setAttribute('stroke', state.color);
                                         }
                                     });
+                                    <?php if($rendered > $total): ?>
+                                     bar.animate(1.0);
+                                    <?php else: ?>
                                     bar.animate(<?php echo $rendered/$total?>); // Number from 0.0 to 1.0
+                                    <?php endif; ?>
                                 });
                             </script>
                           <?php endif; ?>
@@ -1222,6 +1226,8 @@ header h1 {
                                             <li><a href="#" class="edit-log" style="color: #000000;">Edit <i class="fa fa-pencil" aria-hidden="true"></i></a></li>
                                             <li role="separator" class="divider"> </li>
                                             <li><a href="#" class="delete-log cd-popup-trigger" data-log-id="<?php echo $log['id']?>" style="color: #000000;">Delete <i class="fa fa-trash"></i></a></li>
+                                             <li role="separator" class="divider"> </li>
+                                            <li><a href="#" class="load-log" data-log-id="<?php echo $log['id']?>" style="color: #000000;">  Load log <i class="fa fa-sticky-note" aria-hidden="true"></i> </a></li>
                                         </ul>
 
                                     </div>
@@ -1329,14 +1335,16 @@ header h1 {
                         </div>
                         <?php endforeach;?>
                     <?php endif;?>
-
+                                     <p><?php echo $links; ?></p>
                 </div>
+
             </div>
             <!-- LOGSSSSS LISSSSSTTTT -->
 
         </div>
 
     </div>
+
     </div>
   
 </body>
@@ -1383,29 +1391,46 @@ header h1 {
         e.preventDefault();
         var log_id = $(this).data('log-id');
         $('#display-log-id').html(log_id);
-        // queryLogId(log_id);
-        // function queryLogId(log_id){
-            
-        //     $.ajax({
-        //         method: 'POST',
-        //         url: 'getLogId',
-        //         data:{
-        //             'log_id': log_id,
-        //         },
-        //         success: function(data){
-        //             console.log(data);
-        //         }
-        //     })
-        // }
-        // alert(log_id);
+       
       
       
+    });
+    $('.load-log').click(function(e){
+      e.preventDefault();
+       var log_id = $(this).data('log-id');
+
+       $.ajax({
+          url: '<?php echo base_url('loadSpecificLog') ?>',
+          method: 'POST',
+          data:{
+            'log_id': log_id,
+          },
+
+          success: function(data){
+            var logdata = JSON.parse(data);
+             $('html,body').animate({ scrollTop: 0 }, 'slow');
+              $('.logs-upper').slideDown();
+        $('.logs-lower').slideDown();
+               // console.log(logdata.division);
+                $('#division').val(logdata.division);
+                $('#department').val(logdata.department);
+                $('#designation').val(logdata.designation);
+                $('#time_in').val(logdata.time_in);
+                $('#time_out').val(logdata.time_out);
+                $('#hours_rendered').val(logdata.hours_rendered);
+                $('#log_activity').val(logdata.log_content);
+
+          }
+
+       });
+
+       // alert(log_id);
     });
     $('.confirm-delete-log').click(function(){
         var log_id = $('#display-log-id').html();
         $.ajax({
             method: 'POST',
-            url: 'deleteLog',
+            url: '<?php echo base_url('deleteLog') ?>',
             data:{
                 'log_id': log_id,
             },
@@ -1452,7 +1477,7 @@ header h1 {
       
         $.ajax({
             method:'POST',
-            url:'editLog',
+            url:'<?php echo base_url('editLog') ?>',
             data: {
                 'log_id': log_id,
                 'date' : date,
@@ -1687,7 +1712,7 @@ header h1 {
   });
   $(document).ready(function(){
         setInterval(function(){ 
-          $('title').load(location.href + " title")
+          // $('title').load(location.href + " title")
           
           $('#notification-body').load(location.href + " #notification-body");
           $('#countUnread').load(location.href + " #countUnread");

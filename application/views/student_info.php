@@ -311,7 +311,11 @@
                                             circle.path.setAttribute('stroke', state.color);
                                         }
                                     });
+                                     <?php if($rendered > $total): ?>
+                                     bar.animate(1.0);
+                                    <?php else: ?>
                                     bar.animate(<?php echo $rendered/$total?>); // Number from 0.0 to 1.0
+                                    <?php endif; ?>  // Number from 0.0 to 1.0
                                 });
                             </script>
                           <?php endif; ?>
@@ -702,6 +706,7 @@
                             </div>
                         </div>
                         <?php endforeach;?>
+                         <p><?php echo $links; ?></p>
                     </div>
                 </div>
             </div>

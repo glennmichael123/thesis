@@ -29,7 +29,7 @@
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
     
     <script src="//code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.JavaScript"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
 
     <!-- <script type="text/javascript" src="jquery.dataTables.js"></script>
@@ -582,13 +582,13 @@ tr:hover{
                                               <td><?php echo $student['school_year']?></td>
                                               <td>
                                                 <?php if ($student['ojtone_current_evaluations'] == 1 || $student['ojtone_current_evaluations'] == 2 || $student['ojttwo_current_evaluations'] == 1 || $student['ojttwo_current_evaluations'] == 2): ?>
-                                                  <a href="<?php base_url() ?>viewmidterm/<?php echo $student['id_number']; ?>">Midterm</a>
+                                                  <a href="<?php base_url() ?>viewmidterm/<?php echo $student['id_number']; ?>" target="_blank">Midterm</a>
                                                 <?php else:?>
                                                   <a style="color:gray">Midterm</a>
                                                 <?php endif;?>  
 
                                                 <?php if ($student['ojtone_current_evaluations'] == 2 || $student['ojttwo_current_evaluations'] == 2): ?>
-                                                    | <a href="youtube.com"> Final</a> 
+                                                    | <a target="_blank" href="<?php base_url() ?>viewfinal/<?php echo $student['id_number']; ?>"> Final</a> 
                                                 <?php else: ?>
                                                     | <a style="color: gray">Final</a> 
                                                 <?php endif; ?>
@@ -890,6 +890,7 @@ tr:hover{
 
 </body>
 
+
 <!-- FILTER RESULTS -->
 <script type="text/javascript">
    $(document).ready(function(){
@@ -914,15 +915,11 @@ tr:hover{
       //     });
       // });
 
-      $('#course_option').change(function(){
-          $('#filterForm').submit();
-      });
+
       $('#eval_option').change(function(){
           $('#filterForm').submit();
       });
-      $('#sy_option').change(function(){
-          $('#filterForm').submit();
-      });
+     
       $('#status_option').change(function(){
           //$('#filterForm').submit();
           var stat = $('#status_option').val();
@@ -932,6 +929,8 @@ tr:hover{
           //var search = stat+" "+sy;
           table.search(stat).draw();
       });
+
+
 
       // $('select').change(function(){
       //   var course = $('#course_option').val();

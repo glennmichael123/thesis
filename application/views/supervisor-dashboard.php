@@ -424,15 +424,16 @@
                                     <h4 style="text-align: center; margin-top: 10px;">Trainees Completed</h4>
                                   
                                   <div class="panel-body">  
-                                    <!-- if --><?php if(empty($ojtStatus['completed']) && empty($ojtStatus['not_completed'])):?>
+                                    <!-- if --><?php if(empty($ojtStatus['completed']) && empty($ojtStatus['all_stud'])):?>
                                     <!-- no studs -->
                                     <h3 style="text-align: center;"><?php echo "No Trainees Yet";?></h3>  
                                     <!-- else -->
                                 <?php else:?>
                                     <div class="progress skill-bar">
 
-                                        <div class="progress-bar progress-bar-first" role="progressbar" aria-valuenow="<?php echo ($ojtStatus['completed'] / $ojtStatus['not_completed'])*100 ?>" aria-valuemin="0" aria-valuemax="100">
-                                            <p class="skills"><?php echo $ojtStatus['completed'] .'/'. $ojtStatus['not_completed'];?></p>  
+                                        <div class="progress-bar progress-bar-first" role="progressbar" aria-valuenow="
+                                        <?php echo ($ojtStatus['completed'] / ($ojtStatus['all_stud'] == 0 ? $ojtStatus['completed'] : $ojtStatus['all_stud']))*100 ?>" aria-valuemin="0" aria-valuemax="100">
+                                            <p class="skills"><?php echo $ojtStatus['completed'] .'/'. ($ojtStatus['all_stud'] == 0 ? $ojtStatus['completed'] : $ojtStatus['all_stud']);?></p>  
                                         </div>
                                     </div>
                                     <!-- endif -->

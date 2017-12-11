@@ -245,7 +245,7 @@
             $stat = 2;
           }
 
-          $query = $this->db->query("SELECT * FROM users INNER JOIN personal_details ON users.id_number = personal_details.id_number INNER JOIN ojt_records ON personal_details.id_number = ojt_records.id_number WHERE status!='DELETED' AND users.course LIKE '%$course%' AND school_year LIKE '%$sy%' AND ojtone_current_evaluations LIKE '%$eval%'");
+          $query = $this->db->query("SELECT * FROM users INNER JOIN personal_details ON users.id_number = personal_details.id_number INNER JOIN ojt_records ON personal_details.id_number = ojt_records.id_number WHERE users.status!='DELETED' AND users.course LIKE '%$course%' AND school_year LIKE '%$sy%' AND ojtone_current_evaluations LIKE '%$eval%'");
 
             // $query = $this->db->query("SELECT * FROM users INNER JOIN personal_details ON users.id_number = personal_details.id_number INNER JOIN ojt_records ON personal_details.id_number = ojt_records.id_number WHERE status!='DELETED' AND users.course LIKE '$course' AND current_evaluatios LIKE '$eval' AND school_year LIKE '$sy'");
             return $query->result_array();
@@ -288,9 +288,16 @@
 
         }
 
-        public function getLogs($data){
+        public function getLogs($data,$limit, $start){
             $username = $data;
-            $result = $this->db->query("SELECT * FROM logs WHERE id_number = '$username' ORDER BY id DESC");
+              $this->db->limit($limit, $start);
+              $this->db->select('*');
+              $this->db->where('id_number', $username);
+              $this->db->from('logs');
+              $this->db->order_by('id', 'DESC');
+              $result = $this->db->get();
+              // print_r($result->result_array());
+            // $result = $this->db->query("SELECT * FROM logs WHERE id_number = '$username' ORDER BY id DESC");
             return $result->result_array();
         }
 
@@ -298,6 +305,9 @@
             $id = $_POST['log_id'];
             $this->db->where('id', $id);
             $this->db->delete('logs');
+
+            $this->db->where('log_id', $id);
+            $this->db->delete('comments');
         }
 
          public function dashboardData($id_number){   
@@ -440,7 +450,7 @@
         }
 
         public function getOjtLogs($id){
-            $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.first_name, users.last_name, users.user_image FROM logs INNER JOIN users ON users.id_number = logs.id_number WHERE logs.supervisor_id = '$id'");
+            $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.first_name, users.last_name, users.user_image FROM logs INNER JOIN users ON users.id_number = logs.id_number  WHERE logs.supervisor_id = '$id'");
             return $query->result_array();
         }
 
@@ -708,6 +718,15 @@
 
              echo json_encode($lastlog);
          }  
+
+         public function loadSpecificLog(){
+            $id = $_POST['log_id'];
+
+          
+            $log = $this->db->query("SELECT * FROM logs WHERE id = $id")->row();
+
+             echo json_encode($log);
+         }
         
 
          /*public function getMaxComment(){
@@ -848,7 +867,7 @@
                
 
                 if($this->db->affected_rows()>0){
-                     $this->db->query("UPDATE ojt_records SET ojtone_current_evaluations = 1 WHERE id_number = '$username'");
+                     $this->db->query("UPDATE ojt_records SET ojtone_current_evaluations = ojtone_current_evaluations + 1 WHERE id_number = '$username'");
                     return true;
                 }
                 else
@@ -1049,7 +1068,7 @@
 
 
                   if($this->db->affected_rows()>0){
-                    $this->db->query("UPDATE ojt_records SET ojttwo_current_evaluations = 1 WHERE id_number = '$username'");
+                    $this->db->query("UPDATE ojt_records SET ojtone_current_evaluations = ojtone_current_evaluations + 1 WHERE id_number = '$username'");
                     return true;
 
                       }
@@ -1162,19 +1181,19 @@
       }
 
       public function getOjtStatusForSupervisor($username){
-            $query = $this->db->query("SELECT ojtone_rendered, ojtone_required, ojtone_current_evaluations, total_evaluations FROM ojt_records WHERE supervisor_id = '$username'");
-          $array_status = array('completed'=>0, 'not_completed'=>0);
-          if(!empty($query->result_array())){
+            $query = $this->db->query("SELECT ojtone_rendered, ojtone_required, count(*) as all_Stud, ojtone_current_evaluations, total_evaluations FROM ojt_records WHERE supervisor_id = '$username'")->result_array();
+          $array_status = array('completed'=>0, 'all_stud'=>2);
+          if(!empty($query)){
 
-              foreach ($query->result_array() as $student_status) {
+              foreach ($query as $student_status) {
                 
                   if($student_status['ojtone_rendered'] >= 200 && $student_status['ojtone_current_evaluations'] == $student_status['total_evaluations']){
                       
                       $array_status['completed']++;
 
-                  }else{
-                      $array_status['not_completed']++;
                   }
+
+                  $array_status['all_stud'] = $query[0]['all_Stud'];
               }
           }
 
@@ -1235,6 +1254,13 @@
       public function getEvaluationViewForAdmin($username){
           $query= $this->db->query("SELECT * FROM midterm_evaluation WHERE username = '$username' ")->row();
 
+          return $query;
+      }  
+
+
+      public function getFinalEvaluationViewForAdmin($username){
+          $query= $this->db->query("SELECT * FROM final_evaluation INNER JOIN users ON users.id_number = final_evaluation.username INNER JOIN personal_details ON final_evaluation.username = personal_details.id_number WHERE username = '$username' ")->row();
+          // echo '<pre>'; print_r($query); echo '</pre>';
           return $query;
       }  
 
