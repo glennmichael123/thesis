@@ -22,7 +22,7 @@
       <!-- Compiled and minified CSS -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
        <!-- Compiled and minified JavaScript -->
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+       
     </head>
     <style type="text/css">
       h1.heading{
@@ -109,7 +109,7 @@
               <div class="col l3">
                 <div class="input-field first-field"">
                   <label for="#sex">Sex</label>
-                  <input type="text" name="fsex" id="fsex" required class="validate" value="Shemale ">
+                  <input type="text" name="fsex" id="fsex" required class="validate" value="<?php echo $initial_data[0]['sex'] ?> ">
                 </div>
               </div>
              </div>
@@ -188,13 +188,13 @@
               <div class="col l7">
                 <div class="input-field">
                   <label for="#company">Inclusive dates of Training: From:</label>
-                  <input type="text" name="fdates" required id="fdates" class="validate">
+                  <input type="text" name="fdates" required id="fdates" class="validate datepicker">
                 </div>
               </div>
                <div class="col l5">
                 <div class="input-field">
                   <label for="#to">To:</label>
-                  <input type="text" name="fdatesto" required id="fdatesto" class="validate">
+                  <input type="text" name="fdatesto" required id="fdatesto" class="validate datepicker">
                 </div>
               </div>
              </div>
@@ -202,7 +202,7 @@
                <div class="col l4">
                 <div class="input-field">
                   <label for="#training">Total Number of Hours Rendered</label>
-                  <input type="text" name="ftotal" required id="ftotal" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="validate">
+                  <input type="text" value="<?php echo $initial_data[0]['ojtone_rendered'] ?>" name="ftotal" required id="ftotal" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="validate">
                 </div>
               </div>
              </div>
@@ -338,9 +338,20 @@
 
       <!--Import jQuery before materialize.js-->
       <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
   
       </body>
-
+<script type="text/javascript">
+  $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15, // Creates a dropdown of 15 years to control year,
+    today: 'Today',
+    clear: 'Clear',
+    close: 'Ok',
+    closeOnSelect: false // Close upon selecting a date,
+  });
+       
+</script>
 <script type="text/javascript">
   $('#btnCancel').click(function(){
        window.location.href = "<?php echo base_url()?>main/supervisorDashboard";

@@ -91,6 +91,7 @@ $route['viewfinal/(:any)']  = 'main/viewFinal/$1';
 $route['workmate/(:any)']  = 'main/workmate/$1';
 $route['studentinfo/(:any)']  = 'main/studentInfo/$1';
 $route['deleteStudent']  = 'main/deleteStudent';
+$route['filterLogsForSupervisor']  = 'main/filterLogsForSupervisor';
 
 
 

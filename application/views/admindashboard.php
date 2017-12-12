@@ -290,11 +290,6 @@ li.notification-title{
     text-transform: capitalize;
 }
 
-.dashTable{
-  color: black;
-  font-size: 13px;
-}
-
 .pagination > li.active > a{
     background-color:#f44336 !important;
     border:2px solid #d32f2f !important;
@@ -345,7 +340,9 @@ tr:hover{
 </head>
 
 <body>
-
+<div id="sa">
+  
+</div>
 
 
     <div class="page-wrap">
@@ -509,7 +506,7 @@ tr:hover{
                         <!-- <div class="col-lg-4" >
                           <input type="search" placeholder="Search trainee" id="search_students" name="search_students" class="form-control"> <i class="fa fa-search"></i>
                         </div> -->
-                      <form action="admindashboard" method="POST" id="filterForm">
+                      <!-- <form action="admindashboard" method="POST" id="filterForm"> -->
                             <div class="col-lg-3">
                                 <select class="form-control" id="course_option" name="course_option">
                                     <option value="courseDefault" selected disabled>Course</option>
@@ -534,7 +531,7 @@ tr:hover{
                                  <select class="form-control" id="eval_option" name="eval_option">
                                     <option value="evalDefault" selected disabled>Evaluations</option>
                                     <option value="all" <?php echo ($evC == 'all') ? 'selected' : '' ?>>All</option>
-                                    <option <?php echo ($evC == '0') ? 'selected' : '' ?>>0</option>
+                                    <option <?php echo ($evC == '0') ? 'selected' : '' ?>>None</option>
                                     <option <?php echo ($evC == '1') ? 'selected' : '' ?>>1</option>
                                     <option <?php echo ($evC == '2') ? 'selected' : '' ?>>2</option>
                                 </select>
@@ -542,12 +539,12 @@ tr:hover{
                             <div class="col-lg-3">
                                  <select class="form-control" id="status_option" name="status_option">
                                     <option value="statDefault" selected disabled>Status</option>
-                                    <option>All</option>
-                                    <option>On Going</option>
-                                    <option>Completed</option>
+                                    <option value="all">All</option>
+                                    <option value="ON-GOING">On Going</option>
+                                    <option value="COMPLETED">Completed</option>
                                 </select>
                             </div>
-                        </form>
+                        <!-- </form> -->
                         <div class="col-lg-1">
                              <button class="btn btn-default" id="disp"><i class="fa fa-refresh" aria-hidden="true" style="color:#7f715a"></i></button>
                         </div>
@@ -582,15 +579,16 @@ tr:hover{
                                               <td><?php echo $student['school_year']?></td>
                                               <td>
                                                 <?php if ($student['ojtone_current_evaluations'] == 1 || $student['ojtone_current_evaluations'] == 2 || $student['ojttwo_current_evaluations'] == 1 || $student['ojttwo_current_evaluations'] == 2): ?>
-                                                  <a href="<?php base_url() ?>viewmidterm/<?php echo $student['id_number']; ?>" target="_blank">Midterm</a>
+                                                  <a href="<?php base_url() ?>viewmidterm/<?php echo $student['id_number']; ?>" target="_blank">
+                                                    Midterm <i class="fa fa-check-circle"></i></a>
                                                 <?php else:?>
-                                                  <a style="color:gray">Midterm</a>
+                                                  <a style="color:gray">Midterm <i class="fa fa-times-circle"></i></a>
                                                 <?php endif;?>  
 
                                                 <?php if ($student['ojtone_current_evaluations'] == 2 || $student['ojttwo_current_evaluations'] == 2): ?>
-                                                    | <a target="_blank" href="<?php base_url() ?>viewfinal/<?php echo $student['id_number']; ?>"> Final</a> 
+                                                    | <a target="_blank" href="<?php base_url() ?>viewfinal/<?php echo $student['id_number']; ?>"> Final <i class="fa fa-check-circle"></i></a> 
                                                 <?php else: ?>
-                                                    | <a style="color: gray">Final</a> 
+                                                    | <a style="color: gray">Final <i class="fa fa-times-circle"></i></a> 
                                                 <?php endif; ?>
 
                                               </td>   
@@ -915,19 +913,103 @@ tr:hover{
       //     });
       // });
 
+      $('#course_option').change(function(){
+          // $('#filterForm').submit();
+          var course = $('#course_option').val();
+          var eval = $('#eval_option').val();
+          var status = $('#status_option').val();
+          var sy = $('#sy_option').val();
+          // var test = '<tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>';
+          // $("tbody").replaceWith();return false;
+          $.ajax({
+              url : "filterStudent",
+              type: "POST",
+              data:{
+                'course': course,
+                'eval': eval,
+                'stat': status,
+                'sy': sy,
+              },
+              success: function(data){
+                 $('tbody').replaceWith(data);
+              }
+
+          })
+      });
 
       $('#eval_option').change(function(){
-          $('#filterForm').submit();
+          var course = $('#course_option').val();
+          var eval = $('#eval_option').val();
+          var status = $('#status_option').val();
+          var sy = $('#sy_option').val();
+          $.ajax({
+              url : "filterStudent",
+              type: "POST",
+              data:{
+                'course': course,
+                'eval': eval,
+                'stat': status,
+                'sy': sy,
+              },
+              success: function(data){
+                 $('tbody').replaceWith(data);
+              }
+
+          })
       });
-     
+
+      $('body').on('change','#sy_option',function(){
+          // $('#filterForm').submit();
+          var course = $('#course_option').val();
+          var eval = $('#eval_option').val();
+          var status = $('#status_option').val();
+          var sy = $('#sy_option').val();
+          //alert(sy);return false;
+
+          $.ajax({
+              url : "filterStudent",
+              type: "POST",
+              data:{
+                'course': course,
+                'eval': eval,
+                'stat': status,
+                'sy': sy,
+              },
+              success: function(data){
+                 $('tbody').replaceWith(data);
+              }
+
+          })
+      });
       $('#status_option').change(function(){
+          var course = $('#course_option').val();
+          var eval = $('#eval_option').val();
+          var status = $('#status_option').val();
+          var sy = $('#sy_option').val();
+          //alert(sy);return false;
+
+          $.ajax({
+              url : "filterStudent",
+              type: "POST",
+              data:{
+                'course': course,
+                'eval': eval,
+                'stat': status,
+                'sy': sy,
+              },
+              success: function(data){
+                 $('tbody').replaceWith(data);
+              }
+
+          })
+
           //$('#filterForm').submit();
-          var stat = $('#status_option').val();
-          if(stat == null || stat == "All"){
-            stat ="";
-          }
-          //var search = stat+" "+sy;
-          table.search(stat).draw();
+          // var stat = $('#status_option').val();
+          // if(stat == null || stat == "All"){
+          //   stat ="";
+          // }
+          // //var search = stat+" "+sy;
+          // table.search(stat).draw();
       });
 
 
@@ -971,7 +1053,8 @@ tr:hover{
       });
 
       /*Refresh button*/
-      $('#disp').click(function(e){
+      $('#disp').click(function(){
+          location.reload();return false;
           $('#course_option').val("courseDefault");
           $('#eval_option').val("evalDefault");
           $('#status_option').val("statDefault");
@@ -1441,6 +1524,7 @@ tr:hover{
                               'email': email,
                             },
                             success:function(data){
+
                               //alert("Email verification sent");
                             }
                           });
