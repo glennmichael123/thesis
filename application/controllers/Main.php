@@ -179,8 +179,6 @@ class Main extends CI_Controller {
 	public function final_evaluation($username){
 		if(!isset($this->session->userdata['id_number'])){
 			header("location: index");
-
-
 		}
 		$data['stud_username'] = $username;
 
@@ -491,11 +489,10 @@ public function logout(){
      	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($this->session->userdata['id_number']);
      	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($this->session->userdata['id_number']);
      	$data['supervisor_id'] = $this->users->getSupervisorIdForStudent($this->session->userdata['id_number']);
-     
+     	
      	$data['checkEmail'] = $this->users->checkEmailVerified($this->session->userdata['id_number']);
      	$renderedCount = $this->users->getSumRendered($this->session->userdata['id_number']);
-
-
+     	$this->users->updateOJTStatus($this->session->userdata['id_number']);
      	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $this->session->userdata['id_number']);
      	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $this->session->userdata['id_number']);
      	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $this->session->userdata['id_number']);
@@ -865,6 +862,11 @@ public function logout(){
    	}
 
    	public function filterStudent(){
-   		$data['student_list'] = $this->users->getFilteredStudList();
+
+   		$data['student_list'] = $this->users->filterStud();
+   		
    	}
+
+
+
 }

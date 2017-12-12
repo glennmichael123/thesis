@@ -723,7 +723,7 @@
                             'email':email,
                         },
                         success:function(data){
-                            if(data == "invalid"){
+                            if($.trim(data) == "invalid"){
                                 alert("Email already exist");return false;
                             }else{
                                 $("#email").css("border","1px solid #ccc");
@@ -867,7 +867,7 @@
                     }
                 });
                 $(".page2").hide();
-                 $(".page3").show();
+                $(".page3").show();
                 // $.ajax({
                 //     url: "insertCompanyClassification",
                 //     type: "POST",
