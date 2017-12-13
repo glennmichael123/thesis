@@ -595,15 +595,15 @@
 
                             </div>
                             <div class="col-lg-5">
-                                <select class="form-control">
+                                <select class="form-control" id="log-status">
                                     <option selected disabled>Log status</option>
-                                    <option>Pending</option>
-                                    <option>Verified</option>
+                                    <option value="0">Pending</option>
+                                    <option value="1">Verified</option>
                                 </select>
                             </div>
                             
                         </div>
-
+                    <div id="wrap-log-section">
                 <?php $i=0; ?>
                     <?php foreach($traineesLog as $log):?>
                         <div class="row row-logs"  style="color:#000;">
@@ -696,7 +696,7 @@
                                 
 
                                 
-                                     <div class="wrap-comments" id="wrap-comment-section<?php echo $i;?>">
+                                     <div class="wrap-comments" id="wrap-comment-section<?php echo $log['id'];?>">
                                      <div class="row display-comments">
                                         
                                             <div class="col-lg-12"> 
@@ -767,6 +767,7 @@
                   
                     </div>
                 <?php endif; ?>
+                </div>
                 </div>
             </div>
 
@@ -871,6 +872,23 @@
 
 </body>
 <script type="text/javascript">
+    $('#log-status').change(function(){
+
+        var status = $(this).val();
+
+        $.ajax({
+            method:'POST',
+            url: 'filterLogsForSupervisor',
+            data: {
+                'status': status,
+            },
+            success: function(data){
+               $('#wrap-log-section').replaceWith(data);
+            }
+        })
+    })
+</script>
+<script type="text/javascript">
   
     function previewFile() {
      var preview = document.querySelector('#image-modal');
@@ -912,7 +930,7 @@
 </script>
 
 <script type="text/javascript">
-    $('.comment-btn').click(function(e){
+    $('body').on('click','.comment-btn',function(e){
         e.preventDefault();
         var commentSection = $(this).closest("form").find(".comment-section");
         commentSection.toggle();
@@ -924,7 +942,7 @@
 </script>
 
 <script type="text/javascript">
-    $('.verify-btn').click(function(e){
+    $('body').on('click','.verify-btn',function(e){
         e.preventDefault();
         var log_id = $(this).data('log-id');
         var pending = $(this).closest('form').find('.pending-log');
@@ -985,6 +1003,7 @@
                 var student_username = $(this).data('student-username');
                 var commentToAppend = $(this).closest("form").find(".display-comments");
                 var toReload = $(this).closest('.wrap-comments').attr('id');
+                 // alert(toReload);return false;
             if(!$.trim($(this).val())){
                 
             }else{
@@ -998,6 +1017,7 @@
                 },
                 success: function(data){
                    $('#'+toReload).load(location.href + ' ' + '#'+toReload);
+                   // $('#wrap-log-section').load(location.href + ' ' + ' #wrap-log-section');
                 },
             });
             }
@@ -1111,6 +1131,7 @@
         var commentContent = $(this).val();
         var toReload = $(this).closest('.wrap-comments').attr('id');
         var supervisor_id = $(this).data('supervisor-id');
+
          if(!$.trim($(this).val())){
                 
         }else{

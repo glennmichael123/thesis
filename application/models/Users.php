@@ -1,5 +1,5 @@
 <?php
-	class Users extends CI_Model {
+  class Users extends CI_Model {
 
         public function __construct()
         {
@@ -74,7 +74,6 @@
 
         public function getAnnouncements($username){
             $query = $this->db->query("SELECT * FROM announcements WHERE username = '$username' ORDER BY id DESC");
-
             return $query->result_array();
         }
         public function getAnnouncementsForStudents(){
@@ -114,17 +113,31 @@
                 }
         }
 
-        public function insertAnnouncement(){
+        public function insertAnnouncement($id){
             $usernames = $this->db->query("SELECT id_number FROM users")->result_array();
-
+            $i = $this->db->query("SELECT MAX(announcement_id) as max_id FROM announcements")->row();
             $announcement = $this->input->post('announcement');
             $insert_announce = mysqli_real_escape_string($this->get_mysqli(),$announcement);
+            if(empty($i->max_id)){
+              $i=1;
+              foreach ($usernames as $username)    {
+                $stud_username = $username['id_number'];
+
+                $this->db->query("INSERT INTO announcements(admin_id,content, username,announcement_id) VALUES ('$id','$insert_announce', '$stud_username','$i')");
+            
+            }
+            }else{
+              
+            $i = $i+$i->max_id;
             foreach ($usernames as $username)    {
                 $stud_username = $username['id_number'];
 
-                $this->db->query("INSERT INTO announcements(content, username) VALUES ('$insert_announce', '$stud_username')");
+                $this->db->query("INSERT INTO announcements(admin_id,content, username,announcement_id) VALUES ('$id','$insert_announce', '$stud_username','$i')");
+
             
             }
+            }
+            
             
 
         }
@@ -253,7 +266,7 @@
             'supervisor_id' => $supervisor_id
             );
 
-            $existDate = $this->db->query("SELECT * FROM logs WHERE date = '$date' ")->result();
+            $existDate = $this->db->query("SELECT * FROM logs WHERE date = '$date' AND id_number = '$id_number' ")->result();
 
             if(!empty($existDate)){
               echo 'dateexist';
@@ -276,6 +289,15 @@
               // print_r($result->result_array());
             // $result = $this->db->query("SELECT * FROM logs WHERE id_number = '$username' ORDER BY id DESC");
             return $result->result_array();
+        }
+
+        public function getLogsForStuds($id_number){
+              $this->db->select('*');
+              $this->db->where('id_number', $id_number);
+              $this->db->from('logs');
+              $this->db->order_by('id', 'DESC');
+              $result = $this->db->get();
+              return $result->result_array();
         }
 
         public function deleteLog(){
@@ -497,7 +519,7 @@
         }
 
         public function getOjtLogs($id){
-            $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.first_name, users.last_name, users.user_image FROM logs INNER JOIN users ON users.id_number = logs.id_number  WHERE logs.supervisor_id = '$id'");
+            $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.first_name, users.last_name, users.user_image FROM logs INNER JOIN users ON users.id_number = logs.id_number  WHERE logs.supervisor_id = '$id' ORDER BY id DESC");
             return $query->result_array();
         }
 
@@ -1132,7 +1154,7 @@
                         'email_address' => $_POST['profile_email'],
                         'date_of_birth' => $_POST['profile_birth'],
                         'age' => $_POST['profile_age'],
-                        'marital_status' => $_POST['profile_age'],
+                        'marital_status' => $_POST['profile_marital'],
                         'blood_type' => $_POST['profile_blood'],
                         'weight' => $_POST['profile_weight'],
                         'height' => $_POST['profile_height'],
@@ -1249,7 +1271,7 @@
       
       public function getCoursesList(){
 
-        $query = $this->db->query("SELECT DISTINCT course FROM users")->result_array();
+        $query = $this->db->query("SELECT DISTINCT course FROM users ORDER BY course ASC")->result_array();
         $courses_list = [];
         foreach ($query as $courses) {
             $c = $courses['course'];
@@ -1266,12 +1288,12 @@
         foreach ($query as $courses) {
             $c = $courses['course'];
             
-            $total_students = $this->db->query("SELECT count(id_number) as total_students FROM users  WHERE course = '$c' ORDER BY course ASC")->row();
+            $total_students = $this->db->query("SELECT count(*) as total_students FROM users  WHERE course = '$c' ORDER BY course ASC")->row();
 
             $courses_count[] = $total_students->total_students;
         }
 
-          return $courses_count;
+     return $courses_count;
       }
 
       public function countEvaluationsForSupervisor($username){
@@ -1311,7 +1333,7 @@
       }  
 
        public function currentLoggedInOjt($username){
-          $query= $this->db->query("SELECT * FROM users WHERE id_number = '$username' ")->row();
+          $query=$this->db->query("SELECT * FROM users WHERE id_number = '$username' ")->row();
 
           return $query;
       }
@@ -1319,6 +1341,51 @@
       public function loadFinalEval($username){
         $query = $this->db->query("SELECT * FROM users as u INNER JOIN personal_details as p ON u.id_number = p.id_number INNER JOIN family_details as f ON u.id_number = f.id_number INNER JOIN ojt_records as o ON u.id_number = o.id_number INNER JOIN company_information as c on u.id_number = c.id_number WHERE u.id_number='$username'");
         return $query->result_array();
+      }
+
+      public function checkStudEvaluated($username){
+
+          $query = $this->db->query("SELECT * FROM midterm_evaluation WHERE username = '$username'");
+
+          if($this->db->affected_rows() > 0){
+              return true;
+          }else{
+              return false;
+          }
+      }
+
+      public function checkStudEvaluatedFinal($username){
+          $query = $this->db->query("SELECT * FROM final_evaluation WHERE username = '$username'")->row();
+
+          if(!empty($query)){
+              return 'true';
+          }else{
+              return 'false';
+          }
+      }
+
+    public function filterLogsForSupervisor($id){
+        $status = $_POST['status'];
+
+          $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.first_name, users.last_name, users.user_image FROM logs INNER JOIN users ON users.id_number = logs.id_number  WHERE logs.supervisor_id = '$id' AND verified = $status ORDER BY id DESC");
+            return $query->result_array();
+        // print_r($_POST);
+      }
+
+      public function getAnnouncmentsForAdmin($id){
+        $query = $this->db->query("SELECT * FROM announcements WHERE admin_id = '$id' GROUP BY announcement_id ORDER BY date_posted DESC");
+        return $query->result_array();
+      }
+
+      public function updatePost(){
+        $postID = $_POST['post_id'];
+        $content = $_POST['content'];
+        $this->db->query("UPDATE announcements SET content='$content' WHERE announcement_id='$postID'");
+      }
+
+      public function deletePost(){
+        $postID = $_POST['post_id'];
+        $this->db->query("DELETE FROM announcements WHERE announcement_id='$postID'");
       }
 }
 ?>

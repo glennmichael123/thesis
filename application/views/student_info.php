@@ -438,6 +438,9 @@
                         </div>
                     </div>
                 </div>
+                <?php if(empty($personalDetails)): ?>
+                    <h1 style="color:#000">This student has not registered yet.</h1>
+                <?php else: ?>
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="well">
@@ -712,7 +715,7 @@
             </div>
      </div>                         
                                         
-                           
+                           <?php endif; ?>
      
 
        
