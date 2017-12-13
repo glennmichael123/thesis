@@ -418,11 +418,11 @@
                          </div> -->
                          <div class="row">
                             <div class="col-lg-3">
-                              <input type="radio" id="emergency_rad_1" class="address" value="address" name="address"><label for="emergency_rad_1" class="address" style="margin-left: 3px;">Same as my Present Address</label>
+                              <input type="radio" id="emergency_rad_1" class="address" value="address1" name="address1"><label for="emergency_rad_1" class="address" style="margin-left: 3px;">Same as my Present Address</label>
              
                             </div>
                             <div class="col-lg-4">
-                                <input type="radio" id="emergency_rad_2" value="address" name="address" class="address"><label for="emergency_rad_2" class="address" style="margin-left: 3px;">Same as my Permanent Address</label>
+                                <input type="radio" id="emergency_rad_2" value="address" name="address1" class="address"><label for="emergency_rad_2" class="address" style="margin-left: 3px;">Same as my Permanent Address</label>
                             </div>
                         <div style="float: right;margin-top: 20px">
                             <!-- <a class="topage2 first-next" href="#" id="firstNext">Next</a> -->
@@ -723,7 +723,7 @@
                             'email':email,
                         },
                         success:function(data){
-                            if(data == "invalid"){
+                            if($.trim(data) == "invalid"){
                                 alert("Email already exist");return false;
                             }else{
                                 $("#email").css("border","1px solid #ccc");
@@ -867,7 +867,7 @@
                     }
                 });
                 $(".page2").hide();
-                 $(".page3").show();
+                $(".page3").show();
                 // $.ajax({
                 //     url: "insertCompanyClassification",
                 //     type: "POST",

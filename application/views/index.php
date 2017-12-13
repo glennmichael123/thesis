@@ -2,7 +2,7 @@
 <html>
 <head>
  <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/materialize.min.css">
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/style.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
@@ -10,7 +10,7 @@
 
   <!-- Compiled and minified JavaScript -->
   
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <script src="<?php echo base_url() ?>assets/js/jquery.min.js"></script>
  
     <title></title>
     <style type="text/css">
@@ -86,14 +86,15 @@
                  <option value="administrator">Administrator</option>
              </select>
           </div>
-          <button type="submit" class="btn amber lighten-1 waves-effect waves-light ">Login</button>
-        <!-- <input type="submit" class="btn amber lighten-1 waves-effect waves-light " value="Login"> -->
+
+        <button type="submit" class="btn amber lighten-1 waves-effect waves-light ">LOGIN</button>
+
         
       </div>
     </form>
   </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script src="<?php echo base_url() ?>assets/js/materialize.min.js"></script>
 </body>
 
 <script type="text/javascript">

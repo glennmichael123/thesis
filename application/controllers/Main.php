@@ -169,6 +169,7 @@ class Main extends CI_Controller {
 	}
 	public function evaluate($username){
 		if(!isset($this->session->userdata['id_number'])){
+
          redirect(base_url('index'));
       	}
 
@@ -188,6 +189,7 @@ class Main extends CI_Controller {
       	}
 
 	}
+       
 
 
 	public function supervisorDashboard(){
@@ -689,38 +691,12 @@ public function logout(){
 	}
 
 
-	public function sendEmail(){
-		
-
-		$email = 'gtorregosa@gmail.com';
-		$hash = md5($email);
-		$config = Array(
-		'protocol' => 'smtp',
-		        'smtp_host' => 'ssl://smtp.googlemail.com',
-		        'smtp_port' => 465,
-		        'smtp_user' => 'gtorregosa@gmail.com',
-		        'smtp_pass' => 'popot143',
-		        'mailtype'  => 'html', 
-		        'charset' => 'utf-8',
-		        'wordwrap' => TRUE
-
-		    );
-		    $this->load->library('email', $config);
-		    $this->email->set_newline("\r\n");
-		    $url = base_url();
-		    $email_setting  = array('mailtype'=>'html');
-		    $this->email->initialize($email_setting);
-		    $email_body ="Please click this link to activate your account:
+	public function sendEmail($hash, $email){
+			   		 $url = base_url();
+			        $email_body ="Please click this link to activate your account:
 						  {$url}main/verify?email=$email&hash=$hash";
-		    $this->email->from('CITUAdmin', 'Admin');
 
-		    // $list = array($email);
-		    $this->email->to($email);
-		    $this->email->subject('Email Verification');
-		    $this->email->message($email_body);
-
-		   	$this->email->send();
-  		 
+					mail($email,'sample mail',$email_body,'From: repuestobrian@gmail.com');
   		 
 
 
@@ -874,7 +850,10 @@ public function logout(){
    		
    	}
 
+
+
    	public function filterLogsForSupervisor(){
+   		
    		// $data['traineesLog'] = $this->users->getOjtLogs($this->session->userdata['id_number']);
    		$data['traineesLog'] = $this->users->filterLogsForSupervisor($this->session->userdata['id_number']);
    		$data['comments'] = $this->users->getComments();
@@ -882,7 +861,6 @@ public function logout(){
    		echo $html;
    		
    	}
-
 
 
 }

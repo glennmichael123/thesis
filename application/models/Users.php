@@ -360,15 +360,15 @@
                 
                 $html .=  '<td>';
                             if ($value['ojtone_current_evaluations'] == 1 || $value['ojtone_current_evaluations'] == 2 || $value['ojttwo_current_evaluations'] == 1 || $value['ojttwo_current_evaluations'] == 2){
-                              $html .= '<a href="'.base_url().'viewmidterm/'.$value['id_number'].'">Midterm</a>';
+                              $html .= '<a target="_blank" href="'.base_url().'viewmidterm/'.$value['id_number'].'">Midterm  <i class="fa fa-check-circle"></i></a>';
                             }else{
-                              $html .= '<a style="color:gray">Midterm</a>';
+                              $html .= '<a style="color:gray">Midterm <i class="fa fa-times-circle"></i> </a>';
                             }
 
                             if ($value['ojtone_current_evaluations'] == 2 || $value['ojttwo_current_evaluations'] == 2){
-                              $html .= '| <a href="youtube.com"> Final</a>'; 
+                              $html .= '| <a target="_blank" href="'.base_url().'viewfinal/'.$value['id_number'].'">  Final <i class="fa fa-check-circle"></i></a>'; 
                             }else{
-                              $html .= '| <a style="color: gray">Final</a>';
+                              $html .= '| <a style="color: gray">Final <i class="fa fa-times-circle"></i></a>';
                             }
                 $html .=  '</td>';   
 
@@ -832,7 +832,7 @@
                     echo '<script>alert("Students:'.implode(',' , array_column($existStuds, 'id_number')).' already exists, not added to the database")</script>';
                  }
                  echo "<script type=\"text/javascript\">
-                            alert(\"Successfull\");
+                            alert(\"Successful\");
                       </script>";
                   echo "<script>window.location.replace('admindashboard');</script>";
              }
@@ -1352,9 +1352,11 @@
       }
 
     public function filterLogsForSupervisor($id){
-        $status = $_POST['status'];
+        $status = empty($_POST['status']) ? 0 : $_POST['status'];
+        $stud = empty($_POST['stud_id']) ? '' : $_POST['stud_id'];
 
-          $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.first_name, users.last_name, users.user_image FROM logs INNER JOIN users ON users.id_number = logs.id_number  WHERE logs.supervisor_id = '$id' AND verified = $status ORDER BY id DESC");
+          $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.first_name, users.last_name, users.user_image FROM logs INNER JOIN users ON users.id_number = logs.id_number  WHERE logs.supervisor_id = '$id' AND verified = $status AND users.id_number LIKE '%$stud%' ORDER BY id DESC");
+
             return $query->result_array();
         // print_r($_POST);
       }
