@@ -659,18 +659,18 @@ public function logout(){
 
 		$email = 'gtorregosa@gmail.com';
 		$hash = md5($email);
-		$config = Array(
-		'protocol' => 'smtp',
-		        'smtp_host' => 'ssl://smtp.googlemail.com',
-		        'smtp_port' => 465,
-		        'smtp_user' => 'gtorregosa@gmail.com',
-		        'smtp_pass' => 'popot143',
-		        'mailtype'  => 'html', 
-		        'charset' => 'utf-8',
-		        'wordwrap' => TRUE
+		// $config = Array(
+		// 'protocol' => 'smtp',
+		//         'smtp_host' => 'ssl://smtp.gmail.com',
+		//         'smtp_port' => 465,
+		//         'smtp_user' => 'gtorregosa@gmail.com',
+		//         'smtp_pass' => 'popot143',
+		//         'mailtype'  => 'html', 
+		//         'charset' => 'utf-8',
+		//         'wordwrap' => TRUE
 
-		    );
-		    $this->load->library('email', $config);
+		//     );
+		    $this->load->library('email');
 		    $this->email->set_newline("\r\n");
 		    $url = base_url();
 		    $email_setting  = array('mailtype'=>'html');
@@ -685,10 +685,35 @@ public function logout(){
 		    $this->email->message($email_body);
 
 		   	$this->email->send();
-  		 
-  		 
 
+		// $this->load->library('email');
 
+		// $config = array(
+		// 	        'mailtype'  => "html", 
+
+		//     );
+		// 	$this->email->initialize($config);
+		// 	$this->email->from('gtorregosa@gmail.com','Glennskie');
+		// 	$this->email->to('repuestobrian@gmail.com');
+		// 	$this->email->subject('Codeigniter Try Email');
+		// 	$message="weak";
+		// 	$this->email->message($message);
+
+		// 	if($this->email->send()){
+
+		// 		echo "Email Sent";
+		// 	}
+		// 	else{
+		// 		echo $this->email->print_debugger();
+		// 	}
+		// $email = 'gtorregosa@gmail.com';
+		// $hash = md5($email);
+		// 	    $url = base_url();
+		// 	        $email_body ="Please click this link to activate your account:
+		// 				  {$url}main/verify?email=$email&hash=$hash";
+
+		// 			mail('repuestobrian2@gmail.com','sample mail',$email_body,'From: repuestobrian@gmail.com');
+  				
     }
 
     public function saveEmail(){
