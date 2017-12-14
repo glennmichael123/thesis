@@ -415,6 +415,9 @@ header h1 {
             background: #E9EBEE;
             color: #000000 !important;
         }
+        body{
+          background: #E9EBEE;
+        }
         
         .dashboard-title {
             font-size: 15px;
@@ -928,7 +931,12 @@ header h1 {
                                             circle.path.setAttribute('stroke', state.color);
                                         }
                                     });
+
+                                       <?php if($rendered > $total): ?>
+                                     bar.animate(1.0);
+                                    <?php else: ?>
                                     bar.animate(<?php echo $rendered/$total?>); // Number from 0.0 to 1.0
+                                    <?php endif; ?>
                                 });
                             </script>
                           <?php endif; ?>
@@ -1077,7 +1085,7 @@ header h1 {
                             
                             </div>
                               <div class="col-lg-4">
-                               <a href="workmate/<?php echo $workmate['id_number']?>" style="font-size: 12px;"> View dashboard</a>
+                               <a href="<?php echo base_url('workmate') ?>/<?php echo $workmate['id_number']?>" style="font-size: 12px;"> View dashboard</a>
                               </div>
                           </div>
                           <?php endforeach;?>
@@ -1091,7 +1099,7 @@ header h1 {
                     <?php if(empty($logs_list)):?>
                        
            
-                          <?php echo 'You have not posted a log yet';?>   
+                          <?php echo 'This student has not posted a log yet';?>   
                  
                 <?php else:?>
 
@@ -1219,7 +1227,7 @@ header h1 {
                         </div>
                         <?php endforeach;?>
                     <?php endif;?>
-
+                    <p><?php echo $links; ?></p>
                 </div>
             </div>
             <!-- LOGSSSSS LISSSSSTTTT -->

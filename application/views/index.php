@@ -59,6 +59,9 @@
           <p class="login-title" style="color: #FFF;">On-The-Job Training</p>
           <p class="login-subtitle" style="color: #FFF;">Automate</p>
         </div>      
+        <div class="row">
+          <p style="font-weight: bold;" class="center-align red-text"><?php echo $this->session->flashdata('Status');  ?></p>
+        </div>
         <div class="row" style="margin-top: -25px;">
           <div class="input-field col s12">
             <label for="email">Username</label>
@@ -83,7 +86,8 @@
                  <option value="administrator">Administrator</option>
              </select>
           </div>
-        <input type="submit" class="btn amber lighten-1 waves-effect waves-light " value="Login">
+          <button type="submit" class="btn amber lighten-1 waves-effect waves-light ">Login</button>
+        <!-- <input type="submit" class="btn amber lighten-1 waves-effect waves-light " value="Login"> -->
         
       </div>
     </form>

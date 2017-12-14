@@ -1356,6 +1356,7 @@
             method: 'POST',
             data:data,
             success: function(data){
+                // return false;
                 location.reload();
             }
         })

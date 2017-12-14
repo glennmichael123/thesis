@@ -254,16 +254,16 @@
                                          echo '<option value="1st Year" selected hidden>1st Year</option>';
                                     } ?>
                                     <?php if ($initial_data[0]['year']==2) {
-                                         echo '<option value="1st Year" selected hidden>2nd Year</option>';
+                                         echo '<option value="2nd Year" selected hidden>2nd Year</option>';
                                     } ?>
                                     <?php if ($initial_data[0]['year']==3) {
-                                         echo '<option value="1st Year" selected hidden>3rd Year</option>';
+                                         echo '<option value="3rd Year" selected hidden>3rd Year</option>';
                                     } ?>
                                     <?php if ($initial_data[0]['year']==4) {
-                                         echo '<option value="1st Year" selected hidden>4th Year</option>';
+                                         echo '<option value="4th Year" selected hidden>4th Year</option>';
                                     } ?>
                                     <?php if ($initial_data[0]['year']==5) {
-                                         echo '<option value="1st Year" selected hidden>5th Year</option>';
+                                         echo '<option value="5th Year" selected hidden>5th Year</option>';
                                     } ?><!-- <option selected disabled>Year</option> -->
                                     <option value="1st Year">1st Year</option>
                                     <option value="2nd Year">2nd Year</option>
@@ -418,11 +418,11 @@
                          </div> -->
                          <div class="row">
                             <div class="col-lg-3">
-                              <input type="radio" id="emergency_rad_1" class="address" value="address" name="address"><label for="emergency_rad_1" class="address" style="margin-left: 3px;">Same as my Present Address</label>
+                              <input type="radio" id="emergency_rad_1" class="address" value="address" name="address2"><label for="emergency_rad_1" class="address" style="margin-left: 3px;">Same as my Present Address</label>
              
                             </div>
                             <div class="col-lg-4">
-                                <input type="radio" id="emergency_rad_2" value="address" name="address" class="address"><label for="emergency_rad_2" class="address" style="margin-left: 3px;">Same as my Permanent Address</label>
+                                <input type="radio" id="emergency_rad_2" value="address" name="address2" class="address"><label for="emergency_rad_2" class="address" style="margin-left: 3px;">Same as my Permanent Address</label>
                             </div>
                         <div style="float: right;margin-top: 20px">
                             <!-- <a class="topage2 first-next" href="#" id="firstNext">Next</a> -->
@@ -685,6 +685,7 @@
 
 <!-- VALIDATE EMAIL -->
 <script type="text/javascript">
+    
     function validateEmail(email) {
       var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);

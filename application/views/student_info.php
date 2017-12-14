@@ -311,7 +311,11 @@
                                             circle.path.setAttribute('stroke', state.color);
                                         }
                                     });
+                                     <?php if($rendered > $total): ?>
+                                     bar.animate(1.0);
+                                    <?php else: ?>
                                     bar.animate(<?php echo $rendered/$total?>); // Number from 0.0 to 1.0
+                                    <?php endif; ?>  // Number from 0.0 to 1.0
                                 });
                             </script>
                           <?php endif; ?>
@@ -434,6 +438,9 @@
                         </div>
                     </div>
                 </div>
+                <?php if(empty($personalDetails)): ?>
+                    <h1 style="color:#000">This student has not registered yet.</h1>
+                <?php else: ?>
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="well">
@@ -702,12 +709,13 @@
                             </div>
                         </div>
                         <?php endforeach;?>
+                         <p><?php echo $links; ?></p>
                     </div>
                 </div>
             </div>
      </div>                         
                                         
-                           
+                           <?php endif; ?>
      
 
        

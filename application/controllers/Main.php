@@ -25,10 +25,14 @@ class Main extends CI_Controller {
         $this->load->helper('url');
         $this->load->model('users');
         $this->load->library('session');
+
         $this->load->helper('url');
         $this->load->helper('file');
         $this->load->helper('download');
         $this->load->library('zip');
+
+        $this->load->library("pagination");
+
     }
 
      public function ojtform(){
@@ -48,10 +52,18 @@ class Main extends CI_Controller {
      	$data['evaluation'] = $this->users->getEvaluationViewForAdmin($username);
     	$this->load->view('viewmidterm',$data);
     }
+     public function viewFinal($username){
+     	$data['evaluation'] = $this->users->getFinalEvaluationViewForAdmin($username);
+    	$this->load->view('viewfinal',$data);
+    }
     
    
     public function insertAnnouncement(){
     	$this->users->insertAnnouncement();
+    }
+    public function samplePrint(){
+    	return "yopak";
+
     }
 
     public function loginojt(){
@@ -83,17 +95,35 @@ class Main extends CI_Controller {
     	$this->load->view('loginadministrator');
     }
     public function finalevaluation($username){
-    	$data['initial_data'] = $this->users->loadFinalEval($username);
-    	$this->load->view('finalevaluation',$data);
+    	if(!isset($this->session->userdata['id_number'])){
+			redirect(base_url('index'));
+		}
+
+		 if($this->session->userdata['account_type'] == 'student'){
+      		echo "<h1>You are not allowed to view this page</h1>";
+      	}else{
+      		$checkIfExist = $this->users->checkStudEvaluatedFinal($username);
+      		if($checkIfExist == 'true'){
+				echo "<h1>You have already evaluated this student</h1>";
+			}else{
+				$data['initial_data'] = $this->users->loadFinalEval($username);
+				$data['stud_username'] = $username;
+				$this->load->view('finalevaluation',$data);
+			}
+			
+		}
+    	
+    
     }
 
 	public function index()
 	{
 		
-	 session_destroy();
+	
      if( isset($this->session->userdata['id_number']) ){
      	redirect(base_url('dashboard'));
      }else{
+     	 session_destroy();
      	$data['watch_list'] = $this->users->getWatchlists();
      	$this->load->view('index',$data);
      	//print_r($this->session->userdata['id_number']);exit;
@@ -142,11 +172,6 @@ class Main extends CI_Controller {
 
 		$this->load->view('signup');
 	}
-	public function new()
-	{
-		
-		$this->load->view('new');
-	}
 
 
 	public function printData()
@@ -155,36 +180,27 @@ class Main extends CI_Controller {
 	}
 	public function evaluate($username){
 		if(!isset($this->session->userdata['id_number'])){
-          header("location: index");
-         
-      	} 
-		$data['stud_username'] = $username;
+         redirect(base_url('index'));
+      	}
 
-      	$this->load->view('evaluate',$data);
-		/*else{
-     		$account_type = $this->users->getAccountType(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number']: '');
-     		if($account_type[0]['account_type'] == 0){
-					header("location: dashboard");
-			}
-			else if($account_type[0]['account_type'] == 1){
-				
-			}
-			elseif ($account_type[0]['account_type'] == 2) {
-				 header("location: adminDashboard");
-			}
-		}*/
+      	if($this->session->userdata['account_type'] == 'student'){
+      		echo "<h1>You are not allowed to view this page</h1>";
+      	}else{
+
+      				$checkIfExist = $this->users->checkStudEvaluated($username);
+      				$data['stud_name'] = $this->users->dashboardData($username);
+      				if($checkIfExist){
+      					echo "<h1>You have already evaluated this student</h1>";
+      				}else{
+      					$data['stud_username'] = $username;
+      					$this->load->view('evaluate',$data);
+      				}
+      				
+      	}
+
 	}
-	public function final_evaluation($username){
-		if(!isset($this->session->userdata['id_number'])){
-			header("location: index");
 
 
-		}
-		$data['stud_username'] = $username;
-
-
-		$this->load->view('finalevaluation',$data);
-	}
 	public function supervisorDashboard(){
 
 		if(!isset($this->session->userdata['id_number'])){
@@ -299,7 +315,17 @@ class Main extends CI_Controller {
 						$data['current_evaluations'] = $ojtRecords[0]['ojtone_current_evaluations'];
 						$data['verified'] = $ojtRecords[0]['logs_verified'];
 						$data['totalLogs'] = $ojtRecords[0]['logs'];
-						$data['logs_list'] = $this->users->getLogs($username);
+						$config = array();
+						$config['base_url'] = base_url() .'main/studentinfo/'.$username;
+						$config['uri_segment'] = 4;
+						$config["total_rows"] = $ojtRecords[0]['logs'];
+				        $config["per_page"] = 10;
+				        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+				          $this->pagination->initialize($config);
+						$data["links"] = $this->pagination->create_links();
+						$data['logs_list'] = $this->users->getLogs($username,$config['per_page'], $page);
+     	
+						// $data['logs_list'] = $this->users->getLogs($username);
 						
 						$data['user_data'] = $this->users->dashboardData($username);
 						$data['image_header'] = $this->users->displayImageToHeader($username);
@@ -442,10 +468,12 @@ public function logout(){
 			}	
 
 		}
+
 		if(date('Y-m-d')==('2019-1-1')){
 				echo 'Main/database_backup';
 
 		}
+
     }
 
 
@@ -481,11 +509,10 @@ public function logout(){
      	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($this->session->userdata['id_number']);
      	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($this->session->userdata['id_number']);
      	$data['supervisor_id'] = $this->users->getSupervisorIdForStudent($this->session->userdata['id_number']);
-     
+     	
      	$data['checkEmail'] = $this->users->checkEmailVerified($this->session->userdata['id_number']);
      	$renderedCount = $this->users->getSumRendered($this->session->userdata['id_number']);
-
-
+     	$this->users->updateOJTStatus($this->session->userdata['id_number']);
      	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $this->session->userdata['id_number']);
      	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $this->session->userdata['id_number']);
      	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $this->session->userdata['id_number']);
@@ -502,7 +529,8 @@ public function logout(){
 						$data['current_evaluations'] = $ojtRecords[0]['ojtone_current_evaluations'];
 						$data['verified'] = $ojtRecords[0]['logs_verified'];
 						$data['totalLogs'] = $ojtRecords[0]['logs'];
-						$data['logs_list'] = $this->users->getLogs($this->session->userdata['id_number']);
+				           // print_r($page);
+						$data['logs_list'] = $this->users->getLogsForStuds($this->session->userdata['id_number']);
 						
 						$data['user_data'] = $this->users->dashboardData($this->session->userdata['id_number']);
 						$data['image_header'] = $this->users->displayImageToHeader($this->session->userdata['id_number']);
@@ -557,12 +585,21 @@ public function logout(){
 						$data['current_evaluations'] = $ojtRecords[0]['ojtone_current_evaluations'];
 						$data['verified'] = $ojtRecords[0]['logs_verified'];
 						$data['totalLogs'] = $ojtRecords[0]['logs'];
-						$data['logs_list'] = $this->users->getLogs($username);
+						$config = array();
+						$config['base_url'] = base_url().'main/workmate/'.$username;
+						$config['uri_segment'] = 4;
+						$config["total_rows"] = $ojtRecords[0]['logs'];
+				        $config["per_page"] = 10;
+				        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+				          $this->pagination->initialize($config);
+				           // print_r($page);
+						$data['logs_list'] = $this->users->getLogs($username, $config['per_page'], $page);
 
 						$data['userLoggedIn'] = $this->users->currentLoggedInOjt($this->session->userdata('id_number'));
 						
 						$data['user_data'] = $this->users->dashboardData($username);
 						$data['image_header'] = $this->users->displayImageToHeader($this->session->userdata('id_number'));
+						$data["links"] = $this->pagination->create_links();
 								// $this->users->getUserData($this->session->userdata['id_number']);
 							$this->load->view('workmate', $data);
 					}
@@ -583,7 +620,10 @@ public function logout(){
 
 	public function studentDashboard($id_number){
 
-		$companyName = $this->users->getCompanyInformation($id_number);
+		if(!isset($this->session->userdata['id_number'])){
+          redirect(base_url('index'));
+     	}else{
+     			$companyName = $this->users->getCompanyInformation($id_number);
      	$data['workmates'] = $this->users->getWorkmates($id_number, $companyName->company_name);
 
      	$data['supervisor_image'] = $this->users->getSupervisorImageForStud($this->session->userdata['id_number']);
@@ -604,7 +644,15 @@ public function logout(){
 		$data['current_evaluations'] = $ojtRecords[0]['ojtone_current_evaluations'];
 		$data['verified'] = $ojtRecords[0]['logs_verified'];
 		$data['totalLogs'] = $ojtRecords[0]['logs'];
-		$data['logs_list'] = $this->users->getLogs(isset($id_number) ? $id_number : '');
+		$config = array();
+						$config['base_url'] = base_url() .'main/studentdashboard/'.$id_number;
+						$config['uri_segment'] = 4;
+						$config["total_rows"] = $ojtRecords[0]['logs'];
+				        $config["per_page"] = 5;
+				        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+				          $this->pagination->initialize($config);
+						$data["links"] = $this->pagination->create_links();
+		$data['logs_list'] = $this->users->getLogs(isset($id_number) ? $id_number : '',$config['per_page'], $page);
      	}
 
      	$data['id_number'] = $id_number;
@@ -612,7 +660,9 @@ public function logout(){
      	$data['user_data'] = $this->users->dashboardData($id_number);
 
 
-     	$this->load->view('dashboard', $data);
+     	$this->load->view('studentdashboard', $data);
+     	}
+	
 	}
 
 
@@ -653,7 +703,47 @@ public function logout(){
 		$this->load->view('verify');
 	}
 
+	public function sendEmailR(){
+		// $email = 'gtorregosa@gmail.com';
+$toemail = $_POST['email'];
+		 
+		$email = 'gtorregosa@gmail.com';
+		$hash = md5($toemail);
+	
+		    $this->load->library('email');
+		    $this->email->set_newline("\r\n");
+		    $url = base_url();
+		    $email_setting  = array('mailtype'=>'html');
+		    $this->email->initialize($email_setting);
+		    $email_body ="Please click this link to activate your account:
+						  {$url}main/resetPassword?email=$toemail";
+		    $this->email->from('CITUAdmin', 'Admin');
 
+		    $this->email->to($toemail);
+		    $this->email->subject('Email Verification');
+		    $this->email->message($email_body);
+
+		   	$this->email->send();
+
+
+
+	}
+	public function confirmSend(){
+		$toemail = $_POST['email'];
+		$hash = md5($email); 
+		if($this->users->checkifExistEmail($toemail)){
+			$this->sendEmailR($hash,$toemail);
+
+		}
+	}
+	public function resetpassword(){
+		$this->load->view('resetpassword');
+
+	}
+	public function verifyreset(){
+		$this->load->view('verifyreset');
+
+	}
 	public function sendEmail(){
 		
 
@@ -750,6 +840,11 @@ public function logout(){
 
     public function getLastLog(){
     	$this->users->getLastLog();
+    } 
+
+    public function loadSpecificLog(){
+
+    	$this->users->loadSpecificLog();
     }
     /*  public function getMaxComment(){
 
@@ -766,6 +861,17 @@ public function logout(){
 
    	public function deleteComment(){
    		$this->users->deleteComment();
+   	}
+   	public function resetUserPassword(){
+   		$email = $_POST['reset_email'];
+   		$newpass = $_POST['newpass'];
+   		$resetpass = $this->users->resetPassword($email);
+   		$id_num = $resetpass->id_number;
+
+   		$this->db->query("UPDATE users SET password = '$newpass' WHERE id_number = '$id_num'");
+
+   		header("refresh:1 index");
+
    	}
    	  public function insert_mid_eval($username){ 	
 
@@ -812,13 +918,7 @@ public function logout(){
 
     	}
     	else{
-    	$Status = '<div class="alert alert-success alert-dismissible" role="alert">
-					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					   You have evaluated  <strong>'.$username.' </strong> </div>';
-    		 // echo $stud_name->first_name;
-    	//	$Status = '<div class="alert alert-success" role="alert">You have evaluated '.$username.' </div>';
-    		//$Status = "You have evaluated ".$username;
-    		$this->session->set_flashdata("Status",$Status);
+
     	}
 
     }
@@ -871,6 +971,20 @@ public function logout(){
    	}
 
    	public function filterStudent(){
-   		$data['student_list'] = $this->users->getStudentList();
+
+   		$data['student_list'] = $this->users->filterStud();
+   		
    	}
+
+   	public function filterLogsForSupervisor(){
+   		// $data['traineesLog'] = $this->users->getOjtLogs($this->session->userdata['id_number']);
+   		$data['traineesLog'] = $this->users->filterLogsForSupervisor($this->session->userdata['id_number']);
+   		$data['comments'] = $this->users->getComments();
+   		$html = $this->load->view('filterlog', $data, TRUE);
+   		echo $html;
+   		
+   	}
+
+
+
 }
