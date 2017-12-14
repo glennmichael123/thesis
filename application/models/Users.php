@@ -1017,7 +1017,7 @@ public function getStudentList(){
         $religion = $_POST['religion'];
         $citizenship = $_POST['citizenship'];
         $sex = $_POST['sex'];
-
+        $year = $_POST['year'];
         //family details table
         $father = $_POST['fathers_name'];
         $father_occu = $_POST['fathers_occupation'];

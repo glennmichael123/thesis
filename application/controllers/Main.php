@@ -671,10 +671,9 @@ public function logout(){
 	public function verifyreset(){
 		$this->load->view('verifyreset');
 	}
-	public function sendEmail(){
+	public function sendEmail($hash,$email){
 		
-		$email = 'gtorregosa@gmail.com';
-		$hash = md5($email);
+	
 		// $config = Array(
 		// 'protocol' => 'smtp',
 		//         'smtp_host' => 'ssl://smtp.gmail.com',
