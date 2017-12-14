@@ -548,6 +548,13 @@
 
                                                 <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
 
+
+
+                                                <script type="text/javascript">
+                                                   
+                                                </script>
+
+
                                             <?php else:?>
                                               
                                                 
@@ -586,7 +593,7 @@
                         <?php else: ?>
                         <div class="row" style="margin-bottom: 20px;">
                             <div class="col-lg-5">
-                                <select class="form-control" id="stud-filter">
+                                <select class="form-control">
                                     <option selected disabled>Select a trainee</option>
                                     <?php foreach ($ojtRecords as $trainee): ?>
                                          <option value="<?php echo $trainee['id_number'] ?>"><?php echo $trainee['first_name'] . " " . $trainee['last_name']?></option>
@@ -875,37 +882,18 @@
     $('#log-status').change(function(){
 
         var status = $(this).val();
-        var stud = $('#stud-filter').val();
+
         $.ajax({
             method:'POST',
             url: 'filterLogsForSupervisor',
             data: {
                 'status': status,
-                'stud_id': stud,
             },
             success: function(data){
                $('#wrap-log-section').replaceWith(data);
             }
-        });
-    });
-
-
-    $('#stud-filter').change(function(){
-
-        var status = $('#log-status').val();
-        var stud = $(this).val();
-        $.ajax({
-            method:'POST',
-            url: 'filterLogsForSupervisor',
-            data: {
-                'status': status,
-                'stud_id': stud,
-            },
-            success: function(data){
-               $('#wrap-log-section').replaceWith(data);
-            }
-        });
-    });
+        })
+    })
 </script>
 <script type="text/javascript">
   

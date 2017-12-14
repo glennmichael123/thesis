@@ -4,19 +4,19 @@
 <head>
     <link rel="icon" href="favicon.ico">
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?php base_url()?>assets/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?php echo base_url()?>assets/css/bootstrap-theme.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="<?php echo base_url()?>assets/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+   <script src="<?php echo base_url()?>assets/js/chart.min.js"></script>
+   <script src="<?php echo base_url()?>assets/js/chart.js"></script>
+   <script src="<?php echo base_url()?>assets/js/chart.bundle.min.js"></script>
+   <script src="<?php echo base_url()?>assets/js/chart.bundle.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
@@ -26,11 +26,11 @@
     <!-- <script src="bower_components/sweetalert2/dist/sweetalert2.all.min.js"></script> -->
 
     <!-- Data table -->
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>assets/css/dataTables.bootstrap.min.css">
     
     <script src="//code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/jquery.dataTables.min.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/dataTables.bootstrap.min.js"></script>
 
     <!-- <script type="text/javascript" src="jquery.dataTables.js"></script>
     <script type="text/javascript" src="dataTables.scrollingPagination.js"></script>
@@ -311,29 +311,15 @@ a#addStuds:focus{
 a#addcsv:focus{
   box-shadow: 0px 0px 10px 5px  #871F21;
 }
-
 tr:hover{
   background-color: #faf2cc;
 }
-/*.btn-success{
-  background:#FFBA00 !important;
-  border: 1px solid transparent; 
-}
-.btn-success:hover{
-  background:#e5ac16 !important;
-  border: 1px solid transparent; 
-}
-.btn-danger{
-  background:#871F21 !important;
-  border: 1px solid transparent;
-}
-.btn-danger:hover{
-  background:#5e1517 !important;
-  border: 1px solid transparent;
-}*/
 
+#postEdit, .postDelete:hover{
+  cursor:pointer;
+}
         
-    </style>
+</style>
 
     <title>OJT Automate</title>
 
@@ -366,7 +352,7 @@ tr:hover{
                                 <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
                                 <li class="divider"></li>
                     
-                                <li><a href="logout">Log Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+                                <li><a href="logout">Log Out <i class="fa fa-sign-out pull-right"></i></a></li>
                               </ul>
                             </li>
                           </ul>
@@ -394,6 +380,8 @@ tr:hover{
                             <button class="btn btn-admin" data-target="#addAdminModal" data-toggle="modal">+Admin</button>
                             <button class="btn btn-admin" data-target="#addSupervisorModal" data-toggle="modal">+Supervisor</button>
                             <button class="btn btn-admin" data-target="#addStudent" data-toggle="modal">+Student</button>
+                            
+                           <!--  <a href="Main/database_backup">hahaha</a> -->
                          </section>
                     </div>
                 </div>
@@ -601,7 +589,7 @@ tr:hover{
                                       <?php endforeach;?>
                                   </tbody>
                               </table>
-                              <div><button type="button" class="btn btn-warning" id="btnDelete"><span class="glyphicon glyphicon-trash"></span> Delete Selected Item(s)</button> </div>
+                              <div><button type="button" class="btn btn-warning" id="btnDelete"><i class="fa fa-trash"></i> Delete Selected Item(s)</button> </div>
                             <?php endif;?>
                         <!-- </form> -->
                     </div><!-- end of well -->
@@ -619,20 +607,47 @@ tr:hover{
     <div class="modal-content modalContent">
         <div class="modal-header modalHeader">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <h3 class="modal-title" id="lineModalLabel" style="color:white;">Post announcement</h3>
+            <button type="button" class="btn btn-default" style="float: right;margin-right: 15px" id="btnViewPosts">View posts</button>
+            <button type="button" class="btn btn-default" style="float: right;margin-right: 10px" id="btnCompose">Compose</button>
+            <h3 class="modal-title postHeading" id="lineModalLabel" style="color:white;">Post announcement</h3>
+            
         </div>
         <div class="modal-body">
             
             <!-- content goes here -->
             <form>
-              <div class="form-group">
-                    <label>Announcement</label>
+              <div class="form-group" id="compose">
+                    <label>Message</label>
                     <textarea class="form-control" style="resize: none; border-radius: 5px" id="announcement_message" name="msg"></textarea>
-                </div>
+              </div>
+              <div id="viewPosts" style="display: none">
+                <?php foreach ($announcements as $post):?>
+
+                    <div class="well" style="margin-bottom: 10px;background: #f8f8f8">
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <input type="hidden" class="post_id" value="<?php echo $post['announcement_id'];?>">
+                           <p style="font-weight: bold;color: #337ab7;" class="postDate"><?php echo date('F d, Y',strtotime($post['date_posted'])) ?></p>
+                          <textarea style="font-size: 13px;color:#616161;width: 100%;resize:none;border: none;background: none" class="postContent" spellcheck="false" readonly><?php echo $post['content']; ?></textarea>
+                        </div>  
+                      </div>
+                      <div class="row" style="margin-top: 5px;">
+                        <div class="col-lg-6">
+                          <i class="fa fa-pencil-square" style="font-size: 20px;margin-right:3px;color: gray" aria-hidden="true" id="postEdit" title="Edit post"></i>
+                          <i class="fa fa-trash postDelete" style="font-size: 20px;color: gray"  aria-hidden="true" title="Delete post"></i>
+                        </div>
+                        <div class="col-lg-3 col-lg-offset-3" id="postSaveCancel" style="display: none">
+                          <a href="#" style="font-size: 10px;margin-right: 3px;" id="saveEdit">SAVE</a>
+                          <a href="#" style="font-size: 10px;" id="cancelEdit">CANCEL</a>
+                        </div>
+                      </div>
+                    </div>
+                <?php endforeach; ?>
+              </div>
             </form>
 
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer" id="announcementModalFooter">
             <div class="btn-group btn-group-justified" role="group" aria-label="group button">
                 <div class="btn-group" role="group">
                      <button type="button" class="btn btn-success btn-hover-green" data-action="save" role="button" style="width: 270px;border-radius: 5px" id="postAnnouncement">Post</button>
@@ -795,16 +810,16 @@ tr:hover{
     <div class="modal-content modalContent">
         <div class="modal-header modalHeader">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <!-- <button type="button" class="btn btn-default" style="float:right; margin-right:40px" id="import"><span aria-hidden="true">Import CSV</span><span class="sr-only"></span></button>
-            <button type="button" class="btn btn-default" style="float:right; margin-right:10px" id="stud"><span aria-hidden="true">+Student</span><span class="sr-only"></span></button> -->
+            <button type="button" class="btn btn-default" style="float:right; margin-right:20px" id="import"><span aria-hidden="true">Import CSV</span><span class="sr-only"></span></button>
+            <button type="button" class="btn btn-default" style="float:right; margin-right:10px" id="stud"><span aria-hidden="true">+Student</span><span class="sr-only"></span></button>
             <h3 class="modal-title" id="lineModalLabel" style="color:white;">Add student</h3>
         </div>
         <div class="modal-body">
               <!-- Input student individually -->
-              <ul class="nav nav-tabs" style="margin-bottom: 15px;">
+              <!-- ul class="nav nav-tabs" style="margin-bottom: 15px;">
                 <li class="active" role="presentation"><a href="" role="tab" data-toggle="tab" id="addStuds" style="background-color:#ffba00;border: 1px solid #ffeab2; color: #FFFFFF;">+Students</a></li>
                 <li role="presentation"><a href="" role="tab" data-toggle="tab" id="addcsv" style="background-color:#871F21;border: 1px solid #ffeab2; color: #FFFFFF;">Import CSV</a></li>
-              </ul>
+              </ul> -->
               <div class="tab-pane active addIndiv" style="display: inline;" id="addStudent" role="tabpanel">
 
                     <!-- <label>Username</label>
@@ -877,7 +892,6 @@ tr:hover{
                      <button type="button" class="btn btn-success btn-hover-green" data-action="save" role="button" style="width: 270px;border-radius: 5px" id="addStud">Add</button>
                 </div>
                 <div class="btn-group" role="group">
-                   
                     <button type="button" class="btn btn-danger" data-dismiss="modal"  role="button" style="width: 270px;border-radius: 5px; float: right">Cancel</button>
                 </div>
             </div>
@@ -887,16 +901,105 @@ tr:hover{
 </div>
 
 </body>
+<script type="text/javascript">
+    $(document).on('click','#postEdit',function(e){
+      //var content = $(this).closest('.well').find('.postContent').val();
+      //alert(content);return false;
+      var saveCancel = $(this).closest('.well').find('#postSaveCancel');
+      var textArea = $(this).closest('.well').find('.postContent');
+      saveCancel.show();
+      textArea.prop('readonly',false);
+      textArea.focus();
+      textArea.css('border','1px solid #ccc');
+      textArea.css('background','#FFFFFF');
+    });
 
+    $(document).on('click','#cancelEdit',function(e){
+      var textArea = $(this).closest('.well').find('.postContent');
+      var saveCancel = $(this).closest('.well').find('#postSaveCancel');
+      saveCancel.hide();
+      textArea.prop('readonly',true);
+      textArea.blur();
+      textArea.css('border','none');
+      textArea.css('background','none');
+    });
+
+    $(document).on('click','#saveEdit',function(e){
+      var postId = $(this).closest('.well').find('.post_id').val();
+      var content = $(this).closest('.well').find('.postContent').val();
+      var textArea = $(this).closest('.well').find('.postContent');
+      var saveCancel = $(this).closest('.well').find('#postSaveCancel')
+      saveCancel.hide();
+      textArea.prop('readonly',true);
+      textArea.blur();
+      textArea.css('border','none');
+      textArea.css('background','none');
+      textArea.html(content);
+      $.ajax({
+        url: "updatePostContent",
+        type: "POST",
+        data:{
+          'content': content,
+          'post_id': postId,
+        }
+      });
+    });
+
+    $(document).on('click','.postDelete',function(e){
+      var postId = $(this).closest('.well').find('.post_id').val();
+      var well = $(this).closest('.well');
+      swal({
+        title: "Are you sure?",
+        icon: "warning",
+        buttons: true,
+        buttons: ["No", "Yes"],
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          well.fadeOut();
+          $.ajax({
+            url: "deletePostContent",
+            type: "POST",
+            data:{
+              'post_id': postId,
+            }
+          });
+        }
+      });
+        
+    });
+
+
+    $('#btnCompose').click(function(){
+      $('#compose').css('display','block');
+      $('#viewPosts').css('display','none');
+      $('#announcementModalFooter').css('display','block');
+      $('.postHeading').html('Post announcement');
+    });
+
+    $('#btnViewPosts').click(function(){
+        $('#compose').css('display','none');
+        $('#viewPosts').css('display','block');
+        $('#announcementModalFooter').css('display','none');
+        $('.postHeading').html('Announcements');
+
+    });
+
+    $('#options').click(function(){
+        
+    });
+  
+</script>
 
 <!-- FILTER RESULTS -->
 <script type="text/javascript">
    $(document).ready(function(){
       var table = $('#adminDataTable').DataTable({
         "bProcessing": true,
-        "order": [[1, 'asc']],
-        "columns": [{"targets": 0, "orderable": false },null,null,null,null,null],
-        //ajax:"data.json"
+        "order": [1, 'asc'],
+        //"columns": [{"targets": 0, "orderable": false },null,null,null,null,null],
+        "columns": [{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false }],
       });
 
       // $('body').on('change','#course_option',function(){
@@ -1307,7 +1410,7 @@ tr:hover{
 <!-- ADD SUPERVISOR -->
 <script type="text/javascript">
   String.prototype.capitalize = function() {
-    return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+    return this.replace(/(?:^|\s)\S/g, function(a){ return a.toUpperCase(); });
   };
 
   $('#addSup').click(function(e){
@@ -1322,7 +1425,6 @@ tr:hover{
         var id = $('#supID').val().trim();
         var pass = $('#supPass').val().trim();
         var email = $('#supEmail').val().trim();
-        //alert(desig);return false;
 
         if(name.length == 0 || compName == null || desig.length == 0 || id.length == 0 || pass.length == 0 || email.length == 0){
           alert("Please fill all fields");return false;
@@ -1402,7 +1504,7 @@ tr:hover{
               'announcement': announcement,
             },
             success: function(data){
-              location.reload();
+             location.reload();
             }
           }); 
       }

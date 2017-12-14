@@ -8,6 +8,7 @@
 
                  // added by peter gwapo ah sku
                 $this->load->helper('form');
+                $this->load->library('encrypt');
 
                 parent::__construct();      
         }
@@ -18,7 +19,12 @@
                 $email = $_POST['email'];
                 return $this->db->query("INSERT INTO email (id_number, email_address, hash) VALUES('$username','$email', '$hash')");     
         }
+        public function queryUserByEmail($email){
+              // $email = $_POST['reset_email'];
+              $result= $this->db->query("SELECT id_number from email where email_address = '$email'")->row();
 
+             return $result;
+        }
         public function insertPersonalData(){
                 // print_r($_POST);exit;
                $result = $this->db->query("SELECT id_number FROM personal_details WHERE id_number ='14-2649-276'")->result_array();
@@ -28,6 +34,11 @@
                 }else{
 
                 }                
+        }
+
+        public function resetUserPassword($username){
+          $password = $_POST['newpass'];
+          $this->db->query("UPDATE users SET password = '$password' WHERE id_number = '$username'");
         }
 
 
@@ -74,7 +85,6 @@
 
         public function getAnnouncements($username){
             $query = $this->db->query("SELECT * FROM announcements WHERE username = '$username' ORDER BY id DESC");
-
             return $query->result_array();
         }
         public function getAnnouncementsForStudents(){
@@ -114,17 +124,31 @@
                 }
         }
 
-        public function insertAnnouncement(){
+        public function insertAnnouncement($id){
             $usernames = $this->db->query("SELECT id_number FROM users")->result_array();
-
+            $i = $this->db->query("SELECT MAX(announcement_id) as max_id FROM announcements")->row();
             $announcement = $this->input->post('announcement');
             $insert_announce = mysqli_real_escape_string($this->get_mysqli(),$announcement);
+            if(empty($i->max_id)){
+              $i=1;
+              foreach ($usernames as $username)    {
+                $stud_username = $username['id_number'];
+
+                $this->db->query("INSERT INTO announcements(admin_id,content, username,announcement_id) VALUES ('$id','$insert_announce', '$stud_username','$i')");
+            
+            }
+            }else{
+              
+            $i = $i+$i->max_id;
             foreach ($usernames as $username)    {
                 $stud_username = $username['id_number'];
 
-                $this->db->query("INSERT INTO announcements(content, username) VALUES ('$insert_announce', '$stud_username')");
+                $this->db->query("INSERT INTO announcements(admin_id,content, username,announcement_id) VALUES ('$id','$insert_announce', '$stud_username','$i')");
+
             
             }
+            }
+            
             
 
         }
@@ -220,8 +244,7 @@
 
 
         // }
-
-         public function getStudentList(){
+public function getStudentList(){
 
           $query = $this->db->query("SELECT * FROM users INNER JOIN ojt_records ON users.id_number = ojt_records.id_number WHERE users.status!='DELETED'");
 
@@ -979,21 +1002,6 @@
         // personal details table
         $college = $_POST['college'];
         $course = $_POST['course'];
-        if($_POST['year']=="1st Year"){
-          $year = 1;
-        }
-        if(($_POST['year']=="2nd Year")){
-          $year = 2;
-        }
-        if(($_POST['year']=="3rd Year")){
-          $year = 3;
-        }
-        if(($_POST['year']=="4th Year")){
-          $year = 4;
-        }
-        if(($_POST['year']=="5th Year")){
-          $year = 5;
-        }
         $present_add = $_POST['present_address'];
         $permanent_add = $_POST['permanent_address'];
         $contact_num = $_POST['number'];
@@ -1087,6 +1095,7 @@
             $this->db->query("TRUNCATE $tb");
          }
       }
+     
 
       public function final_eval($username){
          $supervisor = $_POST['supervisor_id'];
@@ -1304,6 +1313,7 @@
           $query= $this->db->query("SELECT image_id FROM supervisor WHERE id_number = '$username' ")->row();
 
           return $query;
+
       }
 
       public function getEvaluationViewForAdmin($username){
@@ -1320,7 +1330,7 @@
       }  
 
        public function currentLoggedInOjt($username){
-          $query= $this->db->query("SELECT * FROM users WHERE id_number = '$username' ")->row();
+          $query=$this->db->query("SELECT * FROM users WHERE id_number = '$username' ")->row();
 
           return $query;
       }
@@ -1359,6 +1369,22 @@
 
             return $query->result_array();
         // print_r($_POST);
+      }
+
+      public function getAnnouncmentsForAdmin($id){
+        $query = $this->db->query("SELECT * FROM announcements WHERE admin_id = '$id' GROUP BY announcement_id ORDER BY date_posted DESC");
+        return $query->result_array();
+      }
+
+      public function updatePost(){
+        $postID = $_POST['post_id'];
+        $content = $_POST['content'];
+        $this->db->query("UPDATE announcements SET content='$content' WHERE announcement_id='$postID'");
+      }
+
+      public function deletePost(){
+        $postID = $_POST['post_id'];
+        $this->db->query("DELETE FROM announcements WHERE announcement_id='$postID'");
       }
 }
 ?>

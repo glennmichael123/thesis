@@ -1,4 +1,4 @@
-
+ 
 <!DOCTYPE html>
 <html>
 
@@ -11,7 +11,7 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  
+    <script src="<?php echo base_url() ?>assets/js/swal.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
@@ -70,18 +70,80 @@
 
 <body>
     <div class="page-wrap">
-        <div class="row">
+        <div class="row hide-success">
             <div class="col-lg-3"></div>
             <div class="col-lg-6">
                 <header class="header-forget">Forgot Password?</header>
                 <p>Request Password Reset</p>
                 <div class="top-forget">a</div>
-                <input type="email" name="" placeholder="Email Address" required="required">
-                <button class="btn btn-forget">Request Password Reset</button>
+                
+                <input type="email" name="reset_email" id="reset_email" placeholder="Email Address" required>
+                <button  class="btn btn-forget" id="btn-reset" value="request reset">Request Reset</button>
+            
             </div>
             <div class="col-lg-3"></div>
-        </div>  
+        </div> 
+
+
+        <div class="container confirm-success" style="display: none;">
+          <div class="row">
+            <div class="col-lg-12">
+                <h1 style="text-align: center;">Reset password link has been sent to your email.  </h1>
+            </div> 
+          </div>
+        </div> 
+
     </div>
 
 </body>
+
+<script type="text/javascript">
+  $('#btn-reset').click(function(){ 
+    var data = $('#resetpass').serialize();
+     var fail = false;
+     var fail_log = '';
+      var email = $('#reset_email').val();
+     $( '#resetpass' ).find( 'input[type=email]' ).each(function(){
+            if( ! $( this ).prop( 'required' )){
+
+            } else {
+                if ( ! $( this ).val() ) {
+                    fail = true;
+                    name = $( this ).attr( 'style', 'border: 1px solid red' );
+                    fail_log += name + " is required ";
+                }else{
+                    name = $( this ).attr( 'style', 'border: 1px solid #ccc' );
+                }
+
+            }
+        });
+     if(!fail){
+            // alert("true");
+            // return false;
+                 $.ajax({
+                    url: "confirmSend",
+                    type: "POST",
+                    data:{
+                      'email': email,
+                    },
+                    success:function(data){
+                        $('.confirm-success').show();
+                        $('.hide-success').hide();
+                        
+                    }
+                });
+
+      
+
+
+     }
+     else{
+           
+            return false;
+
+     }
+ });
+
+</script>
+
 </html>

@@ -2,7 +2,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 header('Access-Control-Allow-Origin: *');
 class Main extends CI_Controller {
-
 	/**
 	 * Index Page for this controller.
 	 *
@@ -25,9 +24,13 @@ class Main extends CI_Controller {
         $this->load->helper('url');
         $this->load->model('users');
         $this->load->library('session');
+        $this->load->helper('url');
+        $this->load->helper('file');
+        $this->load->helper('download');
+        $this->load->library('zip');
+        $this->load->library('encryption');
         $this->load->library("pagination");
     }
-
      public function ojtform(){
      	$data['initial_data'] = $this->users->load_initial_data($this->session->userdata('id_number'));
      	$this->load->view('page1', $data);
@@ -52,9 +55,11 @@ class Main extends CI_Controller {
     
    
     public function insertAnnouncement(){
-    	$this->users->insertAnnouncement();
+    	$this->users->insertAnnouncement($this->session->userdata['id_number']);
     }
-
+    public function samplePrint(){
+    	return "yopak";
+    }
     public function loginojt(){
     	if(isset($this->session->userdata['id_number'])){
     		header("Location: dashboard");
@@ -64,22 +69,18 @@ class Main extends CI_Controller {
     	}
     	
     }
-
     public function getAnnouncement(){
     	$this->users->getAnnouncementsForStudents();
     }
-
     public function updateAnnouncemment(){
     	$this->users->updateAnnouncemment($this->session->userdata['id_number']);
     }
-
     public function updateAnnouncemmentToUnread(){
     	$this->users->updateAnnouncemmentToUnread($this->session->userdata['id_number']);
     }
     public function loginsupervisor(){
     	$this->load->view('loginsupervisor');
     }
-
     public function loginadmin(){
     	$this->load->view('loginadministrator');
     }
@@ -87,7 +88,6 @@ class Main extends CI_Controller {
     	if(!isset($this->session->userdata['id_number'])){
 			redirect(base_url('index'));
 		}
-
 		 if($this->session->userdata['account_type'] == 'student'){
       		echo "<h1>You are not allowed to view this page</h1>";
       	}else{
@@ -104,7 +104,6 @@ class Main extends CI_Controller {
     	
     
     }
-
 	public function index()
 	{
 		
@@ -120,8 +119,6 @@ class Main extends CI_Controller {
 		
 		
 	}
-
-
 	public function profile()
 	{
 		if(!isset($this->session->userdata['id_number'])){
@@ -132,7 +129,6 @@ class Main extends CI_Controller {
      		$data['image_header'] = $this->users->displayImageToHeader($this->session->userdata['id_number']);
      		$data['user_data'] = $this->users->dashboardData($this->session->userdata['id_number']);
      		$data['midterm_evaluation'] = $this->users->getMidtermEvaluations($this->session->userdata['id_number']);
-
      		$data['personalDetails'] = $this->users->getProfile($this->session->userdata['id_number']);
      		$data['familydetails'] = $this->users->getFamilyDetails($this->session->userdata['id_number']);
      		$data['companyInformation'] = $this->users->getCompanyInformation($this->session->userdata['id_number']);
@@ -146,37 +142,29 @@ class Main extends CI_Controller {
 		$data['watch_list'] = $this->users->getWatchlists();
 		$this->load->view('about-us',$data);
 	}
-
 	public function changepassword()
 	{
 		$this->load->view('change-password');
 	}
-
 	public function savePassword(){
 		$this->users->updatePassword($this->session->userdata['id_number'], $this->session->userdata('account_type'));
 	}
-
 	public function signup()
 	{
-
 		$this->load->view('signup');
 	}
-
-
 	public function printData()
 	{
 		$this->users->hello();
 	}
+
 	public function evaluate($username){
 		if(!isset($this->session->userdata['id_number'])){
-
          redirect(base_url('index'));
       	}
-
       	if($this->session->userdata['account_type'] == 'student'){
       		echo "<h1>You are not allowed to view this page</h1>";
       	}else{
-
       				$checkIfExist = $this->users->checkStudEvaluated($username);
       				$data['stud_name'] = $this->users->dashboardData($username);
       				if($checkIfExist){
@@ -187,13 +175,9 @@ class Main extends CI_Controller {
       				}
       				
       	}
-
 	}
-       
-
 
 	public function supervisorDashboard(){
-
 		if(!isset($this->session->userdata['id_number'])){
           redirect('index');
      	}else{
@@ -206,7 +190,6 @@ class Main extends CI_Controller {
      			redirect('admindashboard');
      		}else{
      		$data['comments'] = $this->users->getComments();
-
      		$company_name = $this->users->getCompanySupervisor($this->session->userdata['id_number']);
      		$data['supervisorAddOjt'] = $this->users->supervisorGetTrainee($company_name,$this->session->userdata['id_number']);
      		$data['ojtRecords'] = $this->users->getOjtRecordsForSupervisor($this->session->userdata['id_number']);
@@ -221,18 +204,14 @@ class Main extends CI_Controller {
 			
 		}
 	}
-
 	public function savePersonalDetails(){
 		// print_r($_POST);exit;
 		$this->users->insertPersonalData();
 	}
-
 	public function saveFamilyData(){
 		// print_r($_POST);exit;
 		$this->users->insertFamilyData();
 	}
-
-
 	public function loggedin(){
 		$logintype = $_POST['login-options'];
 		if($logintype == 'ojt'){
@@ -253,7 +232,6 @@ class Main extends CI_Controller {
 				$this->session->set_userdata('id_number', $session_data);
 				$this->session->set_userdata('account_type', $account_type);
 			
-
 				$existPersonalDetails = $this->users->checkExistPersonal($this->session->userdata['id_number']);
 				
 				if(!$existPersonalDetails){
@@ -276,7 +254,6 @@ class Main extends CI_Controller {
 		$this->loggedinAdministrator($account_type);
 	}
 }
-
 	public function studentInfo($username){
   		if(!isset($this->session->userdata['id_number'])){
           redirect('index');
@@ -285,10 +262,7 @@ class Main extends CI_Controller {
      	$totalLogsCount = $this->users->getNumberLogs($username);
      	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($username);
      	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($username);
-
-
      	$renderedCount = $this->users->getSumRendered($username);
-
      	$data['personalDetails'] = $this->users->getProfile($username);
      	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $username);
      	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $username);
@@ -297,7 +271,6 @@ class Main extends CI_Controller {
      	$data['checkEmail'] = $this->users->checkEmailVerified($username);
      		if(!empty($ojtRecords)){
 			     		$data['total'] = $ojtRecords[0]['ojtone_required'];
-
 						$data['rendered'] = $ojtRecords[0]['ojtone_rendered'];
 						$data['announcements'] = $this->users->getAnnouncements($username);
 						// echo time_elapsed_string($data['announcements'][0]['date_posted']);
@@ -322,15 +295,10 @@ class Main extends CI_Controller {
 						$data['image_header'] = $this->users->displayImageToHeader($username);
 					}
   				$this->load->view('student_info',$data);
-
-
   	}
   		
   		
   	}
-
-
-
 public function loggedinSupervisor($account_type){
 	$condition = $this->users->user_login_supervisor();
 		$data['error'] = 'abcd';
@@ -359,9 +327,7 @@ public function loggedinSupervisor($account_type){
 		$this->session->set_flashdata("Status",$Status);
 		redirect('index');
 	}	
-
 }
-
 public function loggedinAdministrator($account_type){
 	$condition = $this->users->user_login_administrator();
 		$data['error'] = '';
@@ -395,7 +361,6 @@ public function loggedinAdministrator($account_type){
 				redirect('admindashboard');
 			
 				
-
 					
 	}else{
 		$Status = '<p style="font-size: 14px; text-align: center; color: red; font-weight: bold;">Username or password incorrect</p>';
@@ -403,7 +368,6 @@ public function loggedinAdministrator($account_type){
 		redirect('index');
 	}	
 }
-
 public function editLog(){
 	$this->users->editLog();
 }
@@ -411,32 +375,24 @@ public function addLogs(){
 	$this->users->insertLogs();
       // header("location: dashboard");
 }
-
 public function logout(){
 	session_destroy();
 	redirect('index');
 }
-
 	public function saveEmergencyData(){
 		// print_r($_POST);exit;
-
 		$this->users->insertEmergencyData();
 	}
-
 	/*public function saveCompanyData(){
 		$this->users->insertCompanyData();
 	}
 */
-
 	public function adminDashboard(){
-
 	// $newdata['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
 	   $data['student_list'] = $this->users->getStudentList();
-
 	if(!isset($this->session->userdata['id_number'])){
 	  header("location: index");
 		}else{
-
 			if($this->session->userdata['account_type'] == 'supervisor'){
      		redirect('supervisordashboard');
      		}else if($this->session->userdata['account_type'] == 'student'){
@@ -455,28 +411,26 @@ public function logout(){
 			 	$data['crs'] = empty($_POST['course_option']) ? '' : $_POST['course_option'];
 			 	$data['courses'] = $this->users->courses();
 			 	$data['evC'] = empty($_POST['eval_option']) ? '' : $_POST['eval_option'];
+
+			 	$data['announcements'] = $this->users->getAnnouncmentsForAdmin($this->session->userdata['id_number']);
 				$this->load->view('admindashboard', $data);
 			}	
-
 		}
-
-
+		if(date('Y-m-d')==('2019-1-1')){
+				echo 'Main/database_backup';
+		}
     }
-
-
 	public function deleteLog(){
 		
 		$this->users->deleteLog();
 	}
 	
 	
-
 	public function dashboard(){
 		
 		if(!isset($this->session->userdata['id_number'])){
           redirect(base_url('index'));
      	}else{
-
      	if($this->session->userdata['account_type'] == 'supervisor'){
      		redirect('supervisordashboard');
      	}else if($this->session->userdata['account_type'] == 'admin'){
@@ -486,8 +440,6 @@ public function logout(){
      	if(!$existPersonalDetails){
      		redirect('ojtform');
      	}else{
-
-
      	
      	$data['comments'] = $this->users->getComments();
      	$companyName = $this->users->getCompanyInformation($this->session->userdata['id_number']);
@@ -504,10 +456,8 @@ public function logout(){
      	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $this->session->userdata['id_number']);
      	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $this->session->userdata['id_number']);
      	$ojtRecords = $this->users->dashboardDataRecords($this->session->userdata['id_number']);
-
      		if(!empty($ojtRecords)){
 			     		$data['total'] = $ojtRecords[0]['ojtone_required'];
-
 						$data['rendered'] = $ojtRecords[0]['ojtone_rendered'];
 						$data['announcements'] = $this->users->getAnnouncements($this->session->userdata['id_number']);
 						// echo time_elapsed_string($data['announcements'][0]['date_posted']);
@@ -533,16 +483,12 @@ public function logout(){
 			}
      	}
      }
-
-
 	
 	}
-
 	public function workmate($username){
 		if(!isset($this->session->userdata['id_number'])){
           redirect(base_url('index'));
      	}else{
-
      	
      	$data['comments'] = $this->users->getComments();
      	$companyName = $this->users->getCompanyInformation($username);
@@ -554,16 +500,12 @@ public function logout(){
      
      	$data['checkEmail'] = $this->users->checkEmailVerified($username);
      	$renderedCount = $this->users->getSumRendered($username);
-
-
      	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $username);
      	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $username);
      	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $username);
      	$ojtRecords = $this->users->dashboardDataRecords($username);
-
      		if(!empty($ojtRecords)){
 			     		$data['total'] = $ojtRecords[0]['ojtone_required'];
-
 						$data['rendered'] = $ojtRecords[0]['ojtone_rendered'];
 						$data['announcements'] = $this->users->getAnnouncements($username);
 						// echo time_elapsed_string($data['announcements'][0]['date_posted']);
@@ -581,7 +523,6 @@ public function logout(){
 				          $this->pagination->initialize($config);
 				           // print_r($page);
 						$data['logs_list'] = $this->users->getLogs($username, $config['per_page'], $page);
-
 						$data['userLoggedIn'] = $this->users->currentLoggedInOjt($this->session->userdata('id_number'));
 						
 						$data['user_data'] = $this->users->dashboardData($username);
@@ -598,21 +539,13 @@ public function logout(){
 			}*/
 			}
      	}
-
-
-
 	
-
-
-
 	public function studentDashboard($id_number){
-
 		if(!isset($this->session->userdata['id_number'])){
           redirect(base_url('index'));
      	}else{
      			$companyName = $this->users->getCompanyInformation($id_number);
      	$data['workmates'] = $this->users->getWorkmates($id_number, $companyName->company_name);
-
      	$data['supervisor_image'] = $this->users->getSupervisorImageForStud($this->session->userdata['id_number']);
 		$data['comments'] = $this->users->getComments();
 		$totalLogsCount = $this->users->getNumberLogs(isset($id_number) ? $id_number : '');
@@ -641,67 +574,154 @@ public function logout(){
 						$data["links"] = $this->pagination->create_links();
 		$data['logs_list'] = $this->users->getLogs(isset($id_number) ? $id_number : '',$config['per_page'], $page);
      	}
-
      	$data['id_number'] = $id_number;
-
      	$data['user_data'] = $this->users->dashboardData($id_number);
-
-
      	$this->load->view('studentdashboard', $data);
      	}
 	
 	}
-
-
-
 	public function addTrainee(){
 		$this->users->updateTraineeSupID();
 	}
-
 	public function adminAddAdmin(){
 		//print_r($_POST);exit;
 		$this->users->addAdmin();
 	}
-
 	public function adminAddSupervisor(){
 		$this->users->addSupervisor();
 	}
-
 	public function addWatchlist(){
 		$this->users->addWatch();
 	}
-
 	public function getAnnouncementsInterval(){
 		$this->users->getAnnouncements($this->session->userdata['id_number']);
 	}
-
 	public function updateAnnouncemmentToUnreadAll(){
 		$this->users->updateAnnouncemmentToUnreadAll();
 	}
-
-
-
-
 	public function addComment(){
 		$this->users->insertComment();
 	}
-
 	public function verify(){
 		$this->load->view('verify');
 	}
 
 
-	public function sendEmail($hash, $email){
-			   		 $url = base_url();
-			        $email_body ="Please click this link to activate your account:
+	public function sendEmailR($username,$toemail){
+		// $email = 'gtorregosa@gmail.com';
+		 $config['charset']    = 'utf-8';
+		    $this->load->library('email',$config);
+		    $this->email->set_newline("\r\n");
+		    $url = base_url();
+		    $email_setting  = array('mailtype'=>'html');
+		    $this->email->initialize($email_setting);
+		    $email_body ="Please click this link to reset your password:
+						  {$url}main/resetPassword?username=$username";
+		    $this->email->from('CITUAdmin', 'Admin');
+		    $this->email->to($toemail);
+		    $this->email->subject('Email Verification');
+		    $this->email->message($email_body);
+		   	$this->email->send();
+
+		
+	}
+
+
+	public function confirmSend(){
+
+		 // $config['encryption_key'] = "5"; 
+		$toemail =$_POST['email'];
+
+		$username = $this->users->queryUserByEmail($toemail);
+
+		 $key = $this->encryption->create_key(16);
+		 $this->encryption->initialize(
+		 	array(  'cipher' => 'aes-256', 'mode' => 'ctr', 'key' => 'abcdefgdsadasdsadasdsadsadsadasdasdsadsadsadasdsadasdasdasdsads')
+);
+		 $username = $this->encryption->encrypt($username->id_number);
+		
+		 $this->sendEmailR($username,$toemail);
+		// $hash = md5($email); 
+	
+			
+		
+
+
+	}
+
+	public function resetPass(){
+
+   		$username = $_POST['username'];
+
+   		$key = $this->encryption->create_key(16);
+		 $this->encryption->initialize(
+		 	array(  'cipher' => 'aes-256', 'mode' => 'ctr', 'key' => 'abcdefgdsadasdsadasdsadsadsadasdasdsadsadsadasdsadasdasdasdsads')
+);
+
+   		$decodedUser = $this->encryption->decrypt($username);
+   		// header("refresh:1 index");
+
+   		$this->users->resetUserPassword($decodedUser);
+		
+	}
+
+	public function resetpassword(){
+		$this->load->view('resetpassword');
+	}
+	public function verifyreset(){
+		$this->load->view('verifyreset');
+	}
+	public function sendEmail(){
+		
+		$email = 'gtorregosa@gmail.com';
+		$hash = md5($email);
+		// $config = Array(
+		// 'protocol' => 'smtp',
+		//         'smtp_host' => 'ssl://smtp.gmail.com',
+		//         'smtp_port' => 465,
+		//         'smtp_user' => 'gtorregosa@gmail.com',
+		//         'smtp_pass' => 'popot143',
+		//         'mailtype'  => 'html', 
+		//         'charset' => 'utf-8',
+		//         'wordwrap' => TRUE
+		//     );
+		    $this->load->library('email');
+		    $this->email->set_newline("\r\n");
+		    $url = base_url();
+		    $email_setting  = array('mailtype'=>'html');
+		    $this->email->initialize($email_setting);
+		    $email_body ="Please click this link to activate your account:
 						  {$url}main/verify?email=$email&hash=$hash";
-
-					mail($email,'sample mail',$email_body,'From: repuestobrian@gmail.com');
-  		 
-
-
+		    $this->email->from('CITUAdmin', 'Admin');
+		    // $list = array($email);
+		    $this->email->to($email);
+		    $this->email->subject('Email Verification');
+		    $this->email->message($email_body);
+		   	$this->email->send();
+		// $this->load->library('email');
+		// $config = array(
+		// 	        'mailtype'  => "html", 
+		//     );
+		// 	$this->email->initialize($config);
+		// 	$this->email->from('gtorregosa@gmail.com','Glennskie');
+		// 	$this->email->to('repuestobrian@gmail.com');
+		// 	$this->email->subject('Codeigniter Try Email');
+		// 	$message="weak";
+		// 	$this->email->message($message);
+		// 	if($this->email->send()){
+		// 		echo "Email Sent";
+		// 	}
+		// 	else{
+		// 		echo $this->email->print_debugger();
+		// 	}
+		// $email = 'gtorregosa@gmail.com';
+		// $hash = md5($email);
+		// 	    $url = base_url();
+		// 	        $email_body ="Please click this link to activate your account:
+		// 				  {$url}main/verify?email=$email&hash=$hash";
+		// 			mail('repuestobrian2@gmail.com','sample mail',$email_body,'From: repuestobrian@gmail.com');
+  				
     }
-
     public function saveEmail(){
     	$email = $_POST['email'];
     	$hash = md5($email); 
@@ -709,64 +729,50 @@ public function logout(){
     		$this->users->saveEmail($hash);
     		$this->sendEmail($hash,$email);
     	}else{
-
     	}
     
     }
-
     public function verifyLog(){
     	$this->users->updateLog();
     }
-
     public function saveImage(){
     	$this->users->profileImage();
     }
-
     public function supervisorSaveImage(){
     	$this->users->sup_image();
     }
-
     public function addReport(){
     	$this->users->addReport();
     		header("location: dashboard");
-
     		
     }
     
-
     public function getLastLog(){
     	$this->users->getLastLog();
     } 
-
     public function loadSpecificLog(){
-
     	$this->users->loadSpecificLog();
     }
     /*  public function getMaxComment(){
-
     	$this->users->getMaxComment();
     }*/
-
    	public function saveCSV(){
    		$this->users->importCSV();
    	}
-
    	public function addStudent(){
    		$this->users->addStud();
    	}
-
    	public function deleteComment(){
    		$this->users->deleteComment();
    	}
+   
    	  public function insert_mid_eval($username){ 	
-
    	  	//print_r($_POST);exit;
     	if($this->users->midterm_eval($username)){
     		$name = $this->db->query("SELECT first_name,last_name from users where id_number = '$username'")->row();
     		//redirect(base_url('main/supervisorDashboard'));
     		//echo "success";
     		 // $stud_name = $this->db->query("SELECT * from users INNER JOIN midterm_evaluation on users.id_number = midterm_evaluation.username where midterm_evaluation.username = '$username'")->row();
-
     				$Status = '<div class="alert alert-success alert-dismissible" role="alert">
 					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					   You have evaluated  <strong>'.$name->first_name." ".$name->last_name.' </strong> </div>';
@@ -774,12 +780,10 @@ public function logout(){
     	//	$Status = '<div class="alert alert-success" role="alert">You have evaluated '.$username.' </div>';
     		//$Status = "You have evaluated ".$username;
     		$this->session->set_flashdata("Status",$Status);
-
     	}
     	else{
     		echo 'failed';
     	}
-
     }
     public function insert_final_eval($username){ 	
    	  	//print_r($_POST);exit;
@@ -787,12 +791,10 @@ public function logout(){
     		//redirect(base_url('main/supervisorDashboard'));
     		//echo "success";
     		 // $stud_name = $this->db->query("SELECT * from users INNER JOIN midterm_evaluation on users.id_number = midterm_evaluation.username where midterm_evaluation.username = '$username'")->row();
-
     		   		$name = $this->db->query("SELECT first_name,last_name from users where id_number = '$username'")->row();
     		//redirect(base_url('main/supervisorDashboard'));
     		//echo "success";
     		 // $stud_name = $this->db->query("SELECT * from users INNER JOIN midterm_evaluation on users.id_number = midterm_evaluation.username where midterm_evaluation.username = '$username'")->row();
-
     				$Status = '<div class="alert alert-success alert-dismissible" role="alert">
 					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					   You have evaluated  <strong>'.$name->first_name." ".$name->last_name.' </strong> </div>';
@@ -800,14 +802,10 @@ public function logout(){
     	//	$Status = '<div class="alert alert-success" role="alert">You have evaluated '.$username.' </div>';
     		//$Status = "You have evaluated ".$username;
     		$this->session->set_flashdata("Status",$Status);
-
     	}
     	else{
-
     	}
-
     }
-
    	public function deleteStudent(){
    		
    		foreach ($_POST['usernames'] as $username){
@@ -815,11 +813,18 @@ public function logout(){
    		}
    		return redirect(base_url('main/admindashboard'));
    	}
-
    	public function emailCheck(){
    		$this->users->checkEmail();
    	}
-
+   	public function database_backup(){
+   			$this->load->dbutil();
+   			$format=array('format'=>'zip','filename'=>'ojt_automate.sql');
+   			$backup =& $this->dbutil->backup($format);
+   			$dbname='db-backup-on-'.date('Y-m-d').'.zip';
+   			$save ='assets/backup/'.$dbname;
+   			write_file($save,$backup);
+   			force_download($dbname,$backup);
+   	}
    	public function insertRegistration(){
    		$this->users->insertReg($this->session->userdata('id_number'));
    	}
@@ -829,31 +834,21 @@ public function logout(){
    	}
    	public function editProfileFamily(){	
    		$this->users->editProfileFamily($this->session->userdata('id_number'));
-
    	}
-
    	public function editProfileCompany(){
    		$this->users->editProfileCompany($this->session->userdata('id_number'));
    	}
-
    	public function editComment(){
    		$this->users->editComment();
    	}
-
    	public function truncate(){
    		$this->users->truncateAllTables();
    	}
-
    	public function filterStudent(){
-
    		$data['student_list'] = $this->users->filterStud();
-   		
    	}
 
-
-
    	public function filterLogsForSupervisor(){
-   		
    		// $data['traineesLog'] = $this->users->getOjtLogs($this->session->userdata['id_number']);
    		$data['traineesLog'] = $this->users->filterLogsForSupervisor($this->session->userdata['id_number']);
    		$data['comments'] = $this->users->getComments();
@@ -862,5 +857,14 @@ public function logout(){
    		
    	}
 
+   	
+   	public function updatePostContent(){
+   		$this->users->updatePost();
+   	}
+
+   	public function deletePostContent(){
+   		$this->users->deletePost();
+   	}
 
 }
+

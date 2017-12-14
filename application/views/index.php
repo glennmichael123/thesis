@@ -71,7 +71,7 @@
             <label for="password">Password</label>
             <input type="password" class="validate" name="password" id="password" />
           </div>
-          <label style="margin-left: 10px;"><a href="incorrectpassword">Forget Password?</a></label>
+          <label style="margin-left: 10px;"><a href="<?php echo base_url('incorrectpassword') ?>">Forgot Password?</a></label>
 
           
         </div>

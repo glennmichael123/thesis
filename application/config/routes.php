@@ -93,5 +93,13 @@ $route['studentinfo/(:any)']  = 'main/studentInfo/$1';
 $route['deleteStudent']  = 'main/deleteStudent';
 $route['filterLogsForSupervisor']  = 'main/filterLogsForSupervisor';
 
+$route['confirmSend']  = 'main/confirmSend';
+$route['incorrectpassword']  = 'main/incorrectpassword';
+
+$route['updatePostContent']  = 'main/updatePostContent';
+$route['deletePostContent']  = 'main/deletePostContent';
+$route['incorrectpassword']  = 'main/incorrectpassword';
+
+
 
 
