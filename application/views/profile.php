@@ -1160,7 +1160,7 @@
                         <div class="col-lg-9">
 
                             <div class="well" style="background-image:none; background-color: #FFFFFF; border: 1px solid #C0C0C0; width: 88.5% !important;">
-                                <h1 style="text-align: center;">You have not been evaluated yet.</h1>
+                                <!-- <h1 style="text-align: center;">You have not been evaluated yet.</h1> -->
                                     <div class="row">
                                         <div class="col-lg-4">
                                             <h3>Job Factors</h3>
@@ -1176,37 +1176,37 @@
                                     <div class="row" style="margin-top: 20px;">
                                         <div class="col-lg-4">Quality of Work</div>
                                         <div class="col-lg-4">20%</div>
-                                        <div class="col-lg-4">rate</div>
+                                        <div class="col-lg-4"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->quality; ?>"></div>
                                     </div>
                                     <div class="row" style="margin-top: 20px;">
                                         <div class="col-lg-4">Quantity of Work</div>
                                         <div class="col-lg-4">20%</div>
-                                        <div class="col-lg-4">rate</div>
+                                        <div class="col-lg-4"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->quality2; ?>"></div>
                                     </div>
                                     <div class="row" style="margin-top: 20px;">
                                         <div class="col-lg-4">Dependability, reliability and resourcefullness</div>
                                         <div class="col-lg-4">15%</div>
-                                        <div class="col-lg-4">rate</div>
+                                        <div class="col-lg-4"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->dependability; ?>"></div>
                                     </div>
                                     <div class="row" style="margin-top: 20px;">
                                         <div class="col-lg-4">Attendance</div>
                                         <div class="col-lg-4">15%</div>
-                                        <div class="col-lg-4">rate</div>
+                                        <div class="col-lg-4"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->attendance; ?>"></div>
                                     </div>
                                     <div class="row" style="margin-top: 20px;">
                                         <div class="col-lg-4">Cooperation</div>
                                         <div class="col-lg-4">10%</div>
-                                        <div class="col-lg-4">rate</div>
+                                        <div class="col-lg-4"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->cooperation; ?>"></div>
                                     </div>
                                     <div class="row" style="margin-top: 20px;">
                                         <div class="col-lg-4">Judgement</div>
                                         <div class="col-lg-4">10%</div>
-                                        <div class="col-lg-4">rate</div>
+                                        <div class="col-lg-4"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->judgement; ?>"></div>
                                     </div>
                                     <div class="row" style="margin-top: 20px;">
                                         <div class="col-lg-4">Personality</div>
                                         <div class="col-lg-4">10%</div>
-                                        <div class="col-lg-4">rate</div>
+                                        <div class="col-lg-4"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->personality; ?>"></div>
                                     </div>
                                
 

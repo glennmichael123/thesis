@@ -498,7 +498,12 @@ public function getStudentList(){
 
           return $query->row();
         }
+        public function getFinalEvaluations($username){
 
+          $query =  $this->db->query("SELECT * FROM final_evaluation WHERE username = '$username'");
+
+          return $query->row();
+        }
         public function getSumRendered($data){
             $id = $data;
 

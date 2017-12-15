@@ -132,6 +132,7 @@ class Main extends CI_Controller {
      		$data['personalDetails'] = $this->users->getProfile($this->session->userdata['id_number']);
      		$data['familydetails'] = $this->users->getFamilyDetails($this->session->userdata['id_number']);
      		$data['companyInformation'] = $this->users->getCompanyInformation($this->session->userdata['id_number']);
+     		$data['final_evaluation'] = $this->users->getFinalEvaluations($this->session->userdata['id_number']);
      		$this->load->view('profile',$data);
      	}
 		
