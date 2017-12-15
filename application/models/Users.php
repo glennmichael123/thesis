@@ -1069,6 +1069,13 @@ public function getStudentList(){
           $query = $this->db->query("SELECT * FROM family_details WHERE id_number = '".$username."'");
 
           return $query->row(); 
+      }  
+
+      public function getEmergencyDetails($username){
+
+          $query = $this->db->query("SELECT * FROM emergency_details WHERE id_number = '".$username."'");
+
+          return $query->row(); 
       } 
 
       public function getCompanyInformation($username){

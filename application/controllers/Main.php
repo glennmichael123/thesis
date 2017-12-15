@@ -264,6 +264,9 @@ class Main extends CI_Controller {
      	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($username);
      	$renderedCount = $this->users->getSumRendered($username);
      	$data['personalDetails'] = $this->users->getProfile($username);
+     	$data['familydetails'] = $this->users->getFamilyDetails($username);
+     	$data['emergency'] = $this->users->getEmergencyDetails($username);
+     	$data['company'] = $this->users->getCompanyInformation($username);
      	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $username);
      	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $username);
      	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $username);

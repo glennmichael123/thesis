@@ -212,7 +212,7 @@
 
                           <ul class="nav navbar-nav">
                             <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown"><img src="<?php echo base_url();?>/assets/images/snow.jpg" class="pull-right circular-square" style="width: 40px; height: 40px; margin-top: -11px;"> </a>
+                              <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown"> <i class="fa fa-user-circle fa-3x circular-square pull-right" style="width: 40px; height: 40px; margin-top: -10px;"></i> </a>
                               <ul class="dropdown-menu" id="show-logout">
                                 <li><a href="<?php echo base_url('admindashboard')?>">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                 <li class="divider"></li>
@@ -607,7 +607,103 @@
                              </div>
                              
                          </div>
-                       
+                       <div class="well" style="color: #000000 !important;">
+                        <h4 style="text-align: center; margin: 0 !important; padding: 0 !important;">Family Details</h4>
+                           <div class="row" style="margin-top: 10px;">
+
+                               <div class="col-lg-6"><label style="font-size: 13px">Father's Name</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $familydetails->fathers_name; ?></span></div>
+                           </div>
+                           <div class="row">
+                               <div class="col-lg-6"><label>Father's Occupation</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $familydetails->fathers_occupation; ?></span></div>
+                           </div>
+
+                            <div class="row">
+                               <div class="col-lg-6"><label>Mother's Name</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $familydetails->mothers_name; ?></span></div>
+                           </div>
+
+                           <div class="row">
+                               <div class="col-lg-6"><label>Mother's Occupation</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $familydetails->mothers_occupation; ?></span></div>
+                           </div>
+
+                            <div class="row">
+                               <div class="col-lg-6"><label>Parent's Address</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $familydetails->parents_address; ?></span></div>
+                           </div>
+
+                           <div class="row">
+                               <div class="col-lg-6"><label>Contact Number</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $familydetails->contact_number; ?></span></div>
+                           </div>
+                       </div>
+
+                       <div class="well" style="color: #000000 !important;">
+                        <h4 style="text-align: center; margin: 0 !important; padding: 0 !important;">Emergency Details</h4>
+                           <div class="row" style="margin-top: 10px;">
+
+                               <div class="col-lg-6"><label style="font-size: 13px">Contact Name</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $emergency->name; ?></span></div>
+                           </div>
+                           <div class="row">
+                               <div class="col-lg-6"><label>Relationship</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $emergency->relationship; ?></span></div>
+                           </div>
+
+                            <div class="row">
+                               <div class="col-lg-6"><label>Contact Number</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $emergency->contact_number; ?></span></div>
+                           </div>
+
+                           <div class="row">
+                               <div class="col-lg-6"><label>Contact Address</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $emergency->address; ?></span></div>
+                           </div>
+
+                          
+                       </div>
+
+                        <div class="well" style="color: #000000 !important; word-wrap: break-word;">
+                        <h4 style="text-align: center; margin: 0 !important; padding: 0 !important;">Company Information</h4>
+                           <div class="row" style="margin-top: 10px;">
+
+                               <div class="col-lg-6"><label style="font-size: 13px">Company Name</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $company->company_name; ?></span></div>
+                           </div>
+                           <div class="row">
+                               <div class="col-lg-6"><label>Company Address</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $company->company_address; ?></span></div>
+                           </div>
+
+                            <div class="row">
+                               <div class="col-lg-6"><label>Contact Number</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $company->contact_number; ?></span></div>
+                           </div>
+
+                           <div class="row">
+                               <div class="col-lg-6"><label>Fax Number</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $company->fax_number; ?></span></div>
+                           </div>  
+
+                            <div class="row">
+                               <div class="col-lg-6"><label>Product Lines</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $company->product_lines; ?></span></div>
+                           </div>
+
+                            <div class="row">
+                               <div class="col-lg-6"><label>Company Classification</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $company->company_classification; ?></span></div>
+                           </div>
+
+                             <div class="row">
+                               <div class="col-lg-6"><label>Number of Employees</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $company->number_of_employees; ?></span></div>
+                           </div>
+
+                          
+                       </div>
                     </div>
                     <div class="col-lg-8">
                          <?php foreach($logs_list as $log):?>

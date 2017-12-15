@@ -718,7 +718,7 @@ header h1 {
                                           <?php foreach($announcements as $announcement):?>
                                             <?php if($announcement['status'] == 1):?>
                                                  <li class="divider"></li>
-                                              <a href="#" data-announcement-id="<?php echo $announcement['id']?>" class="view-notif"><li class="view-notification-read"><div class="notifs">Lfeliz posted an announcement <br><span style="font-size: 12px;"><?php
+                                              <a href="#" data-announcement-id="<?php echo $announcement['id']?>" class="view-notif"><li class="view-notification-read"><div class="notifs"><?php echo $announcement['admin_id']; ?> posted an announcement <br><span style="font-size: 12px;"><?php
                                                     $timestamp = strtotime($announcement['date_posted']);
                                                     $datetime = explode(" ",$announcement['date_posted']); 
                                                     
