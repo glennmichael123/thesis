@@ -165,7 +165,15 @@
                 'username': username,
             },
             success: function(data){
-                alert(data);
+                // alert(data);
+                // window.location.href = "index";   
+                  swal({
+
+                    title: "Password Successfully Changed",
+                    icon:"success",
+                }).then(function(){
+                   window.location.href = "index";
+                });return false;           
             }
         })
  }); 

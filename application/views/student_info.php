@@ -779,7 +779,7 @@
 
 
                                                     <?php foreach ($comments as $comment):?>
-                                                    <?php if(in_array($log['id'], $comment)):?>
+                                                    <?php if($log['id'] == $comment['log_id']):?>
 
                                                         <!-- <div class="well" style="box-shadow: none; border: none; background: #f7f7f7; padding: 10px; margin-bottom: 10px;"> -->
                                                          <div class="comments-list" style="font-size: 12px; margin-bottom: 10px; color: #000;">

@@ -250,11 +250,26 @@
                             </div>
                             <div class="col-lg-6">
                                 <select name="year" id="year" required>
-                                    <option value="1">1st Year</option>
-                                    <option value="2">2nd Year</option>
-                                    <option value="3">3rd Year</option>
-                                    <option value="4">4th Year</option>
-                                    <option value="5">5th Year</option>
+                                    <?php if ($initial_data[0]['year']==1) {
+                                         echo '<option value="1st Year" selected hidden>1st Year</option>';
+                                    } ?>
+                                    <?php if ($initial_data[0]['year']==2) {
+                                         echo '<option value="2nd Year" selected hidden>2nd Year</option>';
+                                    } ?>
+                                    <?php if ($initial_data[0]['year']==3) {
+                                         echo '<option value="3rd Year" selected hidden>3rd Year</option>';
+                                    } ?>
+                                    <?php if ($initial_data[0]['year']==4) {
+                                         echo '<option value="4th Year" selected hidden>4th Year</option>';
+                                    } ?>
+                                    <?php if ($initial_data[0]['year']==5) {
+                                         echo '<option value="5th Year" selected hidden>5th Year</option>';
+                                    } ?><!-- <option selected disabled>Year</option> -->
+                                    <option value="1st Year">1st Year</option>
+                                    <option value="2nd Year">2nd Year</option>
+                                    <option value="3rd Year">3rd Year</option>
+                                    <option value="4th Year">4th Year</option>
+                                    <option value="5th Year">5th Year</option>
                                 </select>
                             </div>
                         </div>
@@ -708,7 +723,7 @@
                             'email':email,
                         },
                         success:function(data){
-                            if($.trim(data) == "invalid"){
+                            if(data == "invalid"){
                                 alert("Email already exist");return false;
                             }else{
                                 $("#email").css("border","1px solid #ccc");
@@ -852,7 +867,7 @@
                     }
                 });
                 $(".page2").hide();
-                $(".page3").show();
+                 $(".page3").show();
                 // $.ajax({
                 //     url: "insertCompanyClassification",
                 //     type: "POST",
