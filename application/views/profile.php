@@ -1160,7 +1160,11 @@
                         <div class="col-lg-9">
 
                             <div class="well" style="background-image:none; background-color: #FFFFFF; border: 1px solid #C0C0C0; width: 88.5% !important;">
-                                <!-- <h1 style="text-align: center;">You have not been evaluated yet.</h1> -->
+                                <?php if (empty($finalevaluation)): ?>
+                                     <h1 style="text-align: center;">You have not been evaluated yet.</h1>
+                                <?php else: ?>
+                               
+                               
                                     <div class="row">
                                         <div class="col-lg-4">
                                             <h3>Job Factors</h3>
@@ -1209,7 +1213,7 @@
                                         <div class="col-lg-4"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->personality; ?>"></div>
                                     </div>
                                
-
+                                     <?php endif; ?>
                              
                             </div>
                         </div>
