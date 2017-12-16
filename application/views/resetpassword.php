@@ -1,4 +1,4 @@
-
+<?php echo $_GET['username']; ?>
 <!DOCTYPE html>
 <html>
 
@@ -156,6 +156,7 @@
         var newpass = $('#password').val();
         var newpass2 = $('#password_two').val();
         var username = $(this).data('username');
+        // console.log(username);return false;
         $.ajax({
             url: 'resetPass',
             method: 'POST',
@@ -165,15 +166,14 @@
                 'username': username,
             },
             success: function(data){
-                // alert(data);
+                alert(data);
                 // window.location.href = "index";   
                   swal({
-
                     title: "Password Successfully Changed",
                     icon:"success",
                 }).then(function(){
                    window.location.href = "index";
-                });return false;           
+                });           
             }
         })
  }); 

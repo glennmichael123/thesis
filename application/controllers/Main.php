@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-header('Access-Control-Allow-Origin: *');
+
 class Main extends CI_Controller {
 	/**
 	 * Index Page for this controller.
 	 *
-	 * Maps to the following URL
+	 * Maps to the following URLn
 	 * 		http://example.com/index.php/welcome
 	 *	- or -
 	 * 		http://example.com/index.php/welcome/index
@@ -20,6 +20,7 @@ class Main extends CI_Controller {
 	
  function __construct() {
         parent::__construct();
+        header('Access-Control-Allow-Origin: *');
         date_default_timezone_set("Asia/Manila");
         $this->load->helper('url');
         $this->load->model('users');
@@ -30,6 +31,11 @@ class Main extends CI_Controller {
         $this->load->library('zip');
         $this->load->library('encryption');
         $this->load->library("pagination");
+
+        	 $key = $this->encryption->create_key(16);
+		 $this->encryption->initialize(
+		 	array(  'cipher' => 'aes-256', 'mode' => 'ctr', 'key' => '1234567891011')
+);
     }
      public function ojtform(){
      	$data['initial_data'] = $this->users->load_initial_data($this->session->userdata('id_number'));
@@ -499,7 +505,7 @@ public function logout(){
      	$data['workmates'] = $this->users->getWorkmates($username, $companyName->company_name);
      	$totalLogsCount = $this->users->getNumberLogs($username);
      	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($username);
-     	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($username);
+     	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($this->session->userdata('id_number'));
      	$data['supervisor_id'] = $this->users->getSupervisorIdForStudent($username);
      
      	$data['checkEmail'] = $this->users->checkEmailVerified($username);
@@ -511,7 +517,7 @@ public function logout(){
      		if(!empty($ojtRecords)){
 			     		$data['total'] = $ojtRecords[0]['ojtone_required'];
 						$data['rendered'] = $ojtRecords[0]['ojtone_rendered'];
-						$data['announcements'] = $this->users->getAnnouncements($username);
+						$data['announcements'] = $this->users->getAnnouncements($this->session->userdata('id_number'));
 						// echo time_elapsed_string($data['announcements'][0]['date_posted']);
 						
 						$data['all_evaluations'] = $ojtRecords[0]['total_evaluations'];
@@ -613,7 +619,7 @@ public function logout(){
 
 	public function sendEmailR($username,$toemail){
 		// $email = 'gtorregosa@gmail.com';
-		 $config['charset']    = 'utf-8';
+		    $config['charset']    = 'utf-8';
 		    $this->load->library('email',$config);
 		    $this->email->set_newline("\r\n");
 		    $url = base_url();
@@ -638,10 +644,7 @@ public function logout(){
 
 		$username = $this->users->queryUserByEmail($toemail);
 
-		 $key = $this->encryption->create_key(16);
-		 $this->encryption->initialize(
-		 	array(  'cipher' => 'aes-256', 'mode' => 'ctr', 'key' => 'abcdefgdsadasdsadasdsadsadsadasdasdsadsadsadasdsadasdasdasdsads')
-);
+	
 		 $username = $this->encryption->encrypt($username->id_number);
 		
 		 $this->sendEmailR($username,$toemail);
@@ -656,14 +659,9 @@ public function logout(){
 	public function resetPass(){
 
    		$username = $_POST['username'];
-
-   		$key = $this->encryption->create_key(16);
-		 $this->encryption->initialize(
-		 	array(  'cipher' => 'aes-256', 'mode' => 'ctr', 'key' => 'abcdefgdsadasdsadasdsadsadsadasdasdsadsadsadasdsadasdasdasdsads')
-);
-
    		$decodedUser = $this->encryption->decrypt($username);
    		// header("refresh:1 index");
+   		// echo $decodedUser;exit;
 
    		$this->users->resetUserPassword($decodedUser);
 		

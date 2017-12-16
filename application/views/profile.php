@@ -934,22 +934,25 @@
 
                             <input id="assembly" <?php echo(in_array('Assembly', $array_company)) ? 'checked' : '' ?> disabled value="Assembly" type="checkbox" ><label class="labels" for="assembly" ">Assembly</label>
                          </div> 
-                         <div class="col-lg-2">
+                         <div class="col-lg-3">
                             <input type="checkbox" <?php echo(in_array('Manufacturing', $array_company)) ? 'checked' : '' ?> disabled value="Manufacturing" id="manufacturing"><label class="labels" for="Manufacturing">Manufacturing</label>
                          </div> 
-                         <div class="col-lg-2">
+                         <div class="col-lg-3">
                             <input type="checkbox" <?php echo(in_array('Maintenance', $array_company)) ? 'checked' : '' ?> disabled value="Maintenance" id="maintenance"><label class="labels" for="maintenance">Maintenance</label>
                          </div>
                          <div class="col-lg-3">
                             <input type="checkbox" <?php echo(in_array('Sales/Marketing', $array_company)) ? 'checked' : '' ?> disabled value="Sales/Marketing" id="marketing"><label class="labels" for="marketing">Sales/Marketing</label>
                          </div>
-                         <div class="col-lg-3">
-                             <input type="checkbox" <?php echo(in_array('Service/Utility', $array_company)) ? 'checked' : '' ?> disabled value="Service/Utility" id="service"><label class="labels" for="service">Service/Utility</label>
-                         </div>
+
+                       
                          
                         </div>
+
                         <div class="row">
-                          <div class="col-lg-4">
+                            <div class="col-lg-3">
+                             <input type="checkbox" <?php echo(in_array('Service/Utility', $array_company)) ? 'checked' : '' ?> disabled value="Service/Utility" id="service"><label class="labels" for="service">Service/Utility</label>
+                         </div>
+                          <div class="col-lg-3">
                             
                               <input type="checkbox" <?php echo(in_array('Research and Development', $array_company)) ? 'checked' : '' ?> disabled value="Research and Development" id="research"><label class="labels" for="research">Research and Development</label>
                             
@@ -957,7 +960,7 @@
                           <div class="col-lg-2">
                             <input type="checkbox" <?php echo(in_array('IT Related', $array_company)) ? 'checked' : '' ?> disabled value="IT Related" id="itrelated"><label class="labels" for="itrelated">IT Related</label>
                           </div>
-                          <div class="col-lg-5">
+                          <div class="col-lg-4">
                                <input type="radio" class="other-company" disabled id="other"><label class="labels" for="other">Others</label>
                                <input type="text" id="other_classification" name="other_classification" style="height: 30px; width: 250px; display: none;" placeholder="Please specify">
                           </div>
@@ -1160,10 +1163,10 @@
                         <div class="col-lg-9">
 
                             <div class="well" style="background-image:none; background-color: #FFFFFF; border: 1px solid #C0C0C0; width: 88.5% !important;">
-                                <?php if (empty($finalevaluation)): ?>
+                                <?php if (empty($final_evaluation)): ?>
                                      <h1 style="text-align: center;">You have not been evaluated yet.</h1>
                                 <?php else: ?>
-                               
+                                    <h1 style="text-align: center; margin-bottom: 20px;">My Final Evaluation</h1>
                                
                                     <div class="row">
                                         <div class="col-lg-4">
@@ -1211,6 +1214,13 @@
                                         <div class="col-lg-4">Personality</div>
                                         <div class="col-lg-4">10%</div>
                                         <div class="col-lg-4"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->personality; ?>"></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div style="margin-top: 20px;">Remarks</div>
+                                            <textarea class="form-control" readonly><?php echo $final_evaluation->recommend; ?></textarea>
+                                        </div>
                                     </div>
                                
                                      <?php endif; ?>
