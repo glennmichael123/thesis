@@ -24,12 +24,14 @@
     <link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
    
     <!-- Datepicker -->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
 
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!--     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
     <script src="<?php echo base_url() ?>assets/js/swal.js"></script>
-
+        <script src="<?php echo base_url() ?>assets/js/jquery-1.12.4.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/jquery-ui.js"></script>
+    <link rel="stylesheet" href="<?php  echo base_url() ?>assets/css/jquery-ui.css">
 
     <style type="text/css">
         *{
@@ -378,7 +380,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-3">
+                            <div class="col-lg-4">
                               <input type="radio" id="parent_rad_1" class="parent_address" value="address" name="address"><label for="parent_rad_1" class="parent_address" style="margin-left: 3px;">Same as my Present Address</label>
                             </div>
                             <div class="col-lg-4">

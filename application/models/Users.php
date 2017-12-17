@@ -206,10 +206,8 @@
 
         public function supervisorGetTrainee($company_name,$username){
           $company_name2 = $company_name[0]['company_name'];
-
-        
-        
-            $query = $this->db->query("SELECT users.id_number, users.first_name, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.company_name LIKE '%$company_name2%' AND supervisor_id = '' ");
+      
+            $query = $this->db->query("SELECT users.id_number, users.first_name, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.company_name = '$company_name2' AND supervisor_id = '' ");
            return $query->result_array();
        }
 
@@ -609,10 +607,15 @@ public function getStudentList(){
          public function updateTraineeSupID(){
             $supervisor_id = $_POST['supervisor_id'];
             $student_id = $_POST['studentID'];
-           
-           $this->db->query("UPDATE company_information SET supervisor_id = '$supervisor_id' WHERE id_number='$student_id'");
-           $this->db->query("UPDATE logs SET supervisor_id = '$supervisor_id' WHERE id_number='$student_id'");
-           $this->db->query("UPDATE ojt_records SET supervisor_id = '$supervisor_id' WHERE id_number='$student_id'");
+           $query = $this->db->query("SELECT * FROM ojt_records WHERE supervisor_id = '' AND id_number = '$student_id' ")->row();
+           if(empty($query)){
+              echo 'error';
+           }else{
+               $this->db->query("UPDATE company_information SET supervisor_id = '$supervisor_id' WHERE id_number='$student_id'");
+               $this->db->query("UPDATE logs SET supervisor_id = '$supervisor_id' WHERE id_number='$student_id'");
+               $this->db->query("UPDATE ojt_records SET supervisor_id = '$supervisor_id' WHERE id_number='$student_id'");
+           }
+          
          
          }
          public function getSupervisorIdForStudent($username){
@@ -1374,12 +1377,23 @@ public function getStudentList(){
       }
 
     public function filterLogsForSupervisor($id){
-        $status = empty($_POST['status']) ? 0 : $_POST['status'];
+      // print_r($_POST);exit;
+        $status = $_POST['status'];
         $stud = empty($_POST['stud_id']) ? '' : $_POST['stud_id'];
 
-          $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.first_name, users.last_name, users.user_image FROM logs INNER JOIN users ON users.id_number = logs.id_number  WHERE logs.supervisor_id = '$id' AND verified = $status AND users.id_number LIKE '%$stud%' ORDER BY id DESC");
+          if($status == 'all'){
+             $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.first_name, users.last_name, users.user_image FROM logs INNER JOIN users ON users.id_number = logs.id_number  WHERE logs.supervisor_id = '$id' AND users.id_number LIKE '%$stud%' ORDER BY id DESC");
+          }else{
+            // echo "hey";exit;
+            $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.first_name, users.last_name, users.user_image FROM logs INNER JOIN users ON users.id_number = logs.id_number  WHERE logs.supervisor_id = '$id' AND verified = $status AND users.id_number LIKE '%$stud%' ORDER BY id DESC");
+          }
+            
+          
+          
 
             return $query->result_array();
+
+
         // print_r($_POST);
       }
 

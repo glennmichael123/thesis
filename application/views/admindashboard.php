@@ -336,7 +336,7 @@ tr:hover{
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-4">
-                        <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
+                        <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height: 50px;"></div>
                     </div>
                     <div class="col-lg-7">
                     </div>

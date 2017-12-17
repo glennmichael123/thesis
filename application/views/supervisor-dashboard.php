@@ -13,14 +13,21 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script src="<?php echo base_url()?>assets/js/progressbar/dist/progressbar.js"></script>
     <script src="<?php echo base_url()?>assets/js/progressbar/dist/progressbar.min.js"></script>
+
+
+
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script src="<?php echo base_url() ?>assets/js/jquery.easy-autocomplete.min.js"></script> 
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/easy-autocomplete.min.css"> 
+
+
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script src="<?php echo base_url();?>assets/js/swal.js"></script>
@@ -352,6 +359,7 @@
 
 </head>
 
+
 <body>
 
     <div class="page-wrap">
@@ -360,7 +368,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-4">
-                        <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
+                        <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height:50px;"></div>
                     </div>
                     <div class="col-lg-7">
 
@@ -593,8 +601,10 @@
                         <?php else: ?>
                         <div class="row" style="margin-bottom: 20px;">
                             <div class="col-lg-5">
+                                  <label style="color:#000000;">Trainee</label>
                                 <select class="form-control" id="stud-filter">
-                                    <option selected disabled>Select a trainee</option>
+
+                                    <option selected value="">All</option>
                                     <?php foreach ($ojtRecords as $trainee): ?>
                                          <option value="<?php echo $trainee['id_number'] ?>"><?php echo $trainee['first_name'] . " " . $trainee['last_name']?></option>
                                     <?php endforeach; ?>
@@ -602,8 +612,9 @@
 
                             </div>
                             <div class="col-lg-5">
+                                <label style="color:#000000;">Status</label>
                                 <select class="form-control" id="log-status">
-                                    <option selected disabled>Log status</option>
+                                    <option selected value="all">All</option>
                                     <option value="0">Pending</option>
                                     <option value="1">Verified</option>
                                 </select>
@@ -802,6 +813,18 @@
                             </select>
                         </div>
                     </form>
+                   
+                    <div class="row show-find-trainee" style="display: none;">
+                        <div class="col-lg-12">
+                              <input type="text" placeholder="Search for trainee" id="trainee-name" name="" style="width: 238%;">
+                              <input type="hidden" value="" id="trainee-username" name="" style="width: 238%;">
+                        </div>
+                    </div>
+              
+
+                    <a href="#"  id="find-trainee" style="font-size: 11px; float: right;">Not finding the trainee you're looking for?</a>
+
+
 
                 </div>
                 <div class="modal-footer">
@@ -879,8 +902,9 @@
 
 </body>
 <script type="text/javascript">
-    $('#log-status').change(function(){
 
+    $('#log-status').change(function(){
+         var stud = $('#stud-filter').val();
         var status = $(this).val();
 
         $.ajax({
@@ -888,6 +912,7 @@
             url: 'filterLogsForSupervisor',
             data: {
                 'status': status,
+                'stud_id': stud,
             },
             success: function(data){
                $('#wrap-log-section').replaceWith(data);
@@ -913,6 +938,42 @@
         });
   });
 </script>
+
+ <script type="text/javascript">
+   
+    $(document).ready(function(){
+
+
+       var options = {
+    url: "main/getTraineeNames",
+
+   getValue: function(element) {
+         return element.names;
+    },
+
+    list: {
+        onChooseEvent: function(element){
+           var value = $('#trainee-name').getSelectedItemData().username;
+
+            // $('#trainee-username');
+
+            $("#trainee-username").val(value).trigger("change");
+
+        },
+
+        match: {
+            enabled: true
+        },
+    }
+};
+    $("#trainee-name").easyAutocomplete(options);
+
+        
+    });
+
+
+ </script>
+
 <script type="text/javascript">
   
     function previewFile() {
@@ -1052,7 +1113,7 @@
     });
 </script>
 <script type="text/javascript">
-    $('.show-more').click(function(){
+    $('body').on('click','.show-more',function(){
         var right = $(this).closest('form').find('.right-side');
         var left = $(this).closest('form').find('.left-side');
         var less_button = $(this).closest('form').find('.show-less');
@@ -1062,7 +1123,7 @@
         right.show();
         $(this).hide();
     });
-      $('.show-less').click(function(){
+      $('body').on('click','.show-less',function(){
         var right = $(this).closest('form').find('.right-side');
         var left = $(this).closest('form').find('.left-side');
         var more_button = $(this).closest('form').find('.show-more');
@@ -1076,7 +1137,17 @@
 <script type="text/javascript">
       $(document).ready(function(){
           $("#addTrainee").click(function () {
-            var studId = $('#names').val();
+                // var studId = '';
+               var studId = '';
+
+            if($('#trainee-name').val().length != 0){
+                 studId = $('#trainee-username').val();
+            }else{
+                studId = $('#names').val();
+            }
+            
+            // alert(studId);return false;
+
             if(studId == null){
              //alert("Select a trainee");
              swal('Oops...', 'Select a trainee', 'error');    
@@ -1089,17 +1160,27 @@
                     'supervisor_id': '<?php echo $this->session->userdata['id_number']?>',
                    },
                 success:function(data){
-                    swal({
+                    if($.trim(data) == 'error'){
+                        swal('Oops...','This student already has a supervisor','error');return false;
+                    }else{
+                         swal({
                         title: "Success!",
                         text: "Trainee added successfully",
                         icon: "success",
                     }).then(function(){
                         location.reload();
                     });
+                    }
+                   
                   },
               });  
             }
           
+          });
+
+          $('#find-trainee').click(function(){
+            $('#names').hide();
+            $('.show-find-trainee').show();
           });
        });
 </script>

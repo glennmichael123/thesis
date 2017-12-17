@@ -6,7 +6,8 @@
       <script src="<?php echo base_url() ?>assets/js/swal.js"></script>
       <!-- Optional theme -->
       <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-
+      <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/materialize.min.css">
+  <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/style.css">
       <!-- Latest compiled and minified JavaScript -->
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
       <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -16,11 +17,11 @@
       <!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+      
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <!-- Compiled and minified CSS -->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+      
        <!-- Compiled and minified JavaScript -->
        
     </head>

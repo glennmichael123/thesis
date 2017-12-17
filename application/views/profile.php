@@ -22,9 +22,9 @@
   
     <!-- Latest compiled and minified JavaScript -->
     
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="<?php echo base_url() ?>assets/js/jquery-1.12.4.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/jquery-ui.js"></script>
+    <link rel="stylesheet" href="<?php  echo base_url() ?>assets/css/jquery-ui.css">
 
 
 
@@ -567,14 +567,11 @@
 
 
     <div class="page-wrap">
-      <div class="header">
-          <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
-      </div>
        <div class="header">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-4 col-sm-4">
-                        <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
+                        <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height: 50px;"></div>
                     </div>
                     <div class="col-lg-6 col-sm-7">
                         <?php if(isset($id_number)):?>
@@ -1248,6 +1245,7 @@
 <script type="text/javascript">
     $("#cancelBrowse").click(function(){
         $(".saveCancel").css("display","none");
+        location.reload();
         
     });
 

@@ -1076,16 +1076,25 @@ header h1 {
                           <?php endif;   ?>
                           
                           <?php else: ?>
+
+
                          
                           <?php foreach($workmates as $workmate):?>
                           <div class="row">
                             <div class="col-lg-7">
+                              <?php if ($workmate['id_number'] == $this->session->userdata('id_number')): ?>
+                                <?php echo "You"; ?>
+                                <?php else: ?>
+                                  <h5><?php echo $workmate['first_name'] . " " . $workmate['middle_initial'] . " " . $workmate['last_name'] ?></h5>
+                              <?php endif ?>
                               
-                              <h5><?php echo $workmate['first_name'] . " " . $workmate['middle_initial'] . " " . $workmate['last_name'] ?></h5>
                             
                             </div>
                               <div class="col-lg-4">
+                                <?php if ($workmate['id_number'] == $this->session->userdata('id_number')): ?>
+                                <?php else: ?>
                                <a href="<?php echo base_url('workmate') ?>/<?php echo $workmate['id_number']?>" style="font-size: 12px;"> View dashboard</a>
+                             <?php endif; ?>
                               </div>
                           </div>
                           <?php endforeach;?>
@@ -1111,18 +1120,6 @@ header h1 {
                                     <span class="user-name" style="font-size: 15px;"><?php echo $user_data[0]['first_name'] . " " . $user_data[0]['last_name']?></span>
                                     <?php if(isset($id_number)):?>
                                     <?php else:?>
-                                    <div class="dropdown" style="float: right; width:20px;">
-                                        <a href="#" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                            <i style="color: #000000; font-size: 15px;" class="fa fa-angle-down"></i>
-                                        </a>
-
-                                        <ul class="dropdown-menu" style="width: 233px;margin-top: 2px;margin-left: -202px;" aria-labelledby="dropdownMenu2">
-                                            <li><a href="#" class="edit-log" style="color: #000000;">Edit <i class="fa fa-pencil" aria-hidden="true"></i></a></li>
-                                            <li role="separator" class="divider"> </li>
-                                            <li><a href="#" class="delete-log cd-popup-trigger" data-log-id="<?php echo $log['id']?>" style="color: #000000;">Delete <i class="fa fa-trash"></i></a></li>
-                                        </ul>
-
-                                    </div>
                                 <?php endif;?>
 
                                     <hr style="margin-bottom: 0; margin-top: 5px;">

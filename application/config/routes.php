@@ -94,6 +94,7 @@ $route['deleteStudent']  = 'main/deleteStudent';
 $route['filterLogsForSupervisor']  = 'main/filterLogsForSupervisor';
 
 $route['confirmSend']  = 'main/confirmSend';
+$route['resendEmail']  = 'main/resendEmail';
 $route['incorrectpassword']  = 'main/incorrectpassword';
 
 $route['updatePostContent']  = 'main/updatePostContent';

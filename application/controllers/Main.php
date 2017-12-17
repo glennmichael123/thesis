@@ -591,6 +591,7 @@ public function logout(){
 	
 	}
 	public function addTrainee(){
+
 		$this->users->updateTraineeSupID();
 	}
 	public function adminAddAdmin(){
@@ -733,6 +734,13 @@ public function logout(){
     	}
     
     }
+
+    public function resendEmail(){
+    	$email = $_POST['email'];
+    	$hash = md5($email); 
+
+    	$this->sendEmail($hash, $email);
+    }
     public function verifyLog(){
     	$this->users->updateLog();
     }
@@ -865,6 +873,23 @@ public function logout(){
 
    	public function deletePostContent(){
    		$this->users->deletePost();
+   	}
+
+   	public function getTraineeNames(){
+   		$names = $this->db->query("SELECT first_name, last_name, id_number FROM users")->result();
+   		$student = array(array('names'=>''));
+   		$i=0;
+
+   		if(!empty($names)){
+   			foreach ($names as $name) {
+   				
+   				$student[$i]['names'] = $name->first_name . " " .$name->last_name;
+   				$student[$i]['username'] = $name->id_number;
+   				$i++;
+   			}
+   		}
+
+   		echo json_encode($student);
    	}
 
 }

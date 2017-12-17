@@ -895,9 +895,13 @@ header h1 {
     <div class="container" style="margin-top: 40px;">
         <div class="well" style="margin-bottom: 0;">
             <div class="row">
-                <div class="col-lg-12">
-                    <span style="font-size: 15px;"><i class="fa fa-exclamation-circle" aria-hidden="true" style="color: red"></i>You must verify your email before you can post any logs</span>
-                </div>
+                <div class="col-lg-8">
+                    <div style="font-size: 15px;"><i class="fa fa-exclamation-circle" aria-hidden="true" style="color: red"></i>You must verify your email before you can post any logs</div>
+            </div>
+                    <div class="col-lg-4">
+                        <div style="font-size: 15px;">Not receiving your email? <a href="#" class="resend-email" data-email-address="<?php echo $checkEmail->email_address; ?>">Click here to resend</a></div>
+                    </div>
+            
             </div>
         </div>
     </div>
@@ -1369,6 +1373,18 @@ header h1 {
        $("#show-logout").toggle();
        $('.user-image').toggleClass('clickBorder');
        $("#show-notifications").hide();
+    });
+
+    $('.resend-email').click(function(){
+      // alert('yoshee');
+      var email = $(this).data('email-address');
+      $.ajax({
+        url: 'resendEmail',
+        method: 'POST',
+        data: {
+          'email': email,
+        },
+      });
     });
 
     // $('#time_out').blur(function(){ 
