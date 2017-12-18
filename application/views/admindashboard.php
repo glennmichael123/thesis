@@ -543,6 +543,9 @@ tr:hover{
                         </div>
 
                     </div>
+                    <div id="wrap-students">
+                      
+                   
                     <div class="well dashboard-list">
 
                       <?php if(empty($student_list)):?>
@@ -556,7 +559,8 @@ tr:hover{
                                             <th>Name</th>
                                             <th>Course & Year</th>
                                             <th>School Year</th>
-                                            <th>Evaluations</th>
+                                            <th>Evaluations(OJT1)</th>
+                                            <!-- <th>Evaluations(OJT2)</th> -->
                                             <th>Status</th>
                                         </tr>
                                     </thead>
@@ -582,7 +586,8 @@ tr:hover{
                                                     | <a style="color: gray">Final <i class="fa fa-times-circle"></i></a> 
                                                 <?php endif; ?>
 
-                                              </td>   
+                                              </td>  
+                                              <!-- <td>Midterm | Final</td> -->
                                               <?php if ($student['ojtone_rendered'] >= $student['ojtone_required'] && $student['ojtone_current_evaluations'] == 2):?>
                                                   <td style="color:green;">OJT-1 Completed</td>
                                                 <?php else :?>
@@ -596,6 +601,7 @@ tr:hover{
                             <?php endif;?>
                         <!-- </form> -->
                     </div><!-- end of well -->
+                     </div>
                 </div>
            </div>
         </div>
@@ -999,7 +1005,7 @@ tr:hover{
 <script type="text/javascript">
    $(document).ready(function(){
       var table = $('#adminDataTable').DataTable({
-        "bProcessing": true,
+       "bProcessing": true,
         "order": [1, 'asc'],
         //"columns": [{"targets": 0, "orderable": false },null,null,null,null,null],
         "columns": [{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false }],
@@ -1037,7 +1043,7 @@ tr:hover{
                 'sy': sy,
               },
               success: function(data){
-                 $('tbody').replaceWith(data);
+                 $('#wrap-students').replaceWith(data);
               }
 
           })
@@ -1058,7 +1064,7 @@ tr:hover{
                 'sy': sy,
               },
               success: function(data){
-                 $('tbody').replaceWith(data);
+                  $('#wrap-students').replaceWith(data);
               }
 
           })
@@ -1082,7 +1088,7 @@ tr:hover{
                 'sy': sy,
               },
               success: function(data){
-                 $('tbody').replaceWith(data);
+                  $('#wrap-students').replaceWith(data);
               }
 
           })
@@ -1104,7 +1110,7 @@ tr:hover{
                 'sy': sy,
               },
               success: function(data){
-                 $('tbody').replaceWith(data);
+                  $('#wrap-students').replaceWith(data);
               }
 
           })

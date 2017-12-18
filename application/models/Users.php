@@ -369,46 +369,49 @@ public function getStudentList(){
           }else{
               $query = $this->db->query("SELECT * FROM users INNER JOIN ojt_records ON users.id_number = ojt_records.id_number WHERE status!='DELETED' AND users.course LIKE '%$course%' AND school_year = '$sy' AND ojtone_current_evaluations LIKE '%$eval%' AND ojtone_status LIKE '%$stat%' ORDER BY users.id_number ASC");
           }
-            if(!empty($query->result_array())){
 
-                $html .= '<tbody>';
-              foreach ($query->result_array() as $value) {
-                $html .= '<tr class="dashTable">';
-                $html .= '<td style="text-align: center;width: 45px"><input type="checkbox" class="checkitem" value="'.$value['id_number'].'" name="usernames[]"></td>';
-                $html .= '<td><a href="studentinfo/'.$value['id_number'].'">'.$value['first_name']." ". $value['last_name'].'</a></td>';
-                $html .= '<td>'.$value['course']." - ".$value['year'].'</td>';
-                $html .= '<td>'.$value['school_year'].'</td>';
+          return $query->result_array();
+            // if(!empty($query->result_array())){
+
+            //     $html .= '<tbody>';
+            //   foreach ($query->result_array() as $value) {
+            //     $html .= '<tr class="dashTable">';
+            //     $html .= '<td style="text-align: center;width: 45px"><input type="checkbox" class="checkitem" value="'.$value['id_number'].'" name="usernames[]"></td>';
+            //     $html .= '<td><a href="studentinfo/'.$value['id_number'].'">'.$value['first_name']." ". $value['last_name'].'</a></td>';
+            //     $html .= '<td>'.$value['course']." - ".$value['year'].'</td>';
+            //     $html .= '<td>'.$value['school_year'].'</td>';
                 
-                $html .=  '<td>';
-                            if ($value['ojtone_current_evaluations'] == 1 || $value['ojtone_current_evaluations'] == 2 || $value['ojttwo_current_evaluations'] == 1 || $value['ojttwo_current_evaluations'] == 2){
-                              $html .= '<a target="_blank" href="'.base_url().'viewmidterm/'.$value['id_number'].'">Midterm  <i class="fa fa-check-circle"></i></a>';
-                            }else{
-                              $html .= '<a style="color:gray">Midterm <i class="fa fa-times-circle"></i> </a>';
-                            }
+            //     $html .=  '<td>';
+            //                 if ($value['ojtone_current_evaluations'] == 1 || $value['ojtone_current_evaluations'] == 2 || $value['ojttwo_current_evaluations'] == 1 || $value['ojttwo_current_evaluations'] == 2){
+            //                   $html .= '<a target="_blank" href="'.base_url().'viewmidterm/'.$value['id_number'].'">Midterm  <i class="fa fa-check-circle"></i></a>';
+            //                 }else{
+            //                   $html .= '<a style="color:gray">Midterm <i class="fa fa-times-circle"></i> </a>';
+            //                 }
 
-                            if ($value['ojtone_current_evaluations'] == 2 || $value['ojttwo_current_evaluations'] == 2){
-                              $html .= '| <a target="_blank" href="'.base_url().'viewfinal/'.$value['id_number'].'">  Final <i class="fa fa-check-circle"></i></a>'; 
-                            }else{
-                              $html .= '| <a style="color: gray">Final <i class="fa fa-times-circle"></i></a>';
-                            }
-                $html .=  '</td>';   
+            //                 if ($value['ojtone_current_evaluations'] == 2 || $value['ojttwo_current_evaluations'] == 2){
+            //                   $html .= '| <a target="_blank" href="'.base_url().'viewfinal/'.$value['id_number'].'">  Final <i class="fa fa-check-circle"></i></a>'; 
+            //                 }else{
+            //                   $html .= '| <a style="color: gray">Final <i class="fa fa-times-circle"></i></a>';
+            //                 }
+            //     $html .=  '</td>';   
 
-                if ($value['ojtone_rendered'] >= $value['ojtone_required'] && $value['ojtone_current_evaluations'] == 2){
-                    $html .= '<td style="color:green;">OJT-1 Completed</td>';
-                }else{
-                    $html .= '<td style="color:#f44336;">OJT-1 On going</td>';
-                }
+            //     if ($value['ojtone_rendered'] >= $value['ojtone_required'] && $value['ojtone_current_evaluations'] == 2){
+            //         $html .= '<td style="color:green;">OJT-1 Completed</td>';
+                    
+            //     }else{
+            //         $html .= '<td style="color:#f44336;">OJT-1 On going</td>';
+            //     }
 
-                $html .= '</tr>';
-              }
-               $html .= '</tbody>';
+            //     $html .= '</tr>';
+            //   }
+            //    $html .= '</tbody>';
              
-            }else{
-              $html .= '<tbody>';
-              $html .= '</tbody>';
-            }
+            // }else{
+            //   $html .= '<tbody>';
+            //   $html .= '</tbody>';
+            // }
 
-             echo $html;
+            //  echo $html;
          }
          public function editLog(){
             $id = $_POST['log_id'];
@@ -608,12 +611,12 @@ public function getStudentList(){
             $supervisor_id = $_POST['supervisor_id'];
             $student_id = $_POST['studentID'];
            $query = $this->db->query("SELECT * FROM ojt_records WHERE supervisor_id = '' AND id_number = '$student_id' ")->row();
-           if(empty($query)){
-              echo 'error';
-           }else{
-               $this->db->query("UPDATE company_information SET supervisor_id = '$supervisor_id' WHERE id_number='$student_id'");
+           if(!empty($query)){
+              $this->db->query("UPDATE company_information SET supervisor_id = '$supervisor_id' WHERE id_number='$student_id'");
                $this->db->query("UPDATE logs SET supervisor_id = '$supervisor_id' WHERE id_number='$student_id'");
                $this->db->query("UPDATE ojt_records SET supervisor_id = '$supervisor_id' WHERE id_number='$student_id'");
+           }else{
+              echo 'error';
            }
           
          
@@ -1174,6 +1177,19 @@ public function getStudentList(){
 
           $this->db->where('id_number', $username);
           $this->db->update('personal_details', $data);
+
+      }
+
+      public function editProfileEmergency($username){
+        // echo $username;exit;
+
+          $data = Array('name'=>$_POST['profile_emergency_name'],
+                        'relationship'=>$_POST['profile_relationship_emergency'],
+                        'contact_number'=>$_POST['profile_contact_emergency'],
+                        'address'=>$_POST['profile_emergency_address']);
+
+          $this->db->where('id_number', $username);
+          $this->db->update('emergency_details', $data);
 
       }
 

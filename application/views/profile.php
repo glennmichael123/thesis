@@ -5,31 +5,20 @@
     <link rel="icon" href="favicon.ico">
     <!-- Latest compiled and minified CSS -->
      <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/bootstrap.min.css">
-    
-    
-
-
     <script src="<?php echo base_url() ?>assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="jpeg_camera/jpeg_camera_with_dependencies.min.js" type="text/javascript"></script>
     <!-- Optional theme -->
 
-
-
-    
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/bootstrap-theme.min.css" >
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  
     <!-- Latest compiled and minified JavaScript -->
     
     <script src="<?php echo base_url() ?>assets/js/jquery-1.12.4.js"></script>
     <script src="<?php echo base_url() ?>assets/js/jquery-ui.js"></script>
     <link rel="stylesheet" href="<?php  echo base_url() ?>assets/css/jquery-ui.css">
 
-
-
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
-
 
          <script src="<?php echo base_url() ?>assets/js/bootstrap.min.js"></script>
 
@@ -361,7 +350,7 @@
             margin-top: -25px;
             margin-right: -10px;
         }
-        #btn-edit,#btn-edit1,#btn-edit2{
+        #btn-edit,#btn-edit1,#btn-edit2,#btn-edit-emergency{
             background-color: #FFFFFF;
             border: 0px #FFFFFF;
         }
@@ -404,6 +393,16 @@
             width: 100%;
             background:none !important;
             box-shadow: none !important;
+        }
+        .emergency-info{
+              font-size: 13px;
+            margin-left: 3px;
+            display: inline;
+            border: 0;
+            color: #000000;
+            width: 100%;
+            background:none !important;
+            box-shadow: none !important
         }
         .company-info{
             font-size: 13px;
@@ -897,6 +896,37 @@
 
                            </p>
                         
+                    </fieldset> 
+
+                    <fieldset id="emergency-fieldset" style="margin-top: 10px;">
+                    <legend><i class="fa fa-ambulance"></i>Emergency Details</legend>
+                         <div id="edit">
+                             <button id="btn-edit-emergency"><span class="fa fa-pencil-square-o" aria-hidden="true"></span></button>
+                         </div>
+                        <div class="row" id="pos">
+                            <form id="emergency-details-user">
+                                <div class="col-lg-6">
+                                    <label class="labels">Name:</label>
+                                      <input type="text" name="profile_emergency_name" value="<?php echo $emergencyInformation->name; ?>" readonly class="emergency-info form-control">
+                                      <label class="labels">Contact Number:</label>
+                                      <input type="text" name="profile_contact_emergency" value="<?php echo $emergencyInformation->contact_number; ?>" readonly class="emergency-info form-control">
+                                
+                                </div>
+                                <div class="col-lg-6">
+                                   <label class="labels">Relationship:</label>
+                                   <input type="text" name="profile_relationship_emergency" value="<?php echo $emergencyInformation->relationship; ?>" readonly class="emergency-info form-control">
+                                    <label class="labels">Address:</label>
+                                   <input type="text" name="profile_emergency_address" value="<?php echo $emergencyInformation->address; ?>" readonly class="emergency-info form-control">
+                                </div>
+                            </form>
+                        </div>
+                        <p style="text-align: center; margin-top: 10px;">
+                               <button class="btn btn-primary" id="save-emergency-details" style="display: none" type="submit">Save Changes</button>
+
+                               <button class="btn btn-danger" id="cancel-save-emergency" style="display: none;" type="button">Cancel</button>
+
+                           </p>
+                        
                     </fieldset>
                      <fieldset id="third-fieldset">
                     <legend><i class="fa fa-building-o"></i> Company Information</legend>
@@ -1003,25 +1033,11 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             
-                                                <li>Enthusiasm / Eagerness to Learn</li>
-                                                
-                                            
-                                          
-                                                <li>Cooperation and Willingness</li>
-                                           
-                                            
-                                           
+                                                <li>Enthusiasm / Eagerness to Learn</li>                                     
+                                                <li>Cooperation and Willingness</li>                                             
                                                 <li>Adaptability and Sociability</li>
-                                            
-                                           
-                                          
-                                                <li>Industriousness and Initiative</li>
-                                          
-                                           
-                                           
+                                                <li>Industriousness and Initiative</li>                                         
                                                 <li>Sense of Responsibility</li>
-                                           
-                                            
                                                 <li>Attentiveness / Attention</li>
                                         
                                             
@@ -1223,19 +1239,9 @@
                                      <?php endif; ?>
                              
                             </div>
-                        </div>
-
-                
-
+                       </div>    
             </div>  
-
         </div> 
-
-
-
-
-    
-       
 </body>
 
 <!-- click save from browse photo -->
@@ -1361,6 +1367,38 @@
 
 
         });
+</script>
+<script type="text/javascript">
+    
+    $('#btn-edit-emergency').click(function(e){
+        e.preventDefault();
+         $(".emergency-info").addClass("showBorder");
+         $(".emergency-info").prop("readonly",false);
+         $('#save-emergency-details').show();
+         $('#cancel-save-emergency').show();
+    });
+
+    $('#save-emergency-details').click(function(){
+        var data = $('#emergency-details-user').serialize();
+
+        $.ajax({
+            url: 'editProfileEmergency',
+            method: 'POST',
+            data:data,
+            success:function(data){
+              location.reload();
+            }
+        });
+    });
+
+    $('#cancel-save-emergency').click(function(e){
+        e.preventDefault();
+         $(".emergency-info").removeClass("showBorder");
+         $(".emergency-info").prop("readonly",true);
+         $('#save-emergency-details').hide();
+         $('#cancel-save-emergency').hide();
+
+    });
 </script>
 
  <script type="text/javascript">
@@ -1520,6 +1558,7 @@ $(function () {
         e.preventDefault();
         $("#first-fieldset").show();
         $("#second-fieldset").show();
+        $("#emergency-fieldset").show();
         $("#third-fieldset").hide();
         $("#fifth-fieldset").hide();
         $("#fourth-fieldset").hide();
@@ -1532,6 +1571,7 @@ $(function () {
          e.preventDefault();
         $("#first-fieldset").hide();
         $("#second-fieldset").hide();
+        $("#emergency-fieldset").hide();
         $("#fourth-fieldset").hide();
         $("#fifth-fieldset").hide();
         $("#third-fieldset").show();
@@ -1547,6 +1587,7 @@ $(function () {
         $("#tabs").tabs().show();
         $("#first-fieldset").hide();
         $("#second-fieldset").hide();
+         $("#emergency-fieldset").hide();
         $("#third-fieldset").hide();
         $("#fourth-fieldset").show();
         $("#fifth-fieldset").hide();

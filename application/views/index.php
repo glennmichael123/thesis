@@ -93,7 +93,7 @@
     <div class="valign-wrapper row login-box " >
   <div class="col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4 z-depth-5">
     <form action="<?php echo base_url() ?>main/loggedin" method="post">
-      <div class="card-content">
+      <div class="card-content" style="padding-bottom:0px">
         <!-- <span class="card-title">Login</span>-->  
         <div class="top hoverable z-depth-5">
           <p class="login-title" style="color: #FFF;">On-The-Job Training</p>

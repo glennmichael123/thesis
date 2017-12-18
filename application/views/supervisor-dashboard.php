@@ -1178,7 +1178,8 @@
           
           });
 
-          $('#find-trainee').click(function(){
+          $('#find-trainee').click(function(e){
+            e.preventDefault();
             $('#names').hide();
             $('.show-find-trainee').show();
           });
