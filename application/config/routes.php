@@ -95,5 +95,14 @@ $route['filterLogsForSupervisor']  = 'main/filterLogsForSupervisor';
 $route['updatePostContent']  = 'main/updatePostContent';
 $route['deletePostContent']  = 'main/deletePostContent';
 
+$route['confirmSend']  = 'main/confirmSend';
+$route['resendEmail']  = 'main/resendEmail';
+$route['incorrectpassword']  = 'main/incorrectpassword';
+
+$route['updatePostContent']  = 'main/updatePostContent';
+$route['deletePostContent']  = 'main/deletePostContent';
+$route['incorrectpassword']  = 'main/incorrectpassword';
+
+
 
 

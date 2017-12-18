@@ -6,21 +6,20 @@
 <head>
     <link rel="icon" href="favicon.ico">
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/bootstrap.min.css">
+    <script src="<?php echo base_url() ?>assets/js/jquery.min.js"></script>
   <!--   <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/materialize.css"> -->
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/bootstrap-theme.min.css" >
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-
     <script src="<?php echo base_url()?>assets/js/progressbar/dist/progressbar.js"></script>
     <script src="<?php echo base_url()?>assets/js/progressbar/dist/progressbar.min.js"></script>
     <script src="<?php echo base_url()?>assets/js/jquery.simple-popup.min.js"></script>
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="<?php echo base_url() ?>assets/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
    <script src="<?php echo base_url() ?>assets/js/swal.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
@@ -408,6 +407,9 @@ header h1 {
             border-bottom-right-radius: 50% 50%;
             border-bottom-left-radius: 50% 50%;
         }
+        body{
+           background: #E9EBEE;
+        }
         
         .content {
             padding-top: 30px;
@@ -685,7 +687,7 @@ header h1 {
         <div class="header">
             <div class="container-fluid">
               <div class="col-lg-9">
-                  <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
+                  <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height: 50px;"></div>
               </div>
               <div class="col-lg-1">
                       <section id="notification-bell">
@@ -716,7 +718,7 @@ header h1 {
                                           <?php foreach($announcements as $announcement):?>
                                             <?php if($announcement['status'] == 1):?>
                                                  <li class="divider"></li>
-                                              <a href="#" data-announcement-id="<?php echo $announcement['id']?>" class="view-notif"><li class="view-notification-read"><div class="notifs">Lfeliz posted an announcement <br><span style="font-size: 12px;"><?php
+                                              <a href="#" data-announcement-id="<?php echo $announcement['id']?>" class="view-notif"><li class="view-notification-read"><div class="notifs"><?php echo $announcement['admin_id']; ?> posted an announcement <br><span style="font-size: 12px;"><?php
                                                     $timestamp = strtotime($announcement['date_posted']);
                                                     $datetime = explode(" ",$announcement['date_posted']); 
                                                     
@@ -893,9 +895,13 @@ header h1 {
     <div class="container" style="margin-top: 40px;">
         <div class="well" style="margin-bottom: 0;">
             <div class="row">
-                <div class="col-lg-12">
-                    <span style="font-size: 15px;"><i class="fa fa-exclamation-circle" aria-hidden="true" style="color: red"></i>You must verify your email before you can post any logs</span>
-                </div>
+                <div class="col-lg-8">
+                    <div style="font-size: 15px;"><i class="fa fa-exclamation-circle" aria-hidden="true" style="color: red"></i>You must verify your email before you can post any logs</div>
+            </div>
+                    <div class="col-lg-4">
+                        <div style="font-size: 15px;">Not receiving your email? <a href="#" class="resend-email" data-email-address="<?php echo $checkEmail->email_address; ?>">Click here to resend</a></div>
+                    </div>
+            
             </div>
         </div>
     </div>
@@ -1367,6 +1373,18 @@ header h1 {
        $("#show-logout").toggle();
        $('.user-image').toggleClass('clickBorder');
        $("#show-notifications").hide();
+    });
+
+    $('.resend-email').click(function(){
+      // alert('yoshee');
+      var email = $(this).data('email-address');
+      $.ajax({
+        url: 'resendEmail',
+        method: 'POST',
+        data: {
+          'email': email,
+        },
+      });
     });
 
     // $('#time_out').blur(function(){ 

@@ -685,7 +685,7 @@ header h1 {
         <div class="header">
             <div class="container-fluid">
               <div class="col-lg-9">
-                  <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
+                  <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height: 50px;"></div>
               </div>
               <div class="col-lg-1">
                       <section id="notification-bell">

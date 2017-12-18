@@ -36,6 +36,9 @@
     <script type="text/javascript" src="dataTables.scrollingPagination.js"></script>
  -->
 
+    <!-- AC Jquery huehue -->
+    <script src="<?php echo base_url() ?>assets/js/jquery-ui.js"></script>
+
     <style type="text/css">
         body{
              background-color: #F4F4F4;
@@ -326,17 +329,12 @@ tr:hover{
 </head>
 
 <body>
-<div id="sa">
-  
-</div>
-
-
     <div class="page-wrap">
         <div class="header">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-4">
-                        <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
+                        <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height: 50px;"></div>
                     </div>
                     <div class="col-lg-7">
                     </div>
@@ -344,9 +342,12 @@ tr:hover{
 
                           <ul class="nav navbar-nav">
                             <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown"><img src="<?php echo base_url();?>/assets/images/snow.jpg" class="pull-right circular-square" style="width: 40px; height: 40px; margin-top: -10px;"> </a>
+                              <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown">
+
+                                <i class="fa fa-user-circle fa-3x circular-square pull-right" style="width: 40px; height: 40px; margin-top: -10px;"></i>
+                               </a>
                               <ul class="dropdown-menu" id="show-logout">
-                                <li><a href="#">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
+                                <li><a href="<?php echo base_url('admindashboard') ?>">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                 <li class="divider"></li>
         
                                 <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
@@ -380,12 +381,14 @@ tr:hover{
                             <button class="btn btn-admin" data-target="#addAdminModal" data-toggle="modal">+Admin</button>
                             <button class="btn btn-admin" data-target="#addSupervisorModal" data-toggle="modal">+Supervisor</button>
                             <button class="btn btn-admin" data-target="#addStudent" data-toggle="modal">+Student</button>
+                            
+                           <!--  <a href="Main/database_backup">hahaha</a> -->
                          </section>
                     </div>
                 </div>
             </div>
           </div>
-         
+          
            <div class="container">
            <div class="well dashboard-graphs">
                 <div class="row">
@@ -543,7 +546,7 @@ tr:hover{
                       <?php if(empty($student_list)):?>
                           No students yet.
                       <?php else:?>
-                      <!-- <form action="deleteStudent" method="POST" name="formDel"> -->
+                      <form action="deleteStudent" method="POST" name="formDel">
                             <table id="adminDataTable" class="table table-bordered" cellspacing="0" width="100%" style="font-size: 13px;">
                                     <thead>
                                         <tr style="background-color: #f44336; color:white;">
@@ -551,7 +554,8 @@ tr:hover{
                                             <th>Name</th>
                                             <th>Course & Year</th>
                                             <th>School Year</th>
-                                            <th>Evaluations</th>
+                                            <th> OJT-1 Evaluations</th>
+                                            <th>OJT-2 Evaluations</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
@@ -563,6 +567,21 @@ tr:hover{
                                               <td><a href="studentinfo/<?php echo $student['id_number']?>"><?php echo $student['first_name'] . " " . $student['last_name']?></a></td>
                                               <td><?php echo $student['course']." - ".$student['year']?></td>
                                               <td><?php echo $student['school_year']?></td>
+                                              <td>
+                                                <?php if ($student['ojtone_current_evaluations'] == 1 || $student['ojtone_current_evaluations'] == 2 || $student['ojttwo_current_evaluations'] == 1 || $student['ojttwo_current_evaluations'] == 2): ?>
+                                                  <a href="<?php base_url() ?>viewmidterm/<?php echo $student['id_number']; ?>" target="_blank">
+                                                    Midterm <i class="fa fa-check-circle"></i></a>
+                                                <?php else:?>
+                                                  <a style="color:gray">Midterm <i class="fa fa-times-circle"></i></a>
+                                                <?php endif;?>  
+
+                                                <?php if ($student['ojtone_current_evaluations'] == 2 || $student['ojttwo_current_evaluations'] == 2): ?>
+                                                    | <a target="_blank" href="<?php base_url() ?>viewfinal/<?php echo $student['id_number']; ?>"> Final <i class="fa fa-check-circle"></i></a> 
+                                                <?php else: ?>
+                                                    | <a style="color: gray">Final <i class="fa fa-times-circle"></i></a> 
+                                                <?php endif; ?>
+
+                                              </td>
                                               <td>
                                                 <?php if ($student['ojtone_current_evaluations'] == 1 || $student['ojtone_current_evaluations'] == 2 || $student['ojttwo_current_evaluations'] == 1 || $student['ojttwo_current_evaluations'] == 2): ?>
                                                   <a href="<?php base_url() ?>viewmidterm/<?php echo $student['id_number']; ?>" target="_blank">
@@ -589,7 +608,7 @@ tr:hover{
                               </table>
                               <div><button type="button" class="btn btn-warning" id="btnDelete"><i class="fa fa-trash"></i> Delete Selected Item(s)</button> </div>
                             <?php endif;?>
-                        <!-- </form> -->
+                        </form>
                     </div><!-- end of well -->
                 </div>
            </div>
@@ -900,6 +919,13 @@ tr:hover{
 
 </body>
 <script type="text/javascript">
+  var url="";
+</script>
+
+
+
+
+<script type="text/javascript">
     $(document).on('click','#postEdit',function(e){
       //var content = $(this).closest('.well').find('.postContent').val();
       //alert(content);return false;
@@ -984,6 +1010,78 @@ tr:hover{
 
     });
 
+    $(document).on('click','#cancelEdit',function(e){
+      var textArea = $(this).closest('.well').find('.postContent');
+      var saveCancel = $(this).closest('.well').find('#postSaveCancel');
+      saveCancel.hide();
+      textArea.prop('readonly',true);
+      textArea.blur();
+      textArea.css('border','none');
+      textArea.css('background','none');
+    });
+
+    $(document).on('click','#saveEdit',function(e){
+      var postId = $(this).closest('.well').find('.post_id').val();
+      var content = $(this).closest('.well').find('.postContent').val();
+      var textArea = $(this).closest('.well').find('.postContent');
+      var saveCancel = $(this).closest('.well').find('#postSaveCancel')
+      saveCancel.hide();
+      textArea.prop('readonly',true);
+      textArea.blur();
+      textArea.css('border','none');
+      textArea.css('background','none');
+      textArea.html(content);
+      $.ajax({
+        url: "updatePostContent",
+        type: "POST",
+        data:{
+          'content': content,
+          'post_id': postId,
+        }
+      });
+    });
+
+    $(document).on('click','.postDelete',function(e){
+      var postId = $(this).closest('.well').find('.post_id').val();
+      var well = $(this).closest('.well');
+      swal({
+        title: "Are you sure?",
+        icon: "warning",
+        buttons: true,
+        buttons: ["No", "Yes"],
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          well.fadeOut();
+          $.ajax({
+            url: "deletePostContent",
+            type: "POST",
+            data:{
+              'post_id': postId,
+            }
+          });
+        }
+      });
+        
+    });
+
+
+    $('#btnCompose').click(function(){
+      $('#compose').css('display','block');
+      $('#viewPosts').css('display','none');
+      $('#announcementModalFooter').css('display','block');
+      $('.postHeading').html('Post announcement');
+    });
+
+    $('#btnViewPosts').click(function(){
+        $('#compose').css('display','none');
+        $('#viewPosts').css('display','block');
+        $('#announcementModalFooter').css('display','none');
+        $('.postHeading').html('Announcements');
+
+    });
+
     $('#options').click(function(){
         
     });
@@ -994,10 +1092,10 @@ tr:hover{
 <script type="text/javascript">
    $(document).ready(function(){
       var table = $('#adminDataTable').DataTable({
-        "bProcessing": true,
-        "order": [1, 'asc']],
+        "bProcessing": true,   
+        "order": [1, 'asc'],
         //"columns": [{"targets": 0, "orderable": false },null,null,null,null,null],
-        "columns": [{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false }],
+        "columns": [{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false }],
       });
 
       // $('body').on('change','#course_option',function(){
@@ -1502,7 +1600,7 @@ tr:hover{
               'announcement': announcement,
             },
             success: function(data){
-              location.reload();
+             location.reload();
             }
           }); 
       }

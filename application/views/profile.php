@@ -4,26 +4,31 @@
 <head>
     <link rel="icon" href="favicon.ico">
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/bootstrap.min.css">
     
     
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="jpeg_camera/jpeg_camera_with_dependencies.min.js" type="text/javascript"></script>
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+
+
+    
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/bootstrap-theme.min.css" >
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   
     <!-- Latest compiled and minified JavaScript -->
-    
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="<?php echo base_url() ?>assets/js/jquery-1.12.4.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/jquery-ui.js"></script>
+    <link rel="stylesheet" href="<?php  echo base_url() ?>assets/css/jquery-ui.css">
 
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+
+
+         <script src="<?php echo base_url() ?>assets/js/bootstrap.min.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -559,14 +564,11 @@
 
 
     <div class="page-wrap">
-      <div class="header">
-          <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
-      </div>
        <div class="header">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-4 col-sm-4">
-                        <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
+                        <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height: 50px;"></div>
                     </div>
                     <div class="col-lg-6 col-sm-7">
                         <?php if(isset($id_number)):?>
@@ -768,7 +770,7 @@
                                     <div class="change-photo" style="margin-top: 10px; display: none;">
                                         <!-- browse -->
                                         <button class="btn pulse-button click-photo btn-md" id="btn-browse"><i class="fa fa-picture-o" aria-hidden="true" ></i></button>
-                                        <button class="btn pulse-button btn-md"><i class="fa fa-camera" aria-hidden="true"></i></button>
+                                        <button class="btn pulse-button btn-md" ><i class="fa fa-camera" aria-hidden="true"></i></button>
                                     </div>
                                    
                                 <form action="saveImage" method="POST" enctype="multipart/form-data">
@@ -926,22 +928,25 @@
 
                             <input id="assembly" <?php echo(in_array('Assembly', $array_company)) ? 'checked' : '' ?> disabled value="Assembly" type="checkbox" ><label class="labels" for="assembly" ">Assembly</label>
                          </div> 
-                         <div class="col-lg-2">
+                         <div class="col-lg-3">
                             <input type="checkbox" <?php echo(in_array('Manufacturing', $array_company)) ? 'checked' : '' ?> disabled value="Manufacturing" id="manufacturing"><label class="labels" for="Manufacturing">Manufacturing</label>
                          </div> 
-                         <div class="col-lg-2">
+                         <div class="col-lg-3">
                             <input type="checkbox" <?php echo(in_array('Maintenance', $array_company)) ? 'checked' : '' ?> disabled value="Maintenance" id="maintenance"><label class="labels" for="maintenance">Maintenance</label>
                          </div>
                          <div class="col-lg-3">
                             <input type="checkbox" <?php echo(in_array('Sales/Marketing', $array_company)) ? 'checked' : '' ?> disabled value="Sales/Marketing" id="marketing"><label class="labels" for="marketing">Sales/Marketing</label>
                          </div>
-                         <div class="col-lg-3">
-                             <input type="checkbox" <?php echo(in_array('Service/Utility', $array_company)) ? 'checked' : '' ?> disabled value="Service/Utility" id="service"><label class="labels" for="service">Service/Utility</label>
-                         </div>
+
+                       
                          
                         </div>
+
                         <div class="row">
-                          <div class="col-lg-4">
+                            <div class="col-lg-3">
+                             <input type="checkbox" <?php echo(in_array('Service/Utility', $array_company)) ? 'checked' : '' ?> disabled value="Service/Utility" id="service"><label class="labels" for="service">Service/Utility</label>
+                         </div>
+                          <div class="col-lg-3">
                             
                               <input type="checkbox" <?php echo(in_array('Research and Development', $array_company)) ? 'checked' : '' ?> disabled value="Research and Development" id="research"><label class="labels" for="research">Research and Development</label>
                             
@@ -949,7 +954,7 @@
                           <div class="col-lg-2">
                             <input type="checkbox" <?php echo(in_array('IT Related', $array_company)) ? 'checked' : '' ?> disabled value="IT Related" id="itrelated"><label class="labels" for="itrelated">IT Related</label>
                           </div>
-                          <div class="col-lg-5">
+                          <div class="col-lg-4">
                                <input type="radio" class="other-company" disabled id="other"><label class="labels" for="other">Others</label>
                                <input type="text" id="other_classification" name="other_classification" style="height: 30px; width: 250px; display: none;" placeholder="Please specify">
                           </div>
@@ -1150,164 +1155,70 @@
                         </div>
 
                         <div class="col-lg-9">
+
                             <div class="well" style="background-image:none; background-color: #FFFFFF; border: 1px solid #C0C0C0; width: 88.5% !important;">
-                            <h1 style="text-align: center;">My Final Evaluation</h1>
-                                <label>WORK ATTITUDE(<div class="badge">40</div> points)</label>
-                                <ol>
-                                    
+                                <?php if (empty($final_evaluation)): ?>
+                                     <h1 style="text-align: center;">You have not been evaluated yet.</h1>
+                                <?php else: ?>
+                                    <h1 style="text-align: center; margin-bottom: 20px;">My Final Evaluation</h1>
+                               
                                     <div class="row">
-                                        <div class="col-lg-6">
-                                            
-                                                <li>Enthusiasm / Eagerness to Learn</li>
-                                                
-                                            
-                                          
-                                                <li>Cooperation and Willingness</li>
-                                           
-                                            
-                                           
-                                                <li>Adaptability and Sociability</li>
-                                            
-                                           
-                                          
-                                                <li>Industriousness and Initiative</li>
-                                          
-                                           
-                                           
-                                                <li>Sense of Responsibility</li>
-                                           
-                                            
-                                                <li>Attentiveness / Attention</li>
-                                        
-                                            
-                                                <li>Personal Grooming</li>
-                                          
-                                                <li>Attendance</li>
-                                            
+                                        <div class="col-lg-4">
+                                            <h3>Job Factors</h3>
                                         </div>
-
-                                    <div class="col-lg-6">
-                                        <form method="post" id="formy"  name="mid_ev">
-                                         
-                                         <fieldset style="float: right;">
-                                             <input tabindex="1" maxlength="1" type="text" name="enthusiasm"  onkeyup="scoreTotal()" id="enthusiasm" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
-
-                                            <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Enthusiasm / Eagerness to Learn" data-content="Confident to learn new tasks / assignments." tabindex="0" data-trigger="focus">
-                                                        <i class="fa fa-question-circle"></i>
-                                                    </a>
-                                             <br>
-                                             <input tabindex="2"  maxlength="1" type="text" name="cooperation" onkeyup="scoreTotal()" id="cooperation" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>  
-
-                                             <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Cooperation and Willingness" data-content="Readiness to accept and carry out instructions and assignments; works well with others; shows support and concerns for co-workers." tabindex="0" data-trigger="focus">
-                                                        <i class="fa fa-question-circle"></i>
-                                                    </a><br>
-                                             <input tabindex="3" maxlength="1" type="text" name="adaptability" onkeyup="scoreTotal()" id="adaptability" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
-                                                   <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Adaptability and Sociability" data-content="Ability to adjust to a new environment and be at ease with others; ability to deal with people of different levels/ positions; amiable and friendly with others and knows how to respect authority." tabindex="0" data-trigger="focus">
-                                                        <i class="fa fa-question-circle"></i>
-                                                    </a>
-                                             </i><br>
-                                             <input tabindex="4" maxlength="1" type="text" name="industriousness" onkeyup="scoreTotal()" id="industriousness" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required> 
-                                             <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Industriousness and Initiative" data-content="Constant worker / keeps himself busy with initiative; does not take unauthorized breaks; initiates action when the situation calls for it." tabindex="0" data-trigger="focus">
-                                                        <i class="fa fa-question-circle"></i>
-                                                    </a>
-                                             <br>
-                                             <input tabindex="5" maxlength="1" type="text" name="responsibility" onkeyup="scoreTotal()" id="responsibility" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
-
-                                               <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Sense of Responsibility" data-content="Applies sound judgement / decision making." tabindex="0" data-trigger="focus">
-                                                        <i class="fa fa-question-circle"></i>
-                                                    </a><br>
-                                             <input tabindex="6"  maxlength="1" type="text" name="attentiveness" class="score" onkeyup="scoreTotal()" id="attentiveness" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
-                                              <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Attentiveness / Attention" data-content="Focuses on his/her work / gives full attention to what he/she is doing; ability to handle unexpected problems; carry-out instructions / assignments at once." tabindex="0" data-trigger="focus">
-                                                        <i class="fa fa-question-circle"></i>
-                                                    </a><br>
-                                             <input tabindex="7" maxlength="1" type="text" name="grooming" onkeyup="scoreTotal()" id="grooming" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
-                                             <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Personal Grooming" data-content="Maintains proper way of dressing marked by proper conduct, tidiness, and well-grooming; lively and well-spirited during at work and at rest." tabindex="0" data-trigger="focus">
-                                                        <i class="fa fa-question-circle"></i>
-                                                    </a>
-                                             
-                                             <br>
-                                             <input tabindex="8" maxlength="1" type="text" name="attendance" onkeyup="scoreTotal()" id="attendance" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>                           
-                                                <a role="button" class="clicky" data-container="body" data-toggle="popover" data-placement="top" title="Attendance" data-content="Reports to work regurlarly and on time and uses time wisely and productively." tabindex="0" data-trigger="focus">
-                                                        <i class="fa fa-question-circle"></i>
-                                                    </a><br>
-                                        </fieldset>
+                                        <div class="col-lg-4">
+                                            <h3>Rating</h3>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <h3>Given rate</h3>
+                                        </div>
                                     </div>
-                                 
-                                    </div>
-                                   
-                                       
-                                    
-                                </ol>
-                                <label>WORK PERFORMANCE (30 x 2 =
-                                    <div class="badge">60</div> points)</label>
 
-                                <ol>
-                                    
+                                    <div class="row" style="margin-top: 20px;">
+                                        <div class="col-lg-4">Quality of Work</div>
+                                        <div class="col-lg-4">20%</div>
+                                        <div class="col-lg-4"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->quality; ?>"></div>
+                                    </div>
+                                    <div class="row" style="margin-top: 20px;">
+                                        <div class="col-lg-4">Quantity of Work</div>
+                                        <div class="col-lg-4">20%</div>
+                                        <div class="col-lg-4"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->quality2; ?>"></div>
+                                    </div>
+                                    <div class="row" style="margin-top: 20px;">
+                                        <div class="col-lg-4">Dependability, reliability and resourcefullness</div>
+                                        <div class="col-lg-4">15%</div>
+                                        <div class="col-lg-4"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->dependability; ?>"></div>
+                                    </div>
+                                    <div class="row" style="margin-top: 20px;">
+                                        <div class="col-lg-4">Attendance</div>
+                                        <div class="col-lg-4">15%</div>
+                                        <div class="col-lg-4"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->attendance; ?>"></div>
+                                    </div>
+                                    <div class="row" style="margin-top: 20px;">
+                                        <div class="col-lg-4">Cooperation</div>
+                                        <div class="col-lg-4">10%</div>
+                                        <div class="col-lg-4"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->cooperation; ?>"></div>
+                                    </div>
+                                    <div class="row" style="margin-top: 20px;">
+                                        <div class="col-lg-4">Judgement</div>
+                                        <div class="col-lg-4">10%</div>
+                                        <div class="col-lg-4"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->judgement; ?>"></div>
+                                    </div>
+                                    <div class="row" style="margin-top: 20px;">
+                                        <div class="col-lg-4">Personality</div>
+                                        <div class="col-lg-4">10%</div>
+                                        <div class="col-lg-4"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->personality; ?>"></div>
+                                    </div>
+
                                     <div class="row">
-                                        <div class="col-lg-6">
-                                                <li>Quality of Work</li>
-                                               
-                                                <li>Quantity of Work</li>
-                                             
-                                                <li>Dependability</li>
-                                              
-                                                <li>Comprehension</li>
-                                                <li>Safety Consciousness</li>
-                                               
-                                                <li>Waste Consciousness</li>
-                                         </div>
-                                         <div class="col-lg-6">
-                                            <fieldset style="float: right;">
-                                                <input tabindex="9" maxlength="1" type="text" name="quality" onkeyup="scoreTotal()" id="quality" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
-                                                    <a role="button" class="clicky" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Quality of Work" data-content="Thoroughness, accuracy, neatness and effectiveness of output, meets required standards and even exceeds expected results." tabindex="0" data-trigger="focus">
-                                                        <i class="fa fa-question-circle"></i>
-                                                    </a>
-                                                <br>
-                                                <input tabindex="10" maxlength="1" type="text" name="quantity" onkeyup="scoreTotal()" id="quantity" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
-                                                      <a role="button" class="clicky" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Quantity of Work" data-content="Able to complete work within the alloted time, finishes work on schedule and maximizes use of tme." tabindex="0" data-trigger="focus">
-                                                        <i class="fa fa-question-circle"></i>
-                                                    </a>
-                                                <br>
-                                                <input tabindex="11" maxlength="1" type="text" name="dependability" onkeyup="scoreTotal()" id="dependability" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
-                                                      <a role="button" class="clicky" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Dependability" data-content="Ability to work with minimum supervision, does not need constant follow-up." tabindex="0" data-trigger="focus">
-                                                        <i class="fa fa-question-circle"></i>
-                                                    </a>
-                                                <br>
-                                                <input tabindex="12" maxlength="1" type="text" name="comprehension" onkeyup="scoreTotal()" id="comprehension" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
-                                                      <a role="button" class="clicky" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Comprehension" data-content="Understand instructions at once with almost no clarification." tabindex="0" data-trigger="focus">
-                                                        <i class="fa fa-question-circle"></i>
-                                                    </a>
-                                                <br>
-                                                <input tabindex="13" maxlength="1" type="text" name="safety" onkeyup="scoreTotal()" id="safety" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
-                                                  <a role="button" class="clicky" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Safety Consciousness" data-content="Carefully takes precaution and observe visible hazards; follow safety rules and reads instructions prior to working." tabindex="0" data-trigger="focus">
-                                                        <i class="fa fa-question-circle"></i>
-                                                    </a>
-                                                <br>
-                                                <input tabindex="14" maxlength="1" type="text" name="waste" onkeyup="scoreTotal()" id="waste" class="score" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
-                                                     <a role="button" class="clicky" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Waste Consciousness" data-content="Shows concerns of company facilities; handles tools and equipment carefully; keeps equipment, tools, materials and work area clean and well-kept; proper use and disposal of materials." tabindex="0" data-trigger="focus">
-                                                        <i class="fa fa-question-circle"></i>
-                                                    </a>
-                                                <br>
-                                            </fieldset>
-                                         </div>
+                                        <div class="col-lg-12">
+                                            <div style="margin-top: 20px;">Remarks</div>
+                                            <textarea class="form-control" readonly><?php echo $final_evaluation->recommend; ?></textarea>
+                                        </div>
                                     </div>
-                                   
-                                </ol>
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                     <label class="pointy">OVERALL TOTAL</label>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <fieldset style="float: right;">
-                                            <input type="text" name="total" class="score" id="total" style="margin-right: 25px; margin-top: 20px;" readonly> 
-                                         </fieldset>
-                                    </div>
-                                </div>
-                                <label for="remark" style="margin:0; padding: 0;" class="pointy">REMARKS</label>
-                              
-                                    <textarea tabindex="15" name="remarks" id="remark" class="form-control"></textarea>
-                                   
-                                </form>
+                               
+                                     <?php endif; ?>
+                             
                             </div>
                         </div>
 
@@ -1331,6 +1242,7 @@
 <script type="text/javascript">
     $("#cancelBrowse").click(function(){
         $(".saveCancel").css("display","none");
+        location.reload();
         
     });
 
