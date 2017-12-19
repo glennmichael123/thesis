@@ -41,11 +41,7 @@
         }
         
         .jumbotron {
-<<<<<<< Updated upstream
-            background-color: #b71c1c ;
-=======
             background-color: #b71c1c;
->>>>>>> Stashed changes
             padding: 10px;
             color: #FFFFFF;
             font-size: 1.5em;
@@ -634,11 +630,7 @@
                         <div class="row row-logs"  style="color:#000;">
                        
                              <div class="col-lg-12" >
-<<<<<<< Updated upstream
-                                <div class="well " style="background: #fff; padding-bottom: 0; padding-top: 10px">
-=======
                                 <div class="well shadow" style="background: #fff; padding-bottom: 0; padding-top: 10px">
->>>>>>> Stashed changes
                                     <span class="user-name"><a href="studentdashboard/<?php echo $log['id_number'];?>">
 
 
