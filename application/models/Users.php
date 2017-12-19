@@ -841,7 +841,7 @@ public function getStudentList(){
                 while (($getData = fgetcsv($file, 10000, ",")) !== FALSE)
                  {
                     // $username = strtolower($getData[1].".".$getData[3]);
-                    $username = strtolower(str_replace(' ', '',$getData[0]).".".str_replace(' ', '',$getData[2]));
+                    $username = strtolower(str_replace(' ', '',$getData[1]).".".str_replace(' ', '',$getData[0]));
                     $sy=str_replace(' ','',$getData[5]);
                     
                     $result = $this->db->query("SELECT id_number FROM users WHERE id_number = '".$username."'")->result_array();
@@ -856,7 +856,7 @@ public function getStudentList(){
                         $total_hours = $getData[6];
                       }
                       $this->db->query("INSERT INTO users (id_number,first_name,middle_initial,last_name,course,year,school_year,password) 
-                        values ('$username','".$getData[0]."','".$getData[1]."','".$getData[2]."','".$getData[3]."','".$getData[4]."','$sy','123456')");
+                        values ('$username','".$getData[1]."','".$getData[2]."','".$getData[0]."','".$getData[3]."','".$getData[4]."','$sy','123456')");
                       $this->db->query("INSERT INTO ojt_records(id_number,total_hours,ojtone_required,ojttwo_required) VALUES('$username',$total_hours,'".$getData[6]."','".$getData[7]."')");
                     }
                     

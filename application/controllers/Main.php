@@ -868,7 +868,7 @@ public function logout(){
    		// $data['traineesLog'] = $this->users->getOjtLogs($this->session->userdata['id_number']);
    		$data['traineesLog'] = $this->users->filterLogsForSupervisor($this->session->userdata['id_number']);
    		$data['comments'] = $this->users->getComments();
-   		$html = $this->load->view('filterlog', $data);
+   		$html = $this->load->view('filterlog', $data,TRUE);
    		echo $html;
    		
    	}
