@@ -6,21 +6,20 @@
 <head>
     <link rel="icon" href="favicon.ico">
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/bootstrap.min.css">
+    <script src="<?php echo base_url() ?>assets/js/jquery.min.js"></script>
   <!--   <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/materialize.css"> -->
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/bootstrap-theme.min.css" >
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-
     <script src="<?php echo base_url()?>assets/js/progressbar/dist/progressbar.js"></script>
     <script src="<?php echo base_url()?>assets/js/progressbar/dist/progressbar.min.js"></script>
     <script src="<?php echo base_url()?>assets/js/jquery.simple-popup.min.js"></script>
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="<?php echo base_url() ?>assets/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
    <script src="<?php echo base_url() ?>assets/js/swal.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
@@ -408,6 +407,9 @@ header h1 {
             border-bottom-right-radius: 50% 50%;
             border-bottom-left-radius: 50% 50%;
         }
+        body{
+           background: #E9EBEE;
+        }
         
         .content {
             padding-top: 30px;
@@ -616,31 +618,31 @@ header h1 {
     }
 
     .btn-danger{
-      background:#871F21 !important;
+      background:#b71c1c !important;
       border: 1px solid transparent;
       border-radius: 0px !important;
     }
     .btn-danger:hover{
-      background:#5e1517 !important;
+      background:#d32f2f !important;
       border: 1px solid transparent;
     }
     .btn-primary{
       border-radius: 0px !important;
-      background:#FFBA00 !important;
+      background:#ffab00 !important;
       border: 1px solid transparent;
     }
     .btn-primary:hover{
-      background:#e5ac16 !important;
+      background:#ffc400 !important;
       border: 1px solid transparent;
     }
     .btn-success{
       border-radius: 0px !important;
-      background:#357fff !important;
+      background:#0091ea !important;
       border: 1px solid transparent;
     }
     .btn-success:hover{
       border-radius: 0px !important;
-      background:#2f72e5 !important;
+      background:#00b0ff !important;
       border: 1px solid transparent;
     }
     .btn-default{
@@ -652,6 +654,10 @@ header h1 {
       background:#c9c9c9 !important;
       border: 1px solid transparent;
     }
+    .shadow{
+    -webkit-box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.3);
+    box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.3);
+}
 
     </style>
     <title>OJT Automate <?php echo empty($numberAnnouncements->numberUnread) ? '' : '('.$numberAnnouncements->numberUnread.')';?></title>
@@ -685,7 +691,7 @@ header h1 {
         <div class="header">
             <div class="container-fluid">
               <div class="col-lg-9">
-                  <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
+                  <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height: 50px;"></div>
               </div>
               <div class="col-lg-1">
                       <section id="notification-bell">
@@ -716,7 +722,7 @@ header h1 {
                                           <?php foreach($announcements as $announcement):?>
                                             <?php if($announcement['status'] == 1):?>
                                                  <li class="divider"></li>
-                                              <a href="#" data-announcement-id="<?php echo $announcement['id']?>" class="view-notif"><li class="view-notification-read"><div class="notifs">Lfeliz posted an announcement <br><span style="font-size: 12px;"><?php
+                                              <a href="#" data-announcement-id="<?php echo $announcement['id']?>" class="view-notif"><li class="view-notification-read"><div class="notifs"><?php echo $announcement['admin_id']; ?> posted an announcement <br><span style="font-size: 12px;"><?php
                                                     $timestamp = strtotime($announcement['date_posted']);
                                                     $datetime = explode(" ",$announcement['date_posted']); 
                                                     
@@ -824,10 +830,10 @@ header h1 {
 
                                     </a>
                                      <ul class="dropdown-menu" style="margin-top: -5px;margin-left: -218px;" id="show-logout">
-                                <li><a href="<?php echo base_url()?>main/supervisorDashboard">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
+                                <li><a href="<?php echo base_url('supervisordashboard')?>">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                 <li class="divider"></li>
         
-                                <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                                <li><a href="<?php echo base_url('changepassword') ?>">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
                                 <li class="divider"></li>
                     
                                 <li><a href="<?php echo base_url()?>main/logout">Log Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
@@ -835,13 +841,13 @@ header h1 {
                               <?php else: ?>
 
                               <a href="#" class="dropdown-toggle" style="margin-top: -10px;" id="dropdown-logout" data-toggle="dropdown"> 
-                                <img src="<?php echo base_url().$supervisor_image->image_id;?>" class="pull-right circular-square user-image" style="width: 40px;height: 40px;margin-top: -16px;"></a>
+                                <img src="<?php echo base_url().$supervisor_image->image_id;?>" class="pull-right circular-square user-image" style="width: 40px;height: 40px;margin-top: 5px;"></a>
 
                                  <ul class="dropdown-menu" style="margin-top: 11px;margin-left: -200px;" id="show-logout">
                                 <li><a href="<?php echo base_url()?>main/supervisorDashboard">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                 <li class="divider"></li>
         
-                                <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                                <li><a href="<?php echo base_url('changepassword') ?>">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
                                 <li class="divider"></li>
                     
                                 <li><a href="<?php echo base_url()?>main/logout">Log Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
@@ -866,15 +872,15 @@ header h1 {
                              </a>
                                 
                                 <ul class="dropdown-menu" id="show-logout">
-                                    <li><a href="profile">Profile<i class="fa fa-user pull-right"></i></a></li>
+                                    <li><a href="<?php echo base_url('profile') ?>">Profile<i class="fa fa-user pull-right"></i></a></li>
                                     <li class="divider"></li>
-                                    <li><a href="dashboard">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
-                                    <li class="divider"></li>
-
-                                    <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                                    <li><a href="<?php echo base_url('dashboard') ?>">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                     <li class="divider"></li>
 
-                                    <li><a href="logout">Log Out <i class="fa fa-sign-out pull-right"></i></a></li>
+                                    <li><a href="<?php echo base_url('changepassword') ?>">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                                    <li class="divider"></li>
+
+                                    <li><a href="<?php echo base_url('logout') ?>">Log Out <i class="fa fa-sign-out pull-right"></i></a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -891,11 +897,15 @@ header h1 {
       <?php if($checkEmail->status): ?>
       <?php else: ?>
     <div class="container" style="margin-top: 40px;">
-        <div class="well" style="margin-bottom: 0;">
+        <div class="well shadow" style="margin-bottom: 0;">
             <div class="row">
-                <div class="col-lg-12">
-                    <span style="font-size: 15px;"><i class="fa fa-exclamation-circle" aria-hidden="true" style="color: red"></i>You must verify your email before you can post any logs</span>
-                </div>
+                <div class="col-lg-8">
+                    <div style="font-size: 15px;"><i class="fa fa-exclamation-circle" aria-hidden="true" style="color: red"></i>You must verify your email before you can post any logs</div>
+            </div>
+                    <div class="col-lg-4">
+                        <div style="font-size: 15px;">Not receiving your email? <a href="#" class="resend-email" data-email-address="<?php echo $checkEmail->email_address; ?>">Click here to resend</a></div>
+                    </div>
+            
             </div>
         </div>
     </div>
@@ -904,7 +914,7 @@ header h1 {
         <div class="container">
             <div class="row">
             </div>
-            <div class="dashboard-info-student well" <?php  if(isset($id_number)): ?> style="margin-top: 40px;" <?php else: ?><?php  if($checkEmail->status): ?> style="margin-top: 40px;" <?php  else: ?> style="margin-top: 20px;" <?php  endif;?> <?php endif; ?>">
+            <div class="dashboard-info-student well shadow" <?php  if(isset($id_number)): ?> style="margin-top: 40px;" <?php else: ?><?php  if($checkEmail->status): ?> style="margin-top: 40px;" <?php  else: ?> style="margin-top: 20px;" <?php  endif;?> <?php endif; ?>">
                 <div class="row">
                     <div class="col-lg-4">
 
@@ -979,7 +989,11 @@ header h1 {
                                             circle.path.setAttribute('stroke', state.color);
                                         }
                                     });
+                                    <?php if($rendered > $total): ?>
+                                     bar.animate(1.0);
+                                    <?php else: ?>
                                     bar.animate(<?php echo $rendered/$total?>); // Number from 0.0 to 1.0
+                                    <?php endif; ?>
                                 });
                             </script>
                           <?php endif; ?>
@@ -1107,7 +1121,7 @@ header h1 {
                 <div class="col-lg-4">
                   <?php if(isset($id_number)): ?>
                   <?php else: ?>
-                    <div class="panel panel-default">
+                    <div class="panel panel-default shadow">
                         <div class="panel-heading" style="text-align: center;">OJT Workmates</div>
                         <div class="panel-body">
                           <?php if(empty($workmates)): ?>
@@ -1128,7 +1142,7 @@ header h1 {
                             
                             </div>
                               <div class="col-lg-4">
-                               <a href="workmate/<?php echo $workmate['id_number']?>" style="font-size: 12px;"> View dashboard</a>
+                               <a href="<?php echo base_url('workmate') ?>/<?php echo $workmate['id_number']?>" style="font-size: 12px;"> View dashboard</a>
                               </div>
                           </div>
                           <?php endforeach;?>
@@ -1140,7 +1154,7 @@ header h1 {
                 <div class="col-lg-8">
                     <?php if(isset($id_number)): ?>
                     <?php else:?>
-                    <div class="logs-students">
+                    <div class="logs-students shadow">
                         
                           <div class="panel-heading">
                             <div class="logs-title">
@@ -1148,19 +1162,19 @@ header h1 {
                             </div>
                           </div>  
                           <div class="well" style="padding: 0;">
-                            <form class="logs-display" action="addLogs" method="post">
+                            <form class="logs-display" id="addLogs">
                                 <div class="row logs-upper">
                                     <div class="col-lg-6" style="padding-left: 30px;">
 
                                         <div class="form-group">
                                             <label>Date</label>
-                                            <input type="date" class="form-control" value="<?php echo date('Y-m-d')?>" name="log_date" id="log_date">
+                                            <input type="date" class="form-control" required value="<?php echo date('Y-m-d')?>" name="log_date" id="log_date">
                                             <label>Division</label>
-                                            <input type="text" class="form-control" name="division" id="division">
+                                            <input type="text" class="form-control" required name="division" id="division">
                                             <label>Deparment/Area</label>
-                                            <input type="text" class="form-control" name="department" id="department">
+                                            <input type="text" class="form-control" required name="department" id="department">
                                             <label>Designation</label>
-                                            <input type="text" class="form-control" name="designation" id="designation">
+                                            <input type="text" class="form-control" required name="designation" id="designation">
                                             <input type="hidden" name="supervisor_id" value="<?php echo $supervisor_id->supervisor_id; ?>">
                                         </div>
 
@@ -1209,7 +1223,7 @@ header h1 {
 
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="well" style="padding-bottom: 0; padding-top: 5px;">
+                                <div class="well shadow" style="padding-bottom: 0; padding-top: 5px;">
                                     <span class="user-name" style="font-size: 15px;"><?php echo $user_data[0]['first_name'] . " " . $user_data[0]['last_name']?></span>
                                     <?php if(isset($id_number)):?>
                                     <?php else:?>
@@ -1222,6 +1236,8 @@ header h1 {
                                             <li><a href="#" class="edit-log" style="color: #000000;">Edit <i class="fa fa-pencil" aria-hidden="true"></i></a></li>
                                             <li role="separator" class="divider"> </li>
                                             <li><a href="#" class="delete-log cd-popup-trigger" data-log-id="<?php echo $log['id']?>" style="color: #000000;">Delete <i class="fa fa-trash"></i></a></li>
+                                             <li role="separator" class="divider"> </li>
+                                            <li><a href="#" class="load-log" data-log-id="<?php echo $log['id']?>" style="color: #000000;">  Load log <i class="fa fa-sticky-note" aria-hidden="true"></i> </a></li>
                                         </ul>
 
                                     </div>
@@ -1240,7 +1256,7 @@ header h1 {
 
                                                     <div class="form-group show-more-right" style="display: none;">
                                                         <label>Date</label>
-                                                        <input type="text" class="list-logs date_listed" name="log_list_date" id="log_list_date" value="<?php echo $log['date']?>" readonly>
+                                                        <input type="text" class="list-logs date_listed" name="log_list_date" id="log_list_date" value="<?php echo date('F d Y',strtotime($log['date']))?>" readonly>
                                                         <label>Division</label>
                                                         <input type="text" class="list-logs division_listed" name="log_list_division" id="log_list_division" value="<?php echo $log['division']?>" readonly>
                                                         <label>Deparment/Area</label>
@@ -1329,14 +1345,16 @@ header h1 {
                         </div>
                         <?php endforeach;?>
                     <?php endif;?>
-
+                                
                 </div>
+
             </div>
             <!-- LOGSSSSS LISSSSSTTTT -->
 
         </div>
 
     </div>
+
     </div>
   
 </body>
@@ -1361,6 +1379,18 @@ header h1 {
        $("#show-notifications").hide();
     });
 
+    $('.resend-email').click(function(){
+      // alert('yoshee');
+      var email = $(this).data('email-address');
+      $.ajax({
+        url: 'resendEmail',
+        method: 'POST',
+        data: {
+          'email': email,
+        },
+      });
+    });
+
     // $('#time_out').blur(function(){ 
     //      var diff = ( new Date("1970-1-1 " + $('#time_out').val()) - new Date("1970-1-1 " + $('#time_in').val()) ) / 1000 / 60 / 60;
 
@@ -1383,29 +1413,46 @@ header h1 {
         e.preventDefault();
         var log_id = $(this).data('log-id');
         $('#display-log-id').html(log_id);
-        // queryLogId(log_id);
-        // function queryLogId(log_id){
-            
-        //     $.ajax({
-        //         method: 'POST',
-        //         url: 'getLogId',
-        //         data:{
-        //             'log_id': log_id,
-        //         },
-        //         success: function(data){
-        //             console.log(data);
-        //         }
-        //     })
-        // }
-        // alert(log_id);
+       
       
       
+    });
+    $('.load-log').click(function(e){
+      e.preventDefault();
+       var log_id = $(this).data('log-id');
+
+       $.ajax({
+          url: '<?php echo base_url('loadSpecificLog') ?>',
+          method: 'POST',
+          data:{
+            'log_id': log_id,
+          },
+
+          success: function(data){
+            var logdata = JSON.parse(data);
+             $('html,body').animate({ scrollTop: 0 }, 'slow');
+              $('.logs-upper').slideDown();
+        $('.logs-lower').slideDown();
+               // console.log(logdata.division);
+                $('#division').val(logdata.division);
+                $('#department').val(logdata.department);
+                $('#designation').val(logdata.designation);
+                $('#time_in').val(logdata.time_in);
+                $('#time_out').val(logdata.time_out);
+                $('#hours_rendered').val(logdata.hours_rendered);
+                $('#log_activity').val(logdata.log_content);
+
+          }
+
+       });
+
+       // alert(log_id);
     });
     $('.confirm-delete-log').click(function(){
         var log_id = $('#display-log-id').html();
         $.ajax({
             method: 'POST',
-            url: 'deleteLog',
+            url: '<?php echo base_url('deleteLog') ?>',
             data:{
                 'log_id': log_id,
             },
@@ -1452,7 +1499,7 @@ header h1 {
       
         $.ajax({
             method:'POST',
-            url:'editLog',
+            url:'<?php echo base_url('editLog') ?>',
             data: {
                 'log_id': log_id,
                 'date' : date,
@@ -1641,12 +1688,56 @@ header h1 {
   });
 </script>
 <script type="text/javascript">
+  $('#submit_log').click(function(e){
+    e.preventDefault();
+    var date = $('#log_date').val();
+    var date_now = '<?php echo date('Y-m-d') ?>';
+    var data = $('#addLogs').serialize();
+    var fail = false;
+     var fail_log = '';
+    $( '#addLogs' ).find( 'input[type=text], input[type=date], input[type=time], textarea' ).each(function(){
+            if( ! $( this ).prop( 'required' )){
+
+            } else {
+                if ( ! $( this ).val() ) {
+                    fail = true;
+                    name = $( this ).attr( 'style', 'border: 1px solid red' );
+                    fail_log += name + " is required ";
+                }else{
+                    name = $( this ).attr( 'style', 'border: 1px solid #ccc' );
+                }
+
+            }
+        });
+  if(!fail){
+    if(date > date_now){ 
+      swal('Oops...','You are not from the future.','error');return false;
+    }else{
+      $.ajax({
+        url:'addLogs',
+        method: 'POST',
+        data:data,
+        success: function(data){
+          if($.trim(data) == 'dateexist'){
+            swal('Oops...','You already posted a log on this date','error');return false;
+          }else{
+            location.reload();
+          }
+          
+        }
+      });
+    }
+  }else{
+    return false;
+  }
+    
+  });
   $(document).ready(function(){
         setInterval(function(){ 
-          //$('title').load(location.href + " title")
+          // $('title').load(location.href + " title")
           
-          // $('#notification-body').load(location.href + " #notification-body");
-          // $('#countUnread').load(location.href + " #countUnread");
+          $('#notification-body').load(location.href + " #notification-body");
+          $('#countUnread').load(location.href + " #countUnread");
           
      }, 5000);    
       

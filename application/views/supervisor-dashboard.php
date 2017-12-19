@@ -13,14 +13,21 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script src="<?php echo base_url()?>assets/js/progressbar/dist/progressbar.js"></script>
     <script src="<?php echo base_url()?>assets/js/progressbar/dist/progressbar.min.js"></script>
+
+
+
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script src="<?php echo base_url() ?>assets/js/jquery.easy-autocomplete.min.js"></script> 
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/easy-autocomplete.min.css"> 
+
+
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script src="<?php echo base_url();?>assets/js/swal.js"></script>
@@ -34,7 +41,11 @@
         }
         
         .jumbotron {
-            background-color: #871F21;
+<<<<<<< Updated upstream
+            background-color: #b71c1c ;
+=======
+            background-color: #b71c1c;
+>>>>>>> Stashed changes
             padding: 10px;
             color: #FFFFFF;
             font-size: 1.5em;
@@ -333,6 +344,7 @@
             overflow: hidden;
             width: 60%;
         }
+
         .evaluate-btn{
             background-color: #871F21;
             color: #FFFFFF !important;
@@ -341,6 +353,10 @@
             background-color:#791b1d;
             color: #FFFFFF !important;
         }
+        .shadow{
+    -webkit-box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.3);
+    box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.3);
+
     
     </style>
 
@@ -350,6 +366,7 @@
 
 </head>
 
+
 <body>
 
     <div class="page-wrap">
@@ -358,7 +375,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-4">
-                        <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
+                        <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height:50px;"></div>
                     </div>
                     <div class="col-lg-7">
 
@@ -385,7 +402,7 @@
                                     <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
                                     <li class="divider"></li>
 
-                                    <li><a href="logout">Log Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+                                    <li><a href="logout">Log Out <i class="fa fa-sign-out pull-right"></i></a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -401,7 +418,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <?php echo $this->session->flashdata('Status'); ?>
-                        <div class="jumbotron">Dashboard
+                        <div class="jumbotron shadow">Dashboard
                             <button class="btn btn-trainee" style="float: right;" data-target="#addtraineeModal" data-toggle="modal">+Trainee</button>
                         </div>
                     </div>
@@ -413,7 +430,7 @@
 
                     <div class="col-lg-4">
                         
-                    <div class="panel panel-default">
+                    <div class="panel panel-default shadow">
                             <div class="row">
                                 <div class="col-lg-12">
                                   <div class="panel-heading">
@@ -422,15 +439,16 @@
                                     <h4 style="text-align: center; margin-top: 10px;">Trainees Completed</h4>
                                   
                                   <div class="panel-body">  
-                                    <!-- if --><?php if(empty($ojtStatus['completed']) && empty($ojtStatus['not_completed'])):?>
+                                    <!-- if --><?php if(empty($ojtStatus['completed']) && empty($ojtStatus['all_stud'])):?>
                                     <!-- no studs -->
                                     <h3 style="text-align: center;"><?php echo "No Trainees Yet";?></h3>  
                                     <!-- else -->
                                 <?php else:?>
                                     <div class="progress skill-bar">
 
-                                        <div class="progress-bar progress-bar-first" role="progressbar" aria-valuenow="<?php echo ($ojtStatus['completed'] / $ojtStatus['not_completed'])*100 ?>" aria-valuemin="0" aria-valuemax="100">
-                                            <p class="skills"><?php echo $ojtStatus['completed'] .'/'. $ojtStatus['not_completed'];?></p>  
+                                        <div class="progress-bar progress-bar-first" role="progressbar" aria-valuenow="
+                                        <?php echo ($ojtStatus['completed'] / ($ojtStatus['all_stud'] == 0 ? $ojtStatus['completed'] : $ojtStatus['all_stud']))*100 ?>" aria-valuemin="0" aria-valuemax="100">
+                                            <p class="skills"><?php echo $ojtStatus['completed'] .'/'. ($ojtStatus['all_stud'] == 0 ? $ojtStatus['completed'] : $ojtStatus['all_stud']);?></p>  
                                         </div>
                                     </div>
                                     <!-- endif -->
@@ -478,7 +496,7 @@
                             </div>
                         </div>
 
-                        <div class="panel panel-default">
+                        <div class="panel panel-default shadow">
                             <div class="panel-heading">
                                 <h3 style="text-align: center; color: #FFFFFF;">Trainees</h3>
                             </div>      
@@ -491,11 +509,13 @@
                                                     <li><a href="#midterm-tab">Midterm</a></li>
                                                     <li><a href="#final-tab">Final</a></li>
                                                 </ul>
+
                                 <li id="midterm-tab">
                                     <table style="width: 100%;">
                                  
                                     <tbody>
                                         
+
                                         <?php foreach($ojtRecords as $student):?>
                                         <tr style="font-size: 15px; color: #000;">
                                             <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
@@ -516,28 +536,39 @@
                                        
                                                 
                                             <?php endif;?>
+
                                         </tr>
                                     <?php endforeach;?>
+
                                     </tbody>
+
                                     
                                    
                                                
                                 </table>
                             </li>
                                     
+
                                      <!-- FOR FINAL EVALUATION -->
                                       <li id="final-tab">
                                             <table style="width: 100%;">
                                  
-                                  
+
                                     <tbody>
                                       
                                         <?php foreach($ojtRecords as $student):?>
                                         <tr style="font-size: 15px; color: #000;">
                                             <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
                                             <?php if($student['ojtone_rendered'] < $student['ojtone_required']):?>
+
                                                 <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
-                                                
+
+
+
+                                                <script type="text/javascript">
+                                                   
+                                                </script>
+
 
                                             <?php else:?>
                                               
@@ -545,7 +576,7 @@
                                                 <?php if(in_array($student['id_number'], array_column($evaluated2, 'username'))):?>
                                                  <td><i class="fa fa-check" aria-hidden="true"></i></td>           
                                                 <?php else:?>
-                                            <td><a href="<?php echo base_url()?>main/final_evaluation/<?php echo $student['id_number']?>" class="btn evaluate-btn">Evaluate</a></td>
+                                            <td><a href="<?php echo base_url()?>main/finalevaluation/<?php echo $student['id_number']?>" class="btn evaluate-btn">Evaluate</a></td>
                                                 
                                         <?php endif;?>
 
@@ -557,6 +588,7 @@
                                     <?php endforeach;?>
 
                                     </tbody>
+
                                     
                                    
                                                
@@ -564,6 +596,7 @@
                                     </li>
                                 </div>
                                  <?php endif;?> 
+
                             </div>
 
                         </div>    
@@ -575,8 +608,10 @@
                         <?php else: ?>
                         <div class="row" style="margin-bottom: 20px;">
                             <div class="col-lg-5">
-                                <select class="form-control">
-                                    <option selected disabled>Select a trainee</option>
+                                  <label style="color:#000000;">Trainee</label>
+                                <select class="form-control" id="stud-filter">
+
+                                    <option selected value="">All</option>
                                     <?php foreach ($ojtRecords as $trainee): ?>
                                          <option value="<?php echo $trainee['id_number'] ?>"><?php echo $trainee['first_name'] . " " . $trainee['last_name']?></option>
                                     <?php endforeach; ?>
@@ -584,21 +619,26 @@
 
                             </div>
                             <div class="col-lg-5">
-                                <select class="form-control">
-                                    <option selected disabled>Log status</option>
-                                    <option>Pending</option>
-                                    <option>Verified</option>
+                                <label style="color:#000000;">Status</label>
+                                <select class="form-control" id="log-status">
+                                    <option selected value="all">All</option>
+                                    <option value="0">Pending</option>
+                                    <option value="1">Verified</option>
                                 </select>
                             </div>
                             
                         </div>
-
+                    <div id="wrap-log-section">
                 <?php $i=0; ?>
                     <?php foreach($traineesLog as $log):?>
                         <div class="row row-logs"  style="color:#000;">
                        
                              <div class="col-lg-12" >
-                                <div class="well" style="background: #fff; padding-bottom: 0; padding-top: 10px">
+<<<<<<< Updated upstream
+                                <div class="well " style="background: #fff; padding-bottom: 0; padding-top: 10px">
+=======
+                                <div class="well shadow" style="background: #fff; padding-bottom: 0; padding-top: 10px">
+>>>>>>> Stashed changes
                                     <span class="user-name"><a href="studentdashboard/<?php echo $log['id_number'];?>">
 
 
@@ -685,7 +725,7 @@
                                 
 
                                 
-                                     <div class="wrap-comments" id="wrap-comment-section<?php echo $i;?>">
+                                     <div class="wrap-comments" id="wrap-comment-section<?php echo $log['id'];?>">
                                      <div class="row display-comments">
                                         
                                             <div class="col-lg-12"> 
@@ -757,6 +797,7 @@
                     </div>
                 <?php endif; ?>
                 </div>
+                </div>
             </div>
 
         </div>
@@ -783,6 +824,18 @@
                             </select>
                         </div>
                     </form>
+                   
+                    <div class="row show-find-trainee" style="display: none;">
+                        <div class="col-lg-12">
+                              <input type="text" placeholder="Search for trainee" id="trainee-name" name="" style="width: 238%;">
+                              <input type="hidden" value="" id="trainee-username" name="" style="width: 238%;">
+                        </div>
+                    </div>
+              
+
+                    <a href="#"  id="find-trainee" style="font-size: 11px; float: right;">Not finding the trainee you're looking for?</a>
+
+
 
                 </div>
                 <div class="modal-footer">
@@ -860,6 +913,79 @@
 
 </body>
 <script type="text/javascript">
+
+    $('#log-status').change(function(){
+         var stud = $('#stud-filter').val();
+        var status = $(this).val();
+
+        $.ajax({
+            method:'POST',
+            url: 'filterLogsForSupervisor',
+            data: {
+                'status': status,
+                'stud_id': stud,
+            },
+            success: function(data){
+               $('#wrap-log-section').replaceWith(data);
+            }
+        });
+    });
+
+      $('#stud-filter').change(function(){
+ 
+         var status = $('#log-status').val();
+        var stud = $(this).val();
+          $.ajax({
+              method:'POST',
+              url: 'filterLogsForSupervisor',
+              data: {
+                  'status': status,
+                 'stud_id': stud,
+              },
+              success: function(data){
+                 $('#wrap-log-section').replaceWith(data);
+              }
+    
+        });
+  });
+</script>
+
+ <script type="text/javascript">
+   
+    $(document).ready(function(){
+
+
+       var options = {
+    url: "main/getTraineeNames",
+
+   getValue: function(element) {
+         return element.names;
+    },
+
+    list: {
+        onChooseEvent: function(element){
+           var value = $('#trainee-name').getSelectedItemData().username;
+
+            // $('#trainee-username');
+
+            $("#trainee-username").val(value).trigger("change");
+
+        },
+
+        match: {
+            enabled: true
+        },
+    }
+};
+    $("#trainee-name").easyAutocomplete(options);
+
+        
+    });
+
+
+ </script>
+
+<script type="text/javascript">
   
     function previewFile() {
      var preview = document.querySelector('#image-modal');
@@ -901,7 +1027,7 @@
 </script>
 
 <script type="text/javascript">
-    $('.comment-btn').click(function(e){
+    $('body').on('click','.comment-btn',function(e){
         e.preventDefault();
         var commentSection = $(this).closest("form").find(".comment-section");
         commentSection.toggle();
@@ -913,7 +1039,7 @@
 </script>
 
 <script type="text/javascript">
-    $('.verify-btn').click(function(e){
+    $('body').on('click','.verify-btn',function(e){
         e.preventDefault();
         var log_id = $(this).data('log-id');
         var pending = $(this).closest('form').find('.pending-log');
@@ -974,6 +1100,7 @@
                 var student_username = $(this).data('student-username');
                 var commentToAppend = $(this).closest("form").find(".display-comments");
                 var toReload = $(this).closest('.wrap-comments').attr('id');
+                 // alert(toReload);return false;
             if(!$.trim($(this).val())){
                 
             }else{
@@ -987,6 +1114,7 @@
                 },
                 success: function(data){
                    $('#'+toReload).load(location.href + ' ' + '#'+toReload);
+                   // $('#wrap-log-section').load(location.href + ' ' + ' #wrap-log-section');
                 },
             });
             }
@@ -996,7 +1124,7 @@
     });
 </script>
 <script type="text/javascript">
-    $('.show-more').click(function(){
+    $('body').on('click','.show-more',function(){
         var right = $(this).closest('form').find('.right-side');
         var left = $(this).closest('form').find('.left-side');
         var less_button = $(this).closest('form').find('.show-less');
@@ -1006,7 +1134,7 @@
         right.show();
         $(this).hide();
     });
-      $('.show-less').click(function(){
+      $('body').on('click','.show-less',function(){
         var right = $(this).closest('form').find('.right-side');
         var left = $(this).closest('form').find('.left-side');
         var more_button = $(this).closest('form').find('.show-more');
@@ -1020,7 +1148,17 @@
 <script type="text/javascript">
       $(document).ready(function(){
           $("#addTrainee").click(function () {
-            var studId = $('#names').val();
+                // var studId = '';
+               var studId = '';
+
+            if($('#trainee-name').val().length != 0){
+                 studId = $('#trainee-username').val();
+            }else{
+                studId = $('#names').val();
+            }
+            
+            // alert(studId);return false;
+
             if(studId == null){
              //alert("Select a trainee");
              swal('Oops...', 'Select a trainee', 'error');    
@@ -1033,17 +1171,28 @@
                     'supervisor_id': '<?php echo $this->session->userdata['id_number']?>',
                    },
                 success:function(data){
-                    swal({
+                    if($.trim(data) == 'error'){
+                        swal('Oops...','This student already has a supervisor','error');return false;
+                    }else{
+                         swal({
                         title: "Success!",
                         text: "Trainee added successfully",
                         icon: "success",
                     }).then(function(){
                         location.reload();
                     });
+                    }
+                   
                   },
               });  
             }
           
+          });
+
+          $('#find-trainee').click(function(e){
+            e.preventDefault();
+            $('#names').hide();
+            $('.show-find-trainee').show();
           });
        });
 </script>
@@ -1100,6 +1249,7 @@
         var commentContent = $(this).val();
         var toReload = $(this).closest('.wrap-comments').attr('id');
         var supervisor_id = $(this).data('supervisor-id');
+
          if(!$.trim($(this).val())){
                 
         }else{
@@ -1121,10 +1271,12 @@
      }
     });
 </script>
+
 <script type="text/javascript">
       $( function() {
     $( "#tabs" ).tabs();
   } );
 </script>
+
 
 </html>

@@ -353,123 +353,12 @@
        
 </body>
 
-
-<script type="text/javascript">
-    function scoreTotal(){
- var i1 = Number(document.getElementById('enthusiasm').value);
- var i2 = Number(document.getElementById('cooperation').value);
- var i3 = Number(document.getElementById('adaptability').value);
- var i4 = Number(document.getElementById('industriousness').value);
- var i5 = Number(document.getElementById('responsibility').value);
- var i6 = Number(document.getElementById('attentiveness').value);
- var i7 = Number(document.getElementById('grooming').value);
- var i8 = Number(document.getElementById('attendance').value);
- var i9 = Number(document.getElementById('quality').value);
- var i10 = Number(document.getElementById('quantity').value);
- var i11= Number(document.getElementById('dependability').value);
- var i12 = Number(document.getElementById('comprehension').value);
- var i13= Number(document.getElementById('safety').value);
- var i14= Number(document.getElementById('waste').value);
-
-  
- document.getElementById('total').value = i1+i2+i3+i4+i5+i6+i7+i8+((i9+i10+i11+i12+i13+i14)*2);
-
-
-    }
- 
-   
-
-    
-</script>
-<script type="text/javascript">
- $(function () {
-  $('[data-toggle="popover"]').popover();
-});
-    $('input').change(function(){
-        var rating = $(this).val();
-        if(rating > 5 || rating < 1){
-           
-            $(this).val('');
-        }
-    });
-
-</script>
-<script type="text/javascript">
-  $('#btn_submit').click(function(){ 
-    var data = $('#formy').serialize();
-     var fail = false;
-     var fail_log = '';
-     $( '#formy' ).find( 'input[type=text]' ).each(function(){
-            if( ! $( this ).prop( 'required' )){
-
-            } else {
-                if ( ! $( this ).val() ) {
-                    fail = true;
-                    name = $( this ).attr( 'style', 'border: 1px solid red' );
-                    fail_log += name + " is required ";
-                }else{
-                    name = $( this ).attr( 'style', 'border: 1px solid #ccc' );
-                }
-
-            }
-        });
-     if(!fail){
-            // alert("true");
-            // return false;
-              $.ajax({
-            url:"<?php echo base_url()?>main/insert_mid_eval/<?php echo $stud_username;?>",
-            type:"POST",
-            data:data,
-            success:function(data){
-              swal({
-
-                    title: "Evaluation Submitted",
-                    icon:"success",
-                }).then(function(){
-                   window.location.href = "<?php echo base_url()?>main/supervisorDashboard";
-                });return false;
-
-            }
-        });
-
-      
-
-
-     }
-     else{
-           
-            return false;
-
-     }
- });
-//     
-//         var data = $('#formy').serialize();
-//         //alert(data);
-//         $.ajax({
-//             url:"<?php echo base_url()?>main/insert_mid_eval/<?php echo $stud_username;?>",
-//             type:"POST",
-//             data:data,
-//             success:function(data){
-//                // console.log(data);
-//             }
-//         });
-
-//         swal({
-//                     title: "Evaluation Submitted",
-//                     icon:"success",
-//                 }).then(function(){
-//                    window.location.href = "<?php echo base_url()?>main/supervisorDashboard";
-//                 });return false;
-
-  
-//   });
-// 
-
-</script>
 <script type="text/javascript">
     $(document).ready(function(){
-
-        $('body').find('input, textarea').each(function(){
+         $(function () {
+  $('[data-toggle="popover"]').popover();
+});
+ $('body').find('input, textarea').each(function(){
             $(this).prop('readonly', true);
         });
     });

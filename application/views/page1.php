@@ -5,31 +5,33 @@
 <head>
     <link rel="icon" href="favicon.ico">
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/bootstrap.min.css">
+    <script src="<?php echo base_url() ?>assets/js/jquery.min.js"></script>
 
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/bootstrap-theme.min.css" >
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="<?php echo base_url() ?>assets/js/bootstrap.min.js"></script>
     
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=ABeeZee' rel='stylesheet'>
-    <link rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
 
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
    
     <!-- Datepicker -->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
 
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!--     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
     <script src="<?php echo base_url() ?>assets/js/swal.js"></script>
-
+        <script src="<?php echo base_url() ?>assets/js/jquery-1.12.4.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/jquery-ui.js"></script>
+    <link rel="stylesheet" href="<?php  echo base_url() ?>assets/css/jquery-ui.css">
 
     <style type="text/css">
         *{
@@ -254,16 +256,16 @@
                                          echo '<option value="1st Year" selected hidden>1st Year</option>';
                                     } ?>
                                     <?php if ($initial_data[0]['year']==2) {
-                                         echo '<option value="1st Year" selected hidden>2nd Year</option>';
+                                         echo '<option value="2nd Year" selected hidden>2nd Year</option>';
                                     } ?>
                                     <?php if ($initial_data[0]['year']==3) {
-                                         echo '<option value="1st Year" selected hidden>3rd Year</option>';
+                                         echo '<option value="3rd Year" selected hidden>3rd Year</option>';
                                     } ?>
                                     <?php if ($initial_data[0]['year']==4) {
-                                         echo '<option value="1st Year" selected hidden>4th Year</option>';
+                                         echo '<option value="4th Year" selected hidden>4th Year</option>';
                                     } ?>
                                     <?php if ($initial_data[0]['year']==5) {
-                                         echo '<option value="1st Year" selected hidden>5th Year</option>';
+                                         echo '<option value="5th Year" selected hidden>5th Year</option>';
                                     } ?><!-- <option selected disabled>Year</option> -->
                                     <option value="1st Year">1st Year</option>
                                     <option value="2nd Year">2nd Year</option>
@@ -337,12 +339,23 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" name="religion" placeholder="Religion" id="religion" required>
+                                <!-- <input type="text" name="sex" placeholder="Sex" id="sex" required> -->
+                                <select name="sex" id="sex" required>
+                                    <option selected hidden>Sex</option>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                </select>
                             </div>
                             <div class="col-lg-6">
                                 <input type="text" name="citizenship" placeholder="Citizenship" id="citizenship" required>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <input type="text" name="religion" placeholder="Religion" id="religion" required>
+                            </div>  
+                        </div>
+
                         <h2 class="fs-title">Family Data <i class="fa fa-users" aria-hidden="true"></i></h2>
                         <div class="row">
                             <div class="col-lg-6">
@@ -367,7 +380,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-3">
+                            <div class="col-lg-4">
                               <input type="radio" id="parent_rad_1" class="parent_address" value="address" name="address"><label for="parent_rad_1" class="parent_address" style="margin-left: 3px;">Same as my Present Address</label>
                             </div>
                             <div class="col-lg-4">
@@ -407,11 +420,11 @@
                          </div> -->
                          <div class="row">
                             <div class="col-lg-3">
-                              <input type="radio" id="emergency_rad_1" class="address" value="address" name="address"><label for="emergency_rad_1" class="address" style="margin-left: 3px;">Same as my Present Address</label>
+                              <input type="radio" id="emergency_rad_1" class="address" value="address" name="address2"><label for="emergency_rad_1" class="address" style="margin-left: 3px;">Same as my Present Address</label>
              
                             </div>
                             <div class="col-lg-4">
-                                <input type="radio" id="emergency_rad_2" value="address" name="address" class="address"><label for="emergency_rad_2" class="address" style="margin-left: 3px;">Same as my Permanent Address</label>
+                                <input type="radio" id="emergency_rad_2" value="address" name="address2" class="address"><label for="emergency_rad_2" class="address" style="margin-left: 3px;">Same as my Permanent Address</label>
                             </div>
                         <div style="float: right;margin-top: 20px">
                             <!-- <a class="topage2 first-next" href="#" id="firstNext">Next</a> -->
@@ -608,7 +621,7 @@
                         <div style="margin-top: 50px" class="fs-title">
                             <h1>Almost Done!</h1>
                             <h4 style="margin-top: 50px">Just one more step and you are done.</h4>
-                            <h5>An email verification link has been sent to your email address. Please verify your email so that you can activate your account.</h5>
+                            <h5>An email verification link has been sent to your email address. Please verify your email to activate your account.</h5>
                         </div>
                         <div style="margin-top: 70px">
                             <a class="topage3 second-previous" href="#" hidden="">PREVIOUS</a>
@@ -674,6 +687,7 @@
 
 <!-- VALIDATE EMAIL -->
 <script type="text/javascript">
+    
     function validateEmail(email) {
       var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
@@ -828,7 +842,7 @@
               text: "You are about to submit this form. Please make sure that the email you provided is an active one :)",
               icon: "warning",
               buttons: true,
-              buttons: ["Cancel", "Okay"],
+              buttons: ["CANCEL", "PROCEED"],
               dangerMode: true,
             })
             .then((yes) => {

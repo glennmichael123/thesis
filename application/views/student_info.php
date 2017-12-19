@@ -6,19 +6,22 @@
 <head>
     <link rel="icon" href="favicon.ico">
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/bootstrap.min.css">
+    <script src="<?php echo base_url() ?>assets/js/jquery.min.js"></script>
 
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/bootstrap-theme.min.css" >
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+     <script src="<?php echo base_url() ?>assets/js/bootstrap.min.js"></script>
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
     <script src="<?php echo base_url()?>assets/js/progressbar/dist/progressbar.js"></script>
     <script src="<?php echo base_url()?>assets/js/progressbar/dist/progressbar.min.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/jquery-1.12.4.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <style type="text/css">
         *{
@@ -190,6 +193,21 @@
     .dropdown-menu .divider{
   margin: 0;
 }
+.ui-tabs .ui-tabs-nav li {
+    list-style: none;
+    float: left;
+    position: relative;
+    top: 0;
+    margin: 1px .2em 0 0;
+    border-bottom-width: 0;
+    padding: 0;
+    white-space: nowrap;
+    font-size: 13px;
+}
+.shadow{
+    -webkit-box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.3);
+    box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.3);
+}
 
         
         
@@ -203,7 +221,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-4">
-                        <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 120px;"></div>
+                        <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height: 50px;"></div>
                     </div>
                     <div class="col-lg-7">
                     </div>
@@ -212,7 +230,7 @@
 
                           <ul class="nav navbar-nav">
                             <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown"><img src="<?php echo base_url();?>/assets/images/snow.jpg" class="pull-right circular-square" style="width: 40px; height: 40px; margin-top: -11px;"> </a>
+                              <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown"> <i class="fa fa-user-circle fa-3x circular-square pull-right" style="width: 40px; height: 40px; margin-top: -10px;"></i> </a>
                               <ul class="dropdown-menu" id="show-logout">
                                 <li><a href="<?php echo base_url('admindashboard')?>">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                 <li class="divider"></li>
@@ -236,7 +254,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="well top">
+                        <div class="well top shadow">
                             <div class="row">
                     <div class="col-lg-4">
 
@@ -311,7 +329,11 @@
                                             circle.path.setAttribute('stroke', state.color);
                                         }
                                     });
+                                     <?php if($rendered > $total): ?>
+                                     bar.animate(1.0);
+                                    <?php else: ?>
                                     bar.animate(<?php echo $rendered/$total?>); // Number from 0.0 to 1.0
+                                    <?php endif; ?>  // Number from 0.0 to 1.0
                                 });
                             </script>
                           <?php endif; ?>
@@ -434,9 +456,12 @@
                         </div>
                     </div>
                 </div>
+                <?php if(empty($personalDetails)): ?>
+                    <h1 style="color:#000; text-align: center;">This student has not registered yet.</h1>
+                <?php else: ?>
                 <div class="row">
                     <div class="col-lg-4">
-                        <div class="well">
+                        <div class="well shadow">
                             <div class="profile-container" style="text-align: center;">
                                 
                                     <div class="profile-image">
@@ -458,8 +483,16 @@
                                     </div>
                                    
                             </div>
-                        </div>    
-                        <div class="well" style="color: #000; padding-top: 0; overflow: hidden;">
+                        </div> 
+                        <!-- <div>Start of Personal Details Well</div>  -->
+                        <div id="tabs">
+                            <ul>
+                                <li><a href="#personal-info">Personal</a></li>
+                                <li><a href="#family-info">Family</a></li>
+                                <li><a href="#emergency-info">Emergency </a></li>
+                                <li><a href="#company-info">Company</a></li>
+                            </ul>  
+                        <div class="well" id="personal-info"style="color: #000; padding-top: 0; overflow: hidden;">
                         <div class="row">
                              <div class="col-lg-12" style="text-align: center;">
                                 <h4>Personal Information</h4>
@@ -598,9 +631,106 @@
                                      <span style="font-size: 13px;"><?php echo $personalDetails[0]['weight'] ?></span>
                                  </div>
                              </div>
-                             
                          </div>
-                       
+                        <!--  <div>End of Personal Details Well</div> -->
+                        <!-- <div>Start of Family Details Well</div>  -->
+                       <div class="well" id="family-info" style="color: #000000 !important;">
+                        <h4 style="text-align: center; margin: 0 !important; padding: 0 !important;">Family Details</h4>
+                           <div class="row" style="margin-top: 10px;">
+
+                               <div class="col-lg-6"><label style="font-size: 13px">Father's Name</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $familydetails->fathers_name; ?></span></div>
+                           </div>
+                           <div class="row">
+                               <div class="col-lg-6"><label>Father's Occupation</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $familydetails->fathers_occupation; ?></span></div>
+                           </div>
+
+                            <div class="row">
+                               <div class="col-lg-6"><label>Mother's Name</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $familydetails->mothers_name; ?></span></div>
+                           </div>
+
+                           <div class="row">
+                               <div class="col-lg-6"><label>Mother's Occupation</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $familydetails->mothers_occupation; ?></span></div>
+                           </div>
+
+                            <div class="row">
+                               <div class="col-lg-6"><label>Parent's Address</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $familydetails->parents_address; ?></span></div>
+                           </div>
+
+                           <div class="row">
+                               <div class="col-lg-6"><label>Contact Number</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $familydetails->contact_number; ?></span></div>
+                           </div>
+                       </div>
+                       <!--  <div>End of Personal Details Well</div> -->
+                        <!-- <div>Start of Emergency Details Well</div>  -->
+                       <div class="well" id="emergency-info" style="color: #000000 !important;">
+                        <h4 style="text-align: center; margin: 0 !important; padding: 0 !important;">Emergency Details</h4>
+                           <div class="row" style="margin-top: 10px;">
+
+                               <div class="col-lg-6"><label style="font-size: 13px">Contact Name</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $emergency->name; ?></span></div>
+                           </div>
+                           <div class="row">
+                               <div class="col-lg-6"><label>Relationship</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $emergency->relationship; ?></span></div>
+                           </div>
+
+                            <div class="row">
+                               <div class="col-lg-6"><label>Contact Number</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $emergency->contact_number; ?></span></div>
+                           </div>
+
+                           <div class="row">
+                               <div class="col-lg-6"><label>Contact Address</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $emergency->address; ?></span></div>
+                           </div>
+                       </div>
+                       <!--  <div>End of Emergency Details Well</div> -->
+                       <!-- <div>Start of Company Details Well</div>  -->
+                        <div class="well" id="company-info" style="color: #000000 !important; word-wrap: break-word;">
+                        <h4 style="text-align: center; margin: 0 !important; padding: 0 !important;">Company Information</h4>
+                           <div class="row" style="margin-top: 10px;">
+
+                               <div class="col-lg-6"><label style="font-size: 13px">Company Name</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $company->company_name; ?></span></div>
+                           </div>
+                           <div class="row">
+                               <div class="col-lg-6"><label>Company Address</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $company->company_address; ?></span></div>
+                           </div>
+
+                            <div class="row">
+                               <div class="col-lg-6"><label>Contact Number</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $company->contact_number; ?></span></div>
+                           </div>
+
+                           <div class="row">
+                               <div class="col-lg-6"><label>Fax Number</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $company->fax_number; ?></span></div>
+                           </div>  
+
+                            <div class="row">
+                               <div class="col-lg-6"><label>Product Lines</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $company->product_lines; ?></span></div>
+                           </div>
+
+                            <div class="row">
+                               <div class="col-lg-6"><label>Company Classification</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $company->company_classification; ?></span></div>
+                           </div>
+
+                             <div class="row">
+                               <div class="col-lg-6"><label>Number of Employees</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $company->number_of_employees; ?></span></div>
+                           </div>
+                       </div>
+                       <!-- <div>End of Company Details Well</div>  -->
+                       </div>
                     </div>
                     <div class="col-lg-8">
                          <?php foreach($logs_list as $log):?>
@@ -676,7 +806,7 @@
 
 
                                                     <?php foreach ($comments as $comment):?>
-                                                    <?php if(in_array($log['id'], $comment)):?>
+                                                    <?php if($log['id'] == $comment['log_id']):?>
 
                                                         <!-- <div class="well" style="box-shadow: none; border: none; background: #f7f7f7; padding: 10px; margin-bottom: 10px;"> -->
                                                          <div class="comments-list" style="font-size: 12px; margin-bottom: 10px; color: #000;">
@@ -702,12 +832,13 @@
                             </div>
                         </div>
                         <?php endforeach;?>
+                         <p><?php echo $links; ?></p>
                     </div>
                 </div>
             </div>
      </div>                         
                                         
-                           
+                           <?php endif; ?>
      
 
        
@@ -754,6 +885,10 @@
        
     });
 </script>
-
+<script type="text/javascript">
+    $( function() {
+    $( "#tabs" ).tabs();
+    });
+</script>
 
 </html>

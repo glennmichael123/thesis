@@ -60,6 +60,7 @@ $route['changepassword']  = 'main/changepassword';
 $route['addLogs']  = 'main/addLogs';
 $route['editLog']  = 'main/editLog';
 $route['deleteLog']  = 'main/deleteLog';
+$route['loadSpecificLog']  = 'main/loadSpecificLog';
 $route['saveImage']  = 'main/saveImage';
 $route['savePassword']  = 'main/savePassword';
 $route['supervisorSaveImage']  = 'main/supervisorSaveImage';
@@ -70,6 +71,7 @@ $route['admindashboard']  = 'main/adminDashboard';
 $route['ojtform']  = 'main/ojtform';
 $route['truncate']  = 'main/truncate';
 $route['adminAddSupervisor']  = 'main/adminAddSupervisor';
+$route['adminAddAdmin']  = 'main/adminAddAdmin';
 $route['addTrainee']  = 'main/addTrainee';
 $route['saveCSV']  = 'main/saveCSV';
 $route['addWatchlist']  = 'main/addWatchlist';
@@ -79,13 +81,25 @@ $route['addStudent']  = 'main/addStudent';
 $route['editProfilePersonal']  = 'main/editProfilePersonal';
 $route['editProfileFamily']  = 'main/editProfileFamily';
 $route['editProfileCompany']  = 'main/editProfileCompany';
+$route['editProfileEmergency']  = 'main/editProfileEmergency';
 $route['editComment']  = 'main/editComment';
 $route['insertCompanyClassification']  = 'main/insertCompanyClassification';
 $route['saveEmail']  = 'main/saveEmail';
 $route['insertRegistration']  = 'main/insertRegistration';
 $route['studentdashboard/(:any)']  = 'main/studentDashboard/$1';
 $route['viewmidterm/(:any)']  = 'main/viewMidterm/$1';
+$route['viewfinal/(:any)']  = 'main/viewFinal/$1';
 $route['workmate/(:any)']  = 'main/workmate/$1';
 $route['studentinfo/(:any)']  = 'main/studentInfo/$1';
+$route['deleteStudent']  = 'main/deleteStudent';
+$route['filterLogsForSupervisor']  = 'main/filterLogsForSupervisor';
+$route['confirmSend']  = 'main/confirmSend';
+$route['resendEmail']  = 'main/resendEmail';
+$route['incorrectpassword']  = 'main/incorrectpassword';
+$route['updatePostContent']  = 'main/updatePostContent';
+$route['deletePostContent']  = 'main/deletePostContent';
+$route['incorrectpassword']  = 'main/incorrectpassword';
+
+
 
 

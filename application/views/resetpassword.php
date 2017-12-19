@@ -1,4 +1,4 @@
-
+<?php echo $_GET['username']; ?>
 <!DOCTYPE html>
 <html>
 
@@ -115,34 +115,28 @@
                     <div class="col-lg-4">
                     </div>
                     <div class="col-lg-4">
-                         <h3 style="text-align: center;">Change password</h3>
-                        <form class="well" action="savePassword" method="POST">
-                            <div class="form-group">
-                                <label for="old_password">Old password</label>
-                                <input type="password" id="old_password"  name="old_password" class="form-control" required="required">
-                            </div>
+                         <h3 style="text-align: center;">Reset password</h3>
+                        <div class="well">
+                          
                             <div class="form-group">
                                 <label for="newpass">New password</label>
-                                <input type="password" name="newpass"  class="form-control" id="newpass" required="required">
+                                <input id="password" name="newpass" type="password" class="form-control"  pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : ''); if(this.checkValidity()) form.password_two.pattern = this.value;" placeholder="New Password" required>
                             </div>
                             <div class="form-group">
                                 <label for="confirm_newpass">Confirm password</label>
-                                <input type="password" name="confirm_newpass" class="form-control" id="confirm_newpass" required="required">
+                                <input id="password_two" name="confirm_newpass" type="password" pattern="^\S{6,}$" class="form-control"  onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');" placeholder="Verify Password" required>
                             </div>
                             <div class="error">
 
                             </div>
                             <div class="form-group">
-                                <button type="button" id="save-changes" class="btn save">Save changes</button>
-                                <?php if($this->session->userdata['account_type'] == 'student'):?>
-                                <a href="dashboard" id="cancel" class="btn cancel" style="float: right;width: 115px">Cancel</a>
-                            <?php elseif($this->session->userdata['account_type'] == 'supervisor'):?>
-                                 <a href="supervisordashboard" id="cancel" class="btn cancel" style="float: right;width: 115px">Cancel</a>
-                            <?php elseif($this->session->userdata['account_type'] == 'admin'):?>
-                                 <a href="admindashboard" id="cancel" class="btn cancel" style="float: right;width: 115px">Cancel</a>
-                             <?php endif;?>
+                                <input type="submit" id="save-changes" data-username="<?php echo $_GET['username'] ?>" class="btn save">
+                                
+                                <a href="index" id="cancel" class="btn cancel" style="float: right;width: 115px">Cancel</a>
+                            
+                             
                             </div>
-                        </form>
+                        </div>
                     </div>
                     <div class="col-lg-4">
                         
@@ -153,55 +147,37 @@
         </div>
         <div class="footer" style="display: none;">
         </div>
+        
+
+
 </body>
-
-<script type="text/javascript">
-
-   $("#save-changes").click(function(){
-    var pass1=$("#newpass").val();
-    var pass2=$("#confirm_newpass").val();
-    var oldpass=$("#old_password").val();
-
-    if(pass1!=pass2 || pass1=="" || pass2==""){
-        $("#newpass").css("border","1px solid red");
-        $("#confirm_newpass").css("border","1px solid red");
-        $(".error").html("Passwords do not match!");
-        $("#newpass").val('');
-        $("#confirm_newpass").val('');
-        $('.error').html('Passwords do not match');
-        return false;
-    }else{
+<script type="">
+    $('#save-changes').click(function(){ 
+        var newpass = $('#password').val();
+        var newpass2 = $('#password_two').val();
+        var username = $(this).data('username');
+        // console.log(username);return false;
         $.ajax({
-            url: "savePassword",
-            type: "POST",
+            url: 'resetPass',
+            method: 'POST',
             data:{
-                'newpass': pass1,
-                'confirm_newpass': pass2,
-                'old_password': oldpass,
+                'newpass': newpass,
+                'newpass_two': newpass2,
+                'username': username,
             },
-            success:function(data){
-                var type = data;
-                if($.trim(data) == "old_not_match_student"){
-                    swal('Oops..', 'Old password did not match', 'error');return false;
-                }else if($.trim(data) == "old_not_match_supervisor"){
-                    swal('Oops..', 'Old password did not match', 'error');return false;
-                }else if($.trim(data) == "old_not_match_admin"){
-                    swal('Oops..', 'Old password did not match', 'error');return false;
-                }else{
-                    swal({
-                        title: "Success",
-                        text: "Password changed",
-                        icon: "success",
-                    }).then(function(){
-                       window.location.replace("dashboard");
-                    });
-                }
-            },
+            success: function(data){
+                alert(data);
+                // window.location.href = "index";   
+                  swal({
+                    title: "Password Successfully Changed",
+                    icon:"success",
+                }).then(function(){
+                   window.location.href = "index";
+                });           
+            }
+        })
+ }); 
 
-        });
-    }
-
-   });
 </script>
 
 </html>
