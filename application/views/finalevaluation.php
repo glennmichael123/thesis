@@ -85,7 +85,7 @@
     </style>
     <body>
     <header>
-      <h1 class="heading">On-The-Job Training (OJT)</h1>
+      <h1 class="heading">On-The-Job Training</h1>
       <h3 class="heading">Performance Evaluation Report</h3>
     </header>
     <div id="wrapper">
@@ -124,7 +124,7 @@
               <div class="col l3">
                 <div class="input-field">
                   <label for="#major">Major</label>
-                  <input type="text" name="fmajor" id="fmajor" required class="validate">
+                  <input type="text" name="fmajor" id="fmajor" class="validate">
                 </div>
               </div>
              </div>
@@ -321,10 +321,12 @@
                 <div class="collapsible-header"><i class="fa fa-pencil" aria-hidden="true"></i>Recommendation</div>
                 <div class="collapsible-body" style="padding: 10px;">
                   <textarea name="recommend" class="materialize-textarea" placeholder="Write your recommendation here..."></textarea>
-
                 </div>
               </li>
              </ul>
+              <div class="allow">
+                   <input type="checkbox" id="allow-view" name="allow_view" value="true" checked><label for="allow-view" style="color: #23807e; font-size: 14px;"> Allow OJT to view evaluation</label>
+              </div>        
              <p style="text-align: center;">
              <button type="submit" id="btn_submit2" data-stud-user="<?php echo $stud_username; ?>" class="btn btn-primary">Submit</button>
              <button type="button" class="btn btn-danger" id="btnCancel">Cancel</button>
@@ -408,49 +410,49 @@
         var rating = $(this).val();
         if(rating > 20 || rating < 1){
            
-            $(this).val('');
+            $(this).val('20');
         }
     });
       $('#fquality2').change(function(){
         var rating = $(this).val();
         if(rating > 20 || rating < 1){
            
-            $(this).val('');
+            $(this).val('20');
         }
     });
         $('#fdependability').change(function(){
         var rating = $(this).val();
         if(rating > 15 || rating < 1){
            
-            $(this).val('');
+            $(this).val('15');
         }
     });
           $('#fattendance').change(function(){
         var rating = $(this).val();
         if(rating > 15 || rating < 1){
            
-            $(this).val('');
+            $(this).val('15');
         }
     });
             $('#fcooperation').change(function(){
         var rating = $(this).val();
         if(rating > 10 || rating < 1){
            
-            $(this).val('');
+            $(this).val('10');
         }
     });
               $('#fjudgement').change(function(){
         var rating = $(this).val();
         if(rating > 10 || rating < 1){
            
-            $(this).val('');
+            $(this).val('10');
         }
     });
                 $('#fpersonality').change(function(){
         var rating = $(this).val();
         if(rating > 10 || rating < 1){
            
-            $(this).val('');
+            $(this).val('10');
         }
     });
 

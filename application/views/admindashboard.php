@@ -12,7 +12,8 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <!-- Latest compiled and minified JavaScript -->
     <script src="<?php echo base_url()?>assets/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>assets/css/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css">
    <script src="<?php echo base_url()?>assets/js/chart.min.js"></script>
    <script src="<?php echo base_url()?>assets/js/chart.js"></script>
    <script src="<?php echo base_url()?>assets/js/chart.bundle.min.js"></script>
@@ -481,10 +482,6 @@ tr:hover{
                                 });
                                 </script>
                       </div>
-
-          
-                    
-            
                     </div>
                 </div>    
            </div>
@@ -541,10 +538,23 @@ tr:hover{
                         </div>
 
                     </div>
+                    <div id="wrap-students">
                     <div class="well dashboard-list">
 
                       <?php if(empty($student_list)):?>
-                          No students yet.
+                          <table id="adminDataTable" class="table table-bordered" cellspacing="0" width="100%" style="font-size: 13px;">
+                            <thead>
+                                <tr style="background-color: #f44336; color:white;">
+                                    <th style="text-align: center;width: 45px"><input type="checkbox" id="checkall"></th>
+                                    <th>Name</th>
+                                    <th>Course & Year</th>
+                                    <th>School Year</th>
+                                    <th>Evaluations(OJT1)</th>
+                                    <!-- <th>Evaluations(OJT2)</th> -->
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                          </table>
                       <?php else:?>
                       <form action="deleteStudent" method="POST" name="formDel">
                             <table id="adminDataTable" class="table table-bordered" cellspacing="0" width="100%" style="font-size: 13px;">
@@ -554,8 +564,7 @@ tr:hover{
                                             <th>Name</th>
                                             <th>Course & Year</th>
                                             <th>School Year</th>
-                                            <th> OJT-1 Evaluations</th>
-                                            <th>OJT-2 Evaluations</th>
+                                            <th>Evaluations [ OJT1 ]</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
@@ -580,7 +589,6 @@ tr:hover{
                                                 <?php else: ?>
                                                     | <a style="color: gray">Final <i class="fa fa-times-circle"></i></a> 
                                                 <?php endif; ?>
-
                                               </td>
                                               <td>
                                                 <?php if ($student['ojtone_current_evaluations'] == 1 || $student['ojtone_current_evaluations'] == 2 || $student['ojttwo_current_evaluations'] == 1 || $student['ojttwo_current_evaluations'] == 2): ?>
@@ -596,7 +604,7 @@ tr:hover{
                                                     | <a style="color: gray">Final <i class="fa fa-times-circle"></i></a> 
                                                 <?php endif; ?>
 
-                                              </td>   
+                                              </td>
                                               <?php if ($student['ojtone_rendered'] >= $student['ojtone_required'] && $student['ojtone_current_evaluations'] == 2):?>
                                                   <td style="color:green;">OJT-1 Completed</td>
                                                 <?php else :?>
@@ -610,6 +618,7 @@ tr:hover{
                             <?php endif;?>
                         </form>
                     </div><!-- end of well -->
+                     </div>
                 </div>
            </div>
         </div>
@@ -638,28 +647,32 @@ tr:hover{
                     <textarea class="form-control" style="resize: none; border-radius: 5px" id="announcement_message" name="msg"></textarea>
               </div>
               <div id="viewPosts" style="display: none">
-                <?php foreach ($announcements as $post):?>
+                <?php if (empty($announcements)):?>
+                  <p style="text-align: center;color: gray;font-size: 13px;padding: 20px">You have no announcements posted</p>
+                <?php else:?>
+                  <?php foreach ($announcements as $post):?>
 
-                    <div class="well" style="margin-bottom: 10px;background: #f8f8f8">
-                      <div class="row">
-                        <div class="col-lg-12">
-                          <input type="hidden" class="post_id" value="<?php echo $post['announcement_id'];?>">
-                           <p style="font-weight: bold;color: #337ab7;" class="postDate"><?php echo date('F d, Y',strtotime($post['date_posted'])) ?></p>
-                          <textarea style="font-size: 13px;color:#616161;width: 100%;resize:none;border: none;background: none" class="postContent" spellcheck="false" readonly><?php echo $post['content']; ?></textarea>
-                        </div>  
-                      </div>
-                      <div class="row" style="margin-top: 5px;">
-                        <div class="col-lg-6">
-                          <i class="fa fa-pencil-square" style="font-size: 20px;margin-right:3px;color: gray" aria-hidden="true" id="postEdit" title="Edit post"></i>
-                          <i class="fa fa-trash postDelete" style="font-size: 20px;color: gray"  aria-hidden="true" title="Delete post"></i>
+                      <div class="well" style="margin-bottom: 10px;background: #f8f8f8">
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <input type="hidden" class="post_id" value="<?php echo $post['announcement_id'];?>">
+                             <p style="font-weight: bold;color: #337ab7;" class="postDate"><?php echo date('F d, Y',strtotime($post['date_posted'])) ?></p>
+                            <textarea style="font-size: 13px;color:#616161;width: 100%;resize:none;border: none;background: none" class="postContent" spellcheck="false" readonly><?php echo $post['content']; ?></textarea>
+                          </div>  
                         </div>
-                        <div class="col-lg-3 col-lg-offset-3" id="postSaveCancel" style="display: none">
-                          <a href="#" style="font-size: 10px;margin-right: 3px;" id="saveEdit">SAVE</a>
-                          <a href="#" style="font-size: 10px;" id="cancelEdit">CANCEL</a>
+                        <div class="row" style="margin-top: 5px;">
+                          <div class="col-lg-6">
+                            <i class="fa fa-pencil-square" style="font-size: 20px;margin-right:3px;color: gray" aria-hidden="true" id="postEdit" title="Edit post"></i>
+                            <i class="fa fa-trash postDelete" style="font-size: 20px;color: gray"  aria-hidden="true" title="Delete post"></i>
+                          </div>
+                          <div class="col-lg-3 col-lg-offset-3" id="postSaveCancel" style="display: none">
+                            <a href="#" style="font-size: 10px;margin-right: 3px;" id="saveEdit">SAVE</a>
+                            <a href="#" style="font-size: 10px;" id="cancelEdit">CANCEL</a>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                <?php endforeach; ?>
+                  <?php endforeach; ?>
+                <?php endif; ?>
               </div>
             </form>
 
@@ -670,7 +683,6 @@ tr:hover{
                      <button type="button" class="btn btn-success btn-hover-green" data-action="save" role="button" style="width: 270px;border-radius: 5px" id="postAnnouncement">Post</button>
                 </div>
                 <div class="btn-group" role="group">
-                   
                     <button type="button" class="btn btn-danger" data-dismiss="modal"  role="button" style="width: 270px;border-radius: 5px; float: right">Cancel</button>
                 </div>
             </div>
@@ -1092,25 +1104,10 @@ tr:hover{
 <script type="text/javascript">
    $(document).ready(function(){
       var table = $('#adminDataTable').DataTable({
-        "bProcessing": true,   
+        "bProcessing": true,
         "order": [1, 'asc'],
-        //"columns": [{"targets": 0, "orderable": false },null,null,null,null,null],
-        "columns": [{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false }],
+        "columns": [{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false }],
       });
-
-      // $('body').on('change','#course_option',function(){
-      //     //$('#filterForm').submit();
-      //     var filters = $('#filterForm').serialize();
-      //     $.ajax({
-      //         url: "filterStudent",
-      //         type: "POST",
-      //         data: filters,
-      //         success: function(data){
-
-      //           $('#adminDataTable').load(location.href + " #adminDataTable");
-      //         }
-      //     });
-      // });
 
       $('#course_option').change(function(){
           // $('#filterForm').submit();
@@ -1118,8 +1115,6 @@ tr:hover{
           var eval = $('#eval_option').val();
           var status = $('#status_option').val();
           var sy = $('#sy_option').val();
-          // var test = '<tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>';
-          // $("tbody").replaceWith();return false;
           $.ajax({
               url : "filterStudent",
               type: "POST",
@@ -1130,7 +1125,7 @@ tr:hover{
                 'sy': sy,
               },
               success: function(data){
-                 $('tbody').replaceWith(data);
+                 $('#wrap-students').replaceWith(data);
               }
 
           })
@@ -1151,7 +1146,7 @@ tr:hover{
                 'sy': sy,
               },
               success: function(data){
-                 $('tbody').replaceWith(data);
+                  $('#wrap-students').replaceWith(data);
               }
 
           })
@@ -1175,7 +1170,7 @@ tr:hover{
                 'sy': sy,
               },
               success: function(data){
-                 $('tbody').replaceWith(data);
+                  $('#wrap-students').replaceWith(data);
               }
 
           })
@@ -1197,7 +1192,7 @@ tr:hover{
                 'sy': sy,
               },
               success: function(data){
-                 $('tbody').replaceWith(data);
+                  $('#wrap-students').replaceWith(data);
               }
 
           })
@@ -1439,6 +1434,10 @@ tr:hover{
     var ojt2_required = $('#studojt2').val();
     var sy_1 = $('#sy_1').val();
     var sy_2= $('#sy_2').val();
+    if(ojt2_required == ""){
+      ojt2_required = 0;
+    }
+
     if(first == "" || mid == "" || last == "" || course=="" || ojt1_required=="" || sy_1=="" || sy_2==""){
         alert("Please fill all fields");return false;
     }else{
@@ -1458,15 +1457,14 @@ tr:hover{
         },  
         success:function(data){
             if($.trim(data) == "user_exist"){
-              swal('Oops...','Student already exist!','error');
+              swal('Oops...','Student already exist','error');
             }
             else{
               swal({
-                title: "Success!",
+                title: "Success",
                 text: "Student added successfully",
                 icon: "success",
               }).then(function () {
-                //console.log(data);
                 location.reload();
               });
             }
@@ -1538,11 +1536,11 @@ tr:hover{
             },
             success:function(data){
               if($.trim(data) == "name_exist"){
-                  swal('Oops...','Name already exist!','error');return false;
+                  swal('Oops...','Name already exist','error');return false;
               }else if($.trim(data) == "id_exist"){
-                  swal('Oops...','Username already exist!','error');return false;
+                  swal('Oops...','Username already exist','error');return false;
               }else if($.trim(data) == "email_exist"){
-                  swal('Oops...','Email already exist!','error');return false;
+                  swal('Oops...','Email already exist','error');return false;
               }else{
                 swal({
                     title: "Success!",
@@ -1600,7 +1598,15 @@ tr:hover{
               'announcement': announcement,
             },
             success: function(data){
-             location.reload();
+             swal({
+                title: "Announcement posted",
+                //text: "Announcement posted",
+                icon: "success",
+             }).then(function(){
+                location.reload();
+             });
+             
+             //$("#btnViewPosts").trigger("click");
             }
           }); 
       }
@@ -1641,7 +1647,7 @@ tr:hover{
                 alert("That company is already in the watch list");
               }else{  
                 swal({
-                  title: "Success!",
+                  title: "Success",
                   text: "Company added to watch list",
                   icon: "success",
                 }).then(function(){
@@ -1698,13 +1704,13 @@ tr:hover{
                     },
                   success:function(data){
                       if($.trim(data)=="name_exist"){
-                        swal('Oops...','Name already exist!','error');return false;
+                        swal('Oops...','Name already exist','error');return false;
                       }
                       else if($.trim(data)=="id_exist"){
-                        swal('Oops...','Username already exist!','error');return false;
+                        swal('Oops...','Username already exist','error');return false;
                       }
                       else if($.trim(data)=="email_exist"){
-                        swal('Oops...','Email already exist!','error');return false;
+                        swal('Oops...','Email already exist','error');return false;
                       }
                       else{
                        swal({

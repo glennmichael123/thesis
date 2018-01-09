@@ -1,11 +1,17 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
+<<<<<<< HEAD
 -- Generation Time: Dec 18, 2017 at 04:26 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
+=======
+-- Generation Time: Dec 19, 2017 at 11:34 AM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 5.6.32
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -41,8 +47,13 @@ CREATE TABLE `admin` (
 -- Dumping data for table `admin`
 --
 
+<<<<<<< HEAD
 INSERT INTO `admin` (`id`, `name`, `id_number`, `password`, `college`, `email`) VALUES
 (1, 'admin', 'admin', '123456', '', '');
+=======
+INSERT INTO `admin` (`id`, `name`, `id_number`, `password`, `email`, `college`) VALUES
+(1, 'Larmie Feliscuzo', 'admin', '123456', 'larmie.feliscuzo@gmail.com', 'CCS');
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 
 -- --------------------------------------------------------
 
@@ -89,6 +100,7 @@ CREATE TABLE `comments` (
   `supervisor_id` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+<<<<<<< HEAD
 --
 -- Dumping data for table `comments`
 --
@@ -97,6 +109,8 @@ INSERT INTO `comments` (`id`, `log_id`, `content`, `comment_time`, `supervisor_i
 (1, 1, 'adik ka dong?', '2017-12-02 03:51:07', 'stannis.baratheon'),
 (3, 2, 'Tarong ngara haps, wakay snack ron :\")', '2017-12-06 11:15:21', 'stannis.baratheon');
 
+=======
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 -- --------------------------------------------------------
 
 --
@@ -114,9 +128,11 @@ CREATE TABLE `company_information` (
   `product_lines` text NOT NULL,
   `company_classification` text NOT NULL,
   `number_of_employees` text NOT NULL,
-  `watchlisted` tinyint(1) NOT NULL DEFAULT '0'
+  `watchlisted` tinyint(1) NOT NULL DEFAULT '0',
+  `current_ojt_program` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+<<<<<<< HEAD
 --
 -- Dumping data for table `company_information`
 --
@@ -127,6 +143,8 @@ INSERT INTO `company_information` (`id`, `id_number`, `company_name`, `superviso
 (3, 'kylldave.angcon', 'qweqe', '', 'qweq', 12312, 12312, 'qweqwe', 'Assembly,Service/Utility', 'From 50 to 100', 0),
 (5, 'jaime.lannister', 'qwe', '', 'qwe', 123, 123, 'qwe', 'Service/Utility,Assembly,Research and Development,IT Related', 'Less than 50', 0);
 
+=======
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 -- --------------------------------------------------------
 
 --
@@ -141,6 +159,7 @@ CREATE TABLE `email` (
   `status` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+<<<<<<< HEAD
 --
 -- Dumping data for table `email`
 --
@@ -163,6 +182,8 @@ INSERT INTO `email` (`id`, `id_number`, `email_address`, `hash`, `status`) VALUE
 (15, 'jaime.lannister', 'jaime@gmail.com', 'a6fa2ff49c6efcee56d5fc943ff6126e', 0),
 (16, 'jaime.lannister', 'jaime@gmail.com', 'a6fa2ff49c6efcee56d5fc943ff6126e', 0);
 
+=======
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 -- --------------------------------------------------------
 
 --
@@ -178,6 +199,7 @@ CREATE TABLE `emergency_details` (
   `address` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+<<<<<<< HEAD
 --
 -- Dumping data for table `emergency_details`
 --
@@ -189,6 +211,8 @@ INSERT INTO `emergency_details` (`id`, `id_number`, `name`, `relationship`, `con
 (4, 'jaime.lannister', 'qweqwe', 'eqweqwe', 123123, 'asd'),
 (5, 'jaime.lannister', 'qwe', 'qwe', 123, 'qwe');
 
+=======
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 -- --------------------------------------------------------
 
 --
@@ -206,6 +230,7 @@ CREATE TABLE `family_details` (
   `contact_number` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+<<<<<<< HEAD
 --
 -- Dumping data for table `family_details`
 --
@@ -216,6 +241,8 @@ INSERT INTO `family_details` (`id`, `id_number`, `fathers_name`, `fathers_occupa
 (3, 'kylldave.angcon', 'qweqwe', 'ewqeqw', 'qweqwe', 'eqweqwe', 'qweqwe', 123123),
 (5, 'jaime.lannister', 'qwe', 'qwe', 'qwe', 'qwe', 'qwe', 123123);
 
+=======
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 -- --------------------------------------------------------
 
 --
@@ -249,7 +276,8 @@ CREATE TABLE `final_evaluation` (
   `judgement` text NOT NULL,
   `personality` text NOT NULL,
   `recommend` text NOT NULL,
-  `total` int(11) NOT NULL
+  `total` int(11) NOT NULL,
+  `current_ojt_program` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -270,9 +298,11 @@ CREATE TABLE `logs` (
   `log_content` text NOT NULL,
   `hours_rendered` int(11) NOT NULL,
   `verified` tinyint(1) NOT NULL DEFAULT '0',
-  `supervisor_id` varchar(255) NOT NULL
+  `supervisor_id` varchar(255) NOT NULL,
+  `current_ojt_program` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+<<<<<<< HEAD
 --
 -- Dumping data for table `logs`
 --
@@ -284,6 +314,8 @@ INSERT INTO `logs` (`id`, `id_number`, `date`, `time_in`, `time_out`, `division`
 (4, 'peter.into', '2017-12-09', '08:00:00', '17:00:00', 'Addition', 'Department of Education', 'President', 'Secret ra noy', 8, 0, 'stannis.baratheon'),
 (5, 'peter.into', '2017-12-14', '08:00:00', '17:00:00', 'qweqwe', 'qweqwe', 'qweqwe', 'qweqweqwe', 200, 1, 'stannis.baratheon');
 
+=======
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 -- --------------------------------------------------------
 
 --
@@ -310,9 +342,11 @@ CREATE TABLE `midterm_evaluation` (
   `waste` int(11) NOT NULL,
   `remarks` text NOT NULL,
   `allow_view` tinyint(1) NOT NULL,
-  `total` int(11) NOT NULL
+  `total` int(11) NOT NULL,
+  `current_ojt_program` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+<<<<<<< HEAD
 --
 -- Dumping data for table `midterm_evaluation`
 --
@@ -321,6 +355,8 @@ INSERT INTO `midterm_evaluation` (`id`, `username`, `supervisor_username`, `enth
 (10, 'peter.into', 'stannis.baratheon', 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 'Ugh yahaya dzae', 0, 100),
 (11, 'brian.repuesto', 'stannis.baratheon', 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 'qweqwe', 1, 100);
 
+=======
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 -- --------------------------------------------------------
 
 --
@@ -340,6 +376,7 @@ CREATE TABLE `ojt_records` (
   `ojttwo_current_evaluations` int(11) NOT NULL,
   `logs` int(11) NOT NULL DEFAULT '0',
   `logs_verified` int(11) NOT NULL DEFAULT '0',
+<<<<<<< HEAD
   `ojtone_status` varchar(50) NOT NULL DEFAULT 'ON-GOING',
   `ojttwo_status` varchar(50) NOT NULL DEFAULT 'ON-GOING',
   `supervisor_id` varchar(255) NOT NULL
@@ -358,6 +395,14 @@ INSERT INTO `ojt_records` (`id`, `id_number`, `total_hours`, `ojtone_required`, 
 (12, 'mavis.vermillion', 500, 200, 300, 0, 0, 2, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', ''),
 (13, 'urdu.forest', 500, 200, 300, 0, 0, 2, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '');
 
+=======
+  `supervisor_id` varchar(255) NOT NULL,
+  `ojtone_status` varchar(255) NOT NULL DEFAULT 'ON-GOING',
+  `ojttwo_status` varchar(255) NOT NULL DEFAULT 'ON-GOING',
+  `current_ojt_program` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 -- --------------------------------------------------------
 
 --
@@ -389,6 +434,7 @@ CREATE TABLE `personal_details` (
   `sex` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+<<<<<<< HEAD
 --
 -- Dumping data for table `personal_details`
 --
@@ -399,6 +445,8 @@ INSERT INTO `personal_details` (`id`, `id_number`, `image_id`, `first_name`, `mi
 (3, 'kylldave.angcon', '<i class=\"fa fa-user-circle fa-5x\" style=\"font-size: 150px;\" aria-hidden=\"true\"></i>', 'Kyll Dave', 'A.', 'Angcon', 'CCS', 'BSIT', 1, 'qweqwe', 'qweqwe', 1231, 'qwqe@gmail.com', '2017-12-14', 23, 'Single', 'O-', 123, 123, 'qweqwe', '123123', 'Male'),
 (5, 'jaime.lannister', '<i class=\"fa fa-user-circle fa-5x\" style=\"font-size: 150px;\" aria-hidden=\"true\"></i>', 'Jaime', 'K.', 'Lannister', 'CCS', 'BSIT', 4, 'qwe', 'qwe', 123, 'jaime@gmail.com', '1998-01-02', 23, 'Separated', 'O-', 123, 123, 'qwe', 'qwe', 'Male');
 
+=======
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 -- --------------------------------------------------------
 
 --
@@ -417,6 +465,7 @@ CREATE TABLE `supervisor` (
   `email` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+<<<<<<< HEAD
 --
 -- Dumping data for table `supervisor`
 --
@@ -426,6 +475,8 @@ INSERT INTO `supervisor` (`id`, `image_id`, `imageDisplayToChange`, `name`, `com
 (2, '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', '<i class=\"fa fa-user-circle fa-5x\" style=\"font-size: 150px;\" aria-hidden=\"true\"></i>', 'Pete', 'Star Labs', 'Lags', 'lags', '123456', 'lagum@gmail.com'),
 (6, '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', '<i class=\"fa fa-user-circle fa-5x\" style=\"font-size: 150px;\" aria-hidden=\"true\"></i>', 'Renly Baratheon', 'Star Labs', 'King', 'renly.baratheon', '123456', 'renly.baratheon@gmail.com');
 
+=======
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 -- --------------------------------------------------------
 
 --
@@ -452,6 +503,7 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
+<<<<<<< HEAD
 INSERT INTO `users` (`id`, `id_number`, `admin_id`, `user_image`, `first_name`, `middle_initial`, `last_name`, `course`, `year`, `school_year`, `account_type`, `password`, `status`) VALUES
 (1, 'peter.into', 'admin', 'assets/uploads/peter.into.JPG?dummy=BcmDeYPhbM', 'Peter', 'I.', 'Into', 'BSCS', 4, '2017-2018', 0, '123456', ''),
 (2, 'brian.repuesto', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'Brian', 'P.', 'Repuesto', 'BSIT', 4, '2017-2018', 0, '123456', ''),
@@ -460,6 +512,11 @@ INSERT INTO `users` (`id`, `id_number`, `admin_id`, `user_image`, `first_name`, 
 (11, 'bugs.bunny', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'Bugs', 'D.', 'Bunny', 'BSIT', 4, '2018-2019', 0, '123456', ''),
 (12, 'mavis.vermillion', 'admin2', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'Mavis', 'F', 'Vermillion', 'BSIT', 4, '2020-2021', 0, '123456', ''),
 (13, 'urdu.forest', 'admin2', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'Urdu', 'F', 'Forest', 'BSIT', 4, '2020-2021', 0, '123456', '');
+=======
+INSERT INTO `users` (`id`, `id_number`, `user_image`, `first_name`, `middle_initial`, `last_name`, `course`, `year`, `school_year`, `account_type`, `password`, `status`) VALUES
+(1, 'glenn.torregosa', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'glenn', 'c', 'torregosa', '', 0, '', 0, NULL, ''),
+(2, '', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', '', '', '', '', 0, '', 0, '123456', '');
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 
 -- --------------------------------------------------------
 
@@ -584,76 +641,146 @@ ALTER TABLE `watchlist`
 --
 ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `announcements`
 --
 ALTER TABLE `announcements`
+<<<<<<< HEAD
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+=======
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 --
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
+<<<<<<< HEAD
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+=======
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 --
 -- AUTO_INCREMENT for table `company_information`
 --
 ALTER TABLE `company_information`
+<<<<<<< HEAD
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+=======
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 --
 -- AUTO_INCREMENT for table `email`
 --
 ALTER TABLE `email`
+<<<<<<< HEAD
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+=======
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 --
 -- AUTO_INCREMENT for table `emergency_details`
 --
 ALTER TABLE `emergency_details`
+<<<<<<< HEAD
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+=======
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 --
 -- AUTO_INCREMENT for table `family_details`
 --
 ALTER TABLE `family_details`
+<<<<<<< HEAD
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+=======
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 --
 -- AUTO_INCREMENT for table `final_evaluation`
 --
 ALTER TABLE `final_evaluation`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+<<<<<<< HEAD
+=======
+
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 --
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
+<<<<<<< HEAD
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+=======
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 --
 -- AUTO_INCREMENT for table `midterm_evaluation`
 --
 ALTER TABLE `midterm_evaluation`
+<<<<<<< HEAD
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+=======
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 --
 -- AUTO_INCREMENT for table `ojt_records`
 --
 ALTER TABLE `ojt_records`
+<<<<<<< HEAD
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+=======
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 --
 -- AUTO_INCREMENT for table `personal_details`
 --
 ALTER TABLE `personal_details`
+<<<<<<< HEAD
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+=======
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 --
 -- AUTO_INCREMENT for table `supervisor`
 --
 ALTER TABLE `supervisor`
+<<<<<<< HEAD
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+=======
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
+<<<<<<< HEAD
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+=======
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 --
 -- AUTO_INCREMENT for table `watchlist`
 --
 ALTER TABLE `watchlist`
+<<<<<<< HEAD
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;COMMIT;
+=======
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+>>>>>>> d9dd175e4fecddb741dbd90849457bc5e8b569bf
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

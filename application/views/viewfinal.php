@@ -21,6 +21,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <!-- Compiled and minified CSS -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+      
        <!-- Compiled and minified JavaScript -->
        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     </head>
@@ -84,14 +85,14 @@
     </style>
     <body>
     <header>
-      <h1 class="heading">On-The-Job Training (OJT)</h1>
+      <h1 class="heading">On-The-Job Training</h1>
       <h3 class="heading">Performance Evaluation Report</h3>
     </header>
     <div id="wrapper">
       <div class="container">
         <div class="row">
           <div class="col l12">
-            <h4 class="parts">Part I(To be filled by the student trainee)</h4>
+            <h4 class="parts">Part I (Filled by the student trainee)</h4>
             <form id="formy2">
             <div class="row">
               <div class="col l6">
@@ -159,7 +160,7 @@
                 </div>
               </div>
              </div>
-             <h4 class="parts">Part II(To be filled by the company representative)</h4>
+             <h4 class="parts">Part II (Filled by the company representative)</h4>
             <div class="row">
               <div class="col l12">
                 <div class="input-field first-field">
@@ -244,8 +245,8 @@
                  <div class="col l4">
                    <span class="rate">20%</span>
                  </div>
-                 <div class="col l2 offset-l2">
-                    <input type="text" name="fquality2" value="<?php echo $evaluation->quality2; ?>" id="fquality2" required onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2" style="height: 1rem;">
+                 <div class="col l2 offset-12">
+                    <input type="text" name="fquality2" value="<?php echo $evaluation->quality2; ?>" id="fquality2" required onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2" style="height: 1rem;text-align: center;">
 
                  </div>
                </div>

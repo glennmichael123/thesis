@@ -5,28 +5,20 @@
     <link rel="icon" href="favicon.ico">
     <!-- Latest compiled and minified CSS -->
      <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/bootstrap.min.css">
-    
-    
-
-
     <script src="<?php echo base_url() ?>assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="jpeg_camera/jpeg_camera_with_dependencies.min.js" type="text/javascript"></script>
     <!-- Optional theme -->
 
-
-
-    
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/bootstrap-theme.min.css" >
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  
     <!-- Latest compiled and minified JavaScript -->
+    
     <script src="<?php echo base_url() ?>assets/js/jquery-1.12.4.js"></script>
     <script src="<?php echo base_url() ?>assets/js/jquery-ui.js"></script>
     <link rel="stylesheet" href="<?php  echo base_url() ?>assets/css/jquery-ui.css">
 
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
-
 
          <script src="<?php echo base_url() ?>assets/js/bootstrap.min.js"></script>
 
@@ -333,14 +325,14 @@
         font-size: 1em;
         }
         legend{
-            background-color: #b5292d;
+            background-color: #d32f2f;
             margin-bottom: 0px;
             width: auto; 
             border-radius: 5px; 
-            padding: 5px 5px 5px 10px; 
+            padding: 5px 13px 5px 10px; 
             color:  #EED090;
             font-size: 20px;
-            font-family: 'Oswald', sans-serif;
+            /*font-family: 'Oswald', sans-serif;*/
             color: #FFFFFF;
             text-align: center;
         }
@@ -358,7 +350,7 @@
             margin-top: -25px;
             margin-right: -10px;
         }
-        #btn-edit,#btn-edit1,#btn-edit2{
+        #btn-edit,#btn-edit1,#btn-edit2,#btn-edit-emergency{
             background-color: #FFFFFF;
             border: 0px #FFFFFF;
         }
@@ -382,6 +374,13 @@
             display: inline;
             font-family: 'Roboto', sans-serif;
         }
+        .labelsForCompanyStuff{
+            font-size: 13px;
+            color: #000000;
+            display: inline;
+            font-family: 'Roboto', sans-serif;
+            padding: 0;
+        }
         .personal-info{
             font-size: 13px;
             margin-left: 3px;
@@ -402,6 +401,16 @@
             background:none !important;
             box-shadow: none !important;
         }
+        .emergency-info{
+              font-size: 13px;
+            margin-left: 3px;
+            display: inline;
+            border: 0;
+            color: #000000;
+            width: 100%;
+            background:none !important;
+            box-shadow: none !important
+        }
         .company-info{
             font-size: 13px;
             margin-left: 3px;
@@ -421,10 +430,18 @@
             border: 1px solid #e5e6e8 !important;
             background: #F4F4F4 !important;
         }
-        h2{
+        h4{
             text-align: center;
             color:  #915B51;
             font-family: 'Oswald', sans-serif;
+            font-weight: bold;
+
+        }
+        h3{
+            text-align: center;
+            color:  #915B51;
+            font-family: 'Oswald', sans-serif;
+
         }
         .btn-loginas{
             margin-top: 10px;
@@ -548,6 +565,16 @@
          color: #333333;
          font-weight: bold;
         }
+        .btn-danger{
+            padding: 6px 34px !important;
+        }
+        .bt, .bts{
+            margin-top: 20px !important;
+        }
+        .lbl{
+            font-size: 16px;
+            padding-left: 50px;
+        }
 
     
     </style>
@@ -557,8 +584,8 @@
 <body>
 
      <div id="popup1" style="display: none;">
-                <h4 style="padding-left: 10px">Larmie Feliscuzo</h4>
-                <p class="date_posted" style="margin-left: 10px;"><?php echo date('F d Y');?></p>
+                <h4 style="padding-left: 10px;color: #2693e6;text-transform: uppercase;"><?php echo $announcements[0]['name']; ?></h4>
+                <p class="date_posted" style="margin-left: 10px;font-size: 13px"><?php echo date('F d Y');?></p>
                 <pre class="content-announcement" style="font-size: 15px;"></pre>
             </div>
 
@@ -601,7 +628,7 @@
                                           <?php foreach($announcements as $announcement):?>
                                             <?php if($announcement['status'] == 1):?>
                                                  <li class="divider"></li>
-                                              <a href="#" data-announcement-id="<?php echo $announcement['id']?>" class="view-notif"><li class="view-notification-read"><div class="notifs">Lfeliz posted an announcement <br><span style="font-size: 12px;"><?php
+                                              <a href="#" data-announcement-id="<?php echo $announcement['id']?>" class="view-notif"><li class="view-notification-read"><div class="notifs"><?php echo $announcement['name']; ?> posted an announcement <br><span style="font-size: 12px;"><?php
                                                     $timestamp = strtotime($announcement['date_posted']);
                                                     $datetime = explode(" ",$announcement['date_posted']); 
                                                     
@@ -813,7 +840,7 @@
 
                     <div class="col-lg-8">
                     <fieldset id="first-fieldset">
-                    <legend><i class="fa fa-user"></i>Personal Information</legend>
+                    <legend><i class="fa fa-user"></i> Personal Information</legend>
                          <div id="edit">
                              <button id="btn-edit" class="btn-edit-personal"><span class="fa fa-pencil-square-o" aria-hidden="true"></span></button>
                          </div>
@@ -831,7 +858,7 @@
                                 <label class="labels">Phone or Landline:</label>
                                   <input type="text" name="profile_contact_number" value="<?php echo $personalDetails[0]['contact_number']?>" readonly class="personal-info form-control"><br>
                                     <label class="labels">Date of Birth:</label>
-                                  <input type="text" name="profile_birth" value="<?php echo $personalDetails[0]['date_of_birth'] ?>" readonly class="personal-info form-control"><br>
+                                  <input type="text" name="profile_birth" value="<?php echo date('F d, Y',strtotime($personalDetails[0]['date_of_birth'])) ?>" readonly class="personal-info form-control" id="dob"><br>
                                   <label class="labels">Status:</label>
                                   <input type="text" name="profile_marital" value="<?php echo $personalDetails[0]['marital_status']  ?>" readonly class="personal-info form-control"><br>
                                   <label class="labels">Weight:</label>
@@ -857,13 +884,13 @@
                             </form>
                             </div>
                              <p style="text-align: center; margin-top: 10px;">
-                               <button class="btn btn-primary bt" id="save-personal-details" style="display: none" type="submit">Save Changes</button>
+                               <button class="btn btn-success bt" id="save-personal-details" style="display: none" type="submit">Save Changes</button>
                                <button class="btn btn-danger bt" id="cancel" style="display: none;" type="button">Cancel</button>
-                           </p>
+                            </p>
                             
                     </fieldset>
                     <fieldset id="second-fieldset">
-                    <legend><i class="fa fa-users"></i>Family Data</legend>
+                    <legend><i class="fa fa-users"></i> Family Data</legend>
                          <div id="edit">
                              <button id="btn-edit1"><span class="fa fa-pencil-square-o" aria-hidden="true"></span></button>
                          </div>
@@ -888,9 +915,40 @@
                             </form>
                         </div>
                         <p style="text-align: center; margin-top: 10px;">
-                               <button class="btn btn-primary bts" id="save-family-details" style="display: none" type="submit">Save Changes</button>
+                               <button class="btn btn-success bts" id="save-family-details" style="display: none" type="submit">Save Changes</button>
 
                                <button class="btn btn-danger bts" id="cancels" style="display: none;" type="button">Cancel</button>
+
+                           </p>
+                        
+                    </fieldset> 
+
+                    <fieldset id="emergency-fieldset" style="margin-top: 10px;">
+                    <legend><i class="fa fa-ambulance"></i> Emergency Details</legend>
+                         <div id="edit">
+                             <button id="btn-edit-emergency"><span class="fa fa-pencil-square-o" aria-hidden="true"></span></button>
+                         </div>
+                        <div class="row" id="pos">
+                            <form id="emergency-details-user">
+                                <div class="col-lg-6">
+                                    <label class="labels">Name:</label>
+                                      <input type="text" name="profile_emergency_name" value="<?php echo $emergencyInformation->name; ?>" readonly class="emergency-info form-control">
+                                      <label class="labels">Contact Number:</label>
+                                      <input type="text" name="profile_contact_emergency" value="<?php echo $emergencyInformation->contact_number; ?>" readonly class="emergency-info form-control">
+                                
+                                </div>
+                                <div class="col-lg-6">
+                                   <label class="labels">Relationship:</label>
+                                   <input type="text" name="profile_relationship_emergency" value="<?php echo $emergencyInformation->relationship; ?>" readonly class="emergency-info form-control">
+                                    <label class="labels">Address:</label>
+                                   <input type="text" name="profile_emergency_address" value="<?php echo $emergencyInformation->address; ?>" readonly class="emergency-info form-control">
+                                </div>
+                            </form>
+                        </div>
+                        <p style="text-align: center; margin-top: 10px;">
+                               <button class="btn btn-success" id="save-emergency-details" style="display: none" type="submit">Save Changes</button>
+
+                               <button class="btn btn-danger" id="cancel-save-emergency" style="display: none;" type="button">Cancel</button>
 
                            </p>
                         
@@ -921,8 +979,65 @@
                         <?php 
                                 $array_company = explode(',', $companyInformation->company_classification);
                          ?>
-                   
-                        <div class="row">
+                         <div class="row" style="margin-top: 20px;">
+                            <div class="col-md-6">
+                                <h3 class="fs-title" style="text-align: left">Company Classification <i class="fa fa-list-alt" aria-hidden="true"></i></h3>
+                            </div>
+                            <div class="col-md-6">
+                                <h3 class="fs-title">Total number of employees <i class="fa fa-list-ol" aria-hidden="true"></i></h3>
+                            </div>
+                        </div>
+                   		<div class="row" style="margin-top:15px;">
+                   			<div class="col-lg-7">
+                   				<div class="col-lg-5">
+                   					<div>
+			                          <input id="assembly" <?php echo(in_array('Assembly', $array_company)) ? 'checked' : '' ?> disabled value="Assembly" type="checkbox" > <label class="labelsForCompanyStuff" for="assembly">Assembly</label>
+			                         </div> 
+			                        <div>
+			                          <input type="checkbox" <?php echo(in_array('Manufacturing', $array_company)) ? 'checked' : '' ?> disabled value="Manufacturing" id="Manufacturing"> <label class="labelsForCompanyStuff" for="Manufacturing">Manufacturing</label>
+			                        </div> 
+			                        <div>
+			                          <input type="checkbox" <?php echo(in_array('Maintenance', $array_company)) ? 'checked' : '' ?> disabled value="Maintenance" id="maintenance"> <label class="labelsForCompanyStuff" for="maintenance">Maintenance</label>
+			                        </div>
+			                        <div>
+			                          <input type="checkbox" <?php echo(in_array('Sales/Marketing', $array_company)) ? 'checked' : '' ?> disabled value="Sales/Marketing" id="marketing"> <label class="labelsForCompanyStuff" for="marketing">Sales/Marketing</label>
+			                         </div>
+                   				</div>
+                   				<div class="col-lg-7">
+	               					<div>
+			                           <input type="checkbox" <?php echo(in_array('Service/Utility', $array_company)) ? 'checked' : '' ?> disabled value="Service/Utility" id="service"> <label class="labelsForCompanyStuff" for="service">Service/Utility</label>
+			                        </div>
+			                        <div>
+			                          <input type="checkbox" <?php echo(in_array('Research and Development', $array_company)) ? 'checked' : '' ?> disabled value="Research and Development" id="research"> <label class="labelsForCompanyStuff" for="research">Research &amp; Development</label>
+			                        </div>
+			                        <div>
+			                         	<input type="checkbox" <?php echo(in_array('IT Related', $array_company)) ? 'checked' : '' ?> disabled value="IT Related" id="itrelated"> <label class="labelsForCompanyStuff" for="itrelated">IT Related</label>
+			                         </div>
+			                         <div>
+		                               <input type="radio" class="other-company" disabled id="other"> <label class="labelsForCompanyStuff" for="other">Others</label>
+		                               <input type="text" id="other_classification" name="other_classification" style="height: 30px; width: 250px; display: none;" placeholder="Please specify">
+			                         </div>
+                   				</div>
+                   			</div>
+                   			<div class="col-lg-5">
+                   				<div class="row">
+	                   				<div class="col-lg-11 col-lg-offset-1">
+		                              <input type="radio" <?php echo ($companyInformation->number_of_employees == 'Less than 50') ? 'checked' : '' ?> id="less_fifty" value="Less than 50" disabled name="employee_numbers"> <label class="labelsForCompanyStuff" for="less_fifty">Less than 50</label>
+		                            </div>
+                   				</div>
+                   				<div class="row">
+                   					<div class="col-lg-11 col-lg-offset-1">
+		                               <input type="radio" <?php echo ($companyInformation->number_of_employees == 'From 50 to 100') ? 'checked' : '' ?> id="fifty_onehundred" value="From 50 to 100" disabled name="employee_numbers"> <label class="labelsForCompanyStuff"for="fifty_onehundred">From 50 to 100</label>
+		                            </div>
+                   				</div>
+		                        <div class="row">
+		                        	<div class="col-lg-11 col-lg-offset-1">
+		                                <input type="radio" id="more_onehundred" <?php echo ($companyInformation->number_of_employees == 'More than 100') ? 'checked' : '' ?> value="More than 100" disabled name="employee_numbers"> <label class="labelsForCompanyStuff"for="more_onehundred">More than 100</label>
+		                            </div>
+		                        </div>
+                   			</div>	
+                   		</div>
+                        <!-- <div class="row">
                             <h2 style="margin-bottom: 30px">Company Classification <i class="fa fa-list-alt" aria-hidden="true"></i></h2>
                              <div class="col-lg-2">
 
@@ -973,9 +1088,9 @@
                             <div class="col-lg-3 col-lg-offset-1">
                                 <input type="radio" id="more_onehundred" <?php echo ($companyInformation->number_of_employees == 'More than 100') ? 'checked' : '' ?> value="More than 100" disabled name="employee_numbers"><label class="labels"for="more_onehundred">More than 100</label>
                             </div>
-                        </div>
+                        </div> -->
                         <p style="text-align: center; margin-top: 10px;">
-                               <button class="btn btn-primary btss" style="display: none" id="save-company-information" type="submit">Save Changes</button>
+                               <button class="btn btn-success btss" style="display: none" id="save-company-information" type="submit">Save Changes</button>
                                <button class="btn btn-danger btss" id="cancelss" style="display: none;" type="button">Cancel</button>
                         </p>
                         </form>
@@ -986,39 +1101,25 @@
                             <li id="tab2"><a href="#fifth-fieldset">Final</a></li>
                         </ul>
                     <fieldset id="fourth-fieldset">
-                            <h1 style="text-align: center;">My Midterm Evaluation</h1>
+                            <h3 style="text-align: center;">MIDTERM EVALUATION</h3>
 
                             <?php if(empty($midterm_evaluation->username)):?>
-                                <h4 style="color: #000; text-align: center; margin-top: 50px;">You have not been evaluated yet</h4>
+                                <h4 style="color: #8b8f92; text-align: center; margin-top: 50px;">You have not been evaluated yet</h4>
                             <?php else:?>
                             <?php if($midterm_evaluation->allow_view == 0):?>
-                                <h4 style="color: #000; text-align: center; margin-top: 50px;">Your supervisor did not allow you to view your evaluation.</h4>
+                                <h4 style="color: #8b8f92; text-align: center; margin-top: 50px;">Your supervisor did not allow you to view your evaluation.</h4>
                             <?php else:?>
 
-                         <label>WORK ATTITUDE(<div class="badge">40</div> points)</label>
+                            <label>WORK ATTITUDE(<div class="badge">40</div> points)</label>
                                 <ol>
                                     <div class="row">
                                         <div class="col-lg-6">
                                             
-                                                <li>Enthusiasm / Eagerness to Learn</li>
-                                                
-                                            
-                                          
-                                                <li>Cooperation and Willingness</li>
-                                           
-                                            
-                                           
+                                                <li>Enthusiasm / Eagerness to Learn</li>                                     
+                                                <li>Cooperation and Willingness</li>                                             
                                                 <li>Adaptability and Sociability</li>
-                                            
-                                           
-                                          
-                                                <li>Industriousness and Initiative</li>
-                                          
-                                           
-                                           
+                                                <li>Industriousness and Initiative</li>                                         
                                                 <li>Sense of Responsibility</li>
-                                           
-                                            
                                                 <li>Attentiveness / Attention</li>
                                         
                                             
@@ -1158,83 +1259,79 @@
 
                             <div class="well" style="background-image:none; background-color: #FFFFFF; border: 1px solid #C0C0C0; width: 88.5% !important;">
                                 <?php if (empty($final_evaluation)): ?>
-                                     <h1 style="text-align: center;">You have not been evaluated yet.</h1>
+                                     <h4 style="text-align: center;color:#8b8f92">You have not been evaluated yet.</h4>
+                                <?php elseif($final_evaluation->allow_view == 0):?>
+                                    <h4 style="color: #8b8f92; text-align: center; margin-top: 50px;">Your supervisor did not allow you to view your evaluation.</h4>
                                 <?php else: ?>
-                                    <h1 style="text-align: center; margin-bottom: 20px;">My Final Evaluation</h1>
+                                    <h3 style="text-align: center; margin-bottom: 20px;">FINAL EVALUATION</h3>
                                
                                     <div class="row">
                                         <div class="col-lg-4">
-                                            <h3>Job Factors</h3>
+                                            <h4>JOB FACTORS</h4>
                                         </div>
                                         <div class="col-lg-4">
-                                            <h3>Rating</h3>
+                                            <h4>RATING</h4>
                                         </div>
                                         <div class="col-lg-4">
-                                            <h3>Given rate</h3>
+                                            <h4>GIVEN RATE</h4>
                                         </div>
                                     </div>
 
-                                    <div class="row" style="margin-top: 20px;">
+                                    <div class="row lbl" style="margin-top: 20px;">
                                         <div class="col-lg-4">Quality of Work</div>
-                                        <div class="col-lg-4">20%</div>
-                                        <div class="col-lg-4"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->quality; ?>"></div>
+                                        <div class="col-lg-4 col-lg-offset-1">20%</div>
+                                        <div class="col-lg-3" style="overflow: hidden;"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->quality; ?>"></div>
                                     </div>
-                                    <div class="row" style="margin-top: 20px;">
+                                    <div class="row lbl" style="margin-top: 20px;">
                                         <div class="col-lg-4">Quantity of Work</div>
-                                        <div class="col-lg-4">20%</div>
-                                        <div class="col-lg-4"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->quality2; ?>"></div>
+                                        <div class="col-lg-4 col-lg-offset-1">20%</div>
+                                        <div class="col-lg-3" style="overflow: hidden;"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->quality2; ?>"></div>
                                     </div>
-                                    <div class="row" style="margin-top: 20px;">
+                                    <div class="row lbl" style="margin-top: 20px;">
                                         <div class="col-lg-4">Dependability, reliability and resourcefullness</div>
-                                        <div class="col-lg-4">15%</div>
-                                        <div class="col-lg-4"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->dependability; ?>"></div>
+                                        <div class="col-lg-4 col-lg-offset-1">15%</div>
+                                        <div class="col-lg-3" style="overflow: hidden;"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->dependability; ?>"></div>
                                     </div>
-                                    <div class="row" style="margin-top: 20px;">
+                                    <div class="row lbl" style="margin-top: 20px;">
                                         <div class="col-lg-4">Attendance</div>
-                                        <div class="col-lg-4">15%</div>
-                                        <div class="col-lg-4"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->attendance; ?>"></div>
+                                        <div class="col-lg-4 col-lg-offset-1">15%</div>
+                                        <div class="col-lg-3" style="overflow: hidden;"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->attendance; ?>"></div>
                                     </div>
-                                    <div class="row" style="margin-top: 20px;">
+                                    <div class="row lbl" style="margin-top: 20px;">
                                         <div class="col-lg-4">Cooperation</div>
-                                        <div class="col-lg-4">10%</div>
-                                        <div class="col-lg-4"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->cooperation; ?>"></div>
+                                        <div class="col-lg-4 col-lg-offset-1">10%</div>
+                                        <div class="col-lg-3" style="overflow: hidden;"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->cooperation; ?>"></div>
                                     </div>
-                                    <div class="row" style="margin-top: 20px;">
+                                    <div class="row lbl" style="margin-top: 20px;">
                                         <div class="col-lg-4">Judgement</div>
-                                        <div class="col-lg-4">10%</div>
-                                        <div class="col-lg-4"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->judgement; ?>"></div>
+                                        <div class="col-lg-4 col-lg-offset-1">10%</div>
+                                        <div class="col-lg-3" style="overflow: hidden;"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->judgement; ?>"></div>
                                     </div>
-                                    <div class="row" style="margin-top: 20px;">
+                                    <div class="row lbl" style="margin-top: 20px;">
                                         <div class="col-lg-4">Personality</div>
-                                        <div class="col-lg-4">10%</div>
-                                        <div class="col-lg-4"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->personality; ?>"></div>
+                                        <div class="col-lg-4 col-lg-offset-1">10%</div>
+                                        <div class="col-lg-3" style="overflow: hidden;"><input style="border-style:none;" name="" value="<?php echo $final_evaluation->personality; ?>"></div>
+                                    </div>
+                                    <hr>
+                                    <div class="row lbl" style="margin-top: 20px;">
+                                        <div class="col-lg-4">TOTAL</div>
+                                        <div class="col-lg-4 col-lg-offset-4" style="overflow: hidden;"><input style="border-style:none;margin-left: 55px;" name="" value="<?php echo $final_evaluation->total; ?>"></div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div style="margin-top: 20px;">Remarks</div>
-                                            <textarea class="form-control" readonly><?php echo $final_evaluation->recommend; ?></textarea>
+                                            <textarea class="form-control" style="resize: none" readonly><?php echo $final_evaluation->recommend; ?></textarea>
                                         </div>
                                     </div>
                                
                                      <?php endif; ?>
                              
                             </div>
-                        </div>
-
-                
-
+                       </div>    
             </div>  
-
         </div> 
-
-
-
-
-    
-       
 </body>
-
 <!-- click save from browse photo -->
 
 
@@ -1258,11 +1355,18 @@
         $(".personal-info").addClass("showBorder");
         $(".personal-info").prop("readonly",false);
         $(".bt").css("display","inline-block");
+
+        $(function(){
+            $( "#dob" ).datepicker({
+              changeMonth: true,
+              changeYear: true,
+              yearRange: '1980:2050',
+            });
+        });
     });
 
     $('#save-personal-details').click(function(){
        var data = $('#personal-details-user').serialize();
-        
         $.ajax({
             url: 'editProfilePersonal',
             method: 'POST',
@@ -1279,6 +1383,7 @@
         $(".personal-info").removeClass("showBorder");
         $(".personal-info").prop("readonly",true);
         $(".bt").css("display","none");
+        location.reload();
     });
 </script>
 <script type="text/javascript">
@@ -1320,6 +1425,7 @@
          $('input[type=checkbox]').prop('disabled',true);
          $('input[type=radio]').prop('disabled',true);
         $(".btss").css("display","none");
+        location.reload();
 
     });
 
@@ -1358,6 +1464,38 @@
 
 
         });
+</script>
+<script type="text/javascript">
+    
+    $('#btn-edit-emergency').click(function(e){
+        e.preventDefault();
+         $(".emergency-info").addClass("showBorder");
+         $(".emergency-info").prop("readonly",false);
+         $('#save-emergency-details').show();
+         $('#cancel-save-emergency').show();
+    });
+
+    $('#save-emergency-details').click(function(){
+        var data = $('#emergency-details-user').serialize();
+
+        $.ajax({
+            url: 'editProfileEmergency',
+            method: 'POST',
+            data:data,
+            success:function(data){
+              location.reload();
+            }
+        });
+    });
+
+    $('#cancel-save-emergency').click(function(e){
+        e.preventDefault();
+         $(".emergency-info").removeClass("showBorder");
+         $(".emergency-info").prop("readonly",true);
+         $('#save-emergency-details').hide();
+         $('#cancel-save-emergency').hide();
+
+    });
 </script>
 
  <script type="text/javascript">
@@ -1483,6 +1621,7 @@
         $(".family-info").removeClass("showBorder");
         $(".family-info").prop("readonly",true);
         $(".bts").css("display","none");
+        location.reload();
     });
     $('.click-photo').click(function(){
         $('.browse-photo').trigger('click');
@@ -1517,6 +1656,7 @@ $(function () {
         e.preventDefault();
         $("#first-fieldset").show();
         $("#second-fieldset").show();
+        $("#emergency-fieldset").show();
         $("#third-fieldset").hide();
         $("#fifth-fieldset").hide();
         $("#fourth-fieldset").hide();
@@ -1529,6 +1669,7 @@ $(function () {
          e.preventDefault();
         $("#first-fieldset").hide();
         $("#second-fieldset").hide();
+        $("#emergency-fieldset").hide();
         $("#fourth-fieldset").hide();
         $("#fifth-fieldset").hide();
         $("#third-fieldset").show();
@@ -1544,6 +1685,7 @@ $(function () {
         $("#tabs").tabs().show();
         $("#first-fieldset").hide();
         $("#second-fieldset").hide();
+         $("#emergency-fieldset").hide();
         $("#third-fieldset").hide();
         $("#fourth-fieldset").show();
         $("#fifth-fieldset").hide();

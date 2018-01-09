@@ -23,7 +23,7 @@
     <script src="<?php echo base_url()?>assets/js/swal.js"></script>
     <style type="text/css">
      body{
-         background-color: #F4F4F4;
+         background-color: #f2efef;
     }
     *{
         font-family: 'Roboto', sans-serif;
@@ -54,24 +54,29 @@
     }
     .save{
         color: #FFFFFF;
-        background:#FFB900;
+        /*background:#FFB900;*/
+        border-radius: 3px;
+        padding: 10px 15px;
+
         
     }
     .save:hover{
         transition: 0.4s;
         color: #FFFFFF;
-        background-color: #f5b301 !important;
+        /*background-color: #f5b301 !important;*/
 
     }
     .cancel{
         color:#FFFFFF;
-        background: #800000 !important;
-        
+        background: #d32f2f !important;
+        border-radius: 3px;
+        padding: 10px 30px;
     }
     .cancel:hover{
+        transition: 0.4s;
         color:#FFFFFF;
         background-color:#760404;
-        transition: 0.4s;
+        
     }
     .form-control{
         border-radius: 0;
@@ -84,7 +89,7 @@
     }
     label{
         cursor: pointer;
-        font-size: 15px;
+        font-size: 12px;
     }
     h3{
         font-weight: 600;
@@ -101,8 +106,47 @@
 </head>
 
 <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-lg-offset-3">
+                <div class="panel panel-default" style="margin-top: 80px;">
+                    <div class="panel-heading" style="color:white;text-align: center;background: #d32f2f"><h4>CHANGE  PASSWORD</h4></div>
+                <div class="panel-body">
+                    <form action="savePassword" method="POST">
+                        <div class="form-group">
+                            <label for="old_password">Old password</label>
+                            <input type="password" id="old_password"  name="old_password" class="form-control" required="required">
+                        </div>
+                        <div class="form-group">
+                            <label for="newpass">New password</label>
+                            <input type="password" name="newpass"  class="form-control" id="newpass" required="required">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm_newpass">Confirm password</label>
+                            <input type="password" name="confirm_newpass" class="form-control" id="confirm_newpass" required="required">
+                        </div>
+                        <div class="error">
 
+                        </div>
+                        <div class="form-group">
+                            <button type="button" id="save-changes" class="btn btn-success save">Save changes</button>
+                            <?php if($this->session->userdata['account_type'] == 'student'):?>
+                            <a href="dashboard" id="cancel" class="btn cancel" style="float: right;width: 115px">Cancel</a>
+                        <?php elseif($this->session->userdata['account_type'] == 'supervisor'):?>
+                             <a href="supervisordashboard" id="cancel" class="btn cancel" style="float: right;width: 115px">Cancel</a>
+                        <?php elseif($this->session->userdata['account_type'] == 'admin'):?>
+                             <a href="admindashboard" id="cancel" class="btn cancel" style="float: right;width: 115px">Cancel</a>
+                         <?php endif;?>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>    
+            
+        </div>
+    </div>
 
+<!-- 
 
     <div class="page-wrap">
         <div class="header">
@@ -152,7 +196,7 @@
             </div>
         </div>
         <div class="footer" style="display: none;">
-        </div>
+        </div> -->
 </body>
 
 <script type="text/javascript">

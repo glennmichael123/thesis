@@ -81,6 +81,7 @@ $route['addStudent']  = 'main/addStudent';
 $route['editProfilePersonal']  = 'main/editProfilePersonal';
 $route['editProfileFamily']  = 'main/editProfileFamily';
 $route['editProfileCompany']  = 'main/editProfileCompany';
+$route['editProfileEmergency']  = 'main/editProfileEmergency';
 $route['editComment']  = 'main/editComment';
 $route['insertCompanyClassification']  = 'main/insertCompanyClassification';
 $route['saveEmail']  = 'main/saveEmail';
@@ -92,13 +93,9 @@ $route['workmate/(:any)']  = 'main/workmate/$1';
 $route['studentinfo/(:any)']  = 'main/studentInfo/$1';
 $route['deleteStudent']  = 'main/deleteStudent';
 $route['filterLogsForSupervisor']  = 'main/filterLogsForSupervisor';
-$route['updatePostContent']  = 'main/updatePostContent';
-$route['deletePostContent']  = 'main/deletePostContent';
-
 $route['confirmSend']  = 'main/confirmSend';
 $route['resendEmail']  = 'main/resendEmail';
 $route['incorrectpassword']  = 'main/incorrectpassword';
-
 $route['updatePostContent']  = 'main/updatePostContent';
 $route['deletePostContent']  = 'main/deletePostContent';
 $route['incorrectpassword']  = 'main/incorrectpassword';

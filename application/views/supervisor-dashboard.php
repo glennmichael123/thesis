@@ -5,43 +5,43 @@
 <head>
     <link rel="icon" href="favicon.ico">
     <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="<?php base_url()?>assets/css/bootstrap.min.css">
+    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+    <script src="<?php echo base_url()?>assets/js/jquery.min.js"></script>
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script src="<?php echo base_url()?>assets/js/progressbar/dist/progressbar.js"></script>
     <script src="<?php echo base_url()?>assets/js/progressbar/dist/progressbar.min.js"></script>
 
-
-
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    
+       <script src="<?php echo base_url() ?>assets/js/jquery-1.12.4.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/jquery-ui.js"></script>
+    <link rel="stylesheet" href="<?php  echo base_url() ?>assets/css/jquery-ui.css">
 
     <script src="<?php echo base_url() ?>assets/js/jquery.easy-autocomplete.min.js"></script> 
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/easy-autocomplete.min.css"> 
 
-
-
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="<?php echo base_url()?>assets/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script src="<?php echo base_url();?>assets/js/swal.js"></script>
-     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
-     <!-- Sweet Alert -->
-  
-    <!-- <script src="bower_components/sweetalert2/dist/sweetalert2.all.min.js"></script> -->
+    <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
     <style type="text/css">
         body {
             background-color: #F4F4F4;
         }
         
         .jumbotron {
-            background-color: #871F21;
+            background-color: #CA2E32;
             padding: 10px;
             color: #FFFFFF;
             font-size: 1.5em;
@@ -76,6 +76,7 @@
         
         .header {
             height: 60px;
+            background-color: #ffba00 !important;
         }
         
         .mission {
@@ -329,7 +330,7 @@
         .panel-heading{
             color: #FFFFFF !important;
             font-size: 20px;
-            background-color: #CA2E32 !important;
+            background-color: #d32f2f !important;
             background-image: none !important;
             padding: 10px 10px !important;
         }
@@ -534,9 +535,6 @@
                                     <?php endforeach;?>
 
                                     </tbody>
-
-                                    
-                                   
                                                
                                 </table>
                             </li>
@@ -1107,7 +1105,6 @@
                 var student_username = $(this).data('student-username');
                 var commentToAppend = $(this).closest("form").find(".display-comments");
                 var toReload = $(this).closest('.wrap-comments').attr('id');
-                 // alert(toReload);return false;
             if(!$.trim($(this).val())){
                 
             }else{
@@ -1196,7 +1193,8 @@
           
           });
 
-          $('#find-trainee').click(function(){
+          $('#find-trainee').click(function(e){
+            e.preventDefault();
             $('#names').hide();
             $('.show-find-trainee').show();
           });

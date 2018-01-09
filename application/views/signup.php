@@ -24,7 +24,7 @@
         }
         
         .header {
-            background-color: rgba(255, 215, -9, 1);
+            background-color: #ffba00 !important;
             padding: 0px 5px 0px 5px;
             font-family: Roboto, sans-serif;
             border-bottom: 2px solid #A55D35;

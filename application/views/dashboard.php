@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
 
@@ -664,9 +662,11 @@ header h1 {
 
       
             <div id="popup1" style="display: none;">
-                <h4 style="padding-left: 10px">Larmie Feliscuzo</h4>
-                <p class="date_posted" style="margin-left: 10px;"><?php echo date('F d Y');?></p>
-                <pre class="content-announcement" style="font-size: 15px;"></pre>
+                <h4 style="padding-left: 10px;color: #2693e6;text-transform: uppercase;"><?php echo $announcements[0]['name']; ?></h4>
+                <p class="date_posted" style="margin-left: 10px;font-size: 13px"><?php echo date('F d, Y');?></p>
+                <pre class="content-announcement" style="font-size: 15px;">
+                  <?php echo $announcements[0]['content']; ?>
+                </pre>
             </div>
         
      
@@ -718,7 +718,7 @@ header h1 {
                                           <?php foreach($announcements as $announcement):?>
                                             <?php if($announcement['status'] == 1):?>
                                                  <li class="divider"></li>
-                                              <a href="#" data-announcement-id="<?php echo $announcement['id']?>" class="view-notif"><li class="view-notification-read"><div class="notifs"><?php echo $announcement['admin_id']; ?> posted an announcement <br><span style="font-size: 12px;"><?php
+                                              <a href="#" data-announcement-id="<?php echo $announcement['id']?>" class="view-notif"><li class="view-notification-read"><div class="notifs"><?php echo $announcement['name']; ?> posted an announcement <br><span style="font-size: 12px;"><?php
                                                     $timestamp = strtotime($announcement['date_posted']);
                                                     $datetime = explode(" ",$announcement['date_posted']); 
                                                     
@@ -758,7 +758,7 @@ header h1 {
                                         
                                             <?php else:?>
                                            <li class="divider"></li>
-                                          <a href="#" data-announcement-id="<?php echo $announcement['id']?>" class="view-notif"><li class="view-notification"><div class="notifs">Lfeliz posted an announcement<br><span style="font-size: 12px;"><?php
+                                          <a href="#" data-announcement-id="<?php echo $announcement['id'];?>" class="view-notif"><li class="view-notification"><div class="notifs"><?php echo $announcement['name'];?> posted an announcement<br><span style="font-size: 12px;"><?php
                                                     
                                                     // $time = date('Gi.s', $timestamp);
                                                     //echo $date . " at " . date('h:ia', $timestamp);
@@ -1119,13 +1119,13 @@ header h1 {
                   <?php else: ?>
                     <div class="panel panel-default">
                         <div class="panel-heading" style="text-align: center;">OJT Workmates</div>
-                        <div class="panel-body">
+                        <div class="panel-body" style="text-align: center">
                           <?php if(empty($workmates)): ?>
                             <?php if(isset($id_number)): ?>
-                                <h4>This student has no OJT workmates.</h4>
+                                <h5 style="color: #8b8f92">This student has no OJT workmates.</h5>
                             
                             <?php else: ?>
-                            <h4 style="text-align: center;">You have no OJT workmates.</h4>
+                            <h5 style="color: #8b8f92">You have no OJT workmates.</h5>
                           <?php endif;   ?>
                           
                           <?php else: ?>
@@ -1461,6 +1461,11 @@ header h1 {
         e.preventDefault();
         var input = $(this).closest(".row").find(".list-logs");
         var buttons = $(this).closest(".row").find(".save-edit");
+        // var dateField = $(this).closest(".row").find("#log_list_date");
+        // var dateFieldVal = $(this).closest(".row").find("#log_list_date").val();
+        //   document.getElementById('log_list_date').type = 'date';
+        //   document.getElementById('log_list_date').value = dateFieldVal;
+
         buttons.show();
         input.prop('readonly', false);
         input.css('border', '1px solid #CCCCCC');
@@ -1715,7 +1720,7 @@ header h1 {
         data:data,
         success: function(data){
           if($.trim(data) == 'dateexist'){
-            swal('Oops...','You already posted a log on this date','error');return false;
+            swal('Oops...','You already posted a log in this date','error');return false;
           }else{
             location.reload();
           }

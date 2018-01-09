@@ -136,6 +136,7 @@ class Main extends CI_Controller {
      		$data['personalDetails'] = $this->users->getProfile($this->session->userdata['id_number']);
      		$data['familydetails'] = $this->users->getFamilyDetails($this->session->userdata['id_number']);
      		$data['companyInformation'] = $this->users->getCompanyInformation($this->session->userdata['id_number']);
+     		$data['emergencyInformation'] = $this->users->getEmergencyDetails($this->session->userdata['id_number']);
      		$data['final_evaluation'] = $this->users->getFinalEvaluations($this->session->userdata['id_number']);
      		$this->load->view('profile',$data);
      	}
@@ -210,11 +211,9 @@ class Main extends CI_Controller {
 		}
 	}
 	public function savePersonalDetails(){
-		// print_r($_POST);exit;
 		$this->users->insertPersonalData();
 	}
 	public function saveFamilyData(){
-		// print_r($_POST);exit;
 		$this->users->insertFamilyData();
 	}
 	public function loggedin(){
@@ -222,7 +221,6 @@ class Main extends CI_Controller {
 		if($logintype == 'ojt'){
 			$condition = $this->users->user_login();
 			$data['error'] = 'abcd';
-		// print_r("condition = " . $condition. "   ");
 			$account_type = 'student';
 		if($condition){
 			$data = array(
@@ -815,6 +813,10 @@ public function logout(){
    		$this->users->editProfilePersonal($this->session->userdata('id_number'));
    		
    	}
+
+   	public function editProfileEmergency(){
+   		$this->users->editProfileEmergency($this->session->userdata['id_number']);
+   	}
    	public function editProfileFamily(){	
    		$this->users->editProfileFamily($this->session->userdata('id_number'));
    	}
@@ -829,6 +831,8 @@ public function logout(){
    	}
    	public function filterStudent(){
    		$data['student_list'] = $this->users->filterStud();
+   		$html = $this->load->view('tables',$data, TRUE);
+   		echo $html;
    	}
 
    	public function filterLogsForSupervisor(){
@@ -836,7 +840,7 @@ public function logout(){
    		// $data['traineesLog'] = $this->users->getOjtLogs($this->session->userdata['id_number']);
    		$data['traineesLog'] = $this->users->filterLogsForSupervisor($this->session->userdata['id_number']);
    		$data['comments'] = $this->users->getComments();
-   		$html = $this->load->view('filterlog', $data, TRUE);
+   		$html = $this->load->view('filterlog', $data,TRUE);
    		echo $html;
    		
    	}

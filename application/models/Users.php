@@ -84,7 +84,7 @@
         }
 
         public function getAnnouncements($username){
-            $query = $this->db->query("SELECT * FROM announcements WHERE username = '$username' ORDER BY id DESC");
+            $query = $this->db->query("SELECT a.id, admin_id,content,username,status,date_posted,announcement_id,name,id_number FROM announcements as a INNER JOIN admin ON a.admin_id = admin.id_number WHERE a.username = '$username' ORDER BY a.id DESC");
             return $query->result_array();
         }
         public function getAnnouncementsForStudents(){
@@ -125,7 +125,7 @@
         }
 
         public function insertAnnouncement($id){
-            $usernames = $this->db->query("SELECT id_number FROM users")->result_array();
+            $usernames = $this->db->query("SELECT id_number FROM users WHERE admin_id = '$id'")->result_array();
             $i = $this->db->query("SELECT MAX(announcement_id) as max_id FROM announcements")->row();
             $announcement = $this->input->post('announcement');
             $insert_announce = mysqli_real_escape_string($this->get_mysqli(),$announcement);
@@ -371,46 +371,47 @@
           }else{
               $query = $this->db->query("SELECT * FROM users INNER JOIN ojt_records ON users.id_number = ojt_records.id_number WHERE status!='DELETED' AND admin_id = '$admin_id' AND users.course LIKE '%$course%' AND school_year = '$sy' AND ojtone_current_evaluations LIKE '%$eval%' AND ojtone_status LIKE '%$stat%' ORDER BY users.id_number ASC");
           }
-            if(!empty($query->result_array())){
+          return $query->result_array();
+            // if(!empty($query->result_array())){
 
-                $html .= '<tbody>';
-              foreach ($query->result_array() as $value) {
-                $html .= '<tr class="dashTable">';
-                $html .= '<td style="text-align: center;width: 45px"><input type="checkbox" class="checkitem" value="'.$value['id_number'].'" name="usernames[]"></td>';
-                $html .= '<td><a href="studentinfo/'.$value['id_number'].'">'.$value['first_name']." ". $value['last_name'].'</a></td>';
-                $html .= '<td>'.$value['course']." - ".$value['year'].'</td>';
-                $html .= '<td>'.$value['school_year'].'</td>';
+            //     $html .= '<tbody>';
+            //   foreach ($query->result_array() as $value) {
+            //     $html .= '<tr class="dashTable">';
+            //     $html .= '<td style="text-align: center;width: 45px"><input type="checkbox" class="checkitem" value="'.$value['id_number'].'" name="usernames[]"></td>';
+            //     $html .= '<td><a href="studentinfo/'.$value['id_number'].'">'.$value['first_name']." ". $value['last_name'].'</a></td>';
+            //     $html .= '<td>'.$value['course']." - ".$value['year'].'</td>';
+            //     $html .= '<td>'.$value['school_year'].'</td>';
                 
-                $html .=  '<td>';
-                            if ($value['ojtone_current_evaluations'] == 1 || $value['ojtone_current_evaluations'] == 2 || $value['ojttwo_current_evaluations'] == 1 || $value['ojttwo_current_evaluations'] == 2){
-                              $html .= '<a target="_blank" href="'.base_url().'viewmidterm/'.$value['id_number'].'">Midterm  <i class="fa fa-check-circle"></i></a>';
-                            }else{
-                              $html .= '<a style="color:gray">Midterm <i class="fa fa-times-circle"></i> </a>';
-                            }
+            //     $html .=  '<td>';
+            //                 if ($value['ojtone_current_evaluations'] == 1 || $value['ojtone_current_evaluations'] == 2 || $value['ojttwo_current_evaluations'] == 1 || $value['ojttwo_current_evaluations'] == 2){
+            //                   $html .= '<a target="_blank" href="'.base_url().'viewmidterm/'.$value['id_number'].'">Midterm  <i class="fa fa-check-circle"></i></a>';
+            //                 }else{
+            //                   $html .= '<a style="color:gray">Midterm <i class="fa fa-times-circle"></i> </a>';
+            //                 }
 
-                            if ($value['ojtone_current_evaluations'] == 2 || $value['ojttwo_current_evaluations'] == 2){
-                              $html .= '| <a target="_blank" href="'.base_url().'viewfinal/'.$value['id_number'].'">  Final <i class="fa fa-check-circle"></i></a>'; 
-                            }else{
-                              $html .= '| <a style="color: gray">Final <i class="fa fa-times-circle"></i></a>';
-                            }
-                $html .=  '</td>';   
+            //                 if ($value['ojtone_current_evaluations'] == 2 || $value['ojttwo_current_evaluations'] == 2){
+            //                   $html .= '| <a target="_blank" href="'.base_url().'viewfinal/'.$value['id_number'].'">  Final <i class="fa fa-check-circle"></i></a>'; 
+            //                 }else{
+            //                   $html .= '| <a style="color: gray">Final <i class="fa fa-times-circle"></i></a>';
+            //                 }
+            //     $html .=  '</td>';   
 
-                if ($value['ojtone_rendered'] >= $value['ojtone_required'] && $value['ojtone_current_evaluations'] == 2){
-                    $html .= '<td style="color:green;">OJT-1 Completed</td>';
-                }else{
-                    $html .= '<td style="color:#f44336;">OJT-1 On going</td>';
-                }
+            //     if ($value['ojtone_rendered'] >= $value['ojtone_required'] && $value['ojtone_current_evaluations'] == 2){
+            //         $html .= '<td style="color:green;">OJT-1 Completed</td>';
+            //     }else{
+            //         $html .= '<td style="color:#f44336;">OJT-1 On going</td>';
+            //     }
 
-                $html .= '</tr>';
-              }
-               $html .= '</tbody>';
+            //     $html .= '</tr>';
+            //   }
+            //    $html .= '</tbody>';
              
-            }else{
-              $html .= '<tbody>';
-              $html .= '</tbody>';
-            }
+            // }else{
+            //   $html .= '<tbody>';
+            //   $html .= '</tbody>';
+            // }
 
-             echo $html;
+            //  echo $html;
          }
          public function editLog(){
             $id = $_POST['log_id'];
@@ -610,12 +611,12 @@
             $supervisor_id = $_POST['supervisor_id'];
             $student_id = $_POST['studentID'];
            $query = $this->db->query("SELECT * FROM ojt_records WHERE supervisor_id = '' AND id_number = '$student_id' ")->row();
-           if(empty($query)){
-              echo 'error';
-           }else{
-               $this->db->query("UPDATE company_information SET supervisor_id = '$supervisor_id' WHERE id_number='$student_id'");
+           if(!empty($query)){
+              $this->db->query("UPDATE company_information SET supervisor_id = '$supervisor_id' WHERE id_number='$student_id'");
                $this->db->query("UPDATE logs SET supervisor_id = '$supervisor_id' WHERE id_number='$student_id'");
                $this->db->query("UPDATE ojt_records SET supervisor_id = '$supervisor_id' WHERE id_number='$student_id'");
+           }else{
+              echo 'error';
            }
           
          
@@ -651,6 +652,14 @@
             $result = $this->db->query("SELECT * FROM admin WHERE email = '".$adminEmail."' ");
             if($this->db->affected_rows() > 0){
                echo "email_exist"; exit;
+            }
+            $result = $this->db->query("SELECT * FROM personal_details WHERE email_address = '".$adminEmail."'");
+            if($this->db->affected_rows() > 0){
+                echo "email_exist";exit;
+            }
+            $result = $this->db->query("SELECT * FROM supervisor WHERE email = '".$adminEmail."'");
+            if($this->db->affected_rows() > 0){
+                echo "email_exist";exit;
             }
             else{
                 return $this->db->query("INSERT INTO admin (name, id_number, password, college, email) VALUES('$adminName', '$adminID', '$adminPass', '$adminCollege', '$adminEmail')");
@@ -691,6 +700,14 @@
             }
             
             //check duplicate email
+            $result = $this->db->query("SELECT * FROM personal_details WHERE email_address = '".$supervisorEmail."'");
+            if($this->db->affected_rows() > 0){
+                echo "email_exist";exit;
+            }
+            $result = $this->db->query("SELECT * FROM admin WHERE email = '".$supervisorEmail."'");
+            if($this->db->affected_rows() > 0){
+                echo "email_exist";exit;
+            }
             $result = $this->db->query("SELECT * FROM supervisor WHERE email = '".$supervisorEmail."'");
             if($this->db->affected_rows() > 0){
                 echo "email_exist";exit;
@@ -841,7 +858,7 @@
                 while (($getData = fgetcsv($file, 10000, ",")) !== FALSE)
                  {
                     // $username = strtolower($getData[1].".".$getData[3]);
-                    $username = strtolower(str_replace(' ', '',$getData[0]).".".str_replace(' ', '',$getData[2]));
+                    $username = strtolower(str_replace(' ', '',$getData[1]).".".str_replace(' ', '',$getData[0]));
                     $sy=str_replace(' ','',$getData[5]);
                     
                     $result = $this->db->query("SELECT id_number FROM users WHERE id_number = '".$username."'")->result_array();
@@ -850,13 +867,14 @@
                       $existStuds[] = $result[$key];
                      
                     } else{
-                      if($getData[6]!=""){
+                      if($getData[7]!=""){
                          $total_hours = $getData[6]+$getData[7];
                       }else{
                         $total_hours = $getData[6];
                       }
+                      
                       $this->db->query("INSERT INTO users (id_number,admin_id,first_name,middle_initial,last_name,course,year,school_year,password) 
-                        values ('$username','$admin_id','".$getData[0]."','".$getData[1]."','".$getData[2]."','".$getData[3]."','".$getData[4]."','$sy','123456')");
+                        values ('$username','$admin_id','".$getData[1]."','".$getData[2]."','".$getData[0]."','".$getData[3]."','".$getData[4]."','$sy','123456')");
                       $this->db->query("INSERT INTO ojt_records(id_number,total_hours,ojtone_required,ojttwo_required) VALUES('$username',$total_hours,'".$getData[6]."','".$getData[7]."')");
                     }
                     
@@ -998,10 +1016,18 @@
       public function checkEmail(){
           $email = $_POST['email'];
           
-          $result = $this->db->query("SELECT * FROM personal_details WHERE email_address = '".$email."'");
-          if($this->db->affected_rows() > 0){
-              echo "invalid";exit;
-          }
+          $result = $this->db->query("SELECT * FROM admin WHERE email = '".$email."' ");
+            if($this->db->affected_rows() > 0){
+               echo "invalid"; exit;
+            }
+            $result = $this->db->query("SELECT * FROM personal_details WHERE email_address = '".$email."'");
+            if($this->db->affected_rows() > 0){
+                echo "invalid";exit;
+            }
+            $result = $this->db->query("SELECT * FROM supervisor WHERE email = '".$email."'");
+            if($this->db->affected_rows() > 0){
+                echo "invalid";exit;
+            }
       }
 
       public function insertReg($username){
@@ -1132,7 +1158,12 @@
      
 
       public function final_eval($username){
-         $supervisor = $_POST['supervisor_id'];
+          if($_POST['allow_view']==true){
+            $allow = 1;
+          }else{
+            $allow = 0;
+          }
+          $supervisor = $_POST['supervisor_id'];
           $fname = $_POST['fname'];
           $fcourse = $_POST['fcourse'];
           $fage = $_POST['fage'];
@@ -1162,7 +1193,7 @@
             // $this->db->query("INSERT INTO final_evaluation(id_number,name,age,sex,course,major,school,city,permanent,required,company,division,field,dates_from,dates_to,total_hours,quality,quality2,dependability,attendance,cooperation,judgement,personality) VALUES('$username','$fname',$fage,'$fsex','$fcourse','$fmajor','$fschool','$fcity','$fpermanent','$frequired','$fcompany','$fdivision','$ffield','$dates','$fdatesto',$ftotal,$fquality,$fquaility2,$fdependability,$fattendance,$fcooperation,$fjudgement,$fpersonality)");
           $this->db->query("INSERT INTO final_evaluation(username,supervisor_username,name,age,sex,course,major,school,city,permanent,
                     required,company,division,field,dates_from,
-                    dates_to,total_hours,quality,quality2,dependability,attendance,cooperation,judgement,personality,recommend,total) VALUES('$username','$supervisor','$fname',$fage,'$fsex','$fcourse','$fmajor','$fschool','$fcity','$fpermanent','$frequired','$fcompany','$fdivision','$ffield','$fdates','$fdatesto','$ftotal',$fquality,$fquality2,$fdependability,$fattendance,$fcooperation,$fjudgement,$fpersonality,'$recommend',$total)"); 
+                    dates_to,total_hours,quality,quality2,dependability,attendance,cooperation,judgement,personality,recommend,total,allow_view) VALUES('$username','$supervisor','$fname',$fage,'$fsex','$fcourse','$fmajor','$fschool','$fcity','$fpermanent','$frequired','$fcompany','$fdivision','$ffield','$fdates','$fdatesto','$ftotal',$fquality,$fquality2,$fdependability,$fattendance,$fcooperation,$fjudgement,$fpersonality,'$recommend',$total,$allow)"); 
 
 
                   if($this->db->affected_rows()>0){
@@ -1182,7 +1213,7 @@
                         'permanent_address' => $_POST['profile_permanent_address'],
                         'contact_number' => $_POST['profile_contact_number'],
                         'email_address' => $_POST['profile_email'],
-                        'date_of_birth' => $_POST['profile_birth'],
+                        'date_of_birth' => date('Y-m-d',strtotime($_POST['profile_birth'])),
                         'age' => $_POST['profile_age'],
                         'marital_status' => $_POST['profile_marital'],
                         'blood_type' => $_POST['profile_blood'],
@@ -1193,6 +1224,19 @@
 
           $this->db->where('id_number', $username);
           $this->db->update('personal_details', $data);
+
+      }
+
+      public function editProfileEmergency($username){
+        // echo $username;exit;
+
+          $data = Array('name'=>$_POST['profile_emergency_name'],
+                        'relationship'=>$_POST['profile_relationship_emergency'],
+                        'contact_number'=>$_POST['profile_contact_emergency'],
+                        'address'=>$_POST['profile_emergency_address']);
+
+          $this->db->where('id_number', $username);
+          $this->db->update('emergency_details', $data);
 
       }
 
@@ -1279,22 +1323,18 @@
       }
 
       public function getOjtStatusForSupervisor($username){
-            $query = $this->db->query("SELECT ojtone_rendered, ojtone_required, count(*) as all_Stud, ojtone_current_evaluations, total_evaluations FROM ojt_records WHERE supervisor_id = '$username'")->result_array();
+            $query = $this->db->query("SELECT ojtone_rendered, ojtone_required, count(*) as all_Stud, ojtone_current_evaluations, total_evaluations, ojtone_status FROM ojt_records WHERE supervisor_id = '$username'")->result_array();
           $array_status = array('completed'=>0, 'all_stud'=>2);
           if(!empty($query)){
 
               foreach ($query as $student_status) {
-                
-                  if($student_status['ojtone_rendered'] >= 200 && $student_status['ojtone_current_evaluations'] == $student_status['total_evaluations']){
-                      
+                  if($student_status['ojtone_rendered'] >= $student_status['ojtone_required'] && $student_status['ojtone_status'] == "COMPLETED"){
                       $array_status['completed']++;
-
                   }
 
                   $array_status['all_stud'] = $query[0]['all_Stud'];
               }
           }
-
           return $array_status;
       }
 
