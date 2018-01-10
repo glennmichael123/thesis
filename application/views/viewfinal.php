@@ -1,16 +1,13 @@
 <!DOCTYPE html>
   <html>
     <head>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <script src="<?php echo base_url() ?>assets/js/swal.js"></script>
       <!-- Optional theme -->
       <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
       <!-- Latest compiled and minified JavaScript -->
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
       <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
       <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     
       <!--Import Google Icon Font-->
@@ -21,6 +18,8 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <!-- Compiled and minified CSS -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+      <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/materialize.min.css">
+  <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/style.css">
       
        <!-- Compiled and minified JavaScript -->
        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
@@ -245,8 +244,8 @@
                  <div class="col l4">
                    <span class="rate">20%</span>
                  </div>
-                 <div class="col l2 offset-12">
-                    <input type="text" name="fquality2" value="<?php echo $evaluation->quality2; ?>" id="fquality2" required onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2" style="height: 1rem;text-align: center;">
+                 <div class="col l2 offset-l2">
+                    <input type="text" name="fquality2" value="<?php echo $evaluation->quality2; ?>" id="fquality2" required onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="2" style="height: 1rem;">
 
                  </div>
                </div>
@@ -319,10 +318,7 @@
              <ul class="collapsible" data-collapsible="accordion">
               <li>
                 <div class="collapsible-header"><i class="fa fa-pencil" aria-hidden="true"></i>Recommendation</div>
-               
                   <textarea name="recommend" class="materialize-textarea"><?php echo $evaluation->recommend; ?></textarea>
-
-             
               </li>
              </ul>
              <p style="text-align: center;">
@@ -337,7 +333,7 @@
 
 
       <!--Import jQuery before materialize.js-->
-      <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      <script src="<?php echo base_url() ?>assets/js/materialize.min.js"></script>
   
       </body>
 

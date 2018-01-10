@@ -273,6 +273,7 @@ class Main extends CI_Controller {
      	$data['company'] = $this->users->getCompanyInformation($username);
      	$data['supervisorName'] = $this->users->getSupervisorNameForStud($username);
      	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $username);
+     	$this->users->updateOJTStatus($username);
      	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $username);
      	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $username);
      	$ojtRecords = $this->users->dashboardDataRecords($username);
@@ -509,6 +510,7 @@ public function logout(){
      	$data['checkEmail'] = $this->users->checkEmailVerified($username);
      	$renderedCount = $this->users->getSumRendered($username);
      	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $username);
+     	$this->users->updateOJTStatus($username);
      	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $username);
      	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $username);
      	$ojtRecords = $this->users->dashboardDataRecords($username);
@@ -562,6 +564,7 @@ public function logout(){
      	$renderedCount = $this->users->getSumRendered(isset($id_number) ? $id_number : '');
      	$data['supImage'] = $this->users->supervisorImage($this->session->userdata['id_number']);
      	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $id_number);
+     	$this->users->updateOJTStatus($id_number);
      	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $id_number);
      	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $id_number);
      	$ojtRecords = $this->users->dashboardDataRecords(isset($id_number) ? $id_number : '');

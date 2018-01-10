@@ -550,7 +550,7 @@ tr:hover{
                                     <th>Course & Year</th>
                                     <th>School Year</th>
                                     <th>Evaluations(OJT1)</th>
-                                    <!-- <th>Evaluations(OJT2)</th> -->
+                                    <th>Evaluations(OJT2)</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -565,6 +565,7 @@ tr:hover{
                                             <th>Course & Year</th>
                                             <th>School Year</th>
                                             <th>Evaluations [ OJT1 ]</th>
+                                            <th>Evaluations [ OJT2 ]</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
