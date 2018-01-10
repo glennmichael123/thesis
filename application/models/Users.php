@@ -19,12 +19,17 @@
                 $email = $_POST['email'];
                 return $this->db->query("INSERT INTO email (id_number, email_address, hash) VALUES('$username','$email', '$hash')");     
         }
+
+
         public function queryUserByEmail($email){
               // $email = $_POST['reset_email'];
               $result= $this->db->query("SELECT id_number from email where email_address = '$email'")->row();
 
              return $result;
         }
+
+
+
         public function insertPersonalData(){
                 // print_r($_POST);exit;
                $result = $this->db->query("SELECT id_number FROM personal_details WHERE id_number ='14-2649-276'")->result_array();
@@ -535,7 +540,7 @@
         }
 
         public function getOjtLogs($id){
-            $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.first_name, users.last_name, users.user_image FROM logs INNER JOIN users ON users.id_number = logs.id_number  WHERE logs.supervisor_id = '$id' ORDER BY id DESC");
+            $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.first_name, users.last_name, company_information.supervisor_id, ojt_records.supervisor_id, users.user_image FROM logs INNER JOIN users ON users.id_number = logs.id_number INNER JOIN company_information ON company_information.supervisor_id = logs.supervisor_id INNER JOIN ojt_records ON ojt_records.supervisor_id = logs.supervisor_id WHERE logs.supervisor_id = '$id' AND company_information.supervisor_id !='' AND ojt_records.supervisor_id != '' ORDER BY id DESC");
             return $query->result_array();
         }
 
@@ -982,11 +987,12 @@
                     return false;
 
          }
-
+//to be dynamic query where current_ojt program
      public function checkMidtermEvaluation($username){
         $query = $this->db->query("SELECT username from midterm_evaluation where supervisor_username ='$username'");
         return $query->result_array();
       }
+
 
       public function checkFinalEvaluation($username){
         $query = $this->db->query("SELECT username from final_evaluation where supervisor_username ='$username'");
@@ -995,13 +1001,12 @@
 
      public function countTrainees($username){
         $query = $this->db->query("SELECT count(id_number) as num_trainee from ojt_records where supervisor_id = '$username'");
-
          return $query->row();
      }
 
 
       public function getNotVerified($username){
-           return $this->db->query("SELECT count(verified) as not_verified from logs where supervisor_id='$username' AND verified=0")->row();
+           return $this->db->query("SELECT count(verified) as not_verified from logs INNER JOIN company_information ON logs.supervisor_id = company_information.supervisor_id INNER JOIN ojt_records ON ojt_records.supervisor_id = logs.supervisor_id where (logs.supervisor_id='$username' AND verified=0) AND ojt_records.supervisor_id!='' AND company_information.supervisor_id!= ''")->row();
       }
       
        public function delStud($username){
@@ -1137,7 +1142,7 @@
             return $query->row();
 
       }
-      public function getWorkmates($username,$company_name){
+      public function getWorkmates($username, $company_name){
 
 
           $query = $this->db->query("SELECT users.id_number, users.first_name, users.middle_initial, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_name LIKE '%$company_name%' AND company_information.id_number != '$username'");
@@ -1323,7 +1328,9 @@
       }
 
       public function getOjtStatusForSupervisor($username){
-            $query = $this->db->query("SELECT ojtone_rendered, ojtone_required, count(*) as all_Stud, ojtone_current_evaluations, total_evaluations, ojtone_status FROM ojt_records WHERE supervisor_id = '$username'")->result_array();
+            $query = $this->db->query("SELECT ojtone_rendered, ojtone_required, count(*) as all_Stud, ojtone_current_evaluations,total_evaluations, ojtone_status FROM ojt_records WHERE supervisor_id = '$username'")->result_array();
+
+
           $array_status = array('completed'=>0, 'all_stud'=>2);
           if(!empty($query)){
 
@@ -1464,6 +1471,19 @@
       public function deletePost(){
         $postID = $_POST['post_id'];
         $this->db->query("DELETE FROM announcements WHERE announcement_id='$postID'");
+      }
+
+     public function removeStudentFromSupervisor(){
+         $id = $_POST['stud_id'];
+          $this->db->query("UPDATE company_information SET supervisor_id = '' WHERE id_number = '$id'");
+          $this->db->query("UPDATE ojt_records SET supervisor_id = '' WHERE id_number = '$id'");
+      }
+
+      public function getSupervisorNameForStud($username){
+       $supId = $this->db->query("SELECT supervisor_id FROM company_information WHERE id_number = '$username'")->row();
+       $si = $supId->supervisor_id;
+       $supName = $this->db->query("SELECT name FROM supervisor WHERE id_number = '$si'")->row();
+         return $supName;
       }
 }
 ?>

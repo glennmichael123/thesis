@@ -99,6 +99,7 @@ $route['incorrectpassword']  = 'main/incorrectpassword';
 $route['updatePostContent']  = 'main/updatePostContent';
 $route['deletePostContent']  = 'main/deletePostContent';
 $route['incorrectpassword']  = 'main/incorrectpassword';
+$route['removeStudentFromSupervisor']  = 'main/removeStudentFromSupervisor';
 
 
 

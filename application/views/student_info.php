@@ -672,10 +672,14 @@
                         <h4 style="text-align: center; margin: 0 !important; padding: 0 !important;">Company Information</h4>
                            <div class="row" style="margin-top: 10px;">
 
-                               <div class="col-lg-6"><label style="font-size: 13px">Company Name</label></div>
+                               <div class="col-lg-6"><label style="font-size: 13px">Supervisor Name: </label></div>
                                <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $company->company_name; ?></span></div>
                            </div>
                            <div class="row">
+                               <div class="col-lg-6"><label>Company Address</label></div>
+                               <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $supervisorName->name; ?></span></div>
+                           </div>
+                          <div class="row">
                                <div class="col-lg-6"><label>Company Address</label></div>
                                <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $company->company_address; ?></span></div>
                            </div>

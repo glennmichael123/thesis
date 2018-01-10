@@ -138,6 +138,7 @@ class Main extends CI_Controller {
      		$data['companyInformation'] = $this->users->getCompanyInformation($this->session->userdata['id_number']);
      		$data['emergencyInformation'] = $this->users->getEmergencyDetails($this->session->userdata['id_number']);
      		$data['final_evaluation'] = $this->users->getFinalEvaluations($this->session->userdata['id_number']);
+     		$data['supervisorName'] = $this->users->getSupervisorNameForStud($this->session->userdata['id_number']);
      		$this->load->view('profile',$data);
      	}
 		
@@ -270,6 +271,7 @@ class Main extends CI_Controller {
      	$data['familydetails'] = $this->users->getFamilyDetails($username);
      	$data['emergency'] = $this->users->getEmergencyDetails($username);
      	$data['company'] = $this->users->getCompanyInformation($username);
+     	$data['supervisorName'] = $this->users->getSupervisorNameForStud($username);
      	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $username);
      	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $username);
      	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $username);
@@ -853,8 +855,13 @@ public function logout(){
    		$this->users->deletePost();
 	}
 
+	public function removeStudentFromSupervisor(){
+   		$this->users->removeStudentFromSupervisor();
+   	}
+
    	public function getTraineeNames(){
-   		$names = $this->db->query("SELECT first_name, last_name, id_number FROM users")->result();
+   		$names = $this->db->query("SELECT first_name, last_name, users.id_number, company_information.company_name FROM users INNER JOIN company_information ON company_information.id_number = users.id_number")->result();
+   		// $names = $this->db->query("SELECT first_name, last_name, id_number FROM users")->result();
    		$student = array(array('names'=>''));
    		$i=0;
 
@@ -863,6 +870,7 @@ public function logout(){
    				
    				$student[$i]['names'] = $name->first_name . " " .$name->last_name;
    				$student[$i]['username'] = $name->id_number;
+   				$student[$i]['type'] = $name->company_name;
    				$i++;
    			}
    		}

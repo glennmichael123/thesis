@@ -6,19 +6,20 @@
     <link rel="icon" href="favicon.ico">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="<?php base_url()?>assets/css/bootstrap.min.css">
-    
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="<?php echo base_url()?>assets/js/jquery.min.js"></script>
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/bootstrap-theme.min.css" >
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script src="<?php echo base_url()?>assets/js/progressbar/dist/progressbar.js"></script>
     <script src="<?php echo base_url()?>assets/js/progressbar/dist/progressbar.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/jquery-ui.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="<?php  echo base_url() ?>assets/css/jquery-ui.css">
     
        <script src="<?php echo base_url() ?>assets/js/jquery-1.12.4.js"></script>
     <script src="<?php echo base_url() ?>assets/js/jquery-ui.js"></script>
@@ -28,9 +29,9 @@
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/easy-autocomplete.min.css"> 
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
     <script src="<?php echo base_url()?>assets/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script src="<?php echo base_url();?>assets/js/swal.js"></script>
@@ -515,15 +516,18 @@
                                             <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
                                             <?php if($student['ojtone_rendered'] < 50):?>
                                                 <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
+                                                <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
                                               
 
                                             <?php else:?>
                                               
                                                 
                                                 <?php if(in_array($student['id_number'], array_column($evaluated, 'username'))):?>
-                                                 <td><i class="fa fa-check" aria-hidden="true"></i></td>           
+                                                 <td><i class="fa fa-check" aria-hidden="true"></i></td>          
+                                                 <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td> 
                                                 <?php else:?>
                                             <td><a href="<?php echo base_url()?>main/evaluate/<?php echo $student['id_number']?>" class="btn evaluate-btn">Evaluate</a></td>
+                                            <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
                                                 
                                         <?php endif;?>
 
@@ -554,20 +558,19 @@
 
                                                 <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
 
+                                                <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
 
-
-                                                <script type="text/javascript">
-                                                   
-                                                </script>
 
 
                                             <?php else:?>
                                               
                                                 
                                                 <?php if(in_array($student['id_number'], array_column($evaluated2, 'username'))):?>
-                                                 <td><i class="fa fa-check" aria-hidden="true"></i></td>           
+                                                 <td><i class="fa fa-check" aria-hidden="true"></i></td> 
+                                                   <td><a href="#" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>          
                                                 <?php else:?>
                                             <td><a href="<?php echo base_url()?>main/finalevaluation/<?php echo $student['id_number']?>" class="btn evaluate-btn">Evaluate</a></td>
+                                              <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
                                                 
                                         <?php endif;?>
 
@@ -955,6 +958,38 @@
 
 </script>
 
+<script type="text/javascript">
+    $('.remove-stud').click(function(){
+        var stud_id = $(this).data('stud-id');
+
+        // alert(stud_id); 
+
+        swal({
+            title: 'Confirm',
+            text: 'Are you sure you want to remove student?',
+            icon: 'warning',
+            buttons: true,
+            buttons: ['No', 'Yes'],
+            dangerMode: true,
+        }).then((willSmith)=>{
+            if(willSmith){
+                $.ajax({
+                    url: 'removeStudentFromSupervisor',
+                    method: 'POST',
+                    data: {
+                        'stud_id': stud_id,
+                    },
+                    success: function(data){
+                      location.reload();
+                    }
+                });
+            }else{
+
+            }
+        })
+    });
+</script>
+
  <script type="text/javascript">
    
     $(document).ready(function(){
@@ -966,6 +1001,7 @@
    getValue: function(element) {
          return element.names;
     },
+
 
     list: {
         onChooseEvent: function(element){
@@ -980,6 +1016,13 @@
         match: {
             enabled: true
         },
+    },
+
+    template: {
+        type: "description",
+        fields: {
+            description: "type"
+        }
     }
 };
     $("#trainee-name").easyAutocomplete(options);

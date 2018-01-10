@@ -974,6 +974,9 @@
                                 <input type="text" name="profile_product_lines" value="<?php echo $companyInformation->product_lines; ?>" readonly class="company-info form-control">
                                <label class="labels">Fax Number:</label>
                                <input type="text" name="profile_fax_number" value="<?php echo $companyInformation->fax_number; ?>" readonly class="company-info form-control">
+
+                                <label class="labels">Supervisor Name:</label>
+                               <input type="text" name="" value="<?php echo $supervisorName->name; ?>" style="font-size: 13px;margin-left: 3px;display: inline; border: 0; color: #000000; width: 100%; background:none !important; box-shadow: none !important;" readonly class="form-control" >
                             </div>
                         </div>
                         <?php 
@@ -1262,6 +1265,7 @@
                                      <h4 style="text-align: center;color:#8b8f92">You have not been evaluated yet.</h4>
                                 <?php elseif($final_evaluation->allow_view == 0):?>
                                     <h4 style="color: #8b8f92; text-align: center; margin-top: 50px;">Your supervisor did not allow you to view your evaluation.</h4>
+
                                 <?php else: ?>
                                     <h3 style="text-align: center; margin-bottom: 20px;">FINAL EVALUATION</h3>
                                
@@ -1458,7 +1462,11 @@
             method: 'POST',
             data: data + "&classification="+classification,
             success: function(data){
-               location.reload();
+                $(".company-info").removeClass("showBorder");
+                 $(".company-info").prop("readonly",true);
+                 $('input[type=checkbox]').prop('disabled',true);
+                 $('input[type=radio]').prop('disabled',true);
+                 $(".btss").css("display","none"); 
             }
         });
 

@@ -1693,6 +1693,7 @@ header h1 {
     e.preventDefault();
     var date = $('#log_date').val();
     var date_now = '<?php echo date('Y-m-d') ?>';
+    var hours = $('#hours_rendered').val();
     var data = $('#addLogs').serialize();
     var fail = false;
      var fail_log = '';
@@ -1714,7 +1715,11 @@ header h1 {
     if(date > date_now){ 
       swal('Oops...','You are not from the future.','error');return false;
     }else{
-      $.ajax({
+
+	  if(hours > 8 ){
+	  	 swal('Oops...','You are only allowed to render 8 hours of work.','error');return false;
+	  }else{
+	  	 $.ajax({
         url:'addLogs',
         method: 'POST',
         data:data,
@@ -1727,6 +1732,8 @@ header h1 {
           
         }
       });
+	  }    	
+     
     }
   }else{
     return false;
