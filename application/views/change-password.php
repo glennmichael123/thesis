@@ -226,11 +226,11 @@
             success:function(data){
                 var type = data;
                 if($.trim(data) == "old_not_match_student"){
-                    swal('Oops..', 'Old password did not match', 'error');return false;
-                }else if($.trim(data) == "old_not_match_supervisor"){
+                    swal('Oops..', 'Old password not correct!', 'error');return false;
+                }else if($.trim(data) == "Old password not correct!"){
                     swal('Oops..', 'Old password did not match', 'error');return false;
                 }else if($.trim(data) == "old_not_match_admin"){
-                    swal('Oops..', 'Old password did not match', 'error');return false;
+                    swal('Oops..', 'Old password not correct!', 'error');return false;
                 }else{
                     swal({
                         title: "Success",

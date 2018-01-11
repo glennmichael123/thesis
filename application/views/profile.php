@@ -721,7 +721,7 @@
                     <?php endif;?>
                     </div>
                     <div class="col-lg-1">
-                        <div style="margin-top: 20px;  font-size: 15px;">Hi, <?php echo  $personalDetails[0]['first_name'] ?></div>
+                        <div style="margin-top: 20px;  font-size: 15px;">Hi, <?php echo  $ojtFirstName ?></div>
                     </div>
                     <div class="col-lg-1">
                         <div style="margin-top: 20px;  font-size: 15px;">Trainee</div>
@@ -981,7 +981,7 @@
                                <input type="text" name="profile_fax_number" value="<?php echo $companyInformation->fax_number; ?>" readonly class="company-info form-control">
 
                                 <label class="labels">Supervisor Name:</label>
-                               <input type="text" name="" value="<?php echo $supervisorName->name; ?>" style="font-size: 13px;margin-left: 3px;display: inline; border: 0; color: #000000; width: 100%; background:none !important; box-shadow: none !important;" readonly class="form-control" >
+                               <input type="text" name="" value="<?php echo (empty($supervisorName->name) ? '' : $supervisorName->name); ?>" style="font-size: 13px;margin-left: 3px;display: inline; border: 0; color: #000000; width: 100%; background:none !important; box-shadow: none !important;" readonly class="form-control" >
                             </div>
                         </div>
                         <?php 
@@ -1266,13 +1266,14 @@
                         <div class="col-lg-9">
 
                             <div class="well" style="background-image:none; background-color: #FFFFFF; border: 1px solid #C0C0C0; width: 88.5% !important;">
+                                <h3 style="text-align: center; margin-bottom: 20px;">FINAL EVALUATION</h3>
                                 <?php if (empty($final_evaluation)): ?>
                                      <h4 style="text-align: center;color:#8b8f92">You have not been evaluated yet.</h4>
                                 <?php elseif($final_evaluation->allow_view == 0):?>
                                     <h4 style="color: #8b8f92; text-align: center; margin-top: 50px;">Your supervisor did not allow you to view your evaluation.</h4>
 
                                 <?php else: ?>
-                                    <h3 style="text-align: center; margin-bottom: 20px;">FINAL EVALUATION</h3>
+                                    
                                
                                     <div class="row">
                                         <div class="col-lg-4">

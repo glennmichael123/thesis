@@ -135,6 +135,7 @@ class Main extends CI_Controller {
      		$data['midterm_evaluation'] = $this->users->getMidtermEvaluations($this->session->userdata['id_number']);
      		$data['personalDetails'] = $this->users->getProfile($this->session->userdata['id_number']);
      		$data['familydetails'] = $this->users->getFamilyDetails($this->session->userdata['id_number']);
+     		$data['ojtFirstName'] = $this->users->getojtFirstName($this->session->userdata['id_number']);
      		$data['companyInformation'] = $this->users->getCompanyInformation($this->session->userdata['id_number']);
      		$data['emergencyInformation'] = $this->users->getEmergencyDetails($this->session->userdata['id_number']);
      		$data['final_evaluation'] = $this->users->getFinalEvaluations($this->session->userdata['id_number']);
@@ -453,8 +454,8 @@ public function logout(){
      	}else{
      	
      	$data['comments'] = $this->users->getComments();
-     	$companyName = $this->users->getCompanyInformation($this->session->userdata['id_number']);
-     	$data['workmates'] = $this->users->getWorkmates($this->session->userdata['id_number'], $companyName->company_name);
+     	$supervisorId = $this->users->getCompanyInformation($this->session->userdata['id_number']);
+     	$data['workmates'] = $this->users->getWorkmates($this->session->userdata['id_number'], $supervisorId->supervisor_id);
      	$totalLogsCount = $this->users->getNumberLogs($this->session->userdata['id_number']);
      	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($this->session->userdata['id_number']);
      	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($this->session->userdata['id_number']);
@@ -481,6 +482,7 @@ public function logout(){
 						$data['logs_list'] = $this->users->getLogsForStuds($this->session->userdata['id_number']);
 						
 						$data['user_data'] = $this->users->dashboardData($this->session->userdata['id_number']);
+						$data['ojtFirstName'] = $this->users->getojtFirstName($this->session->userdata['id_number']);
 						$data['image_header'] = $this->users->displayImageToHeader($this->session->userdata['id_number']);
 								// $this->users->getUserData($this->session->userdata['id_number']);
 							$this->load->view('dashboard', $data);
@@ -536,7 +538,7 @@ public function logout(){
 				           // print_r($page);
 						$data['logs_list'] = $this->users->getLogs($username, $config['per_page'], $page);
 						$data['userLoggedIn'] = $this->users->currentLoggedInOjt($this->session->userdata('id_number'));
-						
+						$data['ojtFirstName'] = $this->users->getojtFirstName($this->session->userdata['id_number']);
 						$data['user_data'] = $this->users->dashboardData($username);
 						$data['image_header'] = $this->users->displayImageToHeader($this->session->userdata('id_number'));
 						$data["links"] = $this->pagination->create_links();

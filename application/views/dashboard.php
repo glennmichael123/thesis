@@ -811,7 +811,7 @@ header h1 {
               <div class="col-lg-1">
                  <?php if(isset($id_number)):?>
                  <?php else: ?>
-                   <h5 style="position: relative; top: 15px;">Hi, <?php echo $user_data[0]['first_name']?></h5>
+                   <h5 style="position: relative; top: 15px;">Hi, <?php echo $ojtFirstName;?></h5>
                  <?php endif; ?>
               </div>
 

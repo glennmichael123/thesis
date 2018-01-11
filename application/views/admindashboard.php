@@ -558,7 +558,7 @@ tr:hover{
                                     <th>Course & Year</th>
                                     <th>School Year</th>
                                     <th>Evaluations(OJT1)</th>
-                                    <th>Evaluations(OJT2)</th>
+                                   
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -573,7 +573,6 @@ tr:hover{
                                             <th>Course & Year</th>
                                             <th>School Year</th>
                                             <th>Evaluations [ OJT1 ]</th>
-                                            <th>Evaluations [ OJT2 ]</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
@@ -582,7 +581,7 @@ tr:hover{
                                       <?php foreach($student_list as $student):?>
                                           <tr class="dashTable">
                                               <td style="text-align: center;width: 45px"><input type="checkbox" class="checkitem" value="<?php echo $student['id_number']?>" name="usernames[]"></td>
-                                              <td><a href="studentinfo/<?php echo $student['id_number']?>"><?php echo $student['first_name'] . " " . $student['last_name']?></a></td>
+                                              <td><a href="studentinfo/<?php echo $student['id_number']?>"><?php echo $student['last_name'] . ", " . $student['first_name']?></a></td>
                                               <td><?php echo $student['course']." - ".$student['year']?></td>
                                               <td><?php echo $student['school_year']?></td>
                                               <td>
@@ -599,21 +598,7 @@ tr:hover{
                                                     | <a style="color: gray">Final <i class="fa fa-times-circle"></i></a> 
                                                 <?php endif; ?>
                                               </td>
-                                              <td>
-                                                <?php if ($student['ojtone_current_evaluations'] == 1 || $student['ojtone_current_evaluations'] == 2 || $student['ojttwo_current_evaluations'] == 1 || $student['ojttwo_current_evaluations'] == 2): ?>
-                                                  <a href="<?php base_url() ?>viewmidterm/<?php echo $student['id_number']; ?>" target="_blank">
-                                                    Midterm <i class="fa fa-check-circle"></i></a>
-                                                <?php else:?>
-                                                  <a style="color:gray">Midterm <i class="fa fa-times-circle"></i></a>
-                                                <?php endif;?>  
-
-                                                <?php if ($student['ojtone_current_evaluations'] == 2 || $student['ojttwo_current_evaluations'] == 2): ?>
-                                                    | <a target="_blank" href="<?php base_url() ?>viewfinal/<?php echo $student['id_number']; ?>"> Final <i class="fa fa-check-circle"></i></a> 
-                                                <?php else: ?>
-                                                    | <a style="color: gray">Final <i class="fa fa-times-circle"></i></a> 
-                                                <?php endif; ?>
-
-                                              </td>
+                                   
                                               <?php if ($student['ojtone_rendered'] >= $student['ojtone_required'] && $student['ojtone_current_evaluations'] == 2):?>
                                                   <td style="color:green;">OJT-1 Completed</td>
                                                 <?php else :?>
@@ -1225,7 +1210,7 @@ tr:hover{
         }
         if(confirm == "yes"){
             swal({
-              title: "Are you sure?",
+              title: "Are you sure you want to remove student?",
               icon: "warning",
               buttons: true,
               buttons: ["No", "Yes"],

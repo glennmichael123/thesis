@@ -1147,10 +1147,9 @@
             return $query->row();
 
       }
-      public function getWorkmates($username, $company_name){
+      public function getWorkmates($username, $supervisor_id){
 
-
-          $query = $this->db->query("SELECT users.id_number, users.first_name, users.middle_initial, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_name LIKE '%$company_name%' AND company_information.id_number != '$username'");
+          $query = $this->db->query("SELECT users.id_number, users.first_name, users.middle_initial, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.supervisor_id = '$supervisor_id' AND company_information.id_number != '$username'");
           
 
           return $query->result_array(); 
@@ -1492,7 +1491,7 @@
        $supId = $this->db->query("SELECT supervisor_id FROM company_information WHERE id_number = '$username'")->row();
        $si = empty($supId->supervisor_id) ? '' : $supId->supervisor_id;
        $supName = $this->db->query("SELECT name FROM supervisor WHERE id_number = '$si'")->row();
-         return $supName;
+        return $supName;
       }
 
       public function getAdminFirstName($username){
@@ -1508,6 +1507,14 @@
           $fname = $breakArray[0];
           return $fname;
       }
+
+      public function getojtFirstName($username){
+
+          $query = $this->db->query("SELECT first_name FROM users WHERE id_number = '$username'")->row();
+          $breakArray = explode(' ', $query->first_name);
+          $fname = $breakArray[0];
+          return $fname;
+      } 
 }
 ?>
   
