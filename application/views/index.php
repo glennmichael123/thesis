@@ -114,10 +114,17 @@
           </div>
           <div class="row">
               <div class="col s6">
-                 <label style="margin-left: 10px;"><a href="<?php echo base_url('incorrectpassword') ?>">Forgot Password?</a></label>
+                 <label><a href="<?php echo base_url('incorrectpassword') ?>">Forgot Password?</a></label>
 
               </div>
-
+          </div>
+         
+            <div class="row">
+              <div class="col s6">
+               
+                 <div style="font-size: 18px; margin-top: 15px;">Login type</div>
+              
+              </div>
               <div class="col s6">
                  <select name="login-options" style="height: 1rem !important" id="loginas">
                  <!-- <option selected disabled>Login as</option> -->
@@ -126,10 +133,8 @@
                  <option value="administrator">Administrator</option>
              </select>
               </div>
+            </div>
 
-          </div>
-         
-          
         </div>
       </div>
 

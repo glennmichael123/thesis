@@ -207,7 +207,9 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-4">
-                        <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height: 50px;"></div>
+                        <div class="logo" style="float: left;"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height: 50px;"></div>
+
+                        <a href="<?php echo base_url('admindashboard') ?>" style="text-decoration: none;"><h3 style="font-weight: bold; margin-top: 12px; color: #7a5230; text-align: left; font-family: 'Roboto', sans-serif;">OJT Automate</h3></a> 
                     </div>
                     <div class="col-lg-7">
                     </div>

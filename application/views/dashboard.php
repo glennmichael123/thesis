@@ -686,8 +686,9 @@ header h1 {
     <div class="page-wrap">
         <div class="header">
             <div class="container-fluid">
-              <div class="col-lg-9">
-                  <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height: 50px;"></div>
+              <div class="col-lg-8">
+                  <div class="logo" style="float: left;"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height: 50px;"></div>
+                 <a href="dashboard" style="text-decoration: none;"><h3 style="font-weight: bold; color: #7a5230; margin-top: 10px;">OJT Automate</h3></a> 
               </div>
               <div class="col-lg-1">
                       <section id="notification-bell">
@@ -813,6 +814,14 @@ header h1 {
                    <h5 style="position: relative; top: 15px;">Hi, <?php echo $user_data[0]['first_name']?></h5>
                  <?php endif; ?>
               </div>
+
+              <div class="col-lg-1">
+                 <?php if(isset($id_number)):?>
+                 <?php else: ?>
+                   <h5 style="position: relative; top: 15px;">Trainee</h5>
+                 <?php endif; ?>
+              </div>
+
               <div class="col-lg-1">
                   <section class="dropdown-image">
                         <?php if(isset($id_number)):?>

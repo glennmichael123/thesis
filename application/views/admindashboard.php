@@ -335,9 +335,17 @@ tr:hover{
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-4">
-                        <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height: 50px;"></div>
+                        <div class="logo" style="float: left;"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height: 50px;"></div>
+
+                        <a href="admindashboard" style="text-decoration: none;"><h3 style="font-weight: bold; margin-top: 12px; color: #7a5230; text-align: left; font-family: 'Roboto', sans-serif;">OJT Automate</h3></a> 
                     </div>
-                    <div class="col-lg-7">
+                    <div class="col-lg-5">
+                    </div>
+                     <div class="col-lg-1">
+                         <h5 style="position: relative; top: 15px;">Hi, <?php echo $first_name; ?></h5>
+                    </div>
+                    <div class="col-lg-1">
+                      <h5 style="position: relative; top: 15px;">Admin</h5>
                     </div>
               <div class="col-lg-1">
 
@@ -939,6 +947,105 @@ tr:hover{
 
 
 <script type="text/javascript">
+   $('body').on('change', '#course_option',function(){
+          // $('#filterForm').submit();
+          var course = $('#course_option').val();
+          var eval = $('#eval_option').val();
+          var status = $('#status_option').val();
+          var sy = $('#sy_option').val();
+          $.ajax({
+              url : "filterStudent",
+              type: "POST",
+              data:{
+                'course': course,
+                'eval': eval,
+                'stat': status,
+                'sy': sy,
+              },
+              success: function(data){
+                 $('#wrap-students').replaceWith(data);
+              }
+
+          })
+      });
+
+      $('body').on('change','#sy_option',function(){
+          // $('#filterForm').submit();
+          var course = $('#course_option').val();
+          var eval = $('#eval_option').val();
+          var status = $('#status_option').val();
+          var sy = $('#sy_option').val();
+          //alert(sy);return false;
+
+          $.ajax({
+              url : "filterStudent",
+              type: "POST",
+              data:{
+                'course': course,
+                'eval': eval,
+                'stat': status,
+                'sy': sy,
+              },
+              success: function(data){
+                  $('#wrap-students').replaceWith(data);
+              }
+
+          })
+      });
+
+        $('#eval_option').change(function(){
+          var course = $('#course_option').val();
+          var eval = $('#eval_option').val();
+          var status = $('#status_option').val();
+          var sy = $('#sy_option').val();
+          $.ajax({
+              url : "filterStudent",
+              type: "POST",
+              data:{
+                'course': course,
+                'eval': eval,
+                'stat': status,
+                'sy': sy,
+              },
+              success: function(data){
+                  $('#wrap-students').replaceWith(data);
+              }
+
+          })
+      });
+
+      $('#status_option').change(function(){
+          var course = $('#course_option').val();
+          var eval = $('#eval_option').val();
+          var status = $('#status_option').val();
+          var sy = $('#sy_option').val();
+          //alert(sy);return false;
+
+          $.ajax({
+              url : "filterStudent",
+              type: "POST",
+              data:{
+                'course': course,
+                'eval': eval,
+                'stat': status,
+                'sy': sy,
+              },
+              success: function(data){
+                  $('#wrap-students').replaceWith(data);
+              }
+
+          })
+
+          //$('#filterForm').submit();
+          // var stat = $('#status_option').val();
+          // if(stat == null || stat == "All"){
+          //   stat ="";
+          // }
+          // //var search = stat+" "+sy;
+          // table.search(stat).draw();
+      });
+
+
     $(document).on('click','#postEdit',function(e){
       //var content = $(this).closest('.well').find('.postContent').val();
       //alert(content);return false;
@@ -1103,6 +1210,45 @@ tr:hover{
 
 <!-- FILTER RESULTS -->
 <script type="text/javascript">
+   $('#checkall').change(function(){
+          $('.checkitem').prop("checked",$(this).prop("checked"));
+      });
+   $('#btnDelete').click(function(e){ 
+        // alert('ddd'); 
+        var checks = document.getElementsByName("usernames[]");
+        var dataUsername = $("input[type='checkbox']:checked").serialize().replace(/%5B%5D/g, '[]');
+        var confirm = null;
+        for (var i=0; i < checks.length; i++) {
+          if(checks[i].checked == true){
+            confirm = "yes";break;
+          }
+        }
+        if(confirm == "yes"){
+            swal({
+              title: "Are you sure?",
+              icon: "warning",
+              buttons: true,
+              buttons: ["No", "Yes"],
+              dangerMode: true,
+            })
+            .then((willDelete) => {
+              if (willDelete) {
+                $.ajax({
+                  url: "deleteStudent",
+                  type: "POST",
+                  data:dataUsername,
+                  success: function(data){
+                    //console.log(data);return false;
+                    //table.ajax.reload();
+                    location.reload(true);
+                  }
+                });
+              }
+              else{
+              }
+            });
+        }
+      });
    $(document).ready(function(){
       var table = $('#adminDataTable').DataTable({
         "bProcessing": true,
@@ -1110,103 +1256,8 @@ tr:hover{
         "columns": [{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false }],
       });
 
-      $('#course_option').change(function(){
-          // $('#filterForm').submit();
-          var course = $('#course_option').val();
-          var eval = $('#eval_option').val();
-          var status = $('#status_option').val();
-          var sy = $('#sy_option').val();
-          $.ajax({
-              url : "filterStudent",
-              type: "POST",
-              data:{
-                'course': course,
-                'eval': eval,
-                'stat': status,
-                'sy': sy,
-              },
-              success: function(data){
-                 $('#wrap-students').replaceWith(data);
-              }
-
-          })
-      });
-
-      $('#eval_option').change(function(){
-          var course = $('#course_option').val();
-          var eval = $('#eval_option').val();
-          var status = $('#status_option').val();
-          var sy = $('#sy_option').val();
-          $.ajax({
-              url : "filterStudent",
-              type: "POST",
-              data:{
-                'course': course,
-                'eval': eval,
-                'stat': status,
-                'sy': sy,
-              },
-              success: function(data){
-                  $('#wrap-students').replaceWith(data);
-              }
-
-          })
-      });
-
-      $('body').on('change','#sy_option',function(){
-          // $('#filterForm').submit();
-          var course = $('#course_option').val();
-          var eval = $('#eval_option').val();
-          var status = $('#status_option').val();
-          var sy = $('#sy_option').val();
-          //alert(sy);return false;
-
-          $.ajax({
-              url : "filterStudent",
-              type: "POST",
-              data:{
-                'course': course,
-                'eval': eval,
-                'stat': status,
-                'sy': sy,
-              },
-              success: function(data){
-                  $('#wrap-students').replaceWith(data);
-              }
-
-          })
-      });
-      $('#status_option').change(function(){
-          var course = $('#course_option').val();
-          var eval = $('#eval_option').val();
-          var status = $('#status_option').val();
-          var sy = $('#sy_option').val();
-          //alert(sy);return false;
-
-          $.ajax({
-              url : "filterStudent",
-              type: "POST",
-              data:{
-                'course': course,
-                'eval': eval,
-                'stat': status,
-                'sy': sy,
-              },
-              success: function(data){
-                  $('#wrap-students').replaceWith(data);
-              }
-
-          })
-
-          //$('#filterForm').submit();
-          // var stat = $('#status_option').val();
-          // if(stat == null || stat == "All"){
-          //   stat ="";
-          // }
-          // //var search = stat+" "+sy;
-          // table.search(stat).draw();
-      });
-
+     
+    
 
 
       // $('select').change(function(){
@@ -1243,9 +1294,7 @@ tr:hover{
       //   table.search(search).draw();
       // });
 
-      $('#checkall').change(function(){
-          $('.checkitem').prop("checked",$(this).prop("checked"));
-      });
+     
 
       /*Refresh button*/
       $('#disp').click(function(){
@@ -1258,42 +1307,7 @@ tr:hover{
           table.search(search).draw();
       });
 
-      $('#btnDelete').click(function(e){ 
-        var checks = document.getElementsByName("usernames[]");
-        var dataUsername = $("input[type='checkbox']:checked").serialize().replace(/%5B%5D/g, '[]');
-        var confirm = null;
-        for (var i=0; i < checks.length; i++) {
-          if(checks[i].checked == true){
-            confirm = "yes";break;
-          }
-        }
-        if(confirm == "yes"){
-            swal({
-              title: "Are you sure?",
-              icon: "warning",
-              buttons: true,
-              buttons: ["No", "Yes"],
-              dangerMode: true,
-            })
-            .then((willDelete) => {
-              if (willDelete) {
-                $.ajax({
-                  url: "deleteStudent",
-                  type: "POST",
-                  data:dataUsername,
-                  success: function(data){
-                    //console.log(data);return false;
-                    //table.ajax.reload();
-                    location.reload(true);
-                  }
-                });
-              }
-              else{
-                e.preventDefault();
-              }
-            });
-        }
-      });
+
   });
 </script>
 <!-- ajaxdelete -->

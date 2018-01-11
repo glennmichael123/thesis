@@ -594,10 +594,12 @@
        <div class="header">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-4 col-sm-4">
-                        <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height: 50px;"></div>
+                    <div class="col-lg-4">
+                        <div class="logo" style="margin-top: 5px; float: left;"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height: 50px;"></div>
+
+                        <a href="dashboard" style="text-decoration: none;"><h3 style="font-weight: bold; margin-top: 15px; color: #7a5230; text-align: left; font-family: 'Roboto', sans-serif;">OJT Automate</h3></a> 
                     </div>
-                    <div class="col-lg-6 col-sm-7">
+                    <div class="col-lg-5 col-sm-7">
                         <?php if(isset($id_number)):?>
                         <?php else:?>
                             <section id="notification-bell">
@@ -720,6 +722,9 @@
                     </div>
                     <div class="col-lg-1">
                         <div style="margin-top: 20px;  font-size: 15px;">Hi, <?php echo  $personalDetails[0]['first_name'] ?></div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div style="margin-top: 20px;  font-size: 15px;">Trainee</div>
                     </div>
                     <div class="col-lg-1 col-sm-1">
                         <?php if(isset($id_number)):?>

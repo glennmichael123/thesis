@@ -685,7 +685,8 @@ header h1 {
         <div class="header">
             <div class="container-fluid">
               <div class="col-lg-9">
-                  <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height: 50px;"></div>
+                  <div class="logo" style="float: left;"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height: 50px;"></div>
+                   <a href="<?php echo base_url('supervisordashboard') ?>" style="text-decoration: none;"><h3 style="font-weight: bold; margin-top: 12px; color: #7a5230; text-align: left; font-family: 'Roboto', sans-serif;">OJT Automate</h3></a> 
               </div>
               <div class="col-lg-1">
                       <section id="notification-bell">
@@ -830,7 +831,7 @@ header h1 {
                                 <li><a href="<?php echo base_url('changepassword') ?>">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
                                 <li class="divider"></li>
                     
-                                <li><a href="<?php echo base_url()?>main/logout">Log Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+                                <li><a href="<?php echo base_url()?>main/logout">Log Out <i class="fa fa-sign-in pull-right" aria-hidden="true"></i></a></li>
                               </ul>
                               <?php else: ?>
 
@@ -844,7 +845,7 @@ header h1 {
                                 <li><a href="<?php echo base_url('changepassword') ?>">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
                                 <li class="divider"></li>
                     
-                                <li><a href="<?php echo base_url()?>main/logout">Log Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+                                <li><a href="<?php echo base_url()?>main/logout">Log Out <i class="fa fa-sign-in pull-right" aria-hidden="true"></i></a></li>
                               </ul>
                             <?php endif; ?>
                              

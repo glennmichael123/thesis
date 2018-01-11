@@ -370,10 +370,18 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-4">
-                        <div class="logo"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height:50px;"></div>
+                        <div class="logo" style="float: left;"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height:50px; margin-top: 5px;"></div>
+                        <a href="supervisordashboard" style="text-decoration: none;"><h3 style="font-weight: bold; margin-top: 16px; color: #7a5230; text-align: left; font-family: 'Roboto', sans-serif;">OJT Automate</h3></a> 
                     </div>
-                    <div class="col-lg-7">
+                    <div class="col-lg-5">
 
+                    </div>
+                    <div class="col-lg-1">
+                        <h5 style="position: relative; top: 20px;">Hi, <?php echo $supervisorName; ?></h5>
+                    </div>
+
+                    <div class="col-lg-1">
+                        <h5 style="position: relative; top: 20px;">Supervisor</h5>
                     </div>
                     <div class="col-lg-1">
 
@@ -682,7 +690,7 @@
                                             <label style="font-size: 11px;">Activity</label> 
                                             <textarea class="list-logs log-activity" name="log_lists_activity" id="log_lists_activity" placeholder="Write your log here" readonly><?php echo $log['log_content']?></textarea>
                                             <?php if($log['verified']):?>
-                                            <span style="color:green; font-size: 11px; position: absolute; left: 690px; margin-top: -20px; "> Verified  <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i></span>
+                                            <span class="verified-log" style="color:green; font-size: 11px; position: absolute; left: 690px; margin-top: -20px; "> Verified  <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i></span>
                                             <?php else:?>
                                                  <span class="pending-log" style="color:black; font-size: 11px; position: absolute; margin-top: -20px; left: 690px;"> Pending  <i style="color: green;" class="fa fa-circle-thin" aria-hidden="true"></i></span>
                                                  <?php endif;?>
@@ -699,7 +707,7 @@
                                      <div class="row" style="padding-top: 5px; padding-bottom: 5px;">
                                         <div class="col-lg-2">
                                             <?php if($log['verified']):?>
-                                                <a href="#" data-log-id="<?php echo $log['id']?>" style="color: #318ACE" class="evaluator-option verify-btn-verified"><i class="fa fa-check" aria-hidden="true"></i>Verified</a>
+                                                <a href="#" data-log-id="<?php echo $log['id']?>" style="color: #318ACE" class="evaluator-option unverify"><i class="fa fa-check" aria-hidden="true"></i>Verified</a>
                                             <?php else:?>
                                                  <a href="#" data-log-id="<?php echo $log['id']?>" class="evaluator-option verify-btn"><i class="fa fa-check" aria-hidden="true"></i>Verify</a>
                                             <?php endif;?>
@@ -1091,7 +1099,7 @@
         e.preventDefault();
         var log_id = $(this).data('log-id');
         var pending = $(this).closest('form').find('.pending-log');
-                 
+        var element = $(this);
         $.ajax({
             url: '<?php echo base_url()?>' + 'main/verifyLog',
             method: 'POST',
@@ -1099,13 +1107,43 @@
                 'log_id' : log_id,
             },
             success: function(data){
-               
+               pending.addClass('verified-log');
+                pending.removeClass('pending-log');
                  pending.html('<span style="color: green;">Verified</span> <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i>');
-            }
+                 element.removeClass('verify-btn');
+                 element.addClass('unverify');
+            }   
         });
          $(this).css("color", "#318ACE");
-         $(this).html('<i class="fa fa-check" aria-hidden="true"></i> Verified');
+
+        
+         $(this).html('<i class="fa fa-check" aria-hidden="true"></i>Verified');
               
+    });
+
+    $('body').on('click','.unverify', function(e){
+        e.preventDefault();
+        var log_id = $(this).data('log-id');
+        var pending = $(this).closest('form').find('.verified-log');
+        var element = $(this);
+        $.ajax({
+            url: '<?php echo base_url()?>' + 'main/unverifyLog',
+            method: 'POST',
+            data:{
+                'log_id' : log_id,
+            },
+            success: function(data){
+                pending.removeClass('verified-log');
+                pending.addClass('pending-log');
+                  pending.html('<span style="color: #000;">Pending</span> <i style="color: #000;" class="fa fa-circle-thin" aria-hidden="true"></i>');
+                  element.removeClass('unverify');
+                  element.addClass('verify-btn');
+                
+            }   
+        });
+
+         $(this).css("color", "#000");
+         $(this).html('<i class="fa fa-check" aria-hidden="true"></i>Verify');
     });
 </script>
 

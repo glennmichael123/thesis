@@ -546,7 +546,12 @@
 
         public function updateLog(){
             $log_id = $_POST['log_id'];
-            return $this->db->query("UPDATE logs SET verified = 1 WHERE id = $log_id");
+             $this->db->query("UPDATE logs SET verified = 1 WHERE id = $log_id");
+        }
+
+        public function unverifyLog(){
+            $log_id = $_POST['log_id'];
+             $this->db->query("UPDATE logs SET verified = 0 WHERE id = $log_id");
         }
             
         public function getComments(){
@@ -1328,21 +1333,25 @@
       }
 
       public function getOjtStatusForSupervisor($username){
-            $query = $this->db->query("SELECT ojtone_rendered, ojtone_required, count(*) as all_Stud, ojtone_current_evaluations,total_evaluations, ojtone_status FROM ojt_records WHERE supervisor_id = '$username'")->result_array();
+            $query = $this->db->query("SELECT ojtone_rendered, ojtone_required, ojtone_current_evaluations,total_evaluations, ojtone_status FROM ojt_records WHERE supervisor_id = '$username'")->result_array();
 
+            $countAllStud = $this->db->query("SELECT COUNT(id_number) as all_students FROM ojt_records WHERE supervisor_id = '$username' ")->row();
+          $array_status = array('completed'=>0, 'all_stud'=>0);
 
-          $array_status = array('completed'=>0, 'all_stud'=>2);
+         // echo '<pre>'; print_r($query); echo '</pre>';
           if(!empty($query)){
 
               foreach ($query as $student_status) {
-                  if($student_status['ojtone_rendered'] >= $student_status['ojtone_required'] && $student_status['ojtone_status'] == "COMPLETED"){
+
+                  if($student_status['ojtone_rendered'] >= $student_status['ojtone_required'] && $student_status['ojtone_current_evaluations'] >=2){
                       $array_status['completed']++;
                   }
 
-                  $array_status['all_stud'] = $query[0]['all_Stud'];
+                  
               }
+              $array_status['all_stud'] = $countAllStud->all_students;
           }
-          return $array_status;
+         return $array_status;
       }
 
       
@@ -1481,9 +1490,23 @@
 
       public function getSupervisorNameForStud($username){
        $supId = $this->db->query("SELECT supervisor_id FROM company_information WHERE id_number = '$username'")->row();
-       $si = $supId->supervisor_id;
+       $si = empty($supId->supervisor_id) ? '' : $supId->supervisor_id;
        $supName = $this->db->query("SELECT name FROM supervisor WHERE id_number = '$si'")->row();
          return $supName;
+      }
+
+      public function getAdminFirstName($username){
+          $query = $this->db->query("SELECT name FROM admin WHERE id_number = '$username'")->row();
+          $breakArray = explode(' ', $query->name);
+          $fname = $breakArray[0];
+          return $fname;
+      } 
+
+      public function getSupervisorName($username){
+          $query = $this->db->query("SELECT name FROM supervisor WHERE id_number = '$username'")->row();
+          $breakArray = explode(' ', $query->name);
+          $fname = $breakArray[0];
+          return $fname;
       }
 }
 ?>

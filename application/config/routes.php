@@ -100,6 +100,7 @@ $route['updatePostContent']  = 'main/updatePostContent';
 $route['deletePostContent']  = 'main/deletePostContent';
 $route['incorrectpassword']  = 'main/incorrectpassword';
 $route['removeStudentFromSupervisor']  = 'main/removeStudentFromSupervisor';
+$route['unverifyLog']  = 'main/unverifyLog';
 
 
 

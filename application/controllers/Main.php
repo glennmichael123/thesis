@@ -202,6 +202,7 @@ class Main extends CI_Controller {
      		$data['ojtRecords'] = $this->users->getOjtRecordsForSupervisor($this->session->userdata['id_number']);
      		$data['ojtStatus'] = $this->users->getOjtStatusForSupervisor($this->session->userdata['id_number']);
      		$data['traineesLog'] = $this->users->getOjtLogs($this->session->userdata['id_number']);
+     		$data['supervisorName'] = $this->users->getSupervisorName($this->session->userdata['id_number']);
      		$data['supImage'] = $this->users->supervisorImage($this->session->userdata['id_number']); 
      		$data['evaluationsOjt'] = $this->users->countEvaluationsForSupervisor($this->session->userdata['id_number']);
      		$data['not_verified'] = $this->users->getNotVerified($this->session->userdata('id_number'));
@@ -412,6 +413,7 @@ public function logout(){
      	
 			 	// $data['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
 			 	$data['company_list'] = $this->users->getCompanyNames();
+			 	$data['first_name'] = $this->users->getAdminFirstName($this->session->userdata['id_number']);
 			 	$data['completed_students'] = $this->users->getStudentStatus();
 			 	$data['company_watch_list'] = $this->users->getCompanyWatchlist();
 			 	$data['course_option'] = empty($_POST['course_option']) ? '' : $_POST['course_option'];
@@ -720,6 +722,10 @@ public function logout(){
     }
     public function verifyLog(){
     	$this->users->updateLog();
+    } 
+
+    public function unverifyLog(){
+    	$this->users->unverifyLog();
     }
     public function saveImage(){
     	$this->users->profileImage();
