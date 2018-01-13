@@ -1427,9 +1427,6 @@ header h1 {
         e.preventDefault();
         var log_id = $(this).data('log-id');
         $('#display-log-id').html(log_id);
-       
-      
-      
     });
     $('.load-log').click(function(e){
       e.preventDefault();

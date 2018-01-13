@@ -120,9 +120,9 @@
           </div>
          
             <div class="row">
-              <div class="col s6">
+              <div class="col s6 offset-5">
                
-                 <div style="font-size: 18px; margin-top: 15px;">Login type</div>
+                 <div style="font-size: 13px;margin-top: 15px;">LOGIN AS</div>
               
               </div>
               <div class="col s6">
@@ -138,17 +138,12 @@
         </div>
       </div>
 
-      <div class="card-action center-align" style="padding-bottom: 0px;">
+      <div class="card-action center-align" style="padding-bottom: 0px;margin-top: -20px">
         <div class="row">
           <div class="col s12">
             <button type="submit" class="btn amber lighten-1 waves-effect waves-light" style="width: 100%;">LOGIN</button>
           </div>
-          
-
         </div>
-        
-
-        
       </div>
     </form>
   </div>

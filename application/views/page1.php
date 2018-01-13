@@ -194,6 +194,25 @@
         background-color: #d32f2f;
         float: left;
        }
+
+       .cancelOut{
+            position: relative;
+            top: 10px;
+            font-size: 17px;
+            color:white;
+            padding: 10px 20px 10px 20px;
+            border-radius: 3px;
+            background: #ef5350;
+            float: left;
+       }
+       .cancelOut:hover{
+        text-decoration: none;
+        color: #FFFFFF;
+        background-color: #d32f2f;
+        float: left;
+       }
+
+
        .page2{
         display: none;
        }
@@ -290,7 +309,7 @@
                                 <input type="text" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="number" placeholder="Phone or landline" id="number" required>
                             </div>
                             <div class="col-lg-6">
-                                <input type="email" name="email" placeholder="Email address" id="email">
+                                <input type="email" name="email" placeholder="Email address" id="email" required>
                             </div>
                         </div>
                         <div class="row">
@@ -339,9 +358,8 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <!-- <input type="text" name="sex" placeholder="Sex" id="sex" required> -->
                                 <select name="sex" id="sex" required>
-                                    <option selected hidden>Sex</option>
+                                    <option selected hidden value="">Sex</option>
                                     <option>Male</option>
                                     <option>Female</option>
                                 </select>
@@ -406,7 +424,7 @@
                           <div class="col-lg-12">
                             <input type="text" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="tel_no_emergency" placeholder="Landline or mobile" id="tel_no_emergency" required>
                             </div>
-                            <div class="col-lg-12" style="margin-top: 10px;">
+                            <div class="col-lg-12">
                               <input type="text" name="emergency_address" placeholder="Address" id="emergency_address" required>
                           </div>
                         </div>
@@ -426,10 +444,14 @@
                             <div class="col-lg-4">
                                 <input type="radio" id="emergency_rad_2" value="address" name="address2" class="address"><label for="emergency_rad_2" class="address" style="margin-left: 3px;">Same as my Permanent Address</label>
                             </div>
-                        <div style="float: right;margin-top: 20px">
-                            <!-- <a class="topage2 first-next" href="#" id="firstNext">Next</a> -->
-                            <a class="firstnext first-next" href="#" id="firstNext" style="margin-right:15px">NEXT</a>
-                        </div>
+                         </div>
+                         <div class="row">
+                             <div style="float: right;margin-top: 20px">
+                                <a class="firstnext first-next" href="#" id="firstNext" style="margin-right:15px">NEXT</a>
+                            </div>
+                            <div style="float: left;margin-top: 20px">
+                                <a class="cancelOut" href="logout" style="margin-left:15px">CANCEL</a>
+                            </div>
                          </div>
                      </div>
                     </div>
@@ -702,7 +724,7 @@
             } else {
                 if ( ! $( this ).val() ) {
                     fail = true;
-                    name = $( this ).attr( 'style', 'border: 1px solid red' );
+                    name = $( this ).attr( 'style', 'border: 1px solid #e57373' );
                     fail_log += name + " is required \n";
                 }else{
                     name = $( this ).attr( 'style', 'border: 1px solid #ccc' );
@@ -735,7 +757,7 @@
                         }
                     });
                 } else{
-                    $("#email").css("border","1px solid red");
+                    $("#email").css("border","1px solid #e57373");
                 }
             }
         } else{
@@ -807,8 +829,6 @@
         }
     });
 
-
-
     $("#submit").click(function(){
           
         var fail = false;
@@ -819,7 +839,7 @@
             } else {
                 if ( ! $( this ).val() ) {
                     fail = true;
-                    name = $( this ).attr( 'style', 'border: 1px solid red' );
+                    name = $( this ).attr( 'style', 'border: 1px solid #e57373' );
                     fail_log += name + " is required \n";
                 }else{
                     name = $( this ).attr( 'style', 'border: 1px solid #ccc' );

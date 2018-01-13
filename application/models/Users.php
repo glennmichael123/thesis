@@ -1540,7 +1540,7 @@
           $fname = $breakArray[0];
           return $fname;
       } 
-
+      
       public function getOjtProgramForStud($username){
         $query = $this->db->query("SELECT ojt_program FROM users WHERE id_number = '$username'")->row();
 

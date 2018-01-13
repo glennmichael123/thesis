@@ -268,6 +268,7 @@ class Main extends CI_Controller {
   		if(!isset($this->session->userdata['id_number'])){
           redirect('index');
      	}else{
+  		$data['username'] = $username;
   		$data['comments'] = $this->users->getComments();
      	$totalLogsCount = $this->users->getNumberLogs($username);
      	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($username);
@@ -934,5 +935,51 @@ public function logout(){
    		echo json_encode($student);
    	}
 
+   	public function loadStudentInfo(){
+   		$username = "clark.kent";
+   		$data['comments'] = $this->users->getComments();
+     	$totalLogsCount = $this->users->getNumberLogs($username);
+     	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($username);
+     	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($username);
+     	$renderedCount = $this->users->getSumRendered($username);
+     	$data['personalDetails'] = $this->users->getProfile($username);
+     	$data['familydetails'] = $this->users->getFamilyDetails($username);
+     	$data['emergency'] = $this->users->getEmergencyDetails($username);
+     	$data['company'] = $this->users->getCompanyInformation($username);
+     	$data['supervisorName'] = $this->users->getSupervisorNameForStud($username);
+     	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $username);
+     	$this->users->updateOJTStatus($username);
+     	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $username);
+     	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $username);
+     	$ojtRecords = $this->users->dashboardDataRecords($username);
+     	$data['checkEmail'] = $this->users->checkEmailVerified($username);
+     		if(!empty($ojtRecords)){
+			     		$data['total'] = $ojtRecords[0]['ojtone_required'];
+						$data['rendered'] = $ojtRecords[0]['ojtone_rendered'];
+						$data['announcements'] = $this->users->getAnnouncements($username);
+						// echo time_elapsed_string($data['announcements'][0]['date_posted']);
+						
+						$data['all_evaluations'] = $ojtRecords[0]['total_evaluations'];
+						$data['current_evaluations'] = $ojtRecords[0]['ojtone_current_evaluations'];
+						$data['verified'] = $ojtRecords[0]['logs_verified'];
+						$data['totalLogs'] = $ojtRecords[0]['logs'];
+						$config = array();
+						$config['base_url'] = base_url() .'main/studentinfo/'.$username;
+						$config['uri_segment'] = 4;
+						$config["total_rows"] = $ojtRecords[0]['logs'];
+				        $config["per_page"] = 10;
+				        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+				          $this->pagination->initialize($config);
+						$data["links"] = $this->pagination->create_links();
+						$data['logs_list'] = $this->users->getLogs($username,$config['per_page'], $page);
+     	
+						// $data['logs_list'] = $this->users->getLogs($username);
+						
+						$data['user_data'] = $this->users->dashboardData($username);
+						$data['image_header'] = $this->users->displayImageToHeader($username);
+					}
+        $html = $this->load->view('student_info_toLoad',$data,TRUE);
+   		echo $html;
+     }
 }
 
