@@ -724,7 +724,15 @@
                         <div style="margin-top: 20px;  font-size: 15px;">Hi, <?php echo  $ojtFirstName ?></div>
                     </div>
                     <div class="col-lg-1">
-                        <div style="margin-top: 20px;  font-size: 15px;">Trainee</div>
+                       <?php
+                          $program = '';
+                            if($user_data[0]['ojt_program'] == 'ojt_one'){
+                              $program = 'OJT 1';
+                            }else{
+                               $program = 'OJT 2';
+                            }
+                          ?>
+                   <h5 style="position: relative; top: 15px;">Trainee - <?php echo $program; ?></h5>
                     </div>
                     <div class="col-lg-1 col-sm-1">
                         <?php if(isset($id_number)):?>

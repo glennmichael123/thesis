@@ -256,6 +256,7 @@
          }
 
         public function insertLogs(){
+
             $id_number = $_POST['id_number'];
             $date =  $_POST['log_date'];
             $time_in = $_POST['time_in'];
@@ -266,7 +267,8 @@
             $log_content = $_POST['log_activity'];
             $hours_rendered = $_POST['hours_rendered'];
             $supervisor_id = empty($_POST['supervisor_id']) ? '' : $_POST['supervisor_id'];
-
+            $ojt_program = $this->getOjtProgramForStud($id_number);
+            $ojtP = $ojt_program->ojt_program;
             $data = Array(
             'id_number' => $id_number,
             'date' => $date,
@@ -277,10 +279,10 @@
             'designation' => $designation,
             'log_content' => $log_content,
             'hours_rendered' => $hours_rendered,
-            'supervisor_id' => $supervisor_id
+            'supervisor_id' => $supervisor_id,
+            'ojt_program' => $ojtP
             );
-
-            $existDate = $this->db->query("SELECT * FROM logs WHERE date = '$date' AND id_number = '$id_number' ")->result();
+            $existDate = $this->db->query("SELECT * FROM logs WHERE date = '$date' AND id_number = '$id_number' AND ojt_program = '$ojtP'")->result();
 
             if(!empty($existDate)){
               echo 'dateexist';
@@ -305,9 +307,11 @@
             return $result->result_array();
         }
 
-        public function getLogsForStuds($id_number){
+        public function getLogsForStuds($id_number, $ojt_program){
+         
               $this->db->select('*');
               $this->db->where('id_number', $id_number);
+              $this->db->where('ojt_program', $ojt_program);
               $this->db->from('logs');
               $this->db->order_by('id', 'DESC');
               $result = $this->db->get();
@@ -331,10 +335,14 @@
 
         }
 
-        public function dashboardDataRecords($id_number){   
+        public function dashboardDataRecords($id_number, $ojt_program){   
             $username = $id_number;
-      
-            $result = $this->db->query("SELECT * FROM ojt_records WHERE id_number = '$username'");
+            if($ojt_program == 'ojt_one'){
+              $result = $this->db->query("SELECT ojtone_required as required, ojtone_rendered as rendered, total_evaluations as total, ojtone_current_evaluations as current_eval, logs_one as total_logs, logs_one_verified as verified_logs FROM ojt_records WHERE id_number = '$username'");
+            }else{
+              $result = $this->db->query("SELECT ojttwo_required as required, ojttwo_rendered as rendered, total_evaluations as total, ojttwo_current_evaluations as current_eval, logs_two as total_logs, logs_two_verified as verified_logs  FROM ojt_records WHERE id_number = '$username'");
+            }
+            
                   
            return $result->result_array();
          }   
@@ -475,10 +483,10 @@
 
         //    return $result->result_array();
         // }
-        public function getNumberLogs($data){
+        public function getNumberLogs($data, $ojt_program){
             $id = $data;
 
-            $result = $this->db->query("SELECT COUNT(logs.id) as logscount FROM logs WHERE id_number = '$id'");
+            $result = $this->db->query("SELECT COUNT(logs.id) as logscount FROM logs WHERE id_number = '$id' AND ojt_program = '$ojt_program' ");
             return $result->result_array();
         }
 
@@ -498,34 +506,44 @@
 
         }*/
 
-        public function getMidtermEvaluations($username){
+        public function getMidtermEvaluations($username, $ojt_program){
 
-          $query =  $this->db->query("SELECT * FROM midterm_evaluation WHERE username = '$username'");
-
-          return $query->row();
-        }
-        public function getFinalEvaluations($username){
-
-          $query =  $this->db->query("SELECT * FROM final_evaluation WHERE username = '$username'");
+          $query =  $this->db->query("SELECT * FROM midterm_evaluation WHERE username = '$username' AND ojt_program = '$ojt_program'");
 
           return $query->row();
         }
-        public function getSumRendered($data){
+        public function getFinalEvaluations($username, $ojt_program){
+
+          $query =  $this->db->query("SELECT * FROM final_evaluation WHERE username = '$username' AND ojt_program = '$ojt_program'");
+
+          return $query->row();
+        }
+        public function getSumRendered($data, $ojt_program){
             $id = $data;
 
-            $query = $this->db->query("SELECT SUM(hours_rendered) AS rendered FROM logs WHERE id_number ='$id' AND verified = 1");
+            $query = $this->db->query("SELECT SUM(hours_rendered) AS rendered FROM logs WHERE (id_number ='$id' AND verified = 1) AND ojt_program = '$ojt_program'");
             return $query->result_array();
         }
 
-        public function updateLogCount($logscount,$id){
-            return $this->db->query("UPDATE ojt_records SET logs = $logscount WHERE id_number ='$id'");
+        public function updateLogCount($logscount,$id, $ojt_program){
+          if($ojt_program == 'ojt_one'){
+             $this->db->query("UPDATE ojt_records SET logs_one = $logscount WHERE id_number ='$id'");
+          }else{
+            $this->db->query("UPDATE ojt_records SET logs_two = $logscount WHERE id_number ='$id'");
+          }
         }
-        public function updateLogsVerifiedCount($logscount, $id){
-              return $this->db->query("UPDATE ojt_records SET logs_verified = $logscount WHERE id_number = '$id'");
+        public function updateLogsVerifiedCount($logscount, $id, $ojt_program){
+             $this->db->query("UPDATE ojt_records SET logs_two_verified = $logscount WHERE id_number = '$id'");
         }
 
-        public function updateRenderedHours($hours, $id){
-            return $this->db->query("UPDATE ojt_records SET ojtone_rendered = $hours WHERE id_number = '$id'");
+        public function updateRenderedHours($hours, $id, $ojt_program){
+
+            if($ojt_program == 'ojt_one'){
+
+             $this->db->query("UPDATE ojt_records SET ojtone_rendered = $hours WHERE id_number = '$id'");
+            }else{
+              $this->db->query("UPDATE ojt_records SET ojttwo_rendered = $hours WHERE id_number = '$id'");
+            }
         }
 
         public function getNumberLogsVerified($data){
@@ -559,8 +577,14 @@
 
             return $query->result_array();
         }
-        public function updateOJTStatus($id){
-           $this->db->query("UPDATE ojt_records SET ojtone_status = 'COMPLETED' WHERE ojtone_rendered >= ojtone_required AND ojtone_current_evaluations = 2 AND id_number = '$id'");
+        public function updateOJTStatus($id, $ojt_program){
+
+           if($ojt_program == 'ojt_one'){
+            $this->db->query("UPDATE ojt_records SET ojtone_status = 'COMPLETED' WHERE ojtone_rendered >= ojtone_required AND ojtone_current_evaluations >= 2 AND id_number = '$id'");
+          }else{
+              $this->db->query("UPDATE ojt_records SET ojttwo_status = 'COMPLETED' WHERE ojttwo_rendered >= ojttwo_rendered AND ojttwo_current_evaluations >= 2 AND id_number = '$id'");
+          }
+           
         }
         public function updatePassword($id,$account_type){
 
@@ -631,9 +655,9 @@
           
          
          }
-         public function getSupervisorIdForStudent($username){
+         public function getSupervisorIdForStudent($username, $ojt_program){
 
-            $query = $this->db->query("SELECT supervisor_id FROM ojt_records WHERE id_number = '$username'");
+            $query = $this->db->query("SELECT supervisor_id FROM company_information WHERE id_number = '$username' AND ojt_program = '$ojt_program'");
 
             return $query->row();
          }
@@ -826,8 +850,9 @@
          }
          public function getLastLog(){
             $username = $_POST['username'];
-
-            $latestId = $this->db->query("SELECT MAX(id) AS latest_id FROM logs WHERE id_number = '$username'")->row();
+            $ojtProgram = $this->getOjtProgramForStud($username);
+            $ojtP = $ojtProgram->ojt_program;
+            $latestId = $this->db->query("SELECT MAX(id) AS latest_id FROM logs WHERE id_number = '$username' AND ojt_program = '$ojtP'")->row();
             $maxId = $latestId->latest_id;
             $lastlog = $this->db->query("SELECT * FROM logs WHERE id = $maxId")->row();
 
@@ -1141,9 +1166,9 @@
           return $query->row(); 
       } 
 
-      public function getCompanyInformation($username){
+      public function getCompanyInformation($username, $ojt_program){
 
-          $query = $this->db->query("SELECT * FROM company_information WHERE id_number = '".$username."'");
+          $query = $this->db->query("SELECT * FROM company_information WHERE id_number = '".$username."' AND ojt_program = '$ojt_program'");
             return $query->row();
 
       }
@@ -1515,6 +1540,12 @@
           $fname = $breakArray[0];
           return $fname;
       } 
+
+      public function getOjtProgramForStud($username){
+        $query = $this->db->query("SELECT ojt_program FROM users WHERE id_number = '$username'")->row();
+
+        return $query;
+      }
 }
 ?>
   

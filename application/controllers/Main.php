@@ -33,8 +33,10 @@ class Main extends CI_Controller {
         $this->load->library("pagination");
 
         	 $key = $this->encryption->create_key(16);
-		 $this->encryption->initialize(
+		 	$this->encryption->initialize(
 		 	array(  'cipher' => 'aes-256', 'mode' => 'ctr', 'key' => '1234567891011')
+
+
 );
     }
      public function ojtform(){
@@ -132,14 +134,14 @@ class Main extends CI_Controller {
      		$data['announcements'] = $this->users->getAnnouncements($this->session->userdata['id_number']);
      		$data['image_header'] = $this->users->displayImageToHeader($this->session->userdata['id_number']);
      		$data['user_data'] = $this->users->dashboardData($this->session->userdata['id_number']);
-     		$data['midterm_evaluation'] = $this->users->getMidtermEvaluations($this->session->userdata['id_number']);
+     		$data['midterm_evaluation'] = $this->users->getMidtermEvaluations($this->session->userdata['id_number'], $this->session->userdata['ojt_program']);
      		$data['personalDetails'] = $this->users->getProfile($this->session->userdata['id_number']);
      		$data['familydetails'] = $this->users->getFamilyDetails($this->session->userdata['id_number']);
      		$data['ojtFirstName'] = $this->users->getojtFirstName($this->session->userdata['id_number']);
-     		$data['companyInformation'] = $this->users->getCompanyInformation($this->session->userdata['id_number']);
+     		$data['companyInformation'] = $this->users->getCompanyInformation($this->session->userdata['id_number'], $this->session->userdata['ojt_program']);
      		$data['emergencyInformation'] = $this->users->getEmergencyDetails($this->session->userdata['id_number']);
-     		$data['final_evaluation'] = $this->users->getFinalEvaluations($this->session->userdata['id_number']);
-     		$data['supervisorName'] = $this->users->getSupervisorNameForStud($this->session->userdata['id_number']);
+     		$data['final_evaluation'] = $this->users->getFinalEvaluations($this->session->userdata['id_number'], $this->session->userdata['ojt_program']);
+     		$data['supervisorName'] = $this->users->getSupervisorNameForStud($this->session->userdata['id_number'], $this->session->userdata['ojt_program']);
      		$this->load->view('profile',$data);
      	}
 		
@@ -233,10 +235,12 @@ class Main extends CI_Controller {
 				$result = $this->users->readUserId($data);
 			
 				$session_data = $result[0]['id_number'];
+				$ojtProgram = $result[0]['ojt_program'];
 				// print_r($session_data);
 			// Add user data in session
 				$this->session->set_userdata('id_number', $session_data);
 				$this->session->set_userdata('account_type', $account_type);
+				$this->session->set_userdata('ojt_program', $ojtProgram);
 			
 				$existPersonalDetails = $this->users->checkExistPersonal($this->session->userdata['id_number']);
 				
@@ -452,34 +456,36 @@ public function logout(){
      	if(!$existPersonalDetails){
      		redirect('ojtform');
      	}else{
+     	$current_ojt_program = $this->users->getOjtProgramForStud($this->session->userdata['id_number']);
      	
      	$data['comments'] = $this->users->getComments();
-     	$supervisorId = $this->users->getCompanyInformation($this->session->userdata['id_number']);
-     	$data['workmates'] = $this->users->getWorkmates($this->session->userdata['id_number'], $supervisorId->supervisor_id);
-     	$totalLogsCount = $this->users->getNumberLogs($this->session->userdata['id_number']);
-     	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($this->session->userdata['id_number']);
+     	$supervisorId = $this->users->getCompanyInformation($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
+     	$data['workmates'] = $this->users->getWorkmates($this->session->userdata['id_number'], empty($supervisorId->supervisor_id) ? '' : $supervisorId->supervisor_id);
+     	$totalLogsCount = $this->users->getNumberLogs($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
+     	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
      	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($this->session->userdata['id_number']);
-     	$data['supervisor_id'] = $this->users->getSupervisorIdForStudent($this->session->userdata['id_number']);
+     	$data['supervisor_id'] = $this->users->getSupervisorIdForStudent($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
      	
      	$data['checkEmail'] = $this->users->checkEmailVerified($this->session->userdata['id_number']);
-     	$renderedCount = $this->users->getSumRendered($this->session->userdata['id_number']);
-     	$this->users->updateOJTStatus($this->session->userdata['id_number']);
-     	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $this->session->userdata['id_number']);
-     	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $this->session->userdata['id_number']);
-     	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $this->session->userdata['id_number']);
-     	$ojtRecords = $this->users->dashboardDataRecords($this->session->userdata['id_number']);
+     	$renderedCount = $this->users->getSumRendered($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
+     	$this->users->updateOJTStatus($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
+     	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $this->session->userdata['id_number'], $current_ojt_program->ojt_program);
+     	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $this->session->userdata['id_number'], $current_ojt_program->ojt_program);
+     	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $this->session->userdata['id_number'], $current_ojt_program->ojt_program);
+     	$ojtRecords = $this->users->dashboardDataRecords($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
+     	$data['announcements'] = $this->users->getAnnouncements($this->session->userdata['id_number']);
      		if(!empty($ojtRecords)){
-			     		$data['total'] = $ojtRecords[0]['ojtone_required'];
-						$data['rendered'] = $ojtRecords[0]['ojtone_rendered'];
-						$data['announcements'] = $this->users->getAnnouncements($this->session->userdata['id_number']);
-						// echo time_elapsed_string($data['announcements'][0]['date_posted']);
-						
-						$data['all_evaluations'] = $ojtRecords[0]['total_evaluations'];
-						$data['current_evaluations'] = $ojtRecords[0]['ojtone_current_evaluations'];
-						$data['verified'] = $ojtRecords[0]['logs_verified'];
-						$data['totalLogs'] = $ojtRecords[0]['logs'];
-				           // print_r($page);
-						$data['logs_list'] = $this->users->getLogsForStuds($this->session->userdata['id_number']);
+			     		$data['total'] = $ojtRecords[0]['required'];
+						$data['rendered'] = $ojtRecords[0]['rendered'];
+						$data['all_evaluations'] = $ojtRecords[0]['total'];
+						$data['current_evaluations'] = $ojtRecords[0]['current_eval'];
+						$data['verified'] = $ojtRecords[0]['verified_logs'];
+						$data['totalLogs'] = $ojtRecords[0]['total_logs'];
+
+
+
+
+						$data['logs_list'] = $this->users->getLogsForStuds($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
 						
 						$data['user_data'] = $this->users->dashboardData($this->session->userdata['id_number']);
 						$data['ojtFirstName'] = $this->users->getojtFirstName($this->session->userdata['id_number']);
@@ -604,8 +610,47 @@ public function logout(){
 		$this->users->addAdmin();
 	}
 	public function adminAddSupervisor(){
+		$supervisorEmail = $_POST['supEmail'];
+		$supervisorName = $_POST['supName'];
+		$supervisorUser = $_POST['supID'];
+		// echo $supervisorUser;exit;
+		$supervisorPass = $_POST['supPass'];
+
+		$this->sendEmailSupervisor($supervisorEmail,$supervisorName,$supervisorUser,$supervisorPass);
 		$this->users->addSupervisor();
 	}
+
+	public function sendEmailSupervisor($supervisorEmail,$supervisorName,$supervisorUser,$supervisorPass){
+		
+	
+		// $config = Array(
+		// 'protocol' => 'smtp',
+		//         'smtp_host' => 'ssl://smtp.gmail.com',
+		//         'smtp_port' => 465,
+		//         'smtp_user' => 'gtorregosa@gmail.com',
+		//         'smtp_pass' => 'popot143',
+		//         'mailtype'  => 'html', 
+		//         'charset' => 'utf-8',
+		//         'wordwrap' => TRUE
+		//     );
+			$email_body = '';
+		    $this->load->library('email');
+		    $this->email->set_newline("\r\n");
+		    $url = base_url();
+		    $email_setting  = array('mailtype'=>'html');
+		    $this->email->initialize($email_setting);
+		    $email_body .='Hello '.$supervisorName.'' . "<br>";
+		    $email_body .='Thank you for accepting our OJT students' . "<br>";
+		    $email_body .='Here are your credentials so you could login as a supervisor' . "<br>";
+		    $email_body .='Username: ' . $supervisorUser . "<br>";
+		    $email_body .='Password: ' . $supervisorPass . "<br>";
+		    $this->email->from('CITUAdmin', 'Admin');
+		    $this->email->to($supervisorEmail);
+		    $this->email->subject('Email Verification');
+		    $this->email->message($email_body);
+		   	$this->email->send();		
+    }
+
 	public function addWatchlist(){
 		$this->users->addWatch();
 	}

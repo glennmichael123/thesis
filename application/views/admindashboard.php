@@ -1547,18 +1547,7 @@ tr:hover{
                     text: "Supervisor added successfully | Email verification sent",
                     icon: "success",
                   }).then(function () {
-                    location.reload();
-                  });
-
-                 $.ajax({
-                    url: "saveEmail",
-                    type: "POST",
-                    data:{
-                      'email': email,
-                    },
-                    success:function(data){
-                      //alert("Email verification sent");
-                    }
+                    // location.reload();
                   });
               }
             },

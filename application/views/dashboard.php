@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -818,7 +819,15 @@ header h1 {
               <div class="col-lg-1">
                  <?php if(isset($id_number)):?>
                  <?php else: ?>
-                   <h5 style="position: relative; top: 15px;">Trainee</h5>
+                        <?php
+                          $program = '';
+                            if($user_data[0]['ojt_program'] == 'ojt_one'){
+                              $program = 'OJT 1';
+                            }else{
+                               $program = 'OJT 2';
+                            }
+                          ?>
+                   <h5 style="position: relative; top: 15px;">Trainee - <?php echo $program; ?></h5>
                  <?php endif; ?>
               </div>
 
@@ -1180,7 +1189,7 @@ header h1 {
                                             <input type="text" class="form-control" required name="department" id="department">
                                             <label>Designation</label>
                                             <input type="text" class="form-control" required name="designation" id="designation">
-                                            <input type="hidden" name="supervisor_id" value="<?php echo $supervisor_id->supervisor_id; ?>">
+                                            <input type="hidden" name="supervisor_id" value="<?php echo (empty($supervisor_id->supervisor_id) ? '' : $supervisor_id->supervisor_id); ?>">
                                         </div>
 
                                     </div>
