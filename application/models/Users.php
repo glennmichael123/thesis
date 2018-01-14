@@ -557,10 +557,177 @@
             return $this->db->insert('ojt_records', $data);
         }
 
-        public function getOjtLogs($id){
-            $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.first_name, users.last_name, company_information.supervisor_id, ojt_records.supervisor_id, users.user_image FROM logs INNER JOIN users ON users.id_number = logs.id_number INNER JOIN company_information ON company_information.supervisor_id = logs.supervisor_id INNER JOIN ojt_records ON ojt_records.supervisor_id = logs.supervisor_id WHERE logs.supervisor_id = '$id' AND company_information.supervisor_id !='' AND ojt_records.supervisor_id != '' ORDER BY id DESC");
-            return $query->result_array();
+        public function getOjtLogs($id, $ojt_program){
+          $logs = array(array());
+          $i =0;
+     
+                  foreach ($ojt_program as $key => $program) {
+                    $p = $program['ojt_program'];
+                    // echo $p;
+                    $d = $program['username'];
+         
+
+                    $query = $this->db->query("SELECT logs.id, logs.ojt_program, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.first_name, users.last_name, users.user_image FROM logs INNER JOIN users ON logs.id_number = users.id_number WHERE logs.ojt_program = '$p' AND logs.id_number = '$d'")->result();
+                      
+                  
+                        
+                        foreach ($query as $key => $value) {
+                            $logs[$i]['id'] = $value->id;
+                            // $logs[$i]['p'] = $value->ojt_program;
+                            $logs[$i]['id_number'] = $value->id_number;
+                            $logs[$i]['date'] = $value->date;
+                            $logs[$i]['time_in'] = $value->time_in;
+                            $logs[$i]['time_out'] = $value->time_out;
+                            $logs[$i]['first_name'] = $value->first_name;
+                            $logs[$i]['last_name'] = $value->last_name;
+                            $logs[$i]['user_image'] = $value->user_image;
+                            $logs[$i]['department'] = $value->department;
+                            $logs[$i]['designation'] = $value->designation;
+                            $logs[$i]['division'] = $value->division;
+                            $logs[$i]['hours_rendered'] = $value->hours_rendered;
+                            $logs[$i]['verified'] = $value->verified;
+                            $logs[$i]['log_content'] = $value->log_content;
+                            $i++;
+                        }
+
+                    }
+            
+           // echo '<pre>'; print_r($logs); echo '</pre>';
+          
+           
+            return $logs;
         }
+
+          public function filterLogsForSupervisor($id){
+      // print_r($_POST);exit;
+          $current_ojt_program = $this->getOjtProgramForStudSup($id);
+          // echo '<pre>'; print_r($current_ojt_program); echo '</pre>';
+        $status = $_POST['status'];
+          $logs = array(array(
+            'id'=>'',
+            'id_number'=>'',
+            'date'=>'',
+            'time_in'=>'',
+            'time_out'=>'',
+            'first_name'=>'',
+            'last_name'=>'',
+            'user_image'=>'',
+            'department'=>'',
+            'designation'=>'',
+            'division'=>'',
+            'hours_rendered'=>'',
+            'verified'=>'',
+            'log_content'=>''
+          ));
+          $i =0;
+
+
+        $stud = empty($_POST['stud_id']) ? '' : $_POST['stud_id'];
+
+          if($status == 'all'){
+             foreach ($current_ojt_program as $key => $program) {
+              $p = $program['ojt_program'];
+              $d = $program['username'];
+             $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.first_name, users.last_name, users.user_image FROM logs INNER JOIN users ON users.id_number = logs.id_number  WHERE logs.supervisor_id = '$id' AND logs.ojt_program = '$p' AND logs.id_number = '$d' AND users.id_number LIKE '%$stud%' ORDER BY id DESC")->result();
+                if(!empty($query)){
+                      foreach ($query as $key => $value) {
+                            $logs[$i]['id'] = $value->id;
+                            // echo value;
+                            // $logs[$i]['p'] = $value->ojt_program;
+                            $logs[$i]['id_number'] = $value->id_number;
+                            $logs[$i]['date'] = $value->date;
+                            $logs[$i]['time_in'] = $value->time_in;
+                            $logs[$i]['time_out'] = $value->time_out;
+                            $logs[$i]['first_name'] = $value->first_name;
+                            $logs[$i]['last_name'] = $value->last_name;
+                            $logs[$i]['user_image'] = $value->user_image;
+                            $logs[$i]['department'] = $value->department;
+                            $logs[$i]['designation'] = $value->designation;
+                            $logs[$i]['division'] = $value->division;
+                            $logs[$i]['hours_rendered'] = $value->hours_rendered;
+                            $logs[$i]['verified'] = $value->verified;
+                            $logs[$i]['log_content'] = $value->log_content;
+                            $i++;
+                    }
+                }
+               
+
+
+            }
+          }else{
+            // echo "hey";exit;
+            foreach ($current_ojt_program as $key => $program) {
+              $p = $program['ojt_program'];
+              $d = $program['username'];
+              // echo $p;
+              $query = $this->db->query("SELECT logs.id, logs.id_number, logs.ojt_program, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.first_name, users.last_name, users.user_image FROM logs INNER JOIN users ON users.id_number = logs.id_number  WHERE logs.supervisor_id = '$id' AND verified = $status AND users.id_number LIKE '%$stud%' AND logs.ojt_program = '$p' AND logs.id_number = '$d' ORDER BY id DESC")->result();
+                // print_r($query);
+                if(!empty($query)){
+                    foreach ($query as $key => $value) {
+                            $logs[$i]['id'] = $value->id;
+                            // echo value;
+                            $logs[$i]['p'] = $value->ojt_program;
+                            $logs[$i]['id_number'] = $value->id_number;
+                            $logs[$i]['date'] = $value->date;
+                            $logs[$i]['time_in'] = $value->time_in;
+                            $logs[$i]['time_out'] = $value->time_out;
+                            $logs[$i]['first_name'] = $value->first_name;
+                            $logs[$i]['last_name'] = $value->last_name;
+                            $logs[$i]['user_image'] = $value->user_image;
+                            $logs[$i]['department'] = $value->department;
+                            $logs[$i]['designation'] = $value->designation;
+                            $logs[$i]['division'] = $value->division;
+                            $logs[$i]['hours_rendered'] = $value->hours_rendered;
+                            $logs[$i]['verified'] = $value->verified;
+                            $logs[$i]['log_content'] = $value->log_content;
+                            $i++;
+                  }
+                }
+                
+
+            }
+            
+          }
+            
+          if($logs[0]['log_content'] == ''){
+              foreach ($logs as $key => $value) {
+                  $key = array_search($value, $logs);
+
+                  unset($logs[$key]);
+              }
+              return $logs;
+          }else{
+            return $logs;
+          }
+
+          
+      }
+
+         public function getNotVerified($username, $ojt_program){
+           $count = array();
+            $i=0;
+            $total = 0;
+          foreach ($ojt_program as $key => $program) {
+            $p = $program['ojt_program'];
+            $d = $program['username'];
+           
+            $query = $this->db->query("SELECT count(verified) as not_verified from logs WHERE supervisor_id = '$username' AND ojt_program = '$p' AND id_number = '$d' AND verified = 0")->result();
+
+              foreach ($query as $key => $value) {
+                  $count[$i] = $value->not_verified;
+                  $i++;
+              }
+          }
+
+          foreach ($count as $value) {
+            $total += $value;
+          }
+
+         return $total;
+            
+            // return $this->db->query("SELECT count(verified) as not_verified from logs INNER JOIN company_information ON logs.supervisor_id = company_information.supervisor_id INNER JOIN ojt_records ON ojt_records.supervisor_id = logs.supervisor_id where (logs.supervisor_id='$username' AND verified=0) AND ojt_records.supervisor_id!='' AND company_information.supervisor_id!= ''")->row();
+         
+      }
 
         public function updateLog(){
             $log_id = $_POST['log_id'];
@@ -1035,9 +1202,7 @@
      }
 
 
-      public function getNotVerified($username){
-           return $this->db->query("SELECT count(verified) as not_verified from logs INNER JOIN company_information ON logs.supervisor_id = company_information.supervisor_id INNER JOIN ojt_records ON ojt_records.supervisor_id = logs.supervisor_id where (logs.supervisor_id='$username' AND verified=0) AND ojt_records.supervisor_id!='' AND company_information.supervisor_id!= ''")->row();
-      }
+
       
        public function delStud($username){
           $this->db->query("UPDATE users SET status='DELETED' WHERE id_number= '$username'");
@@ -1071,6 +1236,7 @@
         $fname = $_POST['first_name'];
         $mname = $_POST['middle_initial'];
         $lname = $_POST['last_name'];
+        $ojt_program = $this->getOjtProgramForStud($username);
 
         // personal details table
         $college = $_POST['college'];
@@ -1136,7 +1302,7 @@
 
         $this->db->query("INSERT INTO emergency_details(id_number,name,relationship,contact_number,address) VALUES('".$username."','".$name."','".$relationship."',$emergency_contact,'".$emergency_add."')");
 
-        $this->db->query("INSERT INTO company_information(id_number,company_name,company_address,contact_number,fax_number,product_lines,company_classification,number_of_employees) VALUES('".$username."','".$comp_name."','".$comp_add."',$comp_contact,$fax_number,'".$product_lines."','".$classif."','".$employees."')");
+        $this->db->query("INSERT INTO company_information(id_number,company_name,company_address,contact_number,fax_number,product_lines,company_classification,number_of_employees,ojt_program) VALUES('".$username."','".$comp_name."','".$comp_add."',$comp_contact,$fax_number,'".$product_lines."','".$classif."','".$employees."','".$ojt_program."')");
       }
 
 
@@ -1475,20 +1641,7 @@
           }
       }
 
-    public function filterLogsForSupervisor($id){
-      // print_r($_POST);exit;
-        $status = $_POST['status'];
-        $stud = empty($_POST['stud_id']) ? '' : $_POST['stud_id'];
 
-          if($status == 'all'){
-             $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.first_name, users.last_name, users.user_image FROM logs INNER JOIN users ON users.id_number = logs.id_number  WHERE logs.supervisor_id = '$id' AND users.id_number LIKE '%$stud%' ORDER BY id DESC");
-          }else{
-            // echo "hey";exit;
-            $query = $this->db->query("SELECT logs.id, logs.id_number, logs.date, logs.time_in, logs.time_out, logs.division, logs.department, logs.designation, logs.log_content, logs.hours_rendered, logs.verified, users.first_name, users.last_name, users.user_image FROM logs INNER JOIN users ON users.id_number = logs.id_number  WHERE logs.supervisor_id = '$id' AND verified = $status AND users.id_number LIKE '%$stud%' ORDER BY id DESC");
-          }
-
-            return $query->result_array();
-      }
 
       public function getAnnouncmentsForAdmin($id){
         $query = $this->db->query("SELECT * FROM announcements WHERE admin_id = '$id' GROUP BY announcement_id ORDER BY date_posted DESC");
@@ -1545,6 +1698,25 @@
         $query = $this->db->query("SELECT ojt_program FROM users WHERE id_number = '$username'")->row();
 
         return $query;
+      } 
+
+      public function getOjtProgramForStudSup($username){
+
+        $getOjtId = $this->db->query("SELECT id_number FROM ojt_records WHERE supervisor_id = '$username'")->result_array();
+        // print_r($getOjtId);
+        $idProgram = array(array('username' => '', 'ojt_program'=>''));
+        $i = 0;
+        foreach ($getOjtId as $key => $id_number) {
+          $uname = $id_number['id_number'];
+          $query = $this->db->query("SELECT id_number, ojt_program FROM users WHERE id_number = '$uname'")->result();
+            foreach ($query as $key => $value) {
+               $idProgram[$i]['username'] = $value->id_number;
+               $idProgram[$i]['ojt_program'] = $value->ojt_program;
+               $i++;
+            }
+         
+        }
+        return $idProgram;
       }
 }
 ?>

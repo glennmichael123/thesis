@@ -487,7 +487,7 @@
                                     <?php else:?>
                                     <div class="progress skill-bar">
                                         <div class="progress-bar progress-bar-third" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                                            <p class="skills"><?php echo $not_verified->not_verified;?></p>
+                                            <p class="skills"><?php echo $not_verified;?></p>
                                         </div>
                                     </div>
                                     <!-- endif -->

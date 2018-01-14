@@ -1563,7 +1563,7 @@ tr:hover{
                     text: "Supervisor added successfully | Email verification sent",
                     icon: "success",
                   }).then(function () {
-                    // location.reload();
+                    location.reload();
                   });
               }
             },

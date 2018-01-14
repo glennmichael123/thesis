@@ -130,15 +130,17 @@ class Main extends CI_Controller {
 		if(!isset($this->session->userdata['id_number'])){
           redirect(base_url('index'));
      	}else{
+     		$current_ojt_program = $this->users->getOjtProgramForStud($this->session->userdata['id_number']);
      		$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($this->session->userdata['id_number']);
      		$data['announcements'] = $this->users->getAnnouncements($this->session->userdata['id_number']);
      		$data['image_header'] = $this->users->displayImageToHeader($this->session->userdata['id_number']);
      		$data['user_data'] = $this->users->dashboardData($this->session->userdata['id_number']);
-     		$data['midterm_evaluation'] = $this->users->getMidtermEvaluations($this->session->userdata['id_number'], $this->session->userdata['ojt_program']);
+     		
+     		$data['midterm_evaluation'] = $this->users->getMidtermEvaluations($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
      		$data['personalDetails'] = $this->users->getProfile($this->session->userdata['id_number']);
      		$data['familydetails'] = $this->users->getFamilyDetails($this->session->userdata['id_number']);
      		$data['ojtFirstName'] = $this->users->getojtFirstName($this->session->userdata['id_number']);
-     		$data['companyInformation'] = $this->users->getCompanyInformation($this->session->userdata['id_number'], $this->session->userdata['ojt_program']);
+     		$data['companyInformation'] = $this->users->getCompanyInformation($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
      		$data['emergencyInformation'] = $this->users->getEmergencyDetails($this->session->userdata['id_number']);
      		$data['final_evaluation'] = $this->users->getFinalEvaluations($this->session->userdata['id_number'], $this->session->userdata['ojt_program']);
      		$data['supervisorName'] = $this->users->getSupervisorNameForStud($this->session->userdata['id_number'], $this->session->userdata['ojt_program']);
@@ -200,15 +202,17 @@ class Main extends CI_Controller {
      			redirect('admindashboard');
      		}else{
      		$data['comments'] = $this->users->getComments();
+     		$current_ojt_program = $this->users->getOjtProgramForStudSup($this->session->userdata['id_number']);
+     		// print_r($current_ojt_program);
+     		$data['traineesLog'] = $this->users->getOjtLogs($this->session->userdata['id_number'], $current_ojt_program);
      		$company_name = $this->users->getCompanySupervisor($this->session->userdata['id_number']);
      		$data['supervisorAddOjt'] = $this->users->supervisorGetTrainee($company_name,$this->session->userdata['id_number']);
      		$data['ojtRecords'] = $this->users->getOjtRecordsForSupervisor($this->session->userdata['id_number']);
      		$data['ojtStatus'] = $this->users->getOjtStatusForSupervisor($this->session->userdata['id_number']);
-     		$data['traineesLog'] = $this->users->getOjtLogs($this->session->userdata['id_number']);
      		$data['supervisorName'] = $this->users->getSupervisorName($this->session->userdata['id_number']);
      		$data['supImage'] = $this->users->supervisorImage($this->session->userdata['id_number']); 
      		$data['evaluationsOjt'] = $this->users->countEvaluationsForSupervisor($this->session->userdata['id_number']);
-     		$data['not_verified'] = $this->users->getNotVerified($this->session->userdata('id_number'));
+     		$data['not_verified'] = $this->users->getNotVerified($this->session->userdata('id_number'), $current_ojt_program);
      		$this->load->view('supervisor-dashboard', $data);
      		}
      		
