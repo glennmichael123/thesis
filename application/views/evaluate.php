@@ -434,7 +434,7 @@
                     title: "Evaluation Submitted",
                     icon:"success",
                 }).then(function(){
-                   window.location.href = "<?php echo base_url()?>main/supervisorDashboard";
+                   window.location.href = "<?php echo base_url('supervisordashboard')?>";
                 });return false;
 
             }

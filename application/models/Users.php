@@ -294,11 +294,12 @@
 
         }
 
-        public function getLogs($data,$limit, $start){
+        public function getLogs($data,$limit, $start, $ojt_program){
             $username = $data;
               $this->db->limit($limit, $start);
               $this->db->select('*');
               $this->db->where('id_number', $username);
+              $this->db->where('ojt_program', $ojt_program);
               $this->db->from('logs');
               $this->db->order_by('id', 'DESC');
               $result = $this->db->get();
@@ -348,8 +349,7 @@
          }   
 
          public function getOjtRecordsForSupervisor($username){
-           
-            $result = $this->db->query("SELECT ojt_records.id_number, ojt_records.ojtone_required,ojt_records.ojtone_rendered,ojt_records.ojttwo_rendered, users.first_name, users.last_name FROM ojt_records INNER JOIN users ON users.id_number = ojt_records.id_number WHERE supervisor_id = '$username'");         
+            $result = $this->db->query("SELECT ojt_records.id_number, ojt_records.ojtone_required,ojt_records.ojtone_rendered,ojt_records.ojttwo_rendered, ojt_records.ojttwo_required, users.first_name, users.last_name, users.ojt_program FROM ojt_records INNER JOIN users ON users.id_number = ojt_records.id_number WHERE supervisor_id = '$username'");         
 
             return $result->result_array();
          }
@@ -533,7 +533,15 @@
           }
         }
         public function updateLogsVerifiedCount($logscount, $id, $ojt_program){
-             $this->db->query("UPDATE ojt_records SET logs_two_verified = $logscount WHERE id_number = '$id'");
+
+             if($ojt_program == 'ojt_two'){
+              
+                 $this->db->query("UPDATE ojt_records SET logs_two_verified = $logscount WHERE id_number = '$id'");
+             }else{
+              
+                $this->db->query("UPDATE ojt_records SET logs_one_verified = $logscount WHERE id_number = '$id'");
+             }
+            
         }
 
         public function updateRenderedHours($hours, $id, $ojt_program){
@@ -546,10 +554,9 @@
             }
         }
 
-        public function getNumberLogsVerified($data){
+        public function getNumberLogsVerified($data, $ojt_program){
              $id = $data;
-
-            $result = $this->db->query("SELECT COUNT(verified) as logscount FROM logs WHERE id_number = '$id' AND verified = 1");
+            $result = $this->db->query("SELECT COUNT(verified) as logscount FROM logs WHERE id_number = '$id' AND ojt_program = '$ojt_program' AND verified = 1");
             return $result->result_array();
         }
 
@@ -1147,6 +1154,8 @@
          }
          
          public function midterm_eval($username){
+          $ojtProgram = $this->getOjtProgramForStudSupSpecific($username);
+          // echo $ojtProgram->ojt_program;exit;
             $value = 0;
                 if($_POST['allow_view']==true){  
                $value = 1;
@@ -1172,12 +1181,16 @@
                        
                 $this->db->query("INSERT INTO midterm_evaluation(username,supervisor_username,enthusiasm,cooperation,adaptability,industriousness,responsibility,attentiveness,grooming,
                     attendance,quality,quantity,dependability,comprehension,
-                    safety,waste,remarks,allow_view,total) VALUES('$username','$supervisor',$a1,$a2,$a3,$a4,$a5,$a6,$a7,$a8,$a9,$a10,$a11,$a12,$a13,$a14,'$remarks',$value,$total)"); 
+                    safety,waste,remarks,allow_view,total,ojt_program) VALUES('$username','$supervisor',$a1,$a2,$a3,$a4,$a5,$a6,$a7,$a8,$a9,$a10,$a11,$a12,$a13,$a14,'$remarks',$value,$total,'$ojtProgram->ojt_program')"); 
 
                
 
                 if($this->db->affected_rows()>0){
+                    if($ojtProgram->ojt_program == 'ojt_one'){
                      $this->db->query("UPDATE ojt_records SET ojtone_current_evaluations = ojtone_current_evaluations + 1 WHERE id_number = '$username'");
+                    }else{
+                        $this->db->query("UPDATE ojt_records SET ojttwo_current_evaluations = ojttwo_current_evaluations + 1 WHERE id_number = '$username'");
+                    }
                     return true;
                 }
                 else
@@ -1339,11 +1352,24 @@
 
       }
       public function getWorkmates($username, $supervisor_id){
+        $program = array();
 
-          $query = $this->db->query("SELECT users.id_number, users.first_name, users.middle_initial, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.supervisor_id = '$supervisor_id' AND company_information.id_number != '$username'");
+          $query = $this->db->query("SELECT users.id_number, users.first_name, users.middle_initial, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.supervisor_id = '$supervisor_id' AND company_information.id_number != '$username'")->result_array();
+
+          foreach ($query as $key => $value) {
+            $id = $value['id_number'];
+              $program = $this->db->query("SELECT ojt_program, id_number FROM users WHERE id_number = '$id'")->result();  
+          }
+
+         foreach ($program as $key => $value) {
+          $p = $value->ojt_program;
+          $s = $value->id_number;
+            $workmate = $this->db->query("SELECT users.id_number, users.first_name, users.middle_initial, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.supervisor_id = '$supervisor_id' AND company_information.id_number != '$username' AND company_information.ojt_program = '$p'")->result_array();
+            return $workmate; 
+         }
           
 
-          return $query->result_array(); 
+          
       }
 
       public function truncateAllTables(){
@@ -1358,6 +1384,7 @@
      
 
       public function final_eval($username){
+        $ojtProgram = $this->getOjtProgramForStudSupSpecific($username);  
           if($_POST['allow_view']==true){
             $allow = 1;
           }else{
@@ -1388,16 +1415,18 @@
           $fpersonality = $_POST['fpersonality'];
           $recommend = $_POST['recommend'];
            $total = $fquality + $fquality2 + $fdependability + $fattendance+ $fcooperation + $fjudgement+ $fpersonality;
-          // $total = ($fquality + $fquality2 + $fdependability+ $fattendance+ $fcooperation+ $fjudgement + $fpersonality);
-
-            // $this->db->query("INSERT INTO final_evaluation(id_number,name,age,sex,course,major,school,city,permanent,required,company,division,field,dates_from,dates_to,total_hours,quality,quality2,dependability,attendance,cooperation,judgement,personality) VALUES('$username','$fname',$fage,'$fsex','$fcourse','$fmajor','$fschool','$fcity','$fpermanent','$frequired','$fcompany','$fdivision','$ffield','$dates','$fdatesto',$ftotal,$fquality,$fquaility2,$fdependability,$fattendance,$fcooperation,$fjudgement,$fpersonality)");
           $this->db->query("INSERT INTO final_evaluation(username,supervisor_username,name,age,sex,course,major,school,city,permanent,
                     required,company,division,field,dates_from,
-                    dates_to,total_hours,quality,quality2,dependability,attendance,cooperation,judgement,personality,recommend,total,allow_view) VALUES('$username','$supervisor','$fname',$fage,'$fsex','$fcourse','$fmajor','$fschool','$fcity','$fpermanent','$frequired','$fcompany','$fdivision','$ffield','$fdates','$fdatesto','$ftotal',$fquality,$fquality2,$fdependability,$fattendance,$fcooperation,$fjudgement,$fpersonality,'$recommend',$total,$allow)"); 
+                    dates_to,total_hours,quality,quality2,dependability,attendance,cooperation,judgement,personality,recommend,total,allow_view,ojt_program) VALUES('$username','$supervisor','$fname',$fage,'$fsex','$fcourse','$fmajor','$fschool','$fcity','$fpermanent','$frequired','$fcompany','$fdivision','$ffield','$fdates','$fdatesto','$ftotal',$fquality,$fquality2,$fdependability,$fattendance,$fcooperation,$fjudgement,$fpersonality,'$recommend',$total,$allow,'$ojtProgram->ojt_program')"); 
 
 
                   if($this->db->affected_rows()>0){
-                    $this->db->query("UPDATE ojt_records SET ojtone_current_evaluations = ojtone_current_evaluations + 1 WHERE id_number = '$username'");
+                    if($ojtProgram->ojt_program == 'ojt_one'){
+                        $this->db->query("UPDATE ojt_records SET ojtone_current_evaluations = ojtone_current_evaluations + 1 WHERE id_number = '$username'");
+                    }else{
+                        $this->db->query("UPDATE ojt_records SET ojttwo_current_evaluations = ojttwo_current_evaluations + 1 WHERE id_number = '$username'");
+                    }
+                    
                     return true;
 
                       }
@@ -1522,9 +1551,9 @@
           return $array_status;
       }
 
-      public function getOjtStatusForSupervisor($username){
-            $query = $this->db->query("SELECT ojtone_rendered, ojtone_required, ojtone_current_evaluations,total_evaluations, ojtone_status FROM ojt_records WHERE supervisor_id = '$username'")->result_array();
-
+      public function getOjtStatusForSupervisor($username, $program){
+            $query = $this->db->query("SELECT id_number, ojtone_rendered, ojtone_required, ojtone_current_evaluations,total_evaluations, ojtone_status, ojttwo_required, ojttwo_rendered, ojttwo_current_evaluations FROM ojt_records WHERE supervisor_id = '$username'")->result_array();
+          // echo '<pre>';  print_r($query); echo '</pre>';
             $countAllStud = $this->db->query("SELECT COUNT(id_number) as all_students FROM ojt_records WHERE supervisor_id = '$username' ")->row();
           $array_status = array('completed'=>0, 'all_stud'=>0);
 
@@ -1532,11 +1561,20 @@
           if(!empty($query)){
 
               foreach ($query as $student_status) {
+                  foreach ($program as $key => $value) {
 
-                  if($student_status['ojtone_rendered'] >= $student_status['ojtone_required'] && $student_status['ojtone_current_evaluations'] >=2){
-                      $array_status['completed']++;
+                      $p = $value['ojt_program'];
+                      if($p == 'ojt_one'){
+                           if($student_status['ojtone_rendered'] >= $student_status['ojtone_required'] && $student_status['ojtone_current_evaluations'] >=2){
+                            $array_status['completed']++;
+                            }  
+                      }else{
+                          if($student_status['ojttwo_rendered'] >= $student_status['ojttwo_required'] && $student_status['ojttwo_current_evaluations'] >=2){
+                             $array_status['completed']++;
+                            }    
+                      }
+                     
                   }
-
                   
               }
               $array_status['all_stud'] = $countAllStud->all_students;
@@ -1573,13 +1611,14 @@
       }
 
       public function countEvaluationsForSupervisor($username){
-           $query = $this->db->query("SELECT ojtone_current_evaluations as current_eval, total_evaluations as total_eval FROM ojt_records WHERE supervisor_id = '$username'")->result_array();
+           $query = $this->db->query("SELECT ojtone_current_evaluations as current_eval, ojttwo_current_evaluations as ojttwo_current, total_evaluations as total_eval FROM ojt_records WHERE supervisor_id = '$username'")->result_array();
            $array_eval = array('current_eval'=>0, 'total_eval' => 0);
          foreach ($query as $evaluations) {
               $t = $evaluations['total_eval'];
+              $ojtwo = $evaluations['ojttwo_current'];
               $c = $evaluations['current_eval'];
 
-              $array_eval['current_eval'] += $c;
+              $array_eval['current_eval'] += $c + $ojtwo;
               $array_eval['total_eval'] += $t;
 
          }
@@ -1717,6 +1756,12 @@
          
         }
         return $idProgram;
+      }
+
+      public function getOjtProgramForStudSupSpecific($studentUname){
+          $query = $this->db->query("SELECT id_number, ojt_program FROM users WHERE id_number = '$studentUname'")->row();
+
+          return $query;
       }
 }
 ?>

@@ -344,13 +344,12 @@
         }
 
         .evaluate-btn{
-            background-color: #871F21;
-            color: #FFFFFF !important;
+            color: #2196f3 !important;
         }
-        .evaluate-btn:hover{
+        /*.evaluate-btn:hover{
             background-color:#791b1d;
             color: #FFFFFF !important;
-        }
+        }*/
 
     
     </style>
@@ -522,26 +521,52 @@
                                         <?php foreach($ojtRecords as $student):?>
                                         <tr style="font-size: 15px; color: #000;">
                                             <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
-                                            <?php if($student['ojtone_rendered'] < 50):?>
-                                                <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
-                                                <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
-                                              
 
-                                            <?php else:?>
-                                              
-                                                
-                                                <?php if(in_array($student['id_number'], array_column($evaluated, 'username'))):?>
-                                                 <td><i class="fa fa-check" aria-hidden="true"></i></td>          
-                                                 <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td> 
+                                        <?php if($student['ojt_program'] == 'ojt_one'): ?>
+                                                <?php if($student['ojtone_rendered'] < 50):?>
+                                                    <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
+                                                    <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
+                                                  
+
                                                 <?php else:?>
-                                            <td><a href="<?php echo base_url()?>main/evaluate/<?php echo $student['id_number']?>" class="btn evaluate-btn">Evaluate</a></td>
-                                            <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
-                                                
-                                        <?php endif;?>
+                                                  
+                                                    
+                                                    <?php if(in_array($student['id_number'], array_column($evaluated, 'username'))):?>
+                                                     <td><i class="fa fa-check" aria-hidden="true"></i></td>          
+                                                     <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td> 
+                                                    <?php else:?>
+                                                <td><a href="<?php echo base_url()?>main/evaluate/<?php echo $student['id_number']?>" class=" evaluate-btn">Evaluate</a></td>
+                                                <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
+                                                    
+                                                 <?php endif;?>
 
-                                       
-                                                
-                                            <?php endif;?>
+                                           
+                                                    
+                                                <?php endif;?>
+                                            <?php else:  ?>
+                                                    <?php if($student['ojttwo_rendered'] < 50):?>
+                                                    <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
+                                                    <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
+                                                  
+
+                                                <?php else:?>
+                                                  
+                                                    
+                                                    <?php if(in_array($student['id_number'], array_column($evaluated, 'username'))):?>
+                                                     <td><i class="fa fa-check" aria-hidden="true"></i></td>          
+                                                     <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td> 
+                                                    <?php else:?>
+                                                <td><a href="<?php echo base_url()?>main/evaluate/<?php echo $student['id_number']?>" class=" evaluate-btn">Evaluate</a></td>
+                                                <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
+                                                    
+                                                 <?php endif;?>
+
+                                           
+                                                    
+                                                <?php endif;?>
+                                        <?php endif; ?>
+
+
 
                                         </tr>
                                     <?php endforeach;?>
@@ -562,29 +587,40 @@
                                         <?php foreach($ojtRecords as $student):?>
                                         <tr style="font-size: 15px; color: #000;">
                                             <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
-                                            <?php if($student['ojtone_rendered'] < $student['ojtone_required']):?>
 
-                                                <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
+                                            <?php if($student['ojt_program'] == 'ojt_one'): ?>
+                                                  <?php if($student['ojtone_rendered'] < $student['ojtone_required']):?>
+                                                    <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
 
-                                                <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
-
-
-
-                                            <?php else:?>
-                                              
-                                                
-                                                <?php if(in_array($student['id_number'], array_column($evaluated2, 'username'))):?>
-                                                 <td><i class="fa fa-check" aria-hidden="true"></i></td> 
-                                                   <td><a href="#" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>          
-                                                <?php else:?>
-                                            <td><a href="<?php echo base_url()?>main/finalevaluation/<?php echo $student['id_number']?>" class="btn evaluate-btn">Evaluate</a></td>
-                                              <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
-                                                
-                                        <?php endif;?>
-
-                                       
-                                                
+                                                    <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
+                                                <?php else:?>                                                                      
+                                                     <?php if(in_array($student['id_number'], array_column($evaluated2, 'username'))):?>
+                                                     <td><i class="fa fa-check" aria-hidden="true"></i></td> 
+                                                       <td><a href="#" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>          
+                                                    <?php else:?>
+                                                <td><a href="<?php echo base_url()?>main/finalevaluation/<?php echo $student['id_number']?>" class="evaluate-btn" target="_blank">Evaluate</a></td>
+                                                  <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
+                                                    
+                                                <?php endif;?>
                                             <?php endif;?>
+                                        <?php else: ?>
+                                              <?php if($student['ojttwo_rendered'] < $student['ojttwo_required']):?>
+                                                    <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
+
+                                                    <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
+                                                <?php else:?>                                                                      
+                                                     <?php if(in_array($student['id_number'], array_column($evaluated2, 'username'))):?>
+                                                     <td><i class="fa fa-check" aria-hidden="true"></i></td> 
+                                                       <td><a href="#" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>          
+                                                    <?php else:?>
+                                                <td><a href="<?php echo base_url()?>main/finalevaluation/<?php echo $student['id_number']?>" class="evaluate-btn" target="_blank">Evaluate</a></td>
+                                                  <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
+                                                    
+                                                <?php endif;?>
+                                            <?php endif;?>
+                                        <?php endif; ?>
+
+
 
                                         </tr>
                                     <?php endforeach;?>
