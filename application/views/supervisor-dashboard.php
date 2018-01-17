@@ -525,7 +525,7 @@
                                         <?php if($student['ojt_program'] == 'ojt_one'): ?>
                                                 <?php if($student['ojtone_rendered'] < 50):?>
                                                     <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
-                                                    <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
+                                                    <td><a href="#" class="remove-stud" data-stud-name="<?php echo $student['first_name'] . " " . $student['last_name']?>" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
                                                   
 
                                                 <?php else:?>
@@ -533,10 +533,10 @@
                                                     
                                                     <?php if(in_array($student['id_number'], array_column($evaluated, 'username'))):?>
                                                      <td><i class="fa fa-check" aria-hidden="true"></i></td>          
-                                                     <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td> 
+                                                     <td><a href="#" class="remove-stud" data-stud-name="<?php echo $student['first_name'] . " " . $student['last_name']?>" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td> 
                                                     <?php else:?>
                                                 <td><a href="<?php echo base_url()?>main/evaluate/<?php echo $student['id_number']?>" class=" evaluate-btn">Evaluate</a></td>
-                                                <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
+                                                <td><a href="#" class="remove-stud" data-stud-name="<?php echo $student['first_name'] . " " . $student['last_name']?>" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
                                                     
                                                  <?php endif;?>
 
@@ -546,7 +546,7 @@
                                             <?php else:  ?>
                                                     <?php if($student['ojttwo_rendered'] < 50):?>
                                                     <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
-                                                    <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
+                                                    <td><a href="#" class="remove-stud" data-stud-name="<?php echo $student['first_name'] . " " . $student['last_name']?>" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
                                                   
 
                                                 <?php else:?>
@@ -554,10 +554,10 @@
                                                     
                                                     <?php if(in_array($student['id_number'], array_column($evaluated, 'username'))):?>
                                                      <td><i class="fa fa-check" aria-hidden="true"></i></td>          
-                                                     <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td> 
+                                                     <td><a href="#" class="remove-stud" data-stud-name="<?php echo $student['first_name'] . " " . $student['last_name']?>" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td> 
                                                     <?php else:?>
                                                 <td><a href="<?php echo base_url()?>main/evaluate/<?php echo $student['id_number']?>" class=" evaluate-btn">Evaluate</a></td>
-                                                <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
+                                                <td><a href="#" class="remove-stud" data-stud-name="<?php echo $student['first_name'] . " " . $student['last_name']?>" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
                                                     
                                                  <?php endif;?>
 
@@ -592,14 +592,14 @@
                                                   <?php if($student['ojtone_rendered'] < $student['ojtone_required']):?>
                                                     <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
 
-                                                    <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
+                                                    <td><a href="#" class="remove-stud" data-stud-name="<?php echo $student['first_name'] . " " . $student['last_name']?>" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
                                                 <?php else:?>                                                                      
                                                      <?php if(in_array($student['id_number'], array_column($evaluated2, 'username'))):?>
                                                      <td><i class="fa fa-check" aria-hidden="true"></i></td> 
                                                        <td><a href="#" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>          
                                                     <?php else:?>
                                                 <td><a href="<?php echo base_url()?>main/finalevaluation/<?php echo $student['id_number']?>" class="evaluate-btn" target="_blank">Evaluate</a></td>
-                                                  <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
+                                                  <td><a href="#" class="remove-stud" data-stud-name="<?php echo $student['first_name'] . " " . $student['last_name']?>" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
                                                     
                                                 <?php endif;?>
                                             <?php endif;?>
@@ -607,14 +607,14 @@
                                               <?php if($student['ojttwo_rendered'] < $student['ojttwo_required']):?>
                                                     <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
 
-                                                    <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
+                                                    <td><a href="#" class="remove-stud" data-stud-name="<?php echo $student['first_name'] . " " . $student['last_name']?>" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
                                                 <?php else:?>                                                                      
                                                      <?php if(in_array($student['id_number'], array_column($evaluated2, 'username'))):?>
                                                      <td><i class="fa fa-check" aria-hidden="true"></i></td> 
                                                        <td><a href="#" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>          
                                                     <?php else:?>
                                                 <td><a href="<?php echo base_url()?>main/finalevaluation/<?php echo $student['id_number']?>" class="evaluate-btn" target="_blank">Evaluate</a></td>
-                                                  <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
+                                                  <td><a href="#" class="remove-stud" data-stud-name="<?php echo $student['first_name'] . " " . $student['last_name']?>" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
                                                     
                                                 <?php endif;?>
                                             <?php endif;?>
@@ -642,7 +642,7 @@
 
                     <div class="col-lg-8">
                         <?php if(empty($traineesLog)): ?>
-
+                                <h3 style="text-align: center;">There are no logs yet.</h3>
                         <?php else: ?>
                         <div class="row" style="margin-bottom: 20px;">
                             <div class="col-lg-5">
@@ -1003,8 +1003,10 @@
 </script>
 
 <script type="text/javascript">
-    $('.remove-stud').click(function(){
+    $(document).on('click', '.remove-stud',function(e){
+        e.preventDefault();
         var stud_id = $(this).data('stud-id');
+        var stud_name = $(this).data('stud-name');
 
         // alert(stud_id); 
 
@@ -1022,6 +1024,7 @@
                     method: 'POST',
                     data: {
                         'stud_id': stud_id,
+                        'stud_name': stud_name,
                     },
                     success: function(data){
                       location.reload();

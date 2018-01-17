@@ -102,6 +102,7 @@ $route['incorrectpassword']  = 'main/incorrectpassword';
 $route['removeStudentFromSupervisor']  = 'main/removeStudentFromSupervisor';
 $route['unverifyLog']  = 'main/unverifyLog';
 $route['loadStudentInfo']  = 'main/loadStudentInfo';
+$route['changeOjtStatusSameCompany']  = 'main/changeOjtStatusSameCompany';
 
 
 

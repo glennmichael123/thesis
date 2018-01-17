@@ -211,7 +211,7 @@ class Main extends CI_Controller {
      		$data['ojtStatus'] = $this->users->getOjtStatusForSupervisor($this->session->userdata['id_number'], $current_ojt_program);
      		$data['supervisorName'] = $this->users->getSupervisorName($this->session->userdata['id_number']);
      		$data['supImage'] = $this->users->supervisorImage($this->session->userdata['id_number']); 
-     		$data['evaluationsOjt'] = $this->users->countEvaluationsForSupervisor($this->session->userdata['id_number']);
+     		$data['evaluationsOjt'] = $this->users->countEvaluationsForSupervisor($this->session->userdata['id_number'], $current_ojt_program);
      		$data['not_verified'] = $this->users->getNotVerified($this->session->userdata('id_number'), $current_ojt_program);
      		$this->load->view('supervisor-dashboard', $data);
      		}
@@ -462,7 +462,7 @@ public function logout(){
      		redirect('ojtform');
      	}else{
      	$current_ojt_program = $this->users->getOjtProgramForStud($this->session->userdata['id_number']);
-     	
+     	$data['current_program'] = $current_ojt_program->ojt_program;
      	$data['comments'] = $this->users->getComments();
      	$supervisorId = $this->users->getCompanyInformation($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
      	$data['workmates'] = $this->users->getWorkmates($this->session->userdata['id_number'], empty($supervisorId->supervisor_id) ? '' : $supervisorId->supervisor_id);
@@ -908,7 +908,14 @@ public function logout(){
 	}
 
 	public function removeStudentFromSupervisor(){
-   		$this->users->removeStudentFromSupervisor();
+		$name = $_POST['stud_name'];
+		$this->users->removeStudentFromSupervisor();
+		$Status = '<div class="alert alert-success alert-dismissible" role="alert" style="margin-top: 40px; ">
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					   You have removed '.$name.' as your trainee</div>';
+    	$this->session->set_flashdata("Status",$Status);
+
+   		
    	}
 
    	public function getTraineeNames(){
@@ -975,6 +982,14 @@ public function logout(){
 					}
         $html = $this->load->view('student_info_toLoad',$data,TRUE);
    		echo $html;
+     }
+
+     public function changeOjtStatusSameCompany(){
+     	$this->users->changeOjtStatusSameCompany($this->session->userdata('id_number'));
+     	$Status = '<div class="alert alert-success alert-dismissible" role="alert" style="margin-top: 40px; ">
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					   You are now transitioned to OJT2 </div>';
+    	$this->session->set_flashdata("Status",$Status);
      }
 }
 

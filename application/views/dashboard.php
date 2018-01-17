@@ -79,110 +79,7 @@ header h1 {
   font-size: 20px;
   font-size: 1.25rem;
 }
-.cd-popup {
-  position: fixed;
-  z-index: 999;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
- 
-  opacity: 0;
-  visibility: hidden;
-  -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
-  -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
-  transition: opacity 0.3s 0s, visibility 0s 0.3s;
-}
-.cd-popup.is-visible {
-  opacity: 1;
-  visibility: visible;
-  -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
-  -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
-  transition: opacity 0.3s 0s, visibility 0s 0s;
-}
-.cd-popup-container {
-  position: relative;
-  width: 90%;
-  max-width: 400px;
-  margin: 4em auto;
-  background: #FFF;
-  border-radius: .25em .25em .4em .4em;
-  text-align: center;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-  -webkit-transform: translateY(-40px);
-  -moz-transform: translateY(-40px);
-  -ms-transform: translateY(-40px);
-  -o-transform: translateY(-40px);
-  transform: translateY(-40px);
-  /* Force Hardware Acceleration in WebKit */
-  -webkit-backface-visibility: hidden;
-  -webkit-transition-property: -webkit-transform;
-  -moz-transition-property: -moz-transform;
-  transition-property: transform;
-  -webkit-transition-duration: 0.3s;
-  -moz-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-}
-.cd-popup-container p {
-  padding: 3em 1em;
-}
-.cd-popup-container .cd-buttons:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-.cd-popup-container .cd-buttons li {
-  float: left;
-  width: 50%;
-  list-style: none;
-}
-.cd-popup-container .cd-buttons a {
-  display: block;
-  height: 60px;
-  line-height: 60px;
-  text-transform: uppercase;
-  color: #FFF;
-  -webkit-transition: background-color 0.2s;
-  -moz-transition: background-color 0.2s;
-  transition: background-color 0.2s;
-}
-.cd-popup-container .cd-buttons li:first-child a {
-  background: #EDC844;
-  border-radius: 0 0 0 .25em;
-}
-.no-touch .cd-popup-container .cd-buttons li:first-child a:hover {
-  background-color: #fc8982;
-}
-.cd-popup-container .cd-buttons li:last-child a {
-  background-color: #DABD95 !important;
-  border-radius: 0 0 .25em 0;
-}
-.no-touch .cd-popup-container .cd-buttons li:last-child a:hover {
-  background-color: #c5ccd8;
-}
-.cd-popup-container .cd-popup-close {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 30px;
-  height: 30px;
-}
-.cd-popup-container .cd-popup-close::before, .cd-popup-container .cd-popup-close::after {
-  content: '';
-  position: absolute;
-  top: 12px;
-  width: 14px;
-  height: 3px;
-  background-color: #8f9cb5;
-}
-.cd-popup-container .cd-popup-close::before {
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
-  left: 8px;
-}
+
 .show-more-right input[type=text]{
   font-size: 12px;
 }
@@ -198,27 +95,7 @@ header h1 {
 .show-more-right label{
   font-size: 13px !important;
 }
-.cd-popup-container .cd-popup-close::after {
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  right: 8px;
-}
-.is-visible .cd-popup-container {
-  -webkit-transform: translateY(0);
-  -moz-transform: translateY(0);
-  -ms-transform: translateY(0);
-  -o-transform: translateY(0);
-  transform: translateY(0);
-}
-@media only screen and (min-width: 1170px) {
-  .cd-popup-container {
-    margin: 8em auto;
-  }
-}
-        .top {
+      .top {
             background-color: #915B51;
             height: 50px;
         }
@@ -660,7 +537,7 @@ header h1 {
 </head>
 
 <body onload="init()">
-
+ 
       
             <div id="popup1" style="display: none;">
                 <h4 style="padding-left: 10px;color: #2693e6;text-transform: uppercase;"><?php echo $announcements[0]['name']; ?></h4>
@@ -671,19 +548,6 @@ header h1 {
             </div>
         
      
-
-<div class="cd-popup" role="alert">
-    <div class="cd-popup-container" style="background-color: #EED090;color: #A55D35">
-        <p style="font-size: 15px;">Are you sure you want to delete this log?</p>
-        <ul class="cd-buttons" style="padding: 0px;">
-            <li><a href="#0" class="confirm-delete-log">Yes</a></li>
-            <li><a href="#0" class="cancel-delete-log">No</a></li>
-           
-        </ul>
-         <p id="display-log-id" style="display: none;"></p>
-        <a href="#0" class="cd-popup-close img-replace">Close</a>
-    </div> <!-- cd-popup-container -->
-</div> <!-- cd-popup -->
     <div class="page-wrap">
         <div class="header">
             <div class="container-fluid">
@@ -906,6 +770,25 @@ header h1 {
        
     </div>
     <div class="content">
+
+      <?php if($rendered >= $total && $current_evaluations >= $all_evaluations): ?>
+        <?php if($current_program == 'ojt_two'): ?>
+            <?php else: ?>
+           <div class="container" style="margin-top: 40px;">
+            <div class="well" style="margin-bottom: 0;">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div style="font-size: 15px;"><i class="fa fa-check" style="color: green;"></i>Congratulations! You have completed your OJT1. You can now proceed to OJT2.</div>
+                       </div>
+                        <div class="col-lg-2 col-lg-offset-2">
+                            <div style="font-size: 15px;"><a href="#" class="proceed-ojt btn btn-success" style="padding: 2px; background: #43a047 !important;" class="btn btn-success">Proceed</a></div>
+                        </div>
+                
+                </div>
+            </div>
+        </div>
+          <?php endif; ?>
+  <?php endif; ?>
       <?php if(isset($id_number)): ?>
     <?php else: ?>
       <?php if($checkEmail->status): ?>
@@ -926,6 +809,7 @@ header h1 {
   <?php endif; ?>
 <?php endif; ?>
         <div class="container">
+          <?php echo $this->session->flashdata('Status'); ?>
             <div class="row">
             </div>
             <div class="dashboard-info-student well" <?php  if(isset($id_number)): ?> style="margin-top: 40px;" <?php else: ?><?php  if($checkEmail->status): ?> style="margin-top: 40px;" <?php  else: ?> style="margin-top: 20px;" <?php  endif;?> <?php endif; ?>">
@@ -1249,7 +1133,7 @@ header h1 {
                                         <ul class="dropdown-menu" style="width: 233px;margin-top: 2px;margin-left: -202px;" aria-labelledby="dropdownMenu2">
                                             <li><a href="#" class="edit-log" style="color: #000000;">Edit <i class="fa fa-pencil" aria-hidden="true"></i></a></li>
                                             <li role="separator" class="divider"> </li>
-                                            <li><a href="#" class="delete-log cd-popup-trigger" data-log-id="<?php echo $log['id']?>" style="color: #000000;">Delete <i class="fa fa-trash"></i></a></li>
+                                            <li><a href="#" class="delete-log" data-log-id="<?php echo $log['id']?>" style="color: #000000;">Delete <i class="fa fa-trash"></i></a></li>
                                              <li role="separator" class="divider"> </li>
                                             <li><a href="#" class="load-log" data-log-id="<?php echo $log['id']?>" style="color: #000000;">  Load log <i class="fa fa-sticky-note" aria-hidden="true"></i> </a></li>
                                         </ul>
@@ -1378,6 +1262,32 @@ header h1 {
                    e.preventDefault();
                     $(this).simplePopup({ type: "html", htmlSelector: "#popup1" });
                 });
+
+                $(document).on('click', '.proceed-ojt', function(e){
+                    e.preventDefault();
+                    swal({
+                        title: "Are you in the same company?",
+                        icon: "info",
+                        buttons: true,
+                        buttons: ["No", "Yes"],
+                        dangerMode: true,
+                      })
+                      .then((sameCompany) => {
+                        if (sameCompany) {
+                           $.ajax({
+                              url: 'changeOjtStatusSameCompany',
+                              type: 'POST',
+                              data:{
+                                'ojt_status': 'ojt_two',
+                              },
+                              success: function(data){
+                                  location.reload();
+                              }
+                           });
+                        }
+                      });
+
+                });
             });
         
         </script>
@@ -1426,7 +1336,29 @@ header h1 {
     $('.delete-log').click(function(e) {
         e.preventDefault();
         var log_id = $(this).data('log-id');
-        $('#display-log-id').html(log_id);
+        var row = $(this).closest('.well');
+        swal({
+            title: "Are you sure you want to delete log?",
+            icon: "warning",
+            buttons: true,
+            buttons: ["No", "Yes"],
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                  method: 'POST',
+                  url: '<?php echo base_url('deleteLog') ?>',
+                  data:{
+                      'log_id': log_id,
+                  },
+                  success: function(){
+                      row.fadeOut();
+                  }
+              });
+            }
+          });
+        
     });
     $('.load-log').click(function(e){
       e.preventDefault();
@@ -1459,19 +1391,7 @@ header h1 {
 
        // alert(log_id);
     });
-    $('.confirm-delete-log').click(function(){
-        var log_id = $('#display-log-id').html();
-        $.ajax({
-            method: 'POST',
-            url: '<?php echo base_url('deleteLog') ?>',
-            data:{
-                'log_id': log_id,
-            },
-            success: function(){
-                location.reload(true);
-            }
-        });
-    });
+  
     $('.edit-log').click(function(e) {
         e.preventDefault();
         var input = $(this).closest(".row").find(".list-logs");
@@ -1536,32 +1456,6 @@ header h1 {
             }
         });
     });
-</script>
-<script type="text/javascript">
-    jQuery(document).ready(function($){
-    //open popup
-    $('.cd-popup-trigger').on('click', function(event){
-        event.preventDefault();
-        $('.cd-popup').addClass('is-visible');
-    });
-    
-    //close popup
-    $('.cd-popup').on('click', function(event){
-        if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
-            event.preventDefault();
-            $(this).removeClass('is-visible');
-        }
-    });
-    $('.cancel-delete-log').click(function(){
-        $('.cd-popup').removeClass('is-visible');
-    });
-    //close popup when clicking the esc keyboard button
-    $(document).keyup(function(event){
-        if(event.which=='27'){
-            $('.cd-popup').removeClass('is-visible');
-        }
-    });
-});
 </script>
 
 
