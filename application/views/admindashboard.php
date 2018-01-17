@@ -1254,7 +1254,7 @@ tr:hover{
       var table = $('#adminDataTable').DataTable({
         "bProcessing": true,
         "order": [1, 'asc'],
-        "columns": [{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false }],
+        "columns": [{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false }]
       });
 
      
