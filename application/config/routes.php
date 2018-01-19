@@ -103,6 +103,8 @@ $route['removeStudentFromSupervisor']  = 'main/removeStudentFromSupervisor';
 $route['unverifyLog']  = 'main/unverifyLog';
 $route['loadStudentInfo']  = 'main/loadStudentInfo';
 $route['changeOjtStatusSameCompany']  = 'main/changeOjtStatusSameCompany';
+$route['newcompany']  = 'main/newCompany';
+$route['changeOjtStatusDifferentCompany']  = 'main/changeOjtStatusDifferentCompany';
 
 
 

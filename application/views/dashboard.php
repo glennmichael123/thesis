@@ -1284,6 +1284,8 @@ header h1 {
                                   location.reload();
                               }
                            });
+                        }else{
+                            location.href="newcompany";
                         }
                       });
 

@@ -1,4 +1,4 @@
-<?php echo $_GET['username']; ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -166,7 +166,7 @@
                 'username': username,
             },
             success: function(data){
-                alert(data);
+                // alert(data);
                 // window.location.href = "index";   
                   swal({
                     title: "Password Successfully Changed",

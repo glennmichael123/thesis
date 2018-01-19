@@ -34,10 +34,7 @@ class Main extends CI_Controller {
 
         	 $key = $this->encryption->create_key(16);
 		 	$this->encryption->initialize(
-		 	array(  'cipher' => 'aes-256', 'mode' => 'ctr', 'key' => '1234567891011')
-
-
-);
+		 	array('cipher' => 'aes-128', 'mode' => 'ctr', 'key' => '123'));
     }
      public function ojtform(){
      	$data['initial_data'] = $this->users->load_initial_data($this->session->userdata('id_number'));
@@ -89,6 +86,10 @@ class Main extends CI_Controller {
     }
     public function loginadmin(){
     	$this->load->view('loginadministrator');
+    }
+
+    public function newCompany(){
+    	$this->load->view('newcompany');
     }
     public function finalevaluation($username){
     	if(!isset($this->session->userdata['id_number'])){
@@ -142,8 +143,8 @@ class Main extends CI_Controller {
      		$data['ojtFirstName'] = $this->users->getojtFirstName($this->session->userdata['id_number']);
      		$data['companyInformation'] = $this->users->getCompanyInformation($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
      		$data['emergencyInformation'] = $this->users->getEmergencyDetails($this->session->userdata['id_number']);
-     		$data['final_evaluation'] = $this->users->getFinalEvaluations($this->session->userdata['id_number'], $this->session->userdata['ojt_program']);
-     		$data['supervisorName'] = $this->users->getSupervisorNameForStud($this->session->userdata['id_number'], $this->session->userdata['ojt_program']);
+     		$data['final_evaluation'] = $this->users->getFinalEvaluations($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
+     		$data['supervisorName'] = $this->users->getSupervisorNameForStud($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
      		$this->load->view('profile',$data);
      	}
 		
@@ -272,42 +273,43 @@ class Main extends CI_Controller {
   		if(!isset($this->session->userdata['id_number'])){
           redirect('index');
      	}else{
+     	$current_ojt_program = $this->users->getOjtProgramForStud($username);
   		$data['username'] = $username;
   		$data['comments'] = $this->users->getComments();
-     	$totalLogsCount = $this->users->getNumberLogs($username);
-     	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($username);
+     	$totalLogsCount = $this->users->getNumberLogs($username,$current_ojt_program->ojt_program);
+     	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($username,$current_ojt_program->ojt_program);
      	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($username);
-     	$renderedCount = $this->users->getSumRendered($username);
+     	$renderedCount = $this->users->getSumRendered($username,$current_ojt_program->ojt_program);
      	$data['personalDetails'] = $this->users->getProfile($username);
      	$data['familydetails'] = $this->users->getFamilyDetails($username);
      	$data['emergency'] = $this->users->getEmergencyDetails($username);
-     	$data['company'] = $this->users->getCompanyInformation($username);
+     	$data['company'] = $this->users->getCompanyInformation($username,$current_ojt_program->ojt_program);
      	$data['supervisorName'] = $this->users->getSupervisorNameForStud($username);
-     	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $username);
-     	$this->users->updateOJTStatus($username);
-     	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $username);
-     	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $username);
-     	$ojtRecords = $this->users->dashboardDataRecords($username);
+     	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $username,$current_ojt_program->ojt_program);
+     	$this->users->updateOJTStatus($username,$current_ojt_program->ojt_program);
+     	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $username,$current_ojt_program->ojt_program);
+     	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $username,$current_ojt_program->ojt_program);
+     	$ojtRecords = $this->users->dashboardDataRecords($username,$current_ojt_program->ojt_program);
      	$data['checkEmail'] = $this->users->checkEmailVerified($username);
      		if(!empty($ojtRecords)){
-			     		$data['total'] = $ojtRecords[0]['ojtone_required'];
-						$data['rendered'] = $ojtRecords[0]['ojtone_rendered'];
+			     		$data['total'] = $ojtRecords[0]['required'];
+						$data['rendered'] = $ojtRecords[0]['rendered'];
 						$data['announcements'] = $this->users->getAnnouncements($username);
 						// echo time_elapsed_string($data['announcements'][0]['date_posted']);
 						
-						$data['all_evaluations'] = $ojtRecords[0]['total_evaluations'];
-						$data['current_evaluations'] = $ojtRecords[0]['ojtone_current_evaluations'];
-						$data['verified'] = $ojtRecords[0]['logs_verified'];
-						$data['totalLogs'] = $ojtRecords[0]['logs'];
+						$data['all_evaluations'] = $ojtRecords[0]['total'];
+						$data['current_evaluations'] = $ojtRecords[0]['current_eval'];
+						$data['verified'] = $ojtRecords[0]['verified_logs'];
+						$data['totalLogs'] = $ojtRecords[0]['total_logs'];
 						$config = array();
 						$config['base_url'] = base_url() .'main/studentinfo/'.$username;
 						$config['uri_segment'] = 4;
-						$config["total_rows"] = $ojtRecords[0]['logs'];
+						$config["total_rows"] = $ojtRecords[0]['total_logs'];
 				        $config["per_page"] = 10;
 				        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
 				          $this->pagination->initialize($config);
 						$data["links"] = $this->pagination->create_links();
-						$data['logs_list'] = $this->users->getLogs($username,$config['per_page'], $page);
+						$data['logs_list'] = $this->users->getLogs($username,$config['per_page'], $page,$current_ojt_program->ojt_program);
      	
 						// $data['logs_list'] = $this->users->getLogs($username);
 						
@@ -938,42 +940,43 @@ public function logout(){
    	}
 
    	public function loadStudentInfo(){
-   		$username = "clark.kent";
+   		$username = "arlenejane.abelgas";
+   		$current_ojt_program = $this->users->getOjtProgramForStud($username);
    		$data['comments'] = $this->users->getComments();
-     	$totalLogsCount = $this->users->getNumberLogs($username);
-     	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($username);
+     	$totalLogsCount = $this->users->getNumberLogs($username,$current_ojt_program->ojt_program);
+     	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($username,$current_ojt_program->ojt_program);
      	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($username);
-     	$renderedCount = $this->users->getSumRendered($username);
+     	$renderedCount = $this->users->getSumRendered($username,$current_ojt_program->ojt_program);
      	$data['personalDetails'] = $this->users->getProfile($username);
      	$data['familydetails'] = $this->users->getFamilyDetails($username);
      	$data['emergency'] = $this->users->getEmergencyDetails($username);
-     	$data['company'] = $this->users->getCompanyInformation($username);
+     	$data['company'] = $this->users->getCompanyInformation($username,$current_ojt_program->ojt_program);
      	$data['supervisorName'] = $this->users->getSupervisorNameForStud($username);
-     	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $username);
-     	$this->users->updateOJTStatus($username);
-     	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $username);
-     	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $username);
-     	$ojtRecords = $this->users->dashboardDataRecords($username);
+     	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $username,$current_ojt_program->ojt_program);
+     	$this->users->updateOJTStatus($username,$current_ojt_program->ojt_program);
+     	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $username,$current_ojt_program->ojt_program);
+     	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $username,$current_ojt_program->ojt_program);
+     	$ojtRecords = $this->users->dashboardDataRecords($username,$current_ojt_program->ojt_program);
      	$data['checkEmail'] = $this->users->checkEmailVerified($username);
      		if(!empty($ojtRecords)){
-			     		$data['total'] = $ojtRecords[0]['ojtone_required'];
-						$data['rendered'] = $ojtRecords[0]['ojtone_rendered'];
+			     		$data['total'] = $ojtRecords[0]['required'];
+						$data['rendered'] = $ojtRecords[0]['rendered'];
 						$data['announcements'] = $this->users->getAnnouncements($username);
 						// echo time_elapsed_string($data['announcements'][0]['date_posted']);
 						
-						$data['all_evaluations'] = $ojtRecords[0]['total_evaluations'];
-						$data['current_evaluations'] = $ojtRecords[0]['ojtone_current_evaluations'];
-						$data['verified'] = $ojtRecords[0]['logs_verified'];
-						$data['totalLogs'] = $ojtRecords[0]['logs'];
+						$data['all_evaluations'] = $ojtRecords[0]['total'];
+						$data['current_evaluations'] = $ojtRecords[0]['current_eval'];
+						$data['verified'] = $ojtRecords[0]['verified_logs'];
+						$data['totalLogs'] = $ojtRecords[0]['total_logs'];
 						$config = array();
 						$config['base_url'] = base_url() .'main/studentinfo/'.$username;
 						$config['uri_segment'] = 4;
-						$config["total_rows"] = $ojtRecords[0]['logs'];
+						$config["total_rows"] = $ojtRecords[0]['total_logs'];
 				        $config["per_page"] = 10;
 				        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
 				          $this->pagination->initialize($config);
 						$data["links"] = $this->pagination->create_links();
-						$data['logs_list'] = $this->users->getLogs($username,$config['per_page'], $page);
+						$data['logs_list'] = $this->users->getLogs($username,$config['per_page'], $page,$current_ojt_program->ojt_program);
      	
 						// $data['logs_list'] = $this->users->getLogs($username);
 						
@@ -990,6 +993,14 @@ public function logout(){
 					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					   You are now transitioned to OJT2 </div>';
     	$this->session->set_flashdata("Status",$Status);
+     }
+     public function changeOjtStatusDifferentCompany(){
+     	// print_r($_POST);exit;
+     	$Status = '<div class="alert alert-success alert-dismissible" role="alert" style="margin-top: 40px; ">
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					   You are now transitioned to OJT2 </div>';
+    	$this->session->set_flashdata("Status",$Status);
+     	$this->users->changeOjtStatusDifferentCompany($this->session->userdata('id_number'));
      }
 }
 

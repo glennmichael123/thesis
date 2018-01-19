@@ -59,7 +59,9 @@
         margin-top: 60px;
       }
 
-
+      .hide{
+        display: none;
+      }
 
 
     </style>
@@ -79,10 +81,28 @@
                 
                 <input type="email" name="reset_email" id="reset_email" placeholder="Email Address" required>
                 <button  class="btn btn-forget" id="btn-reset" value="request reset">Request Reset</button>
-            
+                
             </div>
             <div class="col-lg-3"></div>
         </div> 
+        <div class="row hide" id="sending">
+            <div class="col-lg-12">
+
+                <div style="text-align: center;">
+                    <h4>Sending to your email</h4>
+                </div>
+            </div>
+          </div>   
+
+          <div class="row hide" id="loading">
+            <div class="col-lg-12">
+
+                <div style="text-align: center;">
+
+                    <img src="<?php echo base_url()?>assets/images/loading.gif">
+                </div>
+            </div>
+          </div>
 
 
         <div class="container confirm-success" style="display: none;">
@@ -91,6 +111,7 @@
                 <h1 style="text-align: center;">Reset password link has been sent to your email.  </h1>
             </div> 
           </div>
+          
         </div> 
 
     </div>
@@ -102,6 +123,9 @@
     var data = $('#resetpass').serialize();
      var fail = false;
      var fail_log = '';
+     var loading = $('#loading');
+     var sending = $('#sending');
+     
       var email = $('#reset_email').val();
      $( '#resetpass' ).find( 'input[type=email]' ).each(function(){
             if( ! $( this ).prop( 'required' )){
@@ -120,6 +144,9 @@
      if(!fail){
             // alert("true");
             // return false;
+        
+                loading.removeClass('hide');
+                sending.removeClass('hide');
                  $.ajax({
                     url: "confirmSend",
                     type: "POST",
@@ -129,6 +156,8 @@
                     success:function(data){
                         $('.confirm-success').show();
                         $('.hide-success').hide();
+                        loading.addClass('hide');
+                        sending.addClass('hide');       
                         
                     }
                 });

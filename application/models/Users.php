@@ -149,13 +149,10 @@
                 $stud_username = $username['id_number'];
 
                 $this->db->query("INSERT INTO announcements(admin_id,content, username,announcement_id) VALUES ('$id','$insert_announce', '$stud_username','$i')");
-
             
+              }
             }
-            }
             
-            
-
         }
 
       public  function get_mysqli() { 
@@ -1268,7 +1265,7 @@
       public function getCompanyInformation($username, $ojt_program){
 
           $query = $this->db->query("SELECT * FROM company_information WHERE id_number = '".$username."' AND ojt_program = '$ojt_program'");
-            return $query->row();
+          return $query->row();
 
       }
       public function getWorkmates($username, $supervisor_id){
@@ -1458,7 +1455,7 @@
 
               foreach ($query->result_array() as $student_status) {
                 
-                  if($student_status['ojtone_rendered'] >= 200 && $student_status['ojtone_current_evaluations'] == $student_status['total_evaluations']){
+                  if($student_status['ojtone_rendered'] >= $student_status['ojtone_required'] && $student_status['ojtone_current_evaluations'] == $student_status['total_evaluations']){
                       
                       $array_status['completed']++;
 
@@ -1498,33 +1495,6 @@
             $array_status['all_stud'] = $countAllStud->all_students;
         
              return $array_status;
-
-
-         // // echo '<pre>'; print_r($query); echo '</pre>';
-         //  if(!empty($query)){
-
-         //      foreach ($query as $student_status) {
-         //          foreach ($program as $key => $value) {
-
-         //              $p = $value['ojt_program'];
-         //              if($p == 'ojt_one'){
-
-         //                   if($student_status['ojtone_rendered'] >= $student_status['ojtone_required'] && $student_status['ojtone_current_evaluations'] >=2){
-         //                    $array_status['completed']++;
-         //                    }  
-         //              }else{
-
-         //                  if($student_status['ojttwo_rendered'] >= $student_status['ojttwo_required'] && $student_status['ojttwo_current_evaluations'] >=2){
-         //                     $array_status['completed']++;
-         //                    }    
-         //              }
-                     
-         //          }
-                  
-         //      }
-         //      $array_status['all_stud'] = $countAllStud->all_students;
-         //  }
-         // return $array_status;
       }
 
       
@@ -1673,8 +1643,8 @@
           $this->db->query("UPDATE ojt_records SET supervisor_id = '' WHERE id_number = '$id'");
       }
 
-      public function getSupervisorNameForStud($username){
-       $supId = $this->db->query("SELECT supervisor_id FROM company_information WHERE id_number = '$username'")->row();
+      public function getSupervisorNameForStud($username, $ojt_program){
+       $supId = $this->db->query("SELECT supervisor_id FROM company_information WHERE id_number = '$username' AND ojt_program = '$ojt_program'")->row();
        $si = empty($supId->supervisor_id) ? '' : $supId->supervisor_id;
        $supName = $this->db->query("SELECT name FROM supervisor WHERE id_number = '$si'")->row();
         return $supName;
@@ -1734,17 +1704,56 @@
 
       public function changeOjtStatusSameCompany($username){
         $ojt_program = $_POST['ojt_status'];
-
           $ojt_records = $this->db->query("SELECT * FROM ojt_records WHERE id_number = '$username'")->row();
-
           $newRequired = $ojt_records->total_hours - $ojt_records->ojtone_rendered; 
+          $company_information = $this->db->query("SELECT * FROM company_information WHERE id_number = '$username'")->row();
+          $newCompany = array('company_name'=>$company_information->company_name,
+                              'company_address'=>$company_information->company_address,
+                              'supervisor_id'=>$company_information->supervisor_id,
+                              'id_number'=>$company_information->id_number,
+                              'contact_number'=>$company_information->contact_number,
+                              'fax_number'=>$company_information->fax_number,
+                              'product_lines'=>$company_information->product_lines,
+                              'company_classification'=>$company_information->company_classification,
+                              'number_of_employees'=>$company_information->number_of_employees,
+                              'ojt_program'=>'ojt_two');
+          $this->db->insert('company_information',$newCompany);
           $data = array('ojt_program'=>$ojt_program);
           $data2 = array('ojttwo_required'=>$newRequired);
           $this->db->where('id_number',$username);
           $this->db->update('users',$data);
           $this->db->where('id_number',$username);
+          $this->db->update('ojt_records',$data2);      
+      }
+
+      public function changeOjtStatusDifferentCompany($username){
+          // print_r($_POST);
+          $data = array('company_name'=>$_POST['company_name'], 
+                        'company_address'=>$_POST['company_address'],
+                        'contact_number'=>$_POST['company_telephone'], 
+                        'fax_number'=>$_POST['company_fax'],
+                        'product_lines'=>$_POST['product_lines'],
+                        'company_classification'=>$_POST['classification'],
+                        'id_number'=>$username,
+                        'number_of_employees'=>$_POST['employee_numbers'],
+                        'ojt_program'=>'ojt_two',
+                      );
+          $record = $this->db->query("SELECT * FROM ojt_records WHERE id_number = '$username'")->row();
+          $newRequired = $record->total_hours - $record->ojtone_rendered; 
+
+          $ojt_records = array('supervisor_id'=>'');
+          $logs = array('supervisor_id'=>'');
+          $users = array('ojt_program'=>'ojt_two');
+          $data2 = array('ojttwo_required'=>$newRequired);
+          $this->db->insert('company_information',$data);
+          $this->db->where('id_number',$username);
+          $this->db->update('ojt_records',$ojt_records);
+          $this->db->where('id_number',$username);
+          $this->db->update('logs',$logs);
+          $this->db->where('id_number',$username);
+          $this->db->update('users',$users);
+          $this->db->where('id_number',$username);
           $this->db->update('ojt_records',$data2);
-          
 
       }
 }
