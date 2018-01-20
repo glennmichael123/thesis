@@ -348,6 +348,7 @@
          public function getOjtRecordsForSupervisor($username){
             $result = $this->db->query("SELECT ojt_records.id_number, ojt_records.ojtone_required,ojt_records.ojtone_rendered,ojt_records.ojttwo_rendered, ojt_records.ojttwo_required, users.first_name, users.last_name, users.ojt_program FROM ojt_records INNER JOIN users ON users.id_number = ojt_records.id_number WHERE supervisor_id = '$username'");         
 
+            // echo '<pre>';print_r($result->result_array()); echo'</pre>';
             return $result->result_array();
          }
 
@@ -1116,14 +1117,52 @@
 
          }
 //to be dynamic query where current_ojt program
-     public function checkMidtermEvaluation($username){
-        $query = $this->db->query("SELECT username from midterm_evaluation where supervisor_username ='$username'");
-        return $query->result_array();
+     public function checkMidtermEvaluation($username, $program){
+      $i = 0;
+      $evaluated = array(array('username'=>''));
+      foreach ($program as $key => $value) {
+         $prog = $value['ojt_program'];
+         $id = $value['username'];
+
+         // echo $id;
+         $query = $this->db->query("SELECT username from midterm_evaluation where supervisor_username ='$username' AND ojt_program = '$prog' AND username = '$id'")->result_array();
+          // echo '<pre>'; print_r($query);echo '</pre>';
+         foreach ($query as $key => $value) {
+          // echo $value['username'];
+            $evaluated[$i]['username'] = $value['username'];
+             $i++;
+         }
+         // print_r($evaluated);
+         
+       
+        
+     }
+       return $evaluated;
+        
       }
 
 
-      public function checkFinalEvaluation($username){
-        $query = $this->db->query("SELECT username from final_evaluation where supervisor_username ='$username'");
+      public function checkFinalEvaluation($username, $program){
+
+          $i = 0;
+      $evaluated = array(array('username'=>''));
+      foreach ($program as $key => $value) {
+         $prog = $value['ojt_program'];
+         $id = $value['username'];
+
+         // echo $id;
+         $query = $this->db->query("SELECT username from final_evaluation where supervisor_username ='$username' AND ojt_program = '$prog' AND username = '$id'")->result_array();
+          // echo '<pre>'; print_r($query);echo '</pre>';
+         foreach ($query as $key => $value) {
+            $evaluated[$i]['username'] = $value['username'];
+             $i++;
+         }
+       }  
+
+         return $evaluated;
+
+
+       
         return $query->result_array();
       }
 
@@ -1660,24 +1699,73 @@
       }
 
       public function checkStudEvaluated($username){
-
-          $query = $this->db->query("SELECT * FROM midterm_evaluation WHERE username = '$username'");
-
-          if($this->db->affected_rows() > 0){
+        $program = $this->getOjtProgramForStud($username);
+        $this->db->query("SELECT * FROM midterm_evaluation WHERE username = '$username' AND ojt_program = '$program->ojt_program'");
+         if($this->db->affected_rows() > 0){
               return true;
-          }else{
+           }else{
               return false;
-          }
+            
+            }
+
+        // $existStuds =array();
+        //   if(in_array($username, array_column($program, 'username'))){
+              
+        //       $key = array_search($username, array_column($program, 'id_number'));
+        //       $existStuds[] = $program[$key];
+        //       $stud = $existStuds[0]['username'];
+
+        //       $prog = $existStuds[0]['ojt_program'];
+        //       $query = $this->db->query("SELECT * FROM midterm_evaluation WHERE username = '$username' AND ojt_program = '$prog'");
+
+        //         if($this->db->affected_rows() > 0){
+        //             return true;
+        //         }else{
+        //             return false;
+        //         }
+        //   }
+
+        //   return false;
+
+
+
+
+
+
+          
       }
 
       public function checkStudEvaluatedFinal($username){
-          $query = $this->db->query("SELECT * FROM final_evaluation WHERE username = '$username'")->row();
 
-          if(!empty($query)){
-              return 'true';
-          }else{
-              return 'false';
-          }
+        $program = $this->getOjtProgramForStud($username);
+        $this->db->query("SELECT * FROM final_evaluation WHERE username = '$username' AND ojt_program = '$program->ojt_program'");
+         if($this->db->affected_rows() > 0){
+              return true;
+           }else{
+              return false;
+            
+            }
+
+
+        // $existStuds =array();
+        //   if(in_array($username, array_column($program, 'username'))){
+             
+        //       $key = array_search($username, array_column($program, 'id_number'));
+        //       $existStuds[] = $program[$key];
+        //       $stud = $existStuds[0]['username'];
+        //       $prog = $existStuds[0]['ojt_program'];
+        //       $query = $this->db->query("SELECT * FROM final_evaluation WHERE username = '$username' AND ojt_program = '$prog'")->result();
+
+        //       if(!empty($query)){
+        //           return 'true';
+        //       }else{
+        //           return 'false';
+        //       }
+        //   }
+        //   return 'false';
+
+         
+          
       }
 
 

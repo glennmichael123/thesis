@@ -101,8 +101,10 @@ class Main extends CI_Controller {
 		 if($this->session->userdata['account_type'] == 'student'){
       		echo "<h1>You are not allowed to view this page</h1>";
       	}else{
+      		$current_ojt_program = $this->users->getOjtProgramForStudSup($this->session->userdata['id_number']);
+      		// $checkIfExist = $this->users->checkStudEvaluated($username,$current_ojt_program);
       		$checkIfExist = $this->users->checkStudEvaluatedFinal($username);
-      		if($checkIfExist == 'true'){
+      		if($checkIfExist){
 				echo "<h1>You have already evaluated this student</h1>";
 			}else{
 				$data['initial_data'] = $this->users->loadFinalEval($username);
@@ -181,6 +183,8 @@ class Main extends CI_Controller {
       	if($this->session->userdata['account_type'] == 'student'){
       		echo "<h1>You are not allowed to view this page</h1>";
       	}else{
+      				// $current_ojt_program = $this->users->getOjtProgramForStudSup($this->session->userdata['id_number']);
+
       				$checkIfExist = $this->users->checkStudEvaluated($username);
       				$data['stud_name'] = $this->users->dashboardData($username);
       				if($checkIfExist){
@@ -197,16 +201,17 @@ class Main extends CI_Controller {
 		if(!isset($this->session->userdata['id_number'])){
           redirect('index');
      	}else{
+     		$current_ojt_program = $this->users->getOjtProgramForStudSup($this->session->userdata['id_number']);
      		$data['comments'] = $this->users->getComments();
-     		$data['evaluated']=$this->users->checkMidtermEvaluation($this->session->userdata('id_number'));
-     		$data['evaluated2']=$this->users->checkFinalEvaluation($this->session->userdata('id_number'));
+     		$data['evaluated']=$this->users->checkMidtermEvaluation($this->session->userdata('id_number'), $current_ojt_program);
+     		$data['evaluated2']=$this->users->checkFinalEvaluation($this->session->userdata('id_number'), $current_ojt_program);
      		if($this->session->userdata['account_type'] == 'student'){
      			redirect('dashboard');
      		}else if($this->session->userdata['account_type'] == 'admin'){
      			redirect('admindashboard');
      		}else{
      		$data['comments'] = $this->users->getComments();
-     		$current_ojt_program = $this->users->getOjtProgramForStudSup($this->session->userdata['id_number']);
+     		
      		// print_r($current_ojt_program);
      		$data['traineesLog'] = $this->users->getOjtLogs($this->session->userdata['id_number'], $current_ojt_program);
      		$company_name = $this->users->getCompanySupervisor($this->session->userdata['id_number']);
