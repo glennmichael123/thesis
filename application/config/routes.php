@@ -107,6 +107,8 @@ $route['newcompany']  = 'main/newCompany';
 $route['changeOjtStatusDifferentCompany']  = 'main/changeOjtStatusDifferentCompany';
 $route['loadMidtermEvaluations']  = 'main/loadMidtermEvaluations';
 $route['loadFinalEvaluations']  = 'main/loadFinalEvaluations';
+$route['loadAdminGraphs']  = 'main/loadAdminGraphs';
+
 
 
 

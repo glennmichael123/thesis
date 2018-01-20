@@ -1013,13 +1013,19 @@ public function logout(){
      	$data['evaluation'] = $this->users->getEvaluationViewForAdmin($username,$ojt_program);
     	$this->load->view('midterm_eval_toLoad',$data);
      }
-
      public function loadFinalEvaluations(){
      	$username = $_POST['username'];
      
      	$ojt_program = $_POST['ojt_program'];
      	$data['evaluation'] = $this->users->getEvaluationViewForAdminFinal($username,$ojt_program);
      	$this->load->view('final_eval_toLoad',$data);
+     }
+     public function loadAdminGraphs(){
+     	$data['courses_for_graph'] = $this->users->getCoursesList($this->session->userdata('id_number'));
+     	$data['courses_count'] = $this->users->getCoursesCount($this->session->userdata('id_number'));
+		$data['completed_students'] = $this->users->getStudentStatus($this->session->userdata['id_number']);
+     	$this->load->view("admin_loadGraphs",$data);
+
      }
 }
 
