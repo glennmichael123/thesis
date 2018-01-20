@@ -85,20 +85,10 @@
     </style>
  
     <body>
-<!--        <div class="container tabOptions" style="margin-top: 10px">
-      <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#ojt1" id="toOjt1">OJT 1</a></li>
-        <li><a data-toggle="tab" href="#ojt2" id="toOjt2">OJT 2</a></li>
-      </ul>
-     <div class="tab-content">
-        <div id="ojt1" class="tab-pane fade in active">
-          <div class="content ojt1FinalContent">
-         </div>
-        <div id="ojt2" class="tab-pane fade">
-          <div class="content ojt2FinalContent">
-         </div>
-      </div>
-    </div> -->
+    <header>
+      <h1 class="heading">On-The-Job Training</h1>
+      <h3 class="heading">Performance Evaluation Report</h3>
+    </header>
     <div class="row ">
     <div class="col s9 offset-s3">
       <ul class="tabs">
