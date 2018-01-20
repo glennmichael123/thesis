@@ -1447,25 +1447,84 @@
 
 
 
-      public function getStudentStatus($username){
-
-          $query = $this->db->query("SELECT ojtone_rendered, ojtone_required, ojtone_current_evaluations, total_evaluations FROM ojt_records WHERE admin_id = '$username'");
+      public function getStudentStatus($username,$program){
+          $students = $this->db->query("SELECT id_number, ojt_program FROM users WHERE ojt_program = '$program'")->result_array();
           $array_status = array('completed'=>0, 'not_completed'=>0);
-          if(!empty($query->result_array())){
-
-              foreach ($query->result_array() as $student_status) {
-                
-                  if($student_status['ojtone_rendered'] >= $student_status['ojtone_required'] && $student_status['ojtone_current_evaluations'] == $student_status['total_evaluations']){
-                      
-                      $array_status['completed']++;
-
+          foreach ($students as $student) {
+              $id = $student['id_number'];
+              $records = $this->db->query("SELECT * FROM ojt_records WHERE id_number = '$id'")->result_array();
+                  
+                  if($program == 'ojt_one'){
+                     foreach ($records as $record) {
+                      if($record['ojtone_rendered'] >= $record['ojtone_required'] && $record['ojtone_current_evaluations'] >= $record['total_evaluations']){
+                          $array_status['completed']++;
+                      }else{
+                          $array_status['not_completed']++;
+                      }
+                    }
                   }else{
-                      $array_status['not_completed']++;
+                      foreach ($records as $record) {
+                      if($record['ojttwo_rendered'] >= $record['ojttwo_required'] && $record['ojttwo_current_evaluations'] >= $record['total_evaluations']){
+                          $array_status['completed']++;
+                      }else{
+                          $array_status['not_completed']++;
+                      }
+                    }
                   }
-              }
+                 
+
+                  // return $array_status;
+              
+
+
           }
 
-          return $array_status;
+         return $array_status;
+        
+        //   if($program == 'ojt_one'){
+        //     // echo 'hey1';
+        //     $array_status = array('completed'=>0, 'not_completed'=>0);
+        //     $query = $this->db->query("SELECT ojtone_rendered, ojtone_required, ojtone_current_evaluations, total_evaluations FROM ojt_records WHERE admin_id = '$username'");
+        //        if(!empty($query->result_array())){
+
+        //       foreach ($query->result_array() as $student_status) {
+                
+        //           if($student_status['ojtone_rendered'] >= $student_status['ojtone_required'] && $student_status['ojtone_current_evaluations'] >= $student_status['total_evaluations']){
+                      
+        //               $array_status['completed']++;
+
+        //           }else{
+        //               $array_status['not_completed']++;
+        //           }
+        //       }
+        //   }
+        //    return $array_status;
+            
+        //   }else{
+        //     // echo 'hey';
+        //     $array_status = array('completed'=>0, 'not_completed'=>0);
+        //         $query = $this->db->query("SELECT ojttwo_rendered, ojttwo_required, ojttwo_current_evaluations, total_evaluations FROM ojt_records WHERE admin_id = '$username'");
+        //         foreach ($query->result_array() as $student_status) {
+        //            if(!empty($query->result_array())){
+        //             if($student_status['ojttwo_rendered'] >= $student_status['ojttwo_required'] && $student_status['ojttwo_current_evaluations'] >= $student_status['total_evaluations']){
+                        
+        //                 $array_status['completed']++;
+
+        //             }else{
+        //                 $array_status['not_completed']++;
+        //             }
+                
+        //     }    
+        //   }
+        //    return $array_status;
+        // }
+             
+          
+          
+          
+         
+
+         
       }
 
       public function getOjtStatusForSupervisor($username, $program){
@@ -1498,9 +1557,9 @@
       }
 
       
-      public function getCoursesList($username){
+      public function getCoursesList($username,$program){
 
-        $query = $this->db->query("SELECT DISTINCT course FROM users WHERE admin_id = '$username' ORDER BY course ASC")->result_array();
+        $query = $this->db->query("SELECT DISTINCT course FROM users WHERE admin_id = '$username' AND ojt_program = '$program' ORDER BY course ASC")->result_array();
         $courses_list = [];
         foreach ($query as $courses) {
             $c = $courses['course'];
@@ -1510,14 +1569,13 @@
         return $courses_list; 
       }
 
-      public function getCoursesCount($username){
-
-        $query = $this->db->query("SELECT DISTINCT course FROM users WHERE admin_id = '$username' ORDER BY course ASC")->result_array();
+      public function getCoursesCount($username,$program){
+        $query = $this->db->query("SELECT DISTINCT course FROM users WHERE admin_id = '$username' AND ojt_program = '$program' ORDER BY course ASC")->result_array();
         $courses_count = [];
         foreach ($query as $courses) {
             $c = $courses['course'];
             
-            $total_students = $this->db->query("SELECT count(*) as total_students FROM users  WHERE course = '$c' ORDER BY course ASC")->row();
+            $total_students = $this->db->query("SELECT count(*) as total_students FROM users  WHERE course = '$c' AND ojt_program = '$program' ORDER BY course ASC")->row();
 
             $courses_count[] = $total_students->total_students;
         }
