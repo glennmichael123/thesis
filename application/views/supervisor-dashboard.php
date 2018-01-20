@@ -479,9 +479,10 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <h4 style="text-align: center; margin-bottom: 10px;">Pending logs</h4>
+
                                     <?php if(empty($not_verified)):?>
                                     <!-- if -->
-                                    <h3 style="text-align: center;"><?php echo "No Logs Added";?></h3>  
+                                    <h3 style="text-align: center;"><?php echo "No Logs Pending";?></h3>  
                                     <!-- else -->
                                     <?php else:?>
                                     <div class="progress skill-bar">

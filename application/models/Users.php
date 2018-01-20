@@ -655,8 +655,9 @@
           foreach ($count as $value) {
             $total += $value;
           }
+          
 
-         return $total;
+         return $total; 
             
          
          
@@ -1163,10 +1164,11 @@
       public function insertReg($username){
 
         // users table
+        $ojt_program = $this->getOjtProgramForStud($username);
         $fname = $_POST['first_name'];
         $mname = $_POST['middle_initial'];
         $lname = $_POST['last_name'];
-        $ojt_program = $this->getOjtProgramForStud($username);
+        
 
         // personal details table
         $college = $_POST['college'];
@@ -1224,7 +1226,7 @@
         $product_lines = $_POST['product_lines'];
         $employees = $_POST['employee_numbers'];
         $classif = $_POST['classification'];
-       
+        // $current_ojt_program = $this->getOjtProgramForStud($username);
 
         $this->db->query("INSERT INTO personal_details(id_number,first_name, middle_initial, last_name, college,course,year,present_address,permanent_address,contact_number,email_address,date_of_birth,age,marital_status,blood_type,weight,height,religion,citizenship,sex) VALUES('".$username."','".$fname."','".$mname."','".$lname."','".$college."','".$course."','$year','".$present_add."','".$permanent_add."',$contact_num,'".$email."','".$birth."',$age,'".$civil_stat."','".$bloodtype."',$weight,$height,'".$religion."','".$citizenship."','".$sex."')");
 
@@ -1232,7 +1234,7 @@
 
         $this->db->query("INSERT INTO emergency_details(id_number,name,relationship,contact_number,address) VALUES('".$username."','".$name."','".$relationship."',$emergency_contact,'".$emergency_add."')");
 
-        $this->db->query("INSERT INTO company_information(id_number,company_name,company_address,contact_number,fax_number,product_lines,company_classification,number_of_employees,ojt_program) VALUES('".$username."','".$comp_name."','".$comp_add."',$comp_contact,$fax_number,'".$product_lines."','".$classif."','".$employees."','".$ojt_program."')");
+        $this->db->query("INSERT INTO company_information(id_number,company_name,company_address,contact_number,fax_number,product_lines,company_classification,number_of_employees,ojt_program) VALUES('".$username."','".$comp_name."','".$comp_add."',$comp_contact,$fax_number,'".$product_lines."','".$classif."','".$employees."','".$ojt_program->ojt_program."')");
       }
 
 
@@ -1271,10 +1273,10 @@
       public function getWorkmates($username, $supervisor_id){
         $program = array();
 
-          $query = $this->db->query("SELECT users.id_number, users.first_name, users.middle_initial, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.supervisor_id = '$supervisor_id' AND company_information.id_number != '$username'")->result_array();
+          $query = $this->db->query("SELECT users.id_number, users.first_name, users.middle_initial, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.supervisor_id = '$supervisor_id' AND company_information.supervisor_id!='' AND company_information.id_number != '$username'")->result_array();
 
           foreach ($query as $key => $value) {
-            $id = $value['id_number'];
+             $id = $value['id_number'];
               $program = $this->db->query("SELECT ojt_program, id_number FROM users WHERE id_number = '$id'")->result();  
           }
 
