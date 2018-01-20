@@ -1576,6 +1576,10 @@
           $query= $this->db->query("SELECT * FROM midterm_evaluation WHERE username = '$username' AND ojt_program = '$ojt_program'")->row();
           return $query;
       }  
+      public function getEvaluationViewForAdminFinal($username,$ojt_program){
+          $query= $this->db->query("SELECT * FROM final_evaluation WHERE username = '$username' AND ojt_program = '$ojt_program'")->row();
+        return $query;
+      }
 
 
       public function getFinalEvaluationViewForAdmin($username){

@@ -56,10 +56,11 @@ class Main extends CI_Controller {
     	$this->load->view('viewmidterm',$data);
     }
      public function viewFinal($username){
-     	$data['evaluation'] = $this->users->getFinalEvaluationViewForAdmin($username);
+     	$current_ojt_program = $this->users->getOjtProgramForStud($username);
+     	$data['evaluation'] = $this->users->getEvaluationViewForAdminFinal($username,$current_ojt_program->ojt_program);
+     	$data['username'] = $username;
     	$this->load->view('viewfinal',$data);
     }
-    
    
     public function insertAnnouncement(){
     	$this->users->insertAnnouncement($this->session->userdata['id_number']);
@@ -1011,6 +1012,14 @@ public function logout(){
      	$ojt_program = $_POST['ojt_program'];
      	$data['evaluation'] = $this->users->getEvaluationViewForAdmin($username,$ojt_program);
     	$this->load->view('midterm_eval_toLoad',$data);
+     }
+
+     public function loadFinalEvaluations(){
+     	$username = $_POST['username'];
+     
+     	$ojt_program = $_POST['ojt_program'];
+     	$data['evaluation'] = $this->users->getEvaluationViewForAdminFinal($username,$ojt_program);
+     	$this->load->view('final_eval_toLoad',$data);
      }
 }
 
