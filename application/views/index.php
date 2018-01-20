@@ -135,16 +135,18 @@
               </div>
             </div>
 
+            <button type="submit" class="btn amber lighten-1 waves-effect waves-light" style="width: 100%; height: 50px;">LOGIN</button>
+
         </div>
       </div>
 
-      <div class="card-action center-align" style="padding-bottom: 0px;margin-top: -20px">
+     <!--  <div class="card-action center-align" style="padding-bottom: 0px;margin-top: -20px">
         <div class="row">
           <div class="col s12">
-            <button type="submit" class="btn amber lighten-1 waves-effect waves-light" style="width: 100%;">LOGIN</button>
+            <button type="submit" class="btn amber lighten-1 waves-effect waves-light" style="width: 100%; height: 50px;">LOGIN</button>
           </div>
         </div>
-      </div>
+      </div> -->
     </form>
   </div>
 </div>
