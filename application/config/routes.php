@@ -105,6 +105,7 @@ $route['loadStudentInfo']  = 'main/loadStudentInfo';
 $route['changeOjtStatusSameCompany']  = 'main/changeOjtStatusSameCompany';
 $route['newcompany']  = 'main/newCompany';
 $route['changeOjtStatusDifferentCompany']  = 'main/changeOjtStatusDifferentCompany';
+$route['loadMidtermEvaluations']  = 'main/loadMidtermEvaluations';
 
 
 

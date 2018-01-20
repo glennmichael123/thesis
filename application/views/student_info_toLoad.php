@@ -432,9 +432,13 @@
 
                         <div class="well" style="color: #000000 !important; word-wrap: break-word;">
                         <h4 style="text-align: center; margin: 0 !important; padding: 0 !important;">Company Information</h4>
+                        <?php if(empty($company)): ?>
+                          <p style="text-align:center;font-size: 15px;padding-top: 20px;color: gray;">Student has no company yet</p>
+                        <?php else: ?>
                            <div class="row" style="margin-top: 10px;">
 
                                <div class="col-lg-6"><label style="font-size: 13px">Company Name: </label></div>
+
                                <div class="col-lg-6"><span style="font-size: 13px;"><?php echo $company->company_name; ?></span></div>
                            </div>
                            <div class="row">
@@ -473,6 +477,7 @@
 
                           
                        </div>
+                     <?php endif; ?>
                     </div>
                     <div class="col-lg-8">
                          <?php foreach($logs_list as $log):?>

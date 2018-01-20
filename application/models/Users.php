@@ -1569,14 +1569,11 @@
 
       public function getSupervisorImageForStud($username){
           $query= $this->db->query("SELECT image_id FROM supervisor WHERE id_number = '$username' ")->row();
-
           return $query;
-
       }
 
-      public function getEvaluationViewForAdmin($username){
-          $query= $this->db->query("SELECT * FROM midterm_evaluation WHERE username = '$username' ")->row();
-
+      public function getEvaluationViewForAdmin($username,$ojt_program){
+          $query= $this->db->query("SELECT * FROM midterm_evaluation WHERE username = '$username' AND ojt_program = '$ojt_program'")->row();
           return $query;
       }  
 

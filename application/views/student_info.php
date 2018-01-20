@@ -258,9 +258,12 @@
         });
 
         $.ajax({
-          type:'GET',
+          type:'POST',
           url:'<?php echo base_url() ?>/'+'loadStudentInfo',
-          dataType:'text',
+            data:{
+              'ojt_program':"ojt_one",
+              'username':"<?php echo $username;?>",
+            },
           success: function(data){
             $('.ojt1Content').html(data);
             $('.ojt2Content').html("");
@@ -273,9 +276,13 @@
 
     $('#toOjt1').click(function(){
         $.ajax({
-          type:'GET',
+          type:'POST',
           url:'<?php echo base_url() ?>/'+'loadStudentInfo',
-          dataType:'text',
+          data:{
+            'ojt_program':"ojt_one",
+             'username':"<?php echo $username;?>",
+
+          },
           success: function(data){
             $('.ojt1Content').html(data);
             $('.ojt2Content').html("");
@@ -284,9 +291,12 @@
     });
     $('#toOjt2').click(function(){
         $.ajax({
-          type:'GET',
+          type:'POST',
           url:'<?php echo base_url() ?>/'+'loadStudentInfo',
-          dataType:'text',
+          data:{
+              'ojt_program':"ojt_two",
+              'username':"<?php echo $username;?>",
+          },
           success: function(data){
             $('.ojt2Content').html(data);
             $('.ojt1Content').html("");

@@ -50,7 +50,9 @@ class Main extends CI_Controller {
     	$this->load->view('incorrectpassword');
     }
      public function viewMidterm($username){
-     	$data['evaluation'] = $this->users->getEvaluationViewForAdmin($username);
+     	$current_ojt_program = $this->users->getOjtProgramForStud($username);
+     	$data['evaluation'] = $this->users->getEvaluationViewForAdmin($username,$current_ojt_program->ojt_program);
+     	$data['username'] = $username;
     	$this->load->view('viewmidterm',$data);
     }
      public function viewFinal($username){
@@ -284,7 +286,7 @@ class Main extends CI_Controller {
      	$data['familydetails'] = $this->users->getFamilyDetails($username);
      	$data['emergency'] = $this->users->getEmergencyDetails($username);
      	$data['company'] = $this->users->getCompanyInformation($username,$current_ojt_program->ojt_program);
-     	$data['supervisorName'] = $this->users->getSupervisorNameForStud($username);
+     	$data['supervisorName'] = $this->users->getSupervisorNameForStud($username,$current_ojt_program->ojt_program);
      	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $username,$current_ojt_program->ojt_program);
      	$this->users->updateOJTStatus($username,$current_ojt_program->ojt_program);
      	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $username,$current_ojt_program->ojt_program);
@@ -940,23 +942,23 @@ public function logout(){
    	}
 
    	public function loadStudentInfo(){
-   		$username = "arlenejane.abelgas";
-   		$current_ojt_program = $this->users->getOjtProgramForStud($username);
+   		$username = $_POST['username'];
+   		$current_ojt_program = $_POST['ojt_program'];
    		$data['comments'] = $this->users->getComments();
-     	$totalLogsCount = $this->users->getNumberLogs($username,$current_ojt_program->ojt_program);
-     	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($username,$current_ojt_program->ojt_program);
+     	$totalLogsCount = $this->users->getNumberLogs($username,$current_ojt_program);
+     	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($username,$current_ojt_program);
      	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($username);
-     	$renderedCount = $this->users->getSumRendered($username,$current_ojt_program->ojt_program);
+     	$renderedCount = $this->users->getSumRendered($username,$current_ojt_program);
      	$data['personalDetails'] = $this->users->getProfile($username);
      	$data['familydetails'] = $this->users->getFamilyDetails($username);
      	$data['emergency'] = $this->users->getEmergencyDetails($username);
-     	$data['company'] = $this->users->getCompanyInformation($username,$current_ojt_program->ojt_program);
-     	$data['supervisorName'] = $this->users->getSupervisorNameForStud($username);
-     	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $username,$current_ojt_program->ojt_program);
-     	$this->users->updateOJTStatus($username,$current_ojt_program->ojt_program);
-     	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $username,$current_ojt_program->ojt_program);
-     	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $username,$current_ojt_program->ojt_program);
-     	$ojtRecords = $this->users->dashboardDataRecords($username,$current_ojt_program->ojt_program);
+     	$data['company'] = $this->users->getCompanyInformation($username,$current_ojt_program);
+     	$data['supervisorName'] = $this->users->getSupervisorNameForStud($username,$current_ojt_program);
+     	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $username,$current_ojt_program);
+     	$this->users->updateOJTStatus($username,$current_ojt_program);
+     	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $username,$current_ojt_program);
+     	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $username,$current_ojt_program);
+     	$ojtRecords = $this->users->dashboardDataRecords($username,$current_ojt_program);
      	$data['checkEmail'] = $this->users->checkEmailVerified($username);
      		if(!empty($ojtRecords)){
 			     		$data['total'] = $ojtRecords[0]['required'];
@@ -976,7 +978,7 @@ public function logout(){
 				        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
 				          $this->pagination->initialize($config);
 						$data["links"] = $this->pagination->create_links();
-						$data['logs_list'] = $this->users->getLogs($username,$config['per_page'], $page,$current_ojt_program->ojt_program);
+						$data['logs_list'] = $this->users->getLogs($username,$config['per_page'], $page,$current_ojt_program);
      	
 						// $data['logs_list'] = $this->users->getLogs($username);
 						
@@ -1001,6 +1003,13 @@ public function logout(){
 					   You are now transitioned to OJT2 </div>';
     	$this->session->set_flashdata("Status",$Status);
      	$this->users->changeOjtStatusDifferentCompany($this->session->userdata('id_number'));
+     }
+
+     public function loadMidtermEvaluations(){
+     	$username = $_POST['username'];
+     	$ojt_program = $_POST['ojt_program'];
+     	$data['evaluation'] = $this->users->getEvaluationViewForAdmin($username,$ojt_program);
+    	$this->load->view('midterm_eval_toLoad',$data);
      }
 }
 
