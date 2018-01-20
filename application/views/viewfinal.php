@@ -89,7 +89,7 @@
       <h1 class="heading">On-The-Job Training</h1>
       <h3 class="heading">Performance Evaluation Report</h3>
     </header>
-    <div class="row ">
+    <div class="row" style="margin-top: 20px;">
     <div class="col s9 offset-s3">
       <ul class="tabs">
         <li id="toOjt1" class="tab col s3"><a href="#ojt1">OJT 1</a></li>
