@@ -1447,9 +1447,9 @@
 
 
 
-      public function getStudentStatus(){
+      public function getStudentStatus($username){
 
-          $query = $this->db->query("SELECT ojtone_rendered, ojtone_required, ojtone_current_evaluations, total_evaluations FROM ojt_records");
+          $query = $this->db->query("SELECT ojtone_rendered, ojtone_required, ojtone_current_evaluations, total_evaluations FROM ojt_records WHERE admin_id = '$username'");
           $array_status = array('completed'=>0, 'not_completed'=>0);
           if(!empty($query->result_array())){
 
@@ -1498,9 +1498,9 @@
       }
 
       
-      public function getCoursesList(){
+      public function getCoursesList($username){
 
-        $query = $this->db->query("SELECT DISTINCT course FROM users ORDER BY course ASC")->result_array();
+        $query = $this->db->query("SELECT DISTINCT course FROM users WHERE admin_id = '$username' ORDER BY course ASC")->result_array();
         $courses_list = [];
         foreach ($query as $courses) {
             $c = $courses['course'];
@@ -1510,9 +1510,9 @@
         return $courses_list; 
       }
 
-      public function getCoursesCount(){
+      public function getCoursesCount($username){
 
-        $query = $this->db->query("SELECT DISTINCT course FROM users ORDER BY course ASC")->result_array();
+        $query = $this->db->query("SELECT DISTINCT course FROM users WHERE admin_id = '$username' ORDER BY course ASC")->result_array();
         $courses_count = [];
         foreach ($query as $courses) {
             $c = $courses['course'];

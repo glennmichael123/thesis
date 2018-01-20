@@ -110,7 +110,7 @@
     border-radius:4px;
     box-shadow:none;
     margin-top:10px;
-    margin-left: -200px;
+    margin-left: -196px;
     width:280px;
 
 }
@@ -598,7 +598,7 @@ tr:hover{
                                                 <?php endif; ?>
                                               </td>
                                    
-                                              <?php if ($student['ojtone_rendered'] >= $student['ojtone_required'] && $student['ojtone_current_evaluations'] == 2):?>
+                                              <?php if ($student['ojtone_rendered'] >= $student['ojtone_required'] && $student['ojtone_current_evaluations'] >= $student['total_evaluations']):?>
                                                   <td style="color:green;">OJT-1 Completed</td>
                                                 <?php else :?>
                                                   <td style="color:#f44336;">OJT-1 On going</td>

@@ -423,13 +423,13 @@ public function logout(){
      		}else if($this->session->userdata['account_type'] == 'student'){
      		redirect('dashboard');
      		}else{
-     			$data['courses_for_graph'] = $this->users->getCoursesList();
-     			$data['courses_count'] = $this->users->getCoursesCount();
+     			$data['courses_for_graph'] = $this->users->getCoursesList($this->session->userdata('id_number'));
+     			$data['courses_count'] = $this->users->getCoursesCount($this->session->userdata('id_number'));
      	
 			 	// $data['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
 			 	$data['company_list'] = $this->users->getCompanyNames();
 			 	$data['first_name'] = $this->users->getAdminFirstName($this->session->userdata['id_number']);
-			 	$data['completed_students'] = $this->users->getStudentStatus();
+			 	$data['completed_students'] = $this->users->getStudentStatus($this->session->userdata['id_number']);
 			 	$data['company_watch_list'] = $this->users->getCompanyWatchlist();
 			 	$data['course_option'] = empty($_POST['course_option']) ? '' : $_POST['course_option'];
 			 	$data['sy'] = empty($_POST['sy_option']) ? '' : $_POST['sy_option'];
@@ -960,6 +960,7 @@ public function logout(){
      	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $username,$current_ojt_program);
      	$this->users->updateRenderedHours(isset($renderedCount[0]['rendered']) ? $renderedCount[0]['rendered'] : 0,  $username,$current_ojt_program);
      	$ojtRecords = $this->users->dashboardDataRecords($username,$current_ojt_program);
+
      	$data['checkEmail'] = $this->users->checkEmailVerified($username);
      		if(!empty($ojtRecords)){
 			     		$data['total'] = $ojtRecords[0]['required'];
