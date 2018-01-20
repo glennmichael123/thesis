@@ -858,6 +858,22 @@ tr:hover{
       });
   });
 
+  $('#toOjt2').click(function(){
+    // alert('jrr');
+      $.ajax({
+          type:'POST',
+          url:'<?php echo base_url() ?>/'+'loadAdminGraphs',
+            data:{
+              'ojt_program':"ojt_two",
+            },
+          success: function(data){
+            console.log(data);
+            $('.ojt1GraphContent').html('');
+            $('.ojt2GraphContent').html(data);
+          }
+      });
+  });
+
   $('#toOjt1').click(function(){
         $.ajax({
           type:'POST',

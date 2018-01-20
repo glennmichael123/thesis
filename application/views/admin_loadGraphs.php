@@ -1,3 +1,7 @@
+<script src="<?php echo base_url()?>assets/js/chart.min.js"></script>
+   <script src="<?php echo base_url()?>assets/js/chart.js"></script>
+   <script src="<?php echo base_url()?>assets/js/chart.bundle.min.js"></script>
+   <script src="<?php echo base_url()?>assets/js/chart.bundle.js"></script>
 <div class="container">
            <div class="well dashboard-graphs">
                 <div class="row">

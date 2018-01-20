@@ -423,13 +423,13 @@ public function logout(){
      		}else if($this->session->userdata['account_type'] == 'student'){
      		redirect('dashboard');
      		}else{
-     			$data['courses_for_graph'] = $this->users->getCoursesList($this->session->userdata('id_number'));
-     			$data['courses_count'] = $this->users->getCoursesCount($this->session->userdata('id_number'));
+     			$data['courses_for_graph'] = $this->users->getCoursesList($this->session->userdata('id_number'), 'ojt_one');
+     			$data['courses_count'] = $this->users->getCoursesCount($this->session->userdata('id_number'), 'ojt_one');
      	
 			 	// $data['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
 			 	$data['company_list'] = $this->users->getCompanyNames();
 			 	$data['first_name'] = $this->users->getAdminFirstName($this->session->userdata['id_number']);
-			 	$data['completed_students'] = $this->users->getStudentStatus($this->session->userdata['id_number']);
+			 	$data['completed_students'] = $this->users->getStudentStatus($this->session->userdata['id_number'],'ojt_one');
 			 	$data['company_watch_list'] = $this->users->getCompanyWatchlist();
 			 	$data['course_option'] = empty($_POST['course_option']) ? '' : $_POST['course_option'];
 			 	$data['sy'] = empty($_POST['sy_option']) ? '' : $_POST['sy_option'];
@@ -1021,9 +1021,11 @@ public function logout(){
      	$this->load->view('final_eval_toLoad',$data);
      }
      public function loadAdminGraphs(){
-     	$data['courses_for_graph'] = $this->users->getCoursesList($this->session->userdata('id_number'));
-     	$data['courses_count'] = $this->users->getCoursesCount($this->session->userdata('id_number'));
-		$data['completed_students'] = $this->users->getStudentStatus($this->session->userdata['id_number']);
+     	$program = $_POST['ojt_program'];
+     	// echo $program;
+     	$data['courses_for_graph'] = $this->users->getCoursesList($this->session->userdata('id_number'),$program);
+     	$data['courses_count'] = $this->users->getCoursesCount($this->session->userdata('id_number'),$program);
+		$data['completed_students'] = $this->users->getStudentStatus($this->session->userdata['id_number'],$program);
      	$this->load->view("admin_loadGraphs",$data);
 
      }
