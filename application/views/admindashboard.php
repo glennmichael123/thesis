@@ -322,6 +322,10 @@ tr:hover{
 #postEdit, .postDelete:hover{
   cursor:pointer;
 }
+
+.container{
+  padding: 0px;
+}
         
 </style>
 
@@ -369,9 +373,6 @@ tr:hover{
                     </div>
 
               </div>
-                    
-                  
-                    
                 </div>
             </div>
         </div>
@@ -398,101 +399,22 @@ tr:hover{
             </div>
           </div>
           
-           <div class="container">
-           <div class="well dashboard-graphs">
-                <div class="row">
-                   
-                        <div class="col-lg-6">
-                         
-                           <canvas id="chartOJTStatus" width="400" height="200"></canvas>
-                           <script>
-                                var ctx = document.getElementById("chartOJTStatus").getContext('2d');
-                                var myChart = new Chart(ctx, {
+            <div class="container tabOptions" style="margin-top: 10px">
+              <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#ojt1" id="toOjt1">OJT 1</a></li>
+                <li><a data-toggle="tab" href="#ojt2" id="toOjt2">OJT 2</a></li>
+              </ul>
+             <div class="tab-content">
+                <div id="ojt1" class="tab-pane fade in active">
+                  <div class="content ojt1GraphContent">
 
-                                    type: 'bar',
-                                    data: {
-                                        labels: ["On Going", "Complete"],
-                                        datasets: [{
-                                            label: 'Student Status',
-                                            data: [ <?php echo $completed_students['not_completed']?>, <?php echo $completed_students['completed']?>],
-                                            backgroundColor: [
-                                                'rgba(255, 99, 132, 0.2)',
-                                                'rgba(54, 162, 235, 0.2)',
-                                                
-                                            ],
-                                            borderColor: [
-                                                'rgba(255,99,132,1)',
-                                                'rgba(54, 162, 235, 1)',
-                                               
-                                            ],
-                                            borderWidth: 1
-                                        }]
-                                    },
-                                    options: {
-                                        scales: {
-                                            yAxes: [{
-                                                ticks: {
-                                                    beginAtZero:true
-                                                }
-                                            }]
-                                        }
-                                    }
-                                });
-                                </script>
-                        </div>
-                       
+                 </div>
+                <div id="ojt2" class="tab-pane fade">
+                  <div class="content ojt2GraphContent">
 
-                    <div class="col-lg-6">
-                         <canvas id="chartCourses" width="400" height="200"></canvas>
-                             <script>
-                               var ctx = document.getElementById("chartCourses").getContext('2d');
-                                var myChart = new Chart(ctx, {
-                                 label: 'Courses',
-                                  type: 'pie',
-                                  data: {
-                                    labels: [<?php echo implode($courses_for_graph, ',')?>],
-                                    datasets: [{
-                                      backgroundColor: [
-                                         'rgba(255, 99, 132, 0.2)',
-                                          'rgba(54, 162, 235, 0.2)',
-                                          'rgba(255, 206, 86, 0.2)',
-                                          'rgba(75, 192, 192, 0.2)',
-                                          'rgba(153, 102, 255, 0.2)',
-                                          'rgba(255, 159, 64, 0.2)'
-                                         
-                                      ],
-                                      hoverBackgroundColor: [
-                                         'rgba(255, 99, 132, 0.5)',
-                                          'rgba(54, 162, 235, 0.5)',
-                                          'rgba(255, 206, 86, 0.5)',
-                                          'rgba(75, 192, 192, 0.5)',
-                                          'rgba(153, 102, 255, 0.5)',
-                                          'rgba(255, 159, 64, 0.5)'
-                                      ],
-
-                                      borderColor: [
-                                          'rgba(255,99,132,1)',
-                                          'rgba(54, 162, 235, 1)',
-                                          'rgba(255, 206, 86, 1)',
-                                          'rgba(75, 192, 192, 1)',
-                                          'rgba(153, 102, 255, 1)',
-                                          'rgba(255, 159, 64, 1)'
-
-                                               
-                                         ],
-                                         borderWidth: 1,
-                                       data: [<?php echo implode($courses_count, ',') ?>]
-                                    }]
-                                  },
-                                  options: {
-                                    cutoutPercentage: 0,
-                                  },
-                                });
-                                </script>
-                      </div>
-                    </div>
-                </div>    
-           </div>
+                 </div>
+              </div>
+            </div>
 
            <div class="container">
                 <div class="well dashboard-search">
@@ -922,11 +844,47 @@ tr:hover{
 
 </body>
 <script type="text/javascript">
-  var url="";
+  $(document).ready(function(){
+      $.ajax({
+          type:'POST',
+          url:'<?php echo base_url() ?>/'+'loadAdminGraphs',
+            data:{
+              'ojt_program':"ojt_one",
+            },
+          success: function(data){
+            $('.ojt1GraphContent').html(data);
+            $('.ojt2GraphContent').html("");
+          }
+      });
+  });
+
+  $('#toOjt1').click(function(){
+        $.ajax({
+          type:'POST',
+          url:'<?php echo base_url() ?>/'+'loadAdminGraphs',
+          data:{
+            'ojt_program':"ojt_one",
+          },
+          success: function(data){
+            $('.ojt1GraphContent').html(data);
+            $('.ojt2GraphContent').html("");
+          }
+        });
+    });
+    $('#toOjt2').click(function(){
+        $.ajax({
+          type:'POST',
+          url:'<?php echo base_url() ?>/'+'loadAdminGraphs',
+          data:{
+              'ojt_program':"ojt_two",
+          },
+          success: function(data){
+            $('.ojt2GraphContent').html(data);
+            $('.ojt1GraphContent').html("");
+          }
+        });
+    });
 </script>
-
-
-
 
 <script type="text/javascript">
    $('body').on('change', '#course_option',function(){

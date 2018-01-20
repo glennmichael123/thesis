@@ -10,7 +10,6 @@
                                     <th>Course & Year</th>
                                     <th>School Year</th>
                                     <th>Evaluations</th>
-                              
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -25,7 +24,6 @@
                                             <th>Course & Year</th>
                                             <th>School Year</th>
                                             <th>Evaluations</th>
-                                            
                                             <th>Status</th>
                                         </tr>
                                     </thead>
@@ -51,8 +49,6 @@
                                                     | <a style="color: gray">Final <i class="fa fa-times-circle"></i></a> 
                                                 <?php endif; ?>
                                               </td>
-
-                                              
                                    
                                               <?php if ($student['ojtone_rendered'] >= $student['ojtone_required'] && $student['ojtone_current_evaluations'] == 2):?>
                                                   <td style="color:green;">OJT-1 Completed</td>
@@ -74,7 +70,7 @@
   var table = $('#adminDataTable').DataTable({
      "bProcessing": true,
       "order": [1, 'asc'],
-      "columns": [{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false }],
+      "columns": [{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false }],
     });
 </script>
 
