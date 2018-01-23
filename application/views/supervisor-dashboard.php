@@ -479,9 +479,10 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <h4 style="text-align: center; margin-bottom: 10px;">Pending logs</h4>
+
                                     <?php if(empty($not_verified)):?>
                                     <!-- if -->
-                                    <h3 style="text-align: center;"><?php echo "No Logs Added";?></h3>  
+                                    <h3 style="text-align: center;"><?php echo "No Logs Pending";?></h3>  
                                     <!-- else -->
                                     <?php else:?>
                                     <div class="progress skill-bar">
@@ -520,32 +521,28 @@
 
                                         <?php foreach($ojtRecords as $student):?>
                                         <tr style="font-size: 15px; color: #000;">
-                                            <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
+                                            <td><a href="<?php echo base_url() ?>studentdashboard/<?php echo $student['id_number'] ?>"><?php echo $student['first_name'] . " " . $student['last_name']?></a></td>
 
                                         <?php if($student['ojt_program'] == 'ojt_one'): ?>
+
                                                 <?php if($student['ojtone_rendered'] < 50):?>
-                                                    <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
+                                                    <td><a href="#" class="evaluate-btn" data-placement="top" data-toggle="popover" data-trigger="focus" data-content="Student must render at least 50 hours to be evaluated." disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
                                                     <td><a href="#" class="remove-stud" data-stud-name="<?php echo $student['first_name'] . " " . $student['last_name']?>" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
                                                   
 
                                                 <?php else:?>
-                                                  
-                                                    
                                                     <?php if(in_array($student['id_number'], array_column($evaluated, 'username'))):?>
-                                                     <td><i class="fa fa-check" aria-hidden="true"></i></td>          
+                                                     <td><i class="fa fa-check"  aria-hidden="true"></i></td>          
                                                      <td><a href="#" class="remove-stud" data-stud-name="<?php echo $student['first_name'] . " " . $student['last_name']?>" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td> 
                                                     <?php else:?>
                                                 <td><a href="<?php echo base_url()?>main/evaluate/<?php echo $student['id_number']?>" class=" evaluate-btn">Evaluate</a></td>
                                                 <td><a href="#" class="remove-stud" data-stud-name="<?php echo $student['first_name'] . " " . $student['last_name']?>" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
                                                     
-                                                 <?php endif;?>
-
-                                           
-                                                    
+                                                 <?php endif;?>                                                                                         
                                                 <?php endif;?>
                                             <?php else:  ?>
                                                     <?php if($student['ojttwo_rendered'] < 50):?>
-                                                    <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
+                                                    <td><a href="#" class="evaluate-btn" data-placement="top" data-toggle="popover" data-trigger="focus" data-content="Student must render at least 50 hours to be evaluated." disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
                                                     <td><a href="#" class="remove-stud" data-stud-name="<?php echo $student['first_name'] . " " . $student['last_name']?>" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
                                                   
 
@@ -553,10 +550,11 @@
                                                   
                                                     
                                                     <?php if(in_array($student['id_number'], array_column($evaluated, 'username'))):?>
-                                                     <td><i class="fa fa-check" aria-hidden="true"></i></td>          
+                                                     <td><i class="fa fa-check"  aria-hidden="true"></i></td>          
                                                      <td><a href="#" class="remove-stud" data-stud-name="<?php echo $student['first_name'] . " " . $student['last_name']?>" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td> 
                                                     <?php else:?>
                                                 <td><a href="<?php echo base_url()?>main/evaluate/<?php echo $student['id_number']?>" class=" evaluate-btn">Evaluate</a></td>
+
                                                 <td><a href="#" class="remove-stud" data-stud-name="<?php echo $student['first_name'] . " " . $student['last_name']?>" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
                                                     
                                                  <?php endif;?>
@@ -586,11 +584,11 @@
                                       
                                         <?php foreach($ojtRecords as $student):?>
                                         <tr style="font-size: 15px; color: #000;">
-                                            <td><?php echo $student['first_name'] . " " . $student['last_name']?></td>
+                                            <td><a href="<?php echo base_url() ?>studentdashboard/<?php echo $student['id_number'] ?>"><?php echo $student['first_name'] . " " . $student['last_name']?></a></td>
 
                                             <?php if($student['ojt_program'] == 'ojt_one'): ?>
                                                   <?php if($student['ojtone_rendered'] < $student['ojtone_required']):?>
-                                                    <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
+                                                    <td><a href="#" class="evaluate-btn" data-toggle="popover" data-placement="top" data-trigger="focus" data-content="Student must complete the number of hours required to be evaluated." disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
 
                                                     <td><a href="#" class="remove-stud" data-stud-name="<?php echo $student['first_name'] . " " . $student['last_name']?>" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
                                                 <?php else:?>                                                                      
@@ -605,7 +603,7 @@
                                             <?php endif;?>
                                         <?php else: ?>
                                               <?php if($student['ojttwo_rendered'] < $student['ojttwo_required']):?>
-                                                    <td><a href="#" class="evaluate-btn" disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
+                                                    <td><a href="#" class="evaluate-btn" data-toggle="popover" data-placement="top" data-trigger="focus" data-content="Student must complete the number of hours required to be evaluated." disabled style="color: gray !important; background-color: #fff !important;">Evaluate <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>
 
                                                     <td><a href="#" class="remove-stud" data-stud-name="<?php echo $student['first_name'] . " " . $student['last_name']?>" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
                                                 <?php else:?>                                                                      
@@ -1081,7 +1079,15 @@
  </script>
 
 <script type="text/javascript">
-  
+  $(function () {
+  $('[data-toggle="popover"]').popover();
+  $('body').find('[data-toggle="popover"]').each(function(e){
+        $(this).click(function(e){
+            e.preventDefault();
+        })
+
+  })
+})
     function previewFile() {
      var preview = document.querySelector('#image-modal');
      var file    = document.querySelector('input[type=file]').files[0];

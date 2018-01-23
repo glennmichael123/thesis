@@ -207,9 +207,9 @@
 
 
         public function supervisorGetTrainee($company_name,$username){
+
           $company_name2 = $company_name[0]['company_name'];
-      
-            $query = $this->db->query("SELECT users.id_number, users.first_name, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.company_name = '$company_name2' AND supervisor_id = '' ");
+            $query = $this->db->query("SELECT users.id_number, users.first_name, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.company_name = '$company_name2' AND supervisor_id = '' AND transitioned = '0'");
            return $query->result_array();
        }
 
@@ -348,6 +348,7 @@
          public function getOjtRecordsForSupervisor($username){
             $result = $this->db->query("SELECT ojt_records.id_number, ojt_records.ojtone_required,ojt_records.ojtone_rendered,ojt_records.ojttwo_rendered, ojt_records.ojttwo_required, users.first_name, users.last_name, users.ojt_program FROM ojt_records INNER JOIN users ON users.id_number = ojt_records.id_number WHERE supervisor_id = '$username'");         
 
+            // echo '<pre>';print_r($result->result_array()); echo'</pre>';
             return $result->result_array();
          }
 
@@ -655,8 +656,9 @@
           foreach ($count as $value) {
             $total += $value;
           }
+          
 
-         return $total;
+         return $total; 
             
          
          
@@ -1115,14 +1117,52 @@
 
          }
 //to be dynamic query where current_ojt program
-     public function checkMidtermEvaluation($username){
-        $query = $this->db->query("SELECT username from midterm_evaluation where supervisor_username ='$username'");
-        return $query->result_array();
+     public function checkMidtermEvaluation($username, $program){
+      $i = 0;
+      $evaluated = array(array('username'=>''));
+      foreach ($program as $key => $value) {
+         $prog = $value['ojt_program'];
+         $id = $value['username'];
+
+         // echo $id;
+         $query = $this->db->query("SELECT username from midterm_evaluation where supervisor_username ='$username' AND ojt_program = '$prog' AND username = '$id'")->result_array();
+          // echo '<pre>'; print_r($query);echo '</pre>';
+         foreach ($query as $key => $value) {
+          // echo $value['username'];
+            $evaluated[$i]['username'] = $value['username'];
+             $i++;
+         }
+         // print_r($evaluated);
+         
+       
+        
+     }
+       return $evaluated;
+        
       }
 
 
-      public function checkFinalEvaluation($username){
-        $query = $this->db->query("SELECT username from final_evaluation where supervisor_username ='$username'");
+      public function checkFinalEvaluation($username, $program){
+
+          $i = 0;
+      $evaluated = array(array('username'=>''));
+      foreach ($program as $key => $value) {
+         $prog = $value['ojt_program'];
+         $id = $value['username'];
+
+         // echo $id;
+         $query = $this->db->query("SELECT username from final_evaluation where supervisor_username ='$username' AND ojt_program = '$prog' AND username = '$id'")->result_array();
+          // echo '<pre>'; print_r($query);echo '</pre>';
+         foreach ($query as $key => $value) {
+            $evaluated[$i]['username'] = $value['username'];
+             $i++;
+         }
+       }  
+
+         return $evaluated;
+
+
+       
         return $query->result_array();
       }
 
@@ -1163,10 +1203,11 @@
       public function insertReg($username){
 
         // users table
+        $ojt_program = $this->getOjtProgramForStud($username);
         $fname = $_POST['first_name'];
         $mname = $_POST['middle_initial'];
         $lname = $_POST['last_name'];
-        $ojt_program = $this->getOjtProgramForStud($username);
+        
 
         // personal details table
         $college = $_POST['college'];
@@ -1224,7 +1265,7 @@
         $product_lines = $_POST['product_lines'];
         $employees = $_POST['employee_numbers'];
         $classif = $_POST['classification'];
-       
+        // $current_ojt_program = $this->getOjtProgramForStud($username);
 
         $this->db->query("INSERT INTO personal_details(id_number,first_name, middle_initial, last_name, college,course,year,present_address,permanent_address,contact_number,email_address,date_of_birth,age,marital_status,blood_type,weight,height,religion,citizenship,sex) VALUES('".$username."','".$fname."','".$mname."','".$lname."','".$college."','".$course."','$year','".$present_add."','".$permanent_add."',$contact_num,'".$email."','".$birth."',$age,'".$civil_stat."','".$bloodtype."',$weight,$height,'".$religion."','".$citizenship."','".$sex."')");
 
@@ -1232,7 +1273,7 @@
 
         $this->db->query("INSERT INTO emergency_details(id_number,name,relationship,contact_number,address) VALUES('".$username."','".$name."','".$relationship."',$emergency_contact,'".$emergency_add."')");
 
-        $this->db->query("INSERT INTO company_information(id_number,company_name,company_address,contact_number,fax_number,product_lines,company_classification,number_of_employees,ojt_program) VALUES('".$username."','".$comp_name."','".$comp_add."',$comp_contact,$fax_number,'".$product_lines."','".$classif."','".$employees."','".$ojt_program."')");
+        $this->db->query("INSERT INTO company_information(id_number,company_name,company_address,contact_number,fax_number,product_lines,company_classification,number_of_employees,ojt_program) VALUES('".$username."','".$comp_name."','".$comp_add."',$comp_contact,$fax_number,'".$product_lines."','".$classif."','".$employees."','".$ojt_program->ojt_program."')");
       }
 
 
@@ -1271,10 +1312,10 @@
       public function getWorkmates($username, $supervisor_id){
         $program = array();
 
-          $query = $this->db->query("SELECT users.id_number, users.first_name, users.middle_initial, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.supervisor_id = '$supervisor_id' AND company_information.id_number != '$username'")->result_array();
+          $query = $this->db->query("SELECT users.id_number, users.first_name, users.middle_initial, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.supervisor_id = '$supervisor_id' AND company_information.supervisor_id!='' AND company_information.id_number != '$username'")->result_array();
 
           foreach ($query as $key => $value) {
-            $id = $value['id_number'];
+             $id = $value['id_number'];
               $program = $this->db->query("SELECT ojt_program, id_number FROM users WHERE id_number = '$id'")->result();  
           }
 
@@ -1658,24 +1699,73 @@
       }
 
       public function checkStudEvaluated($username){
-
-          $query = $this->db->query("SELECT * FROM midterm_evaluation WHERE username = '$username'");
-
-          if($this->db->affected_rows() > 0){
+        $program = $this->getOjtProgramForStud($username);
+        $this->db->query("SELECT * FROM midterm_evaluation WHERE username = '$username' AND ojt_program = '$program->ojt_program'");
+         if($this->db->affected_rows() > 0){
               return true;
-          }else{
+           }else{
               return false;
-          }
+            
+            }
+
+        // $existStuds =array();
+        //   if(in_array($username, array_column($program, 'username'))){
+              
+        //       $key = array_search($username, array_column($program, 'id_number'));
+        //       $existStuds[] = $program[$key];
+        //       $stud = $existStuds[0]['username'];
+
+        //       $prog = $existStuds[0]['ojt_program'];
+        //       $query = $this->db->query("SELECT * FROM midterm_evaluation WHERE username = '$username' AND ojt_program = '$prog'");
+
+        //         if($this->db->affected_rows() > 0){
+        //             return true;
+        //         }else{
+        //             return false;
+        //         }
+        //   }
+
+        //   return false;
+
+
+
+
+
+
+          
       }
 
       public function checkStudEvaluatedFinal($username){
-          $query = $this->db->query("SELECT * FROM final_evaluation WHERE username = '$username'")->row();
 
-          if(!empty($query)){
-              return 'true';
-          }else{
-              return 'false';
-          }
+        $program = $this->getOjtProgramForStud($username);
+        $this->db->query("SELECT * FROM final_evaluation WHERE username = '$username' AND ojt_program = '$program->ojt_program'");
+         if($this->db->affected_rows() > 0){
+              return true;
+           }else{
+              return false;
+            
+            }
+
+
+        // $existStuds =array();
+        //   if(in_array($username, array_column($program, 'username'))){
+             
+        //       $key = array_search($username, array_column($program, 'id_number'));
+        //       $existStuds[] = $program[$key];
+        //       $stud = $existStuds[0]['username'];
+        //       $prog = $existStuds[0]['ojt_program'];
+        //       $query = $this->db->query("SELECT * FROM final_evaluation WHERE username = '$username' AND ojt_program = '$prog'")->result();
+
+        //       if(!empty($query)){
+        //           return 'true';
+        //       }else{
+        //           return 'false';
+        //       }
+        //   }
+        //   return 'false';
+
+         
+          
       }
 
 
@@ -1779,10 +1869,13 @@
           $this->db->insert('company_information',$newCompany);
           $data = array('ojt_program'=>$ojt_program);
           $data2 = array('ojttwo_required'=>$newRequired);
+          $data3 = array('transitioned'=>1);
           $this->db->where('id_number',$username);
           $this->db->update('users',$data);
           $this->db->where('id_number',$username);
-          $this->db->update('ojt_records',$data2);      
+          $this->db->update('ojt_records',$data2); 
+          $this->db->where('id_number',$username);
+          $this->db->update('company_information',$data3);     
       }
 
       public function changeOjtStatusDifferentCompany($username){

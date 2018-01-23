@@ -19,7 +19,7 @@
    <script src="<?php echo base_url()?>assets/js/chart.bundle.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
+    <!-- <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet"> -->
 
     <!-- Sweet Alert -->
     <script src="<?php echo base_url()?>assets/js/swal.js"></script>
@@ -523,7 +523,7 @@ tr:hover{
                                                   <td style="color:green;">OJT-1 Completed</td>
                                                 <?php elseif($student['ojtone_rendered'] >= $student['ojtone_required'] && $student['ojtone_current_evaluations'] >= $student['total_evaluations'] && $student['ojttwo_rendered']>0):?>
                                                   <td style="color:green;">OJT-1 Completed | <span style="color:#f44336">OJT-2 On Going</span></td>
-                                                <?php elseif($student['ojttwo_rendered'] >= $student['ojttwo_required'] &&$student['ojttwo_current_evaluations'] >= $student['total_evaluations']):?>
+                                                <?php elseif($student['ojttwo_rendered'] >= $student['ojttwo_required'] && $student['ojttwo_current_evaluations'] >= $student['total_evaluations']):?>
                                                 <td style="color:green;">OJT-1 Completed | OJT-2 Completed</td>
                                               <?php else: ?>
                                                 <td style="color:#f44336;">OJT-1 On Going</td>
@@ -870,7 +870,7 @@ tr:hover{
               'ojt_program':"ojt_two",
             },
           success: function(data){
-            console.log(data);
+            // console.log(data);
             $('.ojt1GraphContent').html('');
             $('.ojt2GraphContent').html(data);
           }
