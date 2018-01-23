@@ -944,7 +944,7 @@ public function logout(){
    	}
 
    	public function getTraineeNames(){
-   		$names = $this->db->query("SELECT first_name, last_name, users.id_number, company_information.company_name FROM users INNER JOIN company_information ON company_information.id_number = users.id_number")->result();
+   		$names = $this->db->query("SELECT first_name, last_name, users.id_number, company_information.company_name FROM users INNER JOIN company_information ON company_information.id_number = users.id_number AND transitioned != 1")->result();
    		// $names = $this->db->query("SELECT first_name, last_name, id_number FROM users")->result();
    		$student = array(array('names'=>''));
    		$i=0;

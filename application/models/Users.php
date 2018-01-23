@@ -1906,7 +1906,10 @@
           $ojt_records = array('supervisor_id'=>'');
           $logs = array('supervisor_id'=>'');
           $users = array('ojt_program'=>'ojt_two');
+          $transition = array('transitioned'=>1);
           $data2 = array('ojttwo_required'=>$newRequired);
+          $this->db->where('id_number',$username);
+          $this->db->update('company_information',$transition);
           $this->db->insert('company_information',$data);
           $this->db->where('id_number',$username);
           $this->db->update('ojt_records',$ojt_records);
@@ -1916,6 +1919,7 @@
           $this->db->update('users',$users);
           $this->db->where('id_number',$username);
           $this->db->update('ojt_records',$data2);
+          
 
       }
 }
