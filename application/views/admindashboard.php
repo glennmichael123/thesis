@@ -19,7 +19,7 @@
    <script src="<?php echo base_url()?>assets/js/chart.bundle.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
+    <!-- <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet"> -->
 
     <!-- Sweet Alert -->
     <script src="<?php echo base_url()?>assets/js/swal.js"></script>
@@ -870,7 +870,7 @@ tr:hover{
               'ojt_program':"ojt_two",
             },
           success: function(data){
-            console.log(data);
+            // console.log(data);
             $('.ojt1GraphContent').html('');
             $('.ojt2GraphContent').html(data);
           }

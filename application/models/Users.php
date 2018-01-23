@@ -207,9 +207,9 @@
 
 
         public function supervisorGetTrainee($company_name,$username){
+
           $company_name2 = $company_name[0]['company_name'];
-      
-            $query = $this->db->query("SELECT users.id_number, users.first_name, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.company_name = '$company_name2' AND supervisor_id = '' ");
+            $query = $this->db->query("SELECT users.id_number, users.first_name, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.company_name = '$company_name2' AND supervisor_id = '' AND transitioned = '0'");
            return $query->result_array();
        }
 
@@ -1869,10 +1869,13 @@
           $this->db->insert('company_information',$newCompany);
           $data = array('ojt_program'=>$ojt_program);
           $data2 = array('ojttwo_required'=>$newRequired);
+          $data3 = array('transitioned'=>1);
           $this->db->where('id_number',$username);
           $this->db->update('users',$data);
           $this->db->where('id_number',$username);
-          $this->db->update('ojt_records',$data2);      
+          $this->db->update('ojt_records',$data2); 
+          $this->db->where('id_number',$username);
+          $this->db->update('company_information',$data3);     
       }
 
       public function changeOjtStatusDifferentCompany($username){

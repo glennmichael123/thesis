@@ -215,7 +215,7 @@ class Main extends CI_Controller {
      		// print_r($current_ojt_program);
      		$data['traineesLog'] = $this->users->getOjtLogs($this->session->userdata['id_number'], $current_ojt_program);
      		$company_name = $this->users->getCompanySupervisor($this->session->userdata['id_number']);
-     		$data['supervisorAddOjt'] = $this->users->supervisorGetTrainee($company_name,$this->session->userdata['id_number']);
+     		$data['supervisorAddOjt'] = $this->users->supervisorGetTrainee($company_name,$this->session->userdata['id_number'], $current_ojt_program);
      		$data['ojtRecords'] = $this->users->getOjtRecordsForSupervisor($this->session->userdata['id_number']);
      		$data['ojtStatus'] = $this->users->getOjtStatusForSupervisor($this->session->userdata['id_number'], $current_ojt_program);
      		$data['supervisorName'] = $this->users->getSupervisorName($this->session->userdata['id_number']);
