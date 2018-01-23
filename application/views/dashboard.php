@@ -553,7 +553,7 @@ header h1 {
             <div class="container-fluid">
               <div class="col-lg-8">
                   <div class="logo" style="float: left;"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height: 50px;"></div>
-                 <a href="dashboard" style="text-decoration: none;"><h3 style="font-weight: bold; color: #7a5230; margin-top: 10px;">OJT Automate</h3></a> 
+                 <a href="dashboard" style="text-decoration: none;"><h3 style="font-weight: bold; margin-top: 12px; color: #b71c1c ; text-align: left; font-family: fantasy;font-style: italic;font-size: 20pt;letter-spacing: 1px;">OJT AUTOMATE</h3></a> 
               </div>
               <div class="col-lg-1">
                       <section id="notification-bell">
@@ -691,7 +691,7 @@ header h1 {
                                $program = 'OJT 2';
                             }
                           ?>
-                   <h5 style="position: relative; top: 15px;">Trainee - <?php echo $program; ?></h5>
+                   <h5 style="position: relative; top: 15px;">Trainee</h5>
                  <?php endif; ?>
               </div>
 
@@ -1036,7 +1036,7 @@ header h1 {
                           <div class="row">
                             <div class="col-lg-7">
                               
-                              <h5><?php echo $workmate['first_name'] . " " . $workmate['middle_initial'] . " " . $workmate['last_name'] ?></h5>
+                              <h5><?php echo $workmate['first_name'] . " " . $workmate['middle_initial'] . ". " . $workmate['last_name'] ?></h5>
                             
                             </div>
                               <div class="col-lg-4">

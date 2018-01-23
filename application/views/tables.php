@@ -54,9 +54,13 @@
                                                   <td style="color:green;">OJT-1 Completed</td>
                                                 <?php elseif($student['ojtone_rendered'] >= $student['ojtone_required'] && $student['ojtone_current_evaluations'] >= $student['total_evaluations'] && $student['ojttwo_rendered']>0):?>
                                                   <td style="color:green;">OJT-1 Completed | <span style="color:#f44336">OJT-2 On Going</span></td>
-                                                <?php elseif($student['ojttwo_rendered'] >= $student['ojttwo_required'] &&$student['ojttwo_current_evaluations'] >= $student['total_evaluations']):?>
+                                                <?php elseif($student['ojtone_rendered'] > 0 && $student['ojttwo_rendered'] >= $student['ojttwo_required'] &&$student['ojttwo_current_evaluations'] >= $student['total_evaluations']):?>
                                                 <td style="color:green;">OJT-1 Completed | OJT-2 Completed</td>
-                                              <?php else: ?>
+                                                <?php elseif($student['ojtone_rendered'] == 0 && $student['ojttwo_rendered'] >= $student['ojttwo_required'] && $student['ojttwo_current_evaluations'] >= $student['total_evaluations']):?>
+                                                <td style="color:#f44336;">OJT-1 No Records | <span style="color:green">OJT-2 Completed</span></td>
+                                               <?php elseif($student['ojtone_rendered'] == 0 && $student['ojttwo_rendered'] < $student['ojttwo_required'] && $student['ojttwo_rendered'] != 0):?>
+                                                <td style="color:#f44336;">OJT-1 No Records | OJT-2 On Going</td>
+                                               <?php else: ?>
                                                 <td style="color:#f44336;">OJT-1 On Going</td>
                                               <?php endif;?>
                                           </tr>

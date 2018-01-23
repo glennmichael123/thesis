@@ -357,17 +357,13 @@
           $html = '';
           $course = empty($_POST['course']) ? '' : $_POST['course'];
           $sy = empty($_POST['sy']) ? '' : $_POST['sy'];
-          $eval = empty($_POST['eval']) ? '' : $_POST['eval'];
+          $current_program = empty($_POST['current_program']) ? '' : $_POST['current_program'];
           $stat = empty($_POST['stat']) ? '' : $_POST['stat'];
-          
           if($sy == 'all'){
             $sy = '';
           }
-          if($eval == 'all'){
-            $eval = '';
-          }
-          if($eval == 'None'){
-            $eval = '0';
+          if($current_program == 'all'){
+            $current_program = '';
           }
           if($course == 'all'){
             $course = '';
@@ -376,11 +372,11 @@
             $stat = '';
           }
 
-          ///echo $eval;exit;
           if(empty($sy)){
-              $query = $this->db->query("SELECT * FROM users INNER JOIN ojt_records ON users.id_number = ojt_records.id_number WHERE status!='DELETED' AND users.admin_id = '$admin_id' AND users.course LIKE '%$course%' AND ojtone_current_evaluations LIKE '%$eval%' || ojttwo_current_evaluations LIKE '%$eval%' AND ojtone_status LIKE '%$stat%' ORDER BY users.id_number");
+              $query = $this->db->query("SELECT * FROM users INNER JOIN ojt_records ON users.id_number = ojt_records.id_number WHERE status!='DELETED' AND users.admin_id = '$admin_id' AND users.course LIKE '%$course%' AND users.ojt_program LIKE '%$current_program%' AND (ojtone_status LIKE '%$stat%' OR ojttwo_status LIKE '%$stat%') ORDER BY users.id_number");
+              // print_r($query);exit;
           }else{
-              $query = $this->db->query("SELECT * FROM users INNER JOIN ojt_records ON users.id_number = ojt_records.id_number WHERE status!='DELETED' AND users.admin_id = '$admin_id' AND users.course LIKE '%$course%' AND school_year = '$sy' AND ojtone_current_evaluations LIKE '%$eval%' AND ojtone_status LIKE '%$stat%' ORDER BY users.id_number ASC");
+              $query = $this->db->query("SELECT * FROM users INNER JOIN ojt_records ON users.id_number = ojt_records.id_number WHERE status!='DELETED' AND users.admin_id = '$admin_id' AND users.course LIKE '%$course%' AND school_year = '$sy' AND users.ojt_program LIKE '%$current_program%' AND (ojtone_status LIKE '%$stat%' OR ojttwo_status LIKE '%$stat%') ORDER BY users.id_number ASC");
           }
           return $query->result_array();
         }
@@ -683,8 +679,12 @@
 
            if($ojt_program == 'ojt_one'){
             $this->db->query("UPDATE ojt_records SET ojtone_status = 'COMPLETED' WHERE ojtone_rendered >= ojtone_required AND ojtone_current_evaluations >= 2 AND id_number = '$id'");
+            $this->db->query("UPDATE ojt_records SET ojtone_status = '' WHERE ojtone_rendered = 0 AND ojttwo_rendered > 0 AND id_number = '$id'");
           }else{
-              $this->db->query("UPDATE ojt_records SET ojttwo_status = 'COMPLETED' WHERE ojttwo_rendered >= ojttwo_rendered AND ojttwo_current_evaluations >= 2 AND id_number = '$id'");
+            $this->db->query("UPDATE ojt_records SET ojtone_status = '' WHERE ojtone_rendered = 0 AND ojttwo_rendered > 0 AND id_number = '$id'");
+            $this->db->query("UPDATE ojt_records SET ojttwo_status = 'ON-GOING' WHERE ojttwo_rendered > 0 AND id_number = '$id'");
+            
+            $this->db->query("UPDATE ojt_records SET ojttwo_status = 'COMPLETED' WHERE ojttwo_rendered >= ojttwo_rendered AND ojttwo_current_evaluations >= 2 AND id_number = '$id'");
           }
            
         }
@@ -970,9 +970,6 @@
              echo json_encode($log);
          }
         
-
-
-
          //import csv
          public function importCSV(){
             $admin_id = $this->session->userdata('id_number');
@@ -1003,7 +1000,7 @@
                       
                       $this->db->query("INSERT INTO users (id_number,admin_id,first_name,middle_initial,last_name,course,year,school_year,password) 
                         values ('$username','$admin_id','".$getData[1]."','".$getData[2]."','".$getData[0]."','".$getData[3]."','".$getData[4]."','$sy','123456')");
-                      $this->db->query("INSERT INTO ojt_records(id_number,total_hours,ojtone_required,ojttwo_required) VALUES('$username',$total_hours,'".$getData[6]."','".$getData[7]."')");
+                      $this->db->query("INSERT INTO ojt_records(id_number,total_hours,ojtone_required,ojttwo_required,admin_id) VALUES('$username',$total_hours,'".$getData[6]."','".$getData[7]."','$admin_id')");
                     }
                     
                  }
@@ -1512,14 +1509,7 @@
                       }
                     }
                   }
-                 
-
-                  // return $array_status;
-              
-
-
           }
-
          return $array_status;
         
         //   if($program == 'ojt_one'){

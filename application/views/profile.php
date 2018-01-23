@@ -27,7 +27,6 @@
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
 
 
-    <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
         <link href="<?php echo base_url();?>assets/css/jquery.simple-popup.min.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/jquery.simple-popup.settings.css" rel="stylesheet">
       <script src="<?php echo base_url()?>assets/js/jquery.simple-popup.min.js"></script>
@@ -434,7 +433,6 @@
             text-align: center;
             color:  #915B51;
             font-family: 'Oswald', sans-serif;
-            font-weight: bold;
 
         }
         h3{
@@ -597,7 +595,7 @@
                     <div class="col-lg-4">
                         <div class="logo" style="margin-top: 5px; float: left;"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height: 50px;"></div>
 
-                        <a href="dashboard" style="text-decoration: none;"><h3 style="font-weight: bold; margin-top: 15px; color: #7a5230; text-align: left; font-family: 'Roboto', sans-serif;">OJT Automate</h3></a> 
+                        <a href="dashboard" style="text-decoration: none;"><h3 style="font-weight: bold; margin-top: 12px; color: #b71c1c ; text-align: left; font-family: fantasy;font-style: italic;font-size: 20pt;letter-spacing: 1px;">OJT AUTOMATE</h3></a> 
                     </div>
                     <div class="col-lg-5 col-sm-7">
                         <?php if(isset($id_number)):?>
@@ -1276,7 +1274,7 @@
                             <div class="well" style="background-image:none; background-color: #FFFFFF; border: 1px solid #C0C0C0; width: 88.5% !important;">
                                 <h3 style="text-align: center; margin-bottom: 20px;">FINAL EVALUATION</h3>
                                 <?php if (empty($final_evaluation)): ?>
-                                     <h4 style="text-align: center;color:#8b8f92">You have not been evaluated yet.</h4>
+                                     <h4 style="text-align: center;color:#8b8f92">You have not been evaluated yet</h4>
                                 <?php elseif($final_evaluation->allow_view == 0):?>
                                     <h4 style="color: #8b8f92; text-align: center; margin-top: 50px;">Your supervisor did not allow you to view your evaluation.</h4>
 
