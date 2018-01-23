@@ -104,9 +104,12 @@ class Main extends CI_Controller {
       		$current_ojt_program = $this->users->getOjtProgramForStudSup($this->session->userdata['id_number']);
       		// $checkIfExist = $this->users->checkStudEvaluated($username,$current_ojt_program);
       		$checkIfExist = $this->users->checkStudEvaluatedFinal($username);
+      		$ojt_program = $this->users->getOjtProgramForStud($username);
+
       		if($checkIfExist){
 				echo "<h1>You have already evaluated this student</h1>";
 			}else{
+				$data['ojt_program'] = $ojt_program;
 				$data['initial_data'] = $this->users->loadFinalEval($username);
 				$data['stud_username'] = $username;
 				$this->load->view('finalevaluation',$data);
@@ -628,8 +631,11 @@ public function logout(){
 		$adminName = $_POST['adName'];
 		$adminUser = $_POST['adID'];
 		$adminPass = $_POST['adPass'];
-		$this->sendEmailSupervisor($adminEmail,$adminName,$adminUser,$adminPass);
-		$this->users->addAdmin();
+		if($this->users->addAdmin()){
+			$this->sendEmailAdmin($adminEmail,$adminName,$adminUser,$adminPass);
+		}
+		
+		
 	}
 
 	public function sendEmailAdmin($adminEmail,$adminName,$adminUser,$adminPass){

@@ -61,7 +61,11 @@
                                                <?php elseif($student['ojtone_rendered'] == 0 && $student['ojttwo_rendered'] < $student['ojttwo_required'] && $student['ojttwo_rendered'] != 0):?>
                                                 <td style="color:#f44336;">OJT-1 No Records | OJT-2 On Going</td>
                                                <?php else: ?>
+                                                   <?php if($student['ojt_program'] == 'ojt_one'): ?>
                                                 <td style="color:#f44336;">OJT-1 On Going</td>
+                                              <?php else: ?>
+                                                <td style="color:#f44336;">OJT-2 On Going</td>
+                                              <?php endif; ?>
                                               <?php endif;?>
                                           </tr>
                                       <?php endforeach;?>

@@ -156,7 +156,11 @@
                <div class="col l3">
                 <div class="input-field">
                   <label for="#training">No. of Training Required</label>
+                  <?php if($ojt_program->ojt_program == 'ojt_one'): ?>
                   <input type="text" name="frequired" required id="frequired" class="validate" value="<?php echo $initial_data[0]['ojtone_required'];?>">
+                <?php else: ?>
+                  <input type="text" name="frequired" required id="frequired" class="validate" value="<?php echo $initial_data[0]['ojttwo_required'];?>">
+                <?php endif; ?>
                 </div>
               </div>
              </div>
@@ -203,7 +207,11 @@
                <div class="col l4">
                 <div class="input-field">
                   <label for="#training">Total Number of Hours Rendered</label>
+                  <?php if($ojt_program->ojt_program == 'ojt_one'): ?>
                   <input type="text" value="<?php echo $initial_data[0]['ojtone_rendered'] ?>" name="ftotal" required id="ftotal" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="validate">
+                <?php else: ?>
+                    <input type="text" value="<?php echo $initial_data[0]['ojttwo_rendered'] ?>" name="ftotal" required id="ftotal" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="validate">
+                  <?php endif; ?>
                 </div>
               </div>
              </div>

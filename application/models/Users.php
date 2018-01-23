@@ -89,7 +89,7 @@
         }
 
         public function getAnnouncements($username){
-            $query = $this->db->query("SELECT a.id, admin_id,content,username,status,date_posted,announcement_id,name,id_number FROM announcements as a INNER JOIN admin ON a.admin_id = admin.id_number WHERE a.username = '$username' ORDER BY a.id DESC");
+            $query = $this->db->query("SELECT a.id, admin.name, admin_id,content,username,status,date_posted,announcement_id,name,id_number FROM announcements as a INNER JOIN admin ON a.admin_id = admin.id_number WHERE a.username = '$username' ORDER BY a.id DESC");
             return $query->result_array();
         }
         public function getAnnouncementsForStudents(){
@@ -257,14 +257,16 @@
             $id_number = $_POST['id_number'];
             $date =  $_POST['log_date'];
             $time_in = $_POST['time_in'];
+            $backupId = $this->getSupForStud($id_number);
             $time_out = $_POST['time_out'];
             $division = $_POST['division'];
             $department = $_POST['department'];
             $designation = $_POST['designation'];
             $log_content = $_POST['log_activity'];
             $hours_rendered = $_POST['hours_rendered'];
-            $supervisor_id = empty($_POST['supervisor_id']) ? '' : $_POST['supervisor_id'];
+            $supervisor_id = $backupId->supervisor_id;
             $ojt_program = $this->getOjtProgramForStud($id_number);
+
             $ojtP = $ojt_program->ojt_program;
             $data = Array(
             'id_number' => $id_number,
@@ -289,6 +291,10 @@
           
 
 
+        }
+        public function getSupForStud($id_number){
+          $query = $this->db->query("SELECT supervisor_id FROM company_information WHERE id_number = '$id_number'")->row();
+          return $query;
         }
 
         public function getLogs($data,$limit, $start, $ojt_program){
@@ -775,30 +781,35 @@
             //check duplicate name
             $result = $this->db->query("SELECT * FROM admin WHERE name = '".$adminName."' ");
             if($this->db->affected_rows() > 0){
-                echo "name_exist"; exit;
+                echo "name_exist"; 
+                return false;
+                exit;
             }
 
             //check duplicate id
             $result = $this->db->query("SELECT * FROM admin WHERE id_number = '".$adminID."' ");
             if($this->db->affected_rows() > 0){
-                echo "id_exist"; exit;
+                echo "id_exist"; 
+                return false;
+                exit;
             }
 
             //check duplicate email
             $result = $this->db->query("SELECT * FROM admin WHERE email = '".$adminEmail."' ");
             if($this->db->affected_rows() > 0){
-               echo "email_exist"; exit;
+               echo "email_exist"; return false; exit;
             }
             $result = $this->db->query("SELECT * FROM personal_details WHERE email_address = '".$adminEmail."'");
             if($this->db->affected_rows() > 0){
-                echo "email_exist";exit;
+                echo "email_exist"; return false;exit;
             }
             $result = $this->db->query("SELECT * FROM supervisor WHERE email = '".$adminEmail."'");
             if($this->db->affected_rows() > 0){
-                echo "email_exist";exit;
+                echo "email_exist";return false;exit;
             }
             else{
-                return $this->db->query("INSERT INTO admin (name, id_number, password, college, email) VALUES('$adminName', '$adminID', '$adminPass', '$adminCollege', '$adminEmail')");
+                 $this->db->query("INSERT INTO admin (name, id_number, password, college, email) VALUES('$adminName', '$adminID', '$adminPass', '$adminCollege', '$adminEmail')");
+                 return true;
              }
          }
          public function addWatch(){

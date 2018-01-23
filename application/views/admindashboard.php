@@ -529,16 +529,24 @@ tr:hover{
                                    
                                                <?php if ($student['ojtone_rendered'] >= $student['ojtone_required'] && $student['ojtone_current_evaluations'] >= $student['total_evaluations'] && $student['ojttwo_rendered']==0):?>
                                                   <td style="color:green;">OJT-1 Completed</td>
-                                                <?php elseif($student['ojtone_rendered'] >= $student['ojtone_required'] && $student['ojtone_current_evaluations'] >= $student['total_evaluations'] && $student['ojttwo_rendered']>0):?>
+                                                <?php elseif($student['ojtone_rendered'] >= $student['ojtone_required'] && $student['ojtone_current_evaluations'] >= $student['total_evaluations'] && $student['ojttwo_rendered']>0 && $student['ojttwo_current_evaluations'] <  $student['total_evaluations']):?>
+
                                                   <td style="color:green;">OJT-1 Completed | <span style="color:#f44336">OJT-2 On Going</span></td>
-                                                <?php elseif($student['ojtone_rendered'] > 0 && $student['ojttwo_rendered'] >= $student['ojttwo_required'] &&$student['ojttwo_current_evaluations'] >= $student['total_evaluations']):?>
+
+                                                <?php elseif($student['ojtone_rendered'] > 0 && $student['ojttwo_rendered'] >= $student['ojttwo_required'] && $student['ojttwo_current_evaluations'] >= $student['total_evaluations']):?>
+
                                                 <td style="color:green;">OJT-1 Completed | OJT-2 Completed</td>
+
                                                 <?php elseif($student['ojtone_rendered'] == 0 && $student['ojttwo_rendered'] >= $student['ojttwo_required'] && $student['ojttwo_current_evaluations'] >= $student['total_evaluations']):?>
                                                 <td style="color:#f44336;">OJT-1 No Records | <span style="color:green">OJT-2 Completed</span></td>
                                                <?php elseif($student['ojtone_rendered'] == 0 && $student['ojttwo_rendered'] < $student['ojttwo_required'] && $student['ojttwo_rendered'] != 0):?>
                                                 <td style="color:#f44336;">OJT-1 No Records | OJT-2 On Going</td>
                                                <?php else: ?>
+                                                  <?php if($student['ojt_program'] == 'ojt_one'): ?>
                                                 <td style="color:#f44336;">OJT-1 On Going</td>
+                                              <?php else: ?>
+                                                <td style="color:#f44336;">OJT-2 On Going</td>
+                                              <?php endif; ?>
                                               <?php endif;?>
                                           </tr>
                                       <?php endforeach;?>
@@ -1502,11 +1510,17 @@ tr:hover{
             },
             success:function(data){
               if($.trim(data) == "name_exist"){
-                  swal('Oops...','Name already exist','error');return false;
+                  swal('Oops...','Name already exist','error');
+                  sending.addClass("hide");
+                  return false;
               }else if($.trim(data) == "id_exist"){
-                  swal('Oops...','Username already exist','error');return false;
+                  swal('Oops...','Username already exist','error');
+                  sending.addClass("hide");
+                  return false;
               }else if($.trim(data) == "email_exist"){
-                  swal('Oops...','Email already exist','error');return false;
+                  swal('Oops...','Email already exist','error');
+                    sending.addClass("hide");
+                  return false;
               }else{
                 sending.addClass("hide");
                 swal({
@@ -1617,12 +1631,6 @@ tr:hover{
       
 </script>
 
-<script type="text/javascript">
-    $("span").hover(function(){
-        $("span").css("background","none");
-        $("span").css("color","#000");
-    });
-</script>
 
 <!-- ADD ADMIN -->
 <script type="text/javascript">
@@ -1662,13 +1670,19 @@ tr:hover{
                     },
                   success:function(data){
                       if($.trim(data)=="name_exist"){
-                        swal('Oops...','Name already exist','error');return false;
+                        swal('Oops...','Name already exist','error');
+                        sending.addClass("hide");
+                        return false;
                       }
                       else if($.trim(data)=="id_exist"){
-                        swal('Oops...','Username already exist','error');return false;
+                        swal('Oops...','Username already exist','error');
+                        sending.addClass("hide");
+                        return false;
                       }
                       else if($.trim(data)=="email_exist"){
-                        swal('Oops...','Email already exist','error');return false;
+                        swal('Oops...','Email already exist','error');
+                        sending.addClass("hide");
+                        return false;
                       }
                       else{
                        sending.addClass("hide");
