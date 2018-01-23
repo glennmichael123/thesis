@@ -663,9 +663,9 @@ public function logout(){
 		$supervisorName = $_POST['supName'];
 		$supervisorUser = $_POST['supID'];
 		$supervisorPass = $_POST['supPass'];
-
-		$this->sendEmailAdmin($supervisorEmail,$supervisorName,$supervisorUser,$supervisorPass);
 		$this->users->addSupervisor();
+		$this->sendEmailAdmin($supervisorEmail,$supervisorName,$supervisorUser,$supervisorPass);
+		
 	}
     public function sendEmailSupervisor($supervisorEmail,$supervisorName,$supervisorUser,$supervisorPass){
 
@@ -1048,6 +1048,16 @@ public function logout(){
 		$data['completed_students'] = $this->users->getStudentStatus($this->session->userdata['id_number'],$program);
      	$this->load->view("admin_loadGraphs",$data);
 
+     }
+
+     public function test(){
+     	$re = '/(.*), (.*) ([^\s\.].*)/';
+		$str = 'ABELGAS, ARLENE JANE D. ';
+
+		preg_match($re, $str, $matches, PREG_OFFSET_CAPTURE, 0);
+
+		//Print the entire match result
+		 echo '<pre>';print_r($matches[2]); echo '</pre>';
      }
 }
 

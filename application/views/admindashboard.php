@@ -805,16 +805,21 @@ tr:hover{
                     </select> -->
                     <div class="row">
                         <div class="col-lg-6">
-                          <label>Required Hours</label>
+                          <!-- <label>Required Hours</label> -->
                           <div class="form-inline">
                             <div class="row">
                               <div class="col-lg-5" style="padding-right: 0"> 
-                                <label style="font-size: 10px;">OJT 1</label>
-                                <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 90%" id="studojt1" name="studojt1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                <label style="font-size: 10px;">Required hours</label>
+                                <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 90%" id="studojt" name="studojt" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                               </div>
                               <div class="col-lg-5" style="padding-left: 3px">
-                                <label style="font-size: 10px;">OJT 2</label>                    
-                                <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 90%" id="studojt2" name="studojt2" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                <label style="font-size: 10px;">OJT Program</label>                    
+                            
+                                <select required style="border-radius: 5px;margin-bottom: 10px; width: 90%" class="form-control" id="studprogram" name="studprogram">
+                                    <option selected disabled>Program</option>
+                                    <option value="ojt_one">Ojt 1</option>
+                                    <option value="ojt_two">Ojt 2</option>
+                                </select>
                               </div>
                             </div>
                           </div>
@@ -824,12 +829,12 @@ tr:hover{
                           <div class="form-inline">
                             <div class="row">
                               <div class="col-lg-5" style="padding-right: 0"> 
-                                <label style="font-size: 10px;color: white">Since</label>
+                                <!-- <label style="font-size: 10px;color: white">Since</label> -->
                                 <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 90%" id="sy_1" name="sy_1" maxlength="4" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
 
                               </div>
                               <div class="col-lg-5" style="padding-left: 3px">
-                                <label style="font-size: 10px;color: white">Year</label>                    
+                                <!-- <label style="font-size: 10px;color: white">Year</label>                     -->
                                 <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 90%" id="sy_2" name="sy_2" maxlength="4" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                               </div>
                             </div>
@@ -839,12 +844,54 @@ tr:hover{
                 </div>
 
                 <!-- Import CSV -->
-                <div class="tab-pane importCSV" id="addCSV" style="display:none;text-align:center" role="tabpanel">
-                    <form action="saveCSV" method="POST" enctype="multipart/form-data">
-                        <input class="form-group" type="file" name="importCSV" accept=".csv" style="margin-left: 188px; margin-top:20px" onchange="previewFile()">
-                        <button class="btn btn-success button-loading" type="submit" id="saveImport" name="saveImport" data-loading-text="Saving..." style="margin-top:10px;width: 90px; margin-right: 5px;" disabled="">Save</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancelImport" role="button" style="margin-top:10px;width: 90px">Cancel</button>
-                    </form> 
+                <div class="tab-pane importCSV" id="addCSV" style="display:none;" role="tabpanel">
+                  <div class="row">
+                    <div class="col-lg-12">
+
+                        <form action="saveCSV" method="POST" enctype="multipart/form-data">
+                          <div class="row">
+                            <div class="col-lg-8 col-lg-offset-4">
+                              <label>Required hours</label>
+                              <input type="text" name="required_hours" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control" style="width: 50%;" required>
+                            </div>
+                          </div>
+                          <div class="row">
+                             <div class="col-lg-8 col-lg-offset-4">
+                                   <label>Ojt Program</label>
+                                    <select name="ojt_program" class="form-control" id="program-choice" style="width: 50%" style="margin-top: 10px;" required="">
+                                        <option selected disabled>Select Program</option>
+                                        <option value="ojt_one">Ojt 1</option>
+                                        <option value="ojt_two">Ojt 2</option>
+                                    </select>
+                             </div>
+                          </div>
+
+                          <div class="row">
+                             <div class="col-lg-8 col-lg-offset-4">
+                                   <label>School Year</label>
+                                   <input type="text" id="fromYr" placeholder="From" name="fromYr" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control" style="width: 50%;" required>
+                                   <input type="text" id="toYr" placeholder="To" name="toYr" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control" style="width: 50%; margin-top: 10px;" required>
+                             </div>
+                          </div>
+
+                            <div class="row">
+                                <div class="col-lg-8 col-lg-offset-4">
+                                    <input class="form-group" type="file" name="importCSV" accept=".csv" style="margin-top:20px" onchange="previewFile()">
+                                </div>
+                            </div>
+                       
+                            <div class="row">
+                              <div class="col-lg-8 col-lg-offset-4">
+                                  <button class="btn btn-success button-loading" type="submit" id="saveImport" name="saveImport" data-loading-text="Saving..." style="margin-top:10px;width: 90px; margin-right: 5px;" disabled="">Save</button>
+                                  <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancelImport" role="button" style="margin-top:10px;width: 90px">Cancel</button>
+                                </div>
+
+                            </div>
+                          
+                      </form> 
+                    </div>
+                  </div>
+                  
                 </div>
 
         </div>
@@ -923,6 +970,22 @@ tr:hover{
 </script>
 
 <script type="text/javascript">
+   $('#fromYr').blur(function(){
+        var curr_year = parseInt($('#fromYr').val());
+        var i = parseInt("1");
+        if($('#fromYr').val().length==4){
+          $('#toYr').val(curr_year+i);
+        }
+    });
+
+   $('#toYr').blur(function(){
+        var curr_year = parseInt($('#toYr').val());
+        var i = parseInt("1");
+        if($('#toYr').val().length==4){
+          $('#fromYr').val(curr_year-i);
+        }
+    });
+
    $('body').on('change', '#course_option',function(){
           var course = $('#course_option').val();
           var current_program = $('#program_option').val();
@@ -1372,6 +1435,12 @@ tr:hover{
     function previewFile() {
        $('#saveImport').prop("disabled",false);
     }
+    $('#saveImport').click(function(e){
+        if(!$('#program-choice').val()){
+            $('#program-choice').css('border','1px solid red');
+            return false;
+        }
+    });
 </script>
 
  <script type="text/javascript">
@@ -1403,16 +1472,13 @@ tr:hover{
     var last = $('#studLast').val().capitalize().trim();
     var course = $('#studCourse').val().toUpperCase().trim();
     var year = $('#studYear').val();
-    var ojt1_required = $('#studojt1').val();
-    var ojt2_required = $('#studojt2').val();
+    var required_hours = $('#studojt').val();
+    var ojt_program = $('#studprogram').val();
     var sy_1 = $('#sy_1').val();
     var sy_2= $('#sy_2').val();
-    if(ojt2_required == ""){
-      ojt2_required = 0;
-    }
 
-    if(first == "" || mid == "" || last == "" || course=="" || sy_1=="" || sy_2==""){
-        alert("Please fill all fields");return false;
+    if(first == "" || mid == "" || last == "" || course=="" || sy_1=="" || sy_2=="" || required_hours == "" || !ojt_program){
+        swal('Oops...','Please fill all fields','error');
     }else{
       $.ajax({
         url: "addStudent",
@@ -1423,8 +1489,8 @@ tr:hover{
           'lname': last, 
           'course': course,
           'year': year,
-          'ojt1_required': ojt1_required,
-          'ojt2_required': ojt2_required,
+          'required_hours': required_hours,
+          'ojt_program': ojt_program,
           'sy_1': sy_1,
           'sy_2': sy_2,
         },  

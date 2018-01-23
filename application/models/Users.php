@@ -986,92 +986,155 @@
             $admin_id = $this->session->userdata('id_number');
             $filename=$_FILES["importCSV"]["tmp_name"];      
             $duplicate_names="";
+            $required_hours = $_POST['required_hours'];
+            $schoolFrom = $_POST['fromYr'];
+            $schoolTo = $_POST['toYr'];
+            $ojt_program = $_POST['ojt_program'];
+            $school_year = $schoolFrom.'-'.$schoolTo;
+            $existStuds = array();
+            $result = array();
 
- 
              if($_FILES["importCSV"]["size"] > 0)
              {
                 $file = fopen($filename, "r");
                 fgets($file);
+                $row = 1;
+                $skip = 9;
+                for ($i = 0; $i <$skip; $i++) {
+                    fgets($file);
+                }
                 while (($getData = fgetcsv($file, 10000, ",")) !== FALSE)
                  {
-                  
-                    // $username = strtolower($getData[1].".".$getData[3]);
-                    $username = strtolower(str_replace(' ', '',$getData[1]).".".str_replace(' ', '',$getData[0]));
-                    $sy=str_replace(' ','',$getData[5]);
-                    
-                    $result = $this->db->query("SELECT id_number FROM users WHERE id_number = '".$username."'")->result_array();
-                    if(in_array($username, array_column($result, 'id_number'))){
-                      $key = array_search($username, array_column($result, 'id_number'));
-                      $existStuds[] = $result[$key];
-                     
-                    } else{
-                      if($getData[7]!=""){
-                         $total_hours = $getData[6]+$getData[7];
-                      }else{
-                        $total_hours = $getData[6];
-                      }
-                      $program = $getData[8];
+                   if($getData[1] == "***** NOTHING FOLLOWS ****"){
+                      break;
+                   }
 
-                      if($program == 1){
-                          $this->db->query("INSERT INTO users (id_number,admin_id,first_name,middle_initial,last_name,course,year,school_year,password,ojt_program) 
-                        values ('$username','$admin_id','".$getData[1]."','".$getData[2]."','".$getData[0]."','".$getData[3]."','".$getData[4]."','$sy','123456', 'ojt_one')");
-                         $this->db->query("INSERT INTO ojt_records(id_number,total_hours,ojtone_required,ojttwo_required) VALUES('$username',$total_hours,'".$getData[6]."','".$getData[7]."')");
+                   $pieces = preg_split('/,\s*|\s(?=\S+$)/', $getData[1]);
+                   $re = '/(.*), (.*) ([^\s\.].*)/';
+                   $str = $getData[1];
+                   preg_match($re, $str, $matches, PREG_OFFSET_CAPTURE, 0);
+                   // echo '<pre>';var_dump($getData[1]); echo '</pre>';
+                   if(empty($matches)){
+
+                   }else{
+                       $first_name = $matches[2][0];
+                       $courseYear = explode('-',$getData[7]);
+                       $course = $courseYear[0];
+                       $year = $courseYear[1];
+                       $last_name = $matches[1][0];
+                       $middle_initial = $matches[3][0];
+                       $username = strtolower(str_replace(' ', '', $first_name)).'.'.strtolower(str_replace('', ' ', $last_name)); 
+                   // echo '<pre>';echo $year; echo '</pre>';       
+                      if($ojt_program == 'ojt_one'){
+                          $result1 = $this->db->query("SELECT id_number FROM users WHERE id_number = '$username'")->result_array();
+                           if(in_array($username, array_column($result1, 'id_number'))){
+                            $key1 = array_search($username, array_column($result1, 'id_number'));
+                            $existStuds1[] = $result1[$key1];
+                          }else{
+                              $this->db->query("INSERT INTO users (id_number,admin_id,first_name,middle_initial,last_name,course,year,school_year,password,ojt_program) 
+                            values ('$username','$admin_id','".$first_name."','".$middle_initial."','".$last_name."','".$course."','".$year."','$school_year','123456', 'ojt_one')");
+                            $this->db->query("INSERT INTO ojt_records(id_number,total_hours,ojtone_required) VALUES('$username',$required_hours,'".$required_hours."')");
+                          }
+
+                         
                       }else{
-                          $this->db->query("INSERT INTO users (id_number,admin_id,first_name,middle_initial,last_name,course,year,school_year,password,ojt_program) 
-                        values ('$username','$admin_id','".$getData[1]."','".$getData[2]."','".$getData[0]."','".$getData[3]."','".$getData[4]."','$sy','123456', 'ojt_two')");
-                         $this->db->query("INSERT INTO ojt_records(id_number,total_hours,ojtone_required,ojttwo_required) VALUES('$username',$total_hours,'".$getData[6]."','".$getData[7]."')");
+                           $result = $this->db->query("SELECT id_number FROM users WHERE id_number = '$username'")->result_array();
+                           if(in_array($username, array_column($result, 'id_number'))){
+                            $key = array_search($username, array_column($result, 'id_number'));
+                            $existStuds[] = $result[$key];
+                             
+                        }else{
+
+                           $this->db->query("INSERT INTO users (id_number,admin_id,first_name,middle_initial,last_name,course,year,school_year,password,ojt_program) 
+                              values ('$username','$admin_id','".$first_name."','".$middle_initial."','".$last_name."','".$course."','".$year."','$school_year','123456', 'ojt_two')");
+                          $this->db->query("INSERT INTO ojt_records(id_number,total_hours,ojttwo_required) VALUES('$username',$required_hours,'".$required_hours."')");
+                        }
                       }
-                    }
-                    
+                  
+                }
+
+              
+                  
+                    //       $this->db->query("INSERT INTO users (id_number,admin_id,first_name,middle_initial,last_name,course,year,school_year,password,ojt_program) 
+                    //     values ('$username','$admin_id','".$getData[1]."','".$getData[2]."','".$getData[0]."','".$getData[3]."','".$getData[4]."','$sy','123456', 'ojt_two')");
+                    //      $this->db->query("INSERT INTO ojt_records(id_number,total_hours,ojtone_required,ojttwo_required) VALUES('$username',$total_hours,'".$getData[6]."','".$getData[7]."')");
+                           
                  }
                  fclose($file);
-                 if(!empty($existStuds)){
-                    echo '<script>alert("Students:'.implode(',' , array_column($existStuds, 'id_number')).' already exists, not added to the database")</script>';
-                 }
-                 echo "<script type=\"text/javascript\">
-                            alert(\"Successful\");
-                      </script>";
-                  echo "<script>window.location.replace('admindashboard');</script>";
-             }
-             else{
-                echo "<script type=\"text/javascript\">
-                            alert(\"Invalid File:Please Upload CSV File.\");
-                            window.location = \"adminDashboard\"
-                      </script>";exit;
-             }
+                if(!empty($existStuds)){
+                    foreach ($existStuds as $student) {
+                        $id_number = $student['id_number'];
+                        $existTwice = $this->db->query("SELECT id_number FROM users WHERE id_number = '$id_number' AND ojt_program = 'ojt_two'")->result_array();
+                         if(in_array($id_number, array_column($existTwice, 'id_number'))){
+                            $key = array_search($username, array_column($existTwice, 'id_number'));
+                            $existStudents[] = $existTwice[$key];
+                          }else{
+                              $this->db->query("UPDATE ojt_records SET total_hours = total_hours + $required_hours, ojttwo_required = $required_hours WHERE id_number = '$id_number'");
+                              $this->db->query("UPDATE users SET ojt_program = 'ojt_two' WHERE id_number = '$id_number'");
+                          }
+                    }
+                      // echo '<pre>';print_r($existStudents); echo '</pre>';
 
-             /*if($duplicate_names!=""){
-              echo "<script type=\"text/javascript\">
-                      alert('Duplicate entry:'+' '+$duplicate_names);
-                    </script>";
-             }*/
+                }
+                  echo '<script>location.replace("admindashboard");</script>';
          }
+       }
 
 
          //add student
          public function addStud(){
             $admin_id = $this->session->userdata('id_number');
-            $first = $_POST['fname'];
-            $mid = $_POST['mname'].".";
-            $last = $_POST['lname'];
+            $first = strtoupper($_POST['fname']);
+            $mid = strtoupper($_POST['mname'].".");
+            $last = strtoupper($_POST['lname']);
             $course = $_POST['course'];
             $year = $_POST['year'];
-            $ojt1_required = $_POST['ojt1_required'];
-            $ojt2_required = $_POST['ojt2_required'];
+            $required_hours = $_POST['required_hours'];
+            $ojt_program = $_POST['ojt_program'];
             $sy = $_POST['sy_1']."-".$_POST['sy_2'];
-            $total_hours = $ojt1_required+$ojt2_required;
+            // $total_hours = $ojt1_required+$ojt2_required;
             $password = '123456';
             $evaluations = 2;
             $username = strtolower(str_replace(' ', '',$first).".".str_replace(' ', '',$last));
-            $result = $this->db->query("SELECT * FROM users WHERE id_number = '".$username."'");
-            if($this->db->affected_rows() > 0){
-                echo "user_exist";
+           
+            if($ojt_program == 'ojt_one'){
+               $result = $this->db->query("SELECT id_number FROM users WHERE id_number = '".$username."'")->result_array();
+              if(in_array($username, array_column($result, 'id_number'))){
+                $key = array_search($result, array_column($result, 'id_number'));
+                $existStuds[] = $result[$key];
+                echo 'user_exist';
+               }else{
+                     $this->db->query("INSERT INTO users (id_number,admin_id,first_name,middle_initial,last_name,course,year,school_year,password,ojt_program) VALUES('".$username."','".$admin_id."','".$first."','".$mid."','".$last."','".$course."',$year,'".$sy."','".$password."','ojt_one')");
+                     $this->db->query("INSERT INTO ojt_records(id_number,total_hours,ojtone_required,total_evaluations) VALUES('".$username."',$required_hours,$required_hours, $evaluations)");
+                  }
+               }else{
+                    $result2 = $this->db->query("SELECT id_number FROM users WHERE id_number = '".$username."'")->result_array();
+                     if(in_array($username, array_column($result2, 'id_number'))){
+                        $key2 = array_search($username, array_column($result2, 'id_number'));
+                        $existStuds2[] = $result2[$key2];
+                    }else{
+                        $this->db->query("INSERT INTO users (id_number,admin_id,first_name,middle_initial,last_name,course,year,school_year,password,ojt_program) VALUES('".$username."','".$admin_id."','".$first."','".$mid."','".$last."','".$course."',$year,'".$sy."','".$password."','ojt_two')");
+                        $this->db->query("INSERT INTO ojt_records(id_number,total_hours,ojtone_required,total_evaluations) VALUES('".$username."',$required_hours,$required_hours, $evaluations)");
+                    }
             }
-            else{
-               $this->db->query("INSERT INTO users (id_number,admin_id,first_name,middle_initial,last_name,course,year,school_year,password) VALUES('".$username."','".$admin_id."','".$first."','".$mid."','".$last."','".$course."',$year,'".$sy."','".$password."')");
-               $this->db->query("INSERT INTO ojt_records(id_number,total_hours,ojtone_required,ojttwo_required,total_evaluations) VALUES('".$username."',$total_hours,$ojt1_required,$ojt2_required, $evaluations)");
-            }
-         }
+
+              if(!empty($existStuds2)){
+                  $existTwice = $this->db->query("SELECT id_number FROM users WHERE id_number = '".$username."' AND ojt_program = 'ojt_two'")->result_array();
+                  if(in_array($username, array_column($existTwice, 'id_number'))){
+                        $key3 = array_search($username, array_column($existTwice, 'id_number'));
+                        $existStudsTwice[] = $existTwice[$key3];
+                        echo 'user_exist';
+                    }else{
+                        $this->db->query("UPDATE ojt_records SET total_hours = total_hours + $required_hours, ojttwo_required = $required_hours WHERE id_number = '$username'");
+                        $this->db->query("UPDATE users SET ojt_program = 'ojt_two' WHERE id_number = '$username'");
+                    }
+              }
+          }
+            
+
+            // else{
+            
+         
          public function getTrainess(){
             $supp_id=$this->session->userdata['id_number'];
             $query = $this->db->query("SELECT users.id_number,users.first_name,users.last_name FROM users INNER JOIN company_information
