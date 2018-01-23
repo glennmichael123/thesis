@@ -441,8 +441,6 @@ public function logout(){
 			 	$data['school_year'] = $this->users->schoolYear();
 			 	$data['crs'] = empty($_POST['course_option']) ? '' : $_POST['course_option'];
 			 	$data['courses'] = $this->users->courses();
-			 	$data['evC'] = empty($_POST['eval_option']) ? '' : $_POST['eval_option'];
-
 			 	$data['announcements'] = $this->users->getAnnouncmentsForAdmin($this->session->userdata['id_number']);
 				$this->load->view('admindashboard', $data);
 			}	
@@ -626,33 +624,45 @@ public function logout(){
 		$this->users->updateTraineeSupID();
 	}
 	public function adminAddAdmin(){
-		//print_r($_POST);exit;
+		$adminEmail = $_POST['adEmail'];
+		$adminName = $_POST['adName'];
+		$adminUser = $_POST['adID'];
+		$adminPass = $_POST['adPass'];
+		$this->sendEmailSupervisor($adminEmail,$adminName,$adminUser,$adminPass);
 		$this->users->addAdmin();
 	}
+
+	public function sendEmailAdmin($adminEmail,$adminName,$adminUser,$adminPass){
+
+			$email_body = '';
+		    $this->load->library('email');
+		    $this->email->set_newline("\r\n");
+		    $url = base_url();
+		    $email_setting  = array('mailtype'=>'html');
+		    $this->email->initialize($email_setting);
+		    $email_body .='Hello '.$adminName.'' . "<br>";
+		    $email_body .='You are assigned as an administrator in the OJT Automate system' . "<br>";
+		    $email_body .='Here are your credentials so you could login as an administrator' . "<br>";
+		    $email_body .='Username: ' . $adminUser . "<br>";
+		    $email_body .='Password: ' . $adminPass . "<br>";
+		    $this->email->from('CITUAdmin', 'Admin');
+		    $this->email->to($adminEmail);
+		    $this->email->subject('Email Verification');
+		    $this->email->message($email_body);
+		   	$this->email->send();		
+    }
+
 	public function adminAddSupervisor(){
 		$supervisorEmail = $_POST['supEmail'];
 		$supervisorName = $_POST['supName'];
 		$supervisorUser = $_POST['supID'];
-		// echo $supervisorUser;exit;
 		$supervisorPass = $_POST['supPass'];
 
-		$this->sendEmailSupervisor($supervisorEmail,$supervisorName,$supervisorUser,$supervisorPass);
+		$this->sendEmailAdmin($supervisorEmail,$supervisorName,$supervisorUser,$supervisorPass);
 		$this->users->addSupervisor();
 	}
+    public function sendEmailSupervisor($supervisorEmail,$supervisorName,$supervisorUser,$supervisorPass){
 
-	public function sendEmailSupervisor($supervisorEmail,$supervisorName,$supervisorUser,$supervisorPass){
-		
-	
-		// $config = Array(
-		// 'protocol' => 'smtp',
-		//         'smtp_host' => 'ssl://smtp.gmail.com',
-		//         'smtp_port' => 465,
-		//         'smtp_user' => 'gtorregosa@gmail.com',
-		//         'smtp_pass' => 'popot143',
-		//         'mailtype'  => 'html', 
-		//         'charset' => 'utf-8',
-		//         'wordwrap' => TRUE
-		//     );
 			$email_body = '';
 		    $this->load->library('email');
 		    $this->email->set_newline("\r\n");
@@ -778,7 +788,6 @@ public function logout(){
     		$this->sendEmail($hash,$email);
     	}else{
     	}
-    
     }
 
     public function resendEmail(){

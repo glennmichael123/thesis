@@ -689,7 +689,7 @@ header h1 {
             <div class="container-fluid">
               <div class="col-lg-8">
                   <div class="logo" style="float: left;"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height: 50px;"></div>
-                  <a href="<?php echo base_url('dashboard') ?>" style="text-decoration: none;"><h3 style="font-weight: bold; color: #7a5230; margin-top: 12px;">OJT Automate</h3></a>
+                  <a href="<?php echo base_url('dashboard') ?>" style="text-decoration: none;"><h3 style="font-weight: bold; margin-top: 12px; color: #b71c1c ; text-align: left; font-family: fantasy;font-style: italic;font-size: 20pt;letter-spacing: 1px;">OJT AUTOMATE</h3></a>
               </div>
               
               <div class="col-lg-1">
@@ -1074,16 +1074,13 @@ header h1 {
                         <div class="panel-body">
                           <?php if(empty($workmates)): ?>
                             <?php if(isset($id_number)): ?>
-                                <h4>This student has no OJT workmates.</h4>
+                                <h5 style="color: #8b8f92">This student has no OJT workmates</h5>
                             
                             <?php else: ?>
-                            <h4 style="text-align: center;">This student has no ojt workmates.</h4>
+                            <p style="color: #8b8f92;text-align: center;font-size: 15px;">This student has no OJT workmates</p>
                           <?php endif;   ?>
                           
                           <?php else: ?>
-
-
-                         
                           <?php foreach($workmates as $workmate):?>
                           <div class="row">
                             <div class="col-lg-7">

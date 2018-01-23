@@ -19,7 +19,6 @@
    <script src="<?php echo base_url()?>assets/js/chart.bundle.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <!-- <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet"> -->
 
     <!-- Sweet Alert -->
     <script src="<?php echo base_url()?>assets/js/swal.js"></script>
@@ -325,7 +324,17 @@ tr:hover{
 .container{
   padding: 0px;
 }
-        
+
+.blink_me {
+  animation: blinker 1s linear infinite;
+}
+@keyframes blinker {  
+  50% { opacity: 0; }
+}
+
+.hide{
+  display: none;
+}
 </style>
 
     <title>OJT Automate</title>
@@ -340,7 +349,7 @@ tr:hover{
                     <div class="col-lg-4">
                         <div class="logo" style="float: left;"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height: 50px;"></div>
 
-                        <a href="admindashboard" style="text-decoration: none;"><h3 style="font-weight: bold; margin-top: 12px; color: #7a5230; text-align: left; font-family: 'Roboto', sans-serif;">OJT Automate</h3></a> 
+                        <a href="admindashboard" style="text-decoration: none;"><h3 style="font-weight: bold; margin-top: 12px; color: #b71c1c ; text-align: left; font-family: fantasy;font-style: italic;font-size: 20pt;letter-spacing: 1px;">OJT AUTOMATE</h3></a> 
                     </div>
                     <div class="col-lg-5">
                     </div>
@@ -398,7 +407,7 @@ tr:hover{
             </div>
           </div>
           
-            <div class="container tabOptions" style="margin-top: 10px">
+            <div class="container tabOptions" style="margin-top: -20px">
               <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#ojt1" id="toOjt1">OJT 1</a></li>
                 <li><a data-toggle="tab" href="#ojt2" id="toOjt2">OJT 2</a></li>
@@ -443,12 +452,11 @@ tr:hover{
                             </div>
                             <div>
                                 <div class="col-lg-3">
-                                 <select class="form-control" id="eval_option" name="eval_option">
-                                    <option value="evalDefault" selected disabled>Evaluations</option>
-                                    <option value="all" <?php echo ($evC == 'all') ? 'selected' : '' ?>>All</option>
-                                    <option <?php echo ($evC == '0') ? 'selected' : '' ?>>None</option>
-                                    <option <?php echo ($evC == '1') ? 'selected' : '' ?>>1</option>
-                                    <option <?php echo ($evC == '2') ? 'selected' : '' ?>>2</option>
+                                 <select class="form-control" id="program_option" name="program_option">
+                                    <option value="evalDefault" selected disabled>Current Program</option>
+                                    <option value="all">All</option>
+                                    <option value="ojt_one">OJT-1</option>
+                                    <option value="ojt_two">OJT-2</option>
                                 </select>
                             </div>
                             <div class="col-lg-3">
@@ -519,13 +527,17 @@ tr:hover{
                                                 <?php endif; ?>
                                               </td>
                                    
-                                              <?php if ($student['ojtone_rendered'] >= $student['ojtone_required'] && $student['ojtone_current_evaluations'] >= $student['total_evaluations'] && $student['ojttwo_rendered']==0):?>
+                                               <?php if ($student['ojtone_rendered'] >= $student['ojtone_required'] && $student['ojtone_current_evaluations'] >= $student['total_evaluations'] && $student['ojttwo_rendered']==0):?>
                                                   <td style="color:green;">OJT-1 Completed</td>
                                                 <?php elseif($student['ojtone_rendered'] >= $student['ojtone_required'] && $student['ojtone_current_evaluations'] >= $student['total_evaluations'] && $student['ojttwo_rendered']>0):?>
                                                   <td style="color:green;">OJT-1 Completed | <span style="color:#f44336">OJT-2 On Going</span></td>
-                                                <?php elseif($student['ojttwo_rendered'] >= $student['ojttwo_required'] && $student['ojttwo_current_evaluations'] >= $student['total_evaluations']):?>
+                                                <?php elseif($student['ojtone_rendered'] > 0 && $student['ojttwo_rendered'] >= $student['ojttwo_required'] &&$student['ojttwo_current_evaluations'] >= $student['total_evaluations']):?>
                                                 <td style="color:green;">OJT-1 Completed | OJT-2 Completed</td>
-                                              <?php else: ?>
+                                                <?php elseif($student['ojtone_rendered'] == 0 && $student['ojttwo_rendered'] >= $student['ojttwo_required'] && $student['ojttwo_current_evaluations'] >= $student['total_evaluations']):?>
+                                                <td style="color:#f44336;">OJT-1 No Records | <span style="color:green">OJT-2 Completed</span></td>
+                                               <?php elseif($student['ojtone_rendered'] == 0 && $student['ojttwo_rendered'] < $student['ojttwo_required'] && $student['ojttwo_rendered'] != 0):?>
+                                                <td style="color:#f44336;">OJT-1 No Records | OJT-2 On Going</td>
+                                               <?php else: ?>
                                                 <td style="color:#f44336;">OJT-1 On Going</td>
                                               <?php endif;?>
                                           </tr>
@@ -678,7 +690,7 @@ tr:hover{
                     </select>
                     <label>Email</label>
                     <input type="Email" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="adminEmail" name="adminEmail">
-                    
+                    <p class="blink_me hide" style="text-align: center">Sending email ... </p>
                 </div>
             </form>
 
@@ -729,6 +741,7 @@ tr:hover{
                     <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supPass" name="supPass">
                     <label>Email</label>
                     <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supEmail" name="supEmail">
+                    <p class="blink_me hide" style="text-align: center">Sending email ... </p>
                     
                 </div>
             </form>
@@ -760,15 +773,7 @@ tr:hover{
             <h3 class="modal-title" id="lineModalLabel" style="color:white;">Add student</h3>
         </div>
         <div class="modal-body">
-              <!-- Input student individually -->
-              <!-- ul class="nav nav-tabs" style="margin-bottom: 15px;">
-                <li class="active" role="presentation"><a href="" role="tab" data-toggle="tab" id="addStuds" style="background-color:#ffba00;border: 1px solid #ffeab2; color: #FFFFFF;">+Students</a></li>
-                <li role="presentation"><a href="" role="tab" data-toggle="tab" id="addcsv" style="background-color:#871F21;border: 1px solid #ffeab2; color: #FFFFFF;">Import CSV</a></li>
-              </ul> -->
               <div class="tab-pane active addIndiv" style="display: inline;" id="addStudent" role="tabpanel">
-
-                    <!-- <label>Username</label>
-                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studID" name="studID"> -->
                     <label>First Name</label>
                     <input type="text" class="form-control capitalize" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studFirst" name="studFirst">
                     <label>Middle Initial</label>
@@ -778,7 +783,6 @@ tr:hover{
                     <label>Course <small style="color:gray; font-size: 9px">(Acronym e.g. BSIT)</small></label>
                     <input type="text" class="form-control uppercase" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studCourse" name="studCourse">
                     <label>Year</label>
-                    <!-- <input type="text" class="form-control capitalize" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studYear" name="studYear" onkeypress='return event.charCode >= 48 && event.charCode <= 57'> -->
                     <select id="studYear" name="studYear" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%">
                       <option>1</option>
                       <option>2</option>
@@ -786,6 +790,11 @@ tr:hover{
                       <option>4</option>
                       <option>5</option>
                     </select>
+                    <!-- <label>Program</label>
+                    <select id="studProgram" name="studProgram" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%">
+                      <option>OJT-1</option>
+                      <option>OJT-2</option>
+                    </select> -->
                     <div class="row">
                         <div class="col-lg-6">
                           <label>Required Hours</label>
@@ -907,9 +916,8 @@ tr:hover{
 
 <script type="text/javascript">
    $('body').on('change', '#course_option',function(){
-          // $('#filterForm').submit();
           var course = $('#course_option').val();
-          var eval = $('#eval_option').val();
+          var current_program = $('#program_option').val();
           var status = $('#status_option').val();
           var sy = $('#sy_option').val();
           $.ajax({
@@ -917,44 +925,39 @@ tr:hover{
               type: "POST",
               data:{
                 'course': course,
-                'eval': eval,
+                'current_program': current_program,
                 'stat': status,
                 'sy': sy,
               },
               success: function(data){
-                 $('#wrap-students').replaceWith(data);
+                  $('#wrap-students').replaceWith(data);
               }
-
           })
       });
 
       $('body').on('change','#sy_option',function(){
-          // $('#filterForm').submit();
           var course = $('#course_option').val();
-          var eval = $('#eval_option').val();
+          var current_program = $('#program_option').val();
           var status = $('#status_option').val();
           var sy = $('#sy_option').val();
-          //alert(sy);return false;
-
           $.ajax({
               url : "filterStudent",
               type: "POST",
               data:{
                 'course': course,
-                'eval': eval,
+                'current_program': current_program,
                 'stat': status,
                 'sy': sy,
               },
               success: function(data){
                   $('#wrap-students').replaceWith(data);
               }
-
           })
       });
 
-        $('#eval_option').change(function(){
+        $('#program_option').change(function(){
           var course = $('#course_option').val();
-          var eval = $('#eval_option').val();
+          var current_program = $('#program_option').val();
           var status = $('#status_option').val();
           var sy = $('#sy_option').val();
           $.ajax({
@@ -962,46 +965,34 @@ tr:hover{
               type: "POST",
               data:{
                 'course': course,
-                'eval': eval,
+                'current_program': current_program,
                 'stat': status,
                 'sy': sy,
               },
               success: function(data){
                   $('#wrap-students').replaceWith(data);
               }
-
           })
       });
 
       $('#status_option').change(function(){
           var course = $('#course_option').val();
-          var eval = $('#eval_option').val();
+          var current_program = $('#program_option').val();
           var status = $('#status_option').val();
           var sy = $('#sy_option').val();
-          //alert(sy);return false;
-
           $.ajax({
               url : "filterStudent",
               type: "POST",
               data:{
                 'course': course,
-                'eval': eval,
+                'current_program': current_program,
                 'stat': status,
                 'sy': sy,
               },
               success: function(data){
                   $('#wrap-students').replaceWith(data);
               }
-
           })
-
-          //$('#filterForm').submit();
-          // var stat = $('#status_option').val();
-          // if(stat == null || stat == "All"){
-          //   stat ="";
-          // }
-          // //var search = stat+" "+sy;
-          // table.search(stat).draw();
       });
 
 
@@ -1412,7 +1403,7 @@ tr:hover{
       ojt2_required = 0;
     }
 
-    if(first == "" || mid == "" || last == "" || course=="" || ojt1_required=="" || sy_1=="" || sy_2==""){
+    if(first == "" || mid == "" || last == "" || course=="" || sy_1=="" || sy_2==""){
         alert("Please fill all fields");return false;
     }else{
       $.ajax({
@@ -1493,10 +1484,11 @@ tr:hover{
         var id = $('#supID').val().trim();
         var pass = $('#supPass').val().trim();
         var email = $('#supEmail').val().trim();
-
+        var sending = $('.blink_me');
         if(name.length == 0 || compName == null || desig.length == 0 || id.length == 0 || pass.length == 0 || email.length == 0){
           alert("Please fill all fields");return false;
         }else{
+          sending.removeClass("hide");
           $.ajax({
             url: "adminAddSupervisor",
             type: "POST",
@@ -1516,6 +1508,7 @@ tr:hover{
               }else if($.trim(data) == "email_exist"){
                   swal('Oops...','Email already exist','error');return false;
               }else{
+                sending.addClass("hide");
                 swal({
                     title: "Success!",
                     text: "Supervisor added successfully | Email verification sent",
@@ -1649,12 +1642,14 @@ tr:hover{
             var pass = $('#adminPass').val().trim();
             var college = $('#adminCollege').val();
             var email = $('#adminEmail').val().trim();
+            var sending = $('.blink_me');
 
             if(adminName.length == 0 || idNum.length == 0 || pass.length == 0 || college == null || email.length == 0){
              alert("Please fill all fields");    
             }
             else{
                if (validateEmail(email)){
+                  sending.removeClass("hide");
                   $.ajax({  
                   url : "adminAddAdmin",// your username checker url
                   type : "POST",
@@ -1676,6 +1671,7 @@ tr:hover{
                         swal('Oops...','Email already exist','error');return false;
                       }
                       else{
+                       sending.addClass("hide");
                        swal({
                           title: "Success!",
                           text: "Admin added successfully | Email verification sent",
@@ -1683,18 +1679,6 @@ tr:hover{
                         }).then(function(){
                           location.reload();
                         });
-                          
-                          $.ajax({
-                            url: "saveEmail",
-                            type: "POST",
-                            data:{
-                              'email': email,
-                            },
-                            success:function(data){
-
-                              //alert("Email verification sent");
-                            }
-                          });
                       }
                     },
                 });
