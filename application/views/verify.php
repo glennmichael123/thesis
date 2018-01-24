@@ -46,7 +46,7 @@
 	
 					<div class="well" style="text-align: center;">
 						
-							<h3>Your email has been verified succesfully! You can now continue to your profile</h3>
+							<h3>Your email has been verified succesfully! You can now continue to your dashboard</h3>
 
 							<a href="dashboard" class="btn btn-success">Continue to dashboard</a>
 						

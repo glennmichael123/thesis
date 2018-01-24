@@ -749,8 +749,10 @@ tr:hover{
                     <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supPass" name="supPass">
                     <label>Email</label>
                     <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supEmail" name="supEmail">
-                    <p class="blink_me hide" style="text-align: center">Sending email ... </p>
                     
+                    <label>Phone Number</label>
+                    <input type="text" class="form-control" onkeypress='return event.charCode >= 48 && event.charCode <= 57' style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supNumber" name="supNumber">
+                    <p class="blink_me hide" style="text-align: center">Sending email ... </p> 
                 </div>
             </form>
 
@@ -1558,6 +1560,7 @@ tr:hover{
         var id = $('#supID').val().trim();
         var pass = $('#supPass').val().trim();
         var email = $('#supEmail').val().trim();
+        var number = $('#supNumber').val().trim();
         var sending = $('.blink_me');
         if(name.length == 0 || compName == null || desig.length == 0 || id.length == 0 || pass.length == 0 || email.length == 0){
           alert("Please fill all fields");return false;
@@ -1573,6 +1576,7 @@ tr:hover{
               'supID':id,
               'supPass':pass,
               'supEmail':email,
+              'supNumber':number,
             },
             success:function(data){
               if($.trim(data) == "name_exist"){
@@ -1591,7 +1595,7 @@ tr:hover{
                 sending.addClass("hide");
                 swal({
                     title: "Success!",
-                    text: "Supervisor added successfully | Email verification sent",
+                    text: "Supervisor added successfully",
                     icon: "success",
                   }).then(function () {
                     location.reload();

@@ -32,9 +32,9 @@ class Main extends CI_Controller {
         $this->load->library('encryption');
         $this->load->library("pagination");
 
-        	 $key = $this->encryption->create_key(16);
+        	 $key = $this->encryption->create_key(8);
 		 	$this->encryption->initialize(
-		 	array('cipher' => 'aes-128', 'mode' => 'ctr', 'key' => '123'));
+		 	array('cipher' => 'aes-128', 'mode' => 'ctr', 'key' => '1234567'));
     }
      public function ojtform(){
      	$data['initial_data'] = $this->users->load_initial_data($this->session->userdata('id_number'));
@@ -217,6 +217,7 @@ class Main extends CI_Controller {
      		
      		// print_r($current_ojt_program);
      		$data['traineesLog'] = $this->users->getOjtLogs($this->session->userdata['id_number'], $current_ojt_program);
+     		$data['name'] = $this->users->getSupervisorNameFull($this->session->userdata['id_number']);
      		$company_name = $this->users->getCompanySupervisor($this->session->userdata['id_number']);
      		$data['supervisorAddOjt'] = $this->users->supervisorGetTrainee($company_name,$this->session->userdata['id_number'], $current_ojt_program);
      		$data['ojtRecords'] = $this->users->getOjtRecordsForSupervisor($this->session->userdata['id_number']);
@@ -479,10 +480,9 @@ public function logout(){
      	$data['workmates'] = $this->users->getWorkmates($this->session->userdata['id_number'], empty($supervisorId->supervisor_id) ? '' : $supervisorId->supervisor_id);
      	$totalLogsCount = $this->users->getNumberLogs($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
      	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
-
      	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($this->session->userdata['id_number']);
      	$data['supervisor_id'] = $this->users->getSupervisorIdForStudent($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
-     	
+     	$data['supervisorname'] = $this->users->getSupervisorNameFull($data['supervisor_id']->supervisor_id);
      	$data['checkEmail'] = $this->users->checkEmailVerified($this->session->userdata['id_number']);
      	$renderedCount = $this->users->getSumRendered($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
      	$this->users->updateOJTStatus($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
@@ -639,7 +639,6 @@ public function logout(){
 	}
 
 	public function sendEmailAdmin($adminEmail,$adminName,$adminUser,$adminPass){
-
 			$email_body = '';
 		    $this->load->library('email');
 		    $this->email->set_newline("\r\n");
@@ -653,7 +652,7 @@ public function logout(){
 		    $email_body .='Password: ' . $adminPass . "<br>";
 		    $this->email->from('CITUAdmin', 'Admin');
 		    $this->email->to($adminEmail);
-		    $this->email->subject('Email Verification');
+		    $this->email->subject('Administrator credentials');
 		    $this->email->message($email_body);
 		   	$this->email->send();		
     }
@@ -663,8 +662,16 @@ public function logout(){
 		$supervisorName = $_POST['supName'];
 		$supervisorUser = $_POST['supID'];
 		$supervisorPass = $_POST['supPass'];
+		$success = 0;
 		$this->users->addSupervisor();
-		$this->sendEmailAdmin($supervisorEmail,$supervisorName,$supervisorUser,$supervisorPass);
+		$send_email = $this->sendEmailSupervisor($supervisorEmail,$supervisorName,$supervisorUser,$supervisorPass);
+		if($send_email){
+			$success = 1;
+			$this->users->updateFlagSupervisor($supervisorUser,$success);
+		}else{
+			$success = 0;
+			$this->users->updateFlagSupervisor($supervisorUser,$success);
+		}
 		
 	}
     public function sendEmailSupervisor($supervisorEmail,$supervisorName,$supervisorUser,$supervisorPass){
@@ -682,9 +689,13 @@ public function logout(){
 		    $email_body .='Password: ' . $supervisorPass . "<br>";
 		    $this->email->from('CITUAdmin', 'Admin');
 		    $this->email->to($supervisorEmail);
-		    $this->email->subject('Email Verification');
+		    $this->email->subject('Supervisor Credentials');
 		    $this->email->message($email_body);
-		   	$this->email->send();		
+		    if($this->email->send()){
+		    	return true;
+		    }else{
+		    	return false;
+		    }
     }
 
 	public function addWatchlist(){
@@ -732,7 +743,6 @@ public function logout(){
 
 	
 		 $username = $this->encryption->encrypt($username->id_number);
-		
 		 $this->sendEmailR($username,$toemail);
 		// $hash = md5($email); 
 	
@@ -961,6 +971,23 @@ public function logout(){
 
    		echo json_encode($student);
    	}
+
+   	public function getCompanyNamesJson(){
+   		$company_name = $this->db->query("SELECT DISTINCT company_name FROM company_information")->result();
+   		$company = array(array('names'=>''));
+   		$i=0;
+   		if(!empty($company_name)){
+   			foreach ($company_name as $name) {
+   				
+   				$company[$i]['names'] = $name->company_name;
+   				
+   				$i++;
+   			}
+   		}
+
+   		echo json_encode($company);
+   	}
+
 
    	public function loadStudentInfo(){
    		$username = $_POST['username'];

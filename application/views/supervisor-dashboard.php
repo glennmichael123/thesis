@@ -766,7 +766,8 @@
                                                     <?php if($log['id'] == $comment['log_id']):?>
                                                         <!-- <div class="well" style="box-shadow: none; border: none; background: #f7f7f7; padding: 10px; margin-bottom: 10px;"> -->
                                                          <div class="comments-list" style="font-size: 12px; margin-bottom: 10px;">
-                                                              <b style="float: left; margin-right: 5px;"> Supervisor </b> <span class="actual-comment"><?php echo $comment['content'];?> </span>
+
+                                                              <b style="float: left; margin-right: 5px;"> <?php echo $name->name; ?> </b> <span class="actual-comment"><?php echo $comment['content'];?> </span>
 
                                                               <textarea data-supervisor-id="<?php echo $this->session->userdata['id_number'] ?>" 
                                                             data-comment-id="<?php echo $comment['id'] ?>" id="comment-textarea" autofocus class="to-edit-comment" name=""><?php echo $comment['content'];?></textarea> <span class="guide-comment" style="font-size:10px; display: none;">Press esc to cancel</span>

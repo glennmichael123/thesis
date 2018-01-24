@@ -802,7 +802,7 @@
                                     </div>
                                     <div style="margin-top: -10px;"></div>
                                     <div class="profile-name">
-                                        <div class="label label-default"><?php echo $personalDetails[0]['first_name']." ".$personalDetails[0]['middle_initial'].". ".$personalDetails[0]['last_name'];?>
+                                        <div class="label label-default"><?php echo $personalDetails[0]['first_name']." ".$personalDetails[0]['middle_initial']." ".$personalDetails[0]['last_name'];?>
                                     </div>
                                     </div>
                                     <div class="change-photo" style="margin-top: 10px; display: none;">

@@ -236,14 +236,11 @@
             return $result->result_array();
          }
 
-        //  public function dashboardDataAdmin($data){   
-        //        $username = $data;
-             
-        //         $result = $this->db->query("SELECT * FROM users WHERE id_number = '$username'");
-        //         return $result->result_array();
+        public function getSupervisorNameFull($username){
+         $query= $this->db->query("SELECT name FROM supervisor WHERE id_number = '$username'");
 
-
-        // }
+          return $query->row();
+        }
 
          public function getStudentList(){
           $admin_id = $this->session->userdata('id_number');
@@ -833,6 +830,7 @@
             $supervisorID = $_POST['supID'];
             $supervisorPass = $_POST['supPass'];
             $supervisorEmail = $_POST['supEmail'];
+            $supervisorNumber = $_POST['supNumber'];
             
             //check duplicate name
             $result = $this->db->query("SELECT * FROM supervisor WHERE name = '".$supervisorName."'");
@@ -860,9 +858,14 @@
                 echo "email_exist";exit;
             }
             else{
-                return $this->db->query("INSERT INTO supervisor (name,company_name,designation,id_number,password,email) VALUES('$supervisorName','$supervisorComp','$supervisorDesig','$supervisorID','$supervisorPass','$supervisorEmail')");
+                $this->db->query("INSERT INTO supervisor (name,company_name,designation,id_number,password,email,phone_number) VALUES('$supervisorName','$supervisorComp','$supervisorDesig','$supervisorID','$supervisorPass','$supervisorEmail',$supervisorNumber)");
             }
            
+         }
+
+         public function updateFlagSupervisor($username, $success){
+          $data = array('id_number'=>$username, 'flag'=>$success);
+            $this->db->update('supervisor',$data);
          }
 
          public function getWatchlists(){
@@ -1009,7 +1012,7 @@
                       break;
                    }
 
-                   $pieces = preg_split('/,\s*|\s(?=\S+$)/', $getData[1]);
+                  
                    $re = '/(.*), (.*) ([^\s\.].*)/';
                    $str = $getData[1];
                    preg_match($re, $str, $matches, PREG_OFFSET_CAPTURE, 0);
