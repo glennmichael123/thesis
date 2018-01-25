@@ -740,7 +740,7 @@
 
         public function insertComment(){
             $log_id = $_POST['log_id'];
-            $comment = $_POST['comment'];
+            $comment = mysqli_real_escape_string($this->get_mysqli(),$_POST['comment']);
             $supervisor_id = $_POST['supervisor_id'];
             return $this->db->query("INSERT INTO comments (log_id, content, supervisor_id) VALUES($log_id, '$comment', '$supervisor_id')");
         }
