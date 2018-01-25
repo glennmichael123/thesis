@@ -27,7 +27,7 @@
         }
         
         .well {
-            background-color: #FFD700;
+            background-color: #fff;
             border-radius: 15px;
         }
         
@@ -125,17 +125,19 @@
         <li class="active"><a data-toggle="tab" href="#ojt1" id="toOjt1">OJT 1</a></li>
         <li><a data-toggle="tab" href="#ojt2" id="toOjt2">OJT 2</a></li>
       </ul>
-     <div class="tab-content">
+      <div class="tab-content">
         <div id="ojt1" class="tab-pane fade in active">
           <div class="content ojt1MidtermContent">
 
-         </div>
+          </div>
+        </div>
         <div id="ojt2" class="tab-pane fade">
           <div class="content ojt2MidtermContent">
 
-         </div>
+          </div>
+        </div>
       </div>
-    </div>
+  </div>
        
 </body>
 <script type="text/javascript">

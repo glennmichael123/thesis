@@ -1,17 +1,15 @@
 <!DOCTYPE html>
   <html>
     <head>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
       <script src="<?php echo base_url() ?>assets/js/swal.js"></script>
       <!-- Optional theme -->
       <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
       <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/materialize.min.css">
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/style.css">
       <!-- Latest compiled and minified JavaScript -->
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
       <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+      <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous"> -->
       <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     
       <!--Import Google Icon Font-->
@@ -156,7 +154,11 @@
                <div class="col l3">
                 <div class="input-field">
                   <label for="#training">No. of Training Required</label>
+                  <?php if($ojt_program->ojt_program == 'ojt_one'): ?>
                   <input type="text" name="frequired" required id="frequired" class="validate" value="<?php echo $initial_data[0]['ojtone_required'];?>">
+                <?php else: ?>
+                  <input type="text" name="frequired" required id="frequired" class="validate" value="<?php echo $initial_data[0]['ojttwo_required'];?>">
+                <?php endif; ?>
                 </div>
               </div>
              </div>
@@ -203,7 +205,11 @@
                <div class="col l4">
                 <div class="input-field">
                   <label for="#training">Total Number of Hours Rendered</label>
+                  <?php if($ojt_program->ojt_program == 'ojt_one'): ?>
                   <input type="text" value="<?php echo $initial_data[0]['ojtone_rendered'] ?>" name="ftotal" required id="ftotal" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="validate">
+                <?php else: ?>
+                    <input type="text" value="<?php echo $initial_data[0]['ojttwo_rendered'] ?>" name="ftotal" required id="ftotal" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="validate">
+                  <?php endif; ?>
                 </div>
               </div>
              </div>

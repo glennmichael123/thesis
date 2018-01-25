@@ -32,9 +32,9 @@ class Main extends CI_Controller {
         $this->load->library('encryption');
         $this->load->library("pagination");
 
-        	 $key = $this->encryption->create_key(16);
+        	 $key = $this->encryption->create_key(8);
 		 	$this->encryption->initialize(
-		 	array('cipher' => 'aes-128', 'mode' => 'ctr', 'key' => '123'));
+		 	array('cipher' => 'aes-128', 'mode' => 'ctr', 'key' => '1234567'));
     }
      public function ojtform(){
      	$data['initial_data'] = $this->users->load_initial_data($this->session->userdata('id_number'));
@@ -104,9 +104,12 @@ class Main extends CI_Controller {
       		$current_ojt_program = $this->users->getOjtProgramForStudSup($this->session->userdata['id_number']);
       		// $checkIfExist = $this->users->checkStudEvaluated($username,$current_ojt_program);
       		$checkIfExist = $this->users->checkStudEvaluatedFinal($username);
+      		$ojt_program = $this->users->getOjtProgramForStud($username);
+
       		if($checkIfExist){
 				echo "<h1>You have already evaluated this student</h1>";
 			}else{
+				$data['ojt_program'] = $ojt_program;
 				$data['initial_data'] = $this->users->loadFinalEval($username);
 				$data['stud_username'] = $username;
 				$this->load->view('finalevaluation',$data);
@@ -214,6 +217,7 @@ class Main extends CI_Controller {
      		
      		// print_r($current_ojt_program);
      		$data['traineesLog'] = $this->users->getOjtLogs($this->session->userdata['id_number'], $current_ojt_program);
+     		$data['name'] = $this->users->getSupervisorNameFull($this->session->userdata['id_number']);
      		$company_name = $this->users->getCompanySupervisor($this->session->userdata['id_number']);
      		$data['supervisorAddOjt'] = $this->users->supervisorGetTrainee($company_name,$this->session->userdata['id_number'], $current_ojt_program);
      		$data['ojtRecords'] = $this->users->getOjtRecordsForSupervisor($this->session->userdata['id_number']);
@@ -418,36 +422,35 @@ public function logout(){
 	}
 */
 	public function adminDashboard(){
-	// $newdata['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
-	   $data['student_list'] = $this->users->getStudentList();
-	if(!isset($this->session->userdata['id_number'])){
-	  header("location: index");
-		}else{
-			if($this->session->userdata['account_type'] == 'supervisor'){
-     		redirect('supervisordashboard');
-     		}else if($this->session->userdata['account_type'] == 'student'){
-     		redirect('dashboard');
-     		}else{
-     			$data['courses_for_graph'] = $this->users->getCoursesList($this->session->userdata('id_number'), 'ojt_one');
-     			$data['courses_count'] = $this->users->getCoursesCount($this->session->userdata('id_number'), 'ojt_one');
-     	
-			 	// $data['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
-			 	$data['company_list'] = $this->users->getCompanyNames();
-			 	$data['first_name'] = $this->users->getAdminFirstName($this->session->userdata['id_number']);
-			 	$data['completed_students'] = $this->users->getStudentStatus($this->session->userdata['id_number'],'ojt_one');
-			 	$data['company_watch_list'] = $this->users->getCompanyWatchlist();
-			 	$data['course_option'] = empty($_POST['course_option']) ? '' : $_POST['course_option'];
-			 	$data['sy'] = empty($_POST['sy_option']) ? '' : $_POST['sy_option'];
-			 	$data['school_year'] = $this->users->schoolYear();
-			 	$data['crs'] = empty($_POST['course_option']) ? '' : $_POST['course_option'];
-			 	$data['courses'] = $this->users->courses();
-			 	$data['announcements'] = $this->users->getAnnouncmentsForAdmin($this->session->userdata['id_number']);
-				$this->load->view('admindashboard', $data);
-			}	
-		}
-		if(date('Y-m-d')==('2019-1-1')){
-				echo 'Main/database_backup';
-		}
+		$data['student_list'] = $this->users->getStudentList();
+		if(!isset($this->session->userdata['id_number'])){
+		  header("location: index");
+			}else{
+				if($this->session->userdata['account_type'] == 'supervisor'){
+	     		redirect('supervisordashboard');
+	     		}else if($this->session->userdata['account_type'] == 'student'){
+	     		redirect('dashboard');
+	     		}else{
+	     			$data['courses_for_graph'] = $this->users->getCoursesList($this->session->userdata('id_number'), 'ojt_one');
+	     			$data['courses_count'] = $this->users->getCoursesCount($this->session->userdata('id_number'), 'ojt_one');
+	     	
+				 	// $data['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
+				 	$data['company_list'] = $this->users->getCompanyNames();
+				 	$data['first_name'] = $this->users->getAdminFirstName($this->session->userdata['id_number']);
+				 	$data['completed_students'] = $this->users->getStudentStatus($this->session->userdata['id_number'],'ojt_one');
+				 	$data['company_watch_list'] = $this->users->getCompanyWatchlist();
+				 	$data['course_option'] = empty($_POST['course_option']) ? '' : $_POST['course_option'];
+				 	$data['sy'] = empty($_POST['sy_option']) ? '' : $_POST['sy_option'];
+				 	$data['school_year'] = $this->users->schoolYear();
+				 	$data['crs'] = empty($_POST['course_option']) ? '' : $_POST['course_option'];
+				 	$data['courses'] = $this->users->courses();
+				 	$data['announcements'] = $this->users->getAnnouncmentsForAdmin($this->session->userdata['id_number']);
+					$this->load->view('admindashboard', $data);
+				}	
+			}
+			if(date('Y-m-d')==('2019-1-1')){
+					echo 'Main/database_backup';
+			}
     }
 	public function deleteLog(){
 		
@@ -476,10 +479,9 @@ public function logout(){
      	$data['workmates'] = $this->users->getWorkmates($this->session->userdata['id_number'], empty($supervisorId->supervisor_id) ? '' : $supervisorId->supervisor_id);
      	$totalLogsCount = $this->users->getNumberLogs($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
      	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
-
      	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($this->session->userdata['id_number']);
      	$data['supervisor_id'] = $this->users->getSupervisorIdForStudent($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
-     	
+     	$data['supervisorname'] = $this->users->getSupervisorNameFull($data['supervisor_id']->supervisor_id);
      	$data['checkEmail'] = $this->users->checkEmailVerified($this->session->userdata['id_number']);
      	$renderedCount = $this->users->getSumRendered($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
      	$this->users->updateOJTStatus($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
@@ -628,12 +630,14 @@ public function logout(){
 		$adminName = $_POST['adName'];
 		$adminUser = $_POST['adID'];
 		$adminPass = $_POST['adPass'];
-		$this->sendEmailSupervisor($adminEmail,$adminName,$adminUser,$adminPass);
-		$this->users->addAdmin();
+		if($this->users->addAdmin()){
+			$this->sendEmailAdmin($adminEmail,$adminName,$adminUser,$adminPass);
+		}
+		
+		
 	}
 
 	public function sendEmailAdmin($adminEmail,$adminName,$adminUser,$adminPass){
-
 			$email_body = '';
 		    $this->load->library('email');
 		    $this->email->set_newline("\r\n");
@@ -647,7 +651,7 @@ public function logout(){
 		    $email_body .='Password: ' . $adminPass . "<br>";
 		    $this->email->from('CITUAdmin', 'Admin');
 		    $this->email->to($adminEmail);
-		    $this->email->subject('Email Verification');
+		    $this->email->subject('Administrator credentials');
 		    $this->email->message($email_body);
 		   	$this->email->send();		
     }
@@ -657,12 +661,21 @@ public function logout(){
 		$supervisorName = $_POST['supName'];
 		$supervisorUser = $_POST['supID'];
 		$supervisorPass = $_POST['supPass'];
-
-		$this->sendEmailAdmin($supervisorEmail,$supervisorName,$supervisorUser,$supervisorPass);
+		$success = 0;
 		$this->users->addSupervisor();
+		$send_email = $this->sendEmailSupervisor($supervisorEmail,$supervisorName,$supervisorUser,$supervisorPass);
+		if($send_email){
+			$success = 1;
+			$this->users->updateFlagSupervisor($supervisorUser,$success);
+		}else{
+			$success = 0;
+			$this->users->updateFlagSupervisor($supervisorUser,$success);
+		}
+		
 	}
-    public function sendEmailSupervisor($supervisorEmail,$supervisorName,$supervisorUser,$supervisorPass){
 
+
+    public function sendEmailSupervisor($supervisorEmail,$supervisorName,$supervisorUser,$supervisorPass){
 			$email_body = '';
 		    $this->load->library('email');
 		    $this->email->set_newline("\r\n");
@@ -676,9 +689,28 @@ public function logout(){
 		    $email_body .='Password: ' . $supervisorPass . "<br>";
 		    $this->email->from('CITUAdmin', 'Admin');
 		    $this->email->to($supervisorEmail);
-		    $this->email->subject('Email Verification');
+		    $this->email->subject('Supervisor Credentials');
 		    $this->email->message($email_body);
-		   	$this->email->send();		
+		    if($this->email->send()){
+		    	return true;
+		    }else{
+		    	return false;
+		    }
+    }
+
+    public function retrySendEmail(){
+    	$password = $_POST['password'];
+    	$username = $_POST['username'];
+    	$name = $_POST['name'];
+    	$email = $_POST['email'];
+    	$sent = $this->sendEmailSupervisor($email,$name,$username,$password);
+    	if($sent){
+    		$success = 1;
+			$this->users->updateFlagSupervisor($username,$success);
+    		echo "true";
+    	}else{
+    		echo "false";
+    	}
     }
 
 	public function addWatchlist(){
@@ -726,7 +758,6 @@ public function logout(){
 
 	
 		 $username = $this->encryption->encrypt($username->id_number);
-		
 		 $this->sendEmailR($username,$toemail);
 		// $hash = md5($email); 
 	
@@ -754,32 +785,21 @@ public function logout(){
 		$this->load->view('verifyreset');
 	}
 	public function sendEmail($hash,$email){
-		
-	
-		// $config = Array(
-		// 'protocol' => 'smtp',
-		//         'smtp_host' => 'ssl://smtp.gmail.com',
-		//         'smtp_port' => 465,
-		//         'smtp_user' => 'gtorregosa@gmail.com',
-		//         'smtp_pass' => 'popot143',
-		//         'mailtype'  => 'html', 
-		//         'charset' => 'utf-8',
-		//         'wordwrap' => TRUE
-		//     );
-		    $this->load->library('email');
-		    $this->email->set_newline("\r\n");
-		    $url = base_url();
-		    $email_setting  = array('mailtype'=>'html');
-		    $this->email->initialize($email_setting);
-		    $email_body ="Please click this link to activate your account:
-						  {$url}main/verify?email=$email&hash=$hash";
-		    $this->email->from('CITUAdmin', 'Admin');
-		    // $list = array($email);
-		    $this->email->to($email);
-		    $this->email->subject('Email Verification');
-		    $this->email->message($email_body);
-		   	$this->email->send();		
+	    $this->load->library('email');
+	    $this->email->set_newline("\r\n");
+	    $url = base_url();
+	    $email_setting  = array('mailtype'=>'html');
+	    $this->email->initialize($email_setting);
+	    $email_body ="Please click this link to activate your account:
+					  {$url}main/verify?email=$email&hash=$hash";
+	    $this->email->from('CITUAdmin', 'Admin');
+	    // $list = array($email);
+	    $this->email->to($email);
+	    $this->email->subject('Email Verification');
+	    $this->email->message($email_body);
+	   	$this->email->send();		
     }
+
     public function saveEmail(){
     	$email = $_POST['email'];
     	$hash = md5($email); 
@@ -792,8 +812,7 @@ public function logout(){
 
     public function resendEmail(){
     	$email = $_POST['email'];
-    	$hash = md5($email); 
-
+    	$hash = md5($email);
     	$this->sendEmail($hash, $email);
     }
     public function verifyLog(){
@@ -938,7 +957,7 @@ public function logout(){
    	}
 
    	public function getTraineeNames(){
-   		$names = $this->db->query("SELECT first_name, last_name, users.id_number, company_information.company_name FROM users INNER JOIN company_information ON company_information.id_number = users.id_number")->result();
+   		$names = $this->db->query("SELECT first_name, last_name, users.id_number, company_information.company_name FROM users INNER JOIN company_information ON company_information.id_number = users.id_number AND transitioned != 1")->result();
    		// $names = $this->db->query("SELECT first_name, last_name, id_number FROM users")->result();
    		$student = array(array('names'=>''));
    		$i=0;
@@ -955,6 +974,23 @@ public function logout(){
 
    		echo json_encode($student);
    	}
+
+   	public function getCompanyNamesJson(){
+   		$company_name = $this->db->query("SELECT DISTINCT company_name FROM company_information")->result();
+   		$company = array(array('names'=>''));
+   		$i=0;
+   		if(!empty($company_name)){
+   			foreach ($company_name as $name) {
+   				
+   				$company[$i]['names'] = $name->company_name;
+   				
+   				$i++;
+   			}
+   		}
+
+   		echo json_encode($company);
+   	}
+
 
    	public function loadStudentInfo(){
    		$username = $_POST['username'];
@@ -1036,12 +1072,30 @@ public function logout(){
      }
      public function loadAdminGraphs(){
      	$program = $_POST['ojt_program'];
-     	// echo $program;
      	$data['courses_for_graph'] = $this->users->getCoursesList($this->session->userdata('id_number'),$program);
      	$data['courses_count'] = $this->users->getCoursesCount($this->session->userdata('id_number'),$program);
 		$data['completed_students'] = $this->users->getStudentStatus($this->session->userdata['id_number'],$program);
      	$this->load->view("admin_loadGraphs",$data);
 
+     }
+     public function loadSupervisorTable(){
+     	$data['supervisor_list'] = $this->users->getSupervisors();
+     	$data['trainees'] = $this->users->getTrainees();
+     	$html = $this->load->view("supervisors_table",$data,TRUE);
+     	echo $html;
+     }
+
+     public function loadAdminStudentFilters(){
+     	$data['school_year'] = $this->users->schoolYear();
+		$data['courses'] = $this->users->courses();
+     	$html = $this->load->view("admin_student_filters",$data,TRUE);
+     	echo $html;
+     }
+
+     public function loadSupervisorFilters(){
+     	$data['courses'] = $this->users->courses();
+     	$html = $this->load->view("supervisor_filters",$data,TRUE);
+     	echo $html;
      }
 }
 

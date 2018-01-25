@@ -94,6 +94,7 @@
     .error{
         color: red;
         padding-bottom: 20px;
+        display: none;
     }
     </style>
     <title></title>
@@ -117,17 +118,18 @@
                     <div class="col-lg-4">
                          <h3 style="text-align: center;">Reset password</h3>
                         <div class="well">
-                          
+                          <form>
                             <div class="form-group">
                                 <label for="newpass">New password</label>
-                                <input id="password" name="newpass" type="password" class="form-control"  pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : ''); if(this.checkValidity()) form.password_two.pattern = this.value;" placeholder="New Password" required>
+                                <input id="password" name="newpass" type="password" class="form-control" placeholder="New Password" required>
                             </div>
                             <div class="form-group">
                                 <label for="confirm_newpass">Confirm password</label>
-                                <input id="password_two" name="confirm_newpass" type="password" pattern="^\S{6,}$" class="form-control"  onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');" placeholder="Verify Password" required>
+                                <input id="password_two" name="newpass_two" type="password" class="form-control" placeholder="Verify Password" required>
+                                <input type="hidden" name="username" value="<?php echo $_GET['username'] ?>">
                             </div>
                             <div class="error">
-
+                                <span>Passwords do not match!</span>
                             </div>
                             <div class="form-group">
                                 <input type="submit" id="save-changes" data-username="<?php echo $_GET['username'] ?>" class="btn save">
@@ -136,6 +138,7 @@
                             
                              
                             </div>
+                            </form>
                         </div>
                     </div>
                     <div class="col-lg-4">
@@ -152,30 +155,35 @@
 
 </body>
 <script type="">
-    $('#save-changes').click(function(){ 
+    $('#save-changes').click(function(e){ 
+        e.preventDefault();
         var newpass = $('#password').val();
         var newpass2 = $('#password_two').val();
         var username = $(this).data('username');
-        // console.log(username);return false;
-        $.ajax({
+        var data = $('form').serialize();
+        if(newpass != newpass2){
+            $('#password').css('border','1px solid red');
+            $('#password_two').css('border','1px solid red');
+            $('#password_two').val('');
+            $('#password').val('');
+            $('.error').show();
+        }else{
+            $.ajax({
             url: 'resetPass',
             method: 'POST',
-            data:{
-                'newpass': newpass,
-                'newpass_two': newpass2,
-                'username': username,
-            },
-            success: function(data){
-                // alert(data);
-                // window.location.href = "index";   
-                  swal({
+            data:data,
+            success: function(data){   
+                swal({
                     title: "Password Successfully Changed",
                     icon:"success",
                 }).then(function(){
-                   window.location.href = "index";
+                   window.location.replace("index");
                 });           
-            }
-        })
+                }
+            });
+        }
+
+        
  }); 
 
 </script>

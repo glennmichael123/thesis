@@ -108,6 +108,10 @@ $route['changeOjtStatusDifferentCompany']  = 'main/changeOjtStatusDifferentCompa
 $route['loadMidtermEvaluations']  = 'main/loadMidtermEvaluations';
 $route['loadFinalEvaluations']  = 'main/loadFinalEvaluations';
 $route['loadAdminGraphs']  = 'main/loadAdminGraphs';
+$route['loadSupervisorTable']  = 'main/loadSupervisorTable';
+$route['loadAdminStudentFilters']  = 'main/loadAdminStudentFilters';
+$route['loadSupervisorFilters']  = 'main/loadSupervisorFilters';
+$route['retrySendEmail']  = 'main/retrySendEmail';
 
 
 

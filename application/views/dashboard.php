@@ -540,10 +540,10 @@ header h1 {
  
       
             <div id="popup1" style="display: none;">
-                <h4 style="padding-left: 10px;color: #2693e6;text-transform: uppercase;"><?php echo $announcements[0]['name']; ?></h4>
+                <h4 style="padding-left: 10px;color: #2693e6;text-transform: uppercase;"><?php echo empty($announcements[0]['name'])?'':$announcements[0]['name']; ?></h4>
                 <p class="date_posted" style="margin-left: 10px;font-size: 13px"><?php echo date('F d, Y');?></p>
                 <pre class="content-announcement" style="font-size: 15px;">
-                  <?php echo $announcements[0]['content']; ?>
+                  <?php echo empty($announcements[0]['content']) ? '': $announcements[0]['content']; ?>
                 </pre>
             </div>
         
@@ -1216,7 +1216,7 @@ header h1 {
                                                         <!-- <div class="well" style="box-shadow: none; border: none; background: #f7f7f7; padding: 10px; margin-bottom: 10px;"> -->
                                                          <div class="comments-list" style="font-size: 12px; margin-bottom: 10px;">
 
-                                                              <b>Supervisor</b> <?php echo $comment['content'];?>
+                                                              <b><?php echo $supervisorname->name ?></b> <?php echo $comment['content'];?>
                                                           </div>
                                                         
                                                     <?php endif;?>
@@ -1305,8 +1305,9 @@ header h1 {
        $("#show-notifications").hide();
     });
 
-    $('.resend-email').click(function(){
+    $('.resend-email').click(function(e){
       // alert('yoshee');
+      e.preventDefault();
       var email = $(this).data('email-address');
       $.ajax({
         url: 'resendEmail',
@@ -1314,6 +1315,15 @@ header h1 {
         data: {
           'email': email,
         },
+        success: function(){
+          swal({
+           title: "Success!",
+           text: "Email sent",
+           icon: "success",
+          }).then(function () {
+            location.reload();
+          });
+        }
       });
     });
 

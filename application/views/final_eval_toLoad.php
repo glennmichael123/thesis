@@ -4,7 +4,7 @@
       <div class="container">
         <div class="row">
             <?php if(empty($evaluation)) :  ?>
-              <h3 style="text-align:center;">No Evaluations yet</h3>
+              <h4 style="text-align:center;padding-top: 20px;color:gray;">No evaluation yet</h4>
            <?php else: ?>
           <div class="col l12">
             <h4 class="parts">Part I (Filled by the student trainee)</h4>

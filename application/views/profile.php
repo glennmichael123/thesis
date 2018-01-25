@@ -730,7 +730,7 @@
                                $program = 'OJT 2';
                             }
                           ?>
-                   <h5 style="position: relative; top: 15px;">Trainee - <?php echo $program; ?></h5>
+                   <h5 style="position: absolute; top: 24px;">Trainee</h5>
                     </div>
                     <div class="col-lg-1 col-sm-1">
                         <?php if(isset($id_number)):?>
@@ -802,7 +802,7 @@
                                     </div>
                                     <div style="margin-top: -10px;"></div>
                                     <div class="profile-name">
-                                        <div class="label label-default"><?php echo $personalDetails[0]['first_name']." ".$personalDetails[0]['middle_initial']." ".$personalDetails[0]['last_name'];?>
+                                        <div class="label label-default"><?php echo $personalDetails[0]['first_name']." ".$personalDetails[0]['middle_initial'].". ".$personalDetails[0]['last_name'];?>
                                     </div>
                                     </div>
                                     <div class="change-photo" style="margin-top: 10px; display: none;">

@@ -5,33 +5,36 @@
 <head>
     <link rel="icon" href="favicon.ico">
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/bootstrap.min.css">
-    <script src="<?php echo base_url() ?>assets/js/jquery.min.js"></script>
-
+    <link rel="stylesheet" href="<?php base_url()?>assets/css/bootstrap.min.css">
+    <script src="<?php echo base_url()?>assets/js/jquery.min.js"></script>
     <!-- Optional theme -->
+
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/bootstrap-theme.min.css" >
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="<?php echo base_url() ?>assets/js/bootstrap.min.js"></script>
+    <script src="<?php echo base_url()?>assets/js/progressbar/dist/progressbar.js"></script>
+    <script src="<?php echo base_url()?>assets/js/progressbar/dist/progressbar.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="<?php  echo base_url() ?>assets/css/jquery-ui.css">
     
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=ABeeZee' rel='stylesheet'>
-    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
-
-    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
-   
-    <!-- Datepicker -->
-    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
-
-<!--     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
-    <script src="<?php echo base_url() ?>assets/js/swal.js"></script>
-        <script src="<?php echo base_url() ?>assets/js/jquery-1.12.4.js"></script>
+       <script src="<?php echo base_url() ?>assets/js/jquery-1.12.4.js"></script>
     <script src="<?php echo base_url() ?>assets/js/jquery-ui.js"></script>
     <link rel="stylesheet" href="<?php  echo base_url() ?>assets/css/jquery-ui.css">
+
+    <script src="<?php echo base_url() ?>assets/js/jquery.easy-autocomplete.min.js"></script> 
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/easy-autocomplete.min.css"> 
+
+    <!-- Latest compiled and minified JavaScript -->
+
+    <script src="<?php echo base_url()?>assets/js/bootstrap.min.js"></script>
+   <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script src="<?php echo base_url();?>assets/js/swal.js"></script>
 
     <style type="text/css">
         *{
@@ -473,7 +476,7 @@
                     <h2 class="fs-title">Company Information <i class="fa fa-list-alt" aria-hidden="true"></i></h2>
                         <div class="row">
                           <div class="col-lg-12">
-                            <input type="text" placeholder="Company name" id="company_name" name="company_name" required>
+                            <input type="text" placeholder="Company name" id="company_name" style="width: 885%;" name="company_name" required>
                           </div>
                         </div>
                          <div class="row">
@@ -685,6 +688,22 @@
 
 <!-- RADIO BUTTONS -->
 <script type="text/javascript">
+    $(document).ready(function(){
+        var options = {
+            url: "main/getCompanyNamesJson",
+
+            getValue: "names",
+
+            list: {
+                match: {
+                    enabled: true
+                }
+            }
+        };
+
+        $("#company_name").easyAutocomplete(options);
+    });
+
     $('#parent_rad_1').click(function(){
         var present = $('#present_address').val();
         $('#parents_address').val(present);
