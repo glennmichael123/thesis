@@ -557,7 +557,7 @@
 
                                                         <!-- <div class="well" style="box-shadow: none; border: none; background: #f7f7f7; padding: 10px; margin-bottom: 10px;"> -->
                                                          <div class="comments-list" style="font-size: 12px; margin-bottom: 10px; color: #000;">
-                                                              <b>Supervisor</b> <?php echo $comment['content'];?>
+                                                              <b><?php echo empty($supervisorName->name)? "Supervisor" : $supervisorName->name;?></b> <?php echo $comment['content'];?>
                                                           </div>
                                                         
                                                     <?php endif;?>

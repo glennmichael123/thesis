@@ -774,6 +774,7 @@ header h1 {
       <?php if($rendered >= $total && $current_evaluations >= $all_evaluations): ?>
         <?php if($current_program == 'ojt_two'): ?>
             <?php else: ?>
+              <?php if($checkProceed): ?>
            <div class="container" style="margin-top: 40px;">
             <div class="well" style="margin-bottom: 0;">
                 <div class="row">
@@ -787,10 +788,11 @@ header h1 {
                 </div>
             </div>
         </div>
+      <?php else: ?>
+      <?php endif; ?>
           <?php endif; ?>
   <?php endif; ?>
-      <?php if(isset($id_number)): ?>
-    <?php else: ?>
+
       <?php if($checkEmail->status): ?>
       <?php else: ?>
     <div class="container" style="margin-top: 40px;">
@@ -807,7 +809,7 @@ header h1 {
         </div>
     </div>
   <?php endif; ?>
-<?php endif; ?>
+
         <div class="container">
           <?php echo $this->session->flashdata('Status'); ?>
             <div class="row">

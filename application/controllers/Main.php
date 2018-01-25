@@ -433,7 +433,8 @@ public function logout(){
 	     		}else{
 	     			$data['courses_for_graph'] = $this->users->getCoursesList($this->session->userdata('id_number'), 'ojt_one');
 	     			$data['courses_count'] = $this->users->getCoursesCount($this->session->userdata('id_number'), 'ojt_one');
-	     	
+	     			$data['company_for_graph'] = $this->users->getCompanyGraphLabel($this->session->userdata('id_number'));
+	     			$data['company_for_graph_count'] = $this->users->getCompanyGraphCount($this->session->userdata('id_number'));
 				 	// $data['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
 				 	$data['company_list'] = $this->users->getCompanyNames();
 				 	$data['first_name'] = $this->users->getAdminFirstName($this->session->userdata['id_number']);
@@ -477,6 +478,7 @@ public function logout(){
      	$data['comments'] = $this->users->getComments();
      	$supervisorId = $this->users->getCompanyInformation($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
      	$data['workmates'] = $this->users->getWorkmates($this->session->userdata['id_number'], empty($supervisorId->supervisor_id) ? '' : $supervisorId->supervisor_id);
+     	$data['checkProceed'] = $this->users->checkOjtTransition($this->session->userdata['id_number']);
      	$totalLogsCount = $this->users->getNumberLogs($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
      	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
      	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($this->session->userdata['id_number']);
@@ -588,11 +590,14 @@ public function logout(){
      	$data['workmates'] = $this->users->getWorkmates($id_number, $companyName->company_name);
      	$data['supervisor_image'] = $this->users->getSupervisorImageForStud($this->session->userdata['id_number']);
 		$data['comments'] = $this->users->getComments();
+		$data['supervisor_id'] = $this->users->getSupervisorIdForStudent($id_number, $current_ojt_program);
+     	$data['supervisorname'] = $this->users->getSupervisorNameFull($data['supervisor_id']->supervisor_id);
 		$totalLogsCount = $this->users->getNumberLogs(isset($id_number) ? $id_number : '', $current_ojt_program);
 		$data['image_header'] = $this->users->displayImageToHeader($id_number);
      	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified(isset($id_number) ? $id_number : '', $current_ojt_program);
      	$renderedCount = $this->users->getSumRendered(isset($id_number) ? $id_number : '', $current_ojt_program);
      	$data['supImage'] = $this->users->supervisorImage($this->session->userdata['id_number']);
+
      	$this->users->updateLogCount(isset($totalLogsCount[0]['logscount']) ? $totalLogsCount[0]['logscount'] : 0, $id_number, $current_ojt_program);
      	$this->users->updateOJTStatus($id_number,$current_ojt_program);
      	$this->users->updateLogsVerifiedCount(isset($totalLogsVerifiedCount[0]['logscount']) ? $totalLogsVerifiedCount[0]['logscount'] : 0, $id_number, $current_ojt_program);
@@ -606,13 +611,13 @@ public function logout(){
 		$data['verified'] = $ojtRecords[0]['verified_logs'];
 		$data['totalLogs'] = $ojtRecords[0]['total_logs'];
 		$config = array();
-						$config['base_url'] = base_url() .'main/studentdashboard/'.$id_number;
-						$config['uri_segment'] = 4;
-						$config["total_rows"] = $ojtRecords[0]['total_logs'];
-				        $config["per_page"] = 5;
-				        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
-				          $this->pagination->initialize($config);
-						$data["links"] = $this->pagination->create_links();
+	    $config['base_url'] = base_url() .'main/studentdashboard/'.$id_number;
+		$config['uri_segment'] = 4;
+	    $config["total_rows"] = $ojtRecords[0]['total_logs'];
+	    $config["per_page"] = 5;
+	    $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+	    $this->pagination->initialize($config);
+		$data["links"] = $this->pagination->create_links();
 		$data['logs_list'] = $this->users->getLogs(isset($id_number) ? $id_number : '',$config['per_page'], $page, $current_ojt_program);
      	}
      	$data['id_number'] = $id_number;
@@ -677,9 +682,11 @@ public function logout(){
 
     public function sendEmailSupervisor($supervisorEmail,$supervisorName,$supervisorUser,$supervisorPass){
 			$email_body = '';
+			$url = base_url();
 		    $this->load->library('email');
 		    $this->email->set_newline("\r\n");
 		    $url = base_url();
+		    $hash = md5($supervisorEmail);
 		    $email_setting  = array('mailtype'=>'html');
 		    $this->email->initialize($email_setting);
 		    $email_body .='Hello '.$supervisorName.'' . "<br>";
@@ -687,6 +694,8 @@ public function logout(){
 		    $email_body .='Here are your credentials so you could login as a supervisor' . "<br>";
 		    $email_body .='Username: ' . $supervisorUser . "<br>";
 		    $email_body .='Password: ' . $supervisorPass . "<br>";
+		    $email_body .="Please click this link to activate your account:
+					  {$url}main/verifySupervisor?email=$supervisorEmail&hash=$hash";
 		    $this->email->from('CITUAdmin', 'Admin');
 		    $this->email->to($supervisorEmail);
 		    $this->email->subject('Supervisor Credentials');
@@ -727,6 +736,9 @@ public function logout(){
 	}
 	public function verify(){
 		$this->load->view('verify');
+	}
+	public function verifySupervisor(){
+		$this->load->view('verifysupervisor');
 	}
 
 	public function sendEmailR($username,$toemail){
@@ -1091,7 +1103,6 @@ public function logout(){
      	$html = $this->load->view("admin_student_filters",$data,TRUE);
      	echo $html;
      }
-
      public function loadSupervisorFilters(){
      	$data['courses'] = $this->users->courses();
      	$html = $this->load->view("supervisor_filters",$data,TRUE);

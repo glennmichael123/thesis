@@ -44,7 +44,7 @@
                               <?php foreach ($trainees as $trainee):?>
                                 <?php if ($trainee['supervisor_id'] == $supervisor['id_number']):?>
                                   <p style="padding: 0px;margin: 0px;">
-                                    <?php echo $trainee['last_name'].", ".$trainee['first_name']." ".$trainee['middle_initial'].".";?>
+                                    <?php echo $trainee['last_name'].", ".$trainee['first_name']." ".$trainee['middle_initial']."";?>
                                   </p>
                                 <?php endif;?>
                               <?php endforeach;?>
@@ -61,8 +61,10 @@
 
 
 <script type="text/javascript">
-  $('.resendEmail').click(function(e){
+
+  $(document).on('click','.resendEmail',function(e){
       e.preventDefault();
+
       var email=$(this).data('email');
       var username=$(this).data('id-number');
       var name=$(this).data('name');
@@ -79,12 +81,18 @@
         },
         success:function(data){
           if($.trim(data) == "true"){
-            swal('Email sent','','success');
+            swal({
+              title: "Success!",
+              text: "Email sent successfully",
+              icon: "success",
+            }).then(function(){
+              location.reload();
+            });
+          }else
+              swal('Oops...','Email not sent','error');
+          
           }
-          else if($.trim(data) == "false"){
-            swal('Email not sent','','error');
-          }
-        }
+        
       });
   });
 </script>

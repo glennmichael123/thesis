@@ -582,7 +582,7 @@
 <body>
 
      <div id="popup1" style="display: none;">
-                <h4 style="padding-left: 10px;color: #2693e6;text-transform: uppercase;"><?php echo $announcements[0]['name']; ?></h4>
+                <h4 style="padding-left: 10px;color: #2693e6;text-transform: uppercase;"><?php echo empty($announcements[0]['name']) ? '': $announcements[0]['name']; ?></h4>
                 <p class="date_posted" style="margin-left: 10px;font-size: 13px"><?php echo date('F d Y');?></p>
                 <pre class="content-announcement" style="font-size: 15px;"></pre>
             </div>
@@ -987,7 +987,7 @@
                                <input type="text" name="profile_fax_number" value="<?php echo $companyInformation->fax_number; ?>" readonly class="company-info form-control">
 
                                 <label class="labels">Supervisor Name:</label>
-                               <input type="text" name="" value="<?php echo (empty($supervisorName->name) ? '' : $supervisorName->name); ?>" style="font-size: 13px;margin-left: 3px;display: inline; border: 0; color: #000000; width: 100%; background:none !important; box-shadow: none !important;" readonly class="form-control" >
+                               <input type="text" name="" value="<?php echo (empty($supervisorName->name) ? 'Not assigned' : $supervisorName->name); ?>" style="font-size: 13px;margin-left: 3px;display: inline; border: 0; color: #000000; width: 100%; background:none !important; box-shadow: none !important;" readonly class="form-control" >
                             </div>
                         </div>
                         <?php 
@@ -1127,7 +1127,7 @@
                             <label>WORK ATTITUDE(<div class="badge">40</div> points)</label>
                                 <ol>
                                     <div class="row">
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-6" style="font-size: 20px;">
                                             
                                                 <li>Enthusiasm / Eagerness to Learn</li>                                     
                                                 <li>Cooperation and Willingness</li>                                             
@@ -1143,7 +1143,7 @@
                                             
                                         </div>
 
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6" style="font-size: 20px;">
                                         <form method="post">
                                          
                                          <fieldset style="float: right;">
@@ -1199,7 +1199,7 @@
                                 <ol>
                                     
                                     <div class="row">
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-6" style="font-size: 20px;">
                                                 <li>Quality of Work</li>
                                                
                                                 <li>Quantity of Work</li>
@@ -1211,7 +1211,7 @@
                                                
                                                 <li>Waste Consciousness</li>
                                          </div>
-                                         <div class="col-lg-6">
+                                         <div class="col-lg-6" style="font-size: 20px;">
                                             <fieldset style="float: right;">
                                                 <input tabindex="9" value="<?php echo $midterm_evaluation->quality; ?>" readonly maxlength="1" type="text" name="quality" class="score">
                                                     <a role="button" class="clicky"id="pop" data-container="body" data-toggle="popover" data-evaluation-type="a_two"data-placement="top" title="Quality of Work" data-content="Thoroughness, accuracy, neatness and effectiveness of output, meets required standards and even exceeds expected results." tabindex="0" data-trigger="focus">
@@ -1249,7 +1249,7 @@
                                     <div class="col-lg-6">
                                      <label class="pointy">OVERALL TOTAL</label>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6" style="font-size: 20px;">
                                         <fieldset style="float: right;">
                                             <input type="text" name="" value="<?php echo $midterm_evaluation->total; ?>" class="score" style="margin-right: 25px; margin-top: 20px;" readonly> 
                                          </fieldset>

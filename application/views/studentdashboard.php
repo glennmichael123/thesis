@@ -1309,7 +1309,7 @@ header h1 {
                                                         <!-- <div class="well" style="box-shadow: none; border: none; background: #f7f7f7; padding: 10px; margin-bottom: 10px;"> -->
                                                          <div class="comments-list" style="font-size: 12px; margin-bottom: 10px;">
 
-                                                              <b>Supervisor</b> <?php echo $comment['content'];?>
+                                                              <b><?php echo $supervisorname->name; ?></b> <?php echo $comment['content'];?>
                                                           </div>
                                                         
                                                     <?php endif;?>

@@ -594,7 +594,7 @@
                                                 <?php else:?>                                                                      
                                                      <?php if(in_array($student['id_number'], array_column($evaluated2, 'username'))):?>
                                                      <td><i class="fa fa-check" aria-hidden="true"></i></td> 
-                                                       <td><a href="#" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>          
+                                                       <td><a href="#" class="remove-stud" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>          
                                                     <?php else:?>
                                                 <td><a href="<?php echo base_url()?>main/finalevaluation/<?php echo $student['id_number']?>" class="evaluate-btn" target="_blank">Evaluate</a></td>
                                                   <td><a href="#" class="remove-stud" data-stud-name="<?php echo $student['first_name'] . " " . $student['last_name']?>" data-stud-id="<?php echo $student['id_number'] ?>"><i class="fa fa-trash"></i></a></td>
