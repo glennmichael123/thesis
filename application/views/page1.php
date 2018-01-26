@@ -788,11 +788,12 @@
 
 <!-- FOR DATE INPUT FIELD -->
 <script type="text/javascript">
+    var yearNow = (new Date()).getFullYear();
    $( function() {
     $( "#date_of_birth" ).datepicker({
       changeMonth: true,
       changeYear: true,
-      yearRange: '1980:2050',
+      yearRange: '1940:'+yearNow,
     });
   } );
 </script>
@@ -829,12 +830,12 @@
         });
 
         $('#parents_address').focus(function(){
-            $('.parent_address').css('display','inline');
+            $('.parent_address').css('displayy','inline');
         })
     })
 
     $(".first-previous").click(function(){
-        $(".page1").show();
+        $(".py1").show();
         $(".page2").hide();
     });
 

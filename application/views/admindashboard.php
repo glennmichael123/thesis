@@ -4,8 +4,7 @@
     <link rel="icon" href="favicon.ico">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="<?php base_url()?>assets/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+    <script src="<?php echo base_url() ?>assets/js/jquery.min.js"></script>
     <!-- Optional theme -->
     <link rel="stylesheet" href="<?php echo base_url()?>assets/css/bootstrap-theme.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -426,7 +425,7 @@ tr:hover{
         </div>
 </div>
 
-  <div class="container">
+  <!-- <div class="container">
       <div class="well" style="background: #fff;">
           <div class="row">
               <div class="col-lg-12">
@@ -486,13 +485,14 @@ tr:hover{
               </div>
           </div>
       </div>
-  </div>
+  </div> -->
 
 <div class="container">
               <div class="container tabOptions" style="margin-top: 10px">
                 <ul class="nav nav-tabs">
                   <li class="active"><a data-toggle="tab" href="#students" id="toStudentsTable">Students</a></li>
                   <li><a data-toggle="tab" href="#supervisors" id="toSupervisorsTable">Supervisors</a></li>
+                  <li><a data-toggle="tab" href="#companies" id="toCompaniesTable">Companies</a></li>
                 </ul>
                 <div class="tab-content">
                   <div id="students" class="tab-pane fade in active">
@@ -510,6 +510,13 @@ tr:hover{
                       </div>
                     </div>
 
+                  </div>
+                  <div id="companies" class="tab-pane fade">
+                    <div class="well dashboard-search">
+                      <div class="content companyContent">
+                        
+                      </div>
+                    </div> 
                   </div>
                 </div>
               </div> 
@@ -925,6 +932,22 @@ tr:hover{
       });
   });
 
+  $('#toCompaniesTable').click(function(e){
+    // alert('jrr');
+        e.preventDefault();
+        $.ajax({
+           type:"GET",
+           url: "<?php echo base_url() ?>/"+"loadCompaniesTable",
+            dataType: "text",
+           success: function(data){
+              $('.companyContent').html(data);
+              $('.supervisorContent').html("");   
+              $('.studentContent').html("");
+              $('.studentFilters').html("");
+           }
+        });
+  });
+
   $('#toOjt1').click(function(){
         $.ajax({
           type:'POST',
@@ -950,6 +973,8 @@ tr:hover{
        success: function(data){
          $('.supervisorContent').html(data);   
          $('.studentContent').html("");
+         $('.studentFilters').html("");
+         $('.companyContent').html("");
        }
     });
   });
@@ -983,6 +1008,7 @@ tr:hover{
        success: function(data){
           $('.studentContent').html(data);
           $('.supervisorContent').html("");
+          $('.companyContent').html("");
        }
       });
   });

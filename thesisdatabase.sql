@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 13, 2018 at 09:19 AM
+-- Generation Time: Jan 26, 2018 at 11:59 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 5.6.32
 
@@ -92,15 +92,9 @@ CREATE TABLE `company_information` (
   `company_classification` text NOT NULL,
   `number_of_employees` text NOT NULL,
   `watchlisted` tinyint(1) NOT NULL DEFAULT '0',
-  `ojt_program` varchar(255) NOT NULL
+  `ojt_program` varchar(255) NOT NULL,
+  `transitioned` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `company_information`
---
-
-INSERT INTO `company_information` (`id`, `id_number`, `company_name`, `supervisor_id`, `company_address`, `contact_number`, `fax_number`, `product_lines`, `company_classification`, `number_of_employees`, `watchlisted`, `ojt_program`) VALUES
-(1, 'noreenlanchpaul.ongcal', 'CIT', '', '3', 3, 3, '3', 'Assembly,Manufacturing,Maintenance,Service/Utility,Research and Development,IT Related', 'More than 100', 0, 'ojt_one');
 
 -- --------------------------------------------------------
 
@@ -116,13 +110,6 @@ CREATE TABLE `email` (
   `status` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `email`
---
-
-INSERT INTO `email` (`id`, `id_number`, `email_address`, `hash`, `status`) VALUES
-(1, 'noreenlanchpaul.ongcal', 'gtorregosa@gmail.com', '8f8e3cac19bc69526d164a93e679685a', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -137,13 +124,6 @@ CREATE TABLE `emergency_details` (
   `contact_number` int(11) NOT NULL,
   `address` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `emergency_details`
---
-
-INSERT INTO `emergency_details` (`id`, `id_number`, `name`, `relationship`, `contact_number`, `address`) VALUES
-(1, 'noreenlanchpaul.ongcal', 'c', 'c', 2, 'c');
 
 -- --------------------------------------------------------
 
@@ -161,13 +141,6 @@ CREATE TABLE `family_details` (
   `parents_address` text NOT NULL,
   `contact_number` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `family_details`
---
-
-INSERT INTO `family_details` (`id`, `id_number`, `fathers_name`, `fathers_occupation`, `mothers_name`, `mothers_occupation`, `parents_address`, `contact_number`) VALUES
-(1, 'noreenlanchpaul.ongcal', 'c', 'c', 'c', 'c', 'c', 232);
 
 -- --------------------------------------------------------
 
@@ -229,16 +202,6 @@ CREATE TABLE `logs` (
   `ojt_program` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `logs`
---
-
-INSERT INTO `logs` (`id`, `id_number`, `date`, `time_in`, `time_out`, `division`, `department`, `designation`, `log_content`, `hours_rendered`, `verified`, `supervisor_id`, `ojt_program`) VALUES
-(1, 'noreenlanchpaul.ongcal', '2018-01-13', '08:00:00', '17:00:00', 'hehe', 'hehe', 'hehe', 'hehe', 8, 0, '', 'ojt_one'),
-(2, 'noreenlanchpaul.ongcal', '2018-01-13', '05:00:00', '20:00:00', 'haha', 'haha', 'haha', 'haha', 8, 0, '', 'ojt_two'),
-(3, 'noreenlanchpaul.ongcal', '2018-01-12', '05:00:00', '20:00:00', 'haha', 'haha', 'haha', 'yoyoyoyo', 8, 0, '', 'ojt_one'),
-(4, 'noreenlanchpaul.ongcal', '2018-01-12', '05:00:00', '20:00:00', 'haha', 'haha', 'haha', 'haha2', 8, 0, '', 'ojt_two');
-
 -- --------------------------------------------------------
 
 --
@@ -292,31 +255,59 @@ CREATE TABLE `ojt_records` (
   `logs_two_verified` int(11) NOT NULL,
   `ojtone_status` varchar(50) NOT NULL DEFAULT 'ON-GOING',
   `ojttwo_status` varchar(50) NOT NULL DEFAULT 'ON-GOING',
-  `supervisor_id` varchar(255) NOT NULL
+  `supervisor_id` varchar(255) NOT NULL,
+  `admin_id` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ojt_records`
 --
 
-INSERT INTO `ojt_records` (`id`, `id_number`, `total_hours`, `ojtone_required`, `ojttwo_required`, `ojtone_rendered`, `ojttwo_rendered`, `total_evaluations`, `ojtone_current_evaluations`, `ojttwo_current_evaluations`, `logs_one`, `logs_two`, `logs_one_verified`, `logs_two_verified`, `ojtone_status`, `ojttwo_status`, `supervisor_id`) VALUES
-(1, 'arlenejane.abelgas', 500, 200, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', ''),
-(2, 'jamesbryan.alarcon', 500, 200, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', ''),
-(3, 'edser.caballero', 500, 200, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', ''),
-(4, 'michaeljay.caballero', 500, 200, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', ''),
-(5, 'carljaysun.cabaluna', 500, 200, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', ''),
-(6, 'dariele.cayme', 500, 200, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', ''),
-(7, 'rosemarie.dereal', 500, 200, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', ''),
-(8, 'marcelino.fuentes', 500, 200, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', ''),
-(9, 'grace.ganzo', 500, 200, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', ''),
-(10, 'windelynjoy.jopia', 500, 200, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', ''),
-(11, 'ronnelo.mernilo', 500, 200, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', ''),
-(12, 'cedric.nebria', 500, 200, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', ''),
-(13, 'noreenlanchpaul.ongcal', 500, 200, 300, 0, 0, 2, 0, 0, 1, 0, 0, 0, 'ON-GOING', 'ON-GOING', ''),
-(14, 'jonglen.pitas', 500, 200, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', ''),
-(15, 'gerald.tan', 500, 200, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', ''),
-(16, 'generheybrayan.tanupan', 500, 200, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', ''),
-(17, 'rosellemay.yamson', 500, 200, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '');
+INSERT INTO `ojt_records` (`id`, `id_number`, `total_hours`, `ojtone_required`, `ojttwo_required`, `ojtone_rendered`, `ojttwo_rendered`, `total_evaluations`, `ojtone_current_evaluations`, `ojttwo_current_evaluations`, `logs_one`, `logs_two`, `logs_one_verified`, `logs_two_verified`, `ojtone_status`, `ojttwo_status`, `supervisor_id`, `admin_id`) VALUES
+(1, 'arlenejane.abelgas', 200, 200, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(2, 'jamesbryan.alarcon', 200, 200, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(3, 'edser.caballero', 200, 200, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(4, 'michaeljay.caballero', 200, 200, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(5, 'carljaysun.cabaluna', 200, 200, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(6, 'dariele.cayme', 200, 200, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(7, 'rosemarie.de real', 200, 200, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(8, 'marcelinoiii.fuentes', 500, 200, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(9, 'grace.ganzo', 200, 200, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(10, 'windelynjoy.jopia', 200, 200, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(11, 'ronnelo.mernilo', 200, 200, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(12, 'cedric.nebria', 200, 200, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(13, 'norrenlanchpaul.ongcal', 500, 200, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(14, 'jonglen.pitas', 200, 200, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(15, 'gerald.tan', 500, 200, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(16, 'generheybrayan.tanupan', 200, 200, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(17, 'rosellemay.yamson', 500, 200, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(18, 'jodolfh.abarquez', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(19, 'jhyllanthony.alob', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(20, 'karren.ardon', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(21, 'welsey.birao', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(22, 'aladdin.bravo', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(23, 'cliffadrian.buque', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(24, 'gaspar.caraballe', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(25, 'meldred.carrigo', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(26, 'chiangshan.chang', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(27, 'seciniojr..colipano', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(28, 'klydekz.gonzales', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(29, 'arbey.jamili', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(30, 'jayson.librando', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(31, 'zienel.magsayo', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(32, 'markterence.mallari', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(33, 'daryljames.medillo', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(34, 'junrey.natad', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(35, 'leopatrick.navarro', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(36, 'josevirgil.orais', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(37, 'haroldjohn.panugaling', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(38, 'karoljohn.paras', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(39, 'retchel.rumaguera', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(40, 'rexxordee.uy', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(41, 'johnluther.valendez', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(42, 'princeton.valera', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(43, 'walter.ybanez', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', ''),
+(44, 'lysander.zulueta', 300, 0, 300, 0, 0, 2, 0, 0, 0, 0, 0, 0, 'ON-GOING', 'ON-GOING', '', '');
 
 -- --------------------------------------------------------
 
@@ -349,13 +340,6 @@ CREATE TABLE `personal_details` (
   `sex` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `personal_details`
---
-
-INSERT INTO `personal_details` (`id`, `id_number`, `image_id`, `first_name`, `middle_initial`, `last_name`, `college`, `course`, `year`, `present_address`, `permanent_address`, `contact_number`, `email_address`, `date_of_birth`, `age`, `marital_status`, `blood_type`, `weight`, `height`, `religion`, `citizenship`, `sex`) VALUES
-(1, 'noreenlanchpaul.ongcal', '<i class=\"fa fa-user-circle fa-5x\" style=\"font-size: 150px;\" aria-hidden=\"true\"></i>', 'Noreen Lanch Paul', 'A', 'Ongcal ', 'CCS', 'BSIT', 4, 'c', 'c', 32, 'xxx@xxx.com', '2018-01-19', 20, 'Married', 'B+', 2, 2, 'c', 'c', 'Male');
-
 -- --------------------------------------------------------
 
 --
@@ -371,15 +355,12 @@ CREATE TABLE `supervisor` (
   `designation` text NOT NULL,
   `id_number` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `email` text NOT NULL
+  `email` text NOT NULL,
+  `phone_number` varchar(255) NOT NULL,
+  `verified` tinyint(1) NOT NULL,
+  `hash` varchar(255) NOT NULL,
+  `flag` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `supervisor`
---
-
-INSERT INTO `supervisor` (`id`, `image_id`, `imageDisplayToChange`, `name`, `company_name`, `designation`, `id_number`, `password`, `email`) VALUES
-(5, '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', '<i class=\"fa fa-user-circle fa-5x\" style=\"font-size: 150px;\" aria-hidden=\"true\"></i>', 'Fafa', 'CIT', 'Fafa', 'fafa', '123456', 'gtorregosa@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -409,23 +390,50 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `id_number`, `admin_id`, `user_image`, `first_name`, `middle_initial`, `last_name`, `course`, `year`, `school_year`, `account_type`, `password`, `ojt_program`, `status`) VALUES
-(1, 'arlenejane.abelgas', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'Arlene Jane', 'D', 'Abelgas', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_one', ''),
-(2, 'jamesbryan.alarcon', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'James Bryan', 'J', 'Alarcon', 'BSIT', 3, '2017-2018', 0, '123456', 'ojt_one', ''),
-(3, 'edser.caballero', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'Edser', 'S', 'Caballero', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_one', ''),
-(4, 'michaeljay.caballero', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'Michael Jay', 'J', 'Caballero', 'BSIT', 3, '2017-2018', 0, '123456', 'ojt_one', ''),
-(5, 'carljaysun.cabaluna', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'Carl Jaysun', 'M', 'Cabaluna', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_one', ''),
-(6, 'dariele.cayme', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'Dariele', 'V', 'Cayme', 'BSIT', 3, '2017-2018', 0, '123456', 'ojt_one', ''),
-(7, 'rosemarie.dereal', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'Rosemarie', 'T', 'De Real', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_one', ''),
-(8, 'marcelino.fuentes', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'Marcelino', 'C', 'Fuentes', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_one', ''),
-(9, 'grace.ganzo', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'Grace', 'L', 'Ganzo', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_one', ''),
-(10, 'windelynjoy.jopia', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'Windelyn Joy', 'V', 'Jopia', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_one', ''),
-(11, 'ronnelo.mernilo', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'Ronnelo', 'A', 'Mernilo', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_one', ''),
-(12, 'cedric.nebria', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'Cedric', 'L', 'Nebria', 'BSIT', 3, '2017-2018', 0, '123456', 'ojt_one', ''),
-(13, 'noreenlanchpaul.ongcal', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'Noreen Lanch Paul', 'A', 'Ongcal ', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
-(14, 'jonglen.pitas', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'Jon Glen ', 'U', 'Pitas', 'BSIT', 3, '2017-2018', 0, '123456', 'ojt_one', ''),
-(15, 'gerald.tan', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'Gerald ', 'M', 'Tan', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_one', ''),
-(16, 'generheybrayan.tanupan', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'Gene Rhey Brayan', 'P', 'Tanupan', 'BSIT', 3, '2017-2018', 0, '123456', 'ojt_one', ''),
-(17, 'rosellemay.yamson', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'Roselle May', 'A', 'Yamson', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_one', '');
+(1, 'arlenejane.abelgas', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'ARLENE JANE', 'D. ', 'ABELGAS', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_one', ''),
+(2, 'jamesbryan.alarcon', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'JAMES BRYAN', 'J. ', 'ALARCON', 'BSIT', 3, '2017-2018', 0, '123456', 'ojt_one', ''),
+(3, 'edser.caballero', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'EDSER', 'S. ', 'CABALLERO', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_one', ''),
+(4, 'michaeljay.caballero', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'MICHAEL JAY', 'J. ', 'CABALLERO', 'BSIT', 3, '2017-2018', 0, '123456', 'ojt_one', ''),
+(5, 'carljaysun.cabaluna', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'CARL JAYSUN', 'M. ', 'CABALUNA', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_one', ''),
+(6, 'dariele.cayme', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'DARIELE', 'V. ', 'CAYME', 'BSIT', 3, '2017-2018', 0, '123456', 'ojt_one', ''),
+(7, 'rosemarie.de real', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'ROSEMARIE', 'T. ', 'DE REAL', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_one', ''),
+(8, 'marcelinoiii.fuentes', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'MARCELINO III', 'C. ', 'FUENTES', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_one', ''),
+(9, 'grace.ganzo', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'GRACE', 'L. ', 'GANZO', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_one', ''),
+(10, 'windelynjoy.jopia', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'WINDELYN JOY', 'V. ', 'JOPIA', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_one', ''),
+(11, 'ronnelo.mernilo', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'RONNELO', 'A. ', 'MERNILO', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_one', ''),
+(12, 'cedric.nebria', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'CEDRIC', 'L. ', 'NEBRIA', 'BSIT', 3, '2017-2018', 0, '123456', 'ojt_one', ''),
+(13, 'norrenlanchpaul.ongcal', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'NORREN LANCH PAUL', 'A. ', 'ONGCAL', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_one', ''),
+(14, 'jonglen.pitas', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'JON GLEN', 'U. ', 'PITAS', 'BSIT', 3, '2017-2018', 0, '123456', 'ojt_one', ''),
+(15, 'gerald.tan', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'GERALD', 'M. ', 'TAN', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_one', ''),
+(16, 'generheybrayan.tanupan', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'GENE RHEY BRAYAN', 'P. ', 'TANUPAN', 'BSIT', 3, '2017-2018', 0, '123456', 'ojt_one', ''),
+(17, 'rosellemay.yamson', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'ROSELLE MAY', 'A. ', 'YAMSON', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_one', ''),
+(18, 'jodolfh.abarquez', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'JODOLFH', 'N.', 'ABARQUEZ', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(19, 'jhyllanthony.alob', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'JHYLL ANTHONY', 'E.', 'ALOB', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(20, 'karren.ardon', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'KARREN', 'V.', 'ARDON', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(21, 'welsey.birao', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'WELSEY', 'C.', 'BIRAO', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(22, 'aladdin.bravo', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'ALADDIN', 'Y.', 'BRAVO', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(23, 'cliffadrian.buque', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'CLIFF ADRIAN', 'D.', 'BUQUE', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(24, 'gaspar.caraballe', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'GASPAR', 'M.', 'CARABALLE', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(25, 'meldred.carrigo', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'MELDRED', 'C.', 'CARRIGO', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(26, 'chiangshan.chang', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'CHIANG SHAN', 'Y.', 'CHANG', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(27, 'seciniojr..colipano', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'SECINIO JR.', 'H.', 'COLIPANO', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(28, 'klydekz.gonzales', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'KLYDEKZ', 'C.', 'GONZALES', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(29, 'arbey.jamili', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'ARBEY', 'C.', 'JAMILI', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(30, 'jayson.librando', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'JAYSON', 'C.', 'LIBRANDO', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(31, 'zienel.magsayo', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'ZIENEL', 'B.', 'MAGSAYO', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(32, 'markterence.mallari', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'MARK TERENCE', 'M.', 'MALLARI', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(33, 'daryljames.medillo', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'DARYL JAMES', 'A.', 'MEDILLO', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(34, 'junrey.natad', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'JUNREY', 'L.', 'NATAD', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(35, 'leopatrick.navarro', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'LEO PATRICK', 'D.', 'NAVARRO', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(36, 'josevirgil.orais', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'JOSE VIRGIL', 'N.', 'ORAIS', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(37, 'haroldjohn.panugaling', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'HAROLD JOHN', 'V.', 'PANUGALING', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(38, 'karoljohn.paras', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'KAROL JOHN', 'B.', 'PARAS', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(39, 'retchel.rumaguera', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'RETCHEL', 'L.', 'RUMAGUERA', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(40, 'rexxordee.uy', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'REXXOR DEE', 'T.', 'UY', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(41, 'johnluther.valendez', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'JOHN LUTHER', 'S.', 'VALENDEZ', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(42, 'princeton.valera', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'PRINCETON', 'B.', 'VALERA', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(43, 'walter.ybanez', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'WALTER', 'D.', 'YBANEZ', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', ''),
+(44, 'lysander.zulueta', 'admin', '<i class=\"fa fa-user-circle pull-right\" style=\"font-size: 40px; margin-top: -5px;\" aria-hidden=\"true\"></i>', 'LYSANDER', 'B.', 'ZULUETA', 'BSIT', 4, '2017-2018', 0, '123456', 'ojt_two', '');
 
 -- --------------------------------------------------------
 
@@ -559,25 +567,25 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `company_information`
 --
 ALTER TABLE `company_information`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `email`
 --
 ALTER TABLE `email`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `emergency_details`
 --
 ALTER TABLE `emergency_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `family_details`
 --
 ALTER TABLE `family_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `final_evaluation`
@@ -589,7 +597,7 @@ ALTER TABLE `final_evaluation`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `midterm_evaluation`
@@ -601,25 +609,25 @@ ALTER TABLE `midterm_evaluation`
 -- AUTO_INCREMENT for table `ojt_records`
 --
 ALTER TABLE `ojt_records`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `personal_details`
 --
 ALTER TABLE `personal_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `supervisor`
 --
 ALTER TABLE `supervisor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `watchlist`

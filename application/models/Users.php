@@ -1694,15 +1694,29 @@
 
       public function getCompanyGraphCount($username){
           $query = $this->db->query("SELECT DISTINCT company_name FROM company_information WHERE transitioned != 1 ORDER BY company_name ASC")->result_array();
-          $company_count = [];
+          $i=0;
+          $company_count = array(array('company_name'=>'', 'count'=>0));
           foreach ($query as $company) {
               $c = $company['company_name'];
               $total_students = $this->db->query("SELECT count(*) as total_students FROM company_information INNER JOIN users ON users.id_number = company_information.id_number WHERE company_name = '$c' AND transitioned != 1 AND users.status!='DELETED' ORDER BY course ASC")->row();
+              $company_count[$i]['count'] = $total_students->total_students;
+              $company_count[$i]['company_name'] = $c;
+              $i++;
+          }
+            
 
-              $company_count[] = $total_students->total_students;
+          if($company_count[0]['count'] == 0){
+              foreach ($company_count as $key => $value) {
+                  $key = array_search($value, $company_count);
+                  unset($company_count[$key]);
+
+              }
+              return $company_count;
+          }else{
+            return $company_count;
           }
 
-          return $company_count;
+          
       }
 
 
@@ -1944,16 +1958,18 @@
                               'company_classification'=>$company_information->company_classification,
                               'number_of_employees'=>$company_information->number_of_employees,
                               'ojt_program'=>'ojt_two');
-          $this->db->insert('company_information',$newCompany);
-          $data = array('ojt_program'=>$ojt_program);
+            $data = array('ojt_program'=>$ojt_program);
           $data2 = array('ojttwo_required'=>$newRequired);
           $data3 = array('transitioned'=>1);
+          $this->db->where('id_number',$username);
+          $this->db->update('company_information',$data3);    
+          $this->db->insert('company_information',$newCompany);
           $this->db->where('id_number',$username);
           $this->db->update('users',$data);
           $this->db->where('id_number',$username);
           $this->db->update('ojt_records',$data2); 
           $this->db->where('id_number',$username);
-          $this->db->update('company_information',$data3);     
+           
       }
 
       public function changeOjtStatusDifferentCompany($username){

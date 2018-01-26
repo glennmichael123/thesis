@@ -112,6 +112,7 @@ $route['loadSupervisorTable']  = 'main/loadSupervisorTable';
 $route['loadAdminStudentFilters']  = 'main/loadAdminStudentFilters';
 $route['loadSupervisorFilters']  = 'main/loadSupervisorFilters';
 $route['retrySendEmail']  = 'main/retrySendEmail';
+$route['loadCompaniesTable']  = 'main/loadCompaniesTable';
 
 
 

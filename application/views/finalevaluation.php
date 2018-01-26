@@ -6,7 +6,7 @@
       <!-- Optional theme -->
       <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
       <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/materialize.min.css">
-  <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/style.css">
       <!-- Latest compiled and minified JavaScript -->
       <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
       <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous"> -->
@@ -346,8 +346,8 @@
 
 
       <!--Import jQuery before materialize.js-->
-      <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+      <script src="<?php echo base_url() ?>assets/js/jquery.min.js"></script>
+      <script src="<?php echo base_url() ?>assets/js/materialize.min.js"></script>
   
       </body>
 <script type="text/javascript">

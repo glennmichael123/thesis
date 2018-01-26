@@ -433,8 +433,7 @@ public function logout(){
 	     		}else{
 	     			$data['courses_for_graph'] = $this->users->getCoursesList($this->session->userdata('id_number'), 'ojt_one');
 	     			$data['courses_count'] = $this->users->getCoursesCount($this->session->userdata('id_number'), 'ojt_one');
-	     			$data['company_for_graph'] = $this->users->getCompanyGraphLabel($this->session->userdata('id_number'));
-	     			$data['company_for_graph_count'] = $this->users->getCompanyGraphCount($this->session->userdata('id_number'));
+	     			
 				 	// $data['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
 				 	$data['company_list'] = $this->users->getCompanyNames();
 				 	$data['first_name'] = $this->users->getAdminFirstName($this->session->userdata['id_number']);
@@ -1106,6 +1105,13 @@ public function logout(){
      public function loadSupervisorFilters(){
      	$data['courses'] = $this->users->courses();
      	$html = $this->load->view("supervisor_filters",$data,TRUE);
+     	echo $html;
+     }
+
+     public function loadCompaniesTable(){
+     	// $data['company_for_graph'] = $this->users->getCompanyGraphLabel($this->session->userdata('id_number'));
+	    $data['company_for_graph_count'] = $this->users->getCompanyGraphCount($this->session->userdata('id_number'));
+     	$html = $this->load->view("companytables",$data,TRUE);
      	echo $html;
      }
 }
