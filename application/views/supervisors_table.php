@@ -35,6 +35,10 @@
                             <td><?php echo $supervisor['name'];?>
                               <?php if (!$supervisor['flag']):?>
                                 <a class="resendEmail" href="#" style="float: right;" data-email="<?php echo $supervisor['email'];?>" data-id-number="<?php echo $supervisor['id_number'];?>" data-name="<?php echo $supervisor['name'];?>" data-password="<?php echo $supervisor['password'];?>" title="Retry sending email"><i class="fa fa-envelope" style="color: red;"></i></a>
+                              <?php else: ?>
+                                  <?php if($supervisor['verified']): ?>
+                                  <i class="fa fa-check" style="color: green;"></i>
+                                <?php endif; ?>
                               <?php endif;?>
                             </td>
                             <td><?php echo $supervisor['designation'];?></td>

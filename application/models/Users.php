@@ -1069,7 +1069,7 @@
                             $existStudents[] = $existTwice[$key];
                           }else{
                               $this->db->query("UPDATE ojt_records SET total_hours = total_hours + $required_hours, ojttwo_required = $required_hours WHERE id_number = '$id_number'");
-                              $this->db->query("UPDATE users SET ojt_program = 'ojt_two' WHERE id_number = '$id_number'");
+                              // $this->db->query("UPDATE users SET ojt_program = 'ojt_two' WHERE id_number = '$id_number'");
                           }
                     }
                       // echo '<pre>';print_r($existStudents); echo '</pre>';
@@ -1992,7 +1992,7 @@
       }
 
       public function getSupervisors(){
-        $query = $this->db->query("SELECT DISTINCT name, id_number, company_name, designation, flag, phone_number,email,password FROM supervisor");
+        $query = $this->db->query("SELECT DISTINCT name, id_number, company_name, designation, flag, phone_number,email,password, verified FROM supervisor");
         return $query->result_array();
       }
 
