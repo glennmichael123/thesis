@@ -767,13 +767,13 @@ tr:hover{
                                 <label style="font-size: 10px;">Required hours</label>
                                 <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 90%" id="studojt" name="studojt" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                               </div>
-                              <div class="col-lg-5" style="padding-left: 3px">
+                              <div class="col-lg-6" style="padding-left: 3px">
                                 <label style="font-size: 10px;">OJT Program</label>                    
                             
                                 <select required style="border-radius: 5px;margin-bottom: 10px; width: 90%" class="form-control" id="studprogram" name="studprogram">
                                     <option selected disabled>Program</option>
-                                    <option value="ojt_one">Ojt 1</option>
-                                    <option value="ojt_two">Ojt 2</option>
+                                    <option value="ojt_one">OJT 1</option>
+                                    <option value="ojt_two">OJT 2</option>
                                 </select>
                               </div>
                             </div>
@@ -812,11 +812,11 @@ tr:hover{
                           </div>
                           <div class="row">
                              <div class="col-lg-8 col-lg-offset-4">
-                                   <label>Ojt Program</label>
-                                    <select name="ojt_program" class="form-control" id="program-choice" style="width: 50%" style="margin-top: 10px;" required="">
+                                   <label>OJT Program</label>
+                                    <select name="ojt_program" class="form-control" id="program-choice" style="width: 50%" style="margin-top: 10px;" required>
                                         <option selected disabled>Select Program</option>
-                                        <option value="ojt_one">Ojt 1</option>
-                                        <option value="ojt_two">Ojt 2</option>
+                                        <option value="ojt_one">OJT 1</option>
+                                        <option value="ojt_two">OJT 2</option>
                                     </select>
                              </div>
                           </div>

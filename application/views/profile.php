@@ -45,6 +45,7 @@
             z-index: 99;
             height: 60px;
             background-color: #ffba00;
+            border-bottom: 3px solid #791b1e;
         }
         
         .mission {
@@ -802,7 +803,7 @@
                                     </div>
                                     <div style="margin-top: -10px;"></div>
                                     <div class="profile-name">
-                                        <div class="label label-default"><?php echo $personalDetails[0]['first_name']." ".$personalDetails[0]['middle_initial'].". ".$personalDetails[0]['last_name'];?>
+                                        <div class="label label-default"><?php echo $personalDetails[0]['first_name']." ".$personalDetails[0]['middle_initial']." ".$personalDetails[0]['last_name'];?>
                                     </div>
                                     </div>
                                     <div class="change-photo" style="margin-top: 10px; display: none;">
@@ -1118,10 +1119,10 @@
                             <h3 style="text-align: center;">MIDTERM EVALUATION</h3>
 
                             <?php if(empty($midterm_evaluation->username)):?>
-                                <h4 style="color: #8b8f92; text-align: center; margin-top: 50px;">You have not been evaluated yet</h4>
+                                <h4 style="color: #8b8f92; text-align: center; margin-top: 30px;">You have not been evaluated yet</h4>
                             <?php else:?>
                             <?php if($midterm_evaluation->allow_view == 0):?>
-                                <h4 style="color: #8b8f92; text-align: center; margin-top: 50px;">Your supervisor did not allow you to view your evaluation.</h4>
+                                <h4 style="color: #8b8f92; text-align: center; margin-top: 30px;">Your supervisor did not allow you to view your evaluation.</h4>
                             <?php else:?>
 
                             <label>WORK ATTITUDE(<div class="badge">40</div> points)</label>

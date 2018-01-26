@@ -443,7 +443,7 @@
                                   <div class="panel-body">  
                                     <!-- if --><?php if(empty($ojtStatus['completed']) && empty($ojtStatus['all_stud'])):?>
                                     <!-- no studs -->
-                                    <h3 style="text-align: center;"><?php echo "No Trainees Yet";?></h3>  
+                                    <p style="text-align: center;font-size: 12px;"><?php echo "No trainees yet";?></p>  
                                     <!-- else -->
                                 <?php else:?>
                                     <div class="progress skill-bar">
@@ -463,7 +463,7 @@
                                     <h4 style="text-align: center; margin-bottom: 10px;">Evaluations</h4>
                                     <!-- if --><?php if(empty($evaluationsOjt['total_eval']) && empty($evaluationsOjt['current_eval'])):?>
                                     <!-- no stud -->
-                                     <h3 style="text-align: center;"><?php echo "No Evaluations Yet";?></h3>  
+                                     <p style="text-align: center;font-size: 12px;"><?php echo "No evaluations yet";?></p> 
                                     <!-- else -->
                                      <?php else:?>
                                     <div class="progress skill-bar">
@@ -478,11 +478,11 @@
 
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <h4 style="text-align: center; margin-bottom: 10px;">Pending logs</h4>
+                                    <h4 style="text-align: center; margin-bottom: 10px;">Pending Logs</h4>
 
                                     <?php if(empty($not_verified)):?>
                                     <!-- if -->
-                                    <h3 style="text-align: center;"><?php echo "No Logs Pending";?></h3>  
+                                    <p style="text-align: center;font-size: 12px;"><?php echo "No pending logs";?></p>  
                                     <!-- else -->
                                     <?php else:?>
                                     <div class="progress skill-bar">
@@ -505,7 +505,7 @@
                             </div>      
                             <div class="panel-body">
                                 <?php if(empty($ojtRecords)):?>
-                                    <span class="skill"><?php echo "No Trainees Yet";?></span>
+                                    <p class="skill" style="font-size: 14px;text-align: center;"><?php echo "No Trainees Yet";?></p>
                                      <?php else:?>
                                 <div id="tabs">
                                                 <ul>
@@ -640,7 +640,7 @@
 
                     <div class="col-lg-8">
                         <?php if(empty($traineesLog)): ?>
-                                <h3 style="text-align: center;">There are no logs yet.</h3>
+                                <h4 style="text-align: center;">There are no logs yet</h4>
                         <?php else: ?>
                         <div class="row" style="margin-bottom: 20px;">
                             <div class="col-lg-5">
