@@ -482,7 +482,7 @@ public function logout(){
      	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
      	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($this->session->userdata['id_number']);
      	$data['supervisor_id'] = $this->users->getSupervisorIdForStudent($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
-     	$data['supervisorname'] = $this->users->getSupervisorNameFull($data['supervisor_id']->supervisor_id);
+     	$data['supervisorname'] = $this->users->getSupervisorNameFull(empty($data['supervisor_id']->supervisor_id)?'':$data['supervisor_id']->supervisor_id);
      	$data['checkEmail'] = $this->users->checkEmailVerified($this->session->userdata['id_number']);
      	$renderedCount = $this->users->getSumRendered($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
      	$this->users->updateOJTStatus($this->session->userdata['id_number'], $current_ojt_program->ojt_program);

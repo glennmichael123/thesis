@@ -1308,16 +1308,16 @@
         }
         $present_add = $_POST['present_address'];
         $permanent_add = $_POST['permanent_address'];
-        $contact_num = $_POST['number'];
+        $contact_num = empty($_POST['number'])? 0: $_POST['number'];
         $email = $_POST['email'];
         //$birth = date('F d Y',strtotime($_POST['date_of_birth']));
         $birth = date('Y-m-d',strtotime($_POST['date_of_birth'])); 
         //echo $birth;exit;
         // $age = $_POST['age'];
-        $civil_stat = $_POST['civil_status'];
-        $bloodtype = $_POST['blood_type'];
-        $weight = $_POST['weight'];
-        $height = $_POST['height'];
+        $civil_stat = empty($_POST['civil_status'])?'':$_POST['civil_status'];
+        $bloodtype = empty($_POST['blood_type'])?'':$_POST['blood_type'];
+        $weight = empty($_POST['weight'])? 0:$_POST['weight'];
+        $height = empty($_POST['height'])? 0:$_POST['height'];
         $religion = $_POST['religion'];
         $citizenship = $_POST['citizenship'];
         $sex = $_POST['sex'];
@@ -1328,12 +1328,12 @@
         $mother = $_POST['mothers_name'];
         $mother_occu = $_POST['mothers_occupation'];
         $parents_add = $_POST['parents_address'];
-        $parents_contact = $_POST['tel_no'];
+        $parents_contact = empty($_POST['tel_no']) ? 0 : $_POST['tel_no'];
 
         //emergency details table
         $name = $_POST['guardian_name'];
         $relationship = $_POST['relationship_emergency'];
-        $emergency_contact = $_POST['tel_no_emergency'];
+        $emergency_contact = empty($_POST['tel_no_emergency']) ? 0 : $_POST['tel_no_emergency'];
         $emergency_add = $_POST['emergency_address']; 
 
         //company information table
@@ -1346,7 +1346,7 @@
         $classif = $_POST['classification'];
         // $current_ojt_program = $this->getOjtProgramForStud($username);
 
-        $this->db->query("INSERT INTO personal_details(id_number,first_name, middle_initial, last_name, college,course,year,present_address,permanent_address,contact_number,email_address,date_of_birth,marital_status,blood_type,weight,height,religion,citizenship,sex) VALUES('".$username."','".$fname."','".$mname."','".$lname."','".$college."','".$course."','$year','".$present_add."','".$permanent_add."',$contact_num,'".$email."','".$birth."',$age,'".$civil_stat."','".$bloodtype."',$weight,$height,'".$religion."','".$citizenship."','".$sex."')");
+        $this->db->query("INSERT INTO personal_details(id_number,first_name, middle_initial, last_name, college,course,year,present_address,permanent_address,contact_number,email_address,date_of_birth,marital_status,blood_type,weight,height,religion,citizenship,sex) VALUES('".$username."','".$fname."','".$mname."','".$lname."','".$college."','".$course."','$year','".$present_add."','".$permanent_add."',$contact_num,'".$email."','".$birth."','".$civil_stat."','".$bloodtype."',$weight,$height,'".$religion."','".$citizenship."','".$sex."')");
 
         $this->db->query("INSERT INTO family_details(id_number,fathers_name,fathers_occupation,mothers_name,mothers_occupation,parents_address,contact_number) VALUES('".$username."','".$father."','".$father_occu."','".$mother."','".$mother_occu."','".$parents_add."',$parents_contact)");
 

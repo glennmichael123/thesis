@@ -910,19 +910,19 @@
                             <form id="family-details-user">
                                 <div class="col-lg-6">
                                     <label class="labels">Father's Name:</label>
-                                      <input type="text" name="profile-father-name" value="<?php echo $familydetails->fathers_name; ?>" readonly class="family-info form-control">
+                                      <input type="text" name="profile-father-name" value="<?php echo empty($familydetails->fathers_name)?'':$familydetails->fathers_name; ?>" readonly class="family-info form-control">
                                       <label class="labels">Mother's Name:</label>
-                                      <input type="text" name="profile-mother-name" value="<?php echo $familydetails->mothers_name; ?>" readonly class="family-info form-control">
+                                      <input type="text" name="profile-mother-name" value="<?php echo empty($familydetails->mothers_name)?'':$familydetails->mothers_name; ?>" readonly class="family-info form-control">
                                       <label class="labels">Parent's Address:</label>
-                                    <input type="text" name="profile-parent-address" value="<?php echo $familydetails->parents_address; ?>" readonly class="family-info form-control">
+                                    <input type="text" name="profile-parent-address" value="<?php echo empty($familydetails->parents_address)?'':$familydetails->parents_address; ?>" readonly class="family-info form-control">
                                      <label class="labels">Landline or Mobile:</label>
-                                    <input type="text" name="profile-contact-number" value="<?php echo $familydetails->contact_number; ?>" readonly class="family-info form-control">
+                                    <input type="text" name="profile-contact-number" value="<?php echo empty($familydetails->contact_number)?'':$familydetails->contact_number; ?>" readonly class="family-info form-control">
                                 </div>
                                 <div class="col-lg-6">
                                    <label class="labels">Father's Occupation:</label>
-                                   <input type="text" name="profile-father-occupation" value="<?php echo $familydetails->fathers_occupation; ?>" readonly class="family-info form-control">
+                                   <input type="text" name="profile-father-occupation" value="<?php echo empty($familydetails->fathers_occupation) ? '':$familydetails->fathers_occupation; ?>" readonly class="family-info form-control">
                                     <label class="labels">Mother's Occupation:</label>
-                                   <input type="text" name="profile-mother-occupation" value="<?php echo $familydetails->mothers_occupation; ?>" readonly class="family-info form-control">
+                                   <input type="text" name="profile-mother-occupation" value="<?php echo empty($familydetails->mothers_occupation)?'':$familydetails->fathers_occupation; ?>" readonly class="family-info form-control">
                                 </div>
                             </form>
                         </div>
@@ -944,16 +944,16 @@
                             <form id="emergency-details-user">
                                 <div class="col-lg-6">
                                     <label class="labels">Name:</label>
-                                      <input type="text" name="profile_emergency_name" value="<?php echo $emergencyInformation->name; ?>" readonly class="emergency-info form-control">
+                                      <input type="text" name="profile_emergency_name" value="<?php echo empty($emergencyInformation->name) ? '': $emergencyInformation->name; ?>" readonly class="emergency-info form-control">
                                       <label class="labels">Contact Number:</label>
-                                      <input type="text" name="profile_contact_emergency" value="<?php echo $emergencyInformation->contact_number; ?>" readonly class="emergency-info form-control">
+                                      <input type="text" name="profile_contact_emergency" value="<?php echo empty($emergencyInformation->contact_number)?'':$emergencyInformation->contact_number; ?>" readonly class="emergency-info form-control">
                                 
                                 </div>
                                 <div class="col-lg-6">
                                    <label class="labels">Relationship:</label>
-                                   <input type="text" name="profile_relationship_emergency" value="<?php echo $emergencyInformation->relationship; ?>" readonly class="emergency-info form-control">
+                                   <input type="text" name="profile_relationship_emergency" value="<?php echo empty($emergencyInformation->relationship) ?'':$emergencyInformation->relationship; ?>" readonly class="emergency-info form-control">
                                     <label class="labels">Address:</label>
-                                   <input type="text" name="profile_emergency_address" value="<?php echo $emergencyInformation->address; ?>" readonly class="emergency-info form-control">
+                                   <input type="text" name="profile_emergency_address" value="<?php echo empty($emergencyInformation->address)?'':$emergencyInformation->address; ?>" readonly class="emergency-info form-control">
                                 </div>
                             </form>
                         </div>
