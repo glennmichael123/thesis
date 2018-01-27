@@ -1037,43 +1037,30 @@
 </script>
 
  <script type="text/javascript">
-   
     $(document).ready(function(){
-
-
-       var options = {
+    var options = {
     url: "main/getTraineeNames",
 
    getValue: function(element) {
          return element.names;
     },
-
-
     list: {
         onChooseEvent: function(element){
            var value = $('#trainee-name').getSelectedItemData().username;
-
-            // $('#trainee-username');
-
             $("#trainee-username").val(value).trigger("change");
-
-        },
-
+    },
         match: {
             enabled: true
         },
     },
-
     template: {
         type: "description",
         fields: {
             description: "type"
         }
     }
-};
+    };
     $("#trainee-name").easyAutocomplete(options);
-
-        
     });
 
 
