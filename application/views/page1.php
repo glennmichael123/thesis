@@ -299,17 +299,17 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <input type="text" name="present_address" placeholder="Present address" id="present_address" required>
+                                <input type="text" name="present_address" placeholder="Present address" id="present_address">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <input type="text" name="permanent_address" placeholder="Permanent address" id="permanent_address" required>
+                                <input type="text" name="permanent_address" placeholder="Permanent address" id="permanent_address">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="number" placeholder="Phone or landline" id="number" required>
+                                <input type="text" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="number" placeholder="Phone or landline" id="number">
                             </div>
                             <div class="col-lg-6">
                                 <input type="email" name="email" placeholder="Email address" id="email" required>
@@ -317,15 +317,10 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" placeholder="Date of birth" name="date_of_birth" id="date_of_birth" required>
+                                <input type="text" placeholder="Date of birth" name="date_of_birth" id="date_of_birth">
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" maxlength="2" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="age" placeholder="Age" id="age" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <select id="civil_status" name="civil_status" required>
+                                <select id="civil_status" name="civil_status">
                                     <option selected disabled>Status</option>
                                     <option value="Single">Single</option>
                                     <option value="Married">Married</option>
@@ -334,10 +329,14 @@
                                     <option value="Widowed">Widowed</option>
 
                                 </select>
-
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <input type="text" name="weight" placeholder="Weight in kg" id="weight">
                             </div>
                             <div class="col-lg-6">
-                                <select id="blood_type" name="blood_type" required>
+                                <select id="blood_type" name="blood_type">
                                     <option selected disabled>Blood type</option>
                                     <option value="O-">O-</option>
                                     <option value="O+">O+</option>
@@ -353,50 +352,48 @@
 
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" name="weight" placeholder="Weight in kg" id="weight" required>
+                                <input type="text" name="height" placeholder="Height in cm" id="height">
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" name="height" placeholder="Height in cm" id="height" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <select name="sex" id="sex" required>
+                                <select name="sex" id="sex">
                                     <option selected hidden value="">Sex</option>
                                     <option>Male</option>
                                     <option>Female</option>
                                 </select>
                             </div>
-                            <div class="col-lg-6">
-                                <input type="text" name="citizenship" placeholder="Citizenship" id="citizenship" required>
-                            </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" name="religion" placeholder="Religion" id="religion" required>
-                            </div>  
+                                <input type="text" name="citizenship" placeholder="Citizenship" id="citizenship">
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" name="religion" placeholder="Religion" id="religion">
+                            </div> 
+                        </div>
+                        <div class="row">
+                             
                         </div>
 
                         <h2 class="fs-title">Family Data <i class="fa fa-users" aria-hidden="true"></i></h2>
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" name="fathers_name" placeholder="Father's name" id="fathers_name" required>
+                                <input type="text" name="fathers_name" placeholder="Father's name" id="fathers_name">
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" name="fathers_occupation" placeholder="Father's occupation" id="fathers_occupation" required>
+                                <input type="text" name="fathers_occupation" placeholder="Father's occupation" id="fathers_occupation">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" name="mothers_name" placeholder="Mother's name" id="mothers_name" required>
+                                <input type="text" name="mothers_name" placeholder="Mother's name" id="mothers_name">
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" name="mothers_occupation" placeholder="Mother's occupation" id="mothers_occupation" required>
+                                <input type="text" name="mothers_occupation" placeholder="Mother's occupation" id="mothers_occupation">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <input type="text" name="parents_address" placeholder="Parent's Address" id="parents_address" required>
+                                <input type="text" name="parents_address" placeholder="Parent's Address" id="parents_address">
                             </div>
                         </div>
 
@@ -411,24 +408,24 @@
 
                         <div class="row">
                             <div class="col-lg-12">
-                                <input type="text" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="tel_no" placeholder="Landline or mobile" id="tel_no" required>
+                                <input type="text" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="tel_no" placeholder="Landline or mobile" id="tel_no">
                             </div>
                         </div>
                         <h2 class="fs-title">In case of emergency, please contact <i class="fa fa-ambulance" aria-hidden="true"></i></h2>
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" name="guardian_name" placeholder="Full name" id="guardian_name" required>
+                                <input type="text" name="guardian_name" placeholder="Full name" id="guardian_name">
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" name="relationship_emergency" placeholder="Relationship" id="relationship_emergency" required>
+                                <input type="text" name="relationship_emergency" placeholder="Relationship" id="relationship_emergency">
                             </div>
                         </div>
                         <div class="row">
                           <div class="col-lg-12">
-                            <input type="text" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="tel_no_emergency" placeholder="Landline or mobile" id="tel_no_emergency" required>
+                            <input type="text" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="tel_no_emergency" placeholder="Landline or mobile" id="tel_no_emergency">
                             </div>
                             <div class="col-lg-12">
-                              <input type="text" name="emergency_address" placeholder="Address" id="emergency_address" required>
+                              <input type="text" name="emergency_address" placeholder="Address" id="emergency_address">
                           </div>
                         </div>
                          <!-- <div class="row">
