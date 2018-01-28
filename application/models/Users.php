@@ -1358,7 +1358,7 @@
 
       public function checkExistPersonal($username){
        
-          $this->db->query("SELECT * FROM personal_details WHERE id_number = '$username'");
+          $this->db->query("SELECT * FROM company_information WHERE id_number = '$username'");
 
           if($this->db->affected_rows()>0){
             return true;

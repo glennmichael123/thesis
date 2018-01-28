@@ -32,19 +32,14 @@ class Main extends CI_Controller {
         $this->load->library('encryption');
         $this->load->library("pagination");
 
+
         	 $key = $this->encryption->create_key(8);
 		 	$this->encryption->initialize(
 		 	array('cipher' => 'aes-128', 'mode' => 'ctr', 'key' => '1234567'));
     }
      public function ojtform(){
-     	$existPersonalDetails = $this->users->checkExistPersonal($this->session->userdata['id_number']);
-     	if($existPersonalDetails){
-     		redirect('dashboard');
-     	}else{
      	$data['initial_data'] = $this->users->load_initial_data($this->session->userdata('id_number'));
      	$this->load->view('page1', $data);
-     	}
-     	
     }
      public function page2(){
     	$this->load->view('page2');
@@ -488,7 +483,7 @@ public function logout(){
      	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
      	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($this->session->userdata['id_number']);
      	$data['supervisor_id'] = $this->users->getSupervisorIdForStudent($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
-     	$data['supervisorname'] = $this->users->getSupervisorNameFull(empty($data['supervisor_id']->supervisor_id)?'':$data['supervisor_id']->supervisor_id);
+     	$data['supervisorname'] = $this->users->getSupervisorNameFull($data['supervisor_id']->supervisor_id);
      	$data['checkEmail'] = $this->users->checkEmailVerified($this->session->userdata['id_number']);
      	$renderedCount = $this->users->getSumRendered($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
      	$this->users->updateOJTStatus($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
@@ -648,8 +643,18 @@ public function logout(){
 	}
 
 	public function sendEmailAdmin($adminEmail,$adminName,$adminUser,$adminPass){
+		$config = Array(
+		    'protocol' => 'smtp',
+		    'smtp_host' => 'ssl://smtp.googlemail.com',
+		    'smtp_port' => 465,
+		    'smtp_user' => 'gtorregosa@gmail.com',
+		    'smtp_pass' => 'popot143',
+		    'mailtype'  => 'html', 
+		    'charset'   => 'iso-8859-1'
+		);
+
 			$email_body = '';
-		    $this->load->library('email');
+		    $this->load->library('email',$config);
 		    $this->email->set_newline("\r\n");
 		    $url = base_url();
 		    $email_setting  = array('mailtype'=>'html');
@@ -688,7 +693,16 @@ public function logout(){
     public function sendEmailSupervisor($supervisorEmail,$supervisorName,$supervisorUser,$supervisorPass){
 			$email_body = '';
 			$url = base_url();
-		    $this->load->library('email');
+			$config = Array(
+		    'protocol' => 'smtp',
+		    'smtp_host' => 'ssl://smtp.googlemail.com',
+		    'smtp_port' => 465,
+		    'smtp_user' => 'gtorregosa@gmail.com',
+		    'smtp_pass' => 'popot143',
+		    'mailtype'  => 'html', 
+		    'charset'   => 'iso-8859-1'
+		);
+		    $this->load->library('email',$config);
 		    $this->email->set_newline("\r\n");
 		    $url = base_url();
 		    $hash = md5($supervisorEmail);
@@ -747,6 +761,15 @@ public function logout(){
 	}
 
 	public function sendEmailR($username,$toemail){
+		$config = Array(
+		    'protocol' => 'smtp',
+		    'smtp_host' => 'ssl://smtp.googlemail.com',
+		    'smtp_port' => 465,
+		    'smtp_user' => 'gtorregosa@gmail.com',
+		    'smtp_pass' => 'popot143',
+		    'mailtype'  => 'html', 
+		    'charset'   => 'iso-8859-1'
+		);
 		// $email = 'gtorregosa@gmail.com';
 		    $config['charset']    = 'utf-8';
 		    $this->load->library('email',$config);
@@ -802,7 +825,17 @@ public function logout(){
 		$this->load->view('verifyreset');
 	}
 	public function sendEmail($hash,$email){
-	    $this->load->library('email');
+
+		$config = Array(
+		    'protocol' => 'smtp',
+		    'smtp_host' => 'ssl://smtp.googlemail.com',
+		    'smtp_port' => 465,
+		    'smtp_user' => 'gtorregosa@gmail.com',
+		    'smtp_pass' => 'popot143',
+		    'mailtype'  => 'html', 
+		    'charset'   => 'iso-8859-1'
+		);
+	    $this->load->library('email',$config);
 	    $this->email->set_newline("\r\n");
 	    $url = base_url();
 	    $email_setting  = array('mailtype'=>'html');
@@ -810,11 +843,39 @@ public function logout(){
 	    $email_body ="Please click this link to activate your account:
 					  {$url}main/verify?email=$email&hash=$hash";
 	    $this->email->from('CITUAdmin', 'Admin');
+	    $this->email->to($email);
+	    $this->email->subject('Email Verification');
+	    $this->email->message($email_body);
+	   	$this->email->send();		
+    }
+
+    public function test(){
+    	
+		$config = Array(
+		    'protocol' => 'smtp',
+		    'smtp_host' => 'ssl://smtp.googlemail.com',
+		    'smtp_port' => 465,
+		    'smtp_user' => 'gtorregosa@gmail.com',
+		    'smtp_pass' => 'popot143',
+		    'mailtype'  => 'html', 
+		    'charset'   => 'iso-8859-1'
+		);
+    	$email = 'gtorregosa@gmail.com';
+    	$hash = md5($email);
+	    $this->load->library('email',$config);
+	    $this->email->set_newline("\r\n");
+	    $url = base_url();
+	    $email_setting  = array('mailtype'=>'html');
+	    $this->email->initialize($email_setting);
+	    $email_body ="Please click this link to activate your account:
+					  {$url}main/verify?email=$email&hash=$hash";
+	    $this->email->from('gtorregosa@gmail.com', 'Admin');
 	    // $list = array($email);
 	    $this->email->to($email);
 	    $this->email->subject('Email Verification');
 	    $this->email->message($email_body);
 	   	$this->email->send();		
+	   echo $this->email->print_debugger();
     }
 
     public function saveEmail(){

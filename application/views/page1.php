@@ -473,7 +473,7 @@
                     <h2 class="fs-title">Company Information <i class="fa fa-list-alt" aria-hidden="true"></i></h2>
                         <div class="row">
                           <div class="col-lg-12">
-                            <input type="text" placeholder="Company name" id="company_name" style="width: 800%;" name="company_name" required>
+                            <input type="text" placeholder="Company name" id="company_name" style="width: 885px;" name="company_name" required>
                           </div>
                         </div>
                          <div class="row">
@@ -832,7 +832,7 @@
     })
 
     $(".first-previous").click(function(){
-        $(".py1").show();
+        $(".page1").show();
         $(".page2").hide();
     });
 
