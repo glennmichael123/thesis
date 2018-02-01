@@ -204,17 +204,13 @@
          }
 
 
-
-
         public function supervisorGetTrainee($company_name,$username){
-
           $company_name2 = $company_name[0]['company_name'];
             $query = $this->db->query("SELECT users.id_number, users.first_name, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.company_name = '$company_name2' AND supervisor_id = '' AND transitioned = '0'");
            return $query->result_array();
        }
 
 
-       
         public function getCompanyNames(){
             $query = $this->db->query("SELECT DISTINCT company_name FROM company_information ORDER BY company_name ASC");
             return $query->result_array();
@@ -860,7 +856,43 @@
                 echo "email_exist";exit;
             }
             else{
-                $this->db->query("INSERT INTO supervisor (name,company_name,designation,id_number,password,email,phone_number,hash) VALUES('$supervisorName','$supervisorComp','$supervisorDesig','$supervisorID','$supervisorPass','$supervisorEmail','$supervisorNumber','$hash')");
+                $this->db->query("INSERT INTO supervisor (name,company_name,designation,id_number,password,email,phone_number,hash) VALUES('$supervisorName','$supervisorComp','$supervisorDesig','$supervisorID','$supervisorPass','$supervisorEmail','$supervisorNumber','$hash')")
+            }
+         }
+
+         public function editSup(){
+            $id = $_POST['id'];
+            $flag = $_POST['flag'];
+            $supervisorName = $_POST['name'];
+            $supervisorComp = $_POST['company'];
+            $supervisorDesig = $_POST['designation'];
+            $supervisorID = $_POST['username'];
+            $supervisorPass = $_POST['password'];
+            $supervisorEmail = $_POST['email'];
+            $supervisorNumber = $_POST['phone_number'];
+            $hash = md5($supervisorEmail);
+            $proceed = "true";
+
+            $result = $this->db->query("SELECT * FROM supervisor WHERE id_number = '$supervisorID' AND id_number!= '$id'");
+            if($this->db->affected_rows() > 0){
+                echo "id_exist";exit;
+            }
+
+            $result = $this->db->query("SELECT * FROM supervisor WHERE name = '$supervisorName' AND id_number!= '$id'");
+            if($this->db->affected_rows() > 0){
+                echo "name_exist";exit;
+            }
+            $result = $this->db->query("SELECT * FROM supervisor WHERE email = '$supervisorEmail' AND id_number!= '$id'");
+            if($this->db->affected_rows() > 0){
+                echo "email_exist";exit;
+            }
+            else{
+              if($flag == 1){
+                $this->db->query("UPDATE supervisor SET name = '$supervisorName', company_name = '$supervisorComp', designation = '$supervisorDesig',id_number = '$supervisorID',password = '$supervisorPass',email = '$supervisorEmail',phone_number = '$supervisorNumber' WHERE id_number = '$id'");
+              }else{
+                $this->db->query("UPDATE supervisor SET name = '$supervisorName', company_name = '$supervisorComp', designation = '$supervisorDesig',id_number = '$supervisorID',password = '$supervisorPass',email = '$supervisorEmail',phone_number = '$supervisorNumber',flag = 0, verified = 0, hash = '$hash' WHERE id_number = '$id'");
+              }
+
             }
          }
 
@@ -2008,7 +2040,7 @@
       }
 
       public function getSupervisors(){
-        $query = $this->db->query("SELECT DISTINCT name, id_number, company_name, designation, flag, phone_number,email,password, verified FROM supervisor");
+        $query = $this->db->query("SELECT DISTINCT name, id_number, company_name, designation, flag, phone_number,email,password,verified FROM supervisor");
         return $query->result_array();
       }
 

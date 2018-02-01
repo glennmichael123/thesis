@@ -38,8 +38,13 @@ class Main extends CI_Controller {
 		 	array('cipher' => 'aes-128', 'mode' => 'ctr', 'key' => '1234567'));
     }
      public function ojtform(){
+     	$existPersonalDetails = $this->users->checkExistPersonal($this->session->userdata['id_number']);
+     	if($existPersonalDetails){
+     		redirect('dashboard');
+     	}else{
      	$data['initial_data'] = $this->users->load_initial_data($this->session->userdata('id_number'));
      	$this->load->view('page1', $data);
+     	}
     }
      public function page2(){
     	$this->load->view('page2');
@@ -434,6 +439,7 @@ public function logout(){
 	     		}else{
 	     			$data['courses_for_graph'] = $this->users->getCoursesList($this->session->userdata('id_number'), 'ojt_one');
 	     			$data['courses_count'] = $this->users->getCoursesCount($this->session->userdata('id_number'), 'ojt_one');
+	     			
 				 	// $data['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
 				 	$data['company_list'] = $this->users->getCompanyNames();
 				 	$data['first_name'] = $this->users->getAdminFirstName($this->session->userdata['id_number']);
@@ -482,7 +488,7 @@ public function logout(){
      	$totalLogsVerifiedCount = $this->users->getNumberLogsVerified($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
      	$data['numberAnnouncements'] = $this->users->getNumberUnreadAnnouncements($this->session->userdata['id_number']);
      	$data['supervisor_id'] = $this->users->getSupervisorIdForStudent($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
-     	$data['supervisorname'] = $this->users->getSupervisorNameFull($data['supervisor_id']->supervisor_id);
+     	$data['supervisorname'] = $this->users->getSupervisorNameFull(empty($data['supervisor_id']->supervisor_id)?'':$data['supervisor_id']->supervisor_id);
      	$data['checkEmail'] = $this->users->checkEmailVerified($this->session->userdata['id_number']);
      	$renderedCount = $this->users->getSumRendered($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
      	$this->users->updateOJTStatus($this->session->userdata['id_number'], $current_ojt_program->ojt_program);
@@ -647,7 +653,7 @@ public function logout(){
 		    'smtp_host' => 'ssl://smtp.googlemail.com',
 		    'smtp_port' => 465,
 		    'smtp_user' => 'gtorregosa@gmail.com',
-		    'smtp_pass' => 'popot143',
+		    'smtp_pass' => 'knightsky',
 		    'mailtype'  => 'html', 
 		    'charset'   => 'iso-8859-1'
 		);
@@ -688,14 +694,6 @@ public function logout(){
 		
 	}
 
-	public function editSupervisor(){
-		$this->users->editSup();
-	}
-	
-	// public function test(){
-	// 	$this->users->editSup();
-
-	// }
 
     public function sendEmailSupervisor($supervisorEmail,$supervisorName,$supervisorUser,$supervisorPass){
 			$email_body = '';
@@ -705,7 +703,7 @@ public function logout(){
 		    'smtp_host' => 'ssl://smtp.googlemail.com',
 		    'smtp_port' => 465,
 		    'smtp_user' => 'gtorregosa@gmail.com',
-		    'smtp_pass' => 'popot143',
+		    'smtp_pass' => 'knightsky',
 		    'mailtype'  => 'html', 
 		    'charset'   => 'iso-8859-1'
 		);
@@ -773,7 +771,7 @@ public function logout(){
 		    'smtp_host' => 'ssl://smtp.googlemail.com',
 		    'smtp_port' => 465,
 		    'smtp_user' => 'gtorregosa@gmail.com',
-		    'smtp_pass' => 'popot143',
+		    'smtp_pass' => 'knightsky',
 		    'mailtype'  => 'html', 
 		    'charset'   => 'iso-8859-1'
 		);
@@ -838,7 +836,7 @@ public function logout(){
 		    'smtp_host' => 'ssl://smtp.googlemail.com',
 		    'smtp_port' => 465,
 		    'smtp_user' => 'gtorregosa@gmail.com',
-		    'smtp_pass' => 'popot143',
+		    'smtp_pass' => 'knightsky',
 		    'mailtype'  => 'html', 
 		    'charset'   => 'iso-8859-1'
 		);
@@ -863,7 +861,7 @@ public function logout(){
 		    'smtp_host' => 'ssl://smtp.googlemail.com',
 		    'smtp_port' => 465,
 		    'smtp_user' => 'gtorregosa@gmail.com',
-		    'smtp_pass' => 'popot143',
+		    'smtp_pass' => 'knightsky',
 		    'mailtype'  => 'html', 
 		    'charset'   => 'iso-8859-1'
 		);
@@ -1166,8 +1164,7 @@ public function logout(){
      public function loadSupervisorTable(){
      	$data['supervisor_list'] = $this->users->getSupervisors();
      	$data['trainees'] = $this->users->getTrainees();
-     	// $data['company_list'] = $this->users->getCompanyNames();
-     	$html .= $this->load->view("supervisors_table",$data,TRUE);
+     	$html = $this->load->view("supervisors_table",$data,TRUE);
      	echo $html;
      }
 

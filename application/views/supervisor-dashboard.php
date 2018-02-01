@@ -1040,13 +1040,12 @@
     $(document).ready(function(){
     var options = {
     url: "main/getTraineeNames",
-
-   getValue: function(element) {
+    getValue: function(element) {
          return element.names;
     },
     list: {
         onChooseEvent: function(element){
-           var value = $('#trainee-name').getSelectedItemData().username;
+            var value = $('#trainee-name').getSelectedItemData().username;
             $("#trainee-username").val(value).trigger("change");
     },
         match: {
@@ -1062,7 +1061,6 @@
     };
     $("#trainee-name").easyAutocomplete(options);
     });
-
 
  </script>
 

@@ -52,6 +52,11 @@ class Main extends CI_Controller {
      public function page3(){
     	$this->load->view('page3');
     }
+
+    public function editSupervisor(){
+            $this->users->editSup();
+
+    }
     public function incorrectpassword(){
     	$this->load->view('incorrectpassword');
     }
@@ -648,8 +653,18 @@ public function logout(){
 	}
 
 	public function sendEmailAdmin($adminEmail,$adminName,$adminUser,$adminPass){
+		$config = Array(
+		    'protocol' => 'smtp',
+		    'smtp_host' => 'ssl://smtp.googlemail.com',
+		    'smtp_port' => 465,
+		    'smtp_user' => 'gtorregosa@gmail.com',
+		    'smtp_pass' => 'knightsky',
+		    'mailtype'  => 'html', 
+		    'charset'   => 'iso-8859-1'
+		);
+
 			$email_body = '';
-		    $this->load->library('email');
+		    $this->load->library('email',$config);
 		    $this->email->set_newline("\r\n");
 		    $url = base_url();
 		    $email_setting  = array('mailtype'=>'html');
@@ -665,7 +680,6 @@ public function logout(){
 		    $this->email->message($email_body);
 		   	$this->email->send();		
     }
-
 	public function adminAddSupervisor(){
 		$supervisorEmail = $_POST['supEmail'];
 		$supervisorName = $_POST['supName'];
@@ -676,9 +690,11 @@ public function logout(){
 		$send_email = $this->sendEmailSupervisor($supervisorEmail,$supervisorName,$supervisorUser,$supervisorPass);
 		if($send_email){
 			$success = 1;
+            echo "sent";
 			$this->users->updateFlagSupervisor($supervisorUser,$success);
 		}else{
 			$success = 0;
+            echo "not_sent";
 			$this->users->updateFlagSupervisor($supervisorUser,$success);
 		}
 		
@@ -688,7 +704,16 @@ public function logout(){
     public function sendEmailSupervisor($supervisorEmail,$supervisorName,$supervisorUser,$supervisorPass){
 			$email_body = '';
 			$url = base_url();
-		    $this->load->library('email');
+			$config = Array(
+		    'protocol' => 'smtp',
+		    'smtp_host' => 'ssl://smtp.googlemail.com',
+		    'smtp_port' => 465,
+		    'smtp_user' => 'gtorregosa@gmail.com',
+		    'smtp_pass' => 'knightsky',
+		    'mailtype'  => 'html', 
+		    'charset'   => 'iso-8859-1'
+		);
+		    $this->load->library('email',$config);
 		    $this->email->set_newline("\r\n");
 		    $url = base_url();
 		    $hash = md5($supervisorEmail);
@@ -747,6 +772,15 @@ public function logout(){
 	}
 
 	public function sendEmailR($username,$toemail){
+		$config = Array(
+		    'protocol' => 'smtp',
+		    'smtp_host' => 'ssl://smtp.googlemail.com',
+		    'smtp_port' => 465,
+		    'smtp_user' => 'gtorregosa@gmail.com',
+		    'smtp_pass' => 'knightsky',
+		    'mailtype'  => 'html', 
+		    'charset'   => 'iso-8859-1'
+		);
 		// $email = 'gtorregosa@gmail.com';
 		    $config['charset']    = 'utf-8';
 		    $this->load->library('email',$config);
@@ -761,7 +795,6 @@ public function logout(){
 		    $this->email->subject('Email Verification');
 		    $this->email->message($email_body);
 		   	$this->email->send();
-
 		
 	}
 
@@ -802,7 +835,16 @@ public function logout(){
 		$this->load->view('verifyreset');
 	}
 	public function sendEmail($hash,$email){
-	    $this->load->library('email');
+	    $config = Array(
+		    'protocol' => 'smtp',
+		    'smtp_host' => 'ssl://smtp.googlemail.com',
+		    'smtp_port' => 465,
+		    'smtp_user' => 'gtorregosa@gmail.com',
+		    'smtp_pass' => 'knightsky',
+		    'mailtype'  => 'html', 
+		    'charset'   => 'iso-8859-1'
+		);
+	    $this->load->library('email',$config);
 	    $this->email->set_newline("\r\n");
 	    $url = base_url();
 	    $email_setting  = array('mailtype'=>'html');
@@ -810,7 +852,6 @@ public function logout(){
 	    $email_body ="Please click this link to activate your account:
 					  {$url}main/verify?email=$email&hash=$hash";
 	    $this->email->from('CITUAdmin', 'Admin');
-	    // $list = array($email);
 	    $this->email->to($email);
 	    $this->email->subject('Email Verification');
 	    $this->email->message($email_body);
@@ -1098,6 +1139,7 @@ public function logout(){
      public function loadSupervisorTable(){
      	$data['supervisor_list'] = $this->users->getSupervisors();
      	$data['trainees'] = $this->users->getTrainees();
+        $data['company_list'] = $this->users->getCompanyNames();
      	$html = $this->load->view("supervisors_table",$data,TRUE);
      	echo $html;
      }

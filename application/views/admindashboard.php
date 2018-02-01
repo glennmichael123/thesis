@@ -1610,7 +1610,7 @@ tr:hover{
         }else{
           sending.removeClass("hide");
           $.ajax({
-            url: "adminAddSupervisor",
+            url: "<?php echo base_url()?>/"+"adminAddSupervisor",
             type: "POST",
             data: {
               'supName':name,
@@ -1632,17 +1632,28 @@ tr:hover{
                   return false;
               }else if($.trim(data) == "email_exist"){
                   swal('Oops...','Email already exist','error');
-                    sending.addClass("hide");
+                  sending.addClass("hide");
                   return false;
               }else{
                 sending.addClass("hide");
-                swal({
+                console.log($.trim(data));
+                if($.trim(data) == "sent"){
+                  swal({
                     title: "Success!",
-                    text: "Supervisor added successfully",
+                    text: "Supervisor added successfully | Email sent",
                     icon: "success",
                   }).then(function () {
                     location.reload();
                   });
+                }else if($.trim(data) == "not_sent"){
+                  swal({
+                    title: "Success!",
+                    text: "Supervisor added successfully | Email not sent",
+                    icon: "success",
+                  }).then(function () {
+                    location.reload();
+                  });
+                }
               }
             },
           });
