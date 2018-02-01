@@ -52,6 +52,11 @@ class Main extends CI_Controller {
      public function page3(){
     	$this->load->view('page3');
     }
+
+    public function editSupervisor(){
+            $this->users->editSup();
+
+    }
     public function incorrectpassword(){
     	$this->load->view('incorrectpassword');
     }
@@ -676,9 +681,11 @@ public function logout(){
 		$send_email = $this->sendEmailSupervisor($supervisorEmail,$supervisorName,$supervisorUser,$supervisorPass);
 		if($send_email){
 			$success = 1;
+            echo "sent";
 			$this->users->updateFlagSupervisor($supervisorUser,$success);
 		}else{
 			$success = 0;
+            echo "not_sent";
 			$this->users->updateFlagSupervisor($supervisorUser,$success);
 		}
 		
@@ -1098,6 +1105,7 @@ public function logout(){
      public function loadSupervisorTable(){
      	$data['supervisor_list'] = $this->users->getSupervisors();
      	$data['trainees'] = $this->users->getTrainees();
+        $data['company_list'] = $this->users->getCompanyNames();
      	$html = $this->load->view("supervisors_table",$data,TRUE);
      	echo $html;
      }

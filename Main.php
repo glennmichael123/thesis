@@ -434,7 +434,6 @@ public function logout(){
 	     		}else{
 	     			$data['courses_for_graph'] = $this->users->getCoursesList($this->session->userdata('id_number'), 'ojt_one');
 	     			$data['courses_count'] = $this->users->getCoursesCount($this->session->userdata('id_number'), 'ojt_one');
-	     			
 				 	// $data['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
 				 	$data['company_list'] = $this->users->getCompanyNames();
 				 	$data['first_name'] = $this->users->getAdminFirstName($this->session->userdata['id_number']);
@@ -689,6 +688,14 @@ public function logout(){
 		
 	}
 
+	public function editSupervisor(){
+		$this->users->editSup();
+	}
+	
+	// public function test(){
+	// 	$this->users->editSup();
+
+	// }
 
     public function sendEmailSupervisor($supervisorEmail,$supervisorName,$supervisorUser,$supervisorPass){
 			$email_body = '';
@@ -1159,7 +1166,8 @@ public function logout(){
      public function loadSupervisorTable(){
      	$data['supervisor_list'] = $this->users->getSupervisors();
      	$data['trainees'] = $this->users->getTrainees();
-     	$html = $this->load->view("supervisors_table",$data,TRUE);
+     	// $data['company_list'] = $this->users->getCompanyNames();
+     	$html .= $this->load->view("supervisors_table",$data,TRUE);
      	echo $html;
      }
 

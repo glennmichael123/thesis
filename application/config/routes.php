@@ -113,6 +113,7 @@ $route['loadAdminStudentFilters']  = 'main/loadAdminStudentFilters';
 $route['loadSupervisorFilters']  = 'main/loadSupervisorFilters';
 $route['retrySendEmail']  = 'main/retrySendEmail';
 $route['loadCompaniesTable']  = 'main/loadCompaniesTable';
+$route['editSupervisor']  = 'main/editSupervisor';
 
 
 

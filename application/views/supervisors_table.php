@@ -11,6 +11,7 @@
                     <th>Company</th>
                     <th>Contact no.</th>
                     <th>Trainees</th>
+                    <th></th>
                 </tr>
             </thead>
           </table>
@@ -25,6 +26,7 @@
                             <th>Company</th>
                             <th>Contact no.</th>
                             <th>Trainees</th>
+                            <th></th>
                         </tr>
                     </thead>
 
@@ -37,7 +39,7 @@
                                 <a class="resendEmail" href="#" style="float: right;" data-email="<?php echo $supervisor['email'];?>" data-id-number="<?php echo $supervisor['id_number'];?>" data-name="<?php echo $supervisor['name'];?>" data-password="<?php echo $supervisor['password'];?>" title="Retry sending email"><i class="fa fa-envelope" style="color: red;"></i></a>
                               <?php else: ?>
                                   <?php if($supervisor['verified']): ?>
-                                  <i class="fa fa-check" style="color: green;"></i>
+                                  <i class="fa fa-check" style="color: green;float: right;" title="Verified"></i>
                                 <?php endif; ?>
                               <?php endif;?>
                             </td>
@@ -53,6 +55,7 @@
                                 <?php endif;?>
                               <?php endforeach;?>
                             </td>
+                            <td style="text-align: center"><a href="" data-toggle="modal" data-target="<?php echo '#'.preg_replace("/[^A-Za-z0-9 ]/", '', $supervisor['id_number'])?>"><i class="fa fa-pencil"></i></a></td>
                           </tr>
                       <?php endforeach;?>
                   </tbody>
@@ -63,6 +66,144 @@
      </div>
   </div>
 
+
+<?php foreach ($supervisor_list as $supervisor):?>
+<div class="modal fade" id="<?php echo preg_replace("/[^A-Za-z0-9 ]/", '',$supervisor['id_number'])?>" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  
+  <div class="modal-dialog">
+    <div class="modal-content modalContent">
+        <div class="modal-header modalHeader">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h3 class="modal-title" id="lineModalLabel" style="color:white;">Edit supervisor</h3>
+        </div>
+        <div class="modal-body">
+            
+            <!-- content goes here -->
+            <form>
+              <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control capitalize suppName" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="edit-supName" name="edit-supName" value="<?php echo $supervisor['name']?>">
+                    <label>Company</label> <span style="float:right;text-decoration: italic"><a href="#" class="edit-new-company">New</a></span>
+                    <input type="text" class="form-control editNew_company suppCompany" style="border-radius: 5px;margin-bottom: 10px; width: 100%; display:none" id="editNew_company" name="editNew_company">
+                    <select class="form-control edit-company_list_choice2" style="border-radius:5px;margin-bottom:10px" id="dropCompany" name="dropCompany">
+                         <option selected><?php echo $supervisor['company_name']?></option>
+                         <?php foreach($company_list as $company):?>  
+                           <option value="<?php echo $company['company_name']?>"><?php echo $company['company_name']?></option>
+                        <?php endforeach;?>  
+                    </select>
+
+                    <label>Designation</label>
+                    <input type="text" class="form-control capitalize suppDesig" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="edit-supDesig" name="edit-supDesig" value="<?php echo $supervisor['designation']?>">
+                    <label>Username</label>
+                    <input type="text" class="form-control suppId" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="edit-supID" name="edit-supID" value="<?php echo $supervisor['id_number']?>">
+                    <input type="hidden" class="hiddenId" value="<?php echo $supervisor['id_number']?>">
+                    <label>Password</label>
+                    <input type="text" class="form-control suppPass" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="edit-supPass" name="edit-supPass" value="<?php echo $supervisor['password']?>">
+                    <label>Email</label>
+                    <input type="text" class="form-control suppEmail" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="edit-supEmail" name="edit-supEmail" value="<?php echo $supervisor['email']?>">
+                    <input type="hidden" class="hiddenEmail" value="<?php echo $supervisor['email']?>">
+                    <label>Phone Number</label>
+                    <input type="text" class="form-control suppNumber" onkeypress='return event.charCode >= 48 && event.charCode <= 57' style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="edit-supNumber" name="edit-supNumber" value="<?php echo $supervisor['phone_number']?>">
+                    <p class="blink_me hide" style="text-align: center">Sending email ... </p> 
+                </div>
+            </form>
+
+        </div>
+        <div class="modal-footer">
+            <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                <div class="btn-group" role="group">
+                     <button type="button" class="btn btn-success btn-hover-green editsup" data-action="save" role="button" style="width: 270px;border-radius: 5px" id="editsup">Save</button>
+                </div>
+                <div class="btn-group" role="group">
+                   
+                    <button type="button" class="btn btn-danger cancel" data-dismiss="modal" role="button" style="width: 270px;border-radius: 5px; float: right">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+<?php endforeach;?>
+
+<script type="text/javascript">
+  String.prototype.capitalize = function() {
+    return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+  };
+
+    $(document).on('click','.editsup',function(e){
+        var cancel = $(this).closest('.modal').find('.cancel');
+        var id = $(this).closest('.modal').find('.hiddenId').val();
+        var currentEmail = $(this).closest('.modal').find('.hiddenEmail').val().trim();
+        var name = $(this).closest('.modal').find('.suppName').val().capitalize().trim();
+        var n = $(this).closest('.modal').find('.edit-new-company').html();
+        if(n == 'New'){
+          var company = $(this).closest('.modal').find('.edit-company_list_choice2').val();
+        }else{
+          var company = $(this).closest('.modal').find('.suppCompany').val().trim()
+        }
+        var designation = $(this).closest('.modal').find('.suppDesig').val().trim();
+        var username = $(this).closest('.modal').find('.suppId').val().trim();
+        var password = $(this).closest('.modal').find('.suppPass').val().trim();
+        var email = $(this).closest('.modal').find('.suppEmail').val().trim();
+        var phone_number = $(this).closest('.modal').find('.suppNumber').val().trim();
+        if(currentEmail != email){
+          var flag = 0;
+        }else{
+          flag = 1;
+        }
+        $.ajax({
+          url:"<?php echo base_url('editSupervisor')?>",
+          type:'POST',
+          data:{
+            'id':id,
+            'name':name,
+            'company':company,
+            'designation':designation,
+            'username':username,
+            'password':password,
+            'email':email,
+            'phone_number':phone_number,
+            'flag':flag,
+          },
+          success:function(data){
+            if($.trim(data) == "name_exist"){
+                swal('Oops...','Name already exist','error');
+                return false;
+            }else if($.trim(data) == "id_exist"){
+                swal('Oops...','Username already exist','error');
+                return false;
+            }else if($.trim(data) == "email_exist"){
+                swal('Oops...','Email already exist','error');
+                return false;
+            }else{
+              swal({
+                  title: "Edit success",
+                  icon: "success",
+                }).then(function () {
+                  $(".cancel").trigger("click");
+                  $("#toSupervisorsTable").trigger("click");
+                });
+            }
+          }
+        });
+    });
+</script>
+
+<script type="text/javascript">
+  $('.edit-new-company').click(function(e){
+      e.preventDefault();
+      $('.edit-company_list_choice2').toggle();//class
+      $('.editNew_company').toggle();//
+      var n = $('.edit-new-company').html();
+ 
+      if(n == 'New'){
+         $('.edit-new-company').html('Cancel');
+      
+      }else{
+        $('.edit-new-company').html('New');
+      }
+  });
+</script>
 
 <script type="text/javascript">
 
@@ -94,9 +235,7 @@
             });
           }else
               swal('Oops...','Email not sent','error');
-          
           }
-        
       });
   });
 </script>
@@ -105,7 +244,7 @@
   var table = $('#supervisorDataTable').DataTable({
      "bProcessing": true,
       "order": [1, 'asc'],
-      "columns": [{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false }],
+      "columns": [{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false }],
     });
 </script>
 

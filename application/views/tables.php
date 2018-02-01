@@ -80,7 +80,7 @@
      "bProcessing": true,
       "order": [1, 'asc'],
       "columns": [{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false }],
-    });
+  });
 </script>
 
 <script type="text/javascript">
