@@ -856,7 +856,7 @@
                 echo "email_exist";exit;
             }
             else{
-                $this->db->query("INSERT INTO supervisor (name,company_name,designation,id_number,password,email,phone_number,hash) VALUES('$supervisorName','$supervisorComp','$supervisorDesig','$supervisorID','$supervisorPass','$supervisorEmail','$supervisorNumber','$hash')")
+                $this->db->query("INSERT INTO supervisor (name,company_name,designation,id_number,password,email,phone_number,hash) VALUES('$supervisorName','$supervisorComp','$supervisorDesig','$supervisorID','$supervisorPass','$supervisorEmail','$supervisorNumber','$hash')");
             }
          }
 

@@ -111,7 +111,9 @@
     width:280px;
 
 }
-
+.redBorder{
+        border-bottom: 1px solid red !important;
+      }
 .dropdown ul.dropdown-menu:before {
     content: "";
     border-bottom: 10px solid #fff;
@@ -197,7 +199,12 @@ li.notification-title{
   border-bottom-right-radius: 50% 50%;
   border-bottom-left-radius: 50% 50%;
 }
-
+.my-error-class {
+    color:red;
+}
+.my-valid-class {
+    color:green;
+}
 .dashboard-search{
     background: #fff;
 }
@@ -688,13 +695,13 @@ tr:hover{
         <div class="modal-body">
             
             <!-- content goes here -->
-            <form>
+            <form id="formsupervisor">
               <div class="form-group">
                     <label>Name</label>
-                    <input type="text" class="form-control capitalize" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supName" name="supName">
+                    <input type="text" class="form-control capitalize required" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supName" name="supName" required>
                     <label>Company</label> <span style="float:right;text-decoration: italic"><a href="#" class="new-company">New</a></span>
-                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%; display:none" id="new_company" name="new_company">
-                    <select class="form-control company_list_choice2" style="border-radius:5px;margin-bottom:10px" id="dropCompany" name="dropCompany">
+                    <input type="text" class="form-control required" style="border-radius: 5px;margin-bottom: 10px; width: 100%; display:none" id="new_company" name="new_company" required>
+                    <select class="form-control company_list_choice2 required" style="border-radius:5px;margin-bottom:10px" id="dropCompany" name="dropCompany" required>
                                   <option selected disabled>Select company</option>
                          <?php foreach($company_list as $company):?>  
                            <option value="<?php echo $company['company_name']?>"><?php echo $company['company_name']?></option>
@@ -702,16 +709,16 @@ tr:hover{
                                   
                     </select>
                     <label>Designation</label>
-                    <input type="text" class="form-control capitalize" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supDesig" name="supDesig">
+                    <input type="text" class="form-control capitalize required" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supDesig" name="supDesig" required>
                     <label>Username</label>
-                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supID" name="supID">
+                    <input type="text" class="form-control required" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supID" name="supID" required>
                     <label>Password</label>
-                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supPass" name="supPass">
+                    <input type="text" class="form-control required" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supPass" name="supPass" required>
                     <label>Email</label>
-                    <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supEmail" name="supEmail">
+                    <input type="text" class="form-control required" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supEmail" name="supEmail" required>
                     
                     <label>Phone Number</label>
-                    <input type="text" class="form-control" onkeypress='return event.charCode >= 48 && event.charCode <= 57' style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supNumber" name="supNumber">
+                    <input type="text" class="form-control required" onkeypress='return event.charCode >= 48 && event.charCode <= 57' style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supNumber" name="supNumber" required>
                     <p class="blink_me hide" style="text-align: center">Sending email ... </p> 
                 </div>
             </form>
@@ -745,15 +752,15 @@ tr:hover{
         <div class="modal-body">
               <div class="tab-pane active addIndiv" style="display: inline;" id="addStudent" role="tabpanel">
                     <label>First Name</label>
-                    <input type="text" class="form-control capitalize" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studFirst" name="studFirst">
+                    <input type="text" class="form-control capitalize required" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studFirst" name="studFirst">
                     <label>Middle Initial</label>
-                    <input type="text" class="form-control capitalize" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studMid" name="studMid" maxlength="1">
+                    <input type="text" class="form-control capitalize required" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studMid" name="studMid" maxlength="1">
                     <label>Last Name</label>
-                    <input type="text" class="form-control capitalize" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studLast" name="studLast">
+                    <input type="text" class="form-control capitalize required" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studLast" name="studLast">
                     <label>Course <small style="color:gray; font-size: 9px">(Acronym e.g. BSIT)</small></label>
-                    <input type="text" class="form-control uppercase" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studCourse" name="studCourse">
+                    <input type="text" class="form-control uppercase required" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="studCourse" name="studCourse">
                     <label>Year</label>
-                    <select id="studYear" name="studYear" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 100%">
+                    <select id="studYear" name="studYear" class="form-control required" style="border-radius: 5px;margin-bottom: 10px; width: 100%">
                       <option>1</option>
                       <option>2</option>
                       <option>3</option>
@@ -772,12 +779,12 @@ tr:hover{
                             <div class="row">
                               <div class="col-lg-5" style="padding-right: 0"> 
                                 <label style="font-size: 10px;">Required hours</label>
-                                <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 90%" id="studojt" name="studojt" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                <input type="text" class="form-control required" style="border-radius: 5px;margin-bottom: 10px; width: 90%" id="studojt" name="studojt" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                               </div>
                               <div class="col-lg-6" style="padding-left: 3px">
                                 <label style="font-size: 10px;">OJT Program</label>                    
                             
-                                <select required style="border-radius: 5px;margin-bottom: 10px; width: 90%" class="form-control" id="studprogram" name="studprogram">
+                                <select required style="border-radius: 5px;margin-bottom: 10px; width: 90%" class="form-control required" id="studprogram" name="studprogram">
                                     <option selected disabled>Program</option>
                                     <option value="ojt_one">OJT 1</option>
                                     <option value="ojt_two">OJT 2</option>
@@ -792,12 +799,12 @@ tr:hover{
                             <div class="row">
                               <div class="col-lg-5" style="padding-right: 0"> 
                                 <!-- <label style="font-size: 10px;color: white">Since</label> -->
-                                <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 90%" id="sy_1" name="sy_1" maxlength="4" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                <input type="text" class="form-control required" style="border-radius: 5px;margin-bottom: 10px; width: 90%" id="sy_1" name="sy_1" maxlength="4" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
 
                               </div>
                               <div class="col-lg-5" style="padding-left: 3px">
                                 <!-- <label style="font-size: 10px;color: white">Year</label>                     -->
-                                <input type="text" class="form-control" style="border-radius: 5px;margin-bottom: 10px; width: 90%" id="sy_2" name="sy_2" maxlength="4" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                <input type="text" class="form-control required" style="border-radius: 5px;margin-bottom: 10px; width: 90%" id="sy_2" name="sy_2" maxlength="4" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                               </div>
                             </div>
                           </div>
@@ -1524,6 +1531,17 @@ tr:hover{
 
     if(first == "" || mid == "" || last == "" || course=="" || sy_1=="" || sy_2=="" || required_hours == "" || !ojt_program){
         swal('Oops...','Please fill all fields','error');
+         $(".required").each(function() {
+            if ($(this).val() === "") {
+            $(this).css('border-color', 'red');
+            
+           }
+           else{
+            $(this).css('border-color', '');
+           }
+
+    });
+
     }else{
       $.ajax({
         url: "addStudent",
@@ -1592,22 +1610,44 @@ tr:hover{
   };
 
   $('#addSup').click(function(e){
+
         var n = $('.new-company').html();
         var name = $('#supName').val().capitalize().trim();
+
         if(n == 'New'){
           var compName = $('#dropCompany').val();
         }else{
           var compName = $('#new_company').val().trim();
         }
+
         var desig = $('#supDesig').val().capitalize().trim();
         var id = $('#supID').val().trim();
         var pass = $('#supPass').val().trim();
         var email = $('#supEmail').val().trim();
         var number = $('#supNumber').val().trim();
         var sending = $('.blink_me');
-        if(name.length == 0 || compName == null || desig.length == 0 || id.length == 0 || pass.length == 0 || email.length == 0){
-          alert("Please fill all fields");return false;
-        }else{
+        var fail = false;
+         var fail_log = '';
+        if(name.length == 0 || compName == null || compName==0 || desig.length == 0 || id.length == 0 || pass.length == 0 || email.length == 0){//existing condition ni pete
+
+              
+              swal('Oops...','Please fill all fields','error');
+                $(".required").each(function() {
+            if ($(this).val() === "") {
+            $(this).css('border-color', 'red');
+            
+           }
+           else{
+            $(this).css('border-color', '');
+           }
+
+    });
+      // alert("Fields required");
+          
+        }
+      
+
+        else{
           sending.removeClass("hide");
           $.ajax({
             url: "<?php echo base_url()?>/"+"adminAddSupervisor",
