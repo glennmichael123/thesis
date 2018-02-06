@@ -37,6 +37,7 @@
                             <td><?php echo $supervisor['name'];?>
                               <?php if (!$supervisor['flag']):?>
                                 <a class="resendEmail" href="#" style="float: right;" data-email="<?php echo $supervisor['email'];?>" data-id-number="<?php echo $supervisor['id_number'];?>" data-name="<?php echo $supervisor['name'];?>" data-password="<?php echo $supervisor['password'];?>" title="Retry sending email"><i class="fa fa-envelope" style="color: red;"></i></a>
+                                <i class="fa fa-circle-o-notch fa-spin hiddenLoading loader" style="font-size:15px;float:right;"></i>
                               <?php else: ?>
                                   <?php if($supervisor['verified']): ?>
                                   <i class="fa fa-check" style="color: green;float: right;" title="Verified"></i>
@@ -214,7 +215,10 @@
       var username=$(this).data('id-number');
       var name=$(this).data('name');
       var password=$(this).data('password');
-
+      var loading = $(this).closest('.dashTable').find('.loader');
+      var envelope = $(this).closest('.dashTable').find('.fa-envelope');
+      loading.removeClass('hiddenLoading');
+      envelope.hide();
       $.ajax({
         url:"retrySendEmail",
         type: "POST",
@@ -231,10 +235,13 @@
               text: "Email sent successfully",
               icon: "success",
             }).then(function(){
-              location.reload();
+              $("#toSupervisorsTable").trigger("click");
+              // location.reload();
             });
           }else
               swal('Oops...','Email not sent','error');
+              loading.addClass('hiddenLoading');
+              envelope.show();
           }
       });
   });

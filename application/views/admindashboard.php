@@ -338,7 +338,9 @@ tr:hover{
 .dispWatch:hover{
 	color: #ffba00 !important;
 }
-
+.hiddenLoading{
+  display: none;
+}
 </style>
 
     <title>OJT Automate</title>
