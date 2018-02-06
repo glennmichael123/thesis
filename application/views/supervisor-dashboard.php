@@ -375,13 +375,15 @@
                     <div class="col-lg-5">
 
                     </div>
-                    <div class="col-lg-1">
-                        <h5 style="position: relative; top: 20px;">Hi, <?php echo $supervisorName; ?></h5>
+                    <div class="col-lg-2">
+                        <h5 style="position: relative; top: 20px;font-weight: bold;float: right;">Hi, <?php echo $supervisorName; ?><br>
+                            <span style="font-size:13px;font-weight: normal;">Supervisor</span>
+                        </h5>
                     </div>
 
-                    <div class="col-lg-1">
+                    <!-- <div class="col-lg-1">
                         <h5 style="position: relative; top: 20px;">Supervisor</h5>
-                    </div>
+                    </div> -->
                     <div class="col-lg-1">
 
                         <ul class="nav navbar-nav">

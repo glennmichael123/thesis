@@ -673,14 +673,16 @@ header h1 {
                     <?php endif;?>
                     </section>
               </div>
-              <div class="col-lg-1">
+              <div class="col-lg-2">
                  <?php if(isset($id_number)):?>
                  <?php else: ?>
-                   <h5 style="position: relative; top: 15px;">Hi, <?php echo $ojtFirstName;?></h5>
+                   <h5 style="position: relative; top: 15px;font-weight: bold;float: right;">Hi, <?php echo $ojtFirstName;?><br>
+                    <span style="font-size:13px;font-weight: normal;">Trainee</span>
+                  </h5>
                  <?php endif; ?>
               </div>
 
-              <div class="col-lg-1">
+              <div>
                  <?php if(isset($id_number)):?>
                  <?php else: ?>
                         <?php
@@ -691,7 +693,7 @@ header h1 {
                                $program = 'OJT 2';
                             }
                           ?>
-                   <h5 style="position: relative; top: 15px;">Trainee</h5>
+                   <!-- <h5 style="position: relative; top: 15px;">Trainee</h5> -->
                  <?php endif; ?>
               </div>
 

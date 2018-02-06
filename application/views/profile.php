@@ -719,10 +719,11 @@
                     </section>
                     <?php endif;?>
                     </div>
-                    <div class="col-lg-1">
-                        <div style="margin-top: 20px;  font-size: 15px;">Hi, <?php echo  $ojtFirstName ?></div>
+                    <div class="col-lg-2">
+                        <h5 style="position: relative; top: 15px;font-weight: bold;float: right;">Hi, <?php echo $ojtFirstName;?><br>
+                        <span style="font-size:13px;font-weight: normal;">Trainee</span>
                     </div>
-                    <div class="col-lg-1">
+                    <div>
                        <?php
                           $program = '';
                             if($user_data[0]['ojt_program'] == 'ojt_one'){
@@ -731,7 +732,7 @@
                                $program = 'OJT 2';
                             }
                           ?>
-                   <h5 style="position: absolute; top: 24px;">Trainee</h5>
+                   <!-- <h5 style="position: absolute; top: 24px;">Trainee</h5> -->
                     </div>
                     <div class="col-lg-1 col-sm-1">
                         <?php if(isset($id_number)):?>

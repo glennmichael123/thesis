@@ -9,7 +9,7 @@
                     <th>Name</th>
                     <th>Designation</th>
                     <th>Company</th>
-                    <th>Contact no.</th>
+                    <th>Contact number</th>
                     <th>Trainees</th>
                     <th></th>
                 </tr>
@@ -24,7 +24,7 @@
                             <th>Name</th>
                             <th>Designation</th>
                             <th>Company</th>
-                            <th>Contact no.</th>
+                            <th>Contact number</th>
                             <th>Trainees</th>
                             <th></th>
                         </tr>
@@ -86,7 +86,7 @@
                     <label>Company</label> <span style="float:right;text-decoration: italic"><a href="#" class="edit-new-company">New</a></span>
                     <input type="text" class="form-control editNew_company suppCompany" style="border-radius: 5px;margin-bottom: 10px; width: 100%; display:none" id="editNew_company" name="editNew_company">
                     <select class="form-control edit-company_list_choice2" style="border-radius:5px;margin-bottom:10px" id="dropCompany" name="dropCompany">
-                         <option selected><?php echo $supervisor['company_name']?></option>
+                         <option selected hidden><?php echo $supervisor['company_name']?></option>
                          <?php foreach($company_list as $company):?>  
                            <option value="<?php echo $company['company_name']?>"><?php echo $company['company_name']?></option>
                         <?php endforeach;?>  

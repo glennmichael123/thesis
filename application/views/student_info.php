@@ -12,7 +12,8 @@
 
     <!-- Latest compiled and minified JavaScript -->
      <script src="<?php echo base_url() ?>assets/js/bootstrap.min.js"></script>
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous"> -->
+     <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>assets/css/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
     <script src="<?php echo base_url()?>assets/js/progressbar/dist/progressbar.js"></script>
     <script src="<?php echo base_url()?>assets/js/progressbar/dist/progressbar.min.js"></script>
