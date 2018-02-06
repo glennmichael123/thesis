@@ -813,11 +813,12 @@ header h1 {
               <div class="col-lg-1">
                  <?php if(isset($id_number)):?>
                  <?php else: ?>
-                   <h5 style="position: relative; top: 15px;">Hi, <?php echo $ojtFirstName?></h5>
+                   <h5 style="position: relative; top: 15px;font-weight: bold;float: right;">Hi, <?php echo $ojtFirstName;?><br>
+                        <span style="font-size:13px;font-weight: normal;">Trainee</span>
                  <?php endif; ?>
               </div>
-              <div class="col-lg-1">
-                <h5 style="position: relative; top: 15px;">Trainee</h5>
+              <div>
+                <!-- <h5 style="position: relative; top: 15px;">Trainee</h5> -->
               </div>
               <div class="col-lg-1">
                   <section class="dropdown-image">

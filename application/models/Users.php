@@ -210,9 +210,8 @@
            return $query->result_array();
        }
 
-
         public function getCompanyNames(){
-            $query = $this->db->query("SELECT DISTINCT company_name FROM company_information ORDER BY company_name ASC");
+            $query = $this->db->query("SELECT DISTINCT company_name FROM companies WHERE watchlisted = 0 ORDER BY company_name ASC");
             return $query->result_array();
          }
 
@@ -904,7 +903,7 @@
          }
 
          public function getWatchlists(){
-            $query = $this->db->query("SELECT * FROM watchlist");
+            $query = $this->db->query("SELECT * FROM companies WHERE watchlisted = 1");
             return $query->result_array();
          }
 
@@ -2057,7 +2056,11 @@
           }else{
             return false;
           }
-
+      }
+      
+      public function deleteCompany(){
+        $compName = $_POST['compName'];
+        $this->db->query("UPDATE company_information SET watchlisted = 0 WHERE company_name = '$compName'");
       }
 }
 ?>

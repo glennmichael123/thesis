@@ -9,7 +9,7 @@
                     <th>Name</th>
                     <th>Designation</th>
                     <th>Company</th>
-                    <th>Contact no.</th>
+                    <th>Contact number</th>
                     <th>Trainees</th>
                     <th></th>
                 </tr>
@@ -24,7 +24,7 @@
                             <th>Name</th>
                             <th>Designation</th>
                             <th>Company</th>
-                            <th>Contact no.</th>
+                            <th>Contact number</th>
                             <th>Trainees</th>
                             <th></th>
                         </tr>
@@ -37,6 +37,7 @@
                             <td><?php echo $supervisor['name'];?>
                               <?php if (!$supervisor['flag']):?>
                                 <a class="resendEmail" href="#" style="float: right;" data-email="<?php echo $supervisor['email'];?>" data-id-number="<?php echo $supervisor['id_number'];?>" data-name="<?php echo $supervisor['name'];?>" data-password="<?php echo $supervisor['password'];?>" title="Retry sending email"><i class="fa fa-envelope" style="color: red;"></i></a>
+                                <i class="fa fa-circle-o-notch fa-spin hiddenLoading loader" style="font-size:15px;float:right;"></i>
                               <?php else: ?>
                                   <?php if($supervisor['verified']): ?>
                                   <i class="fa fa-check" style="color: green;float: right;" title="Verified"></i>
@@ -86,7 +87,7 @@
                     <label>Company</label> <span style="float:right;text-decoration: italic"><a href="#" class="edit-new-company">New</a></span>
                     <input type="text" class="form-control editNew_company suppCompany" style="border-radius: 5px;margin-bottom: 10px; width: 100%; display:none" id="editNew_company" name="editNew_company">
                     <select class="form-control edit-company_list_choice2" style="border-radius:5px;margin-bottom:10px" id="dropCompany" name="dropCompany">
-                         <option selected><?php echo $supervisor['company_name']?></option>
+                         <option selected hidden><?php echo $supervisor['company_name']?></option>
                          <?php foreach($company_list as $company):?>  
                            <option value="<?php echo $company['company_name']?>"><?php echo $company['company_name']?></option>
                         <?php endforeach;?>  
@@ -214,7 +215,10 @@
       var username=$(this).data('id-number');
       var name=$(this).data('name');
       var password=$(this).data('password');
-
+      var loading = $(this).closest('.dashTable').find('.loader');
+      var envelope = $(this).closest('.dashTable').find('.fa-envelope');
+      loading.removeClass('hiddenLoading');
+      envelope.hide();
       $.ajax({
         url:"retrySendEmail",
         type: "POST",
@@ -231,10 +235,13 @@
               text: "Email sent successfully",
               icon: "success",
             }).then(function(){
-              location.reload();
+              $("#toSupervisorsTable").trigger("click");
+              // location.reload();
             });
           }else
               swal('Oops...','Email not sent','error');
+              loading.addClass('hiddenLoading');
+              envelope.show();
           }
       });
   });

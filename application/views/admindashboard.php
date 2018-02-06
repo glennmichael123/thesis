@@ -341,6 +341,13 @@ tr:hover{
 .hide{
   display: none;
 }
+
+.dispWatch:hover{
+	color: #ffba00 !important;
+}
+.hiddenLoading{
+  display: none;
+}
 </style>
 
     <title>OJT Automate</title>
@@ -359,11 +366,10 @@ tr:hover{
                     </div>
                     <div class="col-lg-5">
                     </div>
-                     <div class="col-lg-1">
-                         <h5 style="position: relative; top: 15px;">Hi, <?php echo $first_name; ?></h5>
-                    </div>
-                    <div class="col-lg-1">
-                      <h5 style="position: relative; top: 15px;">Admin</h5>
+                    <div class="col-lg-2">
+                      <!-- <h5 style="position: relative; top: 15px;">Admin</h5> -->
+                      <h5 style="position: relative; top: 15px;font-weight: bold;float: right;">Hi, <?php echo $first_name;?><br>
+                      	<span style="font-size:13px;font-weight: normal;">Admin</span></h5>
                     </div>
               <div class="col-lg-1">
 
@@ -599,28 +605,47 @@ tr:hover{
     <div class="modal-content modalContent">
         <div class="modal-header modalHeader">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <h3 class="modal-title" id="lineModalLabel" style="color:white;">Add watch list</h3>
+
+            <button type="button" class="btn btn-default" style="float:right; margin-right:20px" id="btnWatchlists"><span aria-hidden="true">Watchlists</span><span class="sr-only"></span></button>
+            <button type="button" class="btn btn-default" style="float:right; margin-right:10px" id="btnAddWatch"><span aria-hidden="true">+Watchlist</span><span class="sr-only"></span></button>
+
+            <h3 class="modal-title watchHeader" id="lineModalLabel" style="color:white;">ADD WATCH LIST</h3>
         </div>
         <div class="modal-body">
-            
-            <!-- content goes here -->
-            <form>
-              <div class="form-group">
-                    <label>Company name</label>
-                    <span style="float: right;text-decoration: italic"><a href="#" class="new-company-watchlist">New</a></span>
-                     <textarea class="form-control" name="new_company_watch" id="new_company_watchlist" style="resize: none; height:34px;border-radius: 5px; display: none;"></textarea>
-                    <select class="form-control company_watchlist_choice" style="border-radius: 5px" id="addWatch" name="addWatch">
-                        <option selected disabled>Select company</option>
-
-                        <?php foreach($company_watch_list as $companywatch):?>  
-                               <option value="<?php echo $companywatch['company_name']?>"><?php echo $companywatch['company_name']?></option>
-                        <?php endforeach;?> 
-                    </select>
+            <div id="plusWatch">
+	            <form>
+	              <div class="form-group">
+	                    <label>Company name</label>
+	                    <span style="float: right;text-decoration: italic"><a href="#" class="new-company-watchlist">New</a></span>
+	                     <textarea class="form-control" name="new_company_watch" id="new_company_watchlist" style="resize: none; height:34px;border-radius: 5px; display: none;"></textarea>
+	                    <select class="form-control company_watchlist_choice" style="border-radius: 5px" id="addWatch" name="addWatch">
+	                        <option selected disabled>Select company</option>
+	                        <?php foreach($company_list as $company):?>
+                             <option value="<?php echo $company['company_name']?>"><?php echo $company['company_name']?></option>
+	                        <?php endforeach;?> 
+	                    </select>
+	                </div>
+	            </form>
+	        </div>
+	        <div id="lists" style="display: none;padding: 20px 10px">
+            <?php if(empty($watch_lists)):?>
+              <p style="text-align: center;color: gray;font-size: 13px;padding: 20px">No company on the watch list</p>
+              <?php print_r($watch_lists); ?>
+            <?php else:?>
+  	          <?php foreach($watch_lists as $companywatch):?>
+                <div class="companyWatchList">
+                  <p class="dispWatch" style="font-weight: bold;">
+                    <?php echo $companywatch['company_name'];?>
+                      <i class="fa fa-trash" id="watchDelete" style="font-size: 17px;color: gray;cursor: pointer;float: right;" aria-hidden="true" title="Remove from watch list"></i>
+                      <input type="hidden" class="hiddenCompWatch" value="<?php echo $companywatch['company_name'];?>">
+                  </p>
                 </div>
-            </form>
+  		        <?php endforeach;?>
+            <?php endif; ?>
+	        </div>
 
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer watchListFooter">
             <div class="btn-group btn-group-justified" role="group" aria-label="group button">
                 <div class="btn-group" role="group">
                      <button type="button" class="btn btn-success btn-hover-green" data-action="save" role="button" style="width: 270px;border-radius: 5px" id="addWatchList">Add</button>
@@ -704,6 +729,7 @@ tr:hover{
                     <select class="form-control company_list_choice2 required" style="border-radius:5px;margin-bottom:10px" id="dropCompany" name="dropCompany" required>
                                   <option selected disabled>Select company</option>
                          <?php foreach($company_list as $company):?>  
+
                            <option value="<?php echo $company['company_name']?>"><?php echo $company['company_name']?></option>
                         <?php endforeach;?>  
                                   
@@ -879,6 +905,49 @@ tr:hover{
 </div>
 
 </body>
+<!-- Add watchlist header button options -->
+<script type="text/javascript">
+	$('#btnAddWatch').click(function(){
+		$('#plusWatch').show();
+		$('#lists').hide();
+		$('.watchHeader').html('Add watch list');
+		$('.watchListFooter').show();
+	});
+
+	$('#btnWatchlists').click(function(){
+		$('#plusWatch').hide();
+		$('#lists').show();
+		$('.watchHeader').html('Company watch list');
+		$('.watchListFooter').hide();
+	});
+
+	$(document).on('click','#watchDelete',function(e){
+		e.preventDefault();
+		var company_name = $(this).closest('.companyWatchList').find('.hiddenCompWatch').val();
+    var compField =  $(this).closest('.companyWatchList');
+		swal({
+      title: "Delete?",
+      icon: "warning",
+      buttons: true,
+      buttons: ["No", "Yes"],
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        compField.fadeOut();
+        $.ajax({
+          type: "POST",
+          url: "<?php echo base_url()?>"+"deleteCompanyWatchlist",
+          
+          data:{
+            'compName': company_name,
+          },
+        });
+      }
+    });
+	});
+</script>
+
 <script type="text/javascript">
   $(document).ready(function(){
     var course = $('#course_option').val();
@@ -1531,7 +1600,8 @@ tr:hover{
 
     if(first == "" || mid == "" || last == "" || course=="" || sy_1=="" || sy_2=="" || required_hours == "" || !ojt_program){
         swal('Oops...','Please fill all fields','error');
-         $(".required").each(function() {
+         $("body").each(function() {
+
             if ($(this).val() === "") {
             $(this).css('border-color', 'red');
             

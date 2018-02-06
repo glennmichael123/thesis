@@ -69,7 +69,7 @@
                       <?php endforeach;?>
                   </tbody>
               </table>
-              <div><button type="button" class="btn btn-warning" id="btnDelete"><i class="fa fa-trash"></i> Delete Selected Item(s)</button> </div>
+              <div><button type="button" class="btn btn-warning" id="btnDelete"><i class="fa fa-trash"></i> Delete Selected Item(s)</button></div>
             <?php endif;?>
         </form>
     </div>

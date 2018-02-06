@@ -41,7 +41,7 @@
           font-family: 'Roboto', sans-serif;
         }
         .login-box{
-          margin-top: 9%;
+          margin-top: 3%;
         }
         p.header-name{
           /*display: inline-block;*/
@@ -69,7 +69,17 @@
           margin-top: 0px;
           letter-spacing: 5px;
         }
-
+        .btnWatchList{
+            background-color: #ca2e32 !important;
+            float: right;
+            font-size: 12px;
+        }
+        .btnWatchList:hover{
+            background-color: #ca2e32 !important;
+        }
+        .btnWatchList:visited{
+            background-color: #ca2e32 !important;
+        }
     </style>
 </head>
 <body>
@@ -91,15 +101,20 @@
       </div>
    </div>
 </div>
+<div class="row">
+  <a href="#watchlist" class="modal-trigger">
+    <button class="btn waves-effect waves-dark btnWatchList">WATCHLIST</button>
+  </a>
+</div>
     <div class="valign-wrapper row login-box ">
   <div class="col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4 z-depth-5">
     <form action="<?php echo base_url() ?>main/loggedin" method="post">
       <div class="card-content" style="padding-bottom:0px">
         <!-- <span class="card-title">Login</span>-->  
         <div class="top hoverable z-depth-5">
-          <p class="login-title" style="color: #FFF;">On-The-Job Training</p>
+          <p class="login-title" style="color: #FFF;">ON THE JOB TRAINING</p>
           <p class="login-subtitle" style="color: #FFF;">Automate</p>
-        </div>      
+        </div>
         <div class="row">
           <p style="font-weight: bold;" class="center-align red-text"><?php echo $this->session->flashdata('Status');  ?></p>
         </div>
@@ -150,12 +165,25 @@
     </form>
   </div>
 </div>
+<div id="watchlist" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h5 style="font-weight: bold">Company Watchlist</h5>
+      <?php foreach ($watch_list as $list):?>
+        <p><?php echo $list['company_name']; ?></p>
+      <?php endforeach; ?>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+    </div>
+  </div>
+
 <script src="<?php echo base_url() ?>assets/js/materialize.min.js"></script>
 </body>
 
 <script type="text/javascript">
     $(document).ready(function() {
     $('select').material_select();
+    $('.modal').modal();
 });
 </script>
 </html>

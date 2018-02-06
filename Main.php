@@ -122,8 +122,6 @@ class Main extends CI_Controller {
     }
 	public function index()
 	{
-		
-	
      if( isset($this->session->userdata['id_number']) ){
      	redirect(base_url('dashboard'));
      }else{
@@ -158,11 +156,6 @@ class Main extends CI_Controller {
      	}
 		
 		
-	}
-	public function about()
-	{
-		$data['watch_list'] = $this->users->getWatchlists();
-		$this->load->view('about-us',$data);
 	}
 	public function changepassword()
 	{
@@ -438,7 +431,7 @@ public function logout(){
 				 	$data['company_list'] = $this->users->getCompanyNames();
 				 	$data['first_name'] = $this->users->getAdminFirstName($this->session->userdata['id_number']);
 				 	$data['completed_students'] = $this->users->getStudentStatus($this->session->userdata['id_number'],'ojt_one');
-				 	$data['company_watch_list'] = $this->users->getCompanyWatchlist();
+				 	$data['watch_lists'] = $this->users->getWatchlists();
 				 	$data['course_option'] = empty($_POST['course_option']) ? '' : $_POST['course_option'];
 				 	$data['sy'] = empty($_POST['sy_option']) ? '' : $_POST['sy_option'];
 				 	$data['school_year'] = $this->users->schoolYear();
@@ -453,7 +446,6 @@ public function logout(){
 			}
     }
 	public function deleteLog(){
-		
 		$this->users->deleteLog();
 	}
 	
@@ -1188,6 +1180,10 @@ public function logout(){
 	    $data['company_for_graph_count'] = $this->users->getCompanyGraphCount($this->session->userdata('id_number'));
      	$html = $this->load->view("companytables",$data,TRUE);
      	echo $html;
+     }
+
+     public function deleteCompanyWatchlist(){
+     	$this->users->deleteCompany();
      }
 }
 
