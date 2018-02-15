@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="<?php  echo base_url() ?>assets/css/jquery-ui.css">
     
-       <script src="<?php echo base_url() ?>assets/js/jquery-1.12.4.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/jquery-1.12.4.js"></script>
     <script src="<?php echo base_url() ?>assets/js/jquery-ui.js"></script>
     <link rel="stylesheet" href="<?php  echo base_url() ?>assets/css/jquery-ui.css">
 
@@ -472,14 +472,14 @@
                     <h2 class="fs-title">Company Information <i class="fa fa-list-alt" aria-hidden="true"></i></h2>
                         <div class="row">
                           <div class="col-lg-12">
-                            <!-- <input type="text" placeholder="Company name" id="company_name" style="width: 885px;" name="company_name" required> -->
-                            <select id="company_name" style="width: 885px;" name="company_name" required>
+                            <input type="text" placeholder="Company name" id="company_name" style="width: 885px;" name="company_name" required>
+                            <!-- <select id="company_name" style="width: 885px;" name="company_name" required>
                                 <option selected disabled>Company name</option>
                                 <?php foreach ($companies as $company):?>
                                     <option><?php echo $company['company_name'];?></option>
                                 <?php endforeach;?>
                             </select>
-                          </div>
+ -->                          </div>
                         </div>
                          <div class="row">
                           <div class="col-lg-12">

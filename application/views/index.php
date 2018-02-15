@@ -134,7 +134,7 @@
               </div>
           </div>
          
-            <div class="row">
+            <!-- <div class="row">
               <div class="col s6 offset-5">
                
                  <div style="font-size: 13px;margin-top: 15px;">LOGIN AS</div>
@@ -142,15 +142,14 @@
               </div>
               <div class="col s6">
                  <select name="login-options" style="height: 1rem !important" id="loginas">
-                 <!-- <option selected disabled>Login as</option> -->
                  <option value="ojt" selected>OJT</option>
                  <option value="supervisor">Supervisor</option>
                  <option value="administrator">Administrator</option>
              </select>
               </div>
-            </div>
+            </div> -->
 
-            <button type="submit" class="btn amber lighten-1 waves-effect waves-light" style="width: 100%; height: 50px;">LOGIN</button>
+            <button type="submit" class="btn amber lighten-1 waves-effect waves-light" style="width: 100%; height: 50px;margin: 30px 0px 15px 0px;">LOGIN</button>
 
         </div>
       </div>

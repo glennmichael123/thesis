@@ -389,7 +389,8 @@
             $log_activity = $_POST['log_activity'];
             $hours_rendered = $_POST['hours_rendered'];
 
-            return $this->db->query("UPDATE logs SET date = '$date', time_in = '$time_in', time_out = '$time_out', division = '$division', department = '$division', designation = '$designation', log_content = '$log_activity', hours_rendered = '$hours_rendered'  WHERE id = $id");
+            return $this->db->query("UPDATE logs SET date = '$date', time_in = '$time_in', time_out = '$time_out', division = '$division', department = '$division', designation = '$designation', log_content = '$log_activity', hours_rendered = '$hours_rendered', verified = 0 WHERE id = $id");
+
 
          }
         public function getNumberLogs($data, $ojt_program){

@@ -129,8 +129,10 @@
      var sending = $('#sending');
      var btnsend = $('.btnSend');
      var body = $('.body');
-     
-      var email = $('#reset_email').val();
+     var email = $('#reset_email').val();
+     if(email == '' || email == null){
+      alert("Enter an email"); return false;
+     }
      $( '#resetpass' ).find( 'input[type=email]' ).each(function(){
             if( ! $( this ).prop( 'required' )){
 

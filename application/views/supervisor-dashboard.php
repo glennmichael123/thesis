@@ -416,9 +416,9 @@
                 </div>
             </div> -->
             <div class="container">
+                <?php echo $this->session->flashdata('Status'); ?>
             <div class="jumbotron">
               <div class="row">
-                <?php echo $this->session->flashdata('Status'); ?>
                     <div class="col-lg-4" style="font-size: 25px">
                         DASHBOARD
                     </div>
