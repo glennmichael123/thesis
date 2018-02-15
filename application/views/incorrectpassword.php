@@ -5,11 +5,17 @@
 <head>
     <link rel="icon" href="favicon.ico">
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="
+    sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?php base_url()?>assets/css/bootstrap.min.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/jquery.min.js"></script>
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?php echo base_url()?>assets/css/bootstrap-theme.min.css">
+
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script src="<?php echo base_url() ?>assets/js/swal.js"></script>
     <!-- Latest compiled and minified JavaScript -->
@@ -18,11 +24,12 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
- <link rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css">
+
     <style type="text/css">
     @import url(http://fonts.googleapis.com/css?family=Roboto);
-      
+
       .top-forget{
         background-color: #800000;
         width: 100%;
@@ -44,7 +51,6 @@
 
       }
       .btn,.btn-forget{
-        margin-top: 5px;
         width: 100%;
         background-color: #FFB900;
         color: #FFFFFF;
@@ -63,55 +69,51 @@
         display: none;
       }
 
-
+      .btn-circle{
+        border-radius: 50%;
+      }
     </style>
 
     <title></title>
 
 </head>
 
-<body>
+<body class="body" style="background-color: #f2efef;">
     <div class="page-wrap">
-        <div class="row hide-success">
-            <div class="col-lg-3"></div>
-            <div class="col-lg-6">
-                <header class="header-forget">Forgot Password?</header>
-                <p>Request Password Reset</p>
-                <div class="top-forget">a</div>
-                
-                <input type="email" name="reset_email" id="reset_email" placeholder="Email Address" required>
-                <button  class="btn btn-forget" id="btn-reset" value="request reset">Request Reset</button>
-                
-            </div>
-            <div class="col-lg-3"></div>
-        </div> 
-        <div class="row hide" id="sending">
-            <div class="col-lg-12">
-
-                <div style="text-align: center;">
-                    <h4>Sending to your email</h4>
+        <div class="container">
+          <div class="row hide-success">
+            <div class="col-lg-5 col-lg-offset-3">
+              <div class="panel panel-default" style="margin-top: 80px;">
+                <div class="panel-heading" style="color:white;text-align: center;background: #d32f2f;font-size: 25px;">
+                  Forgot password
                 </div>
-            </div>
-          </div>   
-
-          <div class="row hide" id="loading">
-            <div class="col-lg-12">
-
-                <div style="text-align: center;">
-
-                    <img src="<?php echo base_url()?>assets/images/loading.gif">
+                <div class="panel-body">
+                  <div style="padding-top: 20px;">
+                    <p style="font-size: 15px;">Request password reset</p>
+                    <input type="email" name="reset_email" id="reset_email" placeholder="Email Address" required>
+                    <div class="text-center hide" id="loading">
+                      <img src="<?php echo base_url()?>assets/images/loading.gif" height="100px" width="100px;">
+                    </div>
+                  </div>
+                  <div class="row btnSend" style="margin-top: 50px;">
+                    <div class="col-lg-5">
+                      <button class="btn btn-warning" id="btn-reset" value="request reset">Send</button>
+                    </div>
+                    <div class="col-lg-2 col-lg-offset-5">
+                      <a href="<?php echo base_url()?>/index" class="home btn btn-warning btn-circle"><i class="fa fa-home"></i></a>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
           </div>
+        </div>
 
-
-        <div class="container confirm-success" style="display: none;">
-          <div class="row">
-            <div class="col-lg-12">
-                <h1 style="text-align: center;">Reset password link has been sent to your email.  </h1>
-            </div> 
+        <div class="container confirm-success" style="display:none;">
+          <div class="jumbotron text-center">
+            <h3 style="text-align: center;">Reset password link has been sent to your email.</h3>
+            <a href="<?php echo base_url()?>/index" style="margin-top: 20px;">Home</a>
           </div>
-          
         </div> 
 
     </div>
@@ -125,8 +127,12 @@
      var fail_log = '';
      var loading = $('#loading');
      var sending = $('#sending');
-     
-      var email = $('#reset_email').val();
+     var btnsend = $('.btnSend');
+     var body = $('.body');
+     var email = $('#reset_email').val();
+     if(email == '' || email == null){
+      alert("Enter an email"); return false;
+     }
      $( '#resetpass' ).find( 'input[type=email]' ).each(function(){
             if( ! $( this ).prop( 'required' )){
 
@@ -144,7 +150,7 @@
      if(!fail){
             // alert("true");
             // return false;
-        
+                btnsend.css('margin-top','0px');
                 loading.removeClass('hide');
                 sending.removeClass('hide');
                  $.ajax({
@@ -156,6 +162,7 @@
                     success:function(data){
                         $('.confirm-success').show();
                         $('.hide-success').hide();
+                        body.css('background-color','white');
                         loading.addClass('hide');
                         sending.addClass('hide');       
                         

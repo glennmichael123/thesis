@@ -250,10 +250,9 @@ class Main extends CI_Controller {
 		$this->users->insertFamilyData();
 	}
 	public function loggedin(){
-		$logintype = $_POST['login-options'];
+		$logintype = "ojt";
 		if($logintype == 'ojt'){
 			$condition = $this->users->user_login();
-			$data['error'] = 'abcd';
 			$account_type = 'student';
 		if($condition){
 			$data = array(
@@ -278,11 +277,12 @@ class Main extends CI_Controller {
 					redirect('dashboard');
 				}
 				
-			
 	}else{
-		$Status = '<p style="font-size: 14px; text-align: center; color: red; font-weight: bold;">Username or password incorrect</p>';
-		$this->session->set_flashdata("Status",$Status);
-		redirect('index');
+        $account_type = 'supervisor';
+        $this->loggedinSupervisor($account_type);
+		// $Status = '<p style="font-size: 14px; text-align: center; color: red; font-weight: bold;">Username or password incorrect</p>';
+		// $this->session->set_flashdata("Status",$Status);
+		// redirect('index');
 	}	
 	}else if($logintype == 'supervisor'){
 		$account_type = 'supervisor';
@@ -368,9 +368,11 @@ public function loggedinSupervisor($account_type){
 			
 					
 	}else{
-		$Status = '<p style="font-size: 14px; text-align: center; color: red; font-weight: bold;">Username or password incorrect</p>';
-		$this->session->set_flashdata("Status",$Status);
-		redirect('index');
+		// $Status = '<p style="font-size: 14px; text-align: center; color: red; font-weight: bold;">Username or password incorrect</p>';
+		// $this->session->set_flashdata("Status",$Status);
+		// redirect('index');
+        $account_type = 'admin';
+        $this->loggedinAdministrator($account_type);
 	}	
 }
 public function loggedinAdministrator($account_type){
@@ -1034,7 +1036,7 @@ public function logout(){
    	}
 
    	public function getCompanyNamesJson(){
-   		$company_name = $this->db->query("SELECT DISTINCT company_name FROM company_information")->result();
+   		$company_name = $this->db->query("SELECT DISTINCT company_name FROM companies")->result();
    		$company = array(array('names'=>''));
    		$i=0;
    		if(!empty($company_name)){

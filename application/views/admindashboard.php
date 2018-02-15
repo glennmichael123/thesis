@@ -279,16 +279,16 @@ li.notification-title{
 .btn-admin{
   background-color: #e53935;
   padding: 10px 12px 10px 12px;
-        color: #FFFFFF;
-        transition: 0.4s;
-        border-radius: 3px;
+  color: #FFFFFF;
+  transition: 0.4s;
+  border-radius: 3px;
         
 }
 .btn-admin:hover{
    background-color: #cf4246;
-        color: #FFFFFF;
-        transition: 0.4s;
-        border-radius: 5px;
+    color: #FFFFFF;
+    transition: 0.4s;
+    border-radius: 5px;
        
 }
 .btn-admin:focus{
@@ -589,10 +589,10 @@ tr:hover{
         <div class="modal-footer" id="announcementModalFooter">
             <div class="btn-group btn-group-justified" role="group" aria-label="group button">
                 <div class="btn-group" role="group">
-                     <button type="button" class="btn btn-success btn-hover-green" data-action="save" role="button" style="width: 270px;border-radius: 5px" id="postAnnouncement">Post</button>
+                     <button type="button" class="btn btn-success btn-hover-green postAnnounce" data-action="save" role="button" style="width: 270px;border-radius: 5px" id="postAnnouncement" >Post</button>
                 </div>
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal"  role="button" style="width: 270px;border-radius: 5px; float: right">Cancel</button>
+                    <button type="button" class="btn btn-danger cancelsss" data-dismiss="modal"  role="button" style="width: 270px;border-radius: 5px; float: right">Cancel</button>
                 </div>
             </div>
         </div>
@@ -1436,20 +1436,6 @@ tr:hover{
       //   table.search(search).draw();
       // });
 
-     
-
-      /*Refresh button*/
-      $('#disp').click(function(){
-          location.reload();return false;
-          $('#course_option').val("courseDefault");
-          $('#eval_option').val("evalDefault");
-          $('#status_option').val("statDefault");
-          $('#sy_option').val("syDefault");
-          var search = "";
-          table.search(search).draw();
-      });
-
-
   });
 </script>
 <!-- ajaxdelete -->
@@ -1789,12 +1775,12 @@ tr:hover{
 </script>
 <script type="text/javascript">
   $('#postAnnouncement').click(function(){
-
       var announcement = $('#announcement_message').val();
-
       if(!$.trim(announcement)){
-        alert('oops');
+        swal('Oops...','Please enter a message','error');
       }else{
+          $('.postAnnounce').html('Posting');
+          $('.postAnnounce').prop('disabled',true);
           $.ajax({
             url: '<?php echo base_url('main/insertAnnouncement')?>',
             method: 'POST',
@@ -1802,6 +1788,8 @@ tr:hover{
               'announcement': announcement,
             },
             success: function(data){
+             $('.postAnnounce').html('Post');
+             $('.cancelsss')[0].removeAttribute("disabled");
              swal({
                 title: "Announcement posted",
                 //text: "Announcement posted",

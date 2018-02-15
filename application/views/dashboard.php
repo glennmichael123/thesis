@@ -9,6 +9,10 @@
     <script src="<?php echo base_url() ?>assets/js/jquery.min.js"></script>
   <!--   <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/materialize.css"> -->
     <!-- Optional theme -->
+    <script src="<?php echo base_url() ?>assets/js/jquery-1.12.4.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/jquery-ui.js"></script>
+    <link rel="stylesheet" href="<?php  echo base_url() ?>assets/css/jquery-ui.css">
+
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/bootstrap-theme.min.css" >
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script src="<?php echo base_url()?>assets/js/progressbar/dist/progressbar.js"></script>
@@ -19,11 +23,14 @@
     <script src="<?php echo base_url() ?>assets/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
-   <script src="<?php echo base_url() ?>assets/js/swal.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/swal.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/timepicki.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/jquery.simple-popup.min.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/jquery.simple-popup.settings.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>assets/css/timepicki.css" rel="stylesheet">
+
     <style type="text/css">
 .img-replace {
   /* replace text with an image */
@@ -1070,7 +1077,7 @@ header h1 {
 
                                         <div class="form-group">
                                             <label>Date</label>
-                                            <input type="date" class="form-control" required value="<?php echo date('Y-m-d')?>" name="log_date" id="log_date">
+                                            <input type="text" class="form-control" required value="<?php echo date('Y-m-d')?>" name="log_date" id="log_date">
                                             <label>Division</label>
                                             <input type="text" class="form-control" required name="division" id="division">
                                             <label>Deparment/Area</label>
@@ -1084,9 +1091,9 @@ header h1 {
                                     <div class="col-lg-6" style="padding-right: 30px;">
                                         <div class="form-group">
                                             <label>Time In</label>
-                                            <input type="time" class="form-control" name="time_in" id="time_in" required>
+                                            <input type="text" class="form-control" name="time_in" id="time_in" required>
                                             <label>Time Out</label>
-                                            <input type="time" class="form-control" name="time_out" id="time_out" required>
+                                            <input type="text" class="form-control" name="time_out" id="time_out" required>
                                             <label>Hours Rendered</label>
                                             <input type="text" class="form-control" name="hours_rendered" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="hours_rendered" required>
 
@@ -1260,6 +1267,35 @@ header h1 {
     </div>
   
 </body>
+<script type="text/javascript">
+	$('#hours_rendered').focus(function(){
+		var valuestart = $("#time_in").val();
+		var valuestop = $("#time_out").val();
+		//create date format          
+		var timeStart = new Date("01/01/2007 " + valuestart).getHours();
+		var timeEnd = new Date("01/01/2007 " + valuestop).getHours();
+
+		var hourDiff = timeEnd - timeStart;
+
+		$(this).val(hourDiff > 8 ? 8 : hourDiff);
+	});
+</script>
+<!-- FOR DATE INPUT FIELD -->
+<script type="text/javascript">
+    var yearNow = (new Date()).getFullYear();
+   $( function() {
+    $( "#log_date" ).datepicker({
+      changeMonth: true,
+      changeYear: true,
+      yearRange: '1940:'+yearNow,
+    });
+  } );
+</script>
+
+<script type='text/javascript'> 
+  $('#time_in').timepicki(); 
+  $('#time_out').timepicki(); 
+</script>
    <script type="text/javascript">
              $(document).ready(function() {
                 $("#notification-body").on("click",'.view-notif', function(e) {

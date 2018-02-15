@@ -1,6 +1,5 @@
 <div id="wrap-students">
     <div class="well dashboard-list">
-
       <?php if(empty($student_list)):?>
           <table id="adminDataTable" class="table table-bordered" cellspacing="0" width="100%" style="font-size: 13px;">
             <thead>
@@ -122,4 +121,6 @@
           });
       }
     });
+
+
 </script>

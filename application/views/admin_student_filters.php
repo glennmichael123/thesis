@@ -38,7 +38,7 @@
             </div>
         <!-- </form> -->
         <div class="col-lg-1">
-             <button class="btn btn-default" id="disp"><i class="fa fa-refresh" aria-hidden="true" style="color:#7f715a"></i></button>
+             <button class="btn btn-default" id="disp" onclick="location.reload();"><i class="fa fa-refresh" aria-hidden="true" style="color:#7f715a"></i></button>
         </div>
         
         </div>
@@ -123,9 +123,5 @@
                   $('#wrap-students').replaceWith(data);
               }
           })
-      });
-
-       $('#disp').click(function(){
-          location.reload();
       });
     </script>
