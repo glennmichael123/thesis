@@ -449,6 +449,7 @@ public function logout(){
 	     			
 				 	// $data['dashboard_data'] = $this->users->dashboardDataAdmin($this->session->userdata['id_number']);
 				 	$data['company_list'] = $this->users->getCompanyNames();
+                    $data['watch_lists'] = $this->users->getWatchlists();
 				 	$data['first_name'] = $this->users->getAdminFirstName($this->session->userdata['id_number']);
 				 	$data['completed_students'] = $this->users->getStudentStatus($this->session->userdata['id_number'],'ojt_one');
 				 	$data['company_watch_list'] = $this->users->getCompanyWatchlist();
@@ -655,18 +656,18 @@ public function logout(){
 	}
 
 	public function sendEmailAdmin($adminEmail,$adminName,$adminUser,$adminPass){
-		$config = Array(
-		    'protocol' => 'smtp',
-		    'smtp_host' => 'ssl://smtp.googlemail.com',
-		    'smtp_port' => 465,
-		    'smtp_user' => 'gtorregosa@gmail.com',
-		    'smtp_pass' => 'knightsky',
-		    'mailtype'  => 'html', 
-		    'charset'   => 'iso-8859-1'
-		);
+		// $config = Array(
+		//     'protocol' => 'smtp',
+		//     'smtp_host' => 'ssl://smtp.googlemail.com',
+		//     'smtp_port' => 465,
+		//     'smtp_user' => 'gtorregosa@gmail.com',
+		//     'smtp_pass' => 'knightsky',
+		//     'mailtype'  => 'html', 
+		//     'charset'   => 'iso-8859-1'
+		// );
 
 			$email_body = '';
-		    $this->load->library('email',$config);
+		    $this->load->library('email');
 		    $this->email->set_newline("\r\n");
 		    $url = base_url();
 		    $email_setting  = array('mailtype'=>'html');
@@ -706,16 +707,16 @@ public function logout(){
     public function sendEmailSupervisor($supervisorEmail,$supervisorName,$supervisorUser,$supervisorPass){
 			$email_body = '';
 			$url = base_url();
-			$config = Array(
-		    'protocol' => 'smtp',
-		    'smtp_host' => 'ssl://smtp.googlemail.com',
-		    'smtp_port' => 465,
-		    'smtp_user' => 'gtorregosa@gmail.com',
-		    'smtp_pass' => 'knightsky',
-		    'mailtype'  => 'html', 
-		    'charset'   => 'iso-8859-1'
-		);
-		    $this->load->library('email',$config);
+		// 	$config = Array(
+		//     'protocol' => 'smtp',
+		//     'smtp_host' => 'ssl://smtp.googlemail.com',
+		//     'smtp_port' => 465,
+		//     'smtp_user' => 'gtorregosa@gmail.com',
+		//     'smtp_pass' => 'knightsky',
+		//     'mailtype'  => 'html', 
+		//     'charset'   => 'iso-8859-1'
+		// );
+		    $this->load->library('email');
 		    $this->email->set_newline("\r\n");
 		    $url = base_url();
 		    $hash = md5($supervisorEmail);
@@ -774,18 +775,18 @@ public function logout(){
 	}
 
 	public function sendEmailR($username,$toemail){
-		$config = Array(
-		    'protocol' => 'smtp',
-		    'smtp_host' => 'ssl://smtp.googlemail.com',
-		    'smtp_port' => 465,
-		    'smtp_user' => 'gtorregosa@gmail.com',
-		    'smtp_pass' => 'knightsky',
-		    'mailtype'  => 'html', 
-		    'charset'   => 'iso-8859-1'
-		);
+		// $config = Array(
+		//     'protocol' => 'smtp',
+		//     'smtp_host' => 'ssl://smtp.googlemail.com',
+		//     'smtp_port' => 465,
+		//     'smtp_user' => 'gtorregosa@gmail.com',
+		//     'smtp_pass' => 'knightsky',
+		//     'mailtype'  => 'html', 
+		//     'charset'   => 'iso-8859-1'
+		// );
 		// $email = 'gtorregosa@gmail.com';
 		    $config['charset']    = 'utf-8';
-		    $this->load->library('email',$config);
+		    $this->load->library('email');
 		    $this->email->set_newline("\r\n");
 		    $url = base_url();
 		    $email_setting  = array('mailtype'=>'html');
@@ -837,16 +838,16 @@ public function logout(){
 		$this->load->view('verifyreset');
 	}
 	public function sendEmail($hash,$email){
-	    $config = Array(
-		    'protocol' => 'smtp',
-		    'smtp_host' => 'ssl://smtp.googlemail.com',
-		    'smtp_port' => 465,
-		    'smtp_user' => 'gtorregosa@gmail.com',
-		    'smtp_pass' => 'knightsky',
-		    'mailtype'  => 'html', 
-		    'charset'   => 'iso-8859-1'
-		);
-	    $this->load->library('email',$config);
+	 //    $config = Array(
+		//     'protocol' => 'smtp',
+		//     'smtp_host' => 'ssl://smtp.googlemail.com',
+		//     'smtp_port' => 465,
+		//     'smtp_user' => 'gtorregosa@gmail.com',
+		//     'smtp_pass' => 'knightsky',
+		//     'mailtype'  => 'html', 
+		//     'charset'   => 'iso-8859-1'
+		// );
+	    $this->load->library('email');
 	    $this->email->set_newline("\r\n");
 	    $url = base_url();
 	    $email_setting  = array('mailtype'=>'html');

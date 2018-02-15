@@ -169,11 +169,19 @@
     <h5 style="font-weight:bold;color:white">Company Watchlist</h5>
   </div>
     <div class="modal-content">
+
+      <h5 style="font-weight: bold">Company Watchlist</h5>
+      <?php if(empty($watch_list)): ?>
+        <h6 class="center-align">There are no company watch list yet.</h6>
+      <?php else: ?>
+
       <?php foreach ($watch_list as $list):?>
         <ul>
           <li style="color:#00615f;font-size: 15px;"><?php echo $list['company_name']; ?></li>
         </ul>
       <?php endforeach; ?>
+
+    <?php endif; ?>
     </div>
     <div class="modal-footer">
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>

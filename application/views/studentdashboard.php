@@ -652,6 +652,9 @@ header h1 {
       background:#c9c9c9 !important;
       border: 1px solid transparent;
     }
+    body{
+      background: #E9EBEE;
+    }
 
     </style>
     <title>OJT Automate <?php echo empty($numberAnnouncements->numberUnread) ? '' : '('.$numberAnnouncements->numberUnread.')';?></title>

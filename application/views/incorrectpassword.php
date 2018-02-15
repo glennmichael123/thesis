@@ -100,7 +100,7 @@
                       <button class="btn btn-warning" id="btn-reset" value="request reset">Send</button>
                     </div>
                     <div class="col-lg-2 col-lg-offset-5">
-                      <a href="<?php echo base_url()?>/index" class="home btn btn-warning btn-circle"><i class="fa fa-home"></i></a>
+                      <a href="<?php echo base_url()?>index" class="home btn btn-warning btn-circle"><i class="fa fa-home"></i></a>
                     </div>
                   </div>
                 </div>

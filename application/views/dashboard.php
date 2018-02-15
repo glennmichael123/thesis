@@ -558,12 +558,16 @@ header h1 {
     <div class="page-wrap">
         <div class="header">
             <div class="container-fluid">
-              <div class="col-lg-8">
-                  <div class="logo" style="float: left;"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height: 50px;"></div>
-                 <a href="dashboard" style="text-decoration: none;"><h3 style="font-weight: bold; margin-top: 12px; color: #b71c1c ; text-align: left; font-family: fantasy;font-style: italic;font-size: 20pt;letter-spacing: 1px;">OJT AUTOMATE</h3></a> 
-              </div>
-              <div class="col-lg-1">
-                      <section id="notification-bell">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="logo" style="margin-top: 0px; float: left;"><img src="<?php echo base_url();?>assets/images/logo.png" style="width: 50px; height: 50px;"></div>
+
+                        <a href="dashboard" style="text-decoration: none;"><h3 style="font-weight: bold; margin-top: 12px; color: #b71c1c ; text-align: left; font-family: fantasy;font-style: italic;font-size: 20pt;letter-spacing: 1px;">OJT AUTOMATE</h3></a> 
+                    </div>
+                    <div class="col-lg-5 col-sm-7">
+                        <?php if(isset($id_number)):?>
+                        <?php else:?>
+                            <section id="notification-bell">
                         <?php if(isset($id_number)):?>
                         <?php else:?>
                           <?php if(empty($numberAnnouncements->numberUnread)):?>
@@ -571,16 +575,16 @@ header h1 {
                                </div>
                           <?php else:?>
                           <div id="countUnread">
-                              <span class="badge" style="position: absolute;right: 23px;top: 10px;">
+                              <span class="badge" style="position: absolute;right: 34px;top: 8px;">
                                   <?php echo $numberAnnouncements->numberUnread;?></span>
                                 </div>
                           <?php endif;?>
-                        <ul class="nav navbar-nav">
+                        <ul class="nav navbar-nav" style="float: right;">
                             <li class="dropdown">
                             
                             <a href="#" class="dropdown-toggle" id="dropdown-notification" data-toggle="dropdown"><i class="pull-right  fa fa-bell fa-2x" style="width: 40px; height: 40px; margin-top: 0px;"></i></a>
                                 
-                                <ul class="dropdown-menu" id="show-notifications" style="position: relative; margin-top:20px;top: -32px; left: -76px; width: 340px; max-height: 400px; overflow: auto;">
+                                <ul class="dropdown-menu" id="show-notifications" style="position: relative; padding-bottom: 0px; margin-top:20px; top: -30px; left: -75px; width: 340px; max-height: 400px; overflow: auto;">
                                       <div id="notification-body">
                                          <li><div class="notification-title">Notifications <a href="#" class="as-all-read pull-right">Mark all as read</a></div></li>
                                          <li class="divider"></li>
@@ -631,7 +635,7 @@ header h1 {
                                         
                                             <?php else:?>
                                            <li class="divider"></li>
-                                          <a href="#" data-announcement-id="<?php echo $announcement['id'];?>" class="view-notif"><li class="view-notification"><div class="notifs"><?php echo $announcement['name'];?> posted an announcement<br><span style="font-size: 12px;"><?php
+                                          <a href="#" data-announcement-id="<?php echo $announcement['id']?>" class="view-notif"><li class="view-notification"><div class="notifs">Lfeliz posted an announcement<br><span style="font-size: 12px;"><?php
                                                     
                                                     // $time = date('Gi.s', $timestamp);
                                                     //echo $date . " at " . date('h:ia', $timestamp);
@@ -679,20 +683,14 @@ header h1 {
                         </ul>
                     <?php endif;?>
                     </section>
-              </div>
-              <div class="col-lg-2">
-                 <?php if(isset($id_number)):?>
-                 <?php else: ?>
-                   <h5 style="position: relative; top: 15px;font-weight: bold;float: right;">Hi, <?php echo $ojtFirstName;?><br>
-                    <span style="font-size:13px;font-weight: normal;">Trainee</span>
-                  </h5>
-                 <?php endif; ?>
-              </div>
-
-              <div>
-                 <?php if(isset($id_number)):?>
-                 <?php else: ?>
-                        <?php
+                    <?php endif;?>
+                    </div>
+                    <div class="col-lg-2">
+                        <h5 style="position: relative; top: 15px;font-weight: bold;float: right;">Hi, <?php echo $ojtFirstName;?><br>
+                        <span style="font-size:13px;font-weight: normal;">Trainee</span>
+                    </div>
+                    <div>
+                       <?php
                           $program = '';
                             if($user_data[0]['ojt_program'] == 'ojt_one'){
                               $program = 'OJT 1';
@@ -700,54 +698,28 @@ header h1 {
                                $program = 'OJT 2';
                             }
                           ?>
-                   <!-- <h5 style="position: relative; top: 15px;">Trainee</h5> -->
-                 <?php endif; ?>
-              </div>
-
-              <div class="col-lg-1">
-                  <section class="dropdown-image">
+                   <!-- <h5 style="position: absolute; top: 24px;">Trainee</h5> -->
+                    </div>
+                    <div class="col-lg-1 col-sm-1">
                         <?php if(isset($id_number)):?>
                                <ul class="nav navbar-nav">
-                                
                             <li class="dropdown">
-                            
-
-                                <?php if($supervisor_image->image_id == '<i class="fa fa-user-circle pull-right" style="font-size: 40px; margin-top: -5px;" aria-hidden="true"></i>'): ?>
-                                  <a href="#" class="dropdown-toggle" style="margin-top: -10px;" id="dropdown-logout" data-toggle="dropdown">  <i class="fa fa-user-circle fa-3x"></i>
-
-                                    </a>
-                                     <ul class="dropdown-menu" style="margin-top: -5px;margin-left: -218px;" id="show-logout">
-                                <li><a href="<?php echo base_url('supervisordashboard')?>">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
+                              <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown"><i class="fa fa-user-circle fa-2x"></i><?php //echo $supImage[0]['image_id']?></a>
+                    
+                              <ul class="dropdown-menu" id="show-logout">
+                                <li><a href="#">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                 <li class="divider"></li>
         
-                                <li><a href="<?php echo base_url('changepassword') ?>">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                                <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
                                 <li class="divider"></li>
                     
                                 <li><a href="<?php echo base_url()?>main/logout">Log Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
                               </ul>
-                              <?php else: ?>
-
-                              <a href="#" class="dropdown-toggle" style="margin-top: -10px;" id="dropdown-logout" data-toggle="dropdown"> 
-                                <img src="<?php echo base_url().$supervisor_image->image_id;?>" class="pull-right circular-square user-image" style="width: 40px;height: 40px;margin-top: 5px;"></a>
-
-                                 <ul class="dropdown-menu" style="margin-top: 11px;margin-left: -200px;" id="show-logout">
-                                <li><a href="<?php echo base_url()?>main/supervisorDashboard">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
-                                <li class="divider"></li>
-        
-                                <li><a href="<?php echo base_url('changepassword') ?>">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
-                                <li class="divider"></li>
-                    
-                                <li><a href="<?php echo base_url()?>main/logout">Log Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
-                              </ul>
-                            <?php endif; ?>
-                             
                             </li>
                           </ul>
                         <?php else:?>
                         <ul class="nav navbar-nav">
-                            
                             <li class="dropdown">
-                                
                             <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown">
                                 <?php if ($image_header[0]['user_image'] == '<i class="fa fa-user-circle pull-right" style="font-size: 40px; margin-top: -5px;" aria-hidden="true"></i>'):?>
                                     <?php echo $image_header[0]['user_image'];?>
@@ -759,22 +731,24 @@ header h1 {
                              </a>
                                 
                                 <ul class="dropdown-menu" id="show-logout">
-                                    <li><a href="<?php echo base_url('profile') ?>">Profile<i class="fa fa-user pull-right"></i></a></li>
+                                    <li><a href="profile">Profile<i class="fa fa-user pull-right"></i></a></li>
                                     <li class="divider"></li>
-                                    <li><a href="<?php echo base_url('dashboard') ?>">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
-                                    <li class="divider"></li>
-
-                                    <li><a href="<?php echo base_url('changepassword') ?>">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                                    <li><a href="dashboard">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                     <li class="divider"></li>
 
-                                    <li><a href="<?php echo base_url('logout') ?>">Log Out <i class="fa fa-sign-out pull-right"></i></a></li>
+                                    <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                                    <li class="divider"></li>
+
+                                    <li><a href="logout">Log Out <i class="fa fa-sign-out pull-right"></i></a></li>
                                 </ul>
                             </li>
                         </ul>
                     <?php endif;?>
-                      </section>
-              </div>
-            </div>
+                    </div>
+
+                </div>
+
+            </div> 
         </div>
        
     </div>
@@ -1047,7 +1021,7 @@ header h1 {
                           <div class="row">
                             <div class="col-lg-7">
                               
-                              <h5><?php echo $workmate['first_name'] . " " . $workmate['middle_initial'] . ". " . $workmate['last_name'] ?></h5>
+                              <h5><?php echo $workmate['first_name'] . " " . $workmate['middle_initial'] . " " . $workmate['last_name'] ?></h5>
                             
                             </div>
                               <div class="col-lg-4">
