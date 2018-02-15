@@ -856,6 +856,11 @@
             }
             else{
                 $this->db->query("INSERT INTO supervisor (name,company_name,designation,id_number,password,email,phone_number,hash) VALUES('$supervisorName','$supervisorComp','$supervisorDesig','$supervisorID','$supervisorPass','$supervisorEmail','$supervisorNumber','$hash')");
+
+                $result = $this->db->query("SELECT * FROM companies WHERE company_name = '".$supervisorComp."'");
+                if($this->db->affected_rows() == 0){
+                  $this->db->query("INSERT INTO companies(company_name) VALUES('$supervisorComp')");
+                }
             }
          }
 

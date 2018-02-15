@@ -39,6 +39,7 @@ class Main extends CI_Controller {
     }
      public function ojtform(){
      	$data['initial_data'] = $this->users->load_initial_data($this->session->userdata('id_number'));
+        $data['companies'] = $this->users->getCompanyNames();
      	$this->load->view('page1', $data);
     }
      public function page2(){

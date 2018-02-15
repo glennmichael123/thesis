@@ -165,18 +165,21 @@
     </form>
   </div>
 </div>
-<div id="watchlist" class="modal modal-fixed-footer">
+<div id="watchlist" class="modal modal-fixed-footer" style="border-radius: 10px;">
+  <div class="modal-header" style="background-color:#ca2e32;padding:10px;"> 
+    <h5 style="font-weight:bold;color:white">Company Watchlist</h5>
+  </div>
     <div class="modal-content">
-      <h5 style="font-weight: bold">Company Watchlist</h5>
       <?php foreach ($watch_list as $list):?>
-        <p><?php echo $list['company_name']; ?></p>
+        <ul>
+          <li style="color:#00615f;font-size: 15px;"><?php echo $list['company_name']; ?></li>
+        </ul>
       <?php endforeach; ?>
     </div>
     <div class="modal-footer">
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
     </div>
   </div>
-
 <script src="<?php echo base_url() ?>assets/js/materialize.min.js"></script>
 </body>
 

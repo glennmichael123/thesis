@@ -42,13 +42,11 @@
         }
         
         .jumbotron {
-            background-color: #CA2E32;
+            background-color: #d32f2f;
             padding: 10px;
             color: #FFFFFF;
             font-size: 1.5em;
-            margin-top: 10px;
-            margin-left: 10px;
-            margin-right: 10px;
+            margin-top: 20px;
         }
         
         .wells {
@@ -273,17 +271,17 @@
             color: #000;
         }
         .btn-trainee{
-        background-color: #FFC019;
-        color: #FFFFFF;
-        transition: 0.4s;
-        border-radius: 5px;
-        font-size: .65em;
+            background-color: #e53935;
+            padding: 10px 12px 10px 12px;
+            color: #FFFFFF;
+            transition: 0.4s;
+            border-radius: 3px;
         }
         .btn-trainee:hover{
-        color: #FFFFFF;
-        background-color: #f5b301;
-        transition: 0.4s;
-        font-size: .65em;
+            background-color: #cf4246;
+            color: #FFFFFF;
+            transition: 0.4s;
+            border-radius: 5px;
         }
         .progress-bar-first{
             background: #84bb5c !important;
@@ -293,18 +291,6 @@
         }
         .progress-bar-third{
             background: #d35d60 !important;
-        }
-       
-        .btn-trainee{
-        background-color: #FFC019;
-        color: #FFFFFF;
-        transition: 0.4s;
-        border-radius: 5px;
-        }
-        .btn-trainee:hover{
-        color: #FFFFFF;
-        background-color: #f5b301;
-        transition: 0.4s;
         }
         .progress-bar-first{
             background: #b4292c;
@@ -330,7 +316,7 @@
         }
         .panel-heading{
             color: #FFFFFF !important;
-            font-size: 20px;
+            font-size: 18px !important;
             background-color: #d32f2f !important;
             background-image: none !important;
             padding: 10px 10px !important;
@@ -418,16 +404,33 @@
         </div>
         <div class="content">
 
-            <div class="container">
+            <!-- <div class="container">
                 <div class="row">
-                    <div class="col-lg-12">
-                        <?php echo $this->session->flashdata('Status'); ?>
-                        <div class="jumbotron">Dashboard
+                        
+                        <div class="col-lg-4 jumbotron">
+                            DASHBOARD
+                        </div>
+                        <div class="col-lg-8">
                             <button class="btn btn-trainee" style="float: right;" data-target="#addtraineeModal" data-toggle="modal">+Trainee</button>
                         </div>
+                </div>
+            </div> -->
+            <div class="container">
+            <div class="jumbotron">
+              <div class="row">
+                <?php echo $this->session->flashdata('Status'); ?>
+                    <div class="col-lg-4" style="font-size: 25px">
+                        DASHBOARD
+                    </div>
+                    <div class="col-lg-8">
+                        <section style="display: inline-block; float: right;">
+                            <button class="btn btn-trainee" data-target="#addtraineeModal" data-toggle="modal">+Trainee</button>
+                           <!--  <a href="Main/database_backup">hahaha</a> -->
+                         </section>
                     </div>
                 </div>
             </div>
+          </div>
 
             <div class="container">
                 <div class="row">
@@ -438,7 +441,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                   <div class="panel-heading">
-                                    <h3 style="text-align: center; margin-top: 10px;">Progress</h3>
+                                    <p style="text-align: center; margin-top: 0px;">Progress</p>
                                   </div>
                                     <h4 style="text-align: center; margin-top: 10px;">Trainees Completed</h4>
                                   
@@ -503,7 +506,7 @@
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 style="text-align: center; color: #FFFFFF;">Trainees</h3>
+                                <p style="text-align: center; color: #FFFFFF;">Trainees</p>
                             </div>      
                             <div class="panel-body">
                                 <?php if(empty($ojtRecords)):?>
@@ -620,23 +623,14 @@
                                             <?php endif;?>
                                         <?php endif; ?>
 
-
-
                                         </tr>
                                     <?php endforeach;?>
-
                                     </tbody>
-
-                                    
-                                   
-                                               
                                 </table>
                                     </li>
                                 </div>
                                  <?php endif;?> 
-
                             </div>
-
                         </div>    
                     </div>
 
@@ -646,7 +640,7 @@
                         <?php else: ?>
                         <div class="row" style="margin-bottom: 20px;">
                             <div class="col-lg-5">
-                                  <label style="color:#000000;">Trainee</label>
+                                  <label style="color:#6d6b64;">Trainee</label>
                                 <select class="form-control" id="stud-filter">
                                     <option selected value="">All</option>
                                     <?php foreach ($ojtRecords as $trainee): ?>
@@ -656,7 +650,7 @@
 
                             </div>
                             <div class="col-lg-5">
-                                <label style="color:#000000;">Status</label>
+                                <label style="color:#6d6b64;">Status</label>
                                 <select class="form-control" id="log-status">
                                     <option selected value="all">All</option>
                                     <option value="0">Pending</option>

@@ -6,7 +6,10 @@
     <link rel="icon" href="favicon.ico">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?php base_url()?>assets/css/bootstrap.min.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/jquery.min.js"></script>
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
@@ -226,11 +229,11 @@
             success:function(data){
                 var type = data;
                 if($.trim(data) == "old_not_match_student"){
-                    swal('Oops..', 'Old password not correct!', 'error');return false;
-                }else if($.trim(data) == "Old password not correct!"){
-                    swal('Oops..', 'Old password did not match', 'error');return false;
+                    swal('Oops..', 'Old password does not match', 'error');return false;
+                }else if($.trim(data) == "old_not_match_supervisor"){
+                    swal('Oops..', 'Old password does not match', 'error');return false;
                 }else if($.trim(data) == "old_not_match_admin"){
-                    swal('Oops..', 'Old password not correct!', 'error');return false;
+                    swal('Oops..', 'Old password does not match', 'error');return false;
                 }else{
                     swal({
                         title: "Success",

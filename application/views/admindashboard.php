@@ -272,16 +272,16 @@ li.notification-title{
 .btn-admin{
   background-color: #e53935;
   padding: 10px 12px 10px 12px;
-        color: #FFFFFF;
-        transition: 0.4s;
-        border-radius: 3px;
+  color: #FFFFFF;
+  transition: 0.4s;
+  border-radius: 3px;
         
 }
 .btn-admin:hover{
    background-color: #cf4246;
-        color: #FFFFFF;
-        transition: 0.4s;
-        border-radius: 5px;
+    color: #FFFFFF;
+    transition: 0.4s;
+    border-radius: 5px;
        
 }
 .btn-admin:focus{
@@ -1427,20 +1427,6 @@ tr:hover{
       //   var search = course+" "+eval+" "+stat+" "+sy;
       //   table.search(search).draw();
       // });
-
-     
-
-      /*Refresh button*/
-      $('#disp').click(function(){
-          location.reload();return false;
-          $('#course_option').val("courseDefault");
-          $('#eval_option').val("evalDefault");
-          $('#status_option').val("statDefault");
-          $('#sy_option').val("syDefault");
-          var search = "";
-          table.search(search).draw();
-      });
-
 
   });
 </script>
