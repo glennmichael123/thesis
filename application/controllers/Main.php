@@ -132,17 +132,16 @@ class Main extends CI_Controller {
     }
 	public function index()
 	{
-		
-	
      if( isset($this->session->userdata['id_number']) ){
      	redirect(base_url('dashboard'));
      }else{
      	 session_destroy();
      	$data['watch_list'] = $this->users->getWatchlists();
+        $data['companies'] = $this->users->getCompanies();
      	$this->load->view('index',$data);
      	//print_r($this->session->userdata['id_number']);exit;
      }
-		
+
 		
 	}
 	public function profile()
@@ -1164,6 +1163,22 @@ public function logout(){
 	    $data['company_for_graph_count'] = $this->users->getCompanyGraphCount($this->session->userdata('id_number'));
      	$html = $this->load->view("companytables",$data,TRUE);
      	echo $html;
+     }
+     public function nloDashboard(){
+        $data['companies']=$this->users->getCompanies();
+        $this->load->view("nlocompany",$data);
+     }
+     public function editCompany(){
+        header('Access-Control-Allow-Origin: *');
+        $this->users->editCompanies();
+     }
+     public function deleteCompany(){
+        foreach ($_POST['usernames'] as $username){
+            $this->users->deleteCompaniesFromNLO($username);
+        }
+     }
+     public function addCompany(){
+        $this->users->addCompanies();
      }
 }
 

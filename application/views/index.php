@@ -105,6 +105,9 @@
   <a href="#watchlist" class="modal-trigger">
     <button class="btn waves-effect waves-dark btnWatchList">WATCHLIST</button>
   </a>
+  <a href="#companylist" class="modal-trigger">
+    <button class="btn waves-effect waves-dark btnWatchList" style="margin-right: 5px;">COMPANIES</button>
+  </a>
 </div>
     <div class="valign-wrapper row login-box ">
   <div class="col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4 z-depth-5">
@@ -187,6 +190,62 @@
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
     </div>
   </div>
+  <div id="companylist" class="modal modal-fixed-footer" style="border-radius: 10px;">
+  <div class="modal-header" style="background-color:#ca2e32;padding:10px;"> 
+    <h5 style="font-weight:bold;color:white">List of Companies</h5>
+  </div>
+    <div class="modal-content">
+        <div id="wrap-students">
+    <div class="well dashboard-list">
+      <?php if(empty($companies)):?>
+          <table id="adminDataTable" class="bordered" cellspacing="0" width="100%" style="font-size: 13px;">
+            <thead>
+                <tr style="background-color: #f44336; color:white;">
+                    <th>Company Name</th>
+                    <th>Address</th>
+                    <th>Designated Person</th>
+                    <th>Contact Number</th>
+                    <th>MOA</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+          </table>
+      <?php else:?>
+      <form action="deleteCompany" method="POST" name="formDel">
+            <table id="adminDataTable" class="striped" cellspacing="0" width="100%" style="font-size: 13px;">
+                    <thead>
+                        <tr style="background-color: #db3c30; color:white;">
+                           
+                            <th>Company Name</th>
+                        <th>Address</th>
+                        <th>Designated Person</th>
+                        <th>Contact Number</th>
+                        <th>MOA</th>
+              
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <?php foreach ($companies as $company):?>
+                        <tr class="dashTable">
+                              <td><?php echo $company['company_name']; ?></td>
+                              <td><?php echo $company['address']; ?></td>
+                              <td><?php echo $company['designated_person']; ?></td>
+                              <td><?php echo $company['contact_no']; ?></td>
+                              <td><?php echo($company['moa'] == 1 ? 'With MOA' : 'Without MOA')?></td>
+                        </tr>
+                      <?php endforeach;?>
+                  </tbody>
+              </table>
+            <?php endif;?>
+        </form>
+    </div>
+    </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+    </div>
+  </div>
 <script src="<?php echo base_url() ?>assets/js/materialize.min.js"></script>
 </body>
 
@@ -195,5 +254,12 @@
     $('select').material_select();
     $('.modal').modal();
 });
+</script>
+<script type="text/javascript">
+  var table = $('#adminDataTable').DataTable({
+     "bProcessing": true,
+      "order": [1, 'asc'],
+      "columns": [{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false }],
+  });
 </script>
 </html>

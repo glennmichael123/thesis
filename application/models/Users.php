@@ -2068,6 +2068,33 @@
         $compName = $_POST['compName'];
         $this->db->query("UPDATE company_information SET watchlisted = 0 WHERE company_name = '$compName'");
       }
+      public function getCompanies(){
+        $query=$this->db->query("SELECT * FROM companies");
+        return $query->result_array();
+      }
+      public function editCompanies(){
+          $data = array('company_name'=>$_POST['compName'],
+                        'watchlisted'=>$_POST['ban'],
+                        'address'=>$_POST['compAddress'],
+                        'contact_no'=>$_POST['compContact'],
+                        'designated_person'=>$_POST['compPerson'],
+                        'moa'=>$_POST['moa'],
+                        );
+          $this->db->where('id',$_POST['compID']);
+          $this->db->update('companies',$data);
+      }
+      public function deleteCompaniesFromNLO($compID){
+        $this->db->query("DELETE FROM companies WHERE id= '$compID'");
+      }
+      public function addCompanies(){
+        $company_name=$_POST['companyName'];
+        $company_address=$_POST['companyAddress'];
+        $company_DP=$_POST['companyDP'];
+        $company_CN=$_POST['companyCN'];
+        $company_moa=$_POST['moa'];
+        $company_ban=$_POST['ban'];
+        $this->db->query("INSERT INTO companies(company_name,watchlisted,address,contact_no,designated_person,moa) VALUES('".$company_name."','".$ban."','".$company_address."','".$company_CN."','".$company_DP."','".$company_moa."')");
+      }
 }
 ?>
   
