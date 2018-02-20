@@ -115,6 +115,7 @@ $route['retrySendEmail']  = 'main/retrySendEmail';
 $route['loadCompaniesTable']  = 'main/loadCompaniesTable';
 $route['editSupervisor']  = 'main/editSupervisor';
 $route['deleteCompanyWatchlist']  = 'main/deleteCompanyWatchlist';
+$route['validCompanies']  = 'main/validCompanies';
 
 
 

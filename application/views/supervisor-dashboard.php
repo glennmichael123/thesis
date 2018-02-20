@@ -21,9 +21,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="<?php  echo base_url() ?>assets/css/jquery-ui.css">
     
-       <script src="<?php echo base_url() ?>assets/js/jquery-1.12.4.js"></script>
-    <script src="<?php echo base_url() ?>assets/js/jquery-ui.js"></script>
-    <link rel="stylesheet" href="<?php  echo base_url() ?>assets/css/jquery-ui.css">
+    <script src="<?php echo base_url() ?>assets/js/jquery-1.12.4.js"></script>
 
     <script src="<?php echo base_url() ?>assets/js/jquery.easy-autocomplete.min.js"></script> 
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/easy-autocomplete.min.css"> 
@@ -31,7 +29,7 @@
     <!-- Latest compiled and minified JavaScript -->
 
     <script src="<?php echo base_url()?>assets/js/bootstrap.min.js"></script>
-   <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script src="<?php echo base_url();?>assets/js/swal.js"></script>

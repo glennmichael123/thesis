@@ -169,11 +169,16 @@
     <h5 style="font-weight:bold;color:white">Company Watchlist</h5>
   </div>
     <div class="modal-content">
-      <?php foreach ($watch_list as $list):?>
-        <ul>
-          <li style="color:#00615f;font-size: 15px;"><?php echo $list['company_name']; ?></li>
-        </ul>
-      <?php endforeach; ?>
+      <?php if(empty($watch_list)):?>
+        <p style="text-align: center;color: gray;font-size: 13px;padding-top: 100px;">No companies on the watch list</p>
+      <?php else:?>
+        <p style="font-weight: bold">Students are not allowed to undergo OJT in the following companies: </p>
+        <?php foreach ($watch_list as $list):?>
+          <ul>
+            <li style="color:#00615f;font-size: 15px;margin-left: 20px;"><?php echo $list['company_name']; ?></li>
+          </ul>
+        <?php endforeach; ?>
+      <?php endif;?>
     </div>
     <div class="modal-footer">
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>

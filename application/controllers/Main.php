@@ -260,11 +260,10 @@ class Main extends CI_Controller {
 				'password' => $this->input->post('password') // this->input->post('password');
 				);
 				$result = $this->users->readUserId($data);
-			
 				$session_data = $result[0]['id_number'];
 				$ojtProgram = $result[0]['ojt_program'];
 				// print_r($session_data);
-			// Add user data in session
+			    // Add user data in session
 				$this->session->set_userdata('id_number', $session_data);
 				$this->session->set_userdata('account_type', $account_type);
 				$this->session->set_userdata('ojt_program', $ojtProgram);
@@ -1130,5 +1129,39 @@ public function logout(){
      	$html = $this->load->view("companytables",$data,TRUE);
      	echo $html;
      }
+
+     public function deleteCompanyWatchlist(){
+        $this->users->deleteCompany();
+     }
+
+     public function watchlistAutoComplete(){
+        $names = $this->db->query("SELECT company_name FROM companies WHERE watchlisted = 0")->result();
+        $companies = array(array('names'=>''));
+        $i=0;
+
+        if(!empty($names)){
+            foreach ($names as $name) {
+                
+                $companies[$i]['names'] = $name->company_name;
+                $i++;
+            }
+        }
+        echo json_encode($companies);
+    }
+
+    public function validCompanies(){
+        $names = $this->db->query("SELECT company_name FROM companies WHERE watchlisted = 0")->result();
+        $companies = array(array('names'=>''));
+        $i=0;
+
+        if(!empty($names)){
+            foreach ($names as $name) {
+                
+                $companies[$i]['names'] = $name->company_name;
+                $i++;
+            }
+        }
+        echo json_encode($companies);
+    }
 }
 
