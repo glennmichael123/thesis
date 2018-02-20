@@ -1,3 +1,6 @@
+
+    
+
 <div id="wrap-students">
     <div class="well dashboard-list">
 
@@ -67,7 +70,7 @@
      </div>
   </div>
 
-
+<?php $i=0; ?>
 <?php foreach ($supervisor_list as $supervisor):?>
 <div class="modal fade" id="<?php echo preg_replace("/[^A-Za-z0-9 ]/", '',$supervisor['id_number'])?>" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
   
@@ -84,14 +87,21 @@
               <div class="form-group">
                     <label>Name</label>
                     <input type="text" class="form-control capitalize suppName" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="edit-supName" name="edit-supName" value="<?php echo $supervisor['name']?>">
-                    <label>Company</label> <span style="float:right;text-decoration: italic"><a href="#" class="edit-new-company">New</a></span>
+                    <!-- <label>Company</label> <span style="float:right;text-decoration: italic"><a href="#" class="edit-new-company">New</a></span>
                     <input type="text" class="form-control editNew_company suppCompany" style="border-radius: 5px;margin-bottom: 10px; width: 100%; display:none" id="editNew_company" name="editNew_company">
                     <select class="form-control edit-company_list_choice2" style="border-radius:5px;margin-bottom:10px" id="dropCompany" name="dropCompany">
                          <option selected hidden><?php echo $supervisor['company_name']?></option>
                          <?php foreach($company_list as $company):?>  
                            <option value="<?php echo $company['company_name']?>"><?php echo $company['company_name']?></option>
                         <?php endforeach;?>  
-                    </select>
+                    </select> -->
+                    <div class="row">
+                      <div class="col-lg-12" style="padding: 10px 15px;">
+                        <label for="editComp">Company name</label>
+                        <input type="text" class="form-control suppCompany" id="editComp<?php echo $i; ?>" style="border-radius: 5px;width: 565px;" name="suppCompany" value="<?php echo $supervisor['company_name']?>">
+                       </div>
+                    </div>
+
 
                     <label>Designation</label>
                     <input type="text" class="form-control capitalize suppDesig" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="edit-supDesig" name="edit-supDesig" value="<?php echo $supervisor['designation']?>">
@@ -124,8 +134,31 @@
     </div>
   </div>
 </div>
-<?php endforeach;?>
 
+<?php $i++; ?>
+
+<?php endforeach;?>
+<input type="hidden" class="modaCounter" value="<?php echo $i; ?>">
+
+<script>
+  $(document).ready(function(){
+    var counter = $('.modaCounter').val();
+   
+      var options = {
+        url: "<?php echo base_url('validCompanies')?>",
+        getValue: "names",
+        list: {
+          match: {
+            enabled: true
+          }
+        }
+      };
+      for (var i = 0; i <= counter; i++) {
+        $('#editComp'+i+'').easyAutocomplete(options);
+      }
+
+  });
+</script>
 <script type="text/javascript">
   String.prototype.capitalize = function() {
     return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
@@ -136,17 +169,15 @@
         var id = $(this).closest('.modal').find('.hiddenId').val();
         var currentEmail = $(this).closest('.modal').find('.hiddenEmail').val().trim();
         var name = $(this).closest('.modal').find('.suppName').val().capitalize().trim();
-        var n = $(this).closest('.modal').find('.edit-new-company').html();
-        if(n == 'New'){
-          var company = $(this).closest('.modal').find('.edit-company_list_choice2').val();
-        }else{
-          var company = $(this).closest('.modal').find('.suppCompany').val().trim()
-        }
+        var company = $(this).closest('.modal').find('.suppCompany').val().trim()
         var designation = $(this).closest('.modal').find('.suppDesig').val().trim();
         var username = $(this).closest('.modal').find('.suppId').val().trim();
         var password = $(this).closest('.modal').find('.suppPass').val().trim();
         var email = $(this).closest('.modal').find('.suppEmail').val().trim();
         var phone_number = $(this).closest('.modal').find('.suppNumber').val().trim();
+        if(name.length == 0 || company == null || company.length == 0|| designation.length == 0 || username.length == 0 || password.length == 0 || email.length == 0){
+          swal('Oops...','Please fill all fields','error');;return false;
+        }
         if(currentEmail != email){
           var flag = 0;
         }else{
@@ -239,7 +270,7 @@
               // location.reload();
             });
           }else
-              swal('Oops...','Email not sent','error');
+              swal('Something went wrong','Email not sent','error');
               loading.addClass('hiddenLoading');
               envelope.show();
           }

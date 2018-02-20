@@ -259,11 +259,10 @@ class Main extends CI_Controller {
 				'password' => $this->input->post('password') // this->input->post('password');
 				);
 				$result = $this->users->readUserId($data);
-			
 				$session_data = $result[0]['id_number'];
 				$ojtProgram = $result[0]['ojt_program'];
 				// print_r($session_data);
-			// Add user data in session
+			    // Add user data in session
 				$this->session->set_userdata('id_number', $session_data);
 				$this->session->set_userdata('account_type', $account_type);
 				$this->session->set_userdata('ojt_program', $ojtProgram);
@@ -384,27 +383,20 @@ public function loggedinAdministrator($account_type){
 				'password' => $this->input->post('password') // this->input->post('password');
 				);
 				$result = $this->users->readUserAdmin($data);
-			
+			     
 				$session_data = $result[0]['id_number'];
-				// print_r($session_data);
-			// Add user data in session
+                $role = $this->users->getAdminRole($data['username']);
 				$this->session->set_userdata('id_number', $session_data);
 				$this->session->set_userdata('account_type', $account_type);
-				// $account_type = $this->users->getAccountType(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
-				// $existId = $this->users->checkExistRecords(isset($this->session->userdata['id_number']) ? $this->session->userdata['id_number'] : '');
-				// $newId = $this->session->userdata['id_number'];
-				// $newRecord = Array('id_number' => $newId, 'total_hours' => 200, 'total_evaluations'=> 2);
-				// if(!$existId && $account_type[0]['account_type'] == 0){
-				// 	$this->users->insertNewRecordOjt($newRecord);
-				// }
-				// if($account_type[0]['account_type'] == 0){
-				// 	header("location: dashboard");
-				// }else if($account_type[0]['account_type'] == 1){
-				// 	header("location: supervisorDashboard");
-				//  }elseif ($account_type[0]['account_type'] == 2) {
-				//  	header("location: adminDashboard");
-				//  }
-				redirect('admindashboard');
+	            $this->session->set_userdata('role', $role);
+
+
+                if($role->role == 'nlo'){
+                    redirect('nloDashboard');
+                }else{
+                    redirect('admindashboard');
+                }
+				
 			
 				
 					
@@ -1164,9 +1156,16 @@ public function logout(){
      	$html = $this->load->view("companytables",$data,TRUE);
      	echo $html;
      }
+
+
      public function nloDashboard(){
-        $data['companies']=$this->users->getCompanies();
+        if(!isset($this->session->userdata['id_number'])){
+          redirect(base_url('index'));
+        }else{
+            $data['companies']=$this->users->getCompanies();
         $this->load->view("nlocompany",$data);
+        }
+        
      }
      public function editCompany(){
         header('Access-Control-Allow-Origin: *');
@@ -1180,5 +1179,41 @@ public function logout(){
      public function addCompany(){
         $this->users->addCompanies();
      }
+
+
+     public function deleteCompanyWatchlist(){
+        $this->users->deleteCompany();
+     }
+
+     public function watchlistAutoComplete(){
+        $names = $this->db->query("SELECT company_name FROM companies WHERE watchlisted = 0")->result();
+        $companies = array(array('names'=>''));
+        $i=0;
+
+        if(!empty($names)){
+            foreach ($names as $name) {
+                
+                $companies[$i]['names'] = $name->company_name;
+                $i++;
+            }
+        }
+        echo json_encode($companies);
+    }
+
+    public function validCompanies(){
+        $names = $this->db->query("SELECT company_name FROM companies WHERE watchlisted = 0")->result();
+        $companies = array(array('names'=>''));
+        $i=0;
+
+        if(!empty($names)){
+            foreach ($names as $name) {
+                
+                $companies[$i]['names'] = $name->company_name;
+                $i++;
+            }
+        }
+        echo json_encode($companies);
+    }
+
 }
 

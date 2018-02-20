@@ -100,23 +100,22 @@
         }
 
         public function user_login(){
-                $username = $_POST['username']; //need to be dynamic
-                $password = $_POST['password']; //need to be dynamic
+                $username = $_POST['username'];
+                $password = $_POST['password'];
                 $result = $this->db->query("SELECT * FROM users WHERE id_number = '$username' AND password = '$password'");
                 //print_r($result->result_array());
                 $affectedRows = $this->db->affected_rows();
                 
                if($affectedRows>0){
                     return true;
-                        
                 }else{
                     return false;
                 }
         }
 
          public function user_login_administrator(){
-                $username = $_POST['username']; //need to be dynamic
-                $password = $_POST['password']; //need to be dynamic
+                $username = $_POST['username'];
+                $password = $_POST['password'];
                 $result = $this->db->query("SELECT * FROM admin WHERE id_number = '$username' AND password = '$password'");
                 //print_r($result->result_array());
                 $affectedRows = $this->db->affected_rows();
@@ -171,8 +170,8 @@
          }
 
          public function user_login_supervisor(){
-                $username = $_POST['username']; //need to be dynamic
-                $password = $_POST['password']; //need to be dynamic
+                $username = $_POST['username'];
+                $password = $_POST['password'];
                 $result = $this->db->query("SELECT * FROM supervisor WHERE id_number = '$username' AND password = '$password'");
                 //print_r($result->result_array());
                 $affectedRows = $this->db->affected_rows();
@@ -216,7 +215,7 @@
          }
 
          public function getCompanyWatchlist(){
-            $query = $this->db->query("SELECT DISTINCT company_name FROM company_information WHERE watchlisted = 0");
+            $query = $this->db->query("SELECT DISTINCT company_name FROM companies WHERE watchlisted = 1");
            return $query->result_array();
          }
          public function getCompanySupervisor($id_number){
@@ -809,16 +808,18 @@
          }
          public function addWatch(){
             $companyToWatch = $_POST['companyName'];
-
-            // CHANGE OPERATOR TO LIKE  --------------
-            $result = $this->db->query("SELECT * FROM watchlist WHERE company_name = '".$companyToWatch."'");
+            $exist = $this->db->query("SELECT * FROM companies WHERE company_name = '$companyToWatch' AND watchlisted = 1");
             if($this->db->affected_rows() > 0){
-                echo "fail";
+              echo "fail";exit;
+            }else{
+              $result = $this->db->query("SELECT * FROM companies WHERE company_name = '$companyToWatch'");
+              if($this->db->affected_rows() > 0){
+                $this->db->query("UPDATE companies SET watchlisted = 1 WHERE company_name = '$companyToWatch'");
+              }else{
+                $this->db->query("INSERT INTO companies(company_name,watchlisted) VALUES ('$companyToWatch',1)");
+              }
             }
-            else{  
-               $this->db->query("UPDATE company_information SET watchlisted = 1 WHERE company_name = '$companyToWatch'");
-               return $this->db->query("INSERT INTO watchlist (company_name) VALUES('$companyToWatch')");
-            }
+              
          }
 
          public function addSupervisor(){
@@ -2066,7 +2067,7 @@
       
       public function deleteCompany(){
         $compName = $_POST['compName'];
-        $this->db->query("UPDATE company_information SET watchlisted = 0 WHERE company_name = '$compName'");
+        $this->db->query("UPDATE companies SET watchlisted = 0 WHERE company_name = '$compName'");
       }
       public function getCompanies(){
         $query=$this->db->query("SELECT * FROM companies");
@@ -2094,6 +2095,12 @@
         $company_moa=$_POST['moa'];
         $company_ban=$_POST['ban'];
         $this->db->query("INSERT INTO companies(company_name,watchlisted,address,contact_no,designated_person,moa) VALUES('".$company_name."','".$ban."','".$company_address."','".$company_CN."','".$company_DP."','".$company_moa."')");
+      }
+
+      public function getAdminRole($username){
+        $query = $this->db->query("SELECT role FROM admin WHERE id_number = '$username'");
+
+        return $query->row();
       }
 }
 ?>
