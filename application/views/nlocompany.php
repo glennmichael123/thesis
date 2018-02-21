@@ -13,8 +13,8 @@
     <script src="//code.jquery.com/jquery-1.12.4.js"></script>
     <script src="<?php echo base_url() ?>assets/js/jquery.dataTables.min.js"></script>
     <script src="<?php echo base_url() ?>assets/js/dataTables.bootstrap.min.js"></script>
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <link href="<?php echo base_url() ?>assets/css/toggle.min.css" rel="stylesheet">
+<script src="<?php echo base_url() ?>assets/js/toggle.min.js"></script>
 <!-- Sweet Alert -->
     <script src="<?php echo base_url()?>assets/js/swal.js"></script>
 </head>
@@ -145,10 +145,13 @@
 	</div>
 
   
-
-<div class="panel nlopanel">
+<div class="container">
+  
+  <div class="panel nlopanel">
   <h3 id="nlo">Networking and Linkages Office <button style="float: right; margin-right: 10px;" data-toggle="modal" data-target="#addComp" class="btn btn-company">+Company</button></h3>
 </div>
+</div>
+
 <div class="container">
 <div id="wrap-students">
     <div class="well dashboard-list">
@@ -190,7 +193,7 @@
                               <td><?php echo $company['designated_person']; ?></td>
                               <td><?php echo $company['contact_no']; ?></td>
                               <td><?php echo($company['moa'] == 1 ? 'With MOA' : 'Without MOA')?></td>
-                              <td><button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#<?php echo $company['id']; ?>">Edit</button></td>
+                              <td><button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#<?php echo $company['id']; ?>">Edit <i class="fa fa-pencil"></i></button></td>
 
                           </tr>
                   	  <?php endforeach;?>
@@ -226,7 +229,7 @@
   						<input type="checkbox" class="compMoa" <?php echo($company['moa'] == 1 ? 'checked' : '') ?> data-toggle="toggle" data-on="With MOA" data-off="Without MOA" data-onstyle="success" data-offstyle="danger" data-width="150">
 			</div>
 			<div class="checkbox">
-  						<input type="checkbox" class="compBan" <?php echo($company['watchlisted'] == 1 ? 'checked' : '') ?> data-toggle="toggle" data-on="Banned" data-off="Not Banned" data-onstyle="success" data-offstyle="danger" data-width="150">
+  						<input type="checkbox" class="compBan" <?php echo($company['watchlisted'] == 1 ? 'checked' : '') ?> data-toggle="toggle" data-on="Banned" data-off="Not Banned" data-onstyle="danger" data-offstyle="success" data-width="150">
 			</div>
         </form>
       </div>
@@ -256,7 +259,7 @@
           <label>Contact Number</label>
           <input type="text" name="companyCN" class="form-control companyCN">
           <div class="checkbox">
-              <input type="checkbox" class="companyMoa" data-toggle="toggle" data-on="With MOA" data-off="Without MOA" data-onstyle="success" data-offstyle="danger" data-width="150">
+              <input type="checkbox" class="companyMoa" data-toggle="toggle" data-on="With MOA" data-off="Without MOA" data-onstyle="danger" data-offstyle="success" data-width="150">
           </div>
         </form>
       </div>

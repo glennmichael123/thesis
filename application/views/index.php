@@ -173,7 +173,6 @@
   </div>
     <div class="modal-content">
 
-      <h5 style="font-weight: bold">Company Watchlist</h5>
       <?php if(empty($watch_list)): ?>
         <h6 class="center-align">There are no company watch list yet.</h6>
       <?php else: ?>

@@ -119,7 +119,7 @@ $route['nloDashboard']  = 'main/nloDashboard';
 $route['editCompany'] = 'main/editCompany';
 $route['deleteCompany'] = 'main/deleteCompany';
 $route['addCompany']='main/addCompany';
-
+$route['validCompanies']  = 'main/validCompanies';
 
 
 

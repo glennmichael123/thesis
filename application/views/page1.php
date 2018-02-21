@@ -670,6 +670,20 @@
     </div>
 </section>
 </body>
+<script>
+$(document).ready(function(){
+    var options = {
+      url: "<?php echo base_url('validCompanies')?>",
+      getValue: "names",
+      list: {
+        match: {
+          enabled: true
+        }
+      }
+    };
+    $("#company_name").easyAutocomplete(options);
+});
+</script>
 
 <!-- <script type="text/javascript">
     $('#firstNext').click(function(){

@@ -842,7 +842,7 @@ header h1 {
                                 <img src="<?php echo base_url().$supervisor_image->image_id;?>" class="pull-right circular-square user-image" style="width: 40px;height: 40px;margin-top: 5px;"></a>
 
                                  <ul class="dropdown-menu" style="margin-top: 11px;margin-left: -200px;" id="show-logout">
-                                <li><a href="<?php echo base_url()?>main/supervisorDashboard">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
+                                <li><a href="<?php echo base_url('supervisordashboard')?>">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
                                 <li class="divider"></li>
         
                                 <li><a href="<?php echo base_url('changepassword') ?>">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>

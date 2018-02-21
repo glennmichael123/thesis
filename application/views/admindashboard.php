@@ -34,8 +34,12 @@
     <script type="text/javascript" src="dataTables.scrollingPagination.js"></script>
  -->
 
-    <!-- AC Jquery huehue -->
+    <!-- AutoComplete Jquery huehue -->
     <script src="<?php echo base_url() ?>assets/js/jquery-ui.js"></script>
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/jquery-ui.css">
+
+    <script src="<?php echo base_url()?>assets/js/jquery.easy-autocomplete.min.js"></script> 
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/easy-autocomplete.min.css"> 
 
     <style type="text/css">
         body{
@@ -380,8 +384,6 @@ tr:hover{
                                 <i class="fa fa-user-circle fa-3x circular-square pull-right" style="width: 40px; height: 40px; margin-top: -10px;"></i>
                                </a>
                               <ul class="dropdown-menu" id="show-logout">
-                                <li><a href="<?php echo base_url('admindashboard') ?>">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
-                                <li class="divider"></li>
         
                                 <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
                                 <li class="divider"></li>
@@ -613,26 +615,20 @@ tr:hover{
         </div>
         <div class="modal-body">
             <div id="plusWatch">
-	            <form>
-	              <div class="form-group">
-	                    <label>Company name</label>
-	                    <span style="float: right;text-decoration: italic"><a href="#" class="new-company-watchlist">New</a></span>
-	                     <textarea class="form-control" name="new_company_watch" id="new_company_watchlist" style="resize: none; height:34px;border-radius: 5px; display: none;"></textarea>
-	                    <select class="form-control company_watchlist_choice" style="border-radius: 5px" id="addWatch" name="addWatch">
-	                        <option selected disabled>Select company</option>
-	                        <?php foreach($company_list as $company):?>
-                             <option value="<?php echo $company['company_name']?>"><?php echo $company['company_name']?></option>
-	                        <?php endforeach;?> 
-	                    </select>
-	                </div>
-	            </form>
+
+              <div class="row">
+                <div class="col-lg-12" style="padding: 20px 15px;">
+                  <label for="addWatch">Company name</label>
+                  <input type="text" id="addWatch" style="width: 565px;" name="addWatch" required>
+                 </div>
+              </div>
 	        </div>
 	        <div id="lists" style="display: none;padding: 20px 10px">
-            <?php if(empty($watch_lists)):?>
-              <p style="text-align: center;color: gray;font-size: 13px;padding: 20px">No company on the watch list</p>
-              <?php print_r($watch_lists); ?>
+            <?php if(empty($company_watch_list)):?>
+              <p style="text-align: center;color: gray;font-size: 13px;padding: 20px">No companies on the watch list</p>
+              
             <?php else:?>
-  	          <?php foreach($watch_lists as $companywatch):?>
+  	          <?php foreach($company_watch_list as $companywatch):?>
                 <div class="companyWatchList">
                   <p class="dispWatch" style="font-weight: bold;">
                     <?php echo $companywatch['company_name'];?>
@@ -723,17 +719,15 @@ tr:hover{
             <form id="formsupervisor">
               <div class="form-group">
                     <label>Name</label>
-                    <input type="text" class="form-control capitalize required" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supName" name="supName" required>
-                    <label>Company</label> <span style="float:right;text-decoration: italic"><a href="#" class="new-company">New</a></span>
-                    <input type="text" class="form-control required" style="border-radius: 5px;margin-bottom: 10px; width: 100%; display:none" id="new_company" name="new_company" required>
-                    <select class="form-control company_list_choice2 required" style="border-radius:5px;margin-bottom:10px" id="dropCompany" name="dropCompany" required>
-                                  <option selected disabled>Select company</option>
-                         <?php foreach($company_list as $company):?>  
 
-                           <option value="<?php echo $company['company_name']?>"><?php echo $company['company_name']?></option>
-                        <?php endforeach;?>  
-                                  
-                    </select>
+                    <input type="text" class="form-control capitalize" style="border-radius: 5px;width: 100%" id="supName" name="supName">
+                    <div class="row">
+                      <div class="col-lg-12" style="padding: 10px 15px;">
+                        <label for="dropCompany">Company name</label>
+                        <input type="text" id="dropCompany" style="border-radius: 5px;width: 565px;" name="dropCompany" required>
+                       </div>
+                    </div>
+
                     <label>Designation</label>
                     <input type="text" class="form-control capitalize required" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supDesig" name="supDesig" required>
                     <label>Username</label>
@@ -905,6 +899,23 @@ tr:hover{
 </div>
 
 </body>
+<!-- Autocomplete Watchlist companies -->
+<script>
+$(document).ready(function(){
+    var options = {
+      url: "<?php echo base_url('validCompanies')?>",
+      getValue: "names",
+      list: {
+        match: {
+          enabled: true
+        }
+      }
+    };
+    $("#addWatch").easyAutocomplete(options);
+    $("#dropCompany").easyAutocomplete(options);
+});
+</script>
+
 <!-- Add watchlist header button options -->
 <script type="text/javascript">
 	$('#btnAddWatch').click(function(){
@@ -926,7 +937,7 @@ tr:hover{
 		var company_name = $(this).closest('.companyWatchList').find('.hiddenCompWatch').val();
     var compField =  $(this).closest('.companyWatchList');
 		swal({
-      title: "Delete?",
+      title: "Remove from watchlist?",
       icon: "warning",
       buttons: true,
       buttons: ["No", "Yes"],
@@ -938,10 +949,12 @@ tr:hover{
         $.ajax({
           type: "POST",
           url: "<?php echo base_url()?>"+"deleteCompanyWatchlist",
-          
           data:{
             'compName': company_name,
           },
+          success:function(){
+
+          }
         });
       }
     });
@@ -1367,7 +1380,7 @@ tr:hover{
         }
         if(confirm == "yes"){
             swal({
-              title: "Are you sure you want to remove student?",
+              title: "Are you sure you want to remove student/s?",
               icon: "warning",
               buttons: true,
               buttons: ["No", "Yes"],
@@ -1666,15 +1679,9 @@ tr:hover{
   };
 
   $('#addSup').click(function(e){
-
-        var n = $('.new-company').html();
         var name = $('#supName').val().capitalize().trim();
 
-        if(n == 'New'){
-          var compName = $('#dropCompany').val();
-        }else{
-          var compName = $('#new_company').val().trim();
-        }
+        var compName = $('#dropCompany').val().trim();
 
         var desig = $('#supDesig').val().capitalize().trim();
         var id = $('#supID').val().trim();
@@ -1818,37 +1825,32 @@ tr:hover{
 <!-- ADD WATCHLIST -->
 <script type="text/javascript">
   $('#addWatchList').click(function(e){
-      var n = $('.new-company-watchlist').html();
-        if(n == 'New'){
-          var compName = $('#addWatch').val();
-        }else{
-          var compName = $('#new_company_watchlist').val().trim();
-        }
-        if(compName == null || compName.length==0){
-          alert("Please select or enter a company");
-        }else{
-          $.ajax({
-            url: "addWatchlist",
-            type: "POST",
-            data: {
-              'companyName':compName,
-            },
-            success:function(data){
-
-              if($.trim(data) == "email_exist" == "fail"){
-                alert("That company is already in the watch list");
-              }else{  
-                swal({
-                  title: "Success",
-                  text: "Company added to watch list",
-                  icon: "success",
-                }).then(function(){
-                  location.reload();
-                });
-              }
-            },
-          });
-        }
+  	var compName = $('#addWatch').val().trim();
+    if(compName == null || compName.length==0){
+      alert("Please select or enter a company");
+    }else{
+      $.ajax({
+        url: "addWatchlist",
+        type: "POST",
+        data: {
+          'companyName':compName,
+        },
+        success:function(data){
+          if($.trim(data) == "fail"){
+            // alert("The company is already on the watch list");
+            swal('Oops...', 'That company is already on the watch list','error');
+          }else{  
+            swal({
+              title: "Success",
+              text: "Company added to watch list",
+              icon: "success",
+            }).then(function(){
+              location.reload();
+            });
+          }
+        },
+      });
+    }
   });
       
 </script>
