@@ -137,7 +137,6 @@ class Main extends CI_Controller {
      }else{
      	 session_destroy();
      	$data['watch_list'] = $this->users->getWatchlists();
-        $data['companies'] = $this->users->getCompanies();
      	$this->load->view('index',$data);
      	//print_r($this->session->userdata['id_number']);exit;
      }
@@ -1213,6 +1212,10 @@ public function logout(){
             }
         }
         echo json_encode($companies);
+    }
+    public function companyList(){
+        $data['companies'] = $this->users->getCompanies();
+        $this->load->view('companylist',$data);
     }
 
 }
