@@ -2046,7 +2046,7 @@
       }
 
       public function getSupervisors(){
-        $query = $this->db->query("SELECT DISTINCT name, id_number, company_name, designation, flag, phone_number,email,password,verified FROM supervisor");
+        $query = $this->db->query("SELECT DISTINCT name, id_number, company_name, designation, flag, phone_number,email,password,verified FROM supervisor WHERE status!='DELETED'");
         return $query->result_array();
       }
 
@@ -2091,10 +2091,11 @@
         $company_name=$_POST['companyName'];
         $company_address=$_POST['companyAddress'];
         $company_DP=$_POST['companyDP'];
+        $company_Pos=$_POST['companyPos'];
         $company_CN=$_POST['companyCN'];
         $company_moa=$_POST['moa'];
         $company_ban=$_POST['ban'];
-        $this->db->query("INSERT INTO companies(company_name,watchlisted,address,contact_no,designated_person,moa) VALUES('".$company_name."','".$ban."','".$company_address."','".$company_CN."','".$company_DP."','".$company_moa."')");
+        $this->db->query("INSERT INTO companies(company_name,watchlisted,address,contact_no,designated_person,position,moa) VALUES('".$company_name."','".$ban."','".$company_address."','".$company_CN."','".$company_DP."','".$company_Pos."','".$company_moa."')");
       }
 
       public function getAdminRole($username){
@@ -2102,6 +2103,10 @@
 
         return $query->row();
       }
+
+      public function delSupervisor($username){
+          $this->db->query("UPDATE supervisor SET status='DELETED' WHERE id_number= '$username'");
+       }
 }
 ?>
   

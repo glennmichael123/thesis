@@ -386,13 +386,14 @@ public function loggedinAdministrator($account_type){
 				$session_data = $result[0]['id_number'];
                 $role = $this->users->getAdminRole($data['username']);
 				$this->session->set_userdata('id_number', $session_data);
-				$this->session->set_userdata('account_type', $account_type);
 	            $this->session->set_userdata('role', $role);
 
 
                 if($role->role == 'nlo'){
+                    $this->session->set_userdata('account_type','nlo');
                     redirect('nloDashboard');
                 }else{
+                    $this->session->set_userdata('account_type', $account_type);
                     redirect('admindashboard');
                 }
 				
@@ -1156,7 +1157,6 @@ public function logout(){
      	echo $html;
      }
 
-
      public function nloDashboard(){
         if(!isset($this->session->userdata['id_number'])){
           redirect(base_url('index'));
@@ -1216,6 +1216,14 @@ public function logout(){
     public function companyList(){
         $data['companies'] = $this->users->getCompanies();
         $this->load->view('companylist',$data);
+    }
+
+    public function deleteSupervisor(){
+        
+        foreach ($_POST['sup_usernames'] as $username){
+            $this->users->delSupervisor($username);
+        }
+        echo "success";
     }
 
 }

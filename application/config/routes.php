@@ -121,7 +121,7 @@ $route['deleteCompany'] = 'main/deleteCompany';
 $route['addCompany']='main/addCompany';
 $route['validCompanies']  = 'main/validCompanies';
 $route['companylist'] = 'main/companylist';
-
+$route['deleteSupervisor']  = 'main/deleteSupervisor';
 
 
 

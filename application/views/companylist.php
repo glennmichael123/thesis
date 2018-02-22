@@ -63,7 +63,13 @@
         #wrap-students{
         	margin-top: 20px;
         }
-
+      .pagination > li.active > a{
+          background-color:#f44336 !important;
+          border:2px solid #d32f2f !important;
+       }
+       tr:hover{
+          background-color: #faf2cc;
+        }
 </style>
 <body>
 	<div class="header">

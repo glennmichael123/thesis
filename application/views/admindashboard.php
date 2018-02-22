@@ -302,15 +302,6 @@ li.notification-title{
     text-transform: capitalize;
 }
 
-.pagination > li.active > a{
-    background-color:#f44336 !important;
-    border:2px solid #d32f2f !important;
- }
-
-.pagination > li > a:hover{
-  background-color:#ffc107;
-}
-
 .dataTables_wrapper > div > div > div{
   font-size: 14px !important;
 }
