@@ -192,7 +192,9 @@ tr:hover{
                             <th>Company Name</th>
                         		<th>Company Address</th>
                         		<th>Designated Person</th>
+                            <th>Position</th>
                         		<th>Contact Number</th>
+                            <th>Watchlisted</th>
                         		<th>MOA</th>
                         		<th></th>
                         </tr>
@@ -203,8 +205,10 @@ tr:hover{
                               <td style="text-align: center;width: 45px"><input type="checkbox" class="checkitem" value="<?php echo $company['id']?>" name="usernames[]"></td>
                               <td><?php echo $company['company_name']; ?></td>
                               <td><?php echo $company['address']; ?></td>
-                              <td><?php echo $company['designated_person']; ?></td>
+                              <td><?php echo $company['designated_person']; ?> </td>
+                                 <td><?php echo $company['position']; ?> </td>
                               <td><?php echo $company['contact_no']; ?></td>
+                              <td><?php echo($company['watchlisted'] == 1 ? 'Yes' : 'No')?></td>
                               <td><?php echo($company['moa'] == 1 ? 'With MOA' : 'Without MOA')?></td>
                               <td><button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#<?php echo $company['id']; ?>">Edit <i class="fa fa-pencil"></i></button></td>
 
@@ -212,7 +216,11 @@ tr:hover{
                   	  <?php endforeach;?>
                   </tbody>
               </table>
-              <div><button type="button" class="btn btn-warning" id="btnDelete"><i class="fa fa-trash"></i> Delete Selected Item(s)</button></div>
+              <div><button type="button" class="btn btn-warning" id="btnDelete"><i class="fa fa-trash"></i> Delete Selected Item(s)</button>
+                   <button type="button" style="float:right;" class="btn btn-info" id="viewpdf"><i class="fa fa-book"></i>View PDF</button>
+
+
+              </div>
             <?php endif;?>
         </form>
     </div>
@@ -292,6 +300,19 @@ tr:hover{
   </div>
 </div>
 </body>
+<script type="text/javascript">
+  $('#viewpdf').click(function(){
+
+    window.open(
+  '<?php echo base_url() ?>' + 'viewpdf','_blank' 
+);
+
+  }
+    );
+
+
+
+</script>
 <script type="text/javascript">
 	$('.savecompany').click(function(){
 		var compName = $(this).closest('.modal').find('.compName').val().trim();

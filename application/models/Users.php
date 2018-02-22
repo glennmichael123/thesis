@@ -27,7 +27,16 @@
 
              return $result;
         }
+        public function displayCompanies(){
+            $query= $this->db->query("SELECT * FROM companies");
 
+            return $query->result_array();
+
+        }
+        public function countCompanies(){
+          $query =  $this->db->query("SELECT count(id) as company_count from companies");
+          return $query->result_array();
+        }
 
 
         public function insertPersonalData(){
@@ -2134,7 +2143,7 @@
         $company_CN=$_POST['companyCN'];
         $company_moa=$_POST['moa'];
         $company_ban=$_POST['ban'];
-        $this->db->query("INSERT INTO companies(company_name,watchlisted,address,contact_no,designated_person,position,moa) VALUES('".$company_name."','".$ban."','".$company_address."','".$company_CN."','".$company_DP."','".$company_Pos."','".$company_moa."')");
+        $this->db->query("INSERT INTO companies(company_name,watchlisted,address,contact_no,designated_person,position,moa) VALUES('".$company_name."','".$company_ban."','".$company_address."','".$company_CN."','".$company_DP."','".$company_Pos."','".$company_moa."')");
       }
 
       public function getAdminRole($username){
