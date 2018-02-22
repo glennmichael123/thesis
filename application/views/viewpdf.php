@@ -26,18 +26,26 @@
                       $this->Cell(53,10,'Company Address',1,0,'C');
                       $this->Cell(53,10,'Designated Person',1,0,'C');
                       $this->Cell(53,10,'Contact Number',1,0,'C');
-                      $this->Cell(53,10,'MOA Status',1,0,'C');
+                      $this->Cell(53,10,'With Moa',1,0,'C');
                       $this->Ln();
 
                     }
                     function displayTable($db,$count){
                       $this->SetFont('Times','',12);
+                      $str = "";
                      for($x = 0;$x<($count[0]['company_count']);$x++ ){
+                      if($db[$x]['moa']==1){
+
+                        $str = "Yes";
+                      }
+                      else{
+                        $str="No";
+                      }
                       $this->Cell(53,10,$db[$x]['company_name'],1,0,'C');
                       $this->Cell(53,10,$db[$x]['address'],1,0,'C');
                       $this->Cell(53,10,$db[$x]['designated_person'],1,0,'C');
                       $this->Cell(53,10,$db[$x]['contact_no'],1,0,'C');
-                      $this->Cell(53,10,$db[$x]['moa'],1,0,'C');
+                      $this->Cell(53,10,$str,1,0,'C');
                       $this->Ln();
                         }
                      
