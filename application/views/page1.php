@@ -153,7 +153,7 @@
        }
 
        .address{
-        display: none;
+        display: none;	
        }
        .parent_address{
         display: none;
@@ -308,7 +308,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="number" placeholder="Phone or landline" id="number">
+                                <input type="text" maxlength="11" name="number" placeholder="Phone or landline" id="number">
                             </div>
                             <div class="col-lg-6">
                                 <input type="email" name="email" placeholder="Email address" id="email" required>
@@ -407,7 +407,7 @@
 
                         <div class="row">
                             <div class="col-lg-12">
-                                <input type="text" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="tel_no" placeholder="Landline or mobile" id="tel_no">
+                                <input type="text" maxlength="11" name="tel_no" placeholder="Landline or mobile" id="tel_no">
                             </div>
                         </div>
                         <h2 class="fs-title">In case of emergency, please contact <i class="fa fa-ambulance" aria-hidden="true"></i></h2>
@@ -421,7 +421,7 @@
                         </div>
                         <div class="row">
                           <div class="col-lg-12">
-                            <input type="text" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="tel_no_emergency" placeholder="Landline or mobile" id="tel_no_emergency">
+                            <input type="text" maxlength="11" name="tel_no_emergency" placeholder="Landline or mobile" id="tel_no_emergency">
                             </div>
                             <div class="col-lg-12">
                               <input type="text" name="emergency_address" placeholder="Address" id="emergency_address">
@@ -488,10 +488,10 @@
                         </div>
                         <div class="row">
                           <div class="col-lg-6">
-                            <input type="text" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="company_telephone" placeholder="Landline or mobile" id="company_telephone" required>
+                            <input type="text" maxlength="11" name="company_telephone" placeholder="Landline or mobile" id="company_telephone" required>
                           </div>
                           <div class="col-lg-6">
-                             <input type="text" name="company_fax" placeholder="Fax number" id="company_fax" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                             <input type="text" name="company_fax" placeholder="Fax number" id="company_fax">
                           </div>
                         </div>
 
@@ -815,29 +815,6 @@ $(document).ready(function(){
 </script>
 
 
-<!-- FOR HEIGHT AND WEIGHT INPUT FIELD -->
-<script type="text/javascript">
-    $('#height').keypress(function(event) {
-        var code = (event.keyCode ? event.keyCode : event.which);
-        if (!(
-                (code >= 48 && code <= 57) //numbers
-                || (code == 46) //period
-            )
-            || (code == 46 && $(this).val().indexOf('.') != -1)
-           )
-            event.preventDefault();
-    });
-    $('#weight').keypress(function(event) {
-        var code = (event.keyCode ? event.keyCode : event.which);
-        if (!(
-                (code >= 48 && code <= 57) //numbers
-                || (code == 46) //period
-            )
-            || (code == 46 && $(this).val().indexOf('.') != -1)
-           )
-            event.preventDefault();
-    });
-</script>
 
 <script type="text/javascript">
     $(document).ready(function(){

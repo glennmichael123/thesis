@@ -84,7 +84,7 @@
                     <input type="text" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="company_telephone" placeholder="Landline or mobile" id="company_telephone" required class="form-control">
                 </div>
                 <div class="col-lg-6">
-                    <input type="text" name="company_fax" placeholder="Fax number" id="company_fax" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control">
+                    <input type="text" name="company_fax" placeholder="Fax number" id="company_fax" class="form-control">
                 </div>
              </div>
              <div class="row">

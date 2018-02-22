@@ -112,7 +112,7 @@
                     <input type="text" class="form-control suppEmail" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="edit-supEmail" name="edit-supEmail" value="<?php echo $supervisor['email']?>">
                     <input type="hidden" class="hiddenEmail" value="<?php echo $supervisor['email']?>">
                     <label>Phone Number</label>
-                    <input type="text" class="form-control suppNumber" onkeypress='return event.charCode >= 48 && event.charCode <= 57' style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="edit-supNumber" name="edit-supNumber" value="<?php echo $supervisor['phone_number']?>">
+                    <input type="text" class="form-control suppNumber" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="edit-supNumber" name="edit-supNumber" value="<?php echo $supervisor['phone_number']?>">
                     <p class="blink_me hide" style="text-align: center">Sending email ... </p> 
                 </div>
             </form>

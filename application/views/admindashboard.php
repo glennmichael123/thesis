@@ -729,7 +729,7 @@ tr:hover{
                     <input type="text" class="form-control required" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supEmail" name="supEmail" required>
                     
                     <label>Phone Number</label>
-                    <input type="text" class="form-control required" onkeypress='return event.charCode >= 48 && event.charCode <= 57' style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supNumber" name="supNumber" required>
+                    <input type="text" class="form-control required" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="supNumber" name="supNumber" required>
                     <p class="blink_me hide" style="text-align: center">Sending email ... </p> 
                 </div>
             </form>
@@ -790,7 +790,7 @@ tr:hover{
                             <div class="row">
                               <div class="col-lg-5" style="padding-right: 0"> 
                                 <label style="font-size: 10px;">Required hours</label>
-                                <input type="text" class="form-control required" style="border-radius: 5px;margin-bottom: 10px; width: 90%" id="studojt" name="studojt" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                <input type="text" class="form-control required" style="border-radius: 5px;margin-bottom: 10px; width: 90%" id="studojt" name="studojt">
                               </div>
                               <div class="col-lg-6" style="padding-left: 3px">
                                 <label style="font-size: 10px;">OJT Program</label>                    
@@ -815,7 +815,7 @@ tr:hover{
                               </div>
                               <div class="col-lg-5" style="padding-left: 3px">
                                 <!-- <label style="font-size: 10px;color: white">Year</label>                     -->
-                                <input type="text" class="form-control required" style="border-radius: 5px;margin-bottom: 10px; width: 90%" id="sy_2" name="sy_2" maxlength="4" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                <input type="text" class="form-control required" style="border-radius: 5px;margin-bottom: 10px; width: 90%" id="sy_2" name="sy_2" maxlength="4">
                               </div>
                             </div>
                           </div>
@@ -832,7 +832,7 @@ tr:hover{
                           <div class="row">
                             <div class="col-lg-8 col-lg-offset-4">
                               <label>Required hours</label>
-                              <input type="text" name="required_hours" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control" style="width: 50%;" required>
+                              <input type="text" name="required_hours" class="form-control" style="width: 50%;" required>
                             </div>
                           </div>
                           <div class="row">
@@ -849,8 +849,8 @@ tr:hover{
                           <div class="row">
                              <div class="col-lg-8 col-lg-offset-4">
                                    <label>School Year</label>
-                                   <input type="text" id="fromYr" placeholder="From" name="fromYr" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control" style="width: 50%;" required>
-                                   <input type="text" id="toYr" placeholder="To" name="toYr" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control" style="width: 50%; margin-top: 10px;" required>
+                                   <input type="text" id="fromYr" placeholder="From" name="fromYr" class="form-control" style="width: 50%;" required>
+                                   <input type="text" id="toYr" placeholder="To" name="toYr" class="form-control" style="width: 50%; margin-top: 10px;" required>
                              </div>
                           </div>
 

@@ -1069,7 +1069,7 @@ header h1 {
                                             <label>Time Out</label>
                                             <input type="text" class="form-control" name="time_out" id="time_out" required>
                                             <label>Hours Rendered</label>
-                                            <input type="text" class="form-control" name="hours_rendered" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="hours_rendered" required>
+                                            <input type="text" class="form-control" name="hours_rendered" id="hours_rendered" required>
 
                                             <input type="hidden" name="id_number" value="<?php echo $this->session->userdata['id_number']?>">
                                         </div>
