@@ -199,7 +199,11 @@
                   	  <?php endforeach;?>
                   </tbody>
               </table>
-              <div><button type="button" class="btn btn-warning" id="btnDelete"><i class="fa fa-trash"></i> Delete Selected Item(s)</button></div>
+              <div><button type="button" class="btn btn-warning" id="btnDelete"><i class="fa fa-trash"></i> Delete Selected Item(s)</button>
+                   <button type="button" style="float:right;" class="btn btn-info" id="viewpdf"><i class="fa fa-book"></i>View PDF</button>
+
+
+              </div>
             <?php endif;?>
         </form>
     </div>
@@ -271,6 +275,19 @@
   </div>
 </div>
 </body>
+<script type="text/javascript">
+  $('#viewpdf').click(function(){
+
+    window.open(
+  '<?php echo base_url() ?>' + 'viewpdf','_blank' 
+);
+
+  }
+    );
+
+
+
+</script>
 <script type="text/javascript">
 	$('.savecompany').click(function(){
 		var compName = $(this).closest('.modal').find('.compName').val().trim();

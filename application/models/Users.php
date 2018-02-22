@@ -27,7 +27,16 @@
 
              return $result;
         }
+        public function displayCompanies(){
+            $query= $this->db->query("SELECT * FROM companies");
 
+            return $query->result_array();
+
+        }
+        public function countCompanies(){
+          $query =  $this->db->query("SELECT count(id) as company_count from companies");
+          return $query->result_array();
+        }
 
 
         public function insertPersonalData(){

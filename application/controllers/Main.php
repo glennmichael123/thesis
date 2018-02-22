@@ -49,6 +49,14 @@ class Main extends CI_Controller {
      public function page2(){
     	$this->load->view('page2');
     }
+    public function viewpdf(){
+
+        $data['company'] = $this->users->displayCompanies();
+        $data['count_company'] = $this->users->countCompanies();
+
+        $this->load->view('viewpdf',$data);
+
+    }
      public function page3(){
     	$this->load->view('page3');
     }
