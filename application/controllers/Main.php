@@ -1183,6 +1183,8 @@ public function logout(){
             $this->users->deleteCompaniesFromNLO($username);
         }
      }
+
+  
      public function addCompany(){
         $this->users->addCompanies();
      }

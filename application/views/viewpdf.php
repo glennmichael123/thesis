@@ -6,6 +6,7 @@
      // print_r($company[0]['id']);
                    class createPDF extends FPDF{
                     function header(){
+              ///qweqweqwe
                       $this->SetFont('Arial','B',14);
                       $this->Cell(276,10,'NETWORKING AND LINKAGES OFFICE',0,0,'C');
                       $this->Ln();
@@ -69,9 +70,12 @@
                    }
                    $count = $count_company;
                    $passArray = $company;
+                    $imageurl=base_url() .'logocit.png';
                    $newpdf = new createPDF();
+              
                    $newpdf->AliasNbPages();
                    $newpdf->AddPage('L','A4',0);
+                   $newpdf->Image($imageurl,10,6);
                    $newpdf->headerTable();
                    $newpdf->displayTable($passArray,$count);
                    $newpdf->Output();
