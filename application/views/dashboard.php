@@ -539,7 +539,7 @@ header h1 {
     }
 
     </style>
-    <title>OJT Automate <?php echo empty($numberAnnouncements->numberUnread) ? '' : '('.$numberAnnouncements->numberUnread.')';?></title>
+    <title>OJT Automate</title>
 
 </head>
 

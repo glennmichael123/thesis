@@ -14,7 +14,7 @@
     <script src="<?php echo base_url() ?>assets/js/jquery.dataTables.min.js"></script>
     <script src="<?php echo base_url() ?>assets/js/dataTables.bootstrap.min.js"></script>
     <link href="<?php echo base_url() ?>assets/css/toggle.min.css" rel="stylesheet">
-<script src="<?php echo base_url() ?>assets/js/toggle.min.js"></script>
+  <script src="<?php echo base_url() ?>assets/js/toggle.min.js"></script>
 <!-- Sweet Alert -->
     <script src="<?php echo base_url()?>assets/js/swal.js"></script>
 </head>
@@ -105,6 +105,19 @@
 .btn-company:focus{
   color: #FFFFFF;
 }
+
+.pagination > li.active > a{
+    background-color:#f44336 !important;
+    border:2px solid #d32f2f !important;
+ }
+
+.pagination > li > a:hover{
+  background-color:#ffc107;
+}
+tr:hover{
+  background-color: #faf2cc;
+}
+
 </style>
 <body>
 	<div class="header">
@@ -147,7 +160,7 @@
   
 <div class="container">
   
-  <div class="panel nlopanel">
+  <div class="panel nlopanel" style="border-radius: 7px;">
   <h3 id="nlo">Networking and Linkages Office <button style="float: right; margin-right: 10px;" data-toggle="modal" data-target="#addComp" class="btn btn-company">+Company</button></h3>
 </div>
 </div>
@@ -177,11 +190,11 @@
                         <tr style="background-color: #db3c30; color:white;">
                             <th style="text-align: center;width: 45px"><input type="checkbox" id="checkall"></th>
                             <th>Company Name</th>
-                    		<th>Company Address</th>
-                    		<th>Designated Person</th>
-                    		<th>Contact Number</th>
-                    		<th>MOA</th>
-                    		<th></th>
+                        		<th>Company Address</th>
+                        		<th>Designated Person</th>
+                        		<th>Contact Number</th>
+                        		<th>MOA</th>
+                        		<th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -227,19 +240,22 @@
         	<input type="text" name="address" class="form-control compAddress" value="<?php echo $company['address']; ?>">
         	<label>Designated Person</label>
         	<input type="text" name="designated_person" class="form-control compPerson" value="<?php echo $company['designated_person']; ?>">
+          <label>Position</label>
+          <input type="text" name="position" class="form-control compPosition" value="<?php echo $company['position']; ?>">
         	<label>Contact Number</label>
         	<input type="text" name="contact_no" class="form-control compContact" value="<?php echo $company['contact_no']; ?>">
+          <hr>
         	<div class="checkbox">
   						<input type="checkbox" class="compMoa" <?php echo($company['moa'] == 1 ? 'checked' : '') ?> data-toggle="toggle" data-on="With MOA" data-off="Without MOA" data-onstyle="success" data-offstyle="danger" data-width="150">
-			</div>
-			<div class="checkbox">
-  						<input type="checkbox" class="compBan" <?php echo($company['watchlisted'] == 1 ? 'checked' : '') ?> data-toggle="toggle" data-on="Banned" data-off="Not Banned" data-onstyle="danger" data-offstyle="success" data-width="150">
-			</div>
+			   </div>
+    			<div class="checkbox">
+      						<input type="checkbox" class="compBan" <?php echo($company['watchlisted'] == 0 ? 'checked' : '') ?> data-toggle="toggle" data-on="Not Banned" data-off="Banned" data-onstyle="success" data-offstyle="danger" data-width="150">
+    			</div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary savecompany">Save changes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary savecompany">Save Changes</button>
       </div>
     </div>
   </div>
@@ -260,10 +276,15 @@
           <input type="text" name="companyAddress" class="form-control companyAddress">
           <label>Designated Person</label>
           <input type="text" name="companyDP" class="form-control companyDP">
+          <label>Position</label>
+          <input type="text" name="companyPos" class="form-control companyPos">
           <label>Contact Number</label>
           <input type="text" name="companyCN" class="form-control companyCN">
           <div class="checkbox">
-              <input type="checkbox" class="companyMoa" data-toggle="toggle" data-on="With MOA" data-off="Without MOA" data-onstyle="danger" data-offstyle="success" data-width="150">
+              <input type="checkbox" class="companyMoa" data-toggle="toggle" data-on="With MOA" data-off="Without MOA" data-onstyle="success" data-offstyle="danger" data-width="150">
+          </div>
+          <div class="checkbox">
+              <input type="checkbox" class="watchlisted" data-toggle="toggle" data-on="Not Banned" data-off="Banned" data-onstyle="success" data-offstyle="danger" data-width="150">
           </div>
         </form>
       </div>
@@ -292,11 +313,16 @@
 	$('.savecompany').click(function(){
 		var compName = $(this).closest('.modal').find('.compName').val().trim();
 		var compAddress = $(this).closest('.modal').find('.compAddress').val().trim();
-		var compPerson = $(this).closest('.modal').find('.compPerson').val().trim();
+    var compPerson = $(this).closest('.modal').find('.compPerson').val().trim();
+		var compPosition = $(this).closest('.modal').find('.compPosition').val().trim();
 		var compContact = $(this).closest('.modal').find('.compContact').val().trim();
 		var compID = $(this).closest('.modal').find('.hidden_id').val().trim();
 		var moa;
 		var ban;
+    if(compName.length == 0 || compName=="" || compName == null){
+      swal('Oops...', 'Company name is required', 'error');return false;
+    }
+
 		if($(this).closest('.modal').find('.compMoa').is(':checked')){
 			moa=1;
 		}
@@ -304,10 +330,10 @@
 			moa=0;
 		}
 		if($(this).closest('.modal').find('.compBan').is(':checked')){
-			ban=1;
+			ban=0;
 		}
 		else{
-			ban=0;
+			ban=1;
 		}
 
 		$.ajax({
@@ -316,7 +342,8 @@
 			data: {
 				'compName': compName,
 				'compAddress': compAddress,
-				'compPerson': compPerson,
+        'compPerson': compPerson,
+				'compPosition': compPosition,
 				'compContact': compContact,
 				'compID': compID,
 				'moa': moa,
@@ -336,14 +363,25 @@
       var companyName = $(this).closest('.modal').find('.companyName').val();
       var companyAddress = $(this).closest('.modal').find('.companyAddress').val();
       var companyDP = $(this).closest('.modal').find('.companyDP').val();
+      var companyPos = $(this).closest('.modal').find('.companyPos').val();
       var companyCN = $(this).closest('.modal').find('.companyCN').val();
       var moa;
-      var ban = 0;
+      var ban;
+
+      if(companyName.length == 0 || companyName=="" || companyName == null){
+        swal('Oops...', 'Company name is required', 'error');return false;
+      }
       if($(this).closest('.modal').find('.companyMoa').is(':checked')){
-      moa=1;
+        moa=1;
       }
       else{
-      moa=0;
+        moa=0;
+      }
+      if($(this).closest('.modal').find('.watchlisted').is(':checked')){
+        ban=0;
+      }
+      else{
+        ban=1;
       }
       $.ajax({
         url:'<?php echo base_url() ?>'+'addCompany',
@@ -352,6 +390,7 @@
           'companyName': companyName,
           'companyAddress': companyAddress,
           'companyDP': companyDP,
+          'companyPos': companyPos,
           'companyCN': companyCN,
           'moa': moa,
           'ban': ban

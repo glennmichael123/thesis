@@ -787,6 +787,7 @@
         </div>
        <div class="content">
             <div class="container">
+                  <?php echo $this->session->flashdata('Status'); ?>
                 <div class="row">
                     <div class="col-lg-3">
                             <div class="profile-container">
@@ -1391,9 +1392,11 @@
             data:data,
             success: function(data){
                 // return false;
-                location.reload();
+              
             }
         })
+
+          location.reload();
     });
 </script>
 <script type="text/javascript">
@@ -1443,7 +1446,7 @@
          $('input[type=checkbox]').prop('disabled',true);
          $('input[type=radio]').prop('disabled',true);
         $(".btss").css("display","none");
-        location.reload();
+      
 
     });
 

@@ -8,7 +8,7 @@
           <table id="supervisorDataTable" class="table table-bordered" cellspacing="0" width="100%" style="font-size: 13px;">
             <thead>
                 <tr style="background-color: #f44336; color:white;">
-                    <!-- <th style="text-align: center;width: 45px"><input type="checkbox" id="checkall"></th> -->
+                    <th style="text-align: center;width: 45px"><input type="checkbox" id="checkallSup"></th>
                     <th>Name</th>
                     <th>Designation</th>
                     <th>Company</th>
@@ -19,11 +19,11 @@
             </thead>
           </table>
       <?php else:?>
-      <form action="deleteStudent" method="POST" name="formDel">
+      <form>
             <table id="supervisorDataTable" class="table table-bordered" cellspacing="0" width="100%" style="font-size: 13px;">
                     <thead>
                         <tr style="background-color: #f44336; color:white;">
-                            <!-- <th style="text-align: center;width: 45px"><input type="checkbox" id="checkall"></th> -->
+                            <th style="text-align: center;width: 45px"><input type="checkbox" id="checkallSup"></th>
                             <th>Name</th>
                             <th>Designation</th>
                             <th>Company</th>
@@ -36,7 +36,7 @@
                     <tbody>
                       <?php foreach ($supervisor_list as $supervisor):?>
                           <tr class="dashTable">
-                            <!-- <td></td> -->
+                            <td style="text-align: center;width: 45px"><input type="checkbox" class="checkitemSup" value="<?php echo $supervisor['id_number']?>" name="sup_usernames[]"></td>
                             <td><?php echo $supervisor['name'];?>
                               <?php if (!$supervisor['flag']):?>
                                 <a class="resendEmail" href="#" style="float: right;" data-email="<?php echo $supervisor['email'];?>" data-id-number="<?php echo $supervisor['id_number'];?>" data-name="<?php echo $supervisor['name'];?>" data-password="<?php echo $supervisor['password'];?>" title="Retry sending email"><i class="fa fa-envelope" style="color: red;"></i></a>
@@ -64,7 +64,7 @@
                       <?php endforeach;?>
                   </tbody>
               </table>
-              <!-- <div><button type="button" class="btn btn-warning" id="btnDelete"><i class="fa fa-trash"></i> Delete Selected Item(s)</button> </div> -->
+              <div><button type="button" class="btn btn-warning" id="btnDeleteSupervisor"><i class="fa fa-trash"></i> Delete Selected Item(s)</button> </div>
         <?php endif;?>
         </form>
      </div>
@@ -101,8 +101,6 @@
                         <input type="text" class="form-control suppCompany" id="editComp<?php echo $i; ?>" style="border-radius: 5px;width: 565px;" name="suppCompany" value="<?php echo $supervisor['company_name']?>">
                        </div>
                     </div>
-
-
                     <label>Designation</label>
                     <input type="text" class="form-control capitalize suppDesig" style="border-radius: 5px;margin-bottom: 10px; width: 100%" id="edit-supDesig" name="edit-supDesig" value="<?php echo $supervisor['designation']?>">
                     <label>Username</label>
@@ -282,17 +280,17 @@
   var table = $('#supervisorDataTable').DataTable({
      "bProcessing": true,
       "order": [1, 'asc'],
-      "columns": [{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false }],
+      "columns": [{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false }],
     });
 </script>
 
 <script type="text/javascript">
-  $('#checkall').change(function(){
-    $('.checkitem').prop("checked",$(this).prop("checked"));
+  $('#checkallSup').change(function(){
+    $('.checkitemSup').prop("checked",$(this).prop("checked"));
   });
 
-  $('#btnDelete').click(function(e){ 
-      var checks = document.getElementsByName("usernames[]");
+  $('#btnDeleteSupervisor').click(function(e){ 
+      var checks = document.getElementsByName("sup_usernames[]");
       var dataUsername = $("input[type='checkbox']:checked").serialize().replace(/%5B%5D/g, '[]');
       var confirm = null;
       for (var i=0; i < checks.length; i++) {
@@ -311,11 +309,13 @@
           .then((willDelete) => {
             if (willDelete) {
               $.ajax({
-                url: "deleteStudent",
+                url: "deleteSupervisor",
                 type: "POST",
                 data:dataUsername,
                 success: function(data){
-                  location.reload(true);
+                  if($.trim(data) == 'success'){
+                  	$("#toSupervisorsTable").trigger("click");
+                  }
                 }
               });
             }
