@@ -2143,7 +2143,7 @@
         $company_CN=$_POST['companyCN'];
         $company_moa=$_POST['moa'];
         $company_ban=$_POST['ban'];
-        $this->db->query("INSERT INTO companies(company_name,watchlisted,address,contact_no,designated_person,position,moa) VALUES('".$company_name."','".$ban."','".$company_address."','".$company_CN."','".$company_DP."','".$company_Pos."','".$company_moa."')");
+        $this->db->query("INSERT INTO companies(company_name,watchlisted,address,contact_no,designated_person,position,moa) VALUES('".$company_name."','".$company_ban."','".$company_address."','".$company_CN."','".$company_DP."','".$company_Pos."','".$company_moa."')");
       }
 
       public function getAdminRole($username){
