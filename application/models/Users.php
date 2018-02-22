@@ -74,7 +74,7 @@
         }
 
         public function getNumberUnreadAnnouncements($username){
-            $query = $this->db->query("SELECT count(status) as numberUnread FROM announcements WHERE username = '$username' AND status = 0")->row();
+            $query = $this->db->query("SELECT count(status) as numberUnread FROM announcements INNER JOIN admin ON announcements.admin_id = admin.id_number WHERE announcements.username = '$username' AND status = 0")->row();
 
             return $query;
         }
@@ -1526,10 +1526,49 @@
                         'religion' => $_POST['profile_religion'],
                         'citizenship' => $_POST['profile_citizenship']);
 
+         $email = $this->db->query("SELECT email_address FROM email WHERE id_number = '$username'")->row();
+         if($email->email_address != $_POST['profile_email']){
+            $email_new = $_POST['profile_email'];
+            $hash = md5($email_new);
+            $this->db->query("UPDATE email SET email_address = '$email_new', hash = '$hash', status = 0 WHERE id_number = '$username'");
+            $this->sendEmail($hash,$email_new);
+            $Status = '<div class="alert alert-success alert-dismissible" role="alert" style="margin-top: 40px; ">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+             Email verification has been sent to your email.</div>';
+             $this->session->set_flashdata("Status",$Status);
+
+
+         }
           $this->db->where('id_number', $username);
           $this->db->update('personal_details', $data);
 
       }
+
+
+      public function sendEmail($hash,$email){
+         //    $config = Array(
+          //     'protocol' => 'smtp',
+          //     'smtp_host' => 'ssl://smtp.googlemail.com',
+          //     'smtp_port' => 465,
+          //     'smtp_user' => 'gtorregosa@gmail.com',
+          //     'smtp_pass' => 'knightsky',
+          //     'mailtype'  => 'html', 
+          //     'charset'   => 'iso-8859-1'
+          // );
+            $this->load->library('email');
+            $this->email->set_newline("\r\n");
+            $url = base_url();
+            $email_setting  = array('mailtype'=>'html');
+            $this->email->initialize($email_setting);
+            $email_body ="Please click this link to activate your account:
+                  {$url}main/verify?email=$email&hash=$hash";
+            $this->email->from('CITUAdmin', 'Admin');
+            $this->email->to($email);
+            $this->email->subject('Email Verification');
+            $this->email->message($email_body);
+            $this->email->send();   
+    }
+
 
       public function editProfileEmergency($username){
         // echo $username;exit;
