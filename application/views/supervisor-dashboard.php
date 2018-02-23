@@ -10,28 +10,21 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="jpeg_camera/jpeg_camera_with_dependencies.min.js" type="text/javascript"></script>
     <!-- Optional theme -->
-
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/bootstrap-theme.min.css" >
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <!-- Latest compiled and minified JavaScript -->
-    
     <script src="<?php echo base_url() ?>assets/js/jquery-1.12.4.js"></script>
     <script src="<?php echo base_url() ?>assets/js/jquery-ui.js"></script>
     <link rel="stylesheet" href="<?php  echo base_url() ?>assets/css/jquery-ui.css">
-
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
-
-         <script src="<?php echo base_url() ?>assets/js/bootstrap.min.js"></script>
-
+    <script src="<?php echo base_url() ?>assets/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
-
-
-        <link href="<?php echo base_url();?>assets/css/jquery.simple-popup.min.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>assets/css/jquery.simple-popup.min.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/jquery.simple-popup.settings.css" rel="stylesheet">
       <script src="<?php echo base_url()?>assets/js/jquery.simple-popup.min.js"></script>
-      
+      <script src="<?php echo base_url()?>assets/js/swal.js"></script>
     <script src="<?php echo base_url()?>assets/js/jquery.easy-autocomplete.min.js"></script> 
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/easy-autocomplete.min.css"> 
 

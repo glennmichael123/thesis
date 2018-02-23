@@ -1236,5 +1236,13 @@ public function logout(){
         echo "success";
     }
 
+
+    public function addCsvCompany(){
+        $this->users->companyCsv();
+    }
+
+    public function getNloCompanyModal(){
+        $this->users->getNloCompanyModal();
+    }
 }
 
