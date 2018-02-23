@@ -23,19 +23,18 @@
                     }
                     function headerTable(){
                       $this->SetFont('Times','B',12);
-                      $this->Cell(46,10,'Company Name',1,0,'C');
-                      $this->Cell(46,10,'Company Address',1,0,'C');
-                      $this->Cell(46,10,'Designated Person',1,0,'C');
-                      $this->Cell(46,10,'Contact Number',1,0,'C');
-                      $this->Cell(46,10,'Watchlisted',1,0,'C');
-                      $this->Cell(46,10,'With Moa',1,0,'C');
+                      $this->Cell(55,10,'Company Name',1,0,'C');
+                      $this->Cell(55,10,'Company Address',1,0,'C');
+                      $this->Cell(55,10,'Designated Person',1,0,'C');
+                      $this->Cell(55,10,'Contact Number',1,0,'C');
+                      
+                      $this->Cell(55,10,'With Moa',1,0,'C');
                       $this->Ln();
 
                     }
                     function displayTable($db,$count){
                       $this->SetFont('Times','',12);
                       $str = "";
-                      $str1 = "";
                      for($x = 0;$x<($count[0]['company_count']);$x++ ){
                       if($db[$x]['moa']==1){
 
@@ -44,19 +43,52 @@
                       else{
                         $str="No";
                       }
-                      if($db[$x]['watchlisted']==1){
-                          $str1 = "Yes";
+                    $cWidth = 55;
+                    $cHeight= 11;
+                    if($this->GetStringWidth($db[$x]['company_name']) < $cWidth){
+                        $line = 1;
 
-                      }
-                      else{
-                        $str1="No";
-                      }
-                      $this->Cell(46,10,$db[$x]['company_name'],1,0,'C');
-                      $this->Cell(46,10,$db[$x]['address'],1,0,'C');
-                      $this->Cell(46,10,$db[$x]['designated_person'],1,0,'C');
-                      $this->Cell(46,10,$db[$x]['contact_no'],1,0,'C');
-                      $this->Cell(46,10,$str1,1,0,'C');
-                      $this->Cell(46,10,$str,1,0,'C');
+                    }
+                    else{
+                        $strLen = strlen($db[$x]['company_name']);
+                        $errMar = 10;
+                        $startChar = 0;
+                        $maxChar = 0;
+                        $textArray = array();
+                        $tmpString = "";
+                       
+
+                        while($startChar < $strLen){
+
+                          while(
+
+                              $this->GetStringWidth($tmpString) < ($cWidth ) &&
+                               ($startChar+$maxChar) < $strLen){
+
+                            $maxChar++;
+                            $tmpString = substr($db[$x]['company_name'],$startChar,$maxChar);
+
+                          }
+                            $startChar = $startChar + $maxChar;
+                            array_push($textArray,$tmpString);
+                            $maxChar = 0;
+                            $tmpString = "";
+
+
+                            
+
+                        }
+                        $line = count($textArray);
+                    }
+                      
+                      $xPos = $this ->GetX();
+                      $yPos = $this->GetY();
+                      $this->MultiCell($cWidth,$cHeight,$db[$x]['company_name'],1);
+                      $this->SetXY($xPos + $cWidth ,$yPos);
+                      $this->Cell(55,($line * $cHeight),$db[$x]['address'],1,0,'C');   
+                      $this->Cell(55,($line * $cHeight),$db[$x]['designated_person'],1,0,'C');
+                      $this->Cell(55,($line * $cHeight),$db[$x]['contact_no'],1,0,'C');
+                      $this->Cell(55,($line * $cHeight),$db[$x]['moa'],1,0,'C');
                       $this->Ln();
                         }
                      
