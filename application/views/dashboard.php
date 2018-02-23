@@ -1051,13 +1051,13 @@ header h1 {
 
                                         <div class="form-group">
                                             <label>Date</label>
-                                            <input type="text" class="form-control" required value="<?php echo date('Y-m-d')?>" name="log_date" id="log_date">
+                                            <input type="text" class="form-control" required value="" name="log_date" id="log_date">
                                             <label>Division</label>
-                                            <input type="text" class="form-control" required name="division" id="division">
+                                            <input type="text" class="form-control"  name="division" id="division">
                                             <label>Deparment/Area</label>
-                                            <input type="text" class="form-control" required name="department" id="department">
+                                            <input type="text" class="form-control"  name="department" id="department">
                                             <label>Designation</label>
-                                            <input type="text" class="form-control" required name="designation" id="designation">
+                                            <input type="text" class="form-control"  name="designation" id="designation">
                                             <input type="hidden" name="supervisor_id" value="<?php echo (empty($supervisor_id->supervisor_id) ? '' : $supervisor_id->supervisor_id); ?>">
                                         </div>
 
@@ -1069,7 +1069,7 @@ header h1 {
                                             <label>Time Out</label>
                                             <input type="text" class="form-control" name="time_out" id="time_out" required>
                                             <label>Hours Rendered</label>
-                                            <input type="text" class="form-control" name="hours_rendered" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="hours_rendered" required>
+                                            <input type="text" class="form-control" name="hours_rendered" id="hours_rendered" required>
 
                                             <input type="hidden" name="id_number" value="<?php echo $this->session->userdata['id_number']?>">
                                         </div>
@@ -1141,11 +1141,11 @@ header h1 {
                                                         <label>Date</label>
                                                         <input type="text" class="list-logs date_listed" name="log_list_date" id="log_list_date" value="<?php echo date('F d Y',strtotime($log['date']))?>" readonly>
                                                         <label>Division</label>
-                                                        <input type="text" class="list-logs division_listed" name="log_list_division" id="log_list_division" value="<?php echo $log['division']?>" readonly>
+                                                        <input type="text" class="list-logs division_listed" name="log_list_division" id="log_list_division" value="<?php echo (empty($log['division']) ? 'Not specified' : $log['division'])?>" readonly>
                                                         <label>Deparment/Area</label>
-                                                        <input type="text" class="list-logs department_listed" name="log_lists_department" value="<?php echo $log['department']?>" id="log_lists_department" readonly>
+                                                        <input type="text" class="list-logs department_listed" name="log_lists_department" value="<?php echo (empty($log['department']) ? 'Not specified' : $log['department'])?>" id="log_lists_department" readonly>
                                                         <label>Designation</label>
-                                                        <input type="text" class="list-logs designation_listed" value="<?php echo $log['designation']?>" name="log_lists_designation" id="log_lists_designation" readonly>
+                                                        <input type="text" class="list-logs designation_listed" value="<?php echo (empty($log['designation']) ? 'Not specified' : $log['designation'])?>" name="log_lists_designation" id="log_lists_designation" readonly>
                                                     </div>
                                                     <label>Activity</label>
                                                       
@@ -1560,6 +1560,7 @@ header h1 {
                 $('#time_out').val(logdata.time_out);
                 $('#hours_rendered').val(logdata.hours_rendered);
                 $('#log_activity').val(logdata.log_content);
+                $('#log_date').val(logdata.date);
             },
         });
     });
@@ -1630,8 +1631,10 @@ header h1 {
     var date_now = '<?php echo date('Y-m-d') ?>';
     var hours = $('#hours_rendered').val();
     var data = $('#addLogs').serialize();
+
     var fail = false;
      var fail_log = '';
+     console.log(date);
     $( '#addLogs' ).find( 'input[type=text], input[type=date], input[type=time], textarea' ).each(function(){
             if( ! $( this ).prop( 'required' )){
 

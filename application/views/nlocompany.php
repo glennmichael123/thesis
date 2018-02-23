@@ -120,6 +120,10 @@ tr:hover{
 
 </style>
 <body>
+   <form action="<?php echo base_url('addCsvCompany')?>" method="POST" enctype="multipart/form-data">
+      <input type="file" name="companyCsv">
+      <input type="submit" name="">
+  </form>
 	<div class="header">
 		<div class="container-fluid">
 			<div class="row">
@@ -161,7 +165,10 @@ tr:hover{
 <div class="container">
   
   <div class="panel nlopanel" style="border-radius: 7px;">
-  <h3 id="nlo">Networking and Linkages Office <button style="float: right; margin-right: 10px;" data-toggle="modal" data-target="#addComp" class="btn btn-company">+Company</button></h3>
+  <h3 id="nlo">Networking and Linkages Office
+
+   <button style="float: right; margin-right: 10px;" data-toggle="modal" data-target="#addComp" class="btn btn-company">+Company</button></h3>
+  
 </div>
 </div>
 
@@ -210,7 +217,7 @@ tr:hover{
                               <td><?php echo $company['contact_no']; ?></td>
                               <td><?php echo($company['watchlisted'] == 1 ? 'Yes' : 'No')?></td>
                               <td><?php echo($company['moa'] == 1 ? 'With MOA' : 'Without MOA')?></td>
-                              <td><button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#<?php echo $company['id']; ?>">Edit <i class="fa fa-pencil"></i></button></td>
+                              <td><button type="button" data-company-id="<?php echo $company['id'] ?>" class="btn btn-success btn-xs edit-view" data-toggle="modal" data-target="#editModal">Edit <i class="fa fa-pencil"></i></button></td>
 
                           </tr>
                   	  <?php endforeach;?>
@@ -226,9 +233,7 @@ tr:hover{
     </div>
     </div>
 </div>    
-    <!-- Modal -->
-<?php foreach ($companies as $company):?>
-<div class="modal fade" id="<?php echo $company['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -237,24 +242,24 @@ tr:hover{
       </div>
       <div class="modal-body">
         <form class="form-group">
-        	<label>Company Name</label>
-        	<input type="hidden" name="id" class="hidden_id" value="<?php echo $company['id']; ?>">
-        	<input type="text" name="company_name" class="form-control compName" value="<?php echo $company['company_name']; ?>">
-        	<label>Company Address</label>
-        	<input type="text" name="address" class="form-control compAddress" value="<?php echo $company['address']; ?>">
-        	<label>Designated Person</label>
-        	<input type="text" name="designated_person" class="form-control compPerson" value="<?php echo $company['designated_person']; ?>">
+          <label>Company Name</label>
+          <input type="hidden" name="id" class="hidden_id" value="">
+          <input type="text" id="compName" name="company_name" class="form-control compName" value="">
+          <label>Company Address</label>
+          <input type="text" id="compAddress" name="address" class="form-control compAddress" value="">
+          <label>Designated Person</label>
+          <input type="text" id="compPerson" name="designated_person" class="form-control compPerson" value="">
           <label>Position</label>
-          <input type="text" name="position" class="form-control compPosition" value="<?php echo $company['position']; ?>">
-        	<label>Contact Number</label>
-        	<input type="text" name="contact_no" class="form-control compContact" value="<?php echo $company['contact_no']; ?>">
+          <input type="text" id="compPosition" name="position" class="form-control compPosition" value="">
+          <label>Contact Number</label>
+          <input type="text" id="compContact" name="contact_no" class="form-control compContact" value="">
           <hr>
-        	<div class="checkbox">
-  						<input type="checkbox" class="compMoa" <?php echo($company['moa'] == 1 ? 'checked' : '') ?> data-toggle="toggle" data-on="With MOA" data-off="Without MOA" data-onstyle="success" data-offstyle="danger" data-width="150">
-			   </div>
-    			<div class="checkbox">
-      						<input type="checkbox" class="compBan" <?php echo($company['watchlisted'] == 0 ? 'checked' : '') ?> data-toggle="toggle" data-on="Not Banned" data-off="Banned" data-onstyle="success" data-offstyle="danger" data-width="150">
-    			</div>
+          <div class="checkbox">
+              <input type="checkbox" id="compMoa" class="compMoa" data-toggle="toggle" data-on="With MOA" data-off="Without MOA" data-onstyle="success" data-offstyle="danger" data-width="150">
+         </div>
+          <div class="checkbox">
+                  <input type="checkbox" id="compBan" class="compBan" data-toggle="toggle" data-on="Not Banned" data-off="Banned" data-onstyle="success" data-offstyle="danger" data-width="150">
+          </div>
         </form>
       </div>
       <div class="modal-footer">
@@ -264,7 +269,6 @@ tr:hover{
     </div>
   </div>
 </div>
-<?php endforeach; ?>
 <div class="modal fade" id="addComp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -284,6 +288,7 @@ tr:hover{
           <input type="text" name="companyPos" class="form-control companyPos">
           <label>Contact Number</label>
           <input type="text" name="companyCN" class="form-control companyCN">
+          <input type="hidden" id="hidden-edit-id" name="">
           <div class="checkbox">
               <input type="checkbox" class="companyMoa" data-toggle="toggle" data-on="With MOA" data-off="Without MOA" data-onstyle="success" data-offstyle="danger" data-width="150">
           </div>
@@ -315,31 +320,31 @@ tr:hover{
 </script>
 <script type="text/javascript">
 	$('.savecompany').click(function(){
-		var compName = $(this).closest('.modal').find('.compName').val().trim();
-		var compAddress = $(this).closest('.modal').find('.compAddress').val().trim();
-    var compPerson = $(this).closest('.modal').find('.compPerson').val().trim();
-		var compPosition = $(this).closest('.modal').find('.compPosition').val().trim();
-		var compContact = $(this).closest('.modal').find('.compContact').val().trim();
-		var compID = $(this).closest('.modal').find('.hidden_id').val().trim();
 		var moa;
 		var ban;
+
+      var compName = $('#compName').val();
+      var compAddress= $('#compAddress').val();
+      var compPerson = $('#compPerson').val();
+      var compContact =  $('#compContact').val();
+      var compPosition = $('#compPosition').val();
+      var compID = $('#hidden-edit-id').val();
     if(compName.length == 0 || compName=="" || compName == null){
       swal('Oops...', 'Company name is required', 'error');return false;
     }
 
-		if($(this).closest('.modal').find('.compMoa').is(':checked')){
+		if($('#compMoa').is(':checked')){
 			moa=1;
 		}
 		else{
 			moa=0;
 		}
-		if($(this).closest('.modal').find('.compBan').is(':checked')){
-			ban=0;
-		}
-		else{
+		if($('#compBan').is(':checked')){
 			ban=1;
 		}
-
+		else{
+			ban=0;
+		}
 		$.ajax({
 			url: '<?php echo base_url() ?>'+'editCompany',
 			type:'POST',
@@ -358,8 +363,6 @@ tr:hover{
 				location.reload();
 			}
 		});
-		
-		
 	});
 </script>
 <script type="text/javascript">
@@ -409,9 +412,6 @@ tr:hover{
               });
         }
       });
-
-
-
   });
 </script>
 <script type="text/javascript">
@@ -426,7 +426,7 @@ tr:hover{
   var table = $('#adminDataTable').DataTable({
      "bProcessing": true,
       "order": [1, 'asc'],
-      "columns": [{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false }],
+      "columns": [{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false }, {"orderable": false },{"orderable": false }],
   });
 </script>
 
@@ -469,6 +469,36 @@ tr:hover{
           });
       }
     });
+</script>
+
+<script type="text/javascript">
+  $(document).on('click','.edit-view',function(e){
+    var id = $(this).data('company-id');
+
+    $.ajax({
+      url: '<?php echo(base_url('getNloCompanyModal')) ?>',
+      type: "POST",
+      data:{
+        'id':id,
+      },
+      success: function(data){
+       var data2 = JSON.parse(data);
+        $('#compName').val(data2.company_name);
+        $('#compAddress').val(data2.address);
+        $('#compPerson').val(data2.designated_person);
+        $('#compContact').val(data2.contact_no);
+        $('#compPosition').val(data2.position);
+        $('#hidden-edit-id').val(data2.id);
+        if(data2.moa == 1){
+       
+           $('#compMoa').prop('checked', true).change();
+        }
+        if(data2.watchlisted == 1){
+          $('#compBan').prop('checked', true).change();
+        }
+      }
+    })
+  });
 </script>
 
 </html>

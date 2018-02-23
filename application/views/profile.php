@@ -811,7 +811,7 @@
                                     <div class="change-photo" style="margin-top: 10px; display: none;">
                                         <!-- browse -->
                                         <button class="btn pulse-button click-photo btn-md" id="btn-browse"><i class="fa fa-picture-o" aria-hidden="true" ></i></button>
-                                        <button class="btn pulse-button btn-md" ><i class="fa fa-camera" aria-hidden="true"></i></button>
+                                        <!-- <button class="btn pulse-button btn-md" ><i class="fa fa-camera" aria-hidden="true"></i></button> -->
                                     </div>
                                    
                                 <form action="saveImage" method="POST" enctype="multipart/form-data">
