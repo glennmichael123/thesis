@@ -166,7 +166,8 @@ tr:hover{
   
   <div class="panel nlopanel" style="border-radius: 7px;">
   <h3 id="nlo">Networking and Linkages Office
-
+    <button type="button" class="btn btn-info" style="float:right;margin-right: 10px;" id="viewpdf" ><i class="fa fa-book"></i>View PDF</button>
+    <button type="button" class="btn btn-info" style="float:right;margin-right: 10px;" id="viewwatchlisted" ><i class="fa fa-book"></i>View Watchlisted</button>
    <button style="float: right; margin-right: 10px;" data-toggle="modal" data-target="#addComp" class="btn btn-company">+Company</button></h3>
   
 </div>
@@ -224,7 +225,7 @@ tr:hover{
                   </tbody>
               </table>
               <div><button type="button" class="btn btn-warning" id="btnDelete"><i class="fa fa-trash"></i> Delete Selected Item(s)</button>
-                   <button type="button" style="float:right;" class="btn btn-info" id="viewpdf"><i class="fa fa-book"></i>View PDF</button>
+                 
 
 
               </div>
@@ -314,6 +315,15 @@ tr:hover{
 
   }
     );
+    $('#viewwatchlisted').click(function(){
+
+    window.open(
+  '<?php echo base_url() ?>' + 'watchlisted','_blank' 
+);
+
+  }
+    );
+  
 
 
 

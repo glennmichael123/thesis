@@ -7,13 +7,12 @@
                    class createPDF extends FPDF{
                     function header(){
               ///qweqweqwe
-                        $this->SetFont('Arial','B',16);
-                      $this->Cell(276,10,'CEBU INSTITUTE OF TECHNOLOGY - UNIVERSITY',0,0,'C');
+                      $this->SetFont('Arial','B',14);
+                      $this->Cell(276,10,'NETWORKING AND LINKAGES OFFICE',0,0,'C');
                       $this->Ln();
                       $this->SetFont('Times','',12);
-                      $this->Cell(276,10,'NETWORKING AND LINKAGES OFFICE',0,0,'C');
+                      $this->Cell(276,10,'Cebu Institute of Technology - University',0,0,'C');
                       $this->Ln(20);
-
 
                     }
                     function footer(){
@@ -114,7 +113,7 @@
                    }
                    $count = $count_company;
                    $passArray = $company;
-                   $imageurl=base_url() .'logocit.png';
+                    $imageurl=base_url() .'logocit.png';
                    $newpdf = new createPDF();
               
                    $newpdf->AliasNbPages();
