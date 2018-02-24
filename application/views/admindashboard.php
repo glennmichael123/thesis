@@ -25,7 +25,6 @@
 
     <!-- Data table -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>assets/css/dataTables.bootstrap.min.css">
-    
     <script src="//code.jquery.com/jquery-1.12.4.js"></script>
     <script src="<?php echo base_url() ?>assets/js/jquery.dataTables.min.js"></script>
     <script src="<?php echo base_url() ?>assets/js/dataTables.bootstrap.min.js"></script>
@@ -144,8 +143,6 @@
 .notification{
     float: right;
     margin-top: 20px;
-
-
 }
 
 .fa-bell-o{
@@ -710,8 +707,7 @@ tr:hover{
             <form id="formsupervisor">
               <div class="form-group">
                     <label>Name</label>
-
-                    <input type="text" class="form-control capitalize" style="border-radius: 5px;width: 100%" id="supName" name="supName">
+                    <input type="text" class="form-control capitalize" style="border-radius: 5px;width: 100%" id="supName" name="supName" required>
                     <div class="row">
                       <div class="col-lg-12" style="padding: 10px 15px;">
                         <label for="dropCompany">Company name</label>
@@ -1686,7 +1682,7 @@ $(document).ready(function(){
 
               
               swal('Oops...','Please fill all fields','error');
-                $(".required").each(function() {
+            $(".required").each(function() {
             if ($(this).val() === "") {
             $(this).css('border-color', 'red');
             

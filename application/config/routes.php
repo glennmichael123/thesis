@@ -125,6 +125,7 @@ $route['viewpdf'] = 'main/viewpdf';
 $route['deleteSupervisor']  = 'main/deleteSupervisor';
 $route['addCsvCompany']  = 'main/addCsvCompany';
 $route['getNloCompanyModal']  = 'main/getNloCompanyModal';
+$route['validateCompany']  = 'main/validateCompany';
 
 
 

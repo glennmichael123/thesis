@@ -19,17 +19,19 @@
     <script src="<?php echo base_url()?>assets/js/swal.js"></script>
 </head>
 <style type="text/css">
-	 .header{
-        background-color: #ffba00;
-        padding: 5px;
-      	height: 60px;
-       	border-bottom: 3px solid #791b1e;
-    }
-    .dropdown {
-    background:inherit;
-    border:1px solid inherit;
-    border-radius:4px;
-    width:90px;   
+
+
+.header{
+    background-color: #ffba00;
+    padding: 5px;
+  	height: 60px;
+   	border-bottom: 3px solid #791b1e;
+}
+.dropdown {
+background:inherit;
+border:1px solid inherit;
+border-radius:4px;
+width:90px;   
 
 }
 .dropdown-menu>li>a {
@@ -133,30 +135,24 @@ tr:hover{
 				</div>
 				<div class="col-lg-5"></div>
 				<div class="col-lg-2">
-                      <!-- <h5 style="position: relative; top: 15px;">Admin</h5> -->
-                      <!-- <h5 style="position: relative; top: 15px;font-weight: bold;float: right;">Hi, <?php echo $first_name;?><br>
-                      	<span style="font-size:13px;font-weight: normal;">Admin</span></h5> -->
-                    </div>
-                    <div class="col-lg-1">
+            <h5 style="position: relative; top: 5px;font-weight: bold;float: right;">Hi, <?php echo $fname;?><br>
+            <span style="font-size:11px;font-weight: normal;">NLO Admin</span></h5>
+          </div>
+          <div class="col-lg-1">
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown">
 
-                          <ul class="nav navbar-nav">
-                            <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown">
-
-                                <i class="fa fa-user-circle fa-3x circular-square pull-right" style="width: 40px; height: 40px; margin-top: -10px;"></i>
-                               </a>
-                              <ul class="dropdown-menu" id="show-logout">
-                                <li><a href="<?php echo base_url('admindashboard') ?>">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
-                                <li class="divider"></li>
-        
-                                <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
-                                <li class="divider"></li>
-                    
-                                <li><a href="logout">Log Out <i class="fa fa-sign-out pull-right"></i></a></li>
-                              </ul>
-                            </li>
-                          </ul>
-                    </div>
+                  <i class="fa fa-user-circle fa-3x circular-square pull-right" style="width: 40px; height: 40px; margin-top: -10px;"></i>
+                 </a>
+                <ul class="dropdown-menu" id="show-logout">
+                  <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                  <li class="divider"></li>
+                  <li><a href="logout">Log Out <i class="fa fa-sign-out pull-right"></i></a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
 			</div>
 		</div>
 	</div>
@@ -216,8 +212,12 @@ tr:hover{
                                  <td><?php echo $company['position']; ?> </td>
                               <td><?php echo $company['contact_no']; ?></td>
                               <td><?php echo($company['watchlisted'] == 1 ? 'Yes' : 'No')?></td>
-                              <td><?php echo($company['moa'] == 1 ? 'With MOA' : 'Without MOA')?></td>
-                              <td><button type="button" data-company-id="<?php echo $company['id'] ?>" class="btn btn-success btn-xs edit-view" data-toggle="modal" data-target="#editModal">Edit <i class="fa fa-pencil"></i></button></td>
+                              <?php if ($company['moa'] == 1):?>
+                                <td style="color:green">With MOA</td>
+                              <?php else: ?>
+                                <td style="color:red">No MOA</td>
+                              <?php endif; ?>
+                              <td><button type="button" data-company-id="<?php echo $company['id']?>" class="btn btn-success btn-xs edit-view" data-toggle="modal" data-target="#editModal">Edit <i class="fa fa-pencil"></i></button></td>
 
                           </tr>
                   	  <?php endforeach;?>
@@ -357,10 +357,14 @@ tr:hover{
 				'compID': compID,
 				'moa': moa,
 				'ban':ban
-
 			},
+
 			success: function(data){
-				location.reload();
+        if($.trim(data) == 'exists'){
+          swal('Oops...','Company already exists','error');
+        }else{
+          location.reload();
+        }
 			}
 		});
 	});
@@ -403,13 +407,17 @@ tr:hover{
           'ban': ban
         },
         success: function(data){
-          swal({
+          if($.trim(data) == 'exists'){
+            swal('Oops...','Company already exists','error');return false;
+          }else{
+            swal({
                 title: "Success",
                 text: "Company added successfully",
                 icon: "success",
               }).then(function () {
                 location.reload();
               });
+            }
         }
       });
   });

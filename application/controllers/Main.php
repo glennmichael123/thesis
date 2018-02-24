@@ -950,14 +950,20 @@ public function logout(){
    		$this->users->checkEmail();
    	}
    	public function database_backup(){
-   			$this->load->dbutil();
-   			$format=array('format'=>'zip','filename'=>'ojt_automate.sql');
-   			$backup =& $this->dbutil->backup($format);
-   			$dbname='db-backup-on-'.date('Y-m-d').'.zip';
-   			$save ='assets/backup/'.$dbname;
-   			write_file($save,$backup);
-   			force_download($dbname,$backup);
+
+		$this->load->dbutil();
+		$format=array('format'=>'zip','filename'=>'ojt_automate.sql');
+		$backup =& $this->dbutil->backup($format);
+		$dbname='db-backup-on-'.date('Y-m-d').'.zip';
+		$save ='assets/backup/'.$dbname;
+		write_file($save,$backup);
+		force_download($dbname,$backup);
+
    	}
+    public function validateCompany(){
+        $this->users->validate();
+    }
+
    	public function insertRegistration(){
    		$this->users->insertReg($this->session->userdata('id_number'));
    	}
@@ -1170,6 +1176,7 @@ public function logout(){
           redirect(base_url('index'));
         }else{
             $data['companies']=$this->users->getCompanies();
+            $data['fname']=$this->users->getNloFirstname();
         $this->load->view("nlocompany",$data);
         }
         

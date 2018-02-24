@@ -696,7 +696,7 @@
         }
         public function updatePassword($id,$account_type){
 
-            if($account_type == 'admin'){
+            if($account_type == 'admin' || $account_type == 'nlo'){
                  $old_pass = $this->db->query("SELECT password FROM admin WHERE id_number = '$id'")->row();
              
               $new_pass = $_POST['newpass'];
@@ -753,7 +753,7 @@
 
             $supervisor_id = $_POST['supervisor_id'];
             $student_id = $_POST['studentID'];
-              $program = $this->getOjtProgramForStud($student_id);  
+            $program = $this->getOjtProgramForStud($student_id);  
 
            $query = $this->db->query("SELECT * FROM ojt_records WHERE supervisor_id = '' AND id_number = '$student_id' ")->row();
            if(!empty($query)){
@@ -1233,6 +1233,14 @@
             }
       }
 
+      public function validate(){
+        $comp_name = $_POST['companyName'];
+        $watchlisted = $this->db->query("SELECT * FROM companies WHERE company_name LIKE '%$comp_name%' AND watchlisted = 1");
+        if($this->db->affected_rows() > 0){
+          echo "error";exit;
+        }
+      }
+
       public function insertReg($username){
 
         // users table
@@ -1299,6 +1307,7 @@
         $employees = $_POST['employee_numbers'];
         $classif = $_POST['classification'];
         // $current_ojt_program = $this->getOjtProgramForStud($username);
+          $this->db->query("INSERT INTO personal_details(id_number,first_name, middle_initial, last_name, college,course,year,present_address,permanent_address,contact_number,email_address,date_of_birth,marital_status,blood_type,weight,height,religion,citizenship,sex) VALUES('".$username."','".$fname."','".$mname."','".$lname."','".$college."','".$course."','$year','".$present_add."','".$permanent_add."',$contact_num,'".$email."','".$birth."','".$civil_stat."','".$bloodtype."',$weight,$height,'".$religion."','".$citizenship."','".$sex."')");
 
         $this->db->query("INSERT INTO personal_details(id_number,first_name, middle_initial, last_name, college,course,year,present_address,permanent_address,contact_number,email_address,date_of_birth,marital_status,blood_type,weight,height,religion,citizenship,sex) VALUES('".$username."','".$fname."','".$mname."','".$lname."','".$college."','".$course."','$year','".$present_add."','".$permanent_add."','$contact_num','".$email."','".$birth."','".$civil_stat."','".$bloodtype."','$weight','$height','".$religion."','".$citizenship."','".$sex."')");
 
@@ -2006,7 +2015,7 @@
       }
 
       public function getTrainees(){
-        $query = $this->db->query("SELECT DISTINCT first_name, middle_initial, last_name, supervisor_id FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.transitioned !=1 ");
+        $query = $this->db->query("SELECT DISTINCT first_name, middle_initial, last_name, supervisor_id FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.transitioned !=1 AND users.status != 'DELETED'");
         return $query->result_array();
       }
 
@@ -2029,19 +2038,30 @@
         return $query->result_array();
       }
       public function editCompanies(){
+        $compName = $_POST['compName'];
+        $compID = $_POST['compID'];
+        $exists = $this->db->query("SELECT * FROM companies WHERE company_name LIKE '%$compName%' AND id != $compID");
+        if($this->db->affected_rows()>0){
+            echo "exists";exit;
+        }else{
           $data = array('company_name'=>$_POST['compName'],
                         'watchlisted'=>$_POST['ban'],
                         'address'=>$_POST['compAddress'],
                         'contact_no'=>$_POST['compContact'],
                         'designated_person'=>$_POST['compPerson'],
+                        'position' => $_POST['compPosition'],
                         'moa'=>$_POST['moa'],
                         );
           $this->db->where('id',$_POST['compID']);
           $this->db->update('companies',$data);
+        }
+          
       }
+
       public function deleteCompaniesFromNLO($compID){
         $this->db->query("DELETE FROM companies WHERE id= '$compID'");
       }
+
       public function addCompanies(){
         $company_name=$_POST['companyName'];
         $company_address=$_POST['companyAddress'];
@@ -2050,7 +2070,14 @@
         $company_CN=$_POST['companyCN'];
         $company_moa=$_POST['moa'];
         $company_ban=$_POST['ban'];
-        $this->db->query("INSERT INTO companies(company_name,watchlisted,address,contact_no,designated_person,position,moa) VALUES('".$company_name."','".$company_ban."','".$company_address."','".$company_CN."','".$company_DP."','".$company_Pos."','".$company_moa."')");
+
+        $exists = $this->db->query("SELECT * FROM companies WHERE company_name LIKE '%$company_name%' ");
+        if ($this->db->affected_rows() > 0) {
+          echo "exists";exit;
+        }else{
+          $this->db->query("INSERT INTO companies(company_name,watchlisted,address,contact_no,designated_person,position,moa) VALUES('".$company_name."','".$ban."','".$company_address."','".$company_CN."','".$company_DP."','".$company_Pos."','".$company_moa."')");
+        }
+        
       }
 
       public function getAdminRole($username){
@@ -2062,9 +2089,6 @@
       public function delSupervisor($username){
           $this->db->query("UPDATE supervisor SET status='DELETED' WHERE id_number= '$username'");
        }
-
-
-
 
                 //import csv
          public function importCSV(){
@@ -2220,7 +2244,12 @@
           echo json_encode($query);
        }
 
-
+       public function getNloFirstname(){
+          $query = $this->db->query("SELECT name FROM admin WHERE role = 'nlo'")->row();
+          $break = explode(' ', $query->name);
+          $firstName = $break[0];
+          return $firstName;
+      } 
 }
 
   
