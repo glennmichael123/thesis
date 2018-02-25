@@ -92,11 +92,43 @@
                         $line = count($textArray);
                     }// 
                     
-                      $this->Cell(55,($line * $cHeight),$db[$x]['company_name'],1,0,'L');
-                      $xPos = $this ->GetX();
-                      $yPos = $this->GetY();
-                      $this->MultiCell($cWidth,$cHeight,$db[$x]['address'],1);
-                      $this->SetXY($xPos + $cWidth ,$yPos);
+                      if($this->GetStringWidth($db[$x]['company_name']) > $cWidth && $this->GetStringWidth($db[$x]['address']) > $cWidth){
+                         $xPos = $this ->GetX();
+                         $yPos = $this->GetY();
+                        $this->MultiCell($cWidth,($cHeight),$db[$x]['company_name'],1);
+                        $this->SetXY($xPos + $cWidth ,$yPos);
+                        $xPos = $this ->GetX();
+                         $yPos = $this->GetY();
+                         $this->MultiCell($cWidth,($cHeight),$db[$x]['address'],1);
+                         $this->SetXY($xPos + ($cWidth) ,$yPos);
+
+                      }
+                      if($this->GetStringWidth($db[$x]['company_name']) > $cWidth && $this->GetStringWidth($db[$x]['address']) < $cWidth){
+                          $xPos = $this ->GetX();
+                         $yPos = $this->GetY();
+                        $this->MultiCell($cWidth,($cHeight),$db[$x]['company_name'],1);
+                        $this->SetXY($xPos + $cWidth ,$yPos);
+                        $this->Cell(55,($line * $cHeight),$db[$x]['address'],1,0,'C');
+
+                      }
+                      if($this->GetStringWidth($db[$x]['company_name']) < $cWidth && $this->GetStringWidth($db[$x]['address']) > $cWidth){
+                        
+                          $this->Cell(55,($line * $cHeight),$db[$x]['company_name'],1,0,'C');
+                          $xPos = $this ->GetX();
+                         $yPos = $this->GetY();
+                         $this->MultiCell($cWidth,($cHeight),$db[$x]['address'],1);
+                        $this->SetXY($xPos + $cWidth ,$yPos);
+
+                      }
+                      if($this->GetStringWidth($db[$x]['company_name']) < $cWidth && $this->GetStringWidth($db[$x]['address']) < $cWidth){
+                          $this->Cell(55,($line * $cHeight),$db[$x]['company_name'],1,0,'C');
+                          $this->Cell(55,($line * $cHeight),$db[$x]['address'],1,0,'C');
+
+                      }
+                    
+                      
+                       
+                     
                         
                       $this->Cell(55,($line * $cHeight),$db[$x]['designated_person'],1,0,'C');
                       $this->Cell(55,($line * $cHeight),$db[$x]['contact_no'],1,0,'C');
