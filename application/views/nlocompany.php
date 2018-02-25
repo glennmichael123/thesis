@@ -350,10 +350,10 @@ tr:hover{
 			moa=0;
 		}
 		if($('#compBan').is(':checked')){
-			ban=1;
+			ban=0;
 		}
 		else{
-			ban=0;
+			ban=1;
 		}
 		$.ajax({
 			url: '<?php echo base_url() ?>'+'editCompany',
@@ -502,9 +502,13 @@ tr:hover{
         if(data2.moa == 1){
        
            $('#compMoa').prop('checked', true).change();
+        }else{
+          $('#compMoa').prop('checked', false).change();
         }
-        if(data2.watchlisted == 1){
+        if(data2.watchlisted == 0){
           $('#compBan').prop('checked', true).change();
+        }else{
+           $('#compBan').prop('checked', false).change();
         }
       }
     })
