@@ -122,6 +122,7 @@ $route['addCompany']='main/addCompany';
 $route['validCompanies']  = 'main/validCompanies';
 $route['companylist'] = 'main/companylist';
 $route['viewpdf'] = 'main/viewpdf';
+$route['watchlisted'] = 'main/viewWatchlisted';
 $route['deleteSupervisor']  = 'main/deleteSupervisor';
 $route['addCsvCompany']  = 'main/addCsvCompany';
 $route['getNloCompanyModal']  = 'main/getNloCompanyModal';

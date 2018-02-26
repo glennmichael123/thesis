@@ -7,13 +7,12 @@
                    class createPDF extends FPDF{
                     function header(){
               ///qweqweqwe
-                        $this->SetFont('Arial','B',16);
-                      $this->Cell(276,10,'CEBU INSTITUTE OF TECHNOLOGY - UNIVERSITY',0,0,'C');
+                      $this->SetFont('Arial','B',14);
+                      $this->Cell(276,10,'NETWORKING AND LINKAGES OFFICE',0,0,'C');
                       $this->Ln();
                       $this->SetFont('Times','',12);
-                      $this->Cell(276,10,'NETWORKING AND LINKAGES OFFICE',0,0,'C');
+                      $this->Cell(276,10,'Cebu Institute of Technology - University',0,0,'C');
                       $this->Ln(20);
-
 
                     }
                     function footer(){
@@ -92,43 +91,11 @@
                         $line = count($textArray);
                     }// 
                     
-                      if($this->GetStringWidth($db[$x]['company_name']) > $cWidth && $this->GetStringWidth($db[$x]['address']) > $cWidth){
-                         $xPos = $this ->GetX();
-                         $yPos = $this->GetY();
-                        $this->MultiCell($cWidth,($cHeight),$db[$x]['company_name'],1);
-                        $this->SetXY($xPos + $cWidth ,$yPos);
-                        $xPos = $this ->GetX();
-                         $yPos = $this->GetY();
-                         $this->MultiCell($cWidth,($cHeight),$db[$x]['address'],1);
-                         $this->SetXY($xPos + ($cWidth) ,$yPos);
-
-                      }
-                      if($this->GetStringWidth($db[$x]['company_name']) > $cWidth && $this->GetStringWidth($db[$x]['address']) < $cWidth){
-                          $xPos = $this ->GetX();
-                         $yPos = $this->GetY();
-                        $this->MultiCell($cWidth,($cHeight),$db[$x]['company_name'],1);
-                        $this->SetXY($xPos + $cWidth ,$yPos);
-                        $this->Cell(55,($line * $cHeight),$db[$x]['address'],1,0,'C');
-
-                      }
-                      if($this->GetStringWidth($db[$x]['company_name']) < $cWidth && $this->GetStringWidth($db[$x]['address']) > $cWidth){
-                        
-                          $this->Cell(55,($line * $cHeight),$db[$x]['company_name'],1,0,'C');
-                          $xPos = $this ->GetX();
-                         $yPos = $this->GetY();
-                         $this->MultiCell($cWidth,($cHeight),$db[$x]['address'],1);
-                        $this->SetXY($xPos + $cWidth ,$yPos);
-
-                      }
-                      if($this->GetStringWidth($db[$x]['company_name']) < $cWidth && $this->GetStringWidth($db[$x]['address']) < $cWidth){
-                          $this->Cell(55,($line * $cHeight),$db[$x]['company_name'],1,0,'C');
-                          $this->Cell(55,($line * $cHeight),$db[$x]['address'],1,0,'C');
-
-                      }
-                    
-                      
-                       
-                     
+                      $this->Cell(55,($line * $cHeight),$db[$x]['company_name'],1,0,'L');
+                      $xPos = $this ->GetX();
+                      $yPos = $this->GetY();
+                      $this->MultiCell($cWidth,$cHeight,$db[$x]['address'],1);
+                      $this->SetXY($xPos + $cWidth ,$yPos);
                         
                       $this->Cell(55,($line * $cHeight),$db[$x]['designated_person'],1,0,'C');
                       $this->Cell(55,($line * $cHeight),$db[$x]['contact_no'],1,0,'C');
@@ -146,7 +113,7 @@
                    }
                    $count = $count_company;
                    $passArray = $company;
-                   $imageurl=base_url() .'logocit.png';
+                    $imageurl=base_url() .'logocit.png';
                    $newpdf = new createPDF();
               
                    $newpdf->AliasNbPages();

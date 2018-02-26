@@ -19,7 +19,18 @@
                 $email = $_POST['email'];
                 return $this->db->query("INSERT INTO email (id_number, email_address, hash) VALUES('$username','$email', '$hash')");     
         }
+        public function watchlistedCompanies(){
+                $query= $this->db->query("SELECT company_name,address FROM companies WHERE watchlisted = 1");
 
+            return $query->result_array();
+
+
+        }
+        public function countWatchlisted(){
+              $query= $this->db->query("SELECT count(company_name) as count_watchlisted FROM companies WHERE watchlisted = 1");
+              return $query->result_array();
+
+        }
 
         public function queryUserByEmail($email){
               // $email = $_POST['reset_email'];

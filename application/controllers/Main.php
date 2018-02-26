@@ -57,6 +57,12 @@ class Main extends CI_Controller {
         $this->load->view('viewpdf',$data);
 
     }
+    public function viewWatchlisted(){
+        $data['watchlisted'] = $this->users->watchlistedCompanies();
+        $data['count_watchlisted'] = $this->users->countWatchlisted();
+        $this->load->view('pdfwatchlisted',$data);
+
+    }
      public function page3(){
     	$this->load->view('page3');
     }
