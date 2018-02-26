@@ -5,6 +5,7 @@
      require "fpdf.php";
      // print_r($company[0]['id']);
                    class createPDF extends FPDF{
+
                     function header(){
               ///qweqweqwe
                         $this->SetFont('Arial','B',16);
@@ -35,8 +36,20 @@
                     }
                     function displayTable($db,$count){
                       $this->SetFont('Times','',9);
-                      $str = "";
+                      $this->SetAutoPageBreak(false);
+
+                        $str = "";
+                       $tempheight = 0;
+                       $nextLine = 0;
+                       $maxheight = 0;
+                      
+                       $i = 0;
+
+
                      for($x = 0;$x<($count[0]['company_count']);$x++ ){
+
+                 
+
                       if($db[$x]['moa']==1){
 
                         $str = "WITH MOA";
@@ -45,7 +58,7 @@
                         $str="NO MOA";
                       }
                     $cWidth = 55;
-                    $cHeight= 11;
+                    $cHeight= 10;
                     if($this->GetStringWidth($db[$x]['address']) < $cWidth && $this->GetStringWidth($db[$x]['company_name']) < $cWidth ){
                         $line = 1;
 
@@ -66,14 +79,16 @@
                         $startChar = 0;
                         $maxChar = 0;
                         $textArray = array();
+                        $getLine = 0;
                         $tmpString = "";
+
                        
 
                         while($startChar < $strLen){
 
                           while(
 
-                              $this->GetStringWidth($tmpString) < ($cWidth ) &&
+                              $this->GetStringWidth($tmpString) < ($cWidth  ) &&
                                ($startChar+$maxChar) < $strLen){
 
                             $maxChar++;
@@ -82,6 +97,7 @@
                           }
                             $startChar = $startChar + $maxChar;
                             array_push($textArray,$tmpString);
+                            $getLine += 1;
                             $maxChar = 0;
                             $tmpString = "";
 
@@ -89,24 +105,34 @@
                             
 
                         }
-                        $line = count($textArray);
+                        $line = ceil( ($this->GetStringWidth($passStr)) / $cWidth);
+                       
+                        
                     }// 
-                    
+                        $i +=($line);
+                        if($i >=12){
+                            $this->AddPage('L','A4',0);
+                            $this->headerTable();
+                             $this->SetFont('Times','',9);
+                             $i = 0;
+
+                        }
                       if($this->GetStringWidth($db[$x]['company_name']) > $cWidth && $this->GetStringWidth($db[$x]['address']) > $cWidth){
                          $xPos = $this ->GetX();
                          $yPos = $this->GetY();
-                        $this->MultiCell($cWidth,($cHeight),$db[$x]['company_name'],1);
+                        $this->MultiCell($cWidth,$cHeight,$db[$x]['company_name'] ,1,'C',false);
+                        
                         $this->SetXY($xPos + $cWidth ,$yPos);
                         $xPos = $this ->GetX();
                          $yPos = $this->GetY();
-                         $this->MultiCell($cWidth,($cHeight),$db[$x]['address'],1);
+                          $this->MultiCell($cWidth,$cHeight,$db[$x]['address'] ,1,'C',false);
                          $this->SetXY($xPos + ($cWidth) ,$yPos);
 
                       }
                       if($this->GetStringWidth($db[$x]['company_name']) > $cWidth && $this->GetStringWidth($db[$x]['address']) < $cWidth){
                           $xPos = $this ->GetX();
                          $yPos = $this->GetY();
-                        $this->MultiCell($cWidth,($cHeight),$db[$x]['company_name'],1);
+                         $this->MultiCell($cWidth,$cHeight,$db[$x]['company_name'] ,1,'C',false);
                         $this->SetXY($xPos + $cWidth ,$yPos);
                         $this->Cell(55,($line * $cHeight),$db[$x]['address'],1,0,'C');
 
@@ -116,7 +142,7 @@
                           $this->Cell(55,($line * $cHeight),$db[$x]['company_name'],1,0,'C');
                           $xPos = $this ->GetX();
                          $yPos = $this->GetY();
-                         $this->MultiCell($cWidth,($cHeight),$db[$x]['address'],1);
+                        $this->MultiCell($cWidth,$cHeight,$db[$x]['address'] ,1,'C',false);
                         $this->SetXY($xPos + $cWidth ,$yPos);
 
                       }
@@ -124,16 +150,15 @@
                           $this->Cell(55,($line * $cHeight),$db[$x]['company_name'],1,0,'C');
                           $this->Cell(55,($line * $cHeight),$db[$x]['address'],1,0,'C');
 
+
                       }
-                    
-                      
-                       
-                     
-                        
+
                       $this->Cell(55,($line * $cHeight),$db[$x]['designated_person'],1,0,'C');
                       $this->Cell(55,($line * $cHeight),$db[$x]['contact_no'],1,0,'C');
                       $this->Cell(55,($line * $cHeight),$str,1,0,'C');
                       $this->Ln();
+                                         
+                     
                         }
                      
                    }
@@ -151,10 +176,12 @@
               
                    $newpdf->AliasNbPages();
                    $newpdf->AddPage('L','A4',0);
-                   $newpdf->Image($imageurl,10,6);
+
+                   $newpdf->Image($imageurl,10,6);  
                    $newpdf->headerTable();
                    $newpdf->displayTable($passArray,$count);
                    $newpdf->Output();
+
 
 
 
