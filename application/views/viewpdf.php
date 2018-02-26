@@ -44,7 +44,7 @@
                       else{
                         $str="NO MOA";
                       }
-                    $cWidth = 55;
+                    $cWidth = 60;
                     $cHeight= 11;
                     if($this->GetStringWidth($db[$x]['address']) < $cWidth && $this->GetStringWidth($db[$x]['company_name']) < $cWidth ){
                         $line = 1;
@@ -108,12 +108,12 @@
                          $yPos = $this->GetY();
                         $this->MultiCell($cWidth,($cHeight),$db[$x]['company_name'],1);
                         $this->SetXY($xPos + $cWidth ,$yPos);
-                        $this->Cell(55,($line * $cHeight),$db[$x]['address'],1,0,'C');
+                        $this->Cell(60,($line * $cHeight),$db[$x]['address'],1,0,'C');
 
                       }
                       if($this->GetStringWidth($db[$x]['company_name']) < $cWidth && $this->GetStringWidth($db[$x]['address']) > $cWidth){
                         
-                          $this->Cell(55,($line * $cHeight),$db[$x]['company_name'],1,0,'C');
+                          $this->Cell(60,($line * $cHeight),$db[$x]['company_name'],1,0,'C');
                           $xPos = $this ->GetX();
                          $yPos = $this->GetY();
                          $this->MultiCell($cWidth,($cHeight),$db[$x]['address'],1);
@@ -121,8 +121,8 @@
 
                       }
                       if($this->GetStringWidth($db[$x]['company_name']) < $cWidth && $this->GetStringWidth($db[$x]['address']) < $cWidth){
-                          $this->Cell(55,($line * $cHeight),$db[$x]['company_name'],1,0,'C');
-                          $this->Cell(55,($line * $cHeight),$db[$x]['address'],1,0,'C');
+                          $this->Cell(60,($line * $cHeight),$db[$x]['company_name'],1,0,'C');
+                          $this->Cell(60,($line * $cHeight),$db[$x]['address'],1,0,'C');
 
                       }
                     
@@ -130,9 +130,9 @@
                        
                      
                         
-                      $this->Cell(55,($line * $cHeight),$db[$x]['designated_person'],1,0,'C');
-                      $this->Cell(55,($line * $cHeight),$db[$x]['contact_no'],1,0,'C');
-                      $this->Cell(55,($line * $cHeight),$str,1,0,'C');
+                      $this->Cell(60,($line * $cHeight),$db[$x]['designated_person'],1,0,'C');
+                      $this->Cell(60,($line * $cHeight),$db[$x]['contact_no'],1,0,'C');
+                      $this->Cell(60,($line * $cHeight),$str,1,0,'C');
                       $this->Ln();
                         }
                      
