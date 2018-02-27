@@ -155,7 +155,25 @@
 
                       $this->Cell(55,($line * $cHeight),$db[$x]['designated_person'],1,0,'C');
                       $this->Cell(55,($line * $cHeight),$db[$x]['contact_no'],1,0,'C');
-                      $this->Cell(55,($line * $cHeight),$str,1,0,'C');
+                      if($str =="WITH MOA"){
+                          $this->SetFont('Times','B',9);
+                          $this->SetTextColor(66, 244, 122);
+                        $this->Cell(55,($line * $cHeight),$str,1,0,'C');
+                        $this->SetFont('Times','',9);
+                          $this->SetTextColor(0, 0, 0);
+                      
+                      }
+                      else{
+                          $this->SetFont('Times','B',9);
+                          $this->SetTextColor(244, 65, 65);
+                        $this->Cell(55,($line * $cHeight),$str,1,0,'C');
+                        $this->SetFont('Times','',9);
+                          $this->SetTextColor(0, 0, 0);
+
+
+                      }
+                      
+
                       $this->Ln();
                                          
                      

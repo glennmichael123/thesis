@@ -30,20 +30,68 @@
                       $this->SetFont('Times','B',9);
                       $str = "";
                       $ctr=1;
+                      $line = 0;
+                      $linectr = 0;
+                      $xPos = $this->GetX();
+                      $yPos = $this->GetY();
+                       $cWidth = 55;
+                    $cHeight= 11;
+                    $col = 0;
+                      $holdWidth = $cWidth;
+                      $iWidth = $cWidth;
                      for($x = 0;$x<($count[0]['count_watchlisted']);$x++ ){
                           $ctr= $ctr + 1;
-                    $cWidth = 55;
-                    $cHeight= 11;
-                    $line=1;
+                   
                     
                     
-                      $this->Cell(55,($line * $cHeight),$db[$x]['company_name'],1,0,'C');
-                      if($ctr>5){
-                        $this->Ln();
-                        $ctr = 0;
-                      }
                       
                       
+
+                       
+
+                       $strWidth  = $this->GetStringWidth($db[$x]['company_name']);
+                       if($cWidth < $strWidth){
+                          $line = ceil($strWidth / $cWidth);
+
+
+
+                       }
+                       else{
+                        $line = 1;
+
+                       }
+                        $linectr += $line;
+                        if($linectr >=12){
+                          $linectr = 0;
+
+                        $this->SetXY($xPos + $holdWidth ,$yPos);
+                        $this->MultiCell($cWidth,$cHeight,$db[$x]['company_name'] ,1,'C',false);
+                        $qwe = $this->GetX();
+                        $asd = $this->GetY();
+                        $this->SetXY($qwe + $holdWidth ,$asd );
+                   
+                        $holdWidth+=$iWidth;
+                        $col++;
+
+                        }
+
+                       else{
+                        if($col<=0){
+                            $this->MultiCell($cWidth,$cHeight,$db[$x]['company_name'] ,1,'C',false);
+                        }
+                        else{
+                          
+                          $this->MultiCell($cWidth,$cHeight,$db[$x]['company_name'] ,1,'C',false);
+                          $qwe = $this->GetX();
+                        $asd = $this->GetY();
+                         $this->SetXY($qwe + $cWidth + ($cWidth * ($col - 1)) ,$asd );
+
+                        }
+                    
+
+
+                       } 
+                     
                         }
                      
                    }
