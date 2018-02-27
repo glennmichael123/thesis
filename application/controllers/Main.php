@@ -957,14 +957,20 @@ public function logout(){
    		$this->users->checkEmail();
    	}
    	public function database_backup(){
-   			$this->load->dbutil();
-   			$format=array('format'=>'zip','filename'=>'ojt_automate.sql');
-   			$backup =& $this->dbutil->backup($format);
-   			$dbname='db-backup-on-'.date('Y-m-d').'.zip';
-   			$save ='assets/backup/'.$dbname;
-   			write_file($save,$backup);
-   			force_download($dbname,$backup);
+
+		$this->load->dbutil();
+		$format=array('format'=>'zip','filename'=>'ojt_automate.sql');
+		$backup =& $this->dbutil->backup($format);
+		$dbname='db-backup-on-'.date('Y-m-d').'.zip';
+		$save ='assets/backup/'.$dbname;
+		write_file($save,$backup);
+		force_download($dbname,$backup);
+
    	}
+    public function validateCompany(){
+        $this->users->validate();
+    }
+
    	public function insertRegistration(){
    		$this->users->insertReg($this->session->userdata('id_number'));
    	}
@@ -1024,7 +1030,7 @@ public function logout(){
    	}
 
    	public function getTraineeNames(){
-   		$names = $this->db->query("SELECT first_name, last_name, users.id_number, company_information.company_name FROM users INNER JOIN company_information ON company_information.id_number = users.id_number AND transitioned != 1")->result();
+   		$names = $this->db->query("SELECT first_name, last_name, users.id_number, company_information.company_name FROM users INNER JOIN company_information ON company_information.id_number = users.id_number AND transitioned != 1 AND status != 'DELETED'")->result();
    		// $names = $this->db->query("SELECT first_name, last_name, id_number FROM users")->result();
    		$student = array(array('names'=>''));
    		$i=0;
@@ -1177,6 +1183,7 @@ public function logout(){
           redirect(base_url('index'));
         }else{
             $data['companies']=$this->users->getCompanies();
+            $data['fname']=$this->users->getNloFirstname();
         $this->load->view("nlocompany",$data);
         }
         

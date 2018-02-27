@@ -176,7 +176,7 @@
       <?php if(empty($watch_list)): ?>
         <h6 class="center-align">There are no company watch list yet.</h6>
       <?php else: ?>
-
+        <p style="font-weight: bold">List of companies that students are not allowed to undergo OJT</p>
       <?php foreach ($watch_list as $list):?>
         <ul>
           <li style="color:#00615f;font-size: 15px;"><?php echo $list['company_name']; ?></li>

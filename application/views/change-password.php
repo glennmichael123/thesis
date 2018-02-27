@@ -136,7 +136,7 @@
                             <?php if($this->session->userdata['account_type'] == 'student'):?>
                             <a href="dashboard" id="cancel" class="btn cancel" style="float: right;width: 115px">Cancel</a>
                         <?php elseif($this->session->userdata['account_type'] == 'supervisor'):?>
-                            <a href="supervisordashboard" id="cancel" class="btn cancel" style="float: right;width: 115px">Cancelq</a>
+                            <a href="supervisordashboard" id="cancel" class="btn cancel" style="float: right;width: 115px">Cancel</a>
                         <?php elseif($this->session->userdata['account_type'] == 'admin'):?>
                             <a href="admindashboard" id="cancel" class="btn cancel" style="float: right;width: 115px">Cancel</a>
                          <?php elseif($this->session->userdata['account_type'] == 'nlo'):?>
@@ -210,6 +210,7 @@
     var pass1=$("#newpass").val();
     var pass2=$("#confirm_newpass").val();
     var oldpass=$("#old_password").val();
+    var account_type = '<?php echo $this->session->userdata['account_type'] ?>';
 
     if(pass1!=pass2 || pass1=="" || pass2==""){
         $("#newpass").css("border","1px solid red");
@@ -242,7 +243,11 @@
                         text: "Password changed",
                         icon: "success",
                     }).then(function(){
-                       window.location.replace("dashboard");
+                        if(account_type == 'nlo'){
+                            window.location.replace("nloDashboard");
+                        }else{
+                            window.location.replace("dashboard");
+                        }
                     });
                 }
             },

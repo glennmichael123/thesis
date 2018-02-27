@@ -110,8 +110,12 @@
                               <td><?php echo $company['address']; ?></td>
                               <td><?php echo $company['designated_person']; ?></td>
                               <td><?php echo $company['contact_no']; ?></td>
-                              <td><?php echo($company['moa'] == 1 ? 'With MOA' : 'Without MOA')?></td>
-						 </tr>
+                              <?php if($company['moa'] == 1):?>
+                                <td style="color: green">With MOA</td>
+                              <?php else:?>
+                                <td style="color: red">Without MOA</td>
+                              <?php endif; ?>
+						          </tr>
                   	  <?php endforeach;?>
                   </tbody>
               </table>

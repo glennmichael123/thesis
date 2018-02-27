@@ -511,58 +511,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="row">
-                          <div class="col-lg-2">
-                            <input id="assembly" value="assembly" type="checkbox"><label for="assembly">Assembly</label>
-                         </div> 
-                         <div class="col-lg-2">
-                            <input type="checkbox" value="manufacturing" id="manufacturing"><label for="manufacturing">Manufacturing</label>
-                         </div> 
-                         <div class="col-lg-2">
-                            <input type="checkbox" value="maintenance" id="maintenance"><label for="maintenance">Maintenance</label>
-                         </div>
-                         <div class="col-lg-3">
-                            <input type="checkbox" value="marketing" id="marketing"><label for="marketing">Sales/Marketing</label>
-                         </div>
-                         <div class="col-lg-3">
-                             <input type="checkbox" value="service" id="service"><label for="service">Service/Utility</label>
-                         </div>
-                         
-                        </div>
-                        <div class="row">
-                          <div class="col-lg-4">
-                            
-                              <input type="checkbox" value="research" id="research"><label for="research">Research and Development</label>
-                            
-                          </div>
-                          <div class="col-lg-2">
-                            <input type="checkbox" value="itrelated" id="itrelated"><label for="itrelated">IT Related</label>
-                          </div>
-                          <div class="col-lg-5">
-                               <input type="radio" class="other-company" id="other"><label for="other">Others</label>
-                               <input type="text" id="other_classification" name="other_classification" style="height: 23px; width: 250px; display: none;" placeholder="Please specify">
-                          </div>
-                       
-                        </div>
-
-                         <h2 class="fs-title">Total number of employees <i class="fa fa-list-ol" aria-hidden="true"></i></h2>
-
-                         <div class="row">
-                            <div class="col-lg-3 col-lg-offset-1">
-                              <input type="radio" id="less_fifty" value="Less than 50" name="employee_numbers"><label for="less_fifty">Less than 50</label>
-             
-                            </div>
-                            <div class="col-lg-3 col-lg-offset-1">
-                               <input type="radio" id="fifty_onehundred" value="From 50 to 100" name="employee_numbers"><label for="fifty_onehundred">From 50 to 100</label>
-             
-                            </div>
-                            <div class="col-lg-3 col-lg-offset-1">
-                                <input type="radio" id="more_onehundred" value="More than 100" name="employee_numbers"><label for="more_onehundred">More than 100</label>
-                            </div>
-                            <a class="topage3 first-previous" href="#">Previous</a>
-                            <a class="topage4 second-next" href="#">Next</a>
-                         </div> -->
-
+                
                          <div class="container-fluid">
                             <div class="row" style="margin-bottom: 10px;">
                                 <div class="col-md-7">
@@ -870,54 +819,56 @@ $(document).ready(function(){
             if($('#other_classification').val()!=""){
                 classification.push($('#other_classification').val());
             }
-             swal({
-              title: "Warning",
-              text: "You are about to submit this form. Please make sure that the email you provided is an active one :)",
-              icon: "warning",
-              buttons: true,
-              buttons: ["CANCEL", "PROCEED"],
-              dangerMode: true,
-            })
-            .then((yes) => {
-              if (yes) {
-                $.ajax({
-                    url: "insertRegistration",
-                    type: "POST",
-                    data: reg_info + "&classification="+classification,
-                    success: function(data){
-                        // if(data=="success"){
-                        //     $(".page2").hide();
-                        //     $(".page3").show();
-                        // }
+            var companyName = $('#company_name').val().trim();
+            $.ajax({
+                url: "validateCompany",
+                type: "POST",
+                data: {
+                    'companyName' : companyName,
+                },
+                success: function(data){
+                    if($.trim(data)=='error'){
+                        swal('Oops...', 'The company you entered is on the watchlist. You cannot undergo OJT in a watchlisted company', 'error');return false;
+                    }else{
+                        swal({
+                          title: "Warning",
+                          text: "You are about to submit this form. Please make sure that the email you provided is an active one :)",
+                          icon: "warning",
+                          buttons: true,
+                          buttons: ["CANCEL", "PROCEED"],
+                          dangerMode: true,
+                        })
+                        .then((yes) => {
+                          if (yes) {
+                            $.ajax({
+                                url: "insertRegistration",
+                                type: "POST",
+                                data: reg_info + "&classification="+classification,
+                                success: function(data){
+                                    if($.trim(data)=='error'){
+                                        swal('Oops...', 'The company you entered is on the watchlist. You cannot undergo OJT in a watchlisted company', 'error');return false;
+                                    }
+                                }
+                            });
+                            $.ajax({
+                                url: "saveEmail",
+                                type: "POST",
+                                data:{
+                                  'email': email,
+                                },
+                                success:function(){
+                                     alert('email sent');
+                                }
+                            });
+                            $(".page2").hide();
+                             $(".page3").show();
+                          }
+                        });
                     }
-                });
-                $.ajax({
-                    url: "saveEmail",
-                    type: "POST",
-                    data:{
-                      'email': email,
-                    },
-                    success:function(){
-                         alert('email sent');
-                    }
-                });
-                $(".page2").hide();
-                 $(".page3").show();
-                // $.ajax({
-                //     url: "insertCompanyClassification",
-                //     type: "POST",
-                //     data: {
-                //         'classification': classification,
-                //     },
-                //     success: function(data){
-                //         if(data=="success"){
-                //            
-                //             var classification="";
-                //         }
-                //     }
-                // });
-              }
+                }
             });
+
+                 
         } else {
 
         }
