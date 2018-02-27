@@ -75,37 +75,38 @@
                           $strLen = strlen($db[$x]['company_name']);
                           $passStr = $db[$x]['company_name'];
                       }
-                        $errMar = 10;
-                        $startChar = 0;
-                        $maxChar = 0;
-                        $textArray = array();
-                        $getLine = 0;
-                        $tmpString = "";
+
+                        // $errMar = 10;
+                        // $startChar = 0;
+                        // $maxChar = 0;
+                        // $textArray = array();
+                        // $getLine = 0;
+                        // $tmpString = "";
 
                        
 
-                        while($startChar < $strLen){
+                        // while($startChar < $strLen){
 
-                          while(
+                        //   while(
 
-                              $this->GetStringWidth($tmpString) < ($cWidth  ) &&
-                               ($startChar+$maxChar) < $strLen){
+                        //       $this->GetStringWidth($tmpString) < ($cWidth  ) &&
+                        //        ($startChar+$maxChar) < $strLen){
 
-                            $maxChar++;
-                            $tmpString = substr($passStr,$startChar,$maxChar);
+                        //     $maxChar++;
+                        //     $tmpString = substr($passStr,$startChar,$maxChar);
 
-                          }
-                            $startChar = $startChar + $maxChar;
-                            array_push($textArray,$tmpString);
-                            $getLine += 1;
-                            $maxChar = 0;
-                            $tmpString = "";
+                        //   }
+                        //     $startChar = $startChar + $maxChar;
+                        //     array_push($textArray,$tmpString);
+                        //     $getLine += 1;
+                        //     $maxChar = 0;
+                        //     $tmpString = "";
 
-
+                          // $line = count($textArray);
                             
 
-                        }
-                        $line = ceil( ($this->GetStringWidth($passStr)) / $cWidth);
+                        // }
+                        $line = ceil( ($this->GetStringWidth($passStr)) / $cWidth); //mycode
                        
                         
                     }// 

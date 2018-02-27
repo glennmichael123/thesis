@@ -61,7 +61,7 @@
 
                        }
                         $linectr += $line;
-                        if($linectr >=12){
+                        if($linectr >=10){
                           $linectr = 0;
 
                         $this->SetXY($xPos + $holdWidth ,$yPos);
