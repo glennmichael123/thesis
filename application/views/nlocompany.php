@@ -214,7 +214,7 @@ tr:hover{
                               <td><?php echo $company['designated_person']; ?> </td>
                                  <td><?php echo $company['position']; ?> </td>
                               <td><?php echo $company['contact_no']; ?></td>
-                              <td><?php echo($company['watchlisted'] == 1 ? 'Yes' : 'No')?></td>
+                              <td style="color:<?php echo ($company['watchlisted'] == 1 ? 'red' : 'green') ?>"><?php echo($company['watchlisted'] == 1 ? 'Yes' : 'No')?></td>
                               <?php if ($company['moa'] == 1):?>
                                 <td style="color:green">With MOA</td>
                               <?php else: ?>

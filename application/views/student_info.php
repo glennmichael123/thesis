@@ -216,13 +216,13 @@
                         <li class="dropdown">
                           <a href="#" class="dropdown-toggle" id="dropdown-logout" data-toggle="dropdown"> <i class="fa fa-user-circle fa-3x circular-square pull-right" style="width: 40px; height: 40px; margin-top: -10px;"></i> </a>
                           <ul class="dropdown-menu" id="show-logout">
-                            <li><a href="<?php echo base_url('admindashboard')?>">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
+                            <li><a href="<?php echo base_url('admindashboard')?>">Dashboard<i class="fa fa-tachometer" style="position: absolute; right: 20px;"></i></a></li>
                             <li class="divider"></li>
 
-                            <li><a href="<?php echo base_url()?>changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                            <li><a href="<?php echo base_url()?>changepassword">Change password <i class="fa fa-key" style="position: absolute; right: 20px;" aria-hidden="true"></i></a></li>
                             <li class="divider"></li>
                 
-                            <li><a href="<?php echo base_url()?>logout">Log Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+                            <li><a href="<?php echo base_url()?>logout">Log Out <i class="fa fa-sign-in" style="position: absolute; right: 20px;"></i></a></li>
                           </ul>
                         </li>
                       </ul>

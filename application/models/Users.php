@@ -2161,7 +2161,7 @@
                        $year = $courseYear[1];
                        $last_name = $matches[1][0];
                        $middle_initial = $matches[3][0];
-                       $username = strtolower(str_replace(' ', '', $first_name)).'.'.strtolower(str_replace('', ' ', $last_name)); 
+                       $username = strtolower(str_replace(' ', '', $first_name)).'.'.strtolower(str_replace(' ', '', $last_name)); 
                    // echo '<pre>';echo $year; echo '</pre>';       
                       if($ojt_program == 'ojt_one'){
                           $result1 = $this->db->query("SELECT id_number FROM users WHERE id_number = '$username'")->result_array();
@@ -2242,27 +2242,27 @@
                   echo '<pre>';  print_r($name); echo '</pre>';  
                   echo '<pre>';  print_r($address); echo '</pre>';  
                   $count = 1;
-                 // foreach ($name as $key => $company_name) {
-                 //  $addresses = $address[$key];
-                 //  $nameses = array('company_name'=>$company_name, 'address'=>$addresses, 'moa'=>1);
-                 //    $this->db->insert('companies',$nameses);
-                 //    // redirect('nloDashboard');
-                 //    $count++;
-                 // }
+                 foreach ($name as $key => $company_name) {
+                  $addresses = $address[$key];
+                  $nameses = array('company_name'=>$company_name, 'address'=>$addresses, 'moa'=>1);
+                    $this->db->insert('companies',$nameses);
+                    // redirect('nloDashboard');
+                    $count++;
+                 }
 
                   if($this->db->affected_rows() > 0){
                      echo "successfully inserted " . $count. "entries";
                   } 
 
- //                 foreach ($name as $key => $company_name) {
- //                  $addresses = $address[$key];
- //                  $nameses = array('company_name'=>utf8_decode($company_name), 'address'=>$addresses, 'moa'=>1);
- //                  $this->db->where('company_name', $nameses['company_name']);
- //                  $this->db->delete('companies');
- //                    // redirect('nloDashboard');
+                 // foreach ($name as $key => $company_name) {
+                 //  $addresses = $address[$key];
+                 //  $nameses = array('company_name'=>utf8_decode($company_name), 'address'=>$addresses, 'moa'=>1);
+                 //  $this->db->where('company_name', $nameses['company_name']);
+                 //  $this->db->delete('companies');
+                 //    // redirect('nloDashboard');
                    
- //                    $count++;
- //                 }
+                 //    $count++;
+                 // }
  // echo "successfully inserted " . $count. "entries";
 
             }
