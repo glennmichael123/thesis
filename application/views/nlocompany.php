@@ -10,7 +10,7 @@
 	<!-- Data table -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>assets/css/dataTables.bootstrap.min.css">
     
-    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <!-- <script src="//code.jquery.com/jquery-1.12.4.js"></script> -->
     <script src="<?php echo base_url() ?>assets/js/jquery.dataTables.min.js"></script>
     <script src="<?php echo base_url() ?>assets/js/dataTables.bootstrap.min.js"></script>
     <link href="<?php echo base_url() ?>assets/css/toggle.min.css" rel="stylesheet">
@@ -498,7 +498,6 @@ tr:hover{
         $('#compPosition').val(data2.position);
         $('#hidden-edit-id').val(data2.id);
         if(data2.moa == 1){
-       
            $('#compMoa').prop('checked', true).change();
         }else{
           $('#compMoa').prop('checked', false).change();

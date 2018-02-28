@@ -334,9 +334,15 @@
              $username = $id_number;         
              $result = $this->db->query("SELECT * FROM users WHERE id_number = '$username'");
              return $result->result_array();
-
-
         }
+
+         public function getSupervisorFirstName($id_number){
+          $query = $this->db->query("SELECT name FROM supervisor WHERE id_number = '$id_number'")->row();
+          $breakArray = explode(' ', $query->name);
+          $fname = $breakArray[0];
+          return $fname;
+        } 
+
 
         public function dashboardDataRecords($id_number, $ojt_program){   
             $username = $id_number;
@@ -1523,8 +1529,12 @@
       }
 
       public function editProfileCompany($username){
-
-        $data = Array('company_name' => $_POST['profile_company_name'],
+        $compName = $_POST['profile_company_name'];
+        $this->db->query("SELECT * FROM companies WHERE company_name LIKE '%$compName%' AND watchlisted = 1");
+        if($this->db->affected_rows() > 0){
+          echo "watchlisted";exit;
+        }else{
+          $data = Array('company_name' => $_POST['profile_company_name'],
                       'company_address' => $_POST['profile_company_address'],
                       'contact_number' => $_POST['profile_telephone_number'],
                       'fax_number' => $_POST['profile_fax_number'],
@@ -1532,9 +1542,10 @@
                       'company_classification' => $_POST['classification'],
                       'number_of_employees' => $_POST['employee_numbers']
                     );
-
           $this->db->where('id_number', $username);
           $this->db->update('company_information', $data);
+        }
+        
       }
 
       public function checkEmailVerified($username){
@@ -2238,9 +2249,7 @@
 
        public function getNloCompanyModal(){
           $id = $_POST['id'];
-
           $query = $this->db->query("SELECT * FROM companies WHERE id = '$id'")->row();
-
           echo json_encode($query);
        }
 
