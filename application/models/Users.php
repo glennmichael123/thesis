@@ -362,7 +362,7 @@
          }   
 
          public function getOjtRecordsForSupervisor($username){
-            $result = $this->db->query("SELECT ojt_records.id_number, ojt_records.ojtone_required,ojt_records.ojtone_rendered,ojt_records.ojttwo_rendered, ojt_records.ojttwo_required, users.first_name, users.last_name, users.ojt_program FROM ojt_records INNER JOIN users ON users.id_number = ojt_records.id_number WHERE supervisor_id = '$username'");         
+            $result = $this->db->query("SELECT ojt_records.id_number, ojt_records.ojtone_required,ojt_records.ojtone_rendered,ojt_records.ojttwo_rendered, ojt_records.ojttwo_required, users.first_name, users.last_name, users.ojt_program FROM ojt_records INNER JOIN users ON users.id_number = ojt_records.id_number WHERE supervisor_id = '$username' AND users.status != 'DELETED'");         
 
             // echo '<pre>';print_r($result->result_array()); echo'</pre>';
             return $result->result_array();
@@ -1372,7 +1372,7 @@
         // $program = array();
 // echo $username;
         $data = array();
-          $query = $this->db->query("SELECT users.id_number, users.first_name, users.middle_initial, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.supervisor_id = '$supervisor_id' AND company_information.supervisor_id!='' AND company_information.id_number != '$username'")->result_array();
+          $query = $this->db->query("SELECT users.id_number, users.first_name, users.middle_initial, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.supervisor_id = '$supervisor_id' AND company_information.supervisor_id!='' AND company_information.transitioned != 1 AND users.status != 'DELETED' AND company_information.id_number != '$username'")->result_array();
           // print_r($query);
           $i=0;
           foreach ($query as $key => $value) {
@@ -1384,7 +1384,7 @@
                       $p = $value->ojt_program;
                       $s = $value->id_number;
                       // echo $s;
-                        $workmate = $this->db->query("SELECT users.id_number, users.first_name, users.middle_initial, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.supervisor_id = '$supervisor_id' AND company_information.id_number != '$username' AND users.ojt_program = '$p' AND users.id_number='$s'")->result_array();
+                        $workmate = $this->db->query("SELECT users.id_number, users.first_name, users.middle_initial, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.supervisor_id = '$supervisor_id' AND company_information.id_number != '$username' AND users.ojt_program = '$p' AND company_information.transitioned != 1 AND users.id_number='$s'")->result_array();
                           
                         foreach ($workmate as $key => $value) {
                             $data[$i]['id_number'] = $value['id_number'];
