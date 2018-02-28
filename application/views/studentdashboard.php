@@ -828,27 +828,27 @@ header h1 {
 
                                     </a>
                                      <ul class="dropdown-menu" style="margin-top: -5px;margin-left: -218px;" id="show-logout">
-                                <li><a href="<?php echo base_url('supervisordashboard')?>">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
+                                <li><a href="<?php echo base_url('supervisordashboard')?>">Dashboard<i class="fa fa-tachometer " style="position: absolute; right: 20px;"></i></a></li>
                                 <li class="divider"></li>
         
-                                <li><a href="<?php echo base_url('changepassword') ?>">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                                <li><a href="<?php echo base_url('changepassword') ?>">Change password <i class="fa fa-key " style="position: absolute; right: 20px;" aria-hidden="true"></i></a></li>
                                 <li class="divider"></li>
                     
-                                <li><a href="<?php echo base_url()?>main/logout">Log Out <i class="fa fa-sign-in pull-right" aria-hidden="true"></i></a></li>
+                                <li><a href="<?php echo base_url()?>main/logout">Log Out <i class="fa fa-sign-in " style="position: absolute; right: 20px;" aria-hidden="true"></i></a></li>
                               </ul>
                               <?php else: ?>
 
                               <a href="#" class="dropdown-toggle" style="margin-top: -10px;" id="dropdown-logout" data-toggle="dropdown"> 
-                                <img src="<?php echo base_url().$supervisor_image->image_id;?>" class="pull-right circular-square user-image" style="width: 40px;height: 40px;margin-top: 5px;"></a>
+                                <img src="<?php echo base_url().$supervisor_image->image_id;?>" class=" circular-square user-image" style="width: 40px;height: 40px;margin-top: 5px;"></a>
 
-                                 <ul class="dropdown-menu" style="margin-top: 11px;margin-left: -200px;" id="show-logout">
-                                <li><a href="<?php echo base_url('supervisordashboard')?>">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
+                                 <ul class="dropdown-menu" style="margin-top: -5px; margin-left: -217px; display: block;" id="show-logout">
+                                <li><a href="<?php echo base_url('supervisordashboard')?>">Dashboard<i class="fa fa-tachometer" style="position: absolute;right: 20px;"></i></a></li>
                                 <li class="divider"></li>
         
-                                <li><a href="<?php echo base_url('changepassword') ?>">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                                <li><a href="<?php echo base_url('changepassword') ?>">Change password <i class="fa fa-key" style="position: absolute;right: 20px;" aria-hidden="true"></i></a></li>
                                 <li class="divider"></li>
                     
-                                <li><a href="<?php echo base_url()?>main/logout">Log Out <i class="fa fa-sign-in pull-right" aria-hidden="true"></i></a></li>
+                                <li><a href="<?php echo base_url()?>main/logout">Log Out <i style="position: absolute;right: 20px;" class="fa fa-sign-in " aria-hidden="true"></i></a></li>
                               </ul>
                             <?php endif; ?>
                              
@@ -870,15 +870,15 @@ header h1 {
                              </a>
                                 
                                 <ul class="dropdown-menu" id="show-logout">
-                                    <li><a href="<?php echo base_url('profile') ?>">Profile<i class="fa fa-user pull-right"></i></a></li>
+                                    <li><a href="<?php echo base_url('profile') ?>">Profile<i class="fa fa-user pull-right" ></i></a></li>
                                     <li class="divider"></li>
-                                    <li><a href="<?php echo base_url('dashboard') ?>">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
-                                    <li class="divider"></li>
-
-                                    <li><a href="<?php echo base_url('changepassword') ?>">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                                    <li><a href="<?php echo base_url('dashboard') ?>">Dashboard<i class="fa fa-tachometer"></i></a></li>
                                     <li class="divider"></li>
 
-                                    <li><a href="<?php echo base_url('logout') ?>">Log Out <i class="fa fa-sign-out pull-right"></i></a></li>
+                                    <li><a href="<?php echo base_url('changepassword') ?>">Change password <i class="fa fa-key" aria-hidden="true"></i></a></li>
+                                    <li class="divider"></li>
+
+                                    <li><a href="<?php echo base_url('logout') ?>">Log Out <i class="fa fa-sign-out"></i></a></li>
                                 </ul>
                             </li>
                         </ul>

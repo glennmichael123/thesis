@@ -256,7 +256,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <select id="college" name="college" required>
+                                <select style="width: 99%;" id="college" name="college" required>
                                     <option selected disabled>Select college</option>
                                     <option value="CCS">College of Computer Studies</option>
                                     <option value="CEA">College of Engineering and Architecture</option>
@@ -264,15 +264,16 @@
                                     <option value="COE">College of Education</option>
                                     <option value="CMBA">College of Management, Business and Accoutancy</option>
                                     <option value="CAS">College of Arts and Sciences</option>
-                                </select>
+                                </select><span style="color: red;">*</span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6"> 
-                                <input type="text" name="course" id="course" placeholder="Course" value="<?php echo $initial_data[0]['course'] ?>">
+                                <input type="text" style="width: 98%;" name="course" id="course" placeholder="Course" value="<?php echo $initial_data[0]['course'] ?>">
+                                <span style="color: red;">*</span>
                             </div>
                             <div class="col-lg-6">
-                                <select name="year" id="year" required>
+                                <select style="width: 98%;" name="year" id="year" required>
                                     <?php if ($initial_data[0]['year']==1) {
                                          echo '<option value="1st Year" selected hidden>1st Year</option>';
                                     } ?>
@@ -294,6 +295,7 @@
                                     <option value="4th Year">4th Year</option>
                                     <option value="5th Year">5th Year</option>
                                 </select>
+                                <span style="color: red;">*</span>
                             </div>
                         </div>
                         <div class="row">
@@ -311,12 +313,14 @@
                                 <input type="text" maxlength="11" name="number" placeholder="Phone or landline" id="number">
                             </div>
                             <div class="col-lg-6">
-                                <input type="email" name="email" placeholder="Email address" id="email" required>
+                                <input type="email" style="width: 98%;" name="email" placeholder="Email address" id="email" required>
+                                <span style="color: red;">*</span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" placeholder="Date of birth" name="date_of_birth" id="date_of_birth">
+                                <input type="text" style="width: 98%;" placeholder="Date of birth" name="date_of_birth" id="date_of_birth">
+                                <span style="color: red;">*</span>
                             </div>
                             <div class="col-lg-6">
                                 <select id="civil_status" name="civil_status">
@@ -472,7 +476,8 @@
                     <h2 class="fs-title">Company Information <i class="fa fa-list-alt" aria-hidden="true"></i></h2>
                         <div class="row">
                           <div class="col-lg-12">
-                            <input type="text" placeholder="Company name" id="company_name" style="width: 885px;" name="company_name" required>
+                            <input type="text" placeholder="Company name" id="company_name" style="width: 867px; float: left;" name="company_name" required>  <span style="color: red">*</span>
+                          
                             <!-- <select id="company_name" style="width: 885px;" name="company_name" required>
                                 <option selected disabled>Company name</option>
                                 <?php foreach ($companies as $company):?>
@@ -483,12 +488,14 @@
                         </div>
                          <div class="row">
                           <div class="col-lg-12">
-                           <input type="text" name="company_address" placeholder="Company address" id="company_address" required>
+                           <input type="text" style="width: 98%;" name="company_address" placeholder="Company address" id="company_address" required>
+                           <span style="color: red">*</span>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-lg-6">
-                            <input type="text" maxlength="11" name="company_telephone" placeholder="Landline or mobile" id="company_telephone" required>
+                            <input type="text" style="width: 98%;" name="company_telephone" placeholder="Landline or mobile" id="company_telephone" required>
+                            <span style="color: red">*</span>
                           </div>
                           <div class="col-lg-6">
                              <input type="text" name="company_fax" placeholder="Fax number" id="company_fax">
@@ -708,10 +715,10 @@ $(document).ready(function(){
             } else {
                 if ( ! $( this ).val() ) {
                     fail = true;
-                    name = $( this ).attr( 'style', 'border: 1px solid #e57373' );
+                    name = $( this ).css( 'border', '1px solid #e57373' );
                     fail_log += name + " is required \n";
                 }else{
-                    name = $( this ).attr( 'style', 'border: 1px solid #ccc' );
+                    name = $( this ).css( 'border', '1px solid #ccc' );
                 }
 
             }

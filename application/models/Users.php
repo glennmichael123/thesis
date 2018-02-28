@@ -19,7 +19,18 @@
                 $email = $_POST['email'];
                 return $this->db->query("INSERT INTO email (id_number, email_address, hash) VALUES('$username','$email', '$hash')");     
         }
+        public function watchlistedCompanies(){
+                $query= $this->db->query("SELECT company_name,address FROM companies WHERE watchlisted = 1");
 
+            return $query->result_array();
+
+
+        }
+        public function countWatchlisted(){
+              $query= $this->db->query("SELECT count(company_name) as count_watchlisted FROM companies WHERE watchlisted = 1");
+              return $query->result_array();
+
+        }
 
         public function queryUserByEmail($email){
               // $email = $_POST['reset_email'];
@@ -1280,6 +1291,11 @@
         $email = $_POST['email'];
         //$birth = date('F d Y',strtotime($_POST['date_of_birth']));
         $birth = date('Y-m-d',strtotime($_POST['date_of_birth'])); 
+        $d1 = new DateTime($birth);
+         $d2 = new DateTime(date('Y-m-d'));
+        $diff = $d2->diff($d1);
+      
+      
         //echo $birth;exit;
         // $age = $_POST['age'];
         $civil_stat = empty($_POST['civil_status'])?'':$_POST['civil_status'];
@@ -1313,9 +1329,8 @@
         $employees = $_POST['employee_numbers'];
         $classif = $_POST['classification'];
         // $current_ojt_program = $this->getOjtProgramForStud($username);
-          $this->db->query("INSERT INTO personal_details(id_number,first_name, middle_initial, last_name, college,course,year,present_address,permanent_address,contact_number,email_address,date_of_birth,marital_status,blood_type,weight,height,religion,citizenship,sex) VALUES('".$username."','".$fname."','".$mname."','".$lname."','".$college."','".$course."','$year','".$present_add."','".$permanent_add."',$contact_num,'".$email."','".$birth."','".$civil_stat."','".$bloodtype."',$weight,$height,'".$religion."','".$citizenship."','".$sex."')");
 
-        $this->db->query("INSERT INTO personal_details(id_number,first_name, middle_initial, last_name, college,course,year,present_address,permanent_address,contact_number,email_address,date_of_birth,marital_status,blood_type,weight,height,religion,citizenship,sex) VALUES('".$username."','".$fname."','".$mname."','".$lname."','".$college."','".$course."','$year','".$present_add."','".$permanent_add."','$contact_num','".$email."','".$birth."','".$civil_stat."','".$bloodtype."','$weight','$height','".$religion."','".$citizenship."','".$sex."')");
+        $this->db->query("INSERT INTO personal_details(id_number,first_name, middle_initial, last_name, college,course,year,present_address,permanent_address,contact_number,email_address,date_of_birth,age,marital_status,blood_type,weight,height,religion,citizenship,sex) VALUES('".$username."','".$fname."','".$mname."','".$lname."','".$college."','".$course."','$year','".$present_add."','".$permanent_add."','$contact_num','".$email."','".$birth."',$diff->y,'".$civil_stat."','".$bloodtype."','$weight','$height','".$religion."','".$citizenship."','".$sex."')");
 
         $this->db->query("INSERT INTO family_details(id_number,fathers_name,fathers_occupation,mothers_name,mothers_occupation,parents_address,contact_number) VALUES('".$username."','".$father."','".$father_occu."','".$mother."','".$mother_occu."','".$parents_add."','$parents_contact')");
 
@@ -1323,6 +1338,8 @@
 
         $this->db->query("INSERT INTO company_information(id_number,company_name,company_address,contact_number,fax_number,product_lines,company_classification,number_of_employees,ojt_program) VALUES('".$username."','".$comp_name."','".$comp_add."','$comp_contact','$fax_number','".$product_lines."','".$classif."','".$employees."','".$ojt_program->ojt_program."')");
       }
+
+
 
 
       public function checkExistPersonal($username){
@@ -1358,22 +1375,37 @@
 
       }
       public function getWorkmates($username, $supervisor_id){
-        $program = array();
-
+        // $program = array();
+// echo $username;
+        $data = array();
           $query = $this->db->query("SELECT users.id_number, users.first_name, users.middle_initial, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.supervisor_id = '$supervisor_id' AND company_information.supervisor_id!='' AND company_information.id_number != '$username'")->result_array();
-
+          // print_r($query);
+          $i=0;
           foreach ($query as $key => $value) {
              $id = $value['id_number'];
-              $program = $this->db->query("SELECT ojt_program, id_number FROM users WHERE id_number = '$id'")->result();  
+             // echo $id;
+              $program = $this->db->query("SELECT ojt_program, id_number FROM users WHERE id_number = '$id'")->result(); 
+
+              foreach ($program as $key => $value) {
+                      $p = $value->ojt_program;
+                      $s = $value->id_number;
+                      // echo $s;
+                        $workmate = $this->db->query("SELECT users.id_number, users.first_name, users.middle_initial, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.supervisor_id = '$supervisor_id' AND company_information.id_number != '$username' AND users.ojt_program = '$p' AND users.id_number='$s'")->result_array();
+                          
+                        foreach ($workmate as $key => $value) {
+                            $data[$i]['id_number'] = $value['id_number'];
+                            $data[$i]['first_name'] = $value['first_name'];
+                            $data[$i]['middle_initial'] = $value['middle_initial'];
+                            $data[$i]['last_name'] = $value['last_name'];
+                            $i++;
+                        }
+                        
+              }
           }
 
-         foreach ($program as $key => $value) {
-          $p = $value->ojt_program;
-          $s = $value->id_number;
-            $workmate = $this->db->query("SELECT users.id_number, users.first_name, users.middle_initial, users.last_name FROM users INNER JOIN company_information ON users.id_number = company_information.id_number WHERE company_information.supervisor_id = '$supervisor_id' AND company_information.id_number != '$username' AND company_information.ojt_program = '$p'")->result_array();
-            return $workmate; 
-         }
-          
+       return $data;
+
+        
 
           
       }
@@ -2140,7 +2172,7 @@
                        $year = $courseYear[1];
                        $last_name = $matches[1][0];
                        $middle_initial = $matches[3][0];
-                       $username = strtolower(str_replace(' ', '', $first_name)).'.'.strtolower(str_replace('', ' ', $last_name)); 
+                       $username = strtolower(str_replace(' ', '', $first_name)).'.'.strtolower(str_replace(' ', '', $last_name)); 
                    // echo '<pre>';echo $year; echo '</pre>';       
                       if($ojt_program == 'ojt_one'){
                           $result1 = $this->db->query("SELECT id_number FROM users WHERE id_number = '$username'")->result_array();
@@ -2235,14 +2267,14 @@
 
                  // foreach ($name as $key => $company_name) {
                  //  $addresses = $address[$key];
-                 //  $nameses = array('company_name'=>$company_name, 'address'=>$addresses, 'moa'=>1);
+                 //  $nameses = array('company_name'=>utf8_decode($company_name), 'address'=>$addresses, 'moa'=>1);
                  //  $this->db->where('company_name', $nameses['company_name']);
                  //  $this->db->delete('companies');
                  //    // redirect('nloDashboard');
-                 //    echo "successfully inserted " . $count. "entries";
+                   
                  //    $count++;
                  // }
-
+ // echo "successfully inserted " . $count. "entries";
 
             }
        }

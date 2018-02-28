@@ -57,6 +57,13 @@ class Main extends CI_Controller {
         $this->load->view('viewpdf',$data);
 
     }
+
+    public function viewWatchlisted(){
+        $data['watchlisted'] = $this->users->watchlistedCompanies();
+        $data['count_watchlisted'] = $this->users->countWatchlisted();
+        $this->load->view('pdfwatchlisted',$data);
+
+    }
      public function page3(){
     	$this->load->view('page3');
     }
@@ -1024,7 +1031,7 @@ public function logout(){
    	}
 
    	public function getTraineeNames(){
-   		$names = $this->db->query("SELECT first_name, last_name, users.id_number, company_information.company_name FROM users INNER JOIN company_information ON company_information.id_number = users.id_number AND transitioned != 1")->result();
+   		$names = $this->db->query("SELECT first_name, last_name, users.id_number, company_information.company_name FROM users INNER JOIN company_information ON company_information.id_number = users.id_number AND transitioned != 1 AND status != 'DELETED'")->result();
    		// $names = $this->db->query("SELECT first_name, last_name, id_number FROM users")->result();
    		$student = array(array('names'=>''));
    		$i=0;

@@ -128,7 +128,7 @@
 <script type="text/javascript">
   var table = $('#adminDataTable').DataTable({
      "bProcessing": true,
-      "order": [1, 'asc'],
+      "order": [0, 'asc'],
       "columns": [{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false },{"orderable": false }],
   });
 </script>

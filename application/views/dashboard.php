@@ -564,7 +564,11 @@ header h1 {
 
                         <a href="dashboard" style="text-decoration: none;"><h3 style="font-weight: bold; margin-top: 12px; color: #b71c1c ; text-align: left; font-family: fantasy;font-style: italic;font-size: 20pt;letter-spacing: 1px;">OJT AUTOMATE</h3></a> 
                     </div>
-                    <div class="col-lg-5 col-sm-7">
+                     <div class="col-lg-5">
+                        <h5 style="position: absolute; top: 15px;font-weight: bold;float: right;right: -90px;">Hi, <?php echo $ojtFirstName;?><br>
+                        <span style="font-size:13px;font-weight: normal;">Trainee</span>
+                    </div>
+                    <div class="col-lg-2 col-sm-2">
                         <?php if(isset($id_number)):?>
                         <?php else:?>
                             <section id="notification-bell">
@@ -685,10 +689,7 @@ header h1 {
                     </section>
                     <?php endif;?>
                     </div>
-                    <div class="col-lg-2">
-                        <h5 style="position: relative; top: 15px;font-weight: bold;float: right;">Hi, <?php echo $ojtFirstName;?><br>
-                        <span style="font-size:13px;font-weight: normal;">Trainee</span>
-                    </div>
+                   
                     <div>
                        <?php
                           $program = '';
@@ -731,15 +732,15 @@ header h1 {
                              </a>
                                 
                                 <ul class="dropdown-menu" id="show-logout">
-                                    <li><a href="profile">Profile<i class="fa fa-user pull-right"></i></a></li>
+                                    <li><a href="profile">Profile<i class="fa fa-user" style="position: absolute; right: 20px;"></i></a></li>
                                     <li class="divider"></li>
-                                    <li><a href="dashboard">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
-                                    <li class="divider"></li>
-
-                                    <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                                    <li><a href="dashboard">Dashboard<i class="fa fa-tachometer" style="position: absolute; right: 20px;"></i></a></li>
                                     <li class="divider"></li>
 
-                                    <li><a href="logout">Log Out <i class="fa fa-sign-out pull-right"></i></a></li>
+                                    <li><a href="changepassword">Change password <i class="fa fa-key" style="position: absolute; right: 20px;" aria-hidden="true"></i></a></li>
+                                    <li class="divider"></li>
+
+                                    <li><a href="logout">Log Out <i class="fa fa-sign-out" style="position: absolute; right: 20px;"></i></a></li>
                                 </ul>
                             </li>
                         </ul>

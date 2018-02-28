@@ -122,10 +122,10 @@ tr:hover{
 
 </style>
 <body>
-   <form action="<?php echo base_url('addCsvCompany')?>" method="POST" enctype="multipart/form-data">
+ <!--   <form action="<?php echo base_url('addCsvCompany')?>" method="POST" enctype="multipart/form-data">
       <input type="file" name="companyCsv">
       <input type="submit" name="">
-  </form>
+  </form> -->
 	<div class="header">
 		<div class="container-fluid">
 			<div class="row">
@@ -146,9 +146,9 @@ tr:hover{
                   <i class="fa fa-user-circle fa-3x circular-square pull-right" style="width: 40px; height: 40px; margin-top: -10px;"></i>
                  </a>
                 <ul class="dropdown-menu" id="show-logout">
-                  <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                  <li><a href="changepassword">Change password <i class="fa fa-key" style="position: absolute; right: 20px;" aria-hidden="true"></i></a></li>
                   <li class="divider"></li>
-                  <li><a href="logout">Log Out <i class="fa fa-sign-out pull-right"></i></a></li>
+                  <li><a href="logout">Log Out <i class="fa fa-sign-out" style="position: absolute; right: 20px;"></i></a></li>
                 </ul>
               </li>
             </ul>
@@ -162,10 +162,13 @@ tr:hover{
   
   <div class="panel nlopanel" style="border-radius: 7px;">
   <h3 id="nlo">Networking and Linkages Office
-
+    <button type="button" class="btn btn-company" style="float:right;margin-right: 10px;" id="viewpdf" ><i class="fa fa-book"></i>View PDF</button>
+    <button type="button" class="btn btn-company" style="float:right;margin-right: 10px;" id="viewwatchlisted" ><i class="fa fa-book"></i>View Watchlisted</button>
    <button style="float: right; margin-right: 10px;" data-toggle="modal" data-target="#addComp" class="btn btn-company">+Company</button></h3>
   
 </div>
+
+
 </div>
 
 <div class="container">
@@ -211,7 +214,7 @@ tr:hover{
                               <td><?php echo $company['designated_person']; ?> </td>
                                  <td><?php echo $company['position']; ?> </td>
                               <td><?php echo $company['contact_no']; ?></td>
-                              <td><?php echo($company['watchlisted'] == 1 ? 'Yes' : 'No')?></td>
+                              <td style="color:<?php echo ($company['watchlisted'] == 1 ? 'red' : 'green') ?>"><?php echo($company['watchlisted'] == 1 ? 'Yes' : 'No')?></td>
                               <?php if ($company['moa'] == 1):?>
                                 <td style="color:green">With MOA</td>
                               <?php else: ?>
@@ -224,7 +227,6 @@ tr:hover{
                   </tbody>
               </table>
               <div><button type="button" class="btn btn-warning" id="btnDelete"><i class="fa fa-trash"></i> Delete Selected Item(s)</button>
-                   <button type="button" style="float:right;" class="btn btn-info" id="viewpdf"><i class="fa fa-book"></i>View PDF</button>
 
 
               </div>
@@ -314,6 +316,15 @@ tr:hover{
 
   }
     );
+    $('#viewwatchlisted').click(function(){
+
+    window.open(
+  '<?php echo base_url() ?>' + 'watchlisted','_blank' 
+);
+
+  }
+    );
+  
 
 
 
