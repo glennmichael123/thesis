@@ -146,9 +146,9 @@ tr:hover{
                   <i class="fa fa-user-circle fa-3x circular-square pull-right" style="width: 40px; height: 40px; margin-top: -10px;"></i>
                  </a>
                 <ul class="dropdown-menu" id="show-logout">
-                  <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                  <li><a href="changepassword">Change password <i class="fa fa-key" style="position: absolute; right: 20px;" aria-hidden="true"></i></a></li>
                   <li class="divider"></li>
-                  <li><a href="logout">Log Out <i class="fa fa-sign-out pull-right"></i></a></li>
+                  <li><a href="logout">Log Out <i class="fa fa-sign-out" style="position: absolute; right: 20px;"></i></a></li>
                 </ul>
               </li>
             </ul>

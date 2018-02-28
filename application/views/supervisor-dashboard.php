@@ -376,16 +376,16 @@
                                     <?php endif ?>
 
                                 <ul class="dropdown-menu" id="show-logout">
-                                    <li><a href="#">Dashboard<i class="fa fa-tachometer pull-right"></i></a></li>
+                                    <li><a href="#">Dashboard<i class="fa fa-tachometer" style="position: absolute; right: 20px;"></i></a></li>
                                     <li class="divider"></li>
 
-                                    <li><a href="#" data-toggle="modal" data-target="#changeImage">Change photo<i class="fa fa-picture-o pull-right" aria-hidden="true"></i></a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#changeImage">Change photo<i style="position: absolute; right: 20px;" class="fa fa-picture-o" aria-hidden="true"></i></a></li>
                                     <li class="divider"></li>
 
-                                    <li><a href="changepassword">Change password <i class="fa fa-key pull-right" aria-hidden="true"></i></a></li>
+                                    <li><a href="changepassword">Change password <i class="fa fa-key" style="position: absolute; right: 20px;" aria-hidden="true"></i></a></li>
                                     <li class="divider"></li>
 
-                                    <li><a href="logout">Log Out <i class="fa fa-sign-out pull-right"></i></a></li>
+                                    <li><a href="logout">Log Out <i class="fa fa-sign-out" style="position: absolute; right: 20px;"></i></a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -713,9 +713,9 @@
                                             <label style="font-size: 11px;">Activity</label> 
                                             <textarea class="list-logs log-activity" name="log_lists_activity" id="log_lists_activity" placeholder="Write your log here" readonly><?php echo $log['log_content']?></textarea>
                                             <?php if($log['verified']):?>
-                                            <span class="verified-log" style="color:green; font-size: 11px; position: absolute; left: 690px; margin-top: -20px; "> Verified  <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i></span>
+                                            <div class="verified-log" style="color:green; font-size: 11px; position: absolute; left: 690px; margin-top: -20px; "> Verified  <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i></div>
                                             <?php else:?>
-                                                 <span class="pending-log" style="color:black; font-size: 11px; position: absolute; margin-top: -20px; left: 690px;"> Pending  <i style="color: green;" class="fa fa-circle-thin" aria-hidden="true"></i></span>
+                                                 <div class="pending-log" style="color:black; font-size: 11px; position: absolute; margin-top: -20px; left: 690px;"> Pending  <i style="color: green;" class="fa fa-circle-thin" aria-hidden="true"></i></div>
                                                  <?php endif;?>
 
 
