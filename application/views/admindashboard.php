@@ -1585,17 +1585,15 @@ $(document).ready(function(){
     var sy_2= $('#sy_2').val();
 
     if(first == "" || mid == "" || last == "" || course=="" || sy_1=="" || sy_2=="" || required_hours == "" || !ojt_program){
-        swal('Oops...','Please fill all fields','error');
-         $("body").each(function() {
-
-            if ($(this).val() === "") {
-            $(this).css('border-color', 'red');
-            
-           }
-           else{
-            $(this).css('border-color', '');
-           }
-
+      swal('Oops...','Please fill all fields','error');
+       $("body").each(function() {
+          if ($(this).val() === "") {
+          $(this).css('border-color', 'red');
+          
+         }
+         else{
+          $(this).css('border-color', '');
+         }
     });
 
     }else{
@@ -1679,9 +1677,7 @@ $(document).ready(function(){
         var fail = false;
          var fail_log = '';
         if(name.length == 0 || compName == null || compName==0 || desig.length == 0 || id.length == 0 || pass.length == 0 || email.length == 0){//existing condition ni pete
-
-              
-              swal('Oops...','Please fill all fields','error');
+            swal('Oops...','Please fill all fields','error');
             $(".required").each(function() {
             if ($(this).val() === "") {
             $(this).css('border-color', 'red');
@@ -1783,7 +1779,7 @@ $(document).ready(function(){
             },
             success: function(data){
              $('.postAnnounce').html('Post');
-             $('.cancelsss')[0].removeAttribute("disabled");
+             $('.postAnnounce')[0].removeAttribute("disabled");
              swal({
                 title: "Announcement posted",
                 //text: "Announcement posted",

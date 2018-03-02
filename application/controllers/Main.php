@@ -69,7 +69,7 @@ class Main extends CI_Controller {
     }
 
     public function editSupervisor(){
-            $this->users->editSup();
+        $this->users->editSup();
 
     }
     public function incorrectpassword(){
@@ -1258,6 +1258,14 @@ public function logout(){
 
     public function getNloCompanyModal(){
         $this->users->getNloCompanyModal();
+    }
+
+    public function getStudentDetails(){
+        $this->users->getStudentInfoToModal();
+    }
+
+    public function adminEditStudent(){
+        $this->users->editStudent();
     }
 }
 

@@ -1102,9 +1102,61 @@
           }
             
 
-            // else{
+        public function getStudentInfoToModal(){
+          $username = $_POST['username'];
+          $query = $this->db->query("SELECT * FROM users as u INNER JOIN ojt_records as o ON u.id_number = o.id_number WHERE u.id_number = '$username'")->row();
+
+          echo json_encode($query);
+        }
+
+        public function editStudent(){
+          $userID = $_POST['username'];
+          $first = strtoupper($_POST['fname']);
+          $last = strtoupper($_POST['lname']);
+          $req_hrs = $_POST['required_hours'];
+          $program = $_POST['ojt_program'];
+          $username = strtolower(str_replace(' ', '',$first).".".str_replace(' ', '',$last));
+
+          $exists = $this->db->query("SELECT * FROM users WHERE id_number = '$username' AND id_number!='$userID'");
+          if($this->db->affected_rows() > 0){
+            echo "user_exists";exit;
+          }
+          else{
+            $users_data = Array('id_number'=> $username, 
+                        'first_name' => $first,
+                        'middle_initial' => $_POST['mid'],
+                        'last_name' => $last,
+                        'course' => $_POST['course'],
+                        'year' => $_POST['year'],
+                        'school_year' => $_POST['school_year'],
+                        'ojt_program' => $program,
+                        );
+
+            $this->db->where('id_number',$userID);
+            $this->db->update('users', $users_data);
             
-         
+            $query = $this->db->query("SELECT ojtone_required, ojttwo_required FROM ojt_records WHERE id_number = '$userID'")->row();
+            $ojt_one_required = $query->ojtone_required;
+            $ojt_two_required = $query->ojttwo_required;
+
+            if($program == "OJT 1"){
+              $this->db->query("UPDATE ojt_records SET id_number = '$username', ojtone_required = $req_hrs, total_hours = $req_hrs + $ojt_two_required WHERE id_number = '$userID'");
+            }else{
+              $this->db->query("UPDATE ojt_records SET id_number = '$username', ojttwo_required = $req_hrs, total_hours = $req_hrs + $ojt_one_required WHERE id_number = '$userID'");
+            }
+
+            $this->db->query("UPDATE announcements SET username = '$username' WHERE username = '$userID'");
+            $this->db->query("UPDATE company_information SET id_number = '$username' WHERE id_number = '$userID'");
+            $this->db->query("UPDATE email SET id_number = '$username' WHERE id_number = '$userID'");
+            $this->db->query("UPDATE emergency_details SET id_number = '$username' WHERE id_number = '$userID'");
+            $this->db->query("UPDATE family_details SET id_number = '$username' WHERE id_number = '$userID'");
+            $this->db->query("UPDATE final_evaluation SET username = '$username' WHERE username = '$userID'");
+            $this->db->query("UPDATE midterm_evaluation SET username = '$username' WHERE username = '$userID'");
+            $this->db->query("UPDATE logs SET id_number = '$username' WHERE id_number = '$userID'");
+            $this->db->query("UPDATE personal_details SET id_number = '$username' WHERE id_number = '$userID'");
+         }
+        }
+
          public function getTrainess(){
             $supp_id=$this->session->userdata['id_number'];
             $query = $this->db->query("SELECT users.id_number,users.first_name,users.last_name FROM users INNER JOIN company_information
@@ -1402,12 +1454,7 @@
                         
               }
           }
-
        return $data;
-
-        
-
-          
       }
 
       public function truncateAllTables(){
