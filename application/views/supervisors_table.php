@@ -136,11 +136,11 @@
 <?php $i++; ?>
 
 <?php endforeach;?>
-<input type="hidden" class="modaCounter" value="<?php echo $i; ?>">
+<input type="hidden" class="modalCounter" value="<?php echo $i; ?>">
 
 <script>
   $(document).ready(function(){
-    var counter = $('.modaCounter').val();
+    var counter = $('.modalCounter').val();
    
       var options = {
         url: "<?php echo base_url('validCompanies')?>",

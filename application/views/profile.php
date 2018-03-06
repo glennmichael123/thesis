@@ -20,7 +20,7 @@
 
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
 
-         <script src="<?php echo base_url() ?>assets/js/bootstrap.min.js"></script>
+     <script src="<?php echo base_url() ?>assets/js/bootstrap.min.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -30,6 +30,10 @@
         <link href="<?php echo base_url();?>assets/css/jquery.simple-popup.min.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/jquery.simple-popup.settings.css" rel="stylesheet">
       <script src="<?php echo base_url()?>assets/js/jquery.simple-popup.min.js"></script>
+
+      <!-- Sweet Alert -->
+    <script src="<?php echo base_url()?>assets/js/swal.js"></script>
+    
     <style type="text/css">
         *{
             font-family: 'Roboto', sans-serif;
@@ -587,7 +591,7 @@
 <body>
 
      <div id="popup1" style="display: none;">
-                <h4 style="padding-left: 10px;color: #2693e6;text-transform: uppercase;"><?php echo empty($announcements[0]['name']) ? '': $announcements[0]['name']; ?></h4>
+                <h4 style="padding-left: 10px;color: #2693e6;text-transform: uppercase;float: left"><?php echo empty($announcements[0]['name']) ? '': $announcements[0]['name']; ?></h4><br>
                 <p class="date_posted" style="margin-left: 10px;font-size: 13px"><?php echo date('F d Y');?></p>
                 <pre class="content-announcement" style="font-size: 15px;"></pre>
             </div>
@@ -1484,11 +1488,15 @@
             method: 'POST',
             data: data + "&classification="+classification,
             success: function(data){
-                $(".company-info").removeClass("showBorder");
-                 $(".company-info").prop("readonly",true);
-                 $('input[type=checkbox]').prop('disabled',true);
-                 $('input[type=radio]').prop('disabled',true);
-                 $(".btss").css("display","none"); 
+                if($.trim(data) == "watchlisted"){
+                    swal('Oops..', 'The company you entered is on the watch list', 'error');return false;
+                }else{
+                    $(".company-info").removeClass("showBorder");
+                    $(".company-info").prop("readonly",true);
+                    $('input[type=checkbox]').prop('disabled',true);
+                    $('input[type=radio]').prop('disabled',true);
+                    $(".btss").css("display","none"); 
+                }
             }
         });
 
@@ -1529,14 +1537,14 @@
 </script>
 
  <script type="text/javascript">
-             $(document).ready(function() {
-                $("#notification-body").on("click",'.view-notif', function(e) {
-                   e.preventDefault();
-                    $(this).simplePopup({ type: "html", htmlSelector: "#popup1" });
-                });
-            });
-        
-        </script>
+     $(document).ready(function() {
+        $("#notification-body").on("click",'.view-notif', function(e) {
+           e.preventDefault();
+            $(this).simplePopup({ type: "html", htmlSelector: "#popup1" });
+        });
+    });
+
+</script>
 
         <script type="text/javascript">
     $("#dropdown-notification").click(function() {

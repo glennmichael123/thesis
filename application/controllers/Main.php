@@ -69,7 +69,7 @@ class Main extends CI_Controller {
     }
 
     public function editSupervisor(){
-            $this->users->editSup();
+        $this->users->editSup();
 
     }
     public function incorrectpassword(){
@@ -640,8 +640,9 @@ public function logout(){
 		$data['logs_list'] = $this->users->getLogs(isset($id_number) ? $id_number : '',$config['per_page'], $page, $current_ojt_program);
      	}
      	$data['id_number'] = $id_number;
-     	$data['user_data'] = $this->users->dashboardData($id_number);
-     	$this->load->view('studentdashboard', $data);
+        $data['user_data'] = $this->users->dashboardData($id_number);
+        
+        $this->load->view('studentdashboard', $data);
      	}
 	
 	}
@@ -1257,6 +1258,14 @@ public function logout(){
 
     public function getNloCompanyModal(){
         $this->users->getNloCompanyModal();
+    }
+
+    public function getStudentDetails(){
+        $this->users->getStudentInfoToModal();
+    }
+
+    public function adminEditStudent(){
+        $this->users->editStudent();
     }
 }
 
