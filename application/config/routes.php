@@ -81,6 +81,7 @@ $route['getNloCompanyModal']  = 'main/getNloCompanyModal';
 $route['validateCompany']  = 'main/validateCompany';
 $route['adminEditStudent']  = 'main/adminEditStudent';
 $route['getStudentDetails']  = 'main/getStudentDetails';
+$route['loadNLOtable']  = 'main/loadNLOtable';
 
 
 
