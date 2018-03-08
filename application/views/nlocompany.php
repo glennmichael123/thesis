@@ -20,6 +20,9 @@
 </head>
 <style type="text/css">
 
+body{
+     background-color: #F4F4F4;
+}
 
 .header{
     background-color: #ffba00;
@@ -47,8 +50,8 @@ width:90px;
 
 }
 .redBorder{
-        border-bottom: 1px solid red !important;
-      }
+  border-bottom: 1px solid red !important;
+}
 .dropdown ul.dropdown-menu:before {
     content: "";
     border-bottom: 10px solid #fff;
@@ -173,66 +176,35 @@ tr:hover{
 
 <div class="container">
 <div id="wrap-students">
-    <div class="well dashboard-list">
-      <?php if(empty($companies)):?>
-          <table id="adminDataTable" class="table table-bordered" cellspacing="0" width="100%" style="font-size: 13px;">
-            <thead>
-                <tr style="background-color: #f44336; color:white;">
-                    <th style="text-align: center;width: 45px"><input type="checkbox" id="checkall"></th>
-                    <th>Company Name</th>
-                    <th>Address</th>
-                    <th>Designated Person</th>
-                    <th>Contact Number</th>
-                    <th>MOA</th>
-                    <th></th>
-
-                </tr>
-            </thead>
-          </table>
-      <?php else:?>
-      <form action="deleteCompany" method="POST" name="formDel">
-            <table id="adminDataTable" class="table table-bordered" cellspacing="0" width="100%" style="font-size: 13px;">
-                    <thead>
-                        <tr style="background-color: #db3c30; color:white;">
-                            <th style="text-align: center;width: 45px"><input type="checkbox" id="checkall"></th>
-                            <th>Company Name</th>
-                        		<th>Company Address</th>
-                        		<th>Designated Person</th>
-                            <th>Position</th>
-                        		<th>Contact Number</th>
-                            <th>Watchlisted</th>
-                        		<th>MOA</th>
-                        		<th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                      <?php foreach ($companies as $company):?>
-                      	<tr class="dashTable">
-                              <td style="text-align: center;width: 45px"><input type="checkbox" class="checkitem" value="<?php echo $company['id']?>" name="usernames[]"></td>
-                              <td><?php echo $company['company_name']; ?></td>
-                              <td><?php echo $company['address']; ?></td>
-                              <td><?php echo $company['designated_person']; ?> </td>
-                                 <td><?php echo $company['position']; ?> </td>
-                              <td><?php echo $company['contact_no']; ?></td>
-                              <td style="color:<?php echo ($company['watchlisted'] == 1 ? 'red' : 'green') ?>"><?php echo($company['watchlisted'] == 1 ? 'Yes' : 'No')?></td>
-                              <?php if ($company['moa'] == 1):?>
-                                <td style="color:green">With MOA</td>
-                              <?php else: ?>
-                                <td style="color:red">No MOA</td>
-                              <?php endif; ?>
-                              <td><button type="button" data-company-id="<?php echo $company['id']?>" class="btn btn-success btn-xs edit-view" data-toggle="modal" data-target="#editModal">Edit <i class="fa fa-pencil"></i></button></td>
-
-                          </tr>
-                  	  <?php endforeach;?>
-                  </tbody>
-              </table>
-              <div><button type="button" class="btn btn-warning" id="btnDelete"><i class="fa fa-trash"></i> Delete Selected Item(s)</button>
-
-
-              </div>
-            <?php endif;?>
-        </form>
+  <div class="well">
+    <div class="row">
+      <div class="col-lg-3 col-lg-offset-5">
+        <select class="form-control" id="nloWatchlistedFilter">
+          <option selected disabled>Watchlisted</option>
+          <option value="">All</option>
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+      <div class="col-lg-3">
+        <select class="form-control" id="nloMOAFilter">
+          <option selected disabled>MOA</option>
+          <option value="">All</option>
+          <option value="with_moa">With MOA</option>
+          <option value="no_moa">No MOA</option>
+        </select>
+      </div>
+      <div class="col-lg-1">
+        <button class="btn btn-default" id="disp" onclick="location.reload();" style="float: right;"><i class="fa fa-refresh" aria-hidden="true" style="color:#7f715a"></i></button>
+      </div>
     </div>
+
+    <!-- Table  -->
+    <div class="loadNLOTable">
+      
+    </div>
+  </div>
+    
     </div>
 </div>    
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -307,9 +279,58 @@ tr:hover{
   </div>
 </div>
 </body>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    var watchlisted = $('#nloWatchlistedFilter').val();
+    var moa = $('#nloMOAFilter').val();
+    $.ajax({
+      url: "loadNLOtable",
+      type: "POST",
+      data:{
+        'watchlisted': watchlisted,
+        'moa': moa,
+      },
+      success:function(data){
+        $('.loadNLOTable').html(data);
+      }
+    });
+  });
+
+  $('#nloWatchlistedFilter').change(function(){
+    var watchlisted = $('#nloWatchlistedFilter').val();
+    var moa = $('#nloMOAFilter').val();
+    $.ajax({
+      url: "loadNLOtable",
+      type: "POST",
+      data:{
+        'watchlisted': watchlisted,
+        'moa': moa,
+      },
+      success:function(data){
+        $('.loadNLOTable').html(data);
+      }
+    });
+  });
+
+  $('#nloMOAFilter').change(function(){
+    var watchlisted = $('#nloWatchlistedFilter').val();
+    var moa = $('#nloMOAFilter').val();
+    $.ajax({
+      url: "loadNLOtable",
+      type: "POST",
+      data:{
+        'watchlisted': watchlisted,
+        'moa': moa,
+      },
+      success:function(data){
+        $('.loadNLOTable').html(data);
+      }
+    });
+  });
+</script>
 <script type="text/javascript">
   $('#viewpdf').click(function(){
-
     window.open(
   '<?php echo base_url() ?>' + 'viewpdf','_blank' 
 );
@@ -324,10 +345,6 @@ tr:hover{
 
   }
     );
-  
-
-
-
 </script>
 <script type="text/javascript">
 	$('.savecompany').click(function(){

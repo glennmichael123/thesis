@@ -1183,9 +1183,8 @@ public function logout(){
         if(!isset($this->session->userdata['id_number'])){
           redirect(base_url('index'));
         }else{
-            $data['companies']=$this->users->getCompanies();
             $data['fname']=$this->users->getNloFirstname();
-        $this->load->view("nlocompany",$data);
+            $this->load->view("nlocompany",$data);
         }
         
      }
@@ -1266,6 +1265,12 @@ public function logout(){
 
     public function adminEditStudent(){
         $this->users->editStudent();
+    }
+
+    public function loadNLOtable(){
+        $data['companies']=$this->users->getCompanies();
+        $html = $this->load->view('nlocompanies-table',$data,TRUE);
+        echo $html;
     }
 }
 

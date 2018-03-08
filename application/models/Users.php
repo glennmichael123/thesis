@@ -2124,7 +2124,27 @@
         $this->db->query("UPDATE companies SET watchlisted = 0 WHERE company_name = '$compName'");
       }
       public function getCompanies(){
-        $query=$this->db->query("SELECT * FROM companies");
+        // print_r($_POST);exit;
+        $watchlisted = empty($_POST['watchlisted']) ? '' : $_POST['watchlisted'];
+        $moa = empty($_POST['moa']) ? '' : $_POST['moa'];
+
+        if($watchlisted == null){
+          $watchlisted = "";
+        }else if($watchlisted == 'yes'){
+          $watchlisted = "1";
+        }else{
+          $watchlisted = "0";
+        }
+
+        if($moa == null){
+          $moa = "";
+        }else if($moa == 'with_moa'){
+          $moa = "1";
+        }else{
+          $moa = "0";
+        }
+
+        $query=$this->db->query("SELECT * FROM companies WHERE watchlisted LIKE '%$watchlisted%' AND moa LIKE '%$moa%'");
         return $query->result_array();
       }
       public function editCompanies(){
