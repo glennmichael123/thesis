@@ -428,6 +428,9 @@ public function addLogs(){
 	$this->users->insertLogs();
       // header("location: dashboard");
 }
+public function addLogsOverride(){
+    $this->users->addLogsOverride();
+}
 public function logout(){
 	session_destroy();
 	redirect('index');

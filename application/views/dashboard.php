@@ -1632,10 +1632,12 @@ header h1 {
     var date_now = '<?php echo date('Y-m-d') ?>';
     var hours = $('#hours_rendered').val();
     var data = $('#addLogs').serialize();
-
+    var time_in = $('#time_in').val();
+    var time_out = $('#time_out').val();
     var fail = false;
      var fail_log = '';
-     console.log(date);
+   
+
     $( '#addLogs' ).find( 'input[type=text], input[type=date], input[type=time], textarea' ).each(function(){
             if( ! $( this ).prop( 'required' )){
 
@@ -1651,29 +1653,44 @@ header h1 {
             }
         });
   if(!fail){
-    if(date > date_now){ 
-      swal('Oops...','You are not from the future.','error');return false;
-    }else{
-
 	  if(hours > 8 ){
-	  	 swal('Oops...','You are only allowed to render 8 hours of work.','error');return false;
+	  	    
 	  }else{
-	  	 $.ajax({
-        url:'addLogs',
-        method: 'POST',
-        data:data,
-        success: function(data){
-          if($.trim(data) == 'dateexist'){
-            swal('Oops...','You already posted a log in this date','error');return false;
-          }else{
-            location.reload();
-          }
-          
-        }
-      });
+      if (Date.parse('01/01/2011 '+time_in+'') > Date.parse('01/01/2011 18:00:00') || Date.parse('01/01/2011 '+time_out+'') > Date.parse('01/01/2011 18:00:00')) {
+    
+           swal('Oops...','Working at evening is not allowed','error');return false;
+      }else{ 
+          $.ajax({
+              url:'addLogs',
+              method: 'POST',
+              data:data,
+              success: function(data){
+                if($.trim(data) == 'dateexist'){
+                  swal('Oops...','You already posted a log in this date','error');return false;
+                }else if($.trim(data) == 'backtrack'){
+                  var suppass = prompt("No backtracking, please input supervisor password to override");
+                    $.ajax({
+                      url:'addLogsOverride',
+                      method: 'POST',
+                       data:this.data + "&supervisor_pass="+suppass,
+                      success: function(data){
+                        location.reload();
+                      }
+                    })
+                }else{
+                  location.reload();
+                
+                }
+                
+              }
+            });
+
+         
+      }
+	  	
 	  }    	
      
-    }
+    
   }else{
     return false;
   }

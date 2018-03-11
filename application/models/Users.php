@@ -276,7 +276,6 @@
             $hours_rendered = $_POST['hours_rendered'];
             $supervisor_id = $backupId->supervisor_id;
             $ojt_program = $this->getOjtProgramForStud($id_number);
-
             $ojtP = $ojt_program->ojt_program;
             $data = Array(
             'id_number' => $id_number,
@@ -291,16 +290,57 @@
             'supervisor_id' => $supervisor_id,
             'ojt_program' => $ojtP
             );
+            $date_now = date("m/d/Y");
             $existDate = $this->db->query("SELECT * FROM logs WHERE date = '$date' AND id_number = '$id_number' AND ojt_program = '$ojtP'")->result();
 
             if(!empty($existDate)){
               echo 'dateexist';
+            }else if($date < $date_now){
+               echo 'backtrack';
             }else{
                $this->db->insert('logs',$data);
             }
           
 
 
+        }
+
+        public function addLogsOverride(){
+
+          $id_number = $_POST['id_number'];
+            $date =  $_POST['log_date'];
+            $time_in = $_POST['time_in'];
+            $backupId = $this->getSupForStud($id_number);
+            $time_out = $_POST['time_out'];
+            $division = $_POST['division'];
+            $department = $_POST['department'];
+            $designation = $_POST['designation'];
+            $log_content = $_POST['log_activity'];
+            $hours_rendered = $_POST['hours_rendered'];
+            $supervisor_id = $backupId->supervisor_id;
+            $ojt_program = $this->getOjtProgramForStud($id_number);
+            $ojtP = $ojt_program->ojt_program;
+            $supervisorPassword = $_POST['supervisor_pass'];
+            $data = Array(
+            'id_number' => $id_number,
+            'date' => $date,
+            'time_in' => $time_in,
+            'time_out' => $time_out,
+            'division' => $division,
+            'department' => $department,
+            'designation' => $designation,
+            'log_content' => $log_content,
+            'hours_rendered' => $hours_rendered,
+            'supervisor_id' => $supervisor_id,
+            'ojt_program' => $ojtP
+            );
+            $result = $this->db->query("SELECT * FROM supervisor WHERE password = '$supervisorPassword' AND id_number = '$supervisor_id'")->row();
+            $date_now = date("m/d/Y");
+            if(!empty($result)){
+                $this->db->insert('logs',$data);
+            }
+           
+            
         }
         public function getSupForStud($id_number){
           $query = $this->db->query("SELECT supervisor_id FROM company_information WHERE id_number = '$id_number'")->row();
